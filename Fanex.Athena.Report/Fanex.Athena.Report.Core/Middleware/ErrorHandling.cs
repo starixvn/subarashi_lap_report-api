@@ -23,6 +23,7 @@ namespace Fanex.Athena.Report.Core.Middleware
             {
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
+                /// call LAP.LOGGING to write log
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(new
                 {
                     State = "Internal Server Error",

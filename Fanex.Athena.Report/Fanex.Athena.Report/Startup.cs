@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Report.Core.DTO;
+﻿using System.Reflection;
+using Fanex.Athena.Report.Core.DTO;
 using Fanex.Athena.Report.Core.Extensions;
 
 using Microsoft.AspNetCore.Builder;
@@ -21,7 +22,8 @@ namespace Fanex.Athena.Report
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<ApplicationOptions>(Configuration);
 
         }

@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.ByProduct\Fanex.Athena.Report.ByProduct.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
   </ItemGroup>
 

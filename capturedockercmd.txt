@@ -1,0 +1,56 @@
+1>------ Build started: Project: Fanex.Athena.Report, Configuration: Debug Any CPU ------
+1>Fanex.Athena.Report -> C:\Data\TeamProject\GIT_LAB\Sparta\LAP.REPORTAPI\Fanex.Athena.Report\Fanex.Athena.Report\bin\Debug\netcoreapp2.2\Fanex.Athena.Report.dll
+1>docker build -f "C:\Data\TeamProject\GIT_LAB\Sparta\LAP.REPORTAPI\Fanex.Athena.Report\Fanex.Athena.Report\Dockerfile" -t fanexathenareport:dev --target base  --label "com.microsoft.created-by=visual-studio" "C:\Data\TeamProject\GIT_LAB\Sparta\LAP.REPORTAPI\Fanex.Athena.Report"
+1>Sending build context to Docker daemon  43.52kB
+1>
+1>Step 1/5 : FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
+1>2.2-aspnetcore-runtime: Pulling from microsoft/dotnet
+1>9fc222b64b0a: Pulling fs layer
+1>1d2e9b4ca111: Pulling fs layer
+1>1d2e9b4ca111: Waiting
+1>7405f9e6a7ae: Pulling fs layer
+1>f033c4f65cdb: Pulling fs layer
+1>7405f9e6a7ae: Verifying Checksum
+1>7405f9e6a7ae: Download complete
+1>9fc222b64b0a: Verifying Checksum
+1>9fc222b64b0a: Download complete
+1>9fc222b64b0a: Pull complete
+1>f033c4f65cdb: Verifying Checksum
+1>f033c4f65cdb: Download complete
+1>f033c4f65cdb: Pull complete
+1>7405f9e6a7ae: Pull complete
+1>1d2e9b4ca111: Verifying Checksum
+1>1d2e9b4ca111: Download complete
+1>1d2e9b4ca111: Pull complete
+1>Digest: sha256:c138ee33fd85cf41411a13d8156b6bb14911c4038f50d35c2cc7ce34e02a062c
+1>Status: Downloaded newer image for microsoft/dotnet:2.2-aspnetcore-runtime
+1> ---> 34973cab5999
+1>Step 2/5 : WORKDIR /app
+1> ---> Running in b5e9ba58eadb
+1>Removing intermediate container b5e9ba58eadb
+1> ---> 16a85162075d
+1>Step 3/5 : EXPOSE 80
+1> ---> Running in 443358db90d5
+1>Removing intermediate container 443358db90d5
+1> ---> c9fa62ba6641
+1>Step 4/5 : EXPOSE 443
+1> ---> Running in 492298c17211
+1>Removing intermediate container 492298c17211
+1> ---> 869c476ee922
+1>Step 5/5 : LABEL com.microsoft.created-by=visual-studio
+1> ---> Running in 1dfbe288e40b
+1>Removing intermediate container 1dfbe288e40b
+1> ---> 992934def27c
+1>Successfully built 992934def27c
+1>Successfully tagged fanexathenareport:dev
+1>SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended to double check and reset permissions for sensitive files and directories.
+1>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NonInteractive -NoProfile -WindowStyle Hidden -ExecutionPolicy RemoteSigned -File "C:\Users\alex.nguyen\AppData\Local\Temp\GetVsDbg.ps1" -Version vs2017u5 -RuntimeID linux-x64 -InstallPath "C:\Users\alex.nguyen\vsdbg\vs2017u5"
+1>Info: Using vsdbg version '16.2.10709.2'
+1>Info: Using Runtime ID 'linux-x64'
+1>Info: C:\Users\alex.nguyen\vsdbg\vs2017u5 exists, deleting.
+1>Info: Successfully installed vsdbg at 'C:\Users\alex.nguyen\vsdbg\vs2017u5'
+1>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NonInteractive -NoProfile -WindowStyle Hidden -ExecutionPolicy RemoteSigned -File "C:\Users\alex.nguyen\AppData\Local\Temp\GetVsDbg.ps1" -Version vs2017u5 -RuntimeID linux-musl-x64 -InstallPath "C:\Users\alex.nguyen\vsdbg\vs2017u5\linux-musl-x64"
+1>Info: Using vsdbg version '16.2.10709.2'
+1>Info: Using Runtime ID 'linux-musl-x64'
+1>Info: Successfully installed vsdbg at 'C:\Users\alex.nguyen\vsdbg\vs2017u5\linux-musl-x64'
+1>docker run -dt -v "C:\Users\alex.nguyen\vsdbg\vs2017u5:/remote_debugger:rw" -v "C:\Data\TeamProject\GIT_LAB\Sparta\LAP.REPORTAPI\Fanex.Athena.Report\Fanex.Athena.Report:/app" -v "C:\Users\alex.nguyen\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro" -v "C:\Users\alex.nguyen\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro" -v "C:\Users\alex.nguyen\.nuget\packages\:/root/.nuget/fallbackpackages2" -v "C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages" -e "DOTNET_USE_POLLING_FILE_WATCHER=1" -e "ASPNETCORE_ENVIRONMENT=Development" -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44367" -e "NUGET_PACKAGES=/root/.nuget/fallbackpackages2" -e "NUGET_FALLBACK_PACKAGES=/root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2" -p 57472:80 -p 44367:443 --entrypoint tail fanexathenareport:dev -f /dev/null
