@@ -10,4 +10,10 @@
     <PackageReference Include="NPOI" Version="2.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
 </Project>
