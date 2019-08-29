@@ -26,7 +26,7 @@ namespace Fanex.Athena.Report
         {
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.Configure<ApplicationOptions>(Configuration);
+            services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
             LogManager
                   .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
                   .Use(new List<ILogEngine>
@@ -50,6 +50,7 @@ namespace Fanex.Athena.Report
 
             app.UseHttpsRedirection();
             app.UseIPFilter();
+            app.UseCustomApiAuth();
             app.UseErrorHandler();
             app.UseMvc();
         }
