@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/player/[controller]")]
     [ApiController]
     public class WinLossController : ControllerBase
     {
