@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using Fanex.Athena.Report.Core.DTO;
 using Fanex.Athena.Report.Core.Extensions;
+using Fanex.Data;
+using Fanex.Data.SqlServer;
 using Fanex.Logging;
 using Fanex.Logging.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,11 @@ namespace Fanex.Athena.Report
                    {
                          new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
                    });
+
+            DbSettingProviderManager
+            .StartNewSession()
+            .WithSqlServer(resourcePath: "~/SpConfig")
+            .Run();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,9 +17,7 @@ namespace Fanex.Athena.Report.Core.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            var error = context.Features[typeof(IExceptionHandlerFeature)] as IExceptionHandlerFeature;
-
-            if (error != null && error.Error != null)
+            if (context.Features[typeof(IExceptionHandlerFeature)] is IExceptionHandlerFeature error && error.Error != null)
             {
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
