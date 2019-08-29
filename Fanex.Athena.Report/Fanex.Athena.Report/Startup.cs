@@ -1,7 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using Fanex.Athena.Report.Core.DTO;
 using Fanex.Athena.Report.Core.Extensions;
-
+using Fanex.Logging;
+using Fanex.Logging.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +27,12 @@ namespace Fanex.Athena.Report
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<ApplicationOptions>(Configuration);
-
+            LogManager
+                  .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
+                  .Use(new List<ILogEngine>
+                   {
+                         new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
+                   });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
