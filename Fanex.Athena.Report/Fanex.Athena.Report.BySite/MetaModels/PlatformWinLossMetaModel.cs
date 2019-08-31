@@ -1,22 +1,26 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using System.Collections.Generic;
+
     public class PlatformWinLossMetaModel
     {
-        public object PlatformType { get; set; }
+        public int CurrencyId { get; set; }
 
-        public object MoveBetsDay { get; set; }
+        public int PlatformType { get; set; }
 
-        public object DrawFilter { get; set; }
+        public DateTime MoveBetsDay { get; set; }
 
-        public object FromDate { get; set; }
+        public int DrawFilter { get; set; }
 
-        public object ToDate { get; set; }
+        public DateTime FromDate { get; set; }
 
-        public object AgentListXml { get; set; }
+        public DateTime ToDate { get; set; }
+
+        public string AgentListXml { get; set; }
 
         public IEnumerable<string> Products { get; set; }
-        public object BaseCurrency { get; internal set; }
+
+        public string BaseCurrency { get; set; }
     }
 }
