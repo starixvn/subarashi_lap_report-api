@@ -14,9 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ExcelTemplate\PlatformWinLossMember.xls" />
-    <Content Include="ExcelTemplate\PlatformWinLossSummary.xls" />
-    <Content Include="SpConfig\FanexSpName.xml" />
+    <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\PlatformWinLossSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpConfig\FanexSpName.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
