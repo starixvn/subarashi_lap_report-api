@@ -1,11 +1,14 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.IO;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
+    using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
 
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -13,25 +16,47 @@
     {
         private readonly IPlatformWinLossRepository _repository;
 
-        public PlatformWinLossController(IPlatformWinLossRepository repository)
+        private readonly IPlatformWinLossSummaryExcel _excel;
+
+        private readonly IFileProvider _file;
+
+        public PlatformWinLossController(IPlatformWinLossRepository repository, IPlatformWinLossSummaryExcel excel, IFileProvider file)
         {
             _repository = repository;
+            _excel = excel;
+            _file = file;
         }
 
         [HttpPost]
         public async Task<ResultModel<PlatformWinLossSummary>> GetSummaryData(PlatformWinLossMetaModel metaModel)
         {
-            var data = await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
-
-            return data;
+            return await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         public async Task<ResultModel<PlatformWinLossMember>> GetMemberData(PlatformWinLossMetaModel metaModel)
         {
-            var data = await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
+            return await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
+        }
 
-            return data;
+        [HttpGet]
+        public string Index()
+        {
+            return "Test";
+        }
+
+        [HttpPost]
+        public async Task<FileContentResult> ExportSummaryData(PlatformWinLossMetaModel metaModel)
+        {
+            var template = _file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xls").PhysicalPath;
+
+            var data = await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
+
+            var workBook = _excel.Export(template, data, metaModel);
+            var stream = new MemoryStream();
+            workBook.Write(stream);
+
+            return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
     }
 }

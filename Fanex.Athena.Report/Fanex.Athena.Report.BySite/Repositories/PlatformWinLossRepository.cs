@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -52,12 +53,9 @@
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
 
-            if (!(metaModel.Products is null))
+            foreach (var product in metaModel.ProductOptions.Where(x => x.Status))
             {
-                foreach (var product in metaModel.Products)
-                {
-                    db.SetParameterValue("show" + product, true);
-                }
+                db.SetParameterValue("show" + product.Code, true);
             }
         }
 
@@ -67,6 +65,7 @@
             var totalData = new PlatformWinLossSummary();
 
             var parentRows = new Dictionary<int, PlatformWinLossSummary>();
+            var childId = -1;
             while (reader.Read())
             {
                 var platformType = Convert.ToInt32(reader["PlatformType"]);
@@ -88,7 +87,7 @@
                     parent = parentRows[platformType];
                 }
 
-                var child = ReadSummaryItem(reader, platformType);
+                var child = ReadSummaryItem(reader, childId--, platformType.ToString());
 
                 dataList.Add(child);
                 AddTotalSummaryData(parent, child);
@@ -104,13 +103,14 @@
             };
         }
 
-        private static PlatformWinLossSummary ReadSummaryItem(IDataReader reader, int platformType, byte level = 1, bool isLeaf = true)
+        private static PlatformWinLossSummary ReadSummaryItem(IDataReader reader, int id, string parent, byte level = 1, bool isLeaf = true)
         {
             var productCode = reader["productprefix"].ToString().ToUpperInvariant();
 
             return new PlatformWinLossSummary
             {
-                PlatformType = platformType,
+                Parent = parent,
+                PlatformType = id,
                 IsLeaf = isLeaf,
                 Level = level,
                 Name = DataHelper.GetProductName(productCode),

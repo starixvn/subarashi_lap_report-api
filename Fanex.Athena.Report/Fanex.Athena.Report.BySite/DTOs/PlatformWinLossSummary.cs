@@ -4,6 +4,8 @@
     {
         public string Name { get; set; }
 
+        public string Parent { get; set; }
+
         public byte Level { get; set; }
 
         public int PlatformType { get; set; }
