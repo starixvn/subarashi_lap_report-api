@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.ByProduct\Fanex.Athena.Report.ByProduct.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.Common\Fanex.Athena.Report.Common.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
   </ItemGroup>

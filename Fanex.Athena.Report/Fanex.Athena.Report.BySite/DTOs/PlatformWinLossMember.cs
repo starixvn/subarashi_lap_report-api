@@ -2,7 +2,14 @@
 {
     public class PlatformWinLossMember
     {
+        public PlatformWinLossMember()
+        {
+            CurrencyName = string.Empty;
+        }
+
         public int CurrencyId { get; set; }
+
+        public string CurrencyName { get; set; }
 
         public decimal Turnover { get; set; }
 

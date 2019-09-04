@@ -2,11 +2,13 @@
 {
     using System.IO;
     using System.Threading.Tasks;
+
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+    using Fanex.Athena.Report.Common.Model.ViewModel;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
 
@@ -20,7 +22,8 @@
 
         private readonly IFileProvider _file;
 
-        public PlatformWinLossController(IPlatformWinLossRepository repository, IPlatformWinLossSummaryExcel excel, IFileProvider file)
+        public PlatformWinLossController(IPlatformWinLossRepository repository,
+            IPlatformWinLossSummaryExcel excel, IFileProvider file)
         {
             _repository = repository;
             _excel = excel;
@@ -34,7 +37,7 @@
         }
 
         [HttpPost]
-        public async Task<ResultModel<PlatformWinLossMember>> GetMemberData(PlatformWinLossMetaModel metaModel)
+        public async Task<SortableResultModel<PlatformWinLossMember>> GetMemberData(PlatformWinLossMetaModel metaModel)
         {
             return await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
         }

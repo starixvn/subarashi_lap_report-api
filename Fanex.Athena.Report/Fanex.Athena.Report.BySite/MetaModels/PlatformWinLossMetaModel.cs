@@ -2,26 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.Athena.Report.Common.MetaModels;
+    using Fanex.Athena.Report.Common.Model.DTO;
 
     public class PlatformWinLossMetaModel
     {
-        private DateTime _moveBetsDay;
-
         public int CurrencyId { get; set; }
 
         public int PlatformType { get; set; }
-
-        public DateTime MoveBetsDay
-        {
-            set
-            {
-                _moveBetsDay = value.ToLocalTime();
-            }
-            get
-            {
-                return _moveBetsDay;
-            }
-        }
 
         public int DrawFilter { get; set; }
 
@@ -46,7 +34,7 @@
         public string AgentListXml { get; set; }
 
         public IList<ProductOption> ProductOptions { get; set; }
-
+        public IList<Currency> CurrencyList { get; set; }
         public string BaseCurrency { get; set; }
 
         public string CurrencyName { get; set; }

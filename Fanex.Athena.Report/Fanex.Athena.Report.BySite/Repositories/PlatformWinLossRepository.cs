@@ -5,23 +5,31 @@
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+    using Fanex.Athena.Report.Common.Extensions;
+    using Fanex.Athena.Report.Common.Model.DTO;
+    using Fanex.Athena.Report.Common.Model.ViewModel;
+    using Fanex.Athena.Report.Common.Services;
     using Fanex.Athena.Report.Resources.Helpers;
     using Fanex.Data;
 
     public class PlatformWinLossRepository : IPlatformWinLossRepository
     {
         private const int OneHunderPercent = 100;
-
+        private readonly IBalanceUpService _balanceUpService;
+        public PlatformWinLossRepository(IBalanceUpService balanceUpService)
+        {
+            _balanceUpService = balanceUpService;
+        }
         public async Task<ResultModel<PlatformWinLossSummary>> GetSummaryDataAsync(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                UpdateUspParams(db, metaModel);
+                await UpdateUspParamsAsync(db, metaModel).ConfigureAwait(false);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadSummaryList(reader);
@@ -29,24 +37,25 @@
             }
         }
 
-        public async Task<ResultModel<PlatformWinLossMember>> GetMemberDataAsync(PlatformWinLossMetaModel metaModel)
+        public async Task<SortableResultModel<PlatformWinLossMember>> GetMemberDataAsync(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
 
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                UpdateUspParams(db, metaModel);
+                await UpdateUspParamsAsync(db, metaModel).ConfigureAwait(false);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    return ReadMemberList(reader);
+                    return ReadMemberList(reader, metaModel.CurrencyList);
                 }
             }
         }
 
-        private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
+        private async Task UpdateUspParamsAsync(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
             db.SetParameterValue("PlatformType", metaModel.PlatformType);
-            db.SetParameterValue("movebetsday", metaModel.MoveBetsDay);
+            db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
             db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);
@@ -123,17 +132,20 @@
             };
         }
 
-        private ResultModel<PlatformWinLossMember> ReadMemberList(IDataReader reader)
+        private static SortableResultModel<PlatformWinLossMember> ReadMemberList(IDataReader reader,
+           IList<Currency> currencyList)
         {
-            var dataList = new List<PlatformWinLossMember>();
+            var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();
 
             var index = 1;
             while (reader.Read())
             {
+                var currencyId = Convert.ToInt32(reader["Currency"]);
                 var item = new PlatformWinLossMember
                 {
                     Index = index,
+                    CurrencyName = currencyList.FirstOrDefault(x => x.ID == currencyId)?.Name ?? currencyId.ToString(),
                     TotalTransactions = Convert.ToInt32(reader["Betcount"]),
                     Turnover = Convert.ToDecimal(reader["Turnover"]),
                     CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]),
@@ -149,10 +161,10 @@
 
                 dataList.Add(item);
                 AddTotalMemberData(totalData, item);
-                index++;             
+                index++;
             }
 
-            return new ResultModel<PlatformWinLossMember>
+            return new SortableResultModel<PlatformWinLossMember>
             {
                 DataList = dataList,
                 TotalData = totalData

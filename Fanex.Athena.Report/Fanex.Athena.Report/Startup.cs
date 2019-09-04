@@ -6,6 +6,7 @@ using Fanex.Athena.Report.BySite.Excels;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+using Fanex.Athena.Report.Common;
 using Fanex.Athena.Report.Core.DTO;
 using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Services;
@@ -39,10 +40,9 @@ namespace Fanex.Athena.Report
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
 
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
-            services.AddScoped<IPlatformWinLossRepository, PlatformWinLossRepository>();
-            services.AddScoped<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
-            services.AddScoped<IExcelBuilder, ExcelBuilder>();
 
+            BySite.ReportBySiteDIConfig.Setup(services);
+            SharedServiceDIConfig.Setup(services);
             LogManager
                   .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
                   .Use(new List<ILogEngine>

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-
+using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Middleware
@@ -19,17 +20,44 @@ namespace Fanex.Athena.Report.Core.Middleware
         {
             if (context.Features[typeof(IExceptionHandlerFeature)] is IExceptionHandlerFeature error && error.Error != null)
             {
-                context.Response.StatusCode = 500;
-                context.Response.ContentType = "application/json";
-                Fanex.Logging.Logger.Log.Error(error.Error.Message, error.Error);
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                await WriteErrorMsgAsync(context, JsonConvert.SerializeObject(new
                 {
                     State = "Internal Server Error",
                     Msg = error.Error.Message
                 }));
             }
+            else
+            {
+                try
+                {
+                    await _next.Invoke(context);
+                }
+                catch (Exception ex)
+                {
+                    await HandleExceptionAsync(context, ex);
+                }
+            }
+        }
 
-            await _next.Invoke(context);
+        private static async Task WriteErrorMsgAsync(HttpContext context, string jsonMessage)
+        {
+            context.Response.StatusCode = 500;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(jsonMessage);
+        }
+
+        private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
+        {
+            Fanex.Logging.Logger.Log.Error(ex.Message, ex);
+
+            var result = JsonConvert.SerializeObject(new
+            {
+                State = "Internal Server Error",
+                Msg = ex.Message,
+                Code = HttpStatusCode.InternalServerError
+            });
+
+            await WriteErrorMsgAsync(context, result);
         }
     }
 }

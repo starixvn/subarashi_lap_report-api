@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.ByPlaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.ByProduct", "Fanex.Athena.Report.ByProduct\Fanex.Athena.Report.ByProduct.csproj", "{04104D2F-A5AF-4E34-8F78-C58D5A3B5FE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.BySite", "Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj", "{7FB5B143-51FD-4F7E-86D1-5DC254655D65}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B86889F6-AA78-4804-BDE4-669AFE819A3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.ByPlayer.UnitTest", "UnitTests\Fanex.Athena.Report.ByPlayer.UnitTest\Fanex.Athena.Report.ByPlayer.UnitTest.csproj", "{C9995C05-23FD-4D74-8574-C76FBD4F1316}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.Resources", "Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj", "{3C8596B4-7A2B-4551-ACF6-8B5F8EFD310C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Report.Common", "Fanex.Athena.Report.Common\Fanex.Athena.Report.Common.csproj", "{3DF48DFB-F878-494E-A6CC-C7B2EE56E3FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Report.BySite", "Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj", "{620FCBD8-B91D-4407-9B3E-0DAEA3040185}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +45,6 @@ Global
 		{04104D2F-A5AF-4E34-8F78-C58D5A3B5FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04104D2F-A5AF-4E34-8F78-C58D5A3B5FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04104D2F-A5AF-4E34-8F78-C58D5A3B5FE9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FB5B143-51FD-4F7E-86D1-5DC254655D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FB5B143-51FD-4F7E-86D1-5DC254655D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FB5B143-51FD-4F7E-86D1-5DC254655D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FB5B143-51FD-4F7E-86D1-5DC254655D65}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9995C05-23FD-4D74-8574-C76FBD4F1316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9995C05-23FD-4D74-8574-C76FBD4F1316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9995C05-23FD-4D74-8574-C76FBD4F1316}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +53,14 @@ Global
 		{3C8596B4-7A2B-4551-ACF6-8B5F8EFD310C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C8596B4-7A2B-4551-ACF6-8B5F8EFD310C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C8596B4-7A2B-4551-ACF6-8B5F8EFD310C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF48DFB-F878-494E-A6CC-C7B2EE56E3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF48DFB-F878-494E-A6CC-C7B2EE56E3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF48DFB-F878-494E-A6CC-C7B2EE56E3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF48DFB-F878-494E-A6CC-C7B2EE56E3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{620FCBD8-B91D-4407-9B3E-0DAEA3040185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{620FCBD8-B91D-4407-9B3E-0DAEA3040185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{620FCBD8-B91D-4407-9B3E-0DAEA3040185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{620FCBD8-B91D-4407-9B3E-0DAEA3040185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,8 +68,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E5013700-04DF-4DD2-A586-6C785008882C} = {CEC67AA5-E7EA-42B0-B678-71DBC25A8FEB}
 		{04104D2F-A5AF-4E34-8F78-C58D5A3B5FE9} = {CEC67AA5-E7EA-42B0-B678-71DBC25A8FEB}
-		{7FB5B143-51FD-4F7E-86D1-5DC254655D65} = {CEC67AA5-E7EA-42B0-B678-71DBC25A8FEB}
 		{C9995C05-23FD-4D74-8574-C76FBD4F1316} = {B86889F6-AA78-4804-BDE4-669AFE819A3E}
+		{620FCBD8-B91D-4407-9B3E-0DAEA3040185} = {CEC67AA5-E7EA-42B0-B678-71DBC25A8FEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03541499-F762-410E-996E-B067DDF610D6}
