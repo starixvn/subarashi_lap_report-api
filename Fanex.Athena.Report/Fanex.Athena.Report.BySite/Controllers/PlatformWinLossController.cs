@@ -20,19 +20,10 @@
     public class PlatformWinLossController : ControllerBase
     {
         private readonly IPlatformWinLossRepository _repository;
-
-        private readonly IPlatformWinLossSummaryExcel _excel;
-        private readonly IPlatformWinLossMemberExcel _platformWinLossMemberExcel;
-        private readonly IFileProvider _file;
-
-        public PlatformWinLossController(IPlatformWinLossRepository repository,
-            IPlatformWinLossSummaryExcel excel, IFileProvider file,
-            IPlatformWinLossMemberExcel platformWinLossMemberExcel)
+        public PlatformWinLossController(IPlatformWinLossRepository repository
+           )
         {
             _repository = repository;
-            _excel = excel;
-            _file = file;
-            _platformWinLossMemberExcel = platformWinLossMemberExcel;
         }
 
         [HttpPost]
@@ -48,26 +39,31 @@
         }
 
         [HttpGet]
-        public async Task<FileContentResult> ExportMemberData(PlatformWinLossMetaModel metaModel)
+        public async Task<FileContentResult> ExportMemberData([FromServices] IFileProvider file,
+            [FromServices] IPlatformWinLossMemberExcel excel,
+            PlatformWinLossMetaModel metaModel)
         {
-            var template = _file.GetFileInfo("/ExcelTemplate/PlatformWinLossMember.xls").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/PlatformWinLossMember.xls").PhysicalPath;
 
             var data = await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
 
-            var workBook = _platformWinLossMemberExcel.Export(template, data, metaModel);
+            var workBook = excel.Export(template, data, metaModel);
             var stream = new MemoryStream();
             workBook.Write(stream);
 
             return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
         [HttpPost]
-        public async Task<FileContentResult> ExportSummaryData(PlatformWinLossMetaModel metaModel)
+        public async Task<FileContentResult> ExportSummaryData(
+            [FromServices] IFileProvider file,
+            [FromServices] IPlatformWinLossSummaryExcel excel,
+            PlatformWinLossMetaModel metaModel)
         {
-            var template = _file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xls").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xls").PhysicalPath;
 
             var data = await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
 
-            var workBook = _excel.Export(template, data, metaModel);
+            var workBook = excel.Export(template, data, metaModel);
             var stream = new MemoryStream();
             workBook.Write(stream);
 
