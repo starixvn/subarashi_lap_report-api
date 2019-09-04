@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
+    <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
+    <None Remove="SpConfig\FanexSpName.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ExcelTemplate\PlatformWinLossMember.xls" />
+    <Content Include="ExcelTemplate\PlatformWinLossSummary.xls" />
+    <Content Include="SpConfig\FanexSpName.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Fanex.Logging" Version="2.0.1" />
     <PackageReference Include="Fanex.Logging.RabbitMQ" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />

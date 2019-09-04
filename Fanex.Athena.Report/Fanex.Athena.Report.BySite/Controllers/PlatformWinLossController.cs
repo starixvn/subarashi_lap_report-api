@@ -19,15 +19,16 @@
         private readonly IPlatformWinLossRepository _repository;
 
         private readonly IPlatformWinLossSummaryExcel _excel;
-
+        private readonly IPlatformWinLossMemberExcel _platformWinLossMemberExcel;
         private readonly IFileProvider _file;
 
         public PlatformWinLossController(IPlatformWinLossRepository repository,
-            IPlatformWinLossSummaryExcel excel, IFileProvider file)
+            IPlatformWinLossSummaryExcel excel, IFileProvider file, IPlatformWinLossMemberExcel platformWinLossMemberExcel)
         {
             _repository = repository;
             _excel = excel;
             _file = file;
+            _platformWinLossMemberExcel = platformWinLossMemberExcel;
         }
 
         [HttpPost]
@@ -43,9 +44,17 @@
         }
 
         [HttpGet]
-        public string Index()
+        public async Task<FileContentResult> ExportMemberData(PlatformWinLossMetaModel metaModel)
         {
-            return "Test";
+            var template = _file.GetFileInfo("/ExcelTemplate/PlatformWinLossMember.xls").PhysicalPath;
+
+            var data = await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
+
+            var workBook = _platformWinLossMemberExcel.Export(template, data, metaModel);
+            var stream = new MemoryStream();
+            workBook.Write(stream);
+
+            return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
 
         [HttpPost]

@@ -172,10 +172,10 @@
     <value>手机版</value>
   </data>
   <data name="MobileApp" xml:space="preserve">
-    <value>Mobile App</value>
+    <value>手机 APP</value>
   </data>
   <data name="MobileLiteVersion" xml:space="preserve">
-    <value>Mobile Lite Version</value>
+    <value>手机轻量版</value>
   </data>
   <data name="NewAsia" xml:space="preserve">
     <value>新亚洲版</value>
