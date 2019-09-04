@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Athena.Report.Common.MetaModels;
+
     using Fanex.Athena.Report.Common.Model.DTO;
 
     public class PlatformWinLossMetaModel
@@ -38,5 +38,13 @@
         public string BaseCurrency { get; set; }
 
         public string CurrencyName { get; set; }
+
+        public string SortBy { get; set; }
+
+        public string SortOrder { get; set; }
+
+        public bool HasComm { get; set; }
+
+
     }
 }

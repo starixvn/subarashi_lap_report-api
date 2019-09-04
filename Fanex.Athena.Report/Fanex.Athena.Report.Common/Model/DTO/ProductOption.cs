@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Common.MetaModels
+﻿namespace Fanex.Athena.Report.Common.Model.DTO
 {
     public class ProductOption
     {

@@ -1,12 +1,15 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+    using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.ViewModel;
 
     using Microsoft.AspNetCore.Mvc;
@@ -23,7 +26,8 @@
         private readonly IFileProvider _file;
 
         public PlatformWinLossController(IPlatformWinLossRepository repository,
-            IPlatformWinLossSummaryExcel excel, IFileProvider file, IPlatformWinLossMemberExcel platformWinLossMemberExcel)
+            IPlatformWinLossSummaryExcel excel, IFileProvider file,
+            IPlatformWinLossMemberExcel platformWinLossMemberExcel)
         {
             _repository = repository;
             _excel = excel;
@@ -56,7 +60,6 @@
 
             return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
-
         [HttpPost]
         public async Task<FileContentResult> ExportSummaryData(PlatformWinLossMetaModel metaModel)
         {

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -7,7 +8,9 @@
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.Common.Excel;
+    using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.MetaModels;
+    using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Helpers;
@@ -54,6 +57,7 @@
 
             if (data.DataList.Any())
             {
+                SortMemberData(data.DataList, metaModel.SortBy, metaModel.SortOrder);
                 AssignSheetData(sheet, templateSheet, data);
             }
             else
@@ -76,6 +80,15 @@
             row.Cells[ColumnCustomerComm].SetCellValue((double)data.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue((double)data.CustomerTotal);
             row.Cells[ColumnLicenseeWinLoss].SetCellValue((double)data.LicenseeWL);
+        }
+        private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
+        {
+            if (!string.IsNullOrEmpty(sortBy) &&
+                !string.IsNullOrEmpty(sortOrder) &&
+                typeof(PlatformWinLossMember).GetProperty(sortBy) != null)
+            {
+                dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
+            }
         }
 
         private static string GetProductTitle(IList<ProductOption> productOptions)
@@ -155,6 +168,19 @@
             //AssignCellData(totalRow, data.TotalData);
         }
 
+        private static ShowingOption CreateShowingOption(IEnumerable<ProductOption> productOptions, bool isAllowedCustomerComm)
+        {
+            return new ShowingOption
+            {
+                BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
+                NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
+                SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
+                VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
+                CSVisible = productOptions.Any(p => p.Code == Product.CS && p.Status),
+                KNVisible = productOptions.Any(p => p.Code == Product.KN && p.Status),
+                CustomerCommVisible = isAllowedCustomerComm
+            };
+        }
         private void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
         {
             _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
