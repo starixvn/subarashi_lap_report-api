@@ -1,15 +1,12 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.ViewModel;
 
     using Microsoft.AspNetCore.Mvc;
@@ -38,8 +35,9 @@
             return await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
         }
 
-        [HttpGet]
-        public async Task<FileContentResult> ExportMemberData([FromServices] IFileProvider file,
+        [HttpPost]
+        public async Task<FileContentResult> ExportMemberData(
+            [FromServices] IFileProvider file,
             [FromServices] IPlatformWinLossMemberExcel excel,
             PlatformWinLossMetaModel metaModel)
         {
@@ -53,6 +51,7 @@
 
             return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
+
         [HttpPost]
         public async Task<FileContentResult> ExportSummaryData(
             [FromServices] IFileProvider file,

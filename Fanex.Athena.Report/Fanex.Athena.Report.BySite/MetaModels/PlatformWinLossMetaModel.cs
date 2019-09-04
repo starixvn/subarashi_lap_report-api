@@ -34,7 +34,9 @@
         public string AgentListXml { get; set; }
 
         public IList<ProductOption> ProductOptions { get; set; }
+
         public IList<Currency> CurrencyList { get; set; }
+
         public string BaseCurrency { get; set; }
 
         public string CurrencyName { get; set; }

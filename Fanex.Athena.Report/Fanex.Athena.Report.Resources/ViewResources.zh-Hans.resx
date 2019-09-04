@@ -172,10 +172,10 @@
     <value>手机版</value>
   </data>
   <data name="MobileApp" xml:space="preserve">
-    <value>手机 APP</value>
+    <value>Mobile App</value>
   </data>
   <data name="MobileLiteVersion" xml:space="preserve">
-    <value>手机轻量版</value>
+    <value>Mobile Lite Version</value>
   </data>
   <data name="NewAsia" xml:space="preserve">
     <value>新亚洲版</value>
@@ -234,7 +234,19 @@
   <data name="WinLoss" xml:space="preserve">
     <value>输赢</value>
   </data>
-  <data name="View in {0}" xml:space="preserve">
+  <data name="Viewin" xml:space="preserve">
     <value>以 {0} 查看</value>
+  </data>
+  <data name="AmtDueToBA" xml:space="preserve">
+    <value>BA金额</value>
+  </data>
+  <data name="BACommission" xml:space="preserve">
+    <value>BA佣金</value>
+  </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="SystemId" xml:space="preserve">
+    <value>系统账号</value>
   </data>
 </root>

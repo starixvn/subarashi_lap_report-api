@@ -17,6 +17,7 @@
                 case PlatformType.NewAsia: return ViewResources.NewAsia;
                 case PlatformType.MobileApp: return ViewResources.MobileApp;
                 case PlatformType.MobileLiteVersion: return ViewResources.MobileLiteVersion;
+                case PlatformType.DeepLink: return ViewResources.DeepLink;
                 default: return ViewResources.All;
             }
         }

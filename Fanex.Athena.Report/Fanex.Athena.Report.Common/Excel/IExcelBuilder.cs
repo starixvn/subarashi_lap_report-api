@@ -15,5 +15,11 @@
         void SetRowValue(ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int destRowIndex, int columnCount, string value);
 
         void ClearTemplate(ISheet sheet, int startRowIndex);
+
+        int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol);
+
+        void HideRow(ISheet sheet, params int[] rowIndex);
+
+        void HideColumn(ISheet sheet, params int[] columnIndex);
     }
 }

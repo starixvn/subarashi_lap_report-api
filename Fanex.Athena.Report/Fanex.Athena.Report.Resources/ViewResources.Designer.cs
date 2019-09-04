@@ -88,6 +88,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amt Due To BA.
+        /// </summary>
+        public static string AmtDueToBA {
+            get {
+                return ResourceManager.GetString("AmtDueToBA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Asia.
         /// </summary>
         public static string Asia {
@@ -102,6 +111,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string BA {
             get {
                 return ResourceManager.GetString("BA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BA Commission.
+        /// </summary>
+        public static string BACommission {
+            get {
+                return ResourceManager.GetString("BACommission", resourceCulture);
             }
         }
         
@@ -174,6 +192,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Euro {
             get {
                 return ResourceManager.GetString("Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External ID.
+        /// </summary>
+        public static string ExternalId {
+            get {
+                return ResourceManager.GetString("ExternalId", resourceCulture);
             }
         }
         
@@ -318,6 +345,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SB {
             get {
                 return ResourceManager.GetString("SB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System ID.
+        /// </summary>
+        public static string SystemId {
+            get {
+                return ResourceManager.GetString("SystemId", resourceCulture);
             }
         }
         

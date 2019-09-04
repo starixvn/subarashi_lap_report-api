@@ -99,10 +99,69 @@
             }
         }
 
-        private static int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
+        public int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
             return sheet.AddMergedRegion(rangeAddress);
+        }
+
+        public void HideRow(ISheet sheet, params int[] rowIndex)
+        {
+            const int NumberOfColumn = 255;
+
+            // Clear content
+            foreach (int i in rowIndex)
+            {
+                for (int j = 0; j < NumberOfColumn; j++)
+                {
+                    var cell = GetCell(sheet, i, j);
+                    if (cell != null)
+                    {
+                        cell.SetCellValue(string.Empty);
+                    }
+                }
+            }
+
+            // Hide row
+            foreach (int i in rowIndex)
+            {
+                var row = sheet.GetRow(i);
+                if (row != null)
+                {
+                    row.ZeroHeight = true;
+                }
+            }
+        }
+
+        public void HideColumn(ISheet sheet, params int[] columnIndex)
+        {
+            // Clear content
+            var firstRowNum = sheet.FirstRowNum;
+            var lastRowNum = sheet.LastRowNum;
+
+            for (int i = firstRowNum; i <= lastRowNum; i++)
+            {
+                foreach (int j in columnIndex)
+                {
+                    var cell = GetCell(sheet, i, j);
+                    if (cell != null)
+                    {
+                        cell.SetCellValue(string.Empty);
+                    }
+                }
+            }
+
+            // Hide column
+            foreach (int i in columnIndex)
+            {
+                sheet.SetColumnWidth(i, 0);
+                sheet.SetColumnHidden(i, true);
+            }
+        }
+
+        private static ICell GetCell(ISheet sheet, int rowIndex, int colIndex)
+        {
+            return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 
         private static ICell CopyCell(ISheet sheet, ICell sourceCell, ICell destCell)

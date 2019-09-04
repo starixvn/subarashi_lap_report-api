@@ -237,4 +237,16 @@
   <data name="Viewin" xml:space="preserve">
     <value>View in {0}</value>
   </data>
+  <data name="AmtDueToBA" xml:space="preserve">
+    <value>Amt Due To BA</value>
+  </data>
+  <data name="BACommission" xml:space="preserve">
+    <value>BA Commission</value>
+  </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>External ID</value>
+  </data>
+  <data name="SystemId" xml:space="preserve">
+    <value>System ID</value>
+  </data>
 </root>

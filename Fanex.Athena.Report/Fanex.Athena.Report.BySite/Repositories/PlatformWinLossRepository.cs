@@ -19,11 +19,14 @@
     public class PlatformWinLossRepository : IPlatformWinLossRepository
     {
         private const int OneHunderPercent = 100;
+
         private readonly IBalanceUpService _balanceUpService;
+
         public PlatformWinLossRepository(IBalanceUpService balanceUpService)
         {
             _balanceUpService = balanceUpService;
         }
+
         public async Task<ResultModel<PlatformWinLossSummary>> GetSummaryDataAsync(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";

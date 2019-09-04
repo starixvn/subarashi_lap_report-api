@@ -202,7 +202,7 @@
     <value>產品</value>
   </data>
   <data name="SB" xml:space="preserve">
-    <value>体育博彩</value>
+    <value>體育博彩</value>
   </data>
   <data name="Tablet" xml:space="preserve">
     <value>平板</value>
@@ -234,7 +234,19 @@
   <data name="WinLoss" xml:space="preserve">
     <value>獨贏</value>
   </data>
-  <data name="View in {0}" xml:space="preserve">
+  <data name="Viewin" xml:space="preserve">
     <value>以 {0} 查看</value>
+  </data>
+  <data name="AmtDueToBA" xml:space="preserve">
+    <value>BA金額</value>
+  </data>
+  <data name="BACommission" xml:space="preserve">
+    <value>BA佣金</value>
+  </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>外部ID</value>
+  </data>
+  <data name="SystemId" xml:space="preserve">
+    <value>系統帳號</value>
   </data>
 </root>

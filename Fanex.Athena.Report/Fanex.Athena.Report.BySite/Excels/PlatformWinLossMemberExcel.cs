@@ -12,6 +12,7 @@
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources;
+    using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Athena.Report.Resources.Helpers;
 
     using NPOI.SS.UserModel;
@@ -19,24 +20,28 @@
     public class PlatformWinLossMemberExcel : IPlatformWinLossMemberExcel
     {
         private const string TemplateSheetName = "Template";
-        private const int ColumnPlatform = 0;
-        private const int ColumnTurnover = 1;
-        private const int ColumnTurnoverPercent = 2;
-        private const int ColumnTotalTransaction = 3;
-        private const int ColumnCustomerWinLoss = 4;
-        private const int ColumnCustomerComm = 5;
-        private const int ColumnCustomerTotal = 6;
-        private const int ColumnLicenseeWinLoss = 7;
+        private const string SheetName = "Data";
 
-        private const int ColumnNoContent = 8;
+        private const int ColumnIndex = 0;
+        private const int ColumnExternalId = 1;
+        private const int ColumnSystemId = 2;
+        private const int ColumnCurrency = 3;
+        private const int ColumnTurnover = 4;
+        private const int ColumnTotalTrans = 5;
+        private const int ColumnCustomerWl = 6;
+        private const int ColumnCustomerCommission = 7;
+        private const int ColumnCustomerTotal = 8;
+        private const int ColumnLicenseeWl = 9;
+        private const int ColumnBaCommission = 10;
+        private const int ColumnAmtDueToBa = 11;
+        private const int ColumnTemplateCount = 12;
 
-        private const int RowTitleTemplate = 0;
+        private const int RowNoInfoTemplate = 5;
+
         private const int RowHeaderTemplate = 1;
-        private const int RowNoInfoTemplate = 6;
-        private const int RowTotal = 5;
-
-        private const int RowParentContentTemplate = 3;
-        private const int RowChildContentTemplate = 4;
+        private const int RowTitleTemplate = 0;
+        private const int RowContentTemplate = 3;
+        private const int RowTotalTemplate = 4;
 
         private readonly IExcelBuilder _builder;
 
@@ -48,7 +53,7 @@
         public IWorkbook Export(string template, SortableResultModel<PlatformWinLossMember> data, PlatformWinLossMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
-            var sheet = _builder.CloneSheet(workBook, TemplateSheetName, "Data");
+            var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
             var templateSheet = workBook.GetSheet(TemplateSheetName);
 
             AssignHeader(sheet, templateSheet);
@@ -64,22 +69,12 @@
                 AssignNoInfoRow(sheet, templateSheet);
             }
 
+            HideColumn(sheet, metaModel);
             _builder.RemoveSheet(workBook, TemplateSheetName);
 
             return workBook;
         }
 
-        private static void AssignCellData(IRow row, PlatformWinLossSummary data)
-        {
-            row.Cells[ColumnPlatform].SetCellValue(data.Name);
-            row.Cells[ColumnTurnover].SetCellValue((double)data.Turnover);
-            row.Cells[ColumnTurnoverPercent].SetCellValue(string.Format("{0:0.00}%", data.TurnoverPercent));
-            row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransactions);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue((double)data.CustomerWinLoss);
-            row.Cells[ColumnCustomerComm].SetCellValue((double)data.CustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue((double)data.CustomerTotal);
-            row.Cells[ColumnLicenseeWinLoss].SetCellValue((double)data.LicenseeWL);
-        }
         private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
         {
             if (!string.IsNullOrEmpty(sortBy) &&
@@ -104,73 +99,124 @@
             return string.Format("{0}: {1}", ViewResources.Product, text);
         }
 
+        private static void SetTextRowHeader(IRow row, IEnumerable<string> headerTextList)
+        {
+            for (int i = 0; i < headerTextList.Count(); i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList.ElementAt(i));
+            }
+        }
+
+        private static void AssignCellData(IRow row, PlatformWinLossMember item)
+        {
+            row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+            row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
+            row.Cells[ColumnTurnover].SetCellValue((double)item.Turnover);
+            row.Cells[ColumnTotalTrans].SetCellValue(item.TotalTransactions);
+            row.Cells[ColumnCustomerWl].SetCellValue((double)item.CustomerWinLoss);
+            row.Cells[ColumnCustomerCommission].SetCellValue((double)item.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue((double)item.CustomerTotal);
+            row.Cells[ColumnLicenseeWl].SetCellValue((double)item.LicenseeWL);
+            row.Cells[ColumnBaCommission].SetCellValue((double)item.BACommission);
+            row.Cells[ColumnAmtDueToBa].SetCellValue((double)item.AmtDueToBA);
+        }
+
         private void AssignTitle(ISheet sheet, ISheet templateSheet, PlatformWinLossMetaModel metaModel)
         {
             var platformText = ViewResources.Platform + ": " + DataHelper.GetPlatformName(metaModel.PlatformType);
             var currencyText = metaModel.CurrencyId == 0 ?
-                ViewResources.AllCurrencies :
-                string.Format("{0} {1}", ViewResources.Currency, metaModel.CurrencyName);
+                ViewResources.AllCurrencies : $"{ViewResources.Currency} {metaModel.CurrencyName}";
 
             var baseCurrencyText = string.Format(
                 ViewResources.Viewin,
                 !string.IsNullOrWhiteSpace(metaModel.BaseCurrency) ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
 
             var reportTitle = string.Format(
-                                        ViewResources.PlatformWinLossTitle,
-                                        metaModel.FromDate.ToString("MM/dd/yyyy"),
-                                        metaModel.ToDate.ToString("MM/dd/yyyy"),
-                                        currencyText,
-                                        baseCurrencyText,
-                                        platformText) + ", " + GetProductTitle(metaModel.ProductOptions);
+                                         ViewResources.PlatformWinLossTitle,
+                                         metaModel.FromDate.ToString("MM/dd/yyyy"),
+                                         metaModel.ToDate.ToString("MM/dd/yyyy"),
+                                         currencyText,
+                                         baseCurrencyText,
+                                         platformText) + ", " + GetProductTitle(metaModel.ProductOptions);
 
-            _builder.SetRowValue(sheet, templateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, reportTitle);
+            _builder.SetRowValue(sheet, templateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
-            // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, RowParentContentTemplate);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
-            _builder.ClearTemplate(sheet, RowParentContentTemplate);
+            _builder.ClearTemplate(sheet, RowContentTemplate);
         }
 
         private void AssignHeader(ISheet sheet, ISheet templateSheet)
         {
-            var firstRow = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate, destRowIndex: RowHeaderTemplate);
-            firstRow.Cells[ColumnPlatform].SetCellValue(ViewResources.Platform);
-            firstRow.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
-            firstRow.Cells[ColumnTurnoverPercent].SetCellValue(ViewResources.TurnoverPercent);
-            firstRow.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
-            firstRow.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.CustomerW_L);
-            firstRow.Cells[ColumnCustomerComm].SetCellValue(ViewResources.CustomerW_L);
-            firstRow.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.CustomerW_L);
-            firstRow.Cells[ColumnLicenseeWinLoss].SetCellValue(ViewResources.LicenseeW_L);
+            var row = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate, destRowIndex: RowHeaderTemplate);
+            var headerTextList = new[]
+            {
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.Currency,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.BACommission,
+                ViewResources.AmtDueToBA
+            };
 
-            var secondRow = _builder.CopyRow(templateSheet, templateSheet, sourceRowIndex: RowHeaderTemplate + 1, destRowIndex: RowHeaderTemplate + 1);
-            secondRow.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
-            secondRow.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
+            SetTextRowHeader(row, headerTextList);
+
+            var secondRow = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate + 1, destRowIndex: RowHeaderTemplate + 1);
+            secondRow.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
+            secondRow.Cells[ColumnCustomerCommission].SetCellValue(ViewResources.Comm);
             secondRow.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
         private void AssignSheetData(ISheet sheet, ISheet templateSheet, SortableResultModel<PlatformWinLossMember> data)
         {
-            //var rowIndex = RowParentContentTemplate;
-            //foreach (var item in data.DataList)
-            //{
-            //    var row = item.Level == 0 ?
-            //        _builder.CopyRow(sheet, templateSheet, RowParentContentTemplate, rowIndex) :
-            //        _builder.CopyRow(sheet, templateSheet, RowChildContentTemplate, rowIndex);
+            var rowIndex = 0;
+            int index = 1;
+            foreach (PlatformWinLossMember item in data.DataList)
+            {
+                var row = _builder.CopyRow(sheet, templateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+                row.Cells[ColumnIndex].SetCellValue(index);
+                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                AssignCellData(row, item);
+                rowIndex++;
+                index++;
+            }
 
-            //    AssignCellData(row, item);
-            //    rowIndex++;
-            //}
+            AssignTotal(sheet, templateSheet, data);
+        }
 
-            //var totalRow = _builder.CopyRow(sheet, templateSheet, RowTotal, rowIndex);
-            //data.TotalData.Name = ViewResources.Total;
-            //AssignCellData(totalRow, data.TotalData);
+        private void AssignTotal(ISheet sheet, ISheet templateSheet, SortableResultModel<PlatformWinLossMember> data)
+        {
+            var totalRow = data.DataList.Count() + RowContentTemplate;
+
+            var row = _builder.CopyRow(sheet, templateSheet, RowTotalTemplate, totalRow);
+            _builder.MergeCells(sheet, firstRow: totalRow, lastRow: totalRow, firstCol: ColumnIndex, lastCol: ColumnCurrency);
+            row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
+            AssignCellData(row, data.TotalData);
         }
 
         private void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
         {
-            _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
+            _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
+        private void HideColumn(ISheet sheet, PlatformWinLossMetaModel metaModel)
+        {
+            if (!metaModel.HasComm)
+            {
+                _builder.HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerCommission);
+                _builder.HideRow(sheet, RowHeaderTemplate + 1);
+            }
+
+            if (!metaModel.ProductOptions.Any(x => x.Code == Product.BA && x.Status))
+            {
+                _builder.HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+            }
+        }
     }
 }
