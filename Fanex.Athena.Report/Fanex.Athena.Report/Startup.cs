@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using Fanex.Athena.Report.BySite.Excels;
@@ -12,6 +13,7 @@ using Fanex.Logging;
 using Fanex.Logging.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +40,8 @@ namespace Fanex.Athena.Report
 
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
             services.AddScoped<IPlatformWinLossRepository, PlatformWinLossRepository>();
+            services.AddScoped<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
+            services.AddScoped<IExcelBuilder, ExcelBuilder>();
 
             LogManager
                   .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
@@ -45,13 +49,26 @@ namespace Fanex.Athena.Report
                    {
                          new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
                    });
-
             FanexDataSetting.ConnectDB(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("zh-TW"),
+                new CultureInfo("zh-CN"),
+                new CultureInfo("zh-Hans")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

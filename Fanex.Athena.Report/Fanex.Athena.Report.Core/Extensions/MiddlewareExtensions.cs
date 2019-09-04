@@ -15,6 +15,7 @@ namespace Fanex.Athena.Report.Core.Extensions
         {
             return builder.UseMiddleware<IPFilter>();
         }
+
         public static IApplicationBuilder UseCustomApiAuth(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<CustomApiAuthentication>();
