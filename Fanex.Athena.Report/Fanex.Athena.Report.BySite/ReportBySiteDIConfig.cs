@@ -15,6 +15,8 @@ namespace Fanex.Athena.Report.BySite
         {
             services.AddScoped<IPlatformWinLossRepository, PlatformWinLossRepository>();
             services.AddScoped<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
+            services.AddScoped<IPlatformWinLossMemberExcel, PlatformWinLossMemberExcel>();
+
         }
     }
 }

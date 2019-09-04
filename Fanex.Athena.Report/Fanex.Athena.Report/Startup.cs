@@ -38,6 +38,7 @@ namespace Fanex.Athena.Report
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddApplicationPart(Assembly.Load(new AssemblyName("Fanex.Athena.Report.BySite")));
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+            services.AddMemoryCache();
 
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
