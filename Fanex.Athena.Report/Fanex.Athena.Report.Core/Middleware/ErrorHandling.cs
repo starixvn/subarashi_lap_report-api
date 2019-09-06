@@ -3,6 +3,7 @@
     using System;
     using System.Net;
     using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.Helpers;
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
@@ -51,7 +52,7 @@
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            Logging.Logger.Log.Error(ex.Message, ex);
+            Logging.Logger.Log.Error(ErrorMessageHelper.GenerateMessage(context, ex));
 
             var result = JsonConvert.SerializeObject(new
             {
