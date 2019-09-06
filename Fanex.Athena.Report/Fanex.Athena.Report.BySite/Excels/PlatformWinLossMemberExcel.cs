@@ -87,16 +87,21 @@
 
         private static string GetProductTitle(IList<ProductOption> productOptions)
         {
+            if (productOptions.Count() == 1)
+            {
+                return $"{ViewResources.Product}: {productOptions.First().Code}";
+            }
+
             var selectedProducts = productOptions.Where(x => x.Status);
             if (selectedProducts.Count() == productOptions.Count())
             {
-                return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
+                return $"{ViewResources.Product}: {ViewResources.All}";
             }
 
             var text = selectedProducts
                 .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
 
-            return string.Format("{0}: {1}", ViewResources.Product, text);
+            return $"{ViewResources.Product}: {text}";
         }
 
         private static void SetTextRowHeader(IRow row, IEnumerable<string> headerTextList)
@@ -124,8 +129,9 @@
         private void AssignTitle(ISheet sheet, ISheet templateSheet, PlatformWinLossMetaModel metaModel)
         {
             var platformText = ViewResources.Platform + ": " + DataHelper.GetPlatformName(metaModel.PlatformType);
-            var currencyText = metaModel.CurrencyId == 0 ?
-                ViewResources.AllCurrencies : $"{ViewResources.Currency} {metaModel.CurrencyName}";
+            var currencyText = metaModel.CurrencyId == 0
+                ? ViewResources.AllCurrencies
+                : $"{ViewResources.Currency} {metaModel.CurrencyName}";
 
             var baseCurrencyText = string.Format(
                 ViewResources.Viewin,

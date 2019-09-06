@@ -73,13 +73,13 @@
             var selectedProducts = productOptions.Where(x => x.Status);
             if (selectedProducts.Count() == productOptions.Count())
             {
-                return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
+                return $"{ViewResources.Product}: {ViewResources.All}";
             }
 
             var text = selectedProducts
                 .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
 
-            return string.Format("{0}: {1}", ViewResources.Product, text);
+            return $"{ViewResources.Product}: {text}";
         }
 
         private static void AssignCellData(IRow row, PlatformWinLossSummary data)
