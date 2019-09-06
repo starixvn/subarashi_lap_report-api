@@ -54,23 +54,6 @@
             }
         }
 
-        private async Task UpdateUspParamsAsync(IObjectDb db, PlatformWinLossMetaModel metaModel)
-        {
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-            db.SetParameterValue("PlatformType", metaModel.PlatformType);
-            db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
-            db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
-            db.SetParameterValue("FromDate", metaModel.FromDate);
-            db.SetParameterValue("ToDate", metaModel.ToDate);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-
-            foreach (var product in metaModel.ProductOptions.Where(x => x.Status))
-            {
-                db.SetParameterValue("show" + product.Code, true);
-            }
-        }
-
         private static ResultModel<PlatformWinLossSummary> ReadSummaryList(IDataReader reader)
         {
             var dataList = new List<PlatformWinLossSummary>();
@@ -135,8 +118,7 @@
             };
         }
 
-        private static SortableResultModel<PlatformWinLossMember> ReadMemberList(IDataReader reader,
-           IList<Currency> currencyList)
+        private static SortableResultModel<PlatformWinLossMember> ReadMemberList(IDataReader reader, IList<Currency> currencyList)
         {
             var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();
@@ -205,6 +187,23 @@
             totalData.LicenseeWL += item.LicenseeWL;
             totalData.BACommission += item.BACommission;
             totalData.AmtDueToBA += item.AmtDueToBA;
+        }
+
+        private async Task UpdateUspParamsAsync(IObjectDb db, PlatformWinLossMetaModel metaModel)
+        {
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+            db.SetParameterValue("PlatformType", metaModel.PlatformType);
+            db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
+            db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
+            db.SetParameterValue("FromDate", metaModel.FromDate);
+            db.SetParameterValue("ToDate", metaModel.ToDate);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+
+            foreach (var product in metaModel.ProductOptions.Where(x => x.Status))
+            {
+                db.SetParameterValue("show" + product.Code, true);
+            }
         }
     }
 }

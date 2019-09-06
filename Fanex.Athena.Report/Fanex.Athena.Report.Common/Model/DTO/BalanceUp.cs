@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Fanex.Athena.ExtService.Common.Model.DTO
+﻿namespace Fanex.Athena.ExtService.Common.Model.DTO
 {
+    using System;
+
     public class BalanceUp
     {
         public DateTime MoveBetsDay { get; set; }

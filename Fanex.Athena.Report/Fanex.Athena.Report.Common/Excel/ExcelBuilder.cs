@@ -50,9 +50,9 @@
            int columnCount,
            string value)
         {
-            var row = CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
+            var row = this.CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
 
-            MergeCells(sheet, 0, lastRow: destRowIndex, firstCol: destRowIndex, lastCol: columnCount - 1);
+            this.MergeCells(sheet, 0, lastRow: destRowIndex, firstCol: destRowIndex, lastCol: columnCount - 1);
             row.Cells[0].SetCellValue(value);
         }
 

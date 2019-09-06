@@ -1,19 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Fanex.Athena.ExtService.Common.Model.DTO;
-using Fanex.Data;
-
-using Microsoft.Extensions.Caching.Memory;
-
-namespace Fanex.Athena.Report.Common.Services
+﻿namespace Fanex.Athena.Report.Common.Services
 {
+    using System;
+    using System.Threading.Tasks;
+    using Fanex.Athena.ExtService.Common.Model.DTO;
+    using Fanex.Data;
+    using Microsoft.Extensions.Caching.Memory;
+
     public class BalanceUpService : IBalanceUpService
     {
         private const int CacheTimeout120Seconds = 120;
 
         private const string BalanceUpCacheKey = "EXT_LAP_CACHE_BALANCEUP";
+
         private readonly IMemoryCache _cache;
+
         public BalanceUpService(IMemoryCache memoryCache)
         {
             _cache = memoryCache;

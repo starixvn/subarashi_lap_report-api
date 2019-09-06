@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-
-using Microsoft.AspNetCore.Mvc;
-
-namespace Fanex.Athena.Report.ByPlayer.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/player/[controller]")]
     [ApiController]
     public class WinLossController : ControllerBase
@@ -13,6 +12,5 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-
-namespace Fanex.Athena.Report.Common.Extensions
+﻿namespace Fanex.Athena.Report.Common.Extensions
 {
+    using System.Collections.Generic;
+    using System.ComponentModel;
+
     public class SortableList<T> : List<T>
     {
         private string _propertyName;

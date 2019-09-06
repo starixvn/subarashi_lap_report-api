@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-
     using Fanex.Athena.Report.Common.Model.DTO;
 
     public class PlatformWinLossMetaModel
@@ -46,7 +45,5 @@
         public string SortOrder { get; set; }
 
         public bool HasComm { get; set; }
-
-
     }
 }

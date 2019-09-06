@@ -17,8 +17,8 @@
     public class PlatformWinLossController : ControllerBase
     {
         private readonly IPlatformWinLossRepository _repository;
-        public PlatformWinLossController(IPlatformWinLossRepository repository
-           )
+
+        public PlatformWinLossController(IPlatformWinLossRepository repository)
         {
             _repository = repository;
         }

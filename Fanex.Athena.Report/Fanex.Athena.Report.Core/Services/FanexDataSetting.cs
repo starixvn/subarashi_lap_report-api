@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Fanex.Data;
-using Fanex.Data.SqlServer;
-using Microsoft.Extensions.Configuration;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using Fanex.Data;
+    using Fanex.Data.SqlServer;
+    using Microsoft.Extensions.Configuration;
+
     public static class FanexDataSetting
     {
         public static void ConnectDB(IConfiguration configuration)

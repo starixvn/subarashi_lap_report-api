@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace Fanex.Athena.Report.Common.Extensions
+﻿namespace Fanex.Athena.Report.Common.Extensions
 {
+    using System.Collections;
+    using System.ComponentModel;
+
     public class DictionaryPropertyComparer<T> : PropertyComparer<T>
     {
         private readonly object _key;
@@ -13,7 +10,7 @@ namespace Fanex.Athena.Report.Common.Extensions
         public DictionaryPropertyComparer(object key, string property, ListSortDirection direction)
             : base(property, direction)
         {
-            _key = key;
+            this._key = key;
         }
 
         public DictionaryPropertyComparer(
@@ -24,15 +21,15 @@ namespace Fanex.Athena.Report.Common.Extensions
             ListSortDirection propDirection)
             : base(dicProperty, dicDirection, propertyName, propDirection)
         {
-            _key = key;
+            this._key = key;
         }
 
         #region IComparer<T>
 
         public override int Compare(T x, T y)
         {
-            var firstValue = (GetPropertyValue(x, FirstPropertyName) as IDictionary)[_key];
-            var secondValue = (GetPropertyValue(y, FirstPropertyName) as IDictionary)[_key];
+            var firstValue = (GetPropertyValue(x, FirstPropertyName) as IDictionary)[this._key];
+            var secondValue = (GetPropertyValue(y, FirstPropertyName) as IDictionary)[this._key];
 
             var result = CompareValues(firstValue, secondValue, FirstDirection);
 

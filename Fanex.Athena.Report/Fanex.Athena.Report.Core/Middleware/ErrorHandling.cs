@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.Net;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Middleware
+﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using System;
+    using System.Net;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Diagnostics;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+
     public class ErrorHandling
     {
         private readonly RequestDelegate _next;
@@ -20,11 +20,14 @@ namespace Fanex.Athena.Report.Core.Middleware
         {
             if (context.Features[typeof(IExceptionHandlerFeature)] is IExceptionHandlerFeature error && error.Error != null)
             {
-                await WriteErrorMsgAsync(context, JsonConvert.SerializeObject(new
-                {
-                    State = "Internal Server Error",
-                    Msg = error.Error.Message
-                }));
+                await WriteErrorMsgAsync(
+                    context,
+                    JsonConvert.SerializeObject(
+                    new
+                    {
+                        State = "Internal Server Error",
+                        Msg = error.Error.Message
+                    }));
             }
             else
             {
@@ -48,7 +51,7 @@ namespace Fanex.Athena.Report.Core.Middleware
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            Fanex.Logging.Logger.Log.Error(ex.Message, ex);
+            Logging.Logger.Log.Error(ex.Message, ex);
 
             var result = JsonConvert.SerializeObject(new
             {

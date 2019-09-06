@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace Fanex.Athena.Report.Common.Extensions
+﻿namespace Fanex.Athena.Report.Common.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+
     public class PropertyComparer<T> : IComparer<T>
     {
         public PropertyComparer(string property, ListSortDirection direction)

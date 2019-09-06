@@ -1,35 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using Fanex.Athena.Report.BySite.Excels;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common;
-using Fanex.Athena.Report.Core.DTO;
-using Fanex.Athena.Report.Core.Extensions;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Logging;
-using Fanex.Logging.RabbitMQ;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-
-namespace Fanex.Athena.Report
+﻿namespace Fanex.Athena.Report
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Reflection;
+    using Fanex.Athena.Report.Common;
+    using Fanex.Athena.Report.Core.DTO;
+    using Fanex.Athena.Report.Core.Extensions;
+    using Fanex.Athena.Report.Core.Services;
+    using Fanex.Logging;
+    using Fanex.Logging.RabbitMQ;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Localization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.FileProviders;
+
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -77,13 +73,13 @@ namespace Fanex.Athena.Report
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseErrorHandler();
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseIPFilter();
             app.UseCustomApiAuth();
-            app.UseErrorHandler();
             app.UseMvc();
         }
     }
