@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Reflection;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -77,11 +77,12 @@
 
         private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
         {
+            var property = typeof(PlatformWinLossMember).GetProperty(sortBy, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             if (!string.IsNullOrEmpty(sortBy) &&
                 !string.IsNullOrEmpty(sortOrder) &&
-                typeof(PlatformWinLossMember).GetProperty(sortBy) != null)
+                property != null)
             {
-                dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
+                dataList.Sort(property.Name, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
             }
         }
 
