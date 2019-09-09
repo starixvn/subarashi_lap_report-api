@@ -83,7 +83,7 @@
                     var oldCell = sourceRow.GetCell(i);
                     var newCell = newRow.CreateCell(i);
 
-                    CopyCell(sheet, oldCell, newCell);
+                    CopyCell(oldCell, newCell);
                 }
             }
 
@@ -164,11 +164,11 @@
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 
-        private static ICell CopyCell(ISheet sheet, ICell sourceCell, ICell destCell)
+        private static void CopyCell(ICell sourceCell, ICell destCell)
         {
             if (sourceCell == null)
             {
-                return null;
+                return;
             }
 
             destCell.CellStyle = sourceCell.CellStyle;
@@ -211,8 +211,6 @@
                     destCell.SetCellValue(sourceCell.StringCellValue);
                     break;
             }
-
-            return destCell;
         }
 
         private static void DeleteRow(ISheet sheet, int rowIndex)

@@ -4,7 +4,9 @@
 
     public static class DataHelper
     {
+#pragma warning disable S1541 // Methods and properties should not be too complex
         public static string GetPlatformName(int type)
+#pragma warning restore S1541 // Methods and properties should not be too complex
         {
             switch (type)
             {

@@ -121,7 +121,13 @@
                                         baseCurrencyText,
                                         platformText) + ", " + GetProductTitle(metaModel.ProductOptions);
 
-            _builder.SetRowValue(sheet, templateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, reportTitle);
+            _builder.SetRowValue(
+                sheet,
+                templateSheet,
+                sourceRowIndex: RowTitleTemplate,
+                destRowIndex: RowTitleTemplate,
+                columnCount: ColumnNoContent,
+                value: reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, RowParentContentTemplate);
