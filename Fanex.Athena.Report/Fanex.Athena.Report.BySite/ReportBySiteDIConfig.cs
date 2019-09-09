@@ -10,7 +10,7 @@
     {
         public static void Setup(IServiceCollection services)
         {
-            services.AddScoped<IPlatformWinLossRepository, PlatformWinLossRepository>();
+            services.AddTransient<IPlatformWinLossRepository, PlatformWinLossRepository>();
             services.AddScoped<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
             services.AddScoped<IPlatformWinLossMemberExcel, PlatformWinLossMemberExcel>();
         }
