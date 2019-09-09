@@ -45,7 +45,7 @@
 
         private static async Task WriteErrorMsgAsync(HttpContext context, string jsonMessage)
         {
-            context.Response.StatusCode = 500;
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(jsonMessage);
         }
