@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-
-namespace Fanex.Athena.Report.Core.Middleware
+﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using System.Net;
+    using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.DTO;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Options;
+
     public class CustomApiAuthentication
     {
         private readonly RequestDelegate _next;

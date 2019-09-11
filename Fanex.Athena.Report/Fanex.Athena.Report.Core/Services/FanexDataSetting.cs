@@ -1,0 +1,33 @@
+﻿namespace Fanex.Athena.Report.Core.Services
+{
+    using System.Collections.Generic;
+    using System.IO;
+    using Fanex.Data;
+    using Fanex.Data.SqlServer;
+    using Microsoft.Extensions.Configuration;
+
+    public static class FanexDataSetting
+    {
+        public static void ConnectDB(IConfiguration configuration)
+        {
+            DbSettingProviderManager
+            .StartNewSession()
+            .WithSqlServer(resourcePath: Path.Combine(Directory.GetCurrentDirectory(), "SpConfig"))
+            .Use(GetFanexConnectStrings(configuration))
+            .Run();
+        }
+
+        private static Dictionary<string, ConnectionConfiguration> GetFanexConnectStrings(IConfiguration configuration)
+        {
+            var connectStrDic = new Dictionary<string, ConnectionConfiguration>();
+            var connectStrings = configuration.GetSection("ConnectionStrings");
+
+            foreach (var connectStr in connectStrings.GetChildren())
+            {
+                connectStrDic.Add(connectStr.Key, new ConnectionConfiguration(connectStr.Key, connectStr.Value, "System.Data.SqlClient"));
+            }
+
+            return connectStrDic;
+        }
+    }
+}

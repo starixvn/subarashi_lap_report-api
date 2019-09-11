@@ -1,9 +1,8 @@
-﻿using Fanex.Athena.Report.Core.Middleware;
-
-using Microsoft.AspNetCore.Builder;
-
-namespace Fanex.Athena.Report.Core.Extensions
+﻿namespace Fanex.Athena.Report.Core.Extensions
 {
+    using Fanex.Athena.Report.Core.Middleware;
+    using Microsoft.AspNetCore.Builder;
+
     public static class MiddlewareExtensions
     {
         public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
@@ -15,6 +14,7 @@ namespace Fanex.Athena.Report.Core.Extensions
         {
             return builder.UseMiddleware<IPFilter>();
         }
+
         public static IApplicationBuilder UseCustomApiAuth(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<CustomApiAuthentication>();

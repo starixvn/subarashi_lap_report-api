@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.Core.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Middleware
+﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.DTO;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Options;
+
     public class IPFilter
     {
         private readonly RequestDelegate _next;

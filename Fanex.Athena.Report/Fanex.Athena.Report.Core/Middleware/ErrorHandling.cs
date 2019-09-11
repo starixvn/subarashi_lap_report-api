@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Middleware
+﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using System;
+    using System.Net;
+    using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.Helpers;
+    using Microsoft.AspNetCore.Diagnostics;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+
     public class ErrorHandling
     {
         private readonly RequestDelegate _next;
@@ -17,21 +19,49 @@ namespace Fanex.Athena.Report.Core.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            var error = context.Features[typeof(IExceptionHandlerFeature)] as IExceptionHandlerFeature;
-
-            if (error != null && error.Error != null)
+            if (context.Features[typeof(IExceptionHandlerFeature)] is IExceptionHandlerFeature error && error.Error != null)
             {
-                context.Response.StatusCode = 500;
-                context.Response.ContentType = "application/json";
-                Fanex.Logging.Logger.Log.Error(error.Error.Message, error.Error);
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(new
-                {
-                    State = "Internal Server Error",
-                    Msg = error.Error.Message
-                }));
+                await WriteErrorMsgAsync(
+                    context,
+                    JsonConvert.SerializeObject(
+                    new
+                    {
+                        State = "Internal Server Error",
+                        Msg = error.Error.Message
+                    }));
             }
+            else
+            {
+                try
+                {
+                    await _next.Invoke(context);
+                }
+                catch (Exception ex)
+                {
+                    await HandleExceptionAsync(context, ex);
+                }
+            }
+        }
 
-            await _next.Invoke(context);
+        private static async Task WriteErrorMsgAsync(HttpContext context, string jsonMessage)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(jsonMessage);
+        }
+
+        private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
+        {
+            Logging.Logger.Log.Error(ErrorMessageHelper.GenerateMessage(context, ex));
+
+            var result = JsonConvert.SerializeObject(new
+            {
+                State = "Internal Server Error",
+                Msg = ex.Message,
+                Code = HttpStatusCode.InternalServerError
+            });
+
+            await WriteErrorMsgAsync(context, result);
         }
     }
 }

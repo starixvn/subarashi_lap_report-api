@@ -7,17 +7,51 @@
     <UserSecretsId>69cc38fa-b379-4d53-8874-6cb0cfd4de05</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CodeAnalysisRuleSet>Fanex.Athena.Report.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>Fanex.Athena.Report.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
+    <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
+    <None Remove="SpConfig\FanexSpName.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\PlatformWinLossSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpConfig\FanexSpName.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Fanex.Logging" Version="2.0.1" />
     <PackageReference Include="Fanex.Logging.RabbitMQ" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.14.0.8411" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.ByProduct\Fanex.Athena.Report.ByProduct.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.Common\Fanex.Athena.Report.Common.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
