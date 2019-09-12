@@ -19,10 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Model\" />
+    <Folder Include="Models\" />
     <Folder Include="Repository\" />
-    <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.Report.Common\Fanex.Athena.Report.Common.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
   </ItemGroup>
 
 </Project>

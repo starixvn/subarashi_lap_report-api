@@ -16,12 +16,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
     <None Remove="SpConfig\FanexSpName.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

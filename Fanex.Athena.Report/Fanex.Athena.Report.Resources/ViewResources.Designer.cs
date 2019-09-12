@@ -187,6 +187,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effective Betting Value.
+        /// </summary>
+        public static string EffectiveBettingValue {
+            get {
+                return ResourceManager.GetString("EffectiveBettingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Euro.
         /// </summary>
         public static string Euro {

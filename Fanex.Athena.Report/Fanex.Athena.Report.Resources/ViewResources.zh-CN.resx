@@ -249,4 +249,7 @@
   <data name="SystemId" xml:space="preserve">
     <value>系统账号</value>
   </data>
+  <data name="EffectiveBettingValue" xml:space="preserve">
+    <value>有效投注额</value>
+  </data>
 </root>
