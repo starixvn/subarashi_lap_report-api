@@ -178,6 +178,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Win/Loss, {0} --&gt; {1} - {2}.
+        /// </summary>
+        public static string CustomerWinLossTitle {
+            get {
+                return ResourceManager.GetString("CustomerWinLossTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deep Link.
         /// </summary>
         public static string DeepLink {
@@ -408,6 +417,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string TurnoverPercent {
             get {
                 return ResourceManager.GetString("TurnoverPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         

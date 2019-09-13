@@ -12,6 +12,8 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     public class CustomerWinLossExcel : ICustomerWinLossExcel
     {
+        public const string FormatDate = "MM/dd/yyyy";
+
         private const string TemplateSheetName = "Template";
         private const string SheetName = "Data";
 
@@ -46,8 +48,8 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         public IWorkbook Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
-            var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
             var templateSheet = workBook.GetSheet(TemplateSheetName);
+            var title = BuildExcelTitle(metaModel);
 
             if (data.DataList.Any())
             {
@@ -55,8 +57,8 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 
                 for (int i = 0; i < numberOfSheet; i++)
                 {
-                    sheet = _builder.CloneSheet(workBook, TemplateSheetName, "Data" + (i + 1).ToString());
-                    AssignTitle(sheet, templateSheet, metaModel.ExcelTitle);
+                    var sheet = _builder.CloneSheet(workBook, TemplateSheetName, "Data" + (i + 1).ToString());
+                    AssignTitle(sheet, templateSheet, title);
                     AssignHeader(sheet, templateSheet);
                     AssignSheetData(sheet, templateSheet, i, metaModel.PageSize, data);
                     ProcessUI(sheet, metaModel);
@@ -64,7 +66,8 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             }
             else
             {
-                AssignTitle(sheet, templateSheet, metaModel.ExcelTitle);
+                var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
+                AssignTitle(sheet, templateSheet, title);
                 AssignHeader(sheet, templateSheet);
                 AssignNoInfoRow(sheet, templateSheet);
                 ProcessUI(sheet, metaModel);
@@ -73,6 +76,18 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             _builder.RemoveSheet(workBook, TemplateSheetName);
 
             return workBook;
+        }
+
+        private static string BuildExcelTitle(CustomerWinLossMetaModel metaModel)
+        {
+            var filterTitle = ExcelTitleBuilder.GetTitleCurrencyName(ViewResources.Viewin, metaModel.IsConvert, metaModel.BaseCurrency, metaModel.CurrencyName)
+                            + ExcelTitleBuilder.GetLicenseeWLProduct(metaModel.ProductOptions, ViewResources.LicenseeW_L)
+                            + (string.IsNullOrEmpty(metaModel.Username) ? string.Empty : $", {ViewResources.Username}: {metaModel.Username}");
+
+            return string.Format(ViewResources.CustomerWinLossTitle,
+                                        metaModel.FromDate.ToString(FormatDate),
+                                        metaModel.ToDate.ToString(FormatDate),
+                                        filterTitle);
         }
 
         private void AssignHeader(ISheet sheet, ISheet templateSheet)
@@ -120,12 +135,12 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             _builder.ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
+        private void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
         {
             _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet,
+        private void AssignSheetData(ISheet sheet,
             ISheet templateSheet,
             int pageIndex,
             int pageSize,
@@ -160,7 +175,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             AssignSumData(sheet, templateSheet, data.TotalData, rowIndex);
         }
 
-        protected void ProcessUI(ISheet sheet, CustomerWinLossMetaModel metaModel)
+        private void ProcessUI(ISheet sheet, CustomerWinLossMetaModel metaModel)
         {
             if (!metaModel.SystemIdVisible)
             {
@@ -179,7 +194,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             }
         }
 
-        protected void AssignSumData(ISheet sheet, ISheet templateSheet, CustomerWinLoss totalData, int startIndex)
+        private void AssignSumData(ISheet sheet, ISheet templateSheet, CustomerWinLoss totalData, int startIndex)
         {
             var rowTotalNumber = checked(startIndex + RowContentTemplate);
 

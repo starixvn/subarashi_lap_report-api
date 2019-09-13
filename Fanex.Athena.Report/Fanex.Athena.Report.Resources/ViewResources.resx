@@ -252,4 +252,10 @@
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
   </data>
+  <data name="CustomerWinLossTitle" xml:space="preserve">
+    <value>Customer Win/Loss, {0} --&gt; {1} - {2}</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

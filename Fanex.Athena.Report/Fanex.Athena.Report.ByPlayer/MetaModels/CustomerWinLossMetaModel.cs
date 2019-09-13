@@ -57,7 +57,5 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
         public bool IsAllowedCustomerComm { get; set; }
 
         public bool SystemIdVisible { get; set; }
-
-        public string ExcelTitle { get; set; }
     }
 }

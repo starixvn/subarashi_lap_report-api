@@ -39,6 +39,7 @@
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
             BySite.ReportBySiteDIConfig.Setup(services);
+            ByPlayer.ReportByPlayerDIConfig.Setup(services);
             SharedServiceDIConfig.Setup(services);
             LogManager
                   .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
