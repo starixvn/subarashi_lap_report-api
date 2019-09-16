@@ -10,8 +10,8 @@ namespace Fanex.Athena.Report.ByPlayer
     {
         public static void Setup(IServiceCollection services)
         {
-            services.AddScoped<ICustomerWinLossService, CustomerWinLossService>();
-            services.AddScoped<ICustomerWinLossExcel, CustomerWinLossExcel>();
+            services.AddTransient<ICustomerWinLossService, CustomerWinLossService>();
+            services.AddTransient<ICustomerWinLossExcel, CustomerWinLossExcel>();
         }
     }
 }

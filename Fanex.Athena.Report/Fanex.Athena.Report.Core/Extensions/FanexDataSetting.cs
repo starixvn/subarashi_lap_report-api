@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Extensions
 {
     using System.Collections.Generic;
     using System.IO;

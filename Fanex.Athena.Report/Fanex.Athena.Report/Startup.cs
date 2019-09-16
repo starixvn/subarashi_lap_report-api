@@ -4,12 +4,13 @@
     using System.Globalization;
     using System.IO;
     using System.Reflection;
+
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
-    using Fanex.Athena.Report.Core.Services;
     using Fanex.Logging;
     using Fanex.Logging.RabbitMQ;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Localization;
