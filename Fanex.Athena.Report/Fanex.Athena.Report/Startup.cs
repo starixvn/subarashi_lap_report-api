@@ -31,17 +31,19 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddApplicationPart(Assembly.Load(new AssemblyName("Fanex.Athena.Report.BySite")));
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+
+            services.AddHealthChecks();
+
             services.AddMemoryCache();
 
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
+
             SharedServiceDIConfig.Setup(services);
+
             LogManager
                   .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
                   .Use(new List<ILogEngine>
@@ -49,6 +51,11 @@
                          new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
                    });
             FanexDataSetting.ConnectDB(Configuration);
+
+            services.AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                    .AddApplicationPart(Assembly.Load(new AssemblyName("Fanex.Athena.Report.BySite")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,12 +89,10 @@
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseErrorHandler();
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseIPFilter();
             app.UseCustomApiAuth();
             app.UseMvc();
