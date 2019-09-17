@@ -53,8 +53,7 @@
             FanexDataSetting.ConnectDB(Configuration);
 
             services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                    .AddApplicationPart(Assembly.Load(new AssemblyName("Fanex.Athena.Report.BySite")));
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 
