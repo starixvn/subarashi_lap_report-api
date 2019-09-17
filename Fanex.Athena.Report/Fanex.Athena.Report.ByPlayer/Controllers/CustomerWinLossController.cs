@@ -26,7 +26,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
 
             return new
             {
-                DataList = result.DataList,
+                result.DataList,
                 Total = result.TotalData,
                 result.TotalRows,
                 PromotionPrize = result.AdditionalInfo
