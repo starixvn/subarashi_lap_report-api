@@ -10,7 +10,8 @@
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Logging;
     using Fanex.Logging.RabbitMQ;
-
+    using MessagePack.AspNetCoreMvcFormatter;
+    using MessagePack.Resolvers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Localization;
@@ -52,8 +53,11 @@
                    });
             FanexDataSetting.ConnectDB(Configuration);
 
-            services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(option =>
+            {
+                option.OutputFormatters.Add(new MessagePackOutputFormatter(ContractlessStandardResolver.Instance));
+                option.InputFormatters.Add(new MessagePackInputFormatter(ContractlessStandardResolver.Instance));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 

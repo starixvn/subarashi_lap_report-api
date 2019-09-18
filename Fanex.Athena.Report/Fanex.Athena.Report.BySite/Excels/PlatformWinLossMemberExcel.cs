@@ -61,7 +61,7 @@
 
             if (data.DataList.Any())
             {
-                SortMemberData(data.DataList, metaModel.SortBy, metaModel.SortOrder);
+                SortMemberData(data.SortableDataList, metaModel.SortBy, metaModel.SortOrder);
                 AssignSheetData(sheet, templateSheet, data);
             }
             else
