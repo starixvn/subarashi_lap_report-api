@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Model.DTO;
+using Newtonsoft.Json;
 
 namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
@@ -50,6 +51,7 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
         [DefaultValue("")]
         public string CurrencyName { get; set; }
 
+        [JsonIgnore]
         public bool IsConvert => SystemBaseCurrency.BaseCurrencyList.Any(t => t.Value.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase));
 
         public bool IsAllowBA { get; set; }

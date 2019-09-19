@@ -151,7 +151,7 @@
 
             return new SortableResultModel<PlatformWinLossMember>
             {
-                SortableDataList = dataList,
+                DataList = dataList,
                 TotalData = totalData
             };
         }

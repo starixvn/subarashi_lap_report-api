@@ -5,7 +5,11 @@
 
     public class SortableResultModel<T> : ResultModel<T>
     {
-        public SortableList<T> SortableDataList { get; set; }
-        public override IEnumerable<T> DataList { get => this.SortableDataList; }
+        private ISortableList<T> _sortableDataList;
+        public override IEnumerable<T> DataList
+        {
+            get => this._sortableDataList;
+            set => _sortableDataList = new SortableList<T>(value);
+        }
     }
 }

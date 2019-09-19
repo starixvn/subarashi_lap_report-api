@@ -61,7 +61,7 @@
 
             if (data.DataList.Any())
             {
-                SortMemberData(data.SortableDataList, metaModel.SortBy, metaModel.SortOrder);
+                SortMemberData(data.DataList as ISortableList<PlatformWinLossMember>, metaModel.SortBy, metaModel.SortOrder);
                 AssignSheetData(sheet, templateSheet, data);
             }
             else
@@ -75,7 +75,7 @@
             return workBook;
         }
 
-        private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
+        private static void SortMemberData(ISortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
         {
             if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(sortOrder))
             {
