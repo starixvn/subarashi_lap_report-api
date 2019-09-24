@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fanex.Data" Version="4.1.0" />
+    <PackageReference Include="Fanex.Data" Version="4.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
     <PackageReference Include="NPOI" Version="2.4.1" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.14.0.8411" />
