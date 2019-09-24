@@ -12,23 +12,9 @@
 
         public int DrawFilter { get; set; }
 
-        public int Year { get; set; }
+        public DateTime FromDate { get; set; }
 
-        public int Month { get; set; }
-
-        public int FromDay { get; set; }
-
-        public int ToDay { get; set; }
-
-        public DateTime FromDate
-        {
-            get { return new DateTime(Year, Month, FromDay); }
-        }
-
-        public DateTime ToDate
-        {
-            get { return new DateTime(Year, Month, ToDay); }
-        }
+        public DateTime ToDate { get; set; }
 
         public string AgentListXml { get; set; }
 

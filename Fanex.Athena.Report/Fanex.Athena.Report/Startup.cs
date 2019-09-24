@@ -52,12 +52,20 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var dateformat = new DateTimeFormatInfo
+            {
+                ShortDatePattern = "M/d/yyyy",
+                ShortTimePattern = "h:mm tt",
+                LongDatePattern = "MM/dd/yyyy",
+                LongTimePattern = "h:mm:ss tt"
+            };
+
             var supportedCultures = new List<CultureInfo>
             {
-                new CultureInfo("en-US"),
-                new CultureInfo("zh-TW"),
-                new CultureInfo("zh-CN"),
-                new CultureInfo("zh-Hans")
+                new CultureInfo("en-US") { DateTimeFormat = dateformat },
+                new CultureInfo("zh-TW") { DateTimeFormat = dateformat },
+                new CultureInfo("zh-CN") { DateTimeFormat = dateformat },
+                new CultureInfo("zh-Hans") { DateTimeFormat = dateformat }
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
