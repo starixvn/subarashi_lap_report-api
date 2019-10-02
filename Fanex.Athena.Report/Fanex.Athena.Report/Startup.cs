@@ -53,10 +53,16 @@
                    });
             FanexDataSetting.ConnectDB(Configuration);
 
+            CompositeResolver.RegisterAndSetAsDefault(
+                     // resolver custom types first
+                     NativeDateTimeResolver.Instance,
+                     // finally use standard resolver
+                     ContractlessStandardResolver.Instance);
+
             services.AddMvc(option =>
             {
-                option.OutputFormatters.Add(new MessagePackOutputFormatter(ContractlessStandardResolver.Instance));
-                option.InputFormatters.Add(new MessagePackInputFormatter(ContractlessStandardResolver.Instance));
+                option.OutputFormatters.Add(new MessagePackOutputFormatter());
+                option.InputFormatters.Add(new MessagePackInputFormatter());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
