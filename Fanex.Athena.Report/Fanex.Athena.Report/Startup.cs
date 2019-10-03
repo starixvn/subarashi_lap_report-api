@@ -14,6 +14,7 @@
     using MessagePack.Resolvers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Hosting.Internal;
     using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -22,13 +23,14 @@
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            HostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
-
+        public IHostingEnvironment HostingEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,7 +40,9 @@
 
             services.AddMemoryCache();
 
-            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
+            services.AddSingleton<IFileProvider>(x =>
+                new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
+                );
 
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
@@ -51,7 +55,7 @@
                    {
                          new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
                    });
-            FanexDataSetting.ConnectDB(Configuration);
+            FanexDataSetting.ConnectDB(Configuration, HostingEnvironment.ContentRootPath);
 
             CompositeResolver.RegisterAndSetAsDefault(
                      // resolver custom types first

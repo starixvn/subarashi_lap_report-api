@@ -8,11 +8,11 @@
 
     public static class FanexDataSetting
     {
-        public static void ConnectDB(IConfiguration configuration)
+        public static void ConnectDB(IConfiguration configuration, string rootPath)
         {
             DbSettingProviderManager
             .StartNewSession()
-            .WithSqlServer(resourcePath: Path.Combine(Directory.GetCurrentDirectory(), "SpConfig"))
+            .WithSqlServer(resourcePath: Path.Combine(rootPath, "SpConfig"))
             .Use(GetFanexConnectStrings(configuration))
             .Run();
         }
