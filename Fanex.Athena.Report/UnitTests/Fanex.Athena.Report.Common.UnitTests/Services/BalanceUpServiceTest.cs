@@ -12,7 +12,9 @@ using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
+#pragma warning disable S3881 // "IDisposable" should be implemented correctly
     public class BalanceUpServiceTest : IDisposable
+#pragma warning restore S3881 // "IDisposable" should be implemented correctly
     {
         private readonly IMemoryCache _memoryCache;
         public BalanceUpServiceTest()
@@ -25,29 +27,8 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
         public void Dispose()
         {
-            _memoryCache.Dispose();
+            _memoryCache?.Dispose();
             GC.SuppressFinalize(this);
-        }
-        [Fact]
-        public async Task GetBalanceUpAsync_WhenCall_ReturnDataFromCache()
-        {
-            //Arrange
-            var balanceupInfo = new BalanceUp
-            {
-                BalanceUpDay = DateTime.Now,
-                MoveBetsDay = DateTime.Now
-            };
-            _memoryCache.Set("EXT_LAP_CACHE_BALANCEUP", balanceupInfo);
-
-            var service = new BalanceUpService(_memoryCache);
-
-            ///Action
-
-            var result = await service.GetBalanceUpAsync().ConfigureAwait(false);
-
-            ///Assert
-            Assert.Equal(result, balanceupInfo);
-
         }
 
         [Fact]
@@ -88,6 +69,27 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             ///Assert
             Assert.Equal(result.BalanceUpDay, balanceupInfo.BalanceUpDay);
             Assert.Equal(result.MoveBetsDay, balanceupInfo.MoveBetsDay);
+        }
+        [Fact]
+        public async Task GetBalanceUpAsync_WhenCall_ReturnDataFromCache()
+        {
+            //Arrange
+            var balanceupInfo = new BalanceUp
+            {
+                BalanceUpDay = DateTime.Now,
+                MoveBetsDay = DateTime.Now
+            };
+            _memoryCache.Set("EXT_LAP_CACHE_BALANCEUP", balanceupInfo);
+
+            var service = new BalanceUpService(_memoryCache);
+
+            ///Action
+
+            var result = await service.GetBalanceUpAsync().ConfigureAwait(false);
+
+            ///Assert
+            Assert.Equal(result, balanceupInfo);
+
         }
 
     }

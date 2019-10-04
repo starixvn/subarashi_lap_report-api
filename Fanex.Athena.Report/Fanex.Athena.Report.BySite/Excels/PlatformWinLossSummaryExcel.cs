@@ -54,7 +54,7 @@
             AssignTitle(sheet, templateSheet, metaModel);
 
             if (data.DataList.Any())
-            {    
+            {
                 AssignSheetData(sheet, templateSheet, data);
             }
             else

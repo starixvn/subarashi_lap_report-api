@@ -2,16 +2,19 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
-    using System.IO;
-    using System.Reflection;
+
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
-    using Fanex.Athena.Report.Core.Services;
     using Fanex.Logging;
     using Fanex.Logging.RabbitMQ;
+
+    using MessagePack.AspNetCoreMvcFormatter;
+    using MessagePack.Resolvers;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Internal;
     using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -20,33 +23,52 @@
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            HostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
-
+        public IHostingEnvironment HostingEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddApplicationPart(Assembly.Load(new AssemblyName("Fanex.Athena.Report.BySite")));
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+
+            services.AddHealthChecks();
+
             services.AddMemoryCache();
 
-            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
+            services.AddSingleton<IFileProvider>(x =>
+                new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
+                );
 
             BySite.ReportBySiteDIConfig.Setup(services);
+            ByPlayer.ReportByPlayerDIConfig.Setup(services);
+
             SharedServiceDIConfig.Setup(services);
+
             LogManager
                   .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
                   .Use(new List<ILogEngine>
                    {
                          new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
                    });
-            FanexDataSetting.ConnectDB(Configuration);
+            FanexDataSetting.ConnectDB(Configuration, HostingEnvironment.ContentRootPath);
+
+            CompositeResolver.RegisterAndSetAsDefault(
+                     // resolver custom types first
+                     NativeDateTimeResolver.Instance,
+                     // finally use standard resolver
+                     ContractlessStandardResolver.Instance);
+
+            services.AddMvc(option =>
+            {
+                option.OutputFormatters.Add(new MessagePackOutputFormatter());
+                option.InputFormatters.Add(new MessagePackInputFormatter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,14 +102,13 @@
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseErrorHandler();
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseIPFilter();
             app.UseCustomApiAuth();
+            app.UseHealthChecks("/health");
             app.UseMvc();
         }
     }

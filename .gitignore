@@ -30,3 +30,12 @@ _ReSharper*/
 .vs/
 #Nuget packages folder
 packages/
+/TestReports
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.ByPlayer.UnitTest/coverage.cobertura.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.ByPlayer.UnitTest/coverage.opencover.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.BySite.UnitTests/coverage.cobertura.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.BySite.UnitTests/coverage.opencover.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.Common.UnitTests/coverage.cobertura.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.Common.UnitTests/coverage.opencover.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.Core.UnitTests/coverage.cobertura.xml
+/Fanex.Athena.Report/UnitTests/Fanex.Athena.Report.Core.UnitTests/coverage.opencover.xml

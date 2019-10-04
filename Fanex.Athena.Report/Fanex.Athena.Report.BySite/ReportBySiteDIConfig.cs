@@ -11,8 +11,8 @@
         public static void Setup(IServiceCollection services)
         {
             services.AddTransient<IPlatformWinLossRepository, PlatformWinLossRepository>();
-            services.AddScoped<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
-            services.AddScoped<IPlatformWinLossMemberExcel, PlatformWinLossMemberExcel>();
+            services.AddTransient<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
+            services.AddTransient<IPlatformWinLossMemberExcel, PlatformWinLossMemberExcel>();
         }
     }
 }

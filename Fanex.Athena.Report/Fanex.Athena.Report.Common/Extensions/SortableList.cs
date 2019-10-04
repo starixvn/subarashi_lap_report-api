@@ -3,10 +3,18 @@
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    public class SortableList<T> : List<T>
+    public class SortableList<T> : List<T>, ISortableList<T>
     {
         private string _propertyName;
         private bool _ascending;
+        public SortableList()
+        {
+
+        }
+        public SortableList(IEnumerable<T> collection) : base(collection)
+        {
+
+        }
 
         public void SortByDictionary(object key, string propertyName, bool ascending)
         {

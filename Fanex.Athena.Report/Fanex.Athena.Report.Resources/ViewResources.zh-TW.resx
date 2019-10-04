@@ -249,4 +249,13 @@
   <data name="SystemId" xml:space="preserve">
     <value>系統帳號</value>
   </data>
+  <data name="EffectiveBettingValue" xml:space="preserve">
+    <value>有效投注額</value>
+  </data>
+  <data name="CustomerWinLossTitle" xml:space="preserve">
+    <value>會員輸贏，{0} --&gt; {1} - {2}</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>用戶名</value>
+  </data>
 </root>

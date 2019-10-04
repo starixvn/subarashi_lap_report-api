@@ -19,14 +19,16 @@
 
         public async Task Invoke(HttpContext context)
         {
-            var postedKey = context.Request.Headers["AUTH_TOKEN"];
-            var isAuthorized = !string.IsNullOrEmpty(postedKey) && postedKey.Equals(_applicationOptions.AuthKey);
-            if (!isAuthorized)
+            if (!context.Request.Path.Value.Equals("/health"))
             {
-                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                return;
+                var postedKey = context.Request.Headers["AUTH_TOKEN"];
+                var isAuthorized = !string.IsNullOrEmpty(postedKey) && postedKey.Equals(_applicationOptions.AuthKey);
+                if (!isAuthorized)
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    return;
+                }
             }
-
             await _next.Invoke(context);
         }
     }
