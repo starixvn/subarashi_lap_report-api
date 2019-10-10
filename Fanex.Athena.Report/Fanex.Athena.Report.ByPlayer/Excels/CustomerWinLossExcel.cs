@@ -1,15 +1,16 @@
-﻿using System;
-using System.Linq;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Resources;
-using NPOI.SS.UserModel;
-
-namespace Fanex.Athena.Report.ByPlayer.Excels
+﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using Fanex.Athena.Report.ByPlayer.DTO;
+    using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
+    using Fanex.Athena.Report.ByPlayer.MetaModels;
+    using Fanex.Athena.Report.Common.Excel;
+    using Fanex.Athena.Report.Common.Model.ViewModel;
+    using Fanex.Athena.Report.Resources;
+    using NPOI.SS.UserModel;
+
     public class CustomerWinLossExcel : ICustomerWinLossExcel
     {
         public const string FormatDate = "MM/dd/yyyy";
@@ -45,7 +46,20 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             _builder = builder;
         }
 
-        public IWorkbook Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        {
+            var workBook = GetWorkbook(template, data, metaModel);
+
+            using (var stream = new MemoryStream())
+            {
+                workBook.Write(stream);
+                workBook.Close();
+
+                return stream.ToArray();
+            }
+        }
+
+        private IWorkbook GetWorkbook(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
             var templateSheet = workBook.GetSheet(TemplateSheetName);

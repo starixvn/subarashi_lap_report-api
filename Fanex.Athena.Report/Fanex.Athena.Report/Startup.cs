@@ -32,8 +32,10 @@
         }
 
         public IConfiguration Configuration { get; }
+
         public IHostingEnvironment HostingEnvironment { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
+        //// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
@@ -60,9 +62,9 @@
 
 
             CompositeResolver.RegisterAndSetAsDefault(
-                     // resolver custom types first
+                     //// resolver custom types first
                      NativeDateTimeResolver.Instance,
-                     // finally use standard resolver
+                     //// finally use standard resolver
                      ContractlessStandardResolver.Instance);
             services.Configure<ForwardedHeadersOptions>(options =>
             {
@@ -82,7 +84,7 @@
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseForwardedHeaders();

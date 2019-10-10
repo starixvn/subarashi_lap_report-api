@@ -45,12 +45,9 @@
 
             var data = await _repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);
 
-            var workBook = excel.Export(template, data, metaModel);
-            var stream = new MemoryStream();
-            workBook.Write(stream);
-            workBook.Close();
+            var fileContent = excel.Export(template, data, metaModel);
 
-            return new FileContentResult(stream.ToArray(), "application/octet-stream");
+            return new FileContentResult(fileContent, "application/octet-stream");
         }
 
         [HttpPost]
@@ -63,12 +60,9 @@
 
             var data = await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
 
-            var workBook = excel.Export(template, data, metaModel);
-            var stream = new MemoryStream();
-            workBook.Write(stream);
-            workBook.Close();
+            var fileContent = excel.Export(template, data, metaModel);
 
-            return new FileContentResult(stream.ToArray(), "application/octet-stream");
+            return new FileContentResult(fileContent, "application/octet-stream");
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using Fanex.Athena.Report.BySite.DTOs;
@@ -50,7 +51,20 @@
             _builder = builder;
         }
 
-        public IWorkbook Export(string template, SortableResultModel<PlatformWinLossMember> data, PlatformWinLossMetaModel metaModel)
+        public byte[] Export(string template, SortableResultModel<PlatformWinLossMember> data, PlatformWinLossMetaModel metaModel)
+        {
+            var workBook = GetWorkbook(template, data, metaModel);
+
+            using (var stream = new MemoryStream())
+            {
+                workBook.Write(stream);
+                workBook.Close();
+
+                return stream.ToArray();
+            }
+        }
+
+        public IWorkbook GetWorkbook(string template, SortableResultModel<PlatformWinLossMember> data, PlatformWinLossMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
             var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);

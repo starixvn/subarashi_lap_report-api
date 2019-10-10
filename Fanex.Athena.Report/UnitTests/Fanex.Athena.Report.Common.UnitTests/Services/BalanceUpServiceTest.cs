@@ -34,7 +34,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
         [Fact]
         public async Task GetBalanceUpAsync_WhenCall_ReturnCorrectResultAsync()
         {
-            //Arrange
+            // Arrange
             var balanceupInfo = new BalanceUp
             {
                 BalanceUpDay = DateTime.Now,
@@ -61,19 +61,18 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             var service = new BalanceUpService(_memoryCache);
 
-
-            ///Action
-
+            // Action
             var result = await service.GetBalanceUpAsync().ConfigureAwait(false);
 
-            ///Assert
+            // Assert
             Assert.Equal(result.BalanceUpDay, balanceupInfo.BalanceUpDay);
             Assert.Equal(result.MoveBetsDay, balanceupInfo.MoveBetsDay);
         }
+
         [Fact]
         public async Task GetBalanceUpAsync_WhenCall_ReturnDataFromCache()
         {
-            //Arrange
+            // Arrange
             var balanceupInfo = new BalanceUp
             {
                 BalanceUpDay = DateTime.Now,
@@ -83,11 +82,10 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             var service = new BalanceUpService(_memoryCache);
 
-            ///Action
-
+            // Action
             var result = await service.GetBalanceUpAsync().ConfigureAwait(false);
 
-            ///Assert
+            // Assert
             Assert.Equal(result, balanceupInfo);
 
         }
