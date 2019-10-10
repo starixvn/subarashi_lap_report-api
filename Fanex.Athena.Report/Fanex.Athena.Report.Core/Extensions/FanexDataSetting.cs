@@ -12,7 +12,7 @@
         {
             DbSettingProviderManager
             .StartNewSession()
-            .WithSqlServer(resourcePath: Path.Combine(rootPath, "SpConfig"))
+            .WithSqlServer(resourcePath: "~/SpConfig")
             .Use(GetFanexConnectStrings(configuration))
             .Run();
         }
