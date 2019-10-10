@@ -48,6 +48,7 @@
             var workBook = excel.Export(template, data, metaModel);
             var stream = new MemoryStream();
             workBook.Write(stream);
+            workBook.Close();
 
             return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
@@ -65,6 +66,7 @@
             var workBook = excel.Export(template, data, metaModel);
             var stream = new MemoryStream();
             workBook.Write(stream);
+            workBook.Close();
 
             return new FileContentResult(stream.ToArray(), "application/octet-stream");
         }
