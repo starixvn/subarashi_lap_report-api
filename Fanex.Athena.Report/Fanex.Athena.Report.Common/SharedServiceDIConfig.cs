@@ -8,7 +8,7 @@
     {
         public static void Setup(IServiceCollection services)
         {
-            services.AddTransient<IExcelBuilder, ExcelBuilder>();
+            services.AddTransient<IExcelBuilder, ExcelBuilderSXSSF>();
             services.AddSingleton<IBalanceUpService, BalanceUpService>();
             services.AddSingleton<IFileService, FileService>();
         }
