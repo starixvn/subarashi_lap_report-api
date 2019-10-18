@@ -1,15 +1,19 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
-    using System;
-    using System.IO;
-    using System.Linq;
     using Fanex.Athena.Report.ByPlayer.DTO;
     using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
     using Fanex.Athena.Report.ByPlayer.MetaModels;
+    using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
     using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources;
+    using Ionic.Zip;
+    using Microsoft.Extensions.Options;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     public class CustomerWinLossExcel : ICustomerWinLossExcel
     {
@@ -41,9 +45,15 @@
 
         private readonly IExcelBuilder _builder;
 
-        public CustomerWinLossExcel(IExcelBuilder builder)
+        private readonly ITempFileService _tempFileService;
+
+        private readonly ExcelFileOptions _excelFileOptions;
+
+        public CustomerWinLossExcel(IExcelBuilder builder, ITempFileService tempFileService, IOptions<ExcelFileOptions> excelFileOptions)
         {
             _builder = builder;
+            _tempFileService = tempFileService;
+            _excelFileOptions = excelFileOptions.Value;
         }
 
         public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
@@ -56,6 +66,64 @@
                 workBook.Close();
 
                 return stream.ToArray();
+            }
+        }
+
+        public byte[] ExportFile(string template, IList<ResultModel<CustomerWinLoss>> data, CustomerWinLossMetaModel metaModel)
+        {
+            var workBooks = GetListWorkbook(template, data, metaModel);
+            var stream = BuildZip(workBooks);
+            return stream.ToArray();
+        }
+
+        public MemoryStream BuildZip(IList<IWorkbook> workBooks)
+        {
+            var excelFiles = new List<string>();
+            for (int index = 0; index < workBooks.Count; index++)
+            {
+                var dataFileName = $"CustomerWinLoss{index}.xlsx";
+                var dataFilePath = Path.Combine(_excelFileOptions.WebAppFileLAP, dataFileName);
+
+                SaveFile(workBooks[index], dataFilePath);
+
+                excelFiles.Add(dataFileName);
+            }
+
+            return CreateZipFile(excelFiles);
+        }
+
+        private static void SaveFile(IWorkbook workbook, string dataFilePath)
+        {
+            using (var stream = new FileStream(dataFilePath, FileMode.Create))
+            {
+                workbook.Write(stream);
+                stream.Close();
+            }
+        }
+
+        private MemoryStream CreateZipFile(IList<string> excelFiles)
+        {
+            var mem = new MemoryStream();
+            using (var zip = new ZipFile())
+            {
+                foreach (var filePath in excelFiles)
+                {
+                    zip.AddEntry(filePath, _tempFileService.ReadBytes(filePath));
+                }
+
+                CleanDataFile(excelFiles);
+                zip.Save(mem);
+            }
+
+            return mem;
+        }
+
+        private void CleanDataFile(IList<string> dataPath)
+        {
+            foreach (var item in dataPath)
+            {
+                var dataFilePath = Path.Combine(_excelFileOptions.WebAppFileLAP, item);
+                _tempFileService.Delete(dataFilePath);
             }
         }
 
@@ -90,6 +158,41 @@
             _builder.RemoveSheet(workBook, TemplateSheetName);
 
             return workBook;
+        }
+
+        private IList<IWorkbook> GetListWorkbook(string template, IList<ResultModel<CustomerWinLoss>> groupResult, CustomerWinLossMetaModel metaModel)
+        {
+            var workBooks = new List<IWorkbook>();
+
+            foreach (var resultModel in groupResult)
+            {
+                const byte pageIndex = 0;
+                var workBook = _builder.LoadTemplate(template);
+                var templateSheet = workBook.GetSheet(TemplateSheetName);
+                var title = BuildExcelTitle(metaModel);
+
+                if (resultModel.DataList.Any())
+                {
+                    var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
+                    AssignTitle(sheet, templateSheet, title);
+                    AssignHeader(sheet, templateSheet);
+                    AssignSheetData(sheet, templateSheet, pageIndex, metaModel.PageSize, resultModel);
+                    ProcessUI(sheet, metaModel);
+                }
+                else
+                {
+                    var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
+                    AssignTitle(sheet, templateSheet, title);
+                    AssignHeader(sheet, templateSheet);
+                    AssignNoInfoRow(sheet, templateSheet);
+                    ProcessUI(sheet, metaModel);
+                }
+
+                _builder.RemoveSheet(workBook, TemplateSheetName);
+                workBooks.Add(workBook);
+            }
+
+            return workBooks;
         }
 
         private static string BuildExcelTitle(CustomerWinLossMetaModel metaModel)

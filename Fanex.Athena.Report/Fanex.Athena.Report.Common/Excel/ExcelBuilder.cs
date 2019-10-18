@@ -2,6 +2,7 @@
 {
     using System.IO;
     using NPOI.HSSF.UserModel;
+    using NPOI.XSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
@@ -14,6 +15,7 @@
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var workbook = new HSSFWorkbook(stream);
+                //var ex = new XSSFWorkbook(stream);
                 var defaultStyle = workbook.CreateCellStyle();
                 defaultStyle.ShrinkToFit = true;
                 defaultStyle.WrapText = true;

@@ -1,18 +1,14 @@
 ﻿namespace Fanex.Athena.Report
 {
-    using System.Collections.Generic;
-    using System.Globalization;
-
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
+    using Fanex.Athena.Report.ByPlayer.DTO;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Logging;
     using Fanex.Logging.RabbitMQ;
-
     using MessagePack.AspNetCoreMvcFormatter;
     using MessagePack.Resolvers;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.HttpOverrides;
@@ -22,6 +18,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
+    using System.Collections.Generic;
+    using System.Globalization;
 
     public class Startup
     {
@@ -34,7 +32,7 @@
         public IConfiguration Configuration { get; }
 
         public IHostingEnvironment HostingEnvironment { get; }
-        
+
         //// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -42,6 +40,7 @@
             services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
+            services.Configure<ExcelFileOptions>(Configuration.GetSection("AppSetting"));
 
             services.AddMemoryCache();
             LogManager
@@ -81,7 +80,6 @@
                 option.OutputFormatters.Add(new MessagePackOutputFormatter());
                 option.InputFormatters.Add(new MessagePackInputFormatter());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
         }
 
         //// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
