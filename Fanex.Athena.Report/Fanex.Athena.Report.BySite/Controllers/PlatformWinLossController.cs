@@ -56,7 +56,7 @@
             [FromServices] IPlatformWinLossSummaryExcel excel,
             PlatformWinLossMetaModel metaModel)
         {
-            var template = file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xls").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xlsx").PhysicalPath;
 
             var data = await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
 

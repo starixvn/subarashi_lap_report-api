@@ -45,7 +45,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             [FromServices] ICustomerWinLossExcel excel,
             CustomerWinLossMetaModel metaModel)
         {
-            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xls").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx").PhysicalPath;
             var data = await _customerWinLossService.GetDataList(metaModel).ConfigureAwait(false);
 
             var fileContent = excel.Export(template, data, metaModel);
@@ -59,7 +59,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             [FromServices] ICustomerWinLossExcel excel,
             CustomerWinLossMetaModel metaModel)
         {
-            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xls").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx").PhysicalPath;
             var data = await _customerWinLossService.GetGroupResult(metaModel, _excelFileOptions.MaxExcelFileRow).ConfigureAwait(false);
 
             var fileContent = data.Count == 1 ? excel.Export(template, data[0], metaModel) :

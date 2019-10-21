@@ -71,34 +71,9 @@
 
         public byte[] ExportFile(string template, IList<ResultModel<CustomerWinLoss>> data, CustomerWinLossMetaModel metaModel)
         {
-            var workBooks = GetListWorkbook(template, data, metaModel);
-            var stream = BuildZip(workBooks);
+            var excelFiles = GetListPathWorkbook(template, data, metaModel);
+            var stream = CreateZipFile(excelFiles);
             return stream.ToArray();
-        }
-
-        public MemoryStream BuildZip(IList<IWorkbook> workBooks)
-        {
-            var excelFiles = new List<string>();
-            for (int index = 0; index < workBooks.Count; index++)
-            {
-                var dataFileName = $"CustomerWinLoss{index}.xlsx";
-                var dataFilePath = Path.Combine(_excelFileOptions.WebAppFileLAP, dataFileName);
-
-                SaveFile(workBooks[index], dataFilePath);
-
-                excelFiles.Add(dataFileName);
-            }
-
-            return CreateZipFile(excelFiles);
-        }
-
-        private static void SaveFile(IWorkbook workbook, string dataFilePath)
-        {
-            using (var stream = new FileStream(dataFilePath, FileMode.Create))
-            {
-                workbook.Write(stream);
-                stream.Close();
-            }
         }
 
         private MemoryStream CreateZipFile(IList<string> excelFiles)
@@ -106,9 +81,11 @@
             var mem = new MemoryStream();
             using (var zip = new ZipFile())
             {
+                var count = 1;
                 foreach (var filePath in excelFiles)
                 {
-                    zip.AddEntry(filePath, _tempFileService.ReadBytes(filePath));
+                    zip.AddEntry($"CustomerWinLoss{count}.xlsx", _tempFileService.ReadBytes(filePath));
+                    count++;
                 }
 
                 CleanDataFile(excelFiles);
@@ -129,22 +106,18 @@
 
         private IWorkbook GetWorkbook(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
+            const byte pageIndex = 0;
             var workBook = _builder.LoadTemplate(template);
             var templateSheet = workBook.GetSheet(TemplateSheetName);
             var title = BuildExcelTitle(metaModel);
 
             if (data.DataList.Any())
             {
-                var numberOfSheet = ExcelHelper.GetNumberOfSheets(data.TotalRows, metaModel.PageSize);
-
-                for (int i = 0; i < numberOfSheet; i++)
-                {
-                    var sheet = _builder.CloneSheet(workBook, TemplateSheetName, "Data" + (i + 1).ToString());
-                    AssignTitle(sheet, templateSheet, title);
-                    AssignHeader(sheet, templateSheet);
-                    AssignSheetData(sheet, templateSheet, i, metaModel.PageSize, data);
-                    ProcessUI(sheet, metaModel);
-                }
+                var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
+                AssignTitle(sheet, templateSheet, title);
+                AssignHeader(sheet, templateSheet);
+                AssignSheetData(sheet, templateSheet, pageIndex, metaModel.PageSize, data);
+                ProcessUI(sheet, metaModel);
             }
             else
             {
@@ -160,39 +133,31 @@
             return workBook;
         }
 
-        private IList<IWorkbook> GetListWorkbook(string template, IList<ResultModel<CustomerWinLoss>> groupResult, CustomerWinLossMetaModel metaModel)
+        private IList<string> GetListPathWorkbook(string template, IList<ResultModel<CustomerWinLoss>> groupResult, CustomerWinLossMetaModel metaModel)
         {
-            var workBooks = new List<IWorkbook>();
+            var excelFiles = new List<string>();
 
             foreach (var resultModel in groupResult)
             {
-                const byte pageIndex = 0;
-                var workBook = _builder.LoadTemplate(template);
-                var templateSheet = workBook.GetSheet(TemplateSheetName);
-                var title = BuildExcelTitle(metaModel);
+                var workBook = GetWorkbook(template, resultModel, metaModel);
+                var dataFileName = $"{Guid.NewGuid().ToString()}.xlsx";
+                var dataFilePath = Path.Combine(_excelFileOptions.WebAppFileLAP, dataFileName);
+                SaveFile(workBook, dataFilePath);
 
-                if (resultModel.DataList.Any())
-                {
-                    var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
-                    AssignTitle(sheet, templateSheet, title);
-                    AssignHeader(sheet, templateSheet);
-                    AssignSheetData(sheet, templateSheet, pageIndex, metaModel.PageSize, resultModel);
-                    ProcessUI(sheet, metaModel);
-                }
-                else
-                {
-                    var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
-                    AssignTitle(sheet, templateSheet, title);
-                    AssignHeader(sheet, templateSheet);
-                    AssignNoInfoRow(sheet, templateSheet);
-                    ProcessUI(sheet, metaModel);
-                }
-
-                _builder.RemoveSheet(workBook, TemplateSheetName);
-                workBooks.Add(workBook);
+                excelFiles.Add(dataFileName);
             }
 
-            return workBooks;
+            return excelFiles;
+        }
+
+        private static void SaveFile(IWorkbook workbook, string dataFilePath)
+        {
+            using (var stream = new FileStream(dataFilePath, FileMode.Create))
+            {
+                workbook.Write(stream);
+                stream.Close();
+                workbook.Close();
+            }
         }
 
         private static string BuildExcelTitle(CustomerWinLossMetaModel metaModel)
