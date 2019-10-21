@@ -10,5 +10,7 @@
     <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_Audit_DailyBets" SpName="Lrf_Rpt_Audit_DailyBets" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_Audit_DailyBets_Total" SpName="Lrf_Rpt_Audit_DailyBets_Total" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_PromotionPrize" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CurrencySel" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 </Functions>

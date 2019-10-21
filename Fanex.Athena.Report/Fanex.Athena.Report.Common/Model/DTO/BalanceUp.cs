@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.ExtService.Common.Model.DTO
+﻿namespace Fanex.Athena.Report.Common.Model.DTO
 {
     using System;
 

@@ -282,4 +282,16 @@
   <data name="TransTime" xml:space="preserve">
     <value>交易時間</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活動獎金</value>
+  </data>
+  <data name="NPHP" xml:space="preserve">
+    <value>NPH促銷活動</value>
+  </data>
 </root>
