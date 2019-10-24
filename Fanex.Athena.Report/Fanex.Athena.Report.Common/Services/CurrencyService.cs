@@ -10,7 +10,7 @@
 
     public class CurrencyService : ICurrencyService
     {
-        private const int CacheTimeoutSeconds = 3600;
+        private const int CacheTimeoutHours = 24;
 
         private const string CacheKey = "REPORT_LAP_CACHE_CURRENCY";
 
@@ -31,7 +31,7 @@
             }
 
             currencyList = await GetCurrencyListFromDbAsync().ConfigureAwait(false);
-            _cache.Set(CacheKey, currencyList, DateTimeOffset.Now.AddSeconds(CacheTimeoutSeconds));
+            _cache.Set(CacheKey, currencyList, DateTimeOffset.Now.AddHours(CacheTimeoutHours));
 
             return currencyList;
         }
