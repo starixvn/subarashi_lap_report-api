@@ -258,4 +258,13 @@
   <data name="Username" xml:space="preserve">
     <value>用戶名</value>
   </data>
+  <data name="Draw" xml:space="preserve">
+    <value>和局</value>
+  </data>
+  <data name="Lose" xml:space="preserve">
+    <value>輸</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>贏</value>
+  </data>
 </root>

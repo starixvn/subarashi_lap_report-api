@@ -13,6 +13,7 @@
             services.AddTransient<IPlatformWinLossRepository, PlatformWinLossRepository>();
             services.AddTransient<IPlatformWinLossSummaryExcel, PlatformWinLossSummaryExcel>();
             services.AddTransient<IPlatformWinLossMemberExcel, PlatformWinLossMemberExcel>();
+            services.AddTransient<IDailyBetsRepository, DailyBetsRepository>();
         }
     }
 }

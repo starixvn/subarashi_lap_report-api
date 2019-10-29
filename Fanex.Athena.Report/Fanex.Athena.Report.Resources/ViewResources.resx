@@ -258,4 +258,16 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="LC" xml:space="preserve">
+    <value>Live Casino</value>
+  </data>
+  <data name="Draw" xml:space="preserve">
+    <value>Draw</value>
+  </data>
+  <data name="Lose" xml:space="preserve">
+    <value>Lose</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Won</value>
+  </data>
 </root>
