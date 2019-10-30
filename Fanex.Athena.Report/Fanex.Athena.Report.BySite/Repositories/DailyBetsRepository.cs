@@ -10,7 +10,6 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Resources;
     using Fanex.Data;
 
     public class DailyBetsRepository : IDailyBetsRepository
@@ -74,7 +73,7 @@
             db.SetParameterValue("SiteName", metaModel.SiteName);
             db.SetParameterValue("Date", metaModel.Date);
             db.SetParameterValue("ProductCodes", metaModel.ProductCodes);
-            db.SetParameterValue("CurrencyList", metaModel.CurrencyList);
+            db.SetParameterValue("CurrencyList", metaModel.CurrencyListXml);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue("PageIndex", metaModel.PageIndex);
             db.SetParameterValue("PageSize", metaModel.PageSize);

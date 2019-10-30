@@ -5,7 +5,7 @@
 
     public class AuditTicket
     {
-        private const string DateTimeFormat = "yyyy-MM-dd h:mm:ss tt";
+        private const string DateTimeFormat = "yyyy-MM-dd hh:mm:ss tt";
 
         public int Index { get; set; }
 
@@ -15,6 +15,7 @@
 
         public long RefNo { get; set; }
 
+        [JsonIgnore]
         public DateTime TransTime { get; set; }
 
         public string TransTimeString

@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
     using System;
+    using System.Collections.Generic;
+    using Fanex.Athena.Report.Common.Model.DTO;
 
     public class DailyBetsMetaModel
     {
@@ -10,7 +12,9 @@
 
         public string ProductCodes { get; set; }
 
-        public string CurrencyList { get; set; }
+        public IEnumerable<Currency> CurrencyList { get; set; }
+
+        public string CurrencyListXml { get; set; }
 
         public string BaseCurrency { get; set; }
 

@@ -11,6 +11,7 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
+    using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Resources;
@@ -34,6 +35,7 @@
 
         public async Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel)
         {
+            metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel.CurrencyList);
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
 
             var productCodeDic = GetProductName(metaModel.ProductCodes);
@@ -55,34 +57,28 @@
         {
             var files = new List<Tuple<int, string>>();
 
+            metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel.CurrencyList);
             metaModel.PageIndex = 1;
             metaModel.PageSize = _excelOptions.MaximumRowPerFile;
 
-            var productCodeDic = GetProductName(metaModel.ProductCodes);
-            var statusNameDic = GetStatusName();
+            var productCodes = GetProductName(metaModel.ProductCodes);
+            var statusNames = GetStatusName();
 
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
-            var firstFile = WriteFile(result, statusNameDic, productCodeDic, metaModel.BaseCurrency);
+            var firstFile = WriteFile(result, statusNames, productCodes, metaModel.BaseCurrency);
             files.Add(new Tuple<int, string>(metaModel.PageIndex, firstFile));
 
             var numberOfPage = (result.TotalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex + 1;
-            while(nextPage <= numberOfPage)
+            var exportTasks = new List<Task<Tuple<int, string>>>();
+            while (nextPage <= numberOfPage)
             {
-                var lastPage = nextPage + _excelOptions.MaximunConcurrentRequest > numberOfPage
-                    ? numberOfPage + 1
-                    : nextPage + _excelOptions.MaximunConcurrentRequest;
-                var exportTasks = new List<Task<Tuple<int, string>>>();
-                for (int p = nextPage; p < lastPage; p++)
-                {
-                    exportTasks.Add(ExportOnePage(metaModel, statusNameDic, productCodeDic, p));
-                }
-
-                var fileNames = await Task.WhenAll(exportTasks).ConfigureAwait(false);
-                files.AddRange(fileNames);
-
-                nextPage = lastPage;
+                exportTasks.Add(ExportOnePage(metaModel, statusNames, productCodes, nextPage));
+                ++nextPage;
             }
+
+            var fileNames = await Task.WhenAll(exportTasks).ConfigureAwait(false);
+            files.AddRange(fileNames);
 
             return ZipExcelFile(files);
         }
@@ -251,5 +247,8 @@
         }
 
         private string QuoteText(string text) => $"{_excelOptions.CSVTextDelimiter}{text}{_excelOptions.CSVTextDelimiter}";
+
+        private string GenerateCurrencyListXml(IEnumerable<Currency> currencyList)
+            => $"<ROOT>{string.Join("", currencyList.Select(i => $"<CR Id=\"{i.ID}\" Code=\"{i.Name}\" />"))}</ROOT>";
     }
 }

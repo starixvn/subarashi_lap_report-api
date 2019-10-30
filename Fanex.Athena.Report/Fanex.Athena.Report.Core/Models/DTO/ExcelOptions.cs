@@ -9,7 +9,5 @@
         public string CSVSeparateCharacter { get; set; }
 
         public string CSVTextDelimiter { get; set; }
-
-        public int MaximunConcurrentRequest { get; set; }
     }
 }
