@@ -37,6 +37,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+            services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 

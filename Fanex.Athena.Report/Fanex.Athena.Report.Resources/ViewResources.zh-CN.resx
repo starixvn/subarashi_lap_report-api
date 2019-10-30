@@ -267,4 +267,19 @@
   <data name="Won" xml:space="preserve">
     <value>赢</value>
   </data>
+  <data name="BetType" xml:space="preserve">
+    <value>投注类别</value>
+  </data>
+  <data name="RefNo" xml:space="preserve">
+    <value>注单号码</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Totalin" xml:space="preserve">
+    <value>总计在{0}</value>
+  </data>
+  <data name="TransTime" xml:space="preserve">
+    <value>交易时间</value>
+  </data>
 </root>

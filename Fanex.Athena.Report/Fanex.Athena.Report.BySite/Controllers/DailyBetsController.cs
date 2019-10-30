@@ -1,27 +1,27 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.IO;
     using System.Threading.Tasks;
 
     using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-
+    using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class DailyBetsController : ControllerBase
     {
-        private readonly IDailyBetsRepository _repository;
+        private readonly IDailyBetsService _service;
 
-        public DailyBetsController(IDailyBetsRepository repository)
+        public DailyBetsController(IDailyBetsService dailyBetsService)
         {
-            _repository = repository;
+            _service = dailyBetsService;
         }
 
         [HttpPost]
         public async Task<dynamic> Index(DailyBetsMetaModel metaModel)
         {
-            var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
+            var result = await _service.GetDataAsync(metaModel).ConfigureAwait(false);
 
             return new
             {
@@ -29,6 +29,16 @@
                 Total = result.TotalData,
                 result.TotalRows
             };
+        }
+
+        [HttpPost]
+        public async Task<FileStreamResult> Export(DailyBetsMetaModel metaModel)
+        {
+            var fileName = await _service.Export(metaModel).ConfigureAwait(false);
+
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
+
+            return new FileStreamResult(stream, "application/octet-stream");
         }
     }
 }

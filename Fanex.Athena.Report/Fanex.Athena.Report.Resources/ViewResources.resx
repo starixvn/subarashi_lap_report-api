@@ -270,4 +270,22 @@
   <data name="Won" xml:space="preserve">
     <value>Won</value>
   </data>
+  <data name="BetType" xml:space="preserve">
+    <value>Bet Type</value>
+  </data>
+  <data name="PlayerName" xml:space="preserve">
+    <value>Player Name</value>
+  </data>
+  <data name="RefNo" xml:space="preserve">
+    <value>Ref No</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TransTime" xml:space="preserve">
+    <value>Trans.Time</value>
+  </data>
+  <data name="Totalin" xml:space="preserve">
+    <value>Total in {0}</value>
+  </data>
 </root>
