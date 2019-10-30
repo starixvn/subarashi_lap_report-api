@@ -4,6 +4,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.Core.Helpers;
+    using Fanex.Logging;
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
@@ -11,10 +12,11 @@
     public class ErrorHandling
     {
         private readonly RequestDelegate _next;
-
-        public ErrorHandling(RequestDelegate next)
+        private readonly ILogger _logger;
+        public ErrorHandling(RequestDelegate next, ILogger logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -50,9 +52,9 @@
             await context.Response.WriteAsync(jsonMessage);
         }
 
-        private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            Logging.Logger.Log.Error(ErrorMessageHelper.GenerateMessage(context, ex));
+            _logger.Error(ErrorMessageHelper.GenerateMessage(context, ex));
 
             var result = JsonConvert.SerializeObject(new
             {

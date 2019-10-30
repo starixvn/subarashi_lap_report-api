@@ -8,7 +8,7 @@
 
     public static class FanexDataSetting
     {
-        public static void ConnectDB(IConfiguration configuration, string rootPath)
+        public static void Setup(IConfiguration configuration, string rootPath)
         {
             DbSettingProviderManager
             .StartNewSession()

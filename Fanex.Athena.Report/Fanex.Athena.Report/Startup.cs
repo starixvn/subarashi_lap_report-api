@@ -41,23 +41,22 @@
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 
             services.AddMemoryCache();
+            LogManager
+              .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
+              .Use(new List<ILogEngine>
+               {
+                                 new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
+               });
 
+            FanexDataSetting.Setup(Configuration, HostingEnvironment.ContentRootPath);
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
-
+            services.AddSingleton(x => Logger.Log);
+            SharedServiceDIConfig.Setup(services);
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
 
-            SharedServiceDIConfig.Setup(services);
-
-            LogManager
-                  .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
-                  .Use(new List<ILogEngine>
-                   {
-                         new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
-                   });
-            FanexDataSetting.ConnectDB(Configuration, HostingEnvironment.ContentRootPath);
 
             CompositeResolver.RegisterAndSetAsDefault(
                      // resolver custom types first
