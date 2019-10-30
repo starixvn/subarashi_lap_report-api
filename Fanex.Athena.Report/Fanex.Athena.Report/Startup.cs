@@ -52,7 +52,7 @@
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
-            services.AddSingleton(x => Logger.Log);
+            services.AddSingleton(x => LogService.LoggerInstance);
             SharedServiceDIConfig.Setup(services);
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
