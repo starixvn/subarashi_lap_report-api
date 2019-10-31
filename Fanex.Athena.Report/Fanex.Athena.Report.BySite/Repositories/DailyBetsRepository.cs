@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using Fanex.Athena.Report.BySite.DTOs;
+    using Fanex.Athena.Report.BySite.Extensions;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Model.ViewModel;
@@ -73,7 +74,7 @@
             db.SetParameterValue("SiteName", metaModel.SiteName);
             db.SetParameterValue("Date", metaModel.Date);
             db.SetParameterValue("ProductCodes", metaModel.ProductCodes);
-            db.SetParameterValue("CurrencyList", metaModel.CurrencyListXml);
+            db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue("PageIndex", metaModel.PageIndex);
             db.SetParameterValue("PageSize", metaModel.PageSize);

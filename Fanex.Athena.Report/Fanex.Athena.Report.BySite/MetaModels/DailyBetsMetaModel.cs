@@ -14,8 +14,6 @@
 
         public IEnumerable<Currency> CurrencyList { get; set; }
 
-        public string CurrencyListXml { get; set; }
-
         public string BaseCurrency { get; set; }
 
         public int PageIndex { get; set; }

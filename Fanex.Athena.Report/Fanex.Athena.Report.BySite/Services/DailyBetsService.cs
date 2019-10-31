@@ -35,7 +35,6 @@
 
         public async Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel)
         {
-            metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel.CurrencyList);
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
 
             var productCodeDic = GetProductName(metaModel.ProductCodes);
@@ -57,7 +56,6 @@
         {
             var files = new List<Tuple<int, string>>();
 
-            metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel.CurrencyList);
             metaModel.PageIndex = 1;
             metaModel.PageSize = _excelOptions.MaximumRowPerFile;
 
@@ -248,7 +246,5 @@
 
         private string QuoteText(string text) => $"{_excelOptions.CSVTextDelimiter}{text}{_excelOptions.CSVTextDelimiter}";
 
-        private string GenerateCurrencyListXml(IEnumerable<Currency> currencyList)
-            => $"<ROOT>{string.Join("", currencyList.Select(i => $"<CR Id=\"{i.ID}\" Code=\"{i.Name}\" />"))}</ROOT>";
     }
 }
