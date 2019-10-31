@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -14,6 +15,8 @@
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Resources;
+
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
 
     public class DailyBetsService : IDailyBetsService
@@ -21,15 +24,18 @@
         private readonly IDailyBetsRepository _repository;
 
         private readonly ExcelOptions _excelOptions;
-
+        private readonly IHostingEnvironment _enviroment;
         private const string DecimalFormat = "0.00";
 
         private const string DefaultTextDelimiter = "\"";
 
-        public DailyBetsService(IDailyBetsRepository dailyBetsRepository, IOptions<ExcelOptions> excelOptionsAccessor)
+        public DailyBetsService(IDailyBetsRepository dailyBetsRepository,
+            IOptions<ExcelOptions> excelOptionsAccessor,
+            IHostingEnvironment enviroment)
         {
             _repository = dailyBetsRepository;
             _excelOptions = excelOptionsAccessor.Value;
+            _enviroment = enviroment;
         }
 
         public async Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel)
@@ -81,11 +87,12 @@
 
         private string ZipExcelFile(List<Tuple<int, string>> files)
         {
-            var zipPath = Path.Combine(_excelOptions.Path, $"{Guid.NewGuid()}.zip");
+            var zipPath = Path.Combine(_enviroment.WebRootPath,
+                _excelOptions.Path, $"{Guid.NewGuid()}.zip");
 
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Create))
             {
-                foreach(var file in files)
+                foreach (var file in files)
                 {
                     archive.CreateEntryFromFile(file.Item2, $"DailyBets_{file.Item1}.csv");
                     File.Delete(file.Item2);
@@ -113,7 +120,7 @@
             IDictionary<string, string> productNames,
             string baseCurrency)
         {
-            var fileName = Path.Combine(_excelOptions.Path, $"{Guid.NewGuid()}.dat");
+            var fileName = Path.Combine(_enviroment.WebRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
 
             using (StreamWriter stw = new StreamWriter(fileName, false, Encoding.UTF8))
             {
