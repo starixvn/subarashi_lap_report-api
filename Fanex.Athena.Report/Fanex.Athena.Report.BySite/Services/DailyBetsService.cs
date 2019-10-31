@@ -87,8 +87,7 @@
 
         private string ZipExcelFile(List<Tuple<int, string>> files)
         {
-            var zipPath = Path.Combine(_enviroment.WebRootPath,
-                _excelOptions.Path, $"{Guid.NewGuid()}.zip");
+            var zipPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.zip");
 
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Create))
             {
@@ -120,7 +119,7 @@
             IDictionary<string, string> productNames,
             string baseCurrency)
         {
-            var fileName = Path.Combine(_enviroment.WebRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
+            var fileName = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
 
             using (StreamWriter stw = new StreamWriter(fileName, false, Encoding.UTF8))
             {
