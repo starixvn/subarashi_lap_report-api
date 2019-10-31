@@ -32,13 +32,18 @@
         }
 
         [HttpPost]
-        public async Task<FileStreamResult> Export(DailyBetsMetaModel metaModel)
+        public async Task<ActionResult> Export(DailyBetsMetaModel metaModel)
         {
             var fileName = await _service.Export(metaModel).ConfigureAwait(false);
+            
+            if (fileName is null)
+            {
+                return NoContent();
+            }
 
             var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
 
-            return new FileStreamResult(stream, "application/octet-stream");
+            return File(stream, "application/octet-stream");
         }
     }
 }

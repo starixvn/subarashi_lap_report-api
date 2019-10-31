@@ -10,7 +10,7 @@
 
         public DateTime Date { get; set; }
 
-        public string ProductCodes { get; set; }
+        public string ProductCodeList { get; set; }
 
         public IEnumerable<Currency> CurrencyList { get; set; }
 

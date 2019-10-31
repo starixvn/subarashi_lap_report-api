@@ -42,7 +42,7 @@
         {
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
 
-            var productCode = GetProductName(metaModel.ProductCodes);
+            var productCode = GetProductName(metaModel.ProductCodeList);
             var statusName = GetStatusName();
 
             foreach (var item in result.DataList)
@@ -61,10 +61,15 @@
             metaModel.PageIndex = 1;
             metaModel.PageSize = _excelOptions.MaximumRowPerFile;
 
-            var productCodes = GetProductName(metaModel.ProductCodes);
+            var productCodes = GetProductName(metaModel.ProductCodeList);
             var statusNames = GetStatusName();
 
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
+            if (result.TotalRows == 0)
+            {
+                return null;
+            }
+
             var firstFile = WriteFile(result, statusNames, productCodes, metaModel.BaseCurrency);
             files.Add(new Tuple<int, string>(metaModel.PageIndex, firstFile));
 
