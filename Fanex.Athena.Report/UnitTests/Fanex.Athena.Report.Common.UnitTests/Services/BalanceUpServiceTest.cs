@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Threading;
 using System.Threading.Tasks;
 using Fanex.Athena.ExtService.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services;
@@ -53,7 +52,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             var mockObjectDB = new Mock<IObjectDb>();
 
-            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), CancellationToken.None))
+            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>()))
                 .Returns(Task.FromResult(mockIDataReader.Object));
 
             ObjectDbFactory.SwitchToTestingMode();

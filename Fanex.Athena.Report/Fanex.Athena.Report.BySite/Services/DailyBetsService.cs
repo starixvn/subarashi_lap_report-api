@@ -11,7 +11,6 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
-    using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Resources;
@@ -37,16 +36,13 @@
         {
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
 
-            var productCodeDic = GetProductName(metaModel.ProductCodes);
-            var statusNameDic = GetStatusName();
+            var productCode = GetProductName(metaModel.ProductCodes);
+            var statusName = GetStatusName();
 
-            var totalRows = result.DataList.Count();
-            for (int i = 0; i < totalRows; i++)
+            foreach (var item in result.DataList)
             {
-                var item = result.DataList.ElementAt(i);
-
-                item.ProductName = productCodeDic[item.ProductCode];
-                item.Status = statusNameDic[item.StatusId];
+                item.ProductName = productCode[item.ProductCode];
+                item.Status = statusName[item.StatusId];
             }
 
             return result;
@@ -66,12 +62,14 @@
             var firstFile = WriteFile(result, statusNames, productCodes, metaModel.BaseCurrency);
             files.Add(new Tuple<int, string>(metaModel.PageIndex, firstFile));
 
-            var numberOfPage = (result.TotalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
+            var totalPage = (result.TotalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex + 1;
             var exportTasks = new List<Task<Tuple<int, string>>>();
-            while (nextPage <= numberOfPage)
+            while (nextPage <= totalPage)
             {
-                exportTasks.Add(ExportOnePage(metaModel, statusNames, productCodes, nextPage));
+                var pageMetaModel = metaModel.ShallowCopy();
+                pageMetaModel.PageIndex = nextPage;
+                exportTasks.Add(ExportOnePage(pageMetaModel, statusNames, productCodes));
                 ++nextPage;
             }
 
@@ -100,27 +98,13 @@
         private async Task<Tuple<int, string>> ExportOnePage(
             DailyBetsMetaModel metaModel,
             IDictionary<int, string> statusNames,
-            IDictionary<string, string> productNames,
-            int pageIndex)
+            IDictionary<string, string> productNames)
         {
-            var pageMetaModel = new DailyBetsMetaModel
-            {
-                SiteName = metaModel.SiteName,
-                Date = metaModel.Date,
-                ProductCodes = metaModel.ProductCodes,
-                CurrencyList = metaModel.CurrencyList,
-                BaseCurrency = metaModel.BaseCurrency,
-                PageIndex = pageIndex,
-                PageSize = _excelOptions.MaximumRowPerFile,
-                SortBy = metaModel.SortBy,
-                SortOrder = metaModel.SortOrder
-            };
-
-            var result = await _repository.GetDataAsync(pageMetaModel).ConfigureAwait(false);
-            var excelFile = WriteFile(result, statusNames, productNames, pageMetaModel.BaseCurrency);
+            var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
+            var excelFile = WriteFile(result, statusNames, productNames, metaModel.BaseCurrency);
 
             result.DataList = null;
-            return new Tuple<int, string>(pageIndex, excelFile);
+            return new Tuple<int, string>(metaModel.PageIndex, excelFile);
         }
 
         private string WriteFile(

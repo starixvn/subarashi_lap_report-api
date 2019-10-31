@@ -23,5 +23,7 @@
         public string SortBy { get; set; }
 
         public string SortOrder { get; set; }
+
+        public DailyBetsMetaModel ShallowCopy() => (DailyBetsMetaModel) this.MemberwiseClone();
     }
 }
