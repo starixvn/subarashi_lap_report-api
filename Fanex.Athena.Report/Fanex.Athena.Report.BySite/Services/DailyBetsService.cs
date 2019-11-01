@@ -25,7 +25,7 @@
 
         private readonly ExcelOptions _excelOptions;
         private readonly IHostingEnvironment _enviroment;
-        private const string DecimalFormat = "0.00";
+        private const string DecimalFormat = "#,##0.00";
 
         private const string DefaultTextDelimiter = "\"";
 
@@ -217,9 +217,9 @@
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(QuoteText(item.BetType));
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.Turnover.ToString(DecimalFormat));
+                rowBuilder.Append(QuoteText(item.Turnover.ToString(DecimalFormat)));
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.WinLoss.ToString(DecimalFormat));
+                rowBuilder.Append(QuoteText(item.WinLoss.ToString(DecimalFormat)));
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(statusNames[item.StatusId]);
 
