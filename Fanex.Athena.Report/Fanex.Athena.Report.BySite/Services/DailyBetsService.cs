@@ -25,7 +25,7 @@
 
         private readonly ExcelOptions _excelOptions;
         private readonly IHostingEnvironment _enviroment;
-        private const string DecimalFormat = "#,##0.00";
+        private const string DecimalFormat = "0.00";
 
         private const string DefaultTextDelimiter = "\"";
 
