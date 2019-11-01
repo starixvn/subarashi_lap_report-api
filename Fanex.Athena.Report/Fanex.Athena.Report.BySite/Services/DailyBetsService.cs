@@ -85,7 +85,7 @@
 
             var fileNames = await Task.WhenAll(exportTasks).ConfigureAwait(false);
             files.AddRange(fileNames);
-
+            result.DataList = Enumerable.Empty<AuditTicket>();
             return ZipExcelFile(files);
         }
 
@@ -123,7 +123,7 @@
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
             var excelFile = await WriteFileAsync(result, statusNames, productNames, metaModel.BaseCurrency);
 
-            result.DataList = null;
+            result.DataList = Enumerable.Empty<AuditTicket>();
             return new Tuple<int, string>(metaModel.PageIndex, excelFile);
         }
 
@@ -207,10 +207,9 @@
             IDictionary<string, string> productNames)
         {
             var totalRows = data.Count();
+            var rowBuilder = new StringBuilder();
             for (int i = 0; i < totalRows; i++)
             {
-                var rowBuilder = new StringBuilder();
-
                 var item = data.ElementAt(i);
 
                 rowBuilder.Append(item.Index);
@@ -232,7 +231,6 @@
                 rowBuilder.Append(QuoteText(item.WinLoss.ToString(DecimalFormat)));
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(statusNames[item.StatusId]);
-
                 await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
                 rowBuilder.Clear();
             }
