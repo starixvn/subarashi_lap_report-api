@@ -215,7 +215,7 @@
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(productNames[item.ProductCode]);
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.BetType);
+                rowBuilder.Append(QuoteText(item.BetType));
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(item.Turnover.ToString(DecimalFormat));
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
