@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -15,7 +14,6 @@
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Resources;
-
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
 
@@ -71,7 +69,7 @@
             }
 
             CreateTempFolder();
-            var firstFile = WriteFile(result, statusNames, productCodes, metaModel.BaseCurrency);
+            var firstFile = await WriteFileAsync(result, statusNames, productCodes, metaModel.BaseCurrency);
             files.Add(new Tuple<int, string>(metaModel.PageIndex, firstFile));
 
             var totalPage = (result.TotalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
@@ -81,7 +79,7 @@
             {
                 var pageMetaModel = metaModel.ShallowCopy();
                 pageMetaModel.PageIndex = nextPage;
-                exportTasks.Add(ExportOnePage(pageMetaModel, statusNames, productCodes));
+                exportTasks.Add(ExportOnePageAsync(pageMetaModel, statusNames, productCodes));
                 ++nextPage;
             }
 
@@ -117,19 +115,19 @@
             return zipPath;
         }
 
-        private async Task<Tuple<int, string>> ExportOnePage(
+        private async Task<Tuple<int, string>> ExportOnePageAsync(
             DailyBetsMetaModel metaModel,
             IDictionary<int, string> statusNames,
             IDictionary<string, string> productNames)
         {
             var result = await _repository.GetDataAsync(metaModel).ConfigureAwait(false);
-            var excelFile = WriteFile(result, statusNames, productNames, metaModel.BaseCurrency);
+            var excelFile = await WriteFileAsync(result, statusNames, productNames, metaModel.BaseCurrency);
 
             result.DataList = null;
             return new Tuple<int, string>(metaModel.PageIndex, excelFile);
         }
 
-        private string WriteFile(
+        private async Task<string> WriteFileAsync(
             ResultModel<AuditTicket> data,
             IDictionary<int, string> statusNames,
             IDictionary<string, string> productNames,
@@ -139,9 +137,9 @@
 
             using (StreamWriter stw = new StreamWriter(fileName, false, Encoding.UTF8))
             {
-                AddHeader(stw);
-                AddBody(stw, data.DataList, statusNames, productNames);
-                AddFooter(stw, data.TotalData, baseCurrency);
+                await AddHeaderAsync(stw).ConfigureAwait(false);
+                await AddBodyAsync(stw, data.DataList, statusNames, productNames);
+                await AddFooterAsync(stw, data.TotalData, baseCurrency);
             }
 
             return fileName;
@@ -164,7 +162,7 @@
             };
         }
 
-        private void AddHeader(StreamWriter streamWriter)
+        private async Task AddHeaderAsync(StreamWriter streamWriter)
         {
             var header = new[]
             {
@@ -180,10 +178,10 @@
                 ViewResources.Status
             };
 
-            streamWriter.WriteLine(string.Join(_excelOptions.CSVSeparateCharacter, header));
+            await streamWriter.WriteLineAsync(string.Join(_excelOptions.CSVSeparateCharacter, header)).ConfigureAwait(false);
         }
 
-        private void AddFooter(StreamWriter streamWriter, AuditTicket data, string baseCurrency)
+        private async Task AddFooterAsync(StreamWriter streamWriter, AuditTicket data, string baseCurrency)
         {
             var footer = new[]
             {
@@ -199,19 +197,20 @@
                 string.Empty
             };
 
-            streamWriter.WriteLine(string.Join(_excelOptions.CSVSeparateCharacter, footer));
+            await streamWriter.WriteLineAsync(string.Join(_excelOptions.CSVSeparateCharacter, footer));
         }
 
-        private void AddBody(
+        private async Task AddBodyAsync(
             StreamWriter streamWriter,
             IEnumerable<AuditTicket> data,
             IDictionary<int, string> statusNames,
             IDictionary<string, string> productNames)
         {
             var totalRows = data.Count();
-            var rowBuilder = new StringBuilder();
             for (int i = 0; i < totalRows; i++)
             {
+                var rowBuilder = new StringBuilder();
+
                 var item = data.ElementAt(i);
 
                 rowBuilder.Append(item.Index);
@@ -234,7 +233,7 @@
                 rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(statusNames[item.StatusId]);
 
-                streamWriter.WriteLine(rowBuilder.ToString());
+                await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
                 rowBuilder.Clear();
             }
         }

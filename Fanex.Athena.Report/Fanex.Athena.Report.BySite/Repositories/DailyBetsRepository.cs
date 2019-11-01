@@ -25,8 +25,8 @@
                 UpdateUspParams(db, metaModel);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    result.DataList = ReadMainData(reader).ToList();
-                    
+                    result.DataList = ReadMainData(reader);
+
                     if (reader.NextResult() && reader.Read())
                     {
                         result.TotalData = ReadTotalData(reader);
@@ -40,9 +40,10 @@
 
         private static IEnumerable<AuditTicket> ReadMainData(IDataReader reader)
         {
+            var result = new List<AuditTicket>();
             while (reader.Read())
             {
-                var item = new AuditTicket
+                result.Add(new AuditTicket
                 {
                     Index = Convert.ToInt32(reader["Index"]),
                     PlayerName = reader["PlayerName"].ToString(),
@@ -54,10 +55,11 @@
                     Turnover = Convert.ToDecimal(reader["Turnover"]),
                     WinLoss = Convert.ToDecimal(reader["WinLoss"]),
                     StatusId = Convert.ToInt16(reader["Status"])
-                };
+                });
 
-                yield return item;
             }
+
+            return result;
         }
 
         private static AuditTicket ReadTotalData(IDataReader reader)
