@@ -70,6 +70,7 @@
                 return null;
             }
 
+            CreateTempFolder();
             var firstFile = WriteFile(result, statusNames, productCodes, metaModel.BaseCurrency);
             files.Add(new Tuple<int, string>(metaModel.PageIndex, firstFile));
 
@@ -88,6 +89,16 @@
             files.AddRange(fileNames);
 
             return ZipExcelFile(files);
+        }
+
+        private void CreateTempFolder()
+        {
+            var folderPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path);
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
         }
 
         private string ZipExcelFile(List<Tuple<int, string>> files)
