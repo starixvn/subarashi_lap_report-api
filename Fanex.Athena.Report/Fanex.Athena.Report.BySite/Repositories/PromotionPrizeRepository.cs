@@ -98,7 +98,7 @@
             return summary;
         }
 
-        private PromotionPrize ReadMainData(IDataReader reader, IEnumerable<Currency> currencyList)
+        private static PromotionPrize ReadMainData(IDataReader reader, IEnumerable<Currency> currencyList)
         {
             var currencyId = Convert.ToInt32(reader["CurrencyId"]);
             return new PromotionPrize
