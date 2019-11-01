@@ -194,8 +194,8 @@
                 string.Empty,
                 string.Empty,
                 string.Format(ViewResources.Totalin, baseCurrency),
-                data.Turnover.ToString(DecimalFormat),
-                data.WinLoss.ToString(DecimalFormat),
+                QuoteText(data.Turnover.ToString(DecimalFormat)),
+                QuoteText(data.WinLoss.ToString(DecimalFormat)),
                 string.Empty
             };
 
