@@ -6,6 +6,7 @@
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
+    using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Logging;
     using Fanex.Logging.RabbitMQ;
 
@@ -37,7 +38,7 @@
         {
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
 
-            services.AddHealthChecks();
+            services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 
             services.AddMemoryCache();
 
@@ -110,9 +111,9 @@
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+            app.UseCustomHealthCheck();
             app.UseIPFilter();
             app.UseCustomApiAuth();
-            app.UseCustomHealthCheck();
             app.UseMvc();
         }
     }

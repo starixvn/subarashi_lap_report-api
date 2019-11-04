@@ -19,7 +19,8 @@
 
         public async Task Invoke(HttpContext context)
         {
-            if (!context.Request.Path.Value.Equals("/health"))
+            var isIgnored = context.Request.Path.Value.StartsWith("/health") || context.Request.Path.Value.Contains("favicon.ico");
+            if (!isIgnored)
             {
                 var postedKey = context.Request.Headers["AUTH_TOKEN"];
                 var isAuthorized = !string.IsNullOrEmpty(postedKey) && postedKey.Equals(_applicationOptions.AuthKey);
