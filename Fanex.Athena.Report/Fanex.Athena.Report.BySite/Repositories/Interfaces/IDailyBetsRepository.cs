@@ -4,10 +4,9 @@
 
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
 
     public interface IDailyBetsRepository
     {
-        Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel);
+        Task<(int totalRows, AuditTicket totalData)> GetTotalDataAsync(DailyBetsMetaModel metaModel);
     }
 }

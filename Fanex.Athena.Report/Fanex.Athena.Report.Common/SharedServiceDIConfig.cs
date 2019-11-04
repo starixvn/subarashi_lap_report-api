@@ -10,6 +10,7 @@
         {
             services.AddTransient<IExcelBuilder, ExcelBuilder>();
             services.AddSingleton<IBalanceUpService, BalanceUpService>();
+            services.AddSingleton<IFileService, FileService>();
         }
     }
 }

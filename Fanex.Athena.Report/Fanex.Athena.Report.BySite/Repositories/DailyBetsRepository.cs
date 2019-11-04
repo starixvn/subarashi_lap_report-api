@@ -1,74 +1,39 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
     using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Extensions;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Data;
 
     public class DailyBetsRepository : IDailyBetsRepository
     {
-        public async Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel)
+        public async Task<(int totalRows, AuditTicket totalData)> GetTotalDataAsync(DailyBetsMetaModel metaModel)
         {
-            var result = new ResultModel<AuditTicket>();
-
-            const string UspName = "Lrf_Rpt_Audit_DailyBets";
+            const string UspName = "Lrf_Rpt_Audit_DailyBets_Total";
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
                 UpdateUspParams(db, metaModel);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    result.DataList = ReadMainData(reader);
-
-                    if (reader.NextResult() && reader.Read())
+                    if (reader.Read())
                     {
-                        result.TotalData = ReadTotalData(reader);
-                        result.TotalRows = Convert.ToInt32(reader["TotalRows"]);
+                        var totalRows = Convert.ToInt32(reader["TotalRows"]);
+                        var totalData = new AuditTicket
+                        {
+                            Turnover = Convert.ToDecimal(reader["TotalTurnover"]),
+                            WinLoss = Convert.ToDecimal(reader["TotalWinLoss"])
+                        };
+
+                        return (totalRows, totalData);
                     }
                 }
             }
 
-            return result;
-        }
-
-        private static IEnumerable<AuditTicket> ReadMainData(IDataReader reader)
-        {
-            var result = new List<AuditTicket>();
-            while (reader.Read())
-            {
-                result.Add(new AuditTicket
-                {
-                    Index = Convert.ToInt32(reader["Index"]),
-                    PlayerName = reader["PlayerName"].ToString(),
-                    CurrencyName = reader["CurrencyName"].ToString(),
-                    RefNo = Convert.ToInt64(reader["RefNo"]),
-                    TransTime = Convert.ToDateTime(reader["TransTime"]),
-                    ProductCode = reader["ProductCode"].ToString(),
-                    BetType = reader["BetType"].ToString(),
-                    Turnover = Convert.ToDecimal(reader["Turnover"]),
-                    WinLoss = Convert.ToDecimal(reader["WinLoss"]),
-                    StatusId = Convert.ToInt16(reader["Status"])
-                });
-
-            }
-
-            return result;
-        }
-
-        private static AuditTicket ReadTotalData(IDataReader reader)
-        {
-            return new AuditTicket
-            {
-                Turnover = Convert.ToDecimal(reader["Turnover"]),
-                WinLoss = Convert.ToDecimal(reader["WinLoss"])
-            };
+            return (0, new AuditTicket());
         }
 
         private static void UpdateUspParams(IObjectDb db, DailyBetsMetaModel metaModel)
@@ -78,14 +43,6 @@
             db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
             db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-            db.SetParameterValue("PageIndex", metaModel.PageIndex);
-            db.SetParameterValue("PageSize", metaModel.PageSize);
-
-            if (!string.IsNullOrWhiteSpace(metaModel.SortBy) && !string.IsNullOrWhiteSpace(metaModel.SortOrder))
-            {
-                db.SetParameterValue("SortBy", metaModel.SortBy);
-                db.SetParameterValue("SortOrder", metaModel.SortOrder);
-            }
         }
     }
 }

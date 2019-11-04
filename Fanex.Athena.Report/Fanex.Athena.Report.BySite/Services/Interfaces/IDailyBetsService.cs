@@ -8,7 +8,5 @@
     public interface IDailyBetsService
     {
         Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel);
-
-        Task<string> Export(DailyBetsMetaModel metaModel);
     }
 }

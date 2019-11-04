@@ -2,7 +2,7 @@
 {
     using System.IO;
     using System.Threading.Tasks;
-
+    using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
@@ -11,17 +11,10 @@
     [Route("api/[controller]/[action]")]
     public class DailyBetsController : ControllerBase
     {
-        private readonly IDailyBetsService _service;
-
-        public DailyBetsController(IDailyBetsService dailyBetsService)
-        {
-            _service = dailyBetsService;
-        }
-
         [HttpPost]
-        public async Task<dynamic> Index(DailyBetsMetaModel metaModel)
+        public async Task<dynamic> Index(DailyBetsMetaModel metaModel, [FromServices]IDailyBetsService service)
         {
-            var result = await _service.GetDataAsync(metaModel).ConfigureAwait(false);
+            var result = await service.GetDataAsync(metaModel).ConfigureAwait(false);
 
             return new
             {
@@ -32,16 +25,16 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Export(DailyBetsMetaModel metaModel)
+        public async Task<ActionResult> Export(DailyBetsMetaModel metaModel, [FromServices]IDailyBetsExcel excel)
         {
-            var fileName = await _service.Export(metaModel).ConfigureAwait(false);
+            var fileName = await excel.Export(metaModel).ConfigureAwait(false);
             
             if (fileName is null)
             {
                 return NoContent();
             }
 
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.None);
 
             return File(stream, "application/octet-stream");
         }
