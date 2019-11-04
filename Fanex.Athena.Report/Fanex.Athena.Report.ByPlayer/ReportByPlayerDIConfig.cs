@@ -11,7 +11,7 @@ namespace Fanex.Athena.Report.ByPlayer
         public static void Setup(IServiceCollection services)
         {
             services.AddTransient<ICustomerWinLossService, CustomerWinLossService>();
-            services.AddTransient<ICustomerWinLossExcel, CustomerWinLossExcel>();
+            services.AddTransient<ICustomerWinLossExcel, NewCustomerWinLossExcel>();
             services.AddTransient<ITempFileService, TempFileService>();
             services.AddTransient<IFileSystem, FileSystem>();
         }

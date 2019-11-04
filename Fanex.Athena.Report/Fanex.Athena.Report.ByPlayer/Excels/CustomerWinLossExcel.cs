@@ -1,7 +1,10 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Fanex.Athena.Report.ByPlayer.DTO;
-    using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
     using Fanex.Athena.Report.ByPlayer.MetaModels;
     using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
     using Fanex.Athena.Report.Common.Excel;
@@ -10,12 +13,8 @@
     using Ionic.Zip;
     using Microsoft.Extensions.Options;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
 
-    public class CustomerWinLossExcel : ICustomerWinLossExcel
+    public class CustomerWinLossExcel
     {
         public const string FormatDate = "MM/dd/yyyy";
 
