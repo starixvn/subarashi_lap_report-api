@@ -22,10 +22,12 @@
     public class DailyBetsService : IDailyBetsService
     {
         private readonly ExcelOptions _excelOptions;
+
         private readonly IHostingEnvironment _enviroment;
-        private const string DecimalFormat = "0.00";
 
         private const string DefaultTextDelimiter = "\"";
+
+        private const string DecimalFormat = "0.00";
 
         private const string UspName = "Lrf_Rpt_Audit_DailyBets";
 
@@ -55,17 +57,16 @@
             var productNames = GetProductName(metaModel.ProductCodeList);
             var statusNames = GetStatusName();
 
-            var result = await GetDataFromDBAsync(metaModel, statusNames, productNames).ConfigureAwait(false);
-            if (result.TotalRows == 0)
+            CreateTempFolder();
+            var result = await ExportOnePageAsync(metaModel, statusNames, productNames, true).ConfigureAwait(false);
+            if (result.Item1 == 0)
             {
                 return null;
             }
+  
+            files.Add(new Tuple<int, string>(metaModel.PageIndex, result.Item2));
 
-            CreateTempFolder();
-            var firstFile = await WriteFileAsync(result, metaModel.BaseCurrency);
-            files.Add(new Tuple<int, string>(metaModel.PageIndex, firstFile));
-
-            var totalPage = (result.TotalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
+            var totalPage = (result.Item1 - 1) / _excelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex + 1;
             var exportTasks = new List<Task<Tuple<int, string>>>();
             while (nextPage <= totalPage)
@@ -77,8 +78,7 @@
             }
 
             var fileNames = await Task.WhenAll(exportTasks).ConfigureAwait(false);
-            files.AddRange(fileNames);
-            result.DataList = Enumerable.Empty<AuditTicket>();
+            files.AddRange(fileNames.Where(x => x != null));
             return ZipExcelFile(files);
         }
 
@@ -94,13 +94,17 @@
                 UpdateUspParams(db, metaModel);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    result.DataList = ReadMainData(reader, statusNames, productNames);
-
-                    if (reader.NextResult() && reader.Read())
+                    if (reader.Read())
                     {
-                        result.TotalData = ReadTotalData(reader);
                         result.TotalRows = Convert.ToInt32(reader["TotalRows"]);
-                    }
+                        result.TotalData = new AuditTicket
+                        {
+                            Turnover = Convert.ToDecimal(reader["TotalTurnover"]),
+                            WinLoss = Convert.ToDecimal(reader["TotalWinLoss"])
+                        };
+
+                        result.DataList = ReadMainData(reader, statusNames, productNames);
+                    }              
                 }
             }
 
@@ -113,6 +117,8 @@
             IDictionary<string, string> productNames)
         {
             var result = new List<AuditTicket>();
+            result.Add(ReadMainDataItem(reader, statusNames, productNames));
+
             while (reader.Read())
             {
                 result.Add(ReadMainDataItem(reader, statusNames, productNames));
@@ -138,15 +144,6 @@
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
                 WinLoss = Convert.ToDecimal(reader["WinLoss"]),
                 Status = statusNames[Convert.ToInt16(reader["Status"])]
-            };
-        }
-
-        private static AuditTicket ReadTotalData(IDataReader reader)
-        {
-            return new AuditTicket
-            {
-                Turnover = Convert.ToDecimal(reader["Turnover"]),
-                WinLoss = Convert.ToDecimal(reader["WinLoss"])
             };
         }
 
@@ -196,79 +193,97 @@
         public async Task<Tuple<int, string>> ExportOnePageAsync(
             DailyBetsMetaModel metaModel,
             IDictionary<int, string> statusNames,
-            IDictionary<string, string> productNames)
+            IDictionary<string, string> productNames,
+            bool isFristPage = false)
         {
-            var fileName = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
-
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
                 UpdateUspParams(db, metaModel);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    using (StreamWriter stw = new StreamWriter(fileName, false, Encoding.UTF8))
+                    if (reader.Read())
                     {
-                        await AddHeaderAsync(stw).ConfigureAwait(false);
-                        await WriteMainData(reader, stw, statusNames, productNames).ConfigureAwait(false);
+                        var totalRow = Convert.ToInt32(reader["TotalRows"]);
+                        var totalTurnover = Convert.ToDecimal(reader["TotalTurnover"]);
+                        var totalWinLoss = Convert.ToDecimal(reader["TotalWinLoss"]);
 
-                        if (reader.NextResult() && reader.Read())
+                        var fileName = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
+                        using (StreamWriter stw = new StreamWriter(fileName, false, Encoding.UTF8))
                         {
-                            await AddFooterAsync(stw, ReadTotalData(reader), metaModel.BaseCurrency);
+                            await AddHeaderAsync(stw).ConfigureAwait(false);
+                            await WriteMainDataAsync(reader, stw, statusNames, productNames).ConfigureAwait(false);
+                            await AddFooterAsync(stw, totalTurnover, totalWinLoss, metaModel.BaseCurrency).ConfigureAwait(false);
                         }
+
+                        return isFristPage ? new Tuple<int, string>(totalRow, fileName) : new Tuple<int, string>(metaModel.PageIndex, fileName);
                     }
+
+                    return new Tuple<int, string>(0, null);
                 }
             }
-
-            return new Tuple<int, string>(metaModel.PageIndex, fileName);
         }
 
-        private async Task WriteMainData(
+        private async Task WriteMainDataAsync(
             IDataReader reader,
             StreamWriter streamWriter,
             IDictionary<int, string> statusNames,
             IDictionary<string, string> productNames)
         {
+            var rowBuilder = new StringBuilder();
+            await WriteMainDataItemAsync(reader, streamWriter, rowBuilder, statusNames, productNames).ConfigureAwait(false);
+
             while (reader.Read())
             {
-                var rowBuilder = new StringBuilder();
-                rowBuilder.Append(Convert.ToInt32(reader["Index"]));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(reader["PlayerName"].ToString());
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(reader["CurrencyName"].ToString());
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(ConvertBigNumberToText(Convert.ToInt64(reader["RefNo"])));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(Convert.ToDateTime(reader["TransTime"]));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(productNames[reader["ProductCode"].ToString()]);
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(QuoteText(reader["BetType"].ToString()));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(QuoteText(Convert.ToDecimal(reader["Turnover"]).ToString(DecimalFormat)));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(QuoteText(Convert.ToDecimal(reader["WinLoss"]).ToString(DecimalFormat)));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(statusNames[Convert.ToInt16(reader["Status"])]);
-
-                await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
-                rowBuilder.Clear();
+                await WriteMainDataItemAsync(reader, streamWriter, rowBuilder, statusNames, productNames).ConfigureAwait(false);
             }
         }
 
-        private async Task<string> WriteFileAsync(
-            ResultModel<AuditTicket> data,
-            string baseCurrency)
+        private async Task WriteMainDataItemAsync(
+            IDataReader reader,
+            StreamWriter streamWriter,
+            StringBuilder rowBuilder,
+            IDictionary<int, string> statusNames,
+            IDictionary<string, string> productNames)
         {
-            var fileName = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
+            rowBuilder.Append(reader["Index"]);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
 
-            using (StreamWriter stw = new StreamWriter(fileName, false, Encoding.UTF8))
-            {
-                await AddHeaderAsync(stw).ConfigureAwait(false);
-                await AddBodyAsync(stw, data.DataList);
-                await AddFooterAsync(stw, data.TotalData, baseCurrency);
-            }
+            rowBuilder.Append(reader["PlayerName"]);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
 
-            return fileName;
+            rowBuilder.Append(reader["CurrencyName"]);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            AddBigNumberAsText(rowBuilder, reader["RefNo"].ToString());
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(reader["TransTime"]);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(productNames[reader["ProductCode"].ToString()]);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(reader["BetType"]);
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(reader["Turnover"]);
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(reader["WinLoss"]);
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(statusNames[Convert.ToInt16(reader["Status"])]);
+
+            await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
+            rowBuilder.Clear();
         }
 
         private static IDictionary<string, string> GetProductName(string productCodeString)
@@ -290,88 +305,51 @@
 
         private async Task AddHeaderAsync(StreamWriter streamWriter)
         {
-            var header = new[]
-            {
-                "#",
-                ViewResources.PlayerName,
-                ViewResources.Currency,
-                ViewResources.RefNo,
-                ViewResources.TransTime,
-                ViewResources.Product,
-                ViewResources.BetType,
-                ViewResources.Turnover,
-                ViewResources.WinLoss,
-                ViewResources.Status
-            };
-
-            await streamWriter.WriteLineAsync(string.Join(_excelOptions.CSVSeparateCharacter, header)).ConfigureAwait(false);
+            await streamWriter.WriteLineAsync(
+                "#"
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.PlayerName
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.Currency
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.RefNo
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.TransTime
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.Product
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.BetType
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.Turnover
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.WinLoss
+                + _excelOptions.CSVSeparateCharacter
+                + ViewResources.Status).ConfigureAwait(false);
         }
 
-        private async Task AddFooterAsync(StreamWriter streamWriter, AuditTicket data, string baseCurrency)
+        private async Task AddFooterAsync(StreamWriter streamWriter, decimal turnover, decimal winLoss, string baseCurrency)
         {
-            var footer = new[]
-            {
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Format(ViewResources.Totalin, baseCurrency),
-                QuoteText(data.Turnover.ToString(DecimalFormat)),
-                QuoteText(data.WinLoss.ToString(DecimalFormat)),
-                string.Empty
-            };
-
-            await streamWriter.WriteLineAsync(string.Join(_excelOptions.CSVSeparateCharacter, footer));
+            await streamWriter.WriteLineAsync(
+                _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVSeparateCharacter
+                + string.Format(ViewResources.Totalin, baseCurrency)
+                + _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVTextDelimiter + turnover.ToString(DecimalFormat) + _excelOptions.CSVTextDelimiter
+                + _excelOptions.CSVSeparateCharacter
+                + _excelOptions.CSVTextDelimiter + winLoss.ToString(DecimalFormat) + _excelOptions.CSVTextDelimiter
+                + _excelOptions.CSVSeparateCharacter).ConfigureAwait(false);
         }
 
-        private async Task AddBodyAsync(
-            StreamWriter streamWriter,
-            IEnumerable<AuditTicket> data)
+        private void AddBigNumberAsText(StringBuilder rowBuilder, string bigNumber)
         {
-            var totalRows = data.Count();
-            var rowBuilder = new StringBuilder();
-            for (int i = 0; i < totalRows; i++)
-            {
-                var item = data.ElementAt(i);
-
-                rowBuilder.Append(item.Index);
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.PlayerName);
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.CurrencyName);
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(ConvertBigNumberToText(item.RefNo));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.TransTimeString);
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.ProductCode);
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(QuoteText(item.BetType));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(QuoteText(item.Turnover.ToString(DecimalFormat)));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(QuoteText(item.WinLoss.ToString(DecimalFormat)));
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(item.Status);
-                await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
-                rowBuilder.Clear();
-            }
-        }
-
-        private string ConvertBigNumberToText(long number)
-        {
+            rowBuilder.Append("=TEXT(" + bigNumber);
             const string TextFormular = "=TEXT({0},\"{1}\")";
 
-            var formatString = _excelOptions.CSVTextDelimiter == DefaultTextDelimiter
-                ? $"{DefaultTextDelimiter}0{DefaultTextDelimiter}"
-                : "0";
-
-            return QuoteText(string.Format(TextFormular, number, formatString));
+            rowBuilder.Append(_excelOptions.CSVTextDelimiter == DefaultTextDelimiter ? ",\"0\")" : "," + DefaultTextDelimiter + "\"0\"" + DefaultTextDelimiter + ")");
         }
-
-        private string QuoteText(string text) => $"{_excelOptions.CSVTextDelimiter}{text}{_excelOptions.CSVTextDelimiter}";
-
     }
 }
