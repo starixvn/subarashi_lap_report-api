@@ -14,6 +14,7 @@
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.Internal;
     using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
@@ -105,10 +106,13 @@
                 app.UseErrorHandler();
                 app.UseHsts();
             }
-
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
             app.UseIPFilter();
             app.UseCustomApiAuth();
-            app.UseHealthChecks("/health");
+            app.UseCustomHealthCheck();
             app.UseMvc();
         }
     }
