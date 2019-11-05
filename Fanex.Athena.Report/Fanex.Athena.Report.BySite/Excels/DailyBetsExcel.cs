@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
-    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -68,8 +67,8 @@
             _header = GetHeaderString();
             _footer = GetFooterString(totalData.Turnover, totalData.WinLoss, metaModel.BaseCurrency);
 
-            var productNames = GetProductName(metaModel.ProductCodeList);
-            var statusNames = GetStatusName();
+            var productNames = DailyBetsMetaModelExtension.GetProductName(metaModel.ProductCodeList);
+            var statusNames = DailyBetsMetaModelExtension.GetStatusName();
             var totalPage = (totalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex;
             var exportTasks = new List<Task<ZipEntry>>();
@@ -87,46 +86,14 @@
             return ZipExcelFile(files);
         }
 
-        private static void UpdateUspParams(IObjectDb db, DailyBetsMetaModel metaModel)
-        {
-            db.SetParameterValue("SiteName", metaModel.SiteName);
-            db.SetParameterValue("Date", metaModel.Date);
-            db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
-            db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
-            db.SetParameterValue("PageIndex", metaModel.PageIndex);
-            db.SetParameterValue("PageSize", metaModel.PageSize);
-
-            if (!string.IsNullOrWhiteSpace(metaModel.SortBy) && !string.IsNullOrWhiteSpace(metaModel.SortOrder))
-            {
-                db.SetParameterValue("SortBy", metaModel.SortBy);
-                db.SetParameterValue("SortOrder", metaModel.SortOrder);
-            }
-        }
-
-        private void CreateTempFolder()
-        {
-            var folderPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path);
-
-            _fileService.CreateFolder(folderPath);
-        }
-
-        private string ZipExcelFile(List<ZipEntry> files)
-        {
-            var zipPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.zip");
-
-            _fileService.Compress(files, zipPath, true);
-
-            return zipPath;
-        }
-
-        public async Task<ZipEntry> ExportOnePageAsync(
+        private async Task<ZipEntry> ExportOnePageAsync(
             DailyBetsMetaModel metaModel,
             IDictionary<int, string> statusNames,
             IDictionary<string, string> productNames)
         {
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                UpdateUspParams(db, metaModel);
+                metaModel.InjectToDbParameter(db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var fileName = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
@@ -200,23 +167,6 @@
             rowBuilder.Clear();
         }
 
-        private static IDictionary<string, string> GetProductName(string productCodeString)
-        {
-            var productCodes = productCodeString.Split(",");
-
-            return productCodes.ToDictionary(key => key, value => ViewResources.ResourceManager.GetString(value));
-        }
-
-        private static IDictionary<int, string> GetStatusName()
-        {
-            return new Dictionary<int, string>
-            {
-                { 0, ViewResources.Draw },
-                { 1, ViewResources.Won },
-                { -1, ViewResources.Lose }
-            };
-        }
-
         private void AddBigNumberAsText(StringBuilder rowBuilder, string bigNumber)
         {
             rowBuilder.Append("=TEXT(" + bigNumber + ",");
@@ -259,6 +209,22 @@
             };
 
             return string.Join(_excelOptions.CSVSeparateCharacter, footer);
+        }
+
+        private void CreateTempFolder()
+        {
+            var folderPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path);
+
+            _fileService.CreateFolder(folderPath);
+        }
+
+        private string ZipExcelFile(List<ZipEntry> files)
+        {
+            var zipPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.zip");
+
+            _fileService.Compress(files, zipPath, true);
+
+            return zipPath;
         }
     }
 }

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Extensions;
@@ -11,7 +10,6 @@
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Resources;
     using Fanex.Data;
 
     public class DailyBetsService : IDailyBetsService
@@ -41,16 +39,16 @@
             };
         }
 
-        public static async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel)
+        private static async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel)
         {
-            var productNames = GetProductName(metaModel.ProductCodeList);
-            var statusNames = GetStatusName();
+            var productNames = DailyBetsMetaModelExtension.GetProductName(metaModel.ProductCodeList);
+            var statusNames = DailyBetsMetaModelExtension.GetStatusName();
 
             var result = new List<AuditTicket>();
 
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                UpdateUspParams(db, metaModel);
+                metaModel.InjectToDbParameter(db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
@@ -80,39 +78,6 @@
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
                 WinLoss = Convert.ToDecimal(reader["WinLoss"]),
                 Status = statusNames[Convert.ToInt16(reader["Status"])]
-            };
-        }
-
-        private static void UpdateUspParams(IObjectDb db, DailyBetsMetaModel metaModel)
-        {
-            db.SetParameterValue("SiteName", metaModel.SiteName);
-            db.SetParameterValue("Date", metaModel.Date);
-            db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
-            db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
-            db.SetParameterValue("PageIndex", metaModel.PageIndex);
-            db.SetParameterValue("PageSize", metaModel.PageSize);
-
-            if (!string.IsNullOrWhiteSpace(metaModel.SortBy) && !string.IsNullOrWhiteSpace(metaModel.SortOrder))
-            {
-                db.SetParameterValue("SortBy", metaModel.SortBy);
-                db.SetParameterValue("SortOrder", metaModel.SortOrder);
-            }
-        }
-
-        private static IDictionary<string, string> GetProductName(string productCodeString)
-        {
-            var productCodes = productCodeString.Split(",");
-
-            return productCodes.ToDictionary(key => key, value => ViewResources.ResourceManager.GetString(value));
-        }
-
-        private static IDictionary<int, string> GetStatusName()
-        {
-            return new Dictionary<int, string>
-            {
-                { 0, ViewResources.Draw },
-                { 1, ViewResources.Won },
-                { -1, ViewResources.Lose }
             };
         }
     }
