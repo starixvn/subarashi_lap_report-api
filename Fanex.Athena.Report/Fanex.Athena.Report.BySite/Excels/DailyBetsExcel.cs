@@ -38,6 +38,8 @@
 
         private string _footer;
 
+        private string _tempFolderPath;
+
         public DailyBetsExcel(
             IDailyBetsRepository dailyBetsRepository,
             IFileService fileService,
@@ -91,7 +93,7 @@
                 metaModel.InjectToDbParameter(db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    var fileName = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.dat");
+                    var fileName = Path.Combine(_tempFolderPath, $"{Guid.NewGuid()}.dat");
                     using (StreamWriter stw = _fileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
                     {
                         await stw.WriteLineAsync(_header).ConfigureAwait(false);
@@ -206,18 +208,24 @@
 
         private void CreateTempFolder()
         {
-            var folderPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path);
-
-            _fileService.CreateFolder(folderPath);
+            _tempFolderPath = GetTempFolderPath();
+            _fileService.CreateFolder(_tempFolderPath);
         }
 
         private string ZipExcelFile(List<ZipEntry> files)
         {
-            var zipPath = Path.Combine(_enviroment.ContentRootPath, _excelOptions.Path, $"{Guid.NewGuid()}.zip");
+            var zipPath = Path.Combine(_tempFolderPath, $"{Guid.NewGuid()}.zip");
 
             _fileService.Compress(files, zipPath, true);
 
             return zipPath;
+        }
+
+        private string GetTempFolderPath()
+        {
+            var root = _fileService.GetParentDirectory(_enviroment.ContentRootPath);
+
+            return Path.Combine(root.FullName, _excelOptions.Path);
         }
     }
 }
