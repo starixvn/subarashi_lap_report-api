@@ -30,12 +30,12 @@
             var getMainDataTask = GetMainDataAsync(metaModel);
             var getTotalDataTask = _repository.GetTotalDataAsync(metaModel);
 
-            //await Task.WhenAll(getMainDataTask, getTotalDataTask).ConfigureAwait(false);
+            await Task.WhenAll(getMainDataTask, getTotalDataTask).ConfigureAwait(false);
 
-            var (totalRows, totalData) = await getTotalDataTask.ConfigureAwait(false);
+            var (totalRows, totalData) = await getTotalDataTask;
             return new ResultModel<AuditTicket>
             {
-                DataList = await getMainDataTask.ConfigureAwait(false),
+                DataList = await getMainDataTask,
                 TotalRows = totalRows,
                 TotalData = totalData
             };
