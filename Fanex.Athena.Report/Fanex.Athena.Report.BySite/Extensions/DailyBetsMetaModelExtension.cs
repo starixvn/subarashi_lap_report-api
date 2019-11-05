@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Report.BySite.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -30,21 +31,19 @@
             }
         }
 
-        public static IDictionary<string, string> GetProductName(string productCodeString)
-        {
-            var productCodes = productCodeString.Split(",");
-
-            return productCodes.ToDictionary(key => key, value => ViewResources.ResourceManager.GetString(value));
-        }
-
-        public static IDictionary<int, string> GetStatusName()
-        {
-            return new Dictionary<int, string>
+        public static readonly IDictionary<string, Func<string>> GetProductName = new Dictionary<string, Func<string>>
             {
-                { 0, ViewResources.Draw },
-                { 1, ViewResources.Won },
-                { -1, ViewResources.Lose }
+                { "SB", () => ViewResources.SB },
+                { "NG", () => ViewResources.NG },
+                { "CS", () => ViewResources.CS },
+                { "LC", () => ViewResources.LC },
             };
-        }
+
+        public static readonly IDictionary<int, Func<string>> GetStatusName = new Dictionary<int, Func<string>>
+            {
+                { 0, () => ViewResources.Draw },
+                { 1, () => ViewResources.Won },
+                { -1, () => ViewResources.Lose }
+            };
     }
 }

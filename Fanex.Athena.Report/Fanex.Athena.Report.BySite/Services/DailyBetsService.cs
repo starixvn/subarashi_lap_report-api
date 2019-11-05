@@ -41,9 +41,6 @@
 
         private static async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel)
         {
-            var productNames = DailyBetsMetaModelExtension.GetProductName(metaModel.ProductCodeList);
-            var statusNames = DailyBetsMetaModelExtension.GetStatusName();
-
             var result = new List<AuditTicket>();
 
             using (var db = ObjectDbFactory.CreateInstance(UspName))
@@ -53,7 +50,7 @@
                 {
                     while (reader.Read())
                     {
-                        result.Add(ReadMainDataItem(reader, statusNames, productNames));
+                        result.Add(ReadMainDataItem(reader));
                     }
                 }
             }
@@ -61,10 +58,7 @@
             return result;
         }
 
-        private static AuditTicket ReadMainDataItem(
-            IDataReader reader,
-            IDictionary<int, string> statusNames,
-            IDictionary<string, string> productNames)
+        private static AuditTicket ReadMainDataItem(IDataReader reader)
         {
             return new AuditTicket
             {
@@ -73,11 +67,11 @@
                 CurrencyName = reader["CurrencyName"].ToString(),
                 RefNo = Convert.ToInt64(reader["RefNo"]),
                 TransTime = Convert.ToDateTime(reader["TransTime"]),
-                ProductName = productNames[reader["ProductCode"].ToString()],
+                ProductName = DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()](),
                 BetType = reader["BetType"].ToString(),
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
                 WinLoss = Convert.ToDecimal(reader["WinLoss"]),
-                Status = statusNames[Convert.ToInt16(reader["Status"])]
+                Status = DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(reader["Status"])]()
             };
         }
     }

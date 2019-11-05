@@ -67,8 +67,6 @@
             _header = GetHeaderString();
             _footer = GetFooterString(totalData.Turnover, totalData.WinLoss, metaModel.BaseCurrency);
 
-            var productNames = DailyBetsMetaModelExtension.GetProductName(metaModel.ProductCodeList);
-            var statusNames = DailyBetsMetaModelExtension.GetStatusName();
             var totalPage = (totalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex;
             var exportTasks = new List<Task<ZipEntry>>();
@@ -76,7 +74,7 @@
             {
                 var pageMetaModel = metaModel.ShallowCopy();
                 pageMetaModel.PageIndex = nextPage;
-                exportTasks.Add(ExportOnePageAsync(pageMetaModel, statusNames, productNames));
+                exportTasks.Add(ExportOnePageAsync(pageMetaModel));
                 ++nextPage;
             }
 
@@ -86,10 +84,7 @@
             return ZipExcelFile(files);
         }
 
-        private async Task<ZipEntry> ExportOnePageAsync(
-            DailyBetsMetaModel metaModel,
-            IDictionary<int, string> statusNames,
-            IDictionary<string, string> productNames)
+        private async Task<ZipEntry> ExportOnePageAsync(DailyBetsMetaModel metaModel)
         {
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
@@ -104,7 +99,7 @@
                         var rowBuilder = new StringBuilder();
                         while (reader.Read())
                         {
-                            await WriteMainDataItemAsync(reader, stw, rowBuilder, statusNames, productNames).ConfigureAwait(false);
+                            await WriteMainDataItemAsync(reader, stw, rowBuilder).ConfigureAwait(false);
                         }
 
                         await stw.WriteLineAsync(_footer).ConfigureAwait(false);
@@ -122,9 +117,7 @@
         private async Task WriteMainDataItemAsync(
             IDataReader reader,
             StreamWriter streamWriter,
-            StringBuilder rowBuilder,
-            IDictionary<int, string> statusNames,
-            IDictionary<string, string> productNames)
+            StringBuilder rowBuilder)
         {
             rowBuilder.Append(reader["Index"]);
             rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
@@ -143,7 +136,7 @@
             rowBuilder.Append(reader["TransTime"]);
             rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(productNames[reader["ProductCode"].ToString()]);
+            rowBuilder.Append(DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()]());
             rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(_excelOptions.CSVTextDelimiter);
@@ -161,7 +154,7 @@
             rowBuilder.Append(_excelOptions.CSVTextDelimiter);
             rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(statusNames[Convert.ToInt16(reader["Status"])]);
+            rowBuilder.Append(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(reader["Status"])]());
 
             await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
             rowBuilder.Clear();

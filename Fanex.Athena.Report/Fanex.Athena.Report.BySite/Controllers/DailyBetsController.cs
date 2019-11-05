@@ -34,7 +34,7 @@
                 return NoContent();
             }
 
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.None);
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
 
             return File(stream, "application/octet-stream");
         }
