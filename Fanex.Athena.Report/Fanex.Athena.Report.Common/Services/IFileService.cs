@@ -7,6 +7,8 @@
 
     public interface IFileService
     {
+        DirectoryInfo GetParentDirectory(string path);
+
         void DeleteFile(string path);
 
         void CreateFolder(string path);

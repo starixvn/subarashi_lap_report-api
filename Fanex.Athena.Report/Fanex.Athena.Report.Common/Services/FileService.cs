@@ -8,6 +8,11 @@
 
     public class FileService : IFileService
     {
+        public DirectoryInfo GetParentDirectory(string path)
+        {
+            return Directory.GetParent(path);
+        }
+
         public void CreateFolder(string path)
         {
             if (!Directory.Exists(path))
