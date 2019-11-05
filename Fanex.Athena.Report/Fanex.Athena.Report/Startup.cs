@@ -107,13 +107,13 @@
                 app.UseErrorHandler();
                 app.UseHsts();
             }
+            app.UseCustomHealthCheck();
+            app.UseIPFilter();
+            app.UseCustomApiAuth();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-            app.UseCustomHealthCheck();
-            app.UseIPFilter();
-            app.UseCustomApiAuth();
             app.UseMvc();
         }
     }
