@@ -64,7 +64,16 @@
                      NativeDateTimeResolver.Instance,
                      // finally use standard resolver
                      ContractlessStandardResolver.Instance);
-
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                    ForwardedHeaders.XForwardedProto;
+                // Only loopback proxies are allowed by default.
+                // Clear that restriction because forwarders are enabled by explicit 
+                // configuration.
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
             services.AddMvc(option =>
             {
                 option.OutputFormatters.Add(new MessagePackOutputFormatter());
@@ -76,10 +85,7 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            app.UseForwardedHeaders();
 
             var dateformat = new DateTimeFormatInfo
             {
