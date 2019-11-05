@@ -151,7 +151,7 @@
                 // Copy template
                 var row = _builder.CopyRow(sheet, templateSheet, RowTotal, rowIndex);
                 row.Cells[ColumnAmount].SetCellValue((double)summary.Value.Amount);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + summary.Key);
+                row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, summary.Key));
 
                 // Merge first two column
                 _builder.MergeCells(sheet, firstRow: rowIndex, lastRow: rowIndex, firstCol: ColumnIndex, lastCol: ColumnSystemId);
