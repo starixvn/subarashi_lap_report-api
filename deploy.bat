@@ -1,1 +1,0 @@
-scp -r  %CompiledDirectory%\*  root@10.18.200.143:/var/www/lap.reportapi.main/Pub
