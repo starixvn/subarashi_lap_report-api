@@ -16,6 +16,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="deploy.bat" />
     <None Remove="deploy.LOCAL.bat" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
@@ -85,7 +92,6 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
