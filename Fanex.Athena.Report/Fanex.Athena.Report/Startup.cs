@@ -37,34 +37,43 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+            services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 
             services.AddMemoryCache();
+            LogManager
+              .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
+              .Use(new List<ILogEngine>
+               {
+                                 new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
+               });
 
+            FanexDataSetting.Setup(Configuration, HostingEnvironment.ContentRootPath);
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
-
+            services.AddSingleton(x => LogService.LoggerInstance);
+            SharedServiceDIConfig.Setup(services);
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
 
-            SharedServiceDIConfig.Setup(services);
-
-            LogManager
-                  .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
-                  .Use(new List<ILogEngine>
-                   {
-                         new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
-                   });
-            FanexDataSetting.ConnectDB(Configuration, HostingEnvironment.ContentRootPath);
 
             CompositeResolver.RegisterAndSetAsDefault(
                      // resolver custom types first
                      NativeDateTimeResolver.Instance,
                      // finally use standard resolver
                      ContractlessStandardResolver.Instance);
-
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                    ForwardedHeaders.XForwardedProto;
+                // Only loopback proxies are allowed by default.
+                // Clear that restriction because forwarders are enabled by explicit 
+                // configuration.
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
             services.AddMvc(option =>
             {
                 option.OutputFormatters.Add(new MessagePackOutputFormatter());
@@ -76,6 +85,8 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders();
+
             var dateformat = new DateTimeFormatInfo
             {
                 ShortDatePattern = "M/d/yyyy",
@@ -105,12 +116,7 @@
             else
             {
                 app.UseErrorHandler();
-                app.UseHsts();
             }
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
             app.UseCustomHealthCheck();
             app.UseIPFilter();
             app.UseCustomApiAuth();

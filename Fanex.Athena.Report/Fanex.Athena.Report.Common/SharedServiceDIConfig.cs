@@ -8,8 +8,9 @@
     {
         public static void Setup(IServiceCollection services)
         {
-            services.AddScoped<IExcelBuilder, ExcelBuilder>();
+            services.AddTransient<IExcelBuilder, ExcelBuilder>();
             services.AddSingleton<IBalanceUpService, BalanceUpService>();
+            services.AddSingleton<IFileService, FileService>();
         }
     }
 }
