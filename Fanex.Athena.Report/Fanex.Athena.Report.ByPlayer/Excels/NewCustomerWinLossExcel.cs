@@ -20,7 +20,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         private const int StartTemplateHeaderRowIndex = 2;
         private const int EndTemplateHeaderRowIndex = 3;
         private const int TemplateDataRowIndex = 4;
-        private const int TemplateTotalRowIndex = 5;
         private const int TemplateNoInfoRowIndex = 6;
 
         public const string FormatDate = "MM/dd/yyyy";
@@ -43,55 +42,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 
         private const int ColumnTemplateCount = 12;
 
-        public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
-        {
-            using (var excelPackage = GetExcelPackage(template, data, metaModel))
-            {
-                return excelPackage.GetAsByteArray();
-            }
-        }
-
-        public byte[] ExportFile(string template, IList<ResultModel<CustomerWinLoss>> data, CustomerWinLossMetaModel metaModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static ExcelPackage GetExcelPackage(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
-        {
-            const byte PageIndex = 0;
-            var title = BuildExcelTitle(metaModel);
-
-            var fi = new FileInfo(template);
-
-            var package = new ExcelPackage(fi);
-            var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
-            var currentSheet = package.Workbook.Worksheets.Add(SheetName);
-
-            AssignTitle(templateSheet, currentSheet, title);
-            AssignHeader(templateSheet, currentSheet);
-            AssignSheetData(templateSheet, currentSheet, PageIndex, metaModel.PageSize, data);
-
-            ProcessUI(currentSheet, metaModel);
-
-            package.Workbook.Worksheets.Delete(0);
-
-            return package;
-        }
-
-        private static void AssignTitle(ExcelWorksheet templateSheet, ExcelWorksheet currentSheet, string reportTitle)
-        {
-            var templateCell = templateSheet.Cells[TemplateTitleRowIndex, ColumnIndex];
-            var destinationCell = currentSheet.Cells[TemplateTitleRowIndex, ColumnIndex, TemplateTitleRowIndex, ColumnTemplateCount];
-            templateCell.Copy(destinationCell);
-
-            destinationCell.Merge = true;
-
-            currentSheet.SetValue(TemplateTitleRowIndex, ColumnIndex, reportTitle);
-        }
-
-        private static void AssignHeader(ExcelWorksheet templateSheet, ExcelWorksheet currentSheet)
-        {
-            var headerTextList = new[]
+        private static string[] HeaderTextList = new[]
             {
                 "#",
                 ViewResources.ExternalId,
@@ -107,87 +58,135 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 ViewResources.AmtDueToBA
             };
 
-            var sourceRow = templateSheet.Cells[StartTemplateHeaderRowIndex, ColumnIndex, EndTemplateHeaderRowIndex, ColumnTemplateCount];
-            var destinationRow = currentSheet.Cells[StartTemplateHeaderRowIndex, ColumnIndex, EndTemplateHeaderRowIndex, ColumnTemplateCount];
-            sourceRow.Copy(destinationRow);
-
-            for (var i = 1; i <= headerTextList.Length; i++)
-            {
-                currentSheet.Column(i).Width = templateSheet.Column(i).Width;
-
-                currentSheet.SetValue(StartTemplateHeaderRowIndex, i, headerTextList[i - 1]);
-            }
-
-            var customerWLCell = currentSheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
-            customerWLCell.Merge = true;
-
-            currentSheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerWl, ViewResources.WinLoss);
-            currentSheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerComm, ViewResources.Comm);
-            currentSheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerTotal, ViewResources.Total);
-
-            currentSheet.View.FreezePanes(TemplateDataRowIndex, ColumnTemplateCount + 1);
+        public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        {
+            return CreateAsByteArray(template, data, metaModel);
         }
 
-        public static void AssignSheetData(
-            ExcelWorksheet templateSheet,
-            ExcelWorksheet currentSheet,
+        public byte[] ExportFile(string template, IList<ResultModel<CustomerWinLoss>> data, CustomerWinLossMetaModel metaModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static byte[] CreateAsByteArray(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        {
+            var fileInfo = new FileInfo(template);
+
+            using (var package = new ExcelPackage(fileInfo))
+            {
+                var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
+                var title = BuildExcelTitle(metaModel);
+
+                if (data.DataList.Any())
+                {
+                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(data.TotalRows, metaModel.PageSize);
+
+                    for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+                    {
+                        var currentSheet = package.Workbook.Worksheets.Add($"{SheetName}{(sheetIndex + 1)}", templateSheet);
+                        currentSheet.DeleteRow(TemplateNoInfoRowIndex, 1);
+
+                        AssignTitle(currentSheet, title);
+                        AssignHeader(currentSheet);
+                        AssignDataList(currentSheet, sheetIndex, metaModel.PageSize, data);
+
+                        ProcessUI(currentSheet, metaModel);
+                    }
+                }
+                else
+                {
+                    var sheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
+                    const byte DeletedRowCount = 2;
+                    sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
+
+                    AssignTitle(sheet, title);
+                    AssignHeader(sheet);
+                    AssignNoInfoRow(sheet);
+                    ProcessUI(sheet, metaModel);
+                }
+
+                package.Workbook.Worksheets.Delete(TemplateSheetIndex);
+
+                return package.GetAsByteArray();
+            }
+        }
+
+        private static void AssignTitle(ExcelWorksheet sheet, string reportTitle)
+        {
+            var destinationCell = sheet.Cells[TemplateTitleRowIndex, ColumnIndex, TemplateTitleRowIndex, ColumnTemplateCount];
+            destinationCell.Merge = true;
+
+            sheet.SetValue(TemplateTitleRowIndex, ColumnIndex, reportTitle);
+        }
+
+        private static void AssignHeader(ExcelWorksheet sheet)
+        {
+            for (var i = 1; i <= HeaderTextList.Length; i++)
+            {
+                sheet.SetValue(StartTemplateHeaderRowIndex, i, HeaderTextList[i - 1]);
+            }
+
+            var customerWLCell = sheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
+            customerWLCell.Merge = true;
+
+            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerWl, ViewResources.WinLoss);
+            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerComm, ViewResources.Comm);
+            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerTotal, ViewResources.Total);
+
+            sheet.View.FreezePanes(TemplateDataRowIndex, ColumnIndex);
+        }
+
+        public static void AssignDataList(
+            ExcelWorksheet sheet,
             int pageIndex,
             int pageSize,
             ResultModel<CustomerWinLoss> data)
         {
             var dataList = data.DataList;
             var rowCount = Math.Min(dataList.Count(), checked((pageIndex + 1) * pageSize));
-            var rowIndex = 0;
+            var rowIndexPerSheet = 0;
+
+            sheet.InsertRow(TemplateDataRowIndex + 1, rowCount - 1, TemplateDataRowIndex);
 
             for (int index = pageIndex * pageSize; index < rowCount; index++)
             {
-                var currentRow = rowIndex + TemplateDataRowIndex;
-                var templateRow = templateSheet.Cells[TemplateDataRowIndex, ColumnIndex, TemplateDataRowIndex, ColumnTemplateCount];
-                var destinationRow = currentSheet.Cells[currentRow, ColumnIndex, currentRow, ColumnTemplateCount];
-                templateRow.Copy(destinationRow);
+                var currentRow = rowIndexPerSheet + TemplateDataRowIndex;
 
                 var customerWinloss = dataList.ElementAt(index);
-                currentSheet.SetValue(currentRow, ColumnIndex, index + 1);
-                currentSheet.SetValue(currentRow, ColumnExternalId, customerWinloss.ExternalId);
-                currentSheet.SetValue(currentRow, ColumnSystemId, customerWinloss.SystemId);
-                currentSheet.SetValue(currentRow, ColumnTurnover, customerWinloss.Turnover);
-                currentSheet.SetValue(currentRow, ColumnTotalTransaction, customerWinloss.TotalTransaction);
-                currentSheet.SetValue(currentRow, ColumnCustomerWl, customerWinloss.CustomerWL);
-                currentSheet.SetValue(currentRow, ColumnCustomerComm, customerWinloss.PlayerComm);
-                currentSheet.SetValue(currentRow, ColumnCustomerTotal, customerWinloss.CustomerWL + customerWinloss.PlayerComm);
-                currentSheet.SetValue(currentRow, ColumnBetEffective, customerWinloss.BetEffective);
-                currentSheet.SetValue(currentRow, ColumnLicenseeWl, customerWinloss.LicenseeWL);
-                currentSheet.SetValue(currentRow, ColumnBaCommission, customerWinloss.BAComm);
-                currentSheet.SetValue(currentRow, ColumnAmtDueToBa, customerWinloss.AmtDueToBA);
+                sheet.SetValue(currentRow, ColumnIndex, index + 1);
+                sheet.SetValue(currentRow, ColumnExternalId, customerWinloss.ExternalId);
+                sheet.SetValue(currentRow, ColumnSystemId, customerWinloss.SystemId);
 
-                rowIndex++;
+                AssignCommonCells(sheet, customerWinloss, currentRow);
+
+                rowIndexPerSheet++;
             }
 
-            AssignSumData(currentSheet, templateSheet, data.TotalData, rowIndex);
+            AssignSumData(sheet, data.TotalData, rowIndexPerSheet);
         }
 
-        private static void ProcessUI(ExcelWorksheet currentSheet, CustomerWinLossMetaModel metaModel)
+        private static void AssignSumData(ExcelWorksheet sheet, CustomerWinLoss totalData, int numberOfDataRow)
         {
-            if (!metaModel.SystemIdVisible)
-            {
-                currentSheet.Column(ColumnSystemId).Hidden = true;
-            }
+            var totalRowIndex = checked(numberOfDataRow + TemplateDataRowIndex);
 
-            if (!metaModel.IsAllowedCustomerComm)
-            {
-                currentSheet.Column(ColumnCustomerTotal).Hidden = true;
-                currentSheet.Column(ColumnCustomerComm).Hidden = true;
+            AssignCommonCells(sheet, totalData, totalRowIndex);
 
-                var customerWLCell = currentSheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerComm];
-                customerWLCell.Merge = false;
-                currentSheet.Row(EndTemplateHeaderRowIndex).Hidden = true;
-            }
+            var mergedCellRange = sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnSystemId];
+            mergedCellRange.Value = ViewResources.Total;
+            mergedCellRange.Merge = true;
+        }
 
-            if (!metaModel.IsAllowBA)
-            {
-                currentSheet.Column(ColumnBaCommission).Hidden = true;
-                currentSheet.Column(ColumnAmtDueToBa).Hidden = true;
-            }
+        private static void AssignCommonCells(ExcelWorksheet sheet, CustomerWinLoss dataItem, int rowIndex)
+        {
+            sheet.SetValue(rowIndex, ColumnTurnover, dataItem.Turnover);
+            sheet.SetValue(rowIndex, ColumnTotalTransaction, dataItem.TotalTransaction);
+            sheet.SetValue(rowIndex, ColumnCustomerWl, dataItem.CustomerWL);
+            sheet.SetValue(rowIndex, ColumnCustomerComm, dataItem.PlayerComm);
+            sheet.SetValue(rowIndex, ColumnCustomerTotal, dataItem.CustomerWL + dataItem.PlayerComm);
+            sheet.SetValue(rowIndex, ColumnBetEffective, dataItem.BetEffective);
+            sheet.SetValue(rowIndex, ColumnLicenseeWl, dataItem.LicenseeWL);
+            sheet.SetValue(rowIndex, ColumnBaCommission, dataItem.BAComm);
+            sheet.SetValue(rowIndex, ColumnAmtDueToBa, dataItem.AmtDueToBA);
         }
 
         private static string BuildExcelTitle(CustomerWinLossMetaModel metaModel)
@@ -202,27 +201,35 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                                         filterTitle);
         }
 
-        private static void AssignSumData(ExcelWorksheet currentSheet, ExcelWorksheet templateSheet, CustomerWinLoss totalData, int numberOfDataRow)
+        private static void AssignNoInfoRow(ExcelWorksheet sheet)
         {
-            var rowTotalNumber = checked(numberOfDataRow + TemplateDataRowIndex);
+            sheet.SetValue(TemplateNoInfoRowIndex, 1, ViewResources.NoInfo);
+            var noInfoRow = sheet.Cells[TemplateNoInfoRowIndex, ColumnIndex, TemplateNoInfoRowIndex, ColumnTemplateCount];
+            noInfoRow.Merge = true;
+        }
 
-            var templateRow = templateSheet.Cells[TemplateTotalRowIndex, ColumnIndex, TemplateTotalRowIndex, ColumnTemplateCount];
-            var destinationRow = currentSheet.Cells[rowTotalNumber, ColumnIndex, rowTotalNumber, ColumnTemplateCount];
-            templateRow.Copy(destinationRow);
+        private static void ProcessUI(ExcelWorksheet currentSheet, CustomerWinLossMetaModel metaModel)
+        {
+            if (!metaModel.SystemIdVisible)
+            {
+                currentSheet.Column(ColumnSystemId).Hidden = true;
+            }
 
-            currentSheet.SetValue(rowTotalNumber, ColumnTurnover, totalData.Turnover);
-            currentSheet.SetValue(rowTotalNumber, ColumnTotalTransaction, totalData.TotalTransaction);
-            currentSheet.SetValue(rowTotalNumber, ColumnCustomerWl, totalData.CustomerWL);
-            currentSheet.SetValue(rowTotalNumber, ColumnCustomerComm, totalData.PlayerComm);
-            currentSheet.SetValue(rowTotalNumber, ColumnCustomerTotal, totalData.CustomerWL + totalData.PlayerComm);
-            currentSheet.SetValue(rowTotalNumber, ColumnBetEffective, totalData.BetEffective);
-            currentSheet.SetValue(rowTotalNumber, ColumnLicenseeWl, totalData.LicenseeWL);
-            currentSheet.SetValue(rowTotalNumber, ColumnBaCommission, totalData.BAComm);
-            currentSheet.SetValue(rowTotalNumber, ColumnAmtDueToBa, totalData.AmtDueToBA);
+            if (!metaModel.IsAllowedCustomerComm)
+            {
+                currentSheet.Column(ColumnCustomerTotal).Hidden = true;
+                currentSheet.Column(ColumnCustomerComm).Hidden = true;
 
-            var mergedCellRange = currentSheet.Cells[rowTotalNumber, ColumnIndex, rowTotalNumber, ColumnSystemId];
-            mergedCellRange.Value = ViewResources.Total;
-            mergedCellRange.Merge = true;
+                var customerWLCell = currentSheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
+                customerWLCell.Merge = false;
+                currentSheet.Row(EndTemplateHeaderRowIndex).Hidden = true;
+            }
+
+            if (!metaModel.IsAllowBA)
+            {
+                currentSheet.Column(ColumnBaCommission).Hidden = true;
+                currentSheet.Column(ColumnAmtDueToBa).Hidden = true;
+            }
         }
     }
 }

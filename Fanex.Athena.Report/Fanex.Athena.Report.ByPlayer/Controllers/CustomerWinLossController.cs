@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
+﻿using System.Threading.Tasks;
+using Fanex.Athena.Report.ByPlayer.DTO;
+using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Fanex.Athena.Report.ByPlayer.DTO;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
@@ -40,7 +40,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         }
 
         [HttpPost]
-        public async Task<FileContentResult> ExportExcel(
+        public async Task<FileResult> ExportExcel(
             [FromServices] IFileProvider file,
             [FromServices] ICustomerWinLossExcel excel,
             CustomerWinLossMetaModel metaModel)
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
 
             var fileContent = excel.Export(template, data, metaModel);
 
-            return new FileContentResult(fileContent, "application/octet-stream");
+            return File(fileContent, "application/octet-stream");
         }
 
         [HttpPost]
