@@ -20,6 +20,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         private const int StartTemplateHeaderRowIndex = 2;
         private const int EndTemplateHeaderRowIndex = 3;
         private const int TemplateDataRowIndex = 4;
+        private const int TemplateTotalRowIndex = 5;
         private const int TemplateNoInfoRowIndex = 6;
 
         public const string FormatDate = "MM/dd/yyyy";
@@ -88,6 +89,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 
                         AssignTitle(currentSheet, title);
                         AssignHeader(currentSheet);
+                        AssignSumData(currentSheet, data.TotalData);
                         AssignDataList(currentSheet, sheetIndex, metaModel.PageSize, data);
 
                         ProcessUI(currentSheet, metaModel);
@@ -142,17 +144,19 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             int pageSize,
             ResultModel<CustomerWinLoss> data)
         {
-            var dataList = data.DataList;
-            var rowCount = Math.Min(dataList.Count(), checked((pageIndex + 1) * pageSize));
+            var startIndex = pageIndex * pageSize;
+            var endIndex = Math.Min(data.TotalRows, checked((pageIndex + 1) * pageSize));
+            var itemCountPerSheet = endIndex - startIndex;
+
+            sheet.InsertRow(TemplateDataRowIndex + 1, itemCountPerSheet - 1, TemplateDataRowIndex);
+
             var rowIndexPerSheet = 0;
 
-            sheet.InsertRow(TemplateDataRowIndex + 1, rowCount - 1, TemplateDataRowIndex);
-
-            for (int index = pageIndex * pageSize; index < rowCount; index++)
+            for (int index = startIndex; index < endIndex; index++)
             {
                 var currentRow = rowIndexPerSheet + TemplateDataRowIndex;
 
-                var customerWinloss = dataList.ElementAt(index);
+                var customerWinloss = data.DataList.ElementAt(index);
                 sheet.SetValue(currentRow, ColumnIndex, index + 1);
                 sheet.SetValue(currentRow, ColumnExternalId, customerWinloss.ExternalId);
                 sheet.SetValue(currentRow, ColumnSystemId, customerWinloss.SystemId);
@@ -161,17 +165,13 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 
                 rowIndexPerSheet++;
             }
-
-            AssignSumData(sheet, data.TotalData, rowIndexPerSheet);
         }
 
-        private static void AssignSumData(ExcelWorksheet sheet, CustomerWinLoss totalData, int numberOfDataRow)
+        private static void AssignSumData(ExcelWorksheet sheet, CustomerWinLoss totalData)
         {
-            var totalRowIndex = checked(numberOfDataRow + TemplateDataRowIndex);
+            AssignCommonCells(sheet, totalData, TemplateTotalRowIndex);
 
-            AssignCommonCells(sheet, totalData, totalRowIndex);
-
-            var mergedCellRange = sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnSystemId];
+            var mergedCellRange = sheet.Cells[TemplateTotalRowIndex, ColumnIndex, TemplateTotalRowIndex, ColumnSystemId];
             mergedCellRange.Value = ViewResources.Total;
             mergedCellRange.Merge = true;
         }
@@ -208,27 +208,27 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             noInfoRow.Merge = true;
         }
 
-        private static void ProcessUI(ExcelWorksheet currentSheet, CustomerWinLossMetaModel metaModel)
+        private static void ProcessUI(ExcelWorksheet sheet, CustomerWinLossMetaModel metaModel)
         {
             if (!metaModel.SystemIdVisible)
             {
-                currentSheet.Column(ColumnSystemId).Hidden = true;
+                sheet.Column(ColumnSystemId).Hidden = true;
             }
 
             if (!metaModel.IsAllowedCustomerComm)
             {
-                currentSheet.Column(ColumnCustomerTotal).Hidden = true;
-                currentSheet.Column(ColumnCustomerComm).Hidden = true;
+                sheet.Column(ColumnCustomerTotal).Hidden = true;
+                sheet.Column(ColumnCustomerComm).Hidden = true;
 
-                var customerWLCell = currentSheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
+                var customerWLCell = sheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
                 customerWLCell.Merge = false;
-                currentSheet.Row(EndTemplateHeaderRowIndex).Hidden = true;
+                sheet.Row(EndTemplateHeaderRowIndex).Hidden = true;
             }
 
             if (!metaModel.IsAllowBA)
             {
-                currentSheet.Column(ColumnBaCommission).Hidden = true;
-                currentSheet.Column(ColumnAmtDueToBa).Hidden = true;
+                sheet.Column(ColumnBaCommission).Hidden = true;
+                sheet.Column(ColumnAmtDueToBa).Hidden = true;
             }
         }
     }
