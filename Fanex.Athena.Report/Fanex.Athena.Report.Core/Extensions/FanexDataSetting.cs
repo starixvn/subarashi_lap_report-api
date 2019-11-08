@@ -1,14 +1,13 @@
 ﻿namespace Fanex.Athena.Report.Core.Extensions
 {
     using System.Collections.Generic;
-    using System.IO;
     using Fanex.Data;
     using Fanex.Data.SqlServer;
     using Microsoft.Extensions.Configuration;
 
     public static class FanexDataSetting
     {
-        public static void Setup(IConfiguration configuration, string rootPath)
+        public static void Setup(IConfiguration configuration)
         {
             DbSettingProviderManager
             .StartNewSession()

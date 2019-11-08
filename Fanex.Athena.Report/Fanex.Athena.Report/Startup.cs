@@ -1,8 +1,10 @@
 ﻿namespace Fanex.Athena.Report
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using Fanex.Athena.Report.ByPlayer.DTO;
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
-    using Fanex.Athena.Report.ByPlayer.DTO;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Logging;
@@ -12,14 +14,11 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.HttpOverrides;
-    using Microsoft.AspNetCore.Internal;
     using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
-    using System.Collections.Generic;
-    using System.Globalization;
 
     public class Startup
     {
@@ -50,7 +49,7 @@
                                  new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
                });
 
-            FanexDataSetting.Setup(Configuration, HostingEnvironment.ContentRootPath);
+            FanexDataSetting.Setup(Configuration);
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
@@ -58,7 +57,6 @@
             SharedServiceDIConfig.Setup(services);
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
-
 
             CompositeResolver.RegisterAndSetAsDefault(
                      //// resolver custom types first
@@ -70,7 +68,7 @@
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
                     ForwardedHeaders.XForwardedProto;
                 // Only loopback proxies are allowed by default.
-                // Clear that restriction because forwarders are enabled by explicit 
+                // Clear that restriction because forwarders are enabled by explicit
                 // configuration.
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
