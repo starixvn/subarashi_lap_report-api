@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Fanex.Athena.Report.ByPlayer.DTO;
@@ -11,7 +12,7 @@ using OfficeOpenXml;
 
 namespace Fanex.Athena.Report.ByPlayer.Excels
 {
-    public class NewCustomerWinLossExcel : ICustomerWinLossExcel
+    public class CustomerWinLossExcel : ICustomerWinLossExcel
     {
         private const int TemplateSheetIndex = 0;
 
@@ -67,14 +68,15 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         {
             var fileInfo = new FileInfo(template);
 
-            using (var package = new ExcelPackage(fileInfo))
+            using (var package = new ExcelPackage(fileInfo, false))
             {
                 var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
                 var title = BuildExcelTitle(metaModel);
 
                 if (data.DataList.Any())
                 {
-                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(data.TotalRows, metaModel.PageSize);
+                    var totalRows = data.DataList.Count();
+                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, metaModel.PageSize);
 
                     for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
                     {
@@ -84,7 +86,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                         AssignTitle(currentSheet, title);
                         AssignHeader(currentSheet);
                         AssignSumData(currentSheet, data.TotalData);
-                        AssignDataList(currentSheet, sheetIndex, metaModel.PageSize, data);
+                        AssignDataList(currentSheet, sheetIndex, metaModel.PageSize, totalRows, data.DataList);
 
                         ProcessUI(currentSheet, metaModel);
                     }
@@ -136,10 +138,11 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             ExcelWorksheet sheet,
             int pageIndex,
             int pageSize,
-            ResultModel<CustomerWinLoss> data)
+            int totalRows,
+            IEnumerable<CustomerWinLoss> dataList)
         {
             var startIndex = pageIndex * pageSize;
-            var endIndex = Math.Min(data.TotalRows, checked((pageIndex + 1) * pageSize));
+            var endIndex = Math.Min(totalRows, checked((pageIndex + 1) * pageSize));
             var itemCountPerSheet = endIndex - startIndex;
 
             sheet.InsertRow(TemplateDataRowIndex + 1, itemCountPerSheet - 1, TemplateDataRowIndex);
@@ -150,7 +153,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             {
                 var currentRow = rowIndexPerSheet + TemplateDataRowIndex;
 
-                var customerWinloss = data.DataList.ElementAt(index);
+                var customerWinloss = dataList.ElementAt(index);
                 sheet.SetValue(currentRow, ColumnIndex, index + 1);
                 sheet.SetValue(currentRow, ColumnExternalId, customerWinloss.ExternalId);
                 sheet.SetValue(currentRow, ColumnSystemId, customerWinloss.SystemId);
