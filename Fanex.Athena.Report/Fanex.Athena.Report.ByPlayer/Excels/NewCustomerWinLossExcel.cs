@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Fanex.Athena.Report.ByPlayer.DTO;
@@ -62,11 +61,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             return CreateAsByteArray(template, data, metaModel);
-        }
-
-        public byte[] ExportFile(string template, IList<ResultModel<CustomerWinLoss>> data, CustomerWinLossMetaModel metaModel)
-        {
-            throw new NotImplementedException();
         }
 
         private static byte[] CreateAsByteArray(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)

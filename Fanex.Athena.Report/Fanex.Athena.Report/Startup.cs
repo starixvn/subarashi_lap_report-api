@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
-    using Fanex.Athena.Report.ByPlayer.DTO;
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
@@ -39,7 +38,6 @@
             services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
-            services.Configure<ExcelFileOptions>(Configuration.GetSection("AppSetting"));
 
             services.AddMemoryCache();
             LogManager

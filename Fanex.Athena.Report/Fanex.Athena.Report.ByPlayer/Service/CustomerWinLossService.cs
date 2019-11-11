@@ -1,15 +1,14 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services;
-using Fanex.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Fanex.Athena.Report.ByPlayer.DTO;
+using Fanex.Athena.Report.ByPlayer.MetaModels;
+using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Common.Services;
+using Fanex.Data;
 
 namespace Fanex.Athena.Report.ByPlayer.Service
 {
@@ -59,71 +58,6 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                     }
 
                     return result;
-                }
-            }
-        }
-
-        public async Task<IList<ResultModel<CustomerWinLoss>>> GetGroupResult(
-            CustomerWinLossMetaModel metaModel,
-            int rowPerGroup)
-        {
-            const string UspName = "Lrf_Rpt_WinLoss";
-
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                await AddParametersAsync(db, metaModel).ConfigureAwait(false);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    var dataList = new List<CustomerWinLoss>();
-                    var index = 1;
-                    var count = 1;
-                    var groupData = new List<ResultModel<CustomerWinLoss>>();
-
-                    while (reader.Read())
-                    {
-                        var customerWinLoss = ReadDataItem(reader, index++);
-                        dataList.Add(customerWinLoss);
-
-                        if (count == rowPerGroup)
-                        {
-                            var result = new ResultModel<CustomerWinLoss>
-                            {
-                                DataList = dataList
-                            };
-
-                            groupData.Add(result);
-                            count = 0;
-                            dataList = new List<CustomerWinLoss>();
-                        }
-
-                        count++;
-                    }
-
-                    var lastResult = new ResultModel<CustomerWinLoss>
-                    {
-                        DataList = dataList
-                    };
-
-                    if (dataList.Any() && reader.NextResult() && reader.Read())
-                    {
-                        lastResult.TotalData = ReadTotalData(reader);
-                        lastResult.TotalRows = Convert.ToInt32(reader["TotalRows"]);
-                        lastResult.AdditionalInfo = Convert.ToString(reader["SumPromotionPrize"]);
-                    }
-                    else
-                    {
-                        lastResult.TotalData = new CustomerWinLoss();
-                    }
-
-                    foreach (var result in groupData)
-                    {
-                        result.TotalData = lastResult.TotalData;
-                    }
-
-                    groupData.Add(lastResult);
-
-                    return groupData;
                 }
             }
         }

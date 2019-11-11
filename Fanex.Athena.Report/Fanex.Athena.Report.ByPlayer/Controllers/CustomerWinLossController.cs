@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
@@ -13,16 +11,11 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
     [Route("api/[controller]/[action]")]
     public class CustomerWinLossController : ControllerBase
     {
-        public const string FormatDate = "MM/dd/yyyy";
-
         private readonly ICustomerWinLossService _customerWinLossService;
 
-        private readonly ExcelFileOptions _excelFileOptions;
-
-        public CustomerWinLossController(ICustomerWinLossService customerWinLossService, IOptions<ExcelFileOptions> excelFileOptions)
+        public CustomerWinLossController(ICustomerWinLossService customerWinLossService)
         {
             _customerWinLossService = customerWinLossService;
-            _excelFileOptions = excelFileOptions.Value;
         }
 
         [HttpPost]
@@ -51,23 +44,6 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             var fileContent = excel.Export(template, data, metaModel);
 
             return File(fileContent, "application/octet-stream");
-        }
-
-        [HttpPost]
-        public async Task<FileContentResult> ExportFile(
-            [FromServices] IFileProvider file,
-            [FromServices] ICustomerWinLossExcel excel,
-            CustomerWinLossMetaModel metaModel)
-        {
-            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx").PhysicalPath;
-            var data = await _customerWinLossService.GetGroupResult(metaModel, _excelFileOptions.MaxExcelFileRow).ConfigureAwait(false);
-
-            var fileContent = data.Count == 1 ? excel.Export(template, data[0], metaModel) :
-                excel.ExportFile(template, data, metaModel);
-
-            var contentType = data.Count == 1 ? "application/octet-stream" : "application/zip";
-
-            return new FileContentResult(fileContent, contentType);
         }
     }
 }
