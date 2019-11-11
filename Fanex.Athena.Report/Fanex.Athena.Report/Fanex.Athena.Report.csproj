@@ -16,6 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="deploy.bat" />
+    <None Remove="deploy.LOCAL.bat" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
@@ -23,6 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="deploy.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="deploy.LOCAL.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
