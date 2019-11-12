@@ -94,13 +94,13 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 else
                 {
                     var sheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
-                    const byte DeletedRowCount = 2;
-                    sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
-
                     AssignTitle(sheet, title);
                     AssignHeader(sheet);
                     AssignNoInfoRow(sheet);
                     ProcessUI(sheet, metaModel);
+
+                    const byte DeletedRowCount = 2;
+                    sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
                 }
 
                 package.Workbook.Worksheets.Delete(TemplateSheetIndex);
