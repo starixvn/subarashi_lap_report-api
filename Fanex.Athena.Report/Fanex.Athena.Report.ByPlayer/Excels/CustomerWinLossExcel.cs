@@ -7,13 +7,17 @@ using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Core.DTO;
 using Fanex.Athena.Report.Resources;
+using Microsoft.Extensions.Options;
 using OfficeOpenXml;
 
 namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     public class CustomerWinLossExcel : ICustomerWinLossExcel
     {
+        private readonly ExcelOptions _excelOptions;
+
         private const int TemplateSheetIndex = 0;
 
         private const int TemplateTitleRowIndex = 1;
@@ -59,12 +63,17 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 ViewResources.AmtDueToBA
             };
 
+        public CustomerWinLossExcel(IOptions<ExcelOptions> excelOptionsAccessor)
+        {
+            _excelOptions = excelOptionsAccessor.Value;
+        }
+
         public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             return CreateAsByteArray(template, data, metaModel);
         }
 
-        private static byte[] CreateAsByteArray(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        private byte[] CreateAsByteArray(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             var fileInfo = new FileInfo(template);
 
@@ -76,7 +85,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 if (data.DataList.Any())
                 {
                     var totalRows = data.DataList.Count();
-                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, metaModel.PageSize);
+                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, _excelOptions.MaximumRowPerFile);
 
                     for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
                     {
@@ -86,7 +95,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                         AssignTitle(currentSheet, title);
                         AssignHeader(currentSheet);
                         AssignSumData(currentSheet, data.TotalData);
-                        AssignDataList(currentSheet, sheetIndex, metaModel.PageSize, totalRows, data.DataList);
+                        AssignDataList(currentSheet, sheetIndex, _excelOptions.MaximumRowPerFile, totalRows, data.DataList);
 
                         ProcessUI(currentSheet, metaModel);
                     }
