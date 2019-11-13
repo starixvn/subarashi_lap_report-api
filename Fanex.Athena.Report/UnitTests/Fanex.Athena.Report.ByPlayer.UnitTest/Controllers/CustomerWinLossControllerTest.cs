@@ -6,6 +6,7 @@ using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
 using Newtonsoft.Json;
@@ -61,7 +62,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var physicalPath = @"D:\\CustomerWinLoss.xls";
             var fileInfo = Mock.Of<IFileInfo>(f => f.PhysicalPath == physicalPath);
             var fileProvider = new Mock<IFileProvider>();
-            fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xls")).Returns(fileInfo);
+            fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx")).Returns(fileInfo);
 
             var excelService = new Mock<ICustomerWinLossExcel>();
             var fileContent = new byte[0];
@@ -70,10 +71,11 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var controller = new CustomerWinLossController(service.Object);
 
             // Action
-            var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel);
+            var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileContentResult;
 
             // Assert
             Assert.Equal(fileContent, result.FileContents);
+            Assert.Equal("application/octet-stream", result.ContentType);
         }
     }
 }
