@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System.IO;
     using System.Threading.Tasks;
 
     using Fanex.Athena.Report.BySite.DTOs;
@@ -56,7 +55,7 @@
             [FromServices] IPlatformWinLossSummaryExcel excel,
             PlatformWinLossMetaModel metaModel)
         {
-            var template = file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xlsx").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/PlatformWinLossSummary.xls").PhysicalPath;
 
             var data = await _repository.GetSummaryDataAsync(metaModel).ConfigureAwait(false);
 

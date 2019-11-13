@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Report.Common.Excel
 {
+    using System.IO;
+    using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using NPOI.XSSF.UserModel;
-    using System.IO;
 
     public class ExcelBuilder : IExcelBuilder
     {
@@ -13,7 +13,7 @@
         {
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                var workbook = new XSSFWorkbook(stream);
+                var workbook = new HSSFWorkbook(stream);
                 var defaultStyle = workbook.CreateCellStyle();
                 defaultStyle.ShrinkToFit = true;
                 defaultStyle.WrapText = true;
