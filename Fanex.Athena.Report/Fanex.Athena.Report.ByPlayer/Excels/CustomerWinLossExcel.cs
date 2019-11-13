@@ -68,54 +68,55 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             _excelOptions = excelOptionsAccessor.Value;
         }
 
-        public byte[] Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        public Stream Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
-            return CreateAsByteArray(template, data, metaModel);
+            return CreateFileStream(template, data, metaModel);
         }
 
-        private byte[] CreateAsByteArray(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        private Stream CreateFileStream(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             var fileInfo = new FileInfo(template);
+            var outputStream = new MemoryStream();
 
-            using (var package = new ExcelPackage(fileInfo, false))
+            var package = new ExcelPackage(fileInfo, true);
+            var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
+            var title = BuildExcelTitle(metaModel);
+
+            if (data.DataList.Any())
             {
-                var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
-                var title = BuildExcelTitle(metaModel);
+                var totalRows = data.DataList.Count();
+                var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, _excelOptions.MaximumRowPerFile);
 
-                if (data.DataList.Any())
+                for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
                 {
-                    var totalRows = data.DataList.Count();
-                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, _excelOptions.MaximumRowPerFile);
+                    var currentSheet = package.Workbook.Worksheets.Add($"{SheetName}{(sheetIndex + 1)}", templateSheet);
+                    currentSheet.DeleteRow(TemplateNoInfoRowIndex, 1);
 
-                    for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
-                    {
-                        var currentSheet = package.Workbook.Worksheets.Add($"{SheetName}{(sheetIndex + 1)}", templateSheet);
-                        currentSheet.DeleteRow(TemplateNoInfoRowIndex, 1);
+                    AssignTitle(currentSheet, title);
+                    AssignHeader(currentSheet);
+                    AssignSumData(currentSheet, data.TotalData);
+                    AssignDataList(currentSheet, sheetIndex, _excelOptions.MaximumRowPerFile, totalRows, data.DataList);
 
-                        AssignTitle(currentSheet, title);
-                        AssignHeader(currentSheet);
-                        AssignSumData(currentSheet, data.TotalData);
-                        AssignDataList(currentSheet, sheetIndex, _excelOptions.MaximumRowPerFile, totalRows, data.DataList);
-
-                        ProcessUI(currentSheet, metaModel);
-                    }
+                    ProcessUI(currentSheet, metaModel);
                 }
-                else
-                {
-                    var sheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
-                    AssignTitle(sheet, title);
-                    AssignHeader(sheet);
-                    AssignNoInfoRow(sheet);
-                    ProcessUI(sheet, metaModel);
-
-                    const byte DeletedRowCount = 2;
-                    sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
-                }
-
-                package.Workbook.Worksheets.Delete(TemplateSheetIndex);
-
-                return package.GetAsByteArray();
             }
+            else
+            {
+                var sheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
+                AssignTitle(sheet, title);
+                AssignHeader(sheet);
+                AssignNoInfoRow(sheet);
+                ProcessUI(sheet, metaModel);
+
+                const byte DeletedRowCount = 2;
+                sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
+            }
+
+            package.Workbook.Worksheets.Delete(TemplateSheetIndex);
+            package.SaveAs(outputStream);
+            outputStream.Seek(0, SeekOrigin.Begin);
+
+            return outputStream;
         }
 
         private static void AssignTitle(ExcelWorksheet sheet, string reportTitle)

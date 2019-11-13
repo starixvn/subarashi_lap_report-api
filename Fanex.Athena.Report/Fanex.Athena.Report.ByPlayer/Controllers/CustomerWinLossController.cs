@@ -41,9 +41,9 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx").PhysicalPath;
             var data = await _customerWinLossService.GetDataList(metaModel).ConfigureAwait(false);
 
-            var fileContent = excel.Export(template, data, metaModel);
+            var stream = excel.Export(template, data, metaModel);
 
-            return File(fileContent, "application/octet-stream");
+            return File(stream, "application/octet-stream");
         }
     }
 }

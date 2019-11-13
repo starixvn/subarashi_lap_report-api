@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.Controllers;
 using Fanex.Athena.Report.ByPlayer.DTO;
@@ -65,16 +66,16 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx")).Returns(fileInfo);
 
             var excelService = new Mock<ICustomerWinLossExcel>();
-            var fileContent = new byte[0];
+            var fileContent = new MemoryStream(new byte[0]);
             excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(fileContent);
 
             var controller = new CustomerWinLossController(service.Object);
 
             // Action
-            var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileContentResult;
+            var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileStreamResult;
 
             // Assert
-            Assert.Equal(fileContent, result.FileContents);
+            Assert.Equal(fileContent, result.FileStream);
             Assert.Equal("application/octet-stream", result.ContentType);
         }
     }
