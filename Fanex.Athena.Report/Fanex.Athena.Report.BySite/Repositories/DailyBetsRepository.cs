@@ -22,10 +22,11 @@
                     if (reader.Read())
                     {
                         var totalRows = Convert.ToInt32(reader["TotalRows"]);
-                        var totalData = new AuditTicket
+
+                        var totalData = totalRows == 0 ? new AuditTicket() : new AuditTicket
                         {
-                            Turnover = reader["TotalTurnover"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["TotalTurnover"]),
-                            WinLoss = reader["TotalWinLoss"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["TotalWinLoss"])
+                            Turnover = Convert.ToDecimal(reader["TotalTurnover"]),
+                            WinLoss = Convert.ToDecimal(reader["TotalWinLoss"])
                         };
 
                         return (totalRows, totalData);
