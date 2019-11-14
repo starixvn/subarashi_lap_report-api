@@ -78,42 +78,45 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             var fileInfo = new FileInfo(template);
             var outputStream = new MemoryStream();
 
-            var package = new ExcelPackage(fileInfo, true);
-            var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
-            var title = BuildExcelTitle(metaModel);
-
-            if (data.DataList.Any())
+            using (var package = new ExcelPackage(fileInfo, true))
             {
-                var totalRows = data.DataList.Count();
-                var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, _excelOptions.MaximumRowPerFile);
+                var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
+                var title = BuildExcelTitle(metaModel);
 
-                for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+                if (data.DataList.Any())
                 {
-                    var currentSheet = package.Workbook.Worksheets.Add($"{SheetName}{(sheetIndex + 1)}", templateSheet);
-                    currentSheet.DeleteRow(TemplateNoInfoRowIndex, 1);
+                    var totalRows = data.DataList.Count();
+                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, _excelOptions.MaximumRowPerFile);
 
-                    AssignTitle(currentSheet, title);
-                    AssignHeader(currentSheet);
-                    AssignSumData(currentSheet, data.TotalData);
-                    AssignDataList(currentSheet, sheetIndex, _excelOptions.MaximumRowPerFile, totalRows, data.DataList);
+                    for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+                    {
+                        var currentSheet = package.Workbook.Worksheets.Add($"{SheetName}{(sheetIndex + 1)}", templateSheet);
+                        currentSheet.DeleteRow(TemplateNoInfoRowIndex, 1);
 
-                    ProcessUI(currentSheet, metaModel);
+                        AssignTitle(currentSheet, title);
+                        AssignHeader(currentSheet);
+                        AssignSumData(currentSheet, data.TotalData);
+                        AssignDataList(currentSheet, sheetIndex, _excelOptions.MaximumRowPerFile, totalRows, data.DataList);
+
+                        ProcessUI(currentSheet, metaModel);
+                    }
                 }
-            }
-            else
-            {
-                var sheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
-                AssignTitle(sheet, title);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet, metaModel);
+                else
+                {
+                    var sheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
+                    AssignTitle(sheet, title);
+                    AssignHeader(sheet);
+                    AssignNoInfoRow(sheet);
+                    ProcessUI(sheet, metaModel);
 
-                const byte DeletedRowCount = 2;
-                sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
+                    const byte DeletedRowCount = 2;
+                    sheet.DeleteRow(TemplateDataRowIndex, DeletedRowCount, true);
+                }
+
+                package.Workbook.Worksheets.Delete(TemplateSheetIndex);
+                package.SaveAs(outputStream);
             }
 
-            package.Workbook.Worksheets.Delete(TemplateSheetIndex);
-            package.SaveAs(outputStream);
             outputStream.Seek(0, SeekOrigin.Begin);
 
             return outputStream;
