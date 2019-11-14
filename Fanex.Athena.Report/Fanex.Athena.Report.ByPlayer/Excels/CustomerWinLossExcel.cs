@@ -78,7 +78,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             var fileInfo = new FileInfo(template);
             var outputStream = new MemoryStream();
 
-            using (var package = new ExcelPackage(fileInfo, true))
+            using (var package = new ExcelPackage(fileInfo, false))
             {
                 var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
                 var title = BuildExcelTitle(metaModel);
