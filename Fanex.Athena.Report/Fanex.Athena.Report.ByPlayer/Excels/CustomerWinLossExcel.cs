@@ -47,7 +47,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 
         private const int ColumnTemplateCount = 12;
 
-        private static string[] HeaderTextList = new[]
+        private readonly string[] HeaderTextList = new[]
             {
                 "#",
                 ViewResources.ExternalId,
@@ -130,7 +130,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             sheet.SetValue(TemplateTitleRowIndex, ColumnIndex, reportTitle);
         }
 
-        private static void AssignHeader(ExcelWorksheet sheet)
+        private void AssignHeader(ExcelWorksheet sheet)
         {
             for (var i = 1; i <= HeaderTextList.Length; i++)
             {
