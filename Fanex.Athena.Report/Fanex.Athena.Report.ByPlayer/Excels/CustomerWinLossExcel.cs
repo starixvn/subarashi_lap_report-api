@@ -140,7 +140,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             var customerWLCell = sheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
             customerWLCell.Merge = true;
 
-            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerWl, ViewResources.WinLoss);
+            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerWl, $"{ViewResources.Win}/{ViewResources.Loss}");
             sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerComm, ViewResources.Comm);
             sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerTotal, ViewResources.Total);
 
