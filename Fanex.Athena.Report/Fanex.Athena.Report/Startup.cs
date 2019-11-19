@@ -7,7 +7,7 @@
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Logging;
-    using Fanex.Logging.RabbitMQ;
+    using Fanex.Logging.Sentry.RavenClient;
     using MessagePack.AspNetCoreMvcFormatter;
     using MessagePack.Resolvers;
     using Microsoft.AspNetCore.Builder;
@@ -18,6 +18,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
+    using SharpRaven;
 
     public class Startup
     {
@@ -41,11 +42,11 @@
 
             services.AddMemoryCache();
             LogManager
-              .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
-              .Use(new List<ILogEngine>
-               {
-                                 new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
-               });
+                .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
+                .Use(new SentryLogging(new SentryEngineOptions
+                {
+                    Dsn = new Dsn(Configuration.GetSection("Sentry-Dsn").Value)
+                }));
 
             FanexDataSetting.Setup(Configuration);
             services.AddSingleton<IFileProvider>(x =>
