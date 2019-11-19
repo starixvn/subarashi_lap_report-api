@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     using Fanex.Athena.Report.BySite.DTOs;
@@ -44,7 +46,20 @@
             _builder = builder;
         }
 
-        public IWorkbook Export(string template, ResultModel<PlatformWinLossSummary> data, PlatformWinLossMetaModel metaModel)
+        public byte[] Export(string template, ResultModel<PlatformWinLossSummary> data, PlatformWinLossMetaModel metaModel)
+        {
+            var workBook = GetWorkbook(template, data, metaModel);
+
+            using (var stream = new MemoryStream())
+            {
+                workBook.Write(stream);
+                workBook.Close();
+
+                return stream.ToArray();
+            }
+        }
+
+        private IWorkbook GetWorkbook(string template, ResultModel<PlatformWinLossSummary> data, PlatformWinLossMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
             var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);

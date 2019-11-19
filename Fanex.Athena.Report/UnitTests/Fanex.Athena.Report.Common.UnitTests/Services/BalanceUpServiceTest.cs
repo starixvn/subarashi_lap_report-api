@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
+using System.Threading;
 using System.Threading.Tasks;
 using Fanex.Athena.ExtService.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
         [Fact]
         public async Task GetBalanceUpAsync_WhenCall_ReturnCorrectResultAsync()
         {
-            //Arrange
+            // Arrange
             var balanceupInfo = new BalanceUp
             {
                 BalanceUpDay = DateTime.Now,
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             var mockObjectDB = new Mock<IObjectDb>();
 
-            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>()))
+            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(mockIDataReader.Object));
 
             ObjectDbFactory.SwitchToTestingMode();
@@ -60,19 +61,18 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             var service = new BalanceUpService(_memoryCache);
 
-
-            ///Action
-
+            // Action
             var result = await service.GetBalanceUpAsync().ConfigureAwait(false);
 
-            ///Assert
+            // Assert
             Assert.Equal(result.BalanceUpDay, balanceupInfo.BalanceUpDay);
             Assert.Equal(result.MoveBetsDay, balanceupInfo.MoveBetsDay);
         }
+
         [Fact]
         public async Task GetBalanceUpAsync_WhenCall_ReturnDataFromCache()
         {
-            //Arrange
+            // Arrange
             var balanceupInfo = new BalanceUp
             {
                 BalanceUpDay = DateTime.Now,
@@ -82,11 +82,10 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             var service = new BalanceUpService(_memoryCache);
 
-            ///Action
-
+            // Action
             var result = await service.GetBalanceUpAsync().ConfigureAwait(false);
 
-            ///Assert
+            // Assert
             Assert.Equal(result, balanceupInfo);
 
         }

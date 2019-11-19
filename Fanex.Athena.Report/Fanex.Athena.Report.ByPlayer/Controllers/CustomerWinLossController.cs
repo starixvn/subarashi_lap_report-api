@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
@@ -34,19 +33,17 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         }
 
         [HttpPost]
-        public async Task<FileContentResult> ExportExcel(
+        public async Task<FileResult> ExportExcel(
             [FromServices] IFileProvider file,
             [FromServices] ICustomerWinLossExcel excel,
             CustomerWinLossMetaModel metaModel)
         {
-            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xls").PhysicalPath;
+            var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx").PhysicalPath;
             var data = await _customerWinLossService.GetDataList(metaModel).ConfigureAwait(false);
 
-            var workBook = excel.Export(template, data, metaModel);
-            var stream = new MemoryStream();
-            workBook.Write(stream);
+            var stream = excel.Export(template, data, metaModel);
 
-            return new FileContentResult(stream.ToArray(), "application/octet-stream");
+            return File(stream, "application/octet-stream");
         }
     }
 }

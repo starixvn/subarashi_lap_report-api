@@ -19,6 +19,7 @@
     <None Remove="deploy.bat" />
     <None Remove="deploy.LOCAL.bat" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
+    <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
     <None Remove="SpConfig\FanexSpName.xml" />
@@ -34,6 +35,9 @@
     <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -46,8 +50,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fanex.Data" Version="4.1.5" />
-    <PackageReference Include="Fanex.Data.SqlServer" Version="4.1.5" />
+    <PackageReference Include="Fanex.Data" Version="4.2.0" />
+    <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.0" />
     <PackageReference Include="Fanex.Logging" Version="2.0.1" />
     <PackageReference Include="Fanex.Logging.RabbitMQ" Version="1.0.1" />
     <PackageReference Include="MessagePack" Version="1.7.3.7" />

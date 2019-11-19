@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Common.Services;
 using Fanex.Data;
@@ -67,18 +68,18 @@ namespace Fanex.Athena.Report.ByPlayer.Service
             return new CustomerWinLoss
             {
                 Index = index,
-                CustId = Convert.ToInt32(reader["CustID"]),
-                ExternalId = Convert.ToString(reader["nickname"]),
-                SystemId = Convert.ToString(reader["username"]),
-                Turnover = Convert.ToDecimal(reader["turnover"]),
-                TotalTransaction = Convert.ToInt32(reader["betcount"]),
-                CustomerWL = Convert.ToDecimal(reader["memberwinlost"]),
-                BetEffective = Convert.ToDecimal(reader["beteffective"]),
-                PlayerComm = Convert.ToDecimal(reader["playercomm"]),
-                CustomerTotalWL = Convert.ToDecimal(reader["customertotalwl"]),
-                LicenseeWL = Convert.ToDecimal(reader["licenseewl"]),
-                BAComm = Convert.ToDecimal(reader["commba"]),
-                AmtDueToBA = Convert.ToDecimal(reader["amtduetoba"])
+                CustId = reader.GetVal<int>("CustID"),
+                ExternalId = reader.GetVal<string>("nickname"),
+                SystemId = reader.GetVal<string>("username"),
+                Turnover = reader.GetVal<decimal>("turnover"),
+                TotalTransaction = reader.GetVal<int>("betcount"),
+                CustomerWL = reader.GetVal<decimal>("memberwinlost"),
+                BetEffective = reader.GetVal<decimal>("beteffective"),
+                PlayerComm = reader.GetVal<decimal>("playercomm"),
+                CustomerTotalWL = reader.GetVal<decimal>("customertotalwl"),
+                LicenseeWL = reader.GetVal<decimal>("licenseewl"),
+                BAComm = reader.GetVal<decimal>("commba"),
+                AmtDueToBA = reader.GetVal<decimal>("amtduetoba")
             };
         }
 
@@ -106,15 +107,15 @@ namespace Fanex.Athena.Report.ByPlayer.Service
         {
             return new CustomerWinLoss
             {
-                Turnover = Convert.ToDecimal(reader["sumturnover"]),
-                TotalTransaction = Convert.ToInt32(reader["sumbetcount"]),
-                CustomerWL = Convert.ToDecimal(reader["summemberwinlost"]),
-                PlayerComm = Convert.ToDecimal(reader["sumplayercomm"]),
-                LicenseeWL = Convert.ToDecimal(reader["sumlicenseewl"]),
-                BAComm = Convert.ToDecimal(reader["sumcommba"]),
-                AmtDueToBA = Convert.ToDecimal(reader["sumamtduetoba"]),
-                BetEffective = Convert.ToDecimal(reader["sumbeteffective"]),
-                CustomerTotalWL = Convert.ToDecimal(reader["sumcustomertotalwl"])
+                Turnover = reader.GetVal<decimal>("sumturnover"),
+                TotalTransaction = reader.GetVal<int>("sumbetcount"),
+                CustomerWL = reader.GetVal<decimal>("summemberwinlost"),
+                PlayerComm = reader.GetVal<decimal>("sumplayercomm"),
+                LicenseeWL = reader.GetVal<decimal>("sumlicenseewl"),
+                BAComm = reader.GetVal<decimal>("sumcommba"),
+                AmtDueToBA = reader.GetVal<decimal>("sumamtduetoba"),
+                BetEffective = reader.GetVal<decimal>("sumbeteffective"),
+                CustomerTotalWL = reader.GetVal<decimal>("sumcustomertotalwl")
             };
         }
     }

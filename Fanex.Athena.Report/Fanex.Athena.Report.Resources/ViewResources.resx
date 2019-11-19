@@ -288,4 +288,12 @@
   <data name="Totalin" xml:space="preserve">
     <value>Total in {0}</value>
   </data>
+  <data name="Win" xml:space="preserve">
+    <value>Win</value>
+    <comment>118874</comment>
+  </data>
+  <data name="Loss" xml:space="preserve">
+    <value>Loss</value>
+    <comment>118874</comment>
+  </data>
 </root>

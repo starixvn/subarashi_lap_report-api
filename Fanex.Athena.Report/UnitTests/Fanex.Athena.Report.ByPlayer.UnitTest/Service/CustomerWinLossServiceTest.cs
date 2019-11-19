@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using Fanex.Athena.ExtService.Common.Model.DTO;
@@ -155,7 +156,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
         private static Mock<IObjectDb> SetUpObjectDb(Mock<IDataReader> mockIDataReader)
         {
             var mockObjectDB = new Mock<IObjectDb>();
-            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>()))
+            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(mockIDataReader.Object));
 
             ObjectDbFactory.SwitchToTestingMode();

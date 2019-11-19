@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Excels\CustomerWinLossExcelTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.11.0" />
     <PackageReference Include="coverlet.msbuild" Version="2.6.3">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +26,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Excels\" />
   </ItemGroup>
 
 </Project>

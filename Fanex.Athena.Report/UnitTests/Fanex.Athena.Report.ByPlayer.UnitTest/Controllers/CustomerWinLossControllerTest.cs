@@ -7,10 +7,10 @@ using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
 using Newtonsoft.Json;
-using NPOI.SS.UserModel;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
@@ -63,19 +63,20 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var physicalPath = @"D:\\CustomerWinLoss.xls";
             var fileInfo = Mock.Of<IFileInfo>(f => f.PhysicalPath == physicalPath);
             var fileProvider = new Mock<IFileProvider>();
-            fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xls")).Returns(fileInfo);
+            fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx")).Returns(fileInfo);
 
-            var workBook = new Mock<IWorkbook>();
             var excelService = new Mock<ICustomerWinLossExcel>();
-            excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(workBook.Object);
+            var fileContent = new MemoryStream(new byte[0]);
+            excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(fileContent);
 
             var controller = new CustomerWinLossController(service.Object);
 
             // Action
-            await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel);
+            var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileStreamResult;
 
             // Assert
-            workBook.Verify(s => s.Write(It.IsAny<MemoryStream>()), Times.Once);
+            Assert.Equal(fileContent, result.FileStream);
+            Assert.Equal("application/octet-stream", result.ContentType);
         }
     }
 }
