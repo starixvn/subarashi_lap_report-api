@@ -51,7 +51,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                     {
                         result.TotalData = ReadTotalData(reader);
                         result.TotalRows = Convert.ToInt32(reader["TotalRows"]);
-                        result.AdditionalInfo = Convert.ToString(reader["PromotionPrize"]);
+                        result.AdditionalInfo = Convert.ToString(reader["SumPromotionPrize"]);
                     }
                     else
                     {
