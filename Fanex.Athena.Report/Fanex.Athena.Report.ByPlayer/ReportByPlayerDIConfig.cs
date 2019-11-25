@@ -1,5 +1,7 @@
 ﻿using Fanex.Athena.Report.ByPlayer.Excels;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
+using Fanex.Athena.Report.ByPlayer.Repositories;
+using Fanex.Athena.Report.ByPlayer.Repositories.Interfaces;
 using Fanex.Athena.Report.ByPlayer.Service;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,7 @@ namespace Fanex.Athena.Report.ByPlayer
             services.AddTransient<ICustomerWinLossService, CustomerWinLossService>();
             services.AddTransient<ICustomerWinLossExcel, CustomerWinLossExcel>();
             services.AddTransient<ICustomerBalanceService, CustomerBalanceService>();
-            //services.AddTransient<ICustomerBalanceExcel, CustomerBalanceExcel>();
+            services.AddTransient<ICustomerBalanceExcel, CustomerBalanceExcel>();
         }
     }
 }

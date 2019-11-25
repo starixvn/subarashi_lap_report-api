@@ -14,17 +14,16 @@ namespace Fanex.Athena.Report.ByPlayer.Service
 {
     public class CustomerBalanceService : ICustomerBalanceService
     {
-        private const int PageSizeExcel = int.MaxValue - 1000;
-
         public async Task<ResultModel<CustomerBalance>> GetDataList(CustomerBalanceMetaModel metaModel)
         {
             using (var db = ObjectDbFactory.CreateInstance("Lrf_Rpt_CustomerBalance"))
             {
                 AddParameters(db, metaModel);
 
+                var dataList = new List<CustomerBalance>();
+
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    var dataList = new List<CustomerBalance>();
                     var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                     while (reader.Read())
                     {
@@ -41,7 +40,6 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                     {
                         result.TotalData = ReadTotalData(reader);
                         result.TotalRows = Convert.ToInt32(reader["TotalRows"]);
-                        result.AdditionalInfo = Convert.ToString(reader["SumPromotionPrize"]);
                     }
                     else
                     {
