@@ -1,7 +1,5 @@
 ﻿using Fanex.Athena.Report.ByPlayer.Excels;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Repositories;
-using Fanex.Athena.Report.ByPlayer.Repositories.Interfaces;
 using Fanex.Athena.Report.ByPlayer.Service;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
