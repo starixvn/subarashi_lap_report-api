@@ -32,7 +32,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
                 AdditionalInfo = "AdditionalInfo"
             };
             var service = new Mock<ICustomerWinLossService>();
-            service.Setup(s => s.GetDataList(metaModel)).Returns(Task.FromResult(expectedReportData));
+            service.Setup(s => s.GetDataList(metaModel, true)).Returns(Task.FromResult(expectedReportData));
 
             var expectedResult = new
             {
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var metaModel = new CustomerWinLossMetaModel();
             var expectedReportData = new ResultModel<CustomerWinLoss>();
             var service = new Mock<ICustomerWinLossService>();
-            service.Setup(s => s.GetDataList(metaModel)).Returns(Task.FromResult(expectedReportData));
+            service.Setup(s => s.GetDataList(metaModel, false)).Returns(Task.FromResult(expectedReportData));
 
             var physicalPath = @"D:\\CustomerWinLoss.xls";
             var fileInfo = Mock.Of<IFileInfo>(f => f.PhysicalPath == physicalPath);

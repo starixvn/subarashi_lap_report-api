@@ -21,7 +21,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         [HttpPost]
         public async Task<dynamic> Index(CustomerWinLossMetaModel metaModel)
         {
-            var result = await _customerWinLossService.GetDataList(metaModel).ConfigureAwait(false);
+            var result = await _customerWinLossService.GetDataList(metaModel, true).ConfigureAwait(false);
 
             return new
             {

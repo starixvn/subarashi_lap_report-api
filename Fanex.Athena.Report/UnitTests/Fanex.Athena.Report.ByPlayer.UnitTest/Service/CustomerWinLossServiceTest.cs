@@ -57,7 +57,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var service = new CustomerWinLossService(_balanceUpService.Object);
 
             // Action
-            await service.GetDataList(metaModel);
+            await service.GetDataList(metaModel, !isExportExcel);
 
             // Assert
             mockObjectDB.Verify(od => od.SetParameterValue("fromdate", metaModel.FromDate), Times.Once);
@@ -69,6 +69,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             mockObjectDB.Verify(od => od.SetParameterValue("BaseCurrency", metaModel.BaseCurrency), Times.Once);
             mockObjectDB.Verify(od => od.SetParameterValue("showSB", true), Times.Once);
             mockObjectDB.Verify(od => od.SetParameterValue("showNG", false), Times.Once);
+            mockObjectDB.Verify(od => od.SetParameterValue("CheckPromotionPrize", !isExportExcel), Times.Once);
         }
 
         [Fact]

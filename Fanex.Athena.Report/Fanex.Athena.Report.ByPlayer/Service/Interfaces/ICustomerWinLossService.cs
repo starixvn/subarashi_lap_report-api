@@ -7,6 +7,6 @@ namespace Fanex.Athena.Report.ByPlayer.Service.Interfaces
 {
     public interface ICustomerWinLossService
     {
-        Task<ResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel);
+        Task<ResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel, bool checkPromotionPrize = false);
     }
 }

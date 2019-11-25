@@ -25,13 +25,13 @@ namespace Fanex.Athena.Report.ByPlayer.Service
             _balanceUpService = balanceUpService;
         }
 
-        public async Task<ResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel)
+        public async Task<ResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel, bool checkPromotionPrize = false)
         {
             const string UspName = "Lrf_Rpt_WinLoss";
 
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                await AddParametersAsync(db, metaModel).ConfigureAwait(false);
+                await AddParametersAsync(db, metaModel, checkPromotionPrize).ConfigureAwait(false);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
             };
         }
 
-        private async Task AddParametersAsync(IObjectDb db, CustomerWinLossMetaModel metaModel)
+        private async Task AddParametersAsync(IObjectDb db, CustomerWinLossMetaModel metaModel, bool checkPromotionPrize)
         {
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
@@ -97,6 +97,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
             db.SetParameterValue("OrderItem", metaModel.OrderItem);
             db.SetParameterValue("IsAscSort", metaModel.IsAscSort);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue("CheckPromotionPrize", checkPromotionPrize);
             foreach (var item in metaModel.ProductOptions)
             {
                 db.SetParameterValue("show" + item.Code, item.Status);
