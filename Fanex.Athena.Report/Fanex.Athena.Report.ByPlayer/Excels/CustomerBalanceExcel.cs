@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Text;
@@ -9,15 +8,12 @@
     using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
     using Fanex.Athena.Report.ByPlayer.Extensions;
     using Fanex.Athena.Report.ByPlayer.MetaModels;
-    using Fanex.Athena.Report.ByPlayer.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Model.MetaModels;
     using Fanex.Athena.Report.Common.Services;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Resources;
     using Fanex.Data;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
-    using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 
     public class CustomerBalanceExcel : ICustomerBalanceExcel
     {
@@ -25,29 +21,19 @@
 
         private readonly IHostingEnvironment _enviroment;
 
-        private readonly ICustomerBalanceService _service;
-
         private readonly IFileService _fileService;
 
-        private const string DefaultTextDelimiter = "\"";
-
-        private const string DecimalFormat = "0.00";
-
         private const string UspName = "Lrf_Rpt_CustomerBalance";
-
-        private string _header;
 
         private string _footer;
 
         private string _tempFolderPath;
 
         public CustomerBalanceExcel(
-            ICustomerBalanceService customerBalanceService,
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
             IHostingEnvironment enviroment)
         {
-            _service = customerBalanceService;
             _fileService = fileService;
             _excelOptions = excelOptionsAccessor.Value;
             _enviroment = enviroment;
@@ -56,7 +42,7 @@
         public async Task<string> Export(CustomerBalanceMetaModel metaModel)
         {
             CreateTempFolder();
-            _header = GetHeaderString();
+            var _header = GetHeaderString();
 
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
@@ -69,7 +55,7 @@
                         await stw.WriteLineAsync(_header).ConfigureAwait(false);
 
                         var rowBuilder = new StringBuilder();
-                        var index = 1;
+                        var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
                         while (reader.Read())
                         {
@@ -77,6 +63,11 @@
                             rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                             await WriteMainDataItemAsync(reader, stw, rowBuilder).ConfigureAwait(false);
                             index++;
+                        }
+
+                        if (index > 1 && reader.NextResult() && reader.Read())
+                        {
+                            _footer = GetFooterString(reader);
                         }
 
                         await stw.WriteLineAsync(_footer).ConfigureAwait(false);
@@ -162,44 +153,54 @@
                 ViewResources.SystemId,
                 ViewResources.OpeningBalance,
                 ViewResources.Deposit,
-                ViewResources.WithDrawal,
+                ViewResources.Withdrawal,
                 ViewResources.Bonus,
                 ViewResources.Adjustment,
                 ViewResources.Turnover,
                 ViewResources.DrawGame,
                 ViewResources.NetTurnover,
                 ViewResources.PendingFunds,
-                $"{ViewResources.Win} {ViewResources.Loss}",
-                ViewResources.Comm,
-                ViewResources.Total,
+                ViewResources.CustomerW_L,
+                $"{ViewResources.CustomerW_L} {ViewResources.Comm}",
+                $"{ViewResources.CustomerW_L} {ViewResources.Total}",
                 ViewResources.ClosingBalance,
                 ViewResources.AffiliateTransfer,
-                ViewResources.Turnover,
-                ViewResources.Comm,
-                ViewResources.AmountDueTo
+                $"{ViewResources.BA} {ViewResources.Turnover}",
+                ViewResources.BACommission,
+                ViewResources.AmtDueToBA
             };
 
             return string.Join(_excelOptions.CSVSeparateCharacter, headers);
         }
 
-        //private string GetFooterString(decimal turnover, decimal winLoss, string baseCurrency)
-        //{
-        //    var footer = new[]
-        //    {
-        //        string.Empty,
-        //        string.Empty,
-        //        string.Empty,
-        //        string.Empty,
-        //        string.Empty,
-        //        string.Empty,
-        //        string.Format(ViewResources.Totalin, baseCurrency),
-        //        _excelOptions.CSVTextDelimiter + turnover.ToString(DecimalFormat) + _excelOptions.CSVTextDelimiter,
-        //         _excelOptions.CSVTextDelimiter + winLoss.ToString(DecimalFormat) + _excelOptions.CSVTextDelimiter,
-        //        string.Empty
-        //    };
+        private string GetFooterString(IDataReader reader)
+        {
+            var footer = new[]
+            {
+                string.Empty,
+                string.Empty,
+                ViewResources.Total,
+                reader["sumopeningbalance"],
+                reader["sumdeposit"],
+                reader["sumwithdrawal"],
+                reader["sumbonus"],
+                reader["sumadjustment"],
+                reader["sumturnover"],
+                reader["sumdrawgame"],
+                Convert.ToDecimal(reader["sumturnover"]) - Convert.ToDecimal(reader["sumdrawgame"]),
+                reader["sumoutstanding"],
+                reader["sumwinloss"],
+                reader["sumplayercomm"],
+                Convert.ToDecimal(reader["sumwinloss"]) + Convert.ToDecimal(reader["sumplayercomm"]),
+                reader["sumclosingbalance"],
+                reader["sumaffiliatetransfer"],
+                reader["sumturnoverba"],
+                reader["sumcommba"],
+                reader["sumamountduetoba"]
+            };
 
-        //    return string.Join(_excelOptions.CSVSeparateCharacter, footer);
-        //}
+            return string.Join(_excelOptions.CSVSeparateCharacter, footer);
+        }
 
         private void CreateTempFolder()
         {

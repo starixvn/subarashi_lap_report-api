@@ -299,9 +299,6 @@
   <data name="AffiliateTransfer" xml:space="preserve">
     <value>Affiliate Transfer</value>
   </data>
-  <data name="AmountDueTo" xml:space="preserve">
-    <value>Amount Due To</value>
-  </data>
   <data name="ClosingBalance" xml:space="preserve">
     <value>Closing Balance</value>
   </data>
@@ -330,8 +327,8 @@
   <data name="OpeningBalance" xml:space="preserve">
     <value>Opening Balance</value>
   </data>
-  <data name="WithDrawal" xml:space="preserve">
-    <value>With Drawal</value>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>Withdrawal</value>
   </data>
   <data name="PromotionType" xml:space="preserve">
     <value>Promotion Type</value>
