@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.Helper;
-using Newtonsoft.Json;
-
-namespace Fanex.Athena.Report.ByPlayer.MetaModels
+﻿namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Athena.Report.Common.Model.DataDomain;
+    using Fanex.Athena.Report.Common.Model.DTO;
+    using Fanex.Athena.Report.Common.Model.Helper;
 
     public class CustomerBalanceMetaModel
     {
@@ -42,7 +39,6 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
 
         public string AgentListXml { get; set; }
 
-        [DefaultValue("")]
         public string BaseCurrency
         {
             get
@@ -69,10 +65,8 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
             }
         }
 
-        [DefaultValue("")]
         public string CurrencyName { get; set; }
 
-        [JsonIgnore]
         public bool IsConvert => SystemBaseCurrency.BaseCurrencyList.Any(t => t.Value.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase));
 
         public bool IsValid

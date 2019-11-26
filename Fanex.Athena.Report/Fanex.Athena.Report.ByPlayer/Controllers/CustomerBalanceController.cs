@@ -25,7 +25,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ExportExcel(CustomerBalanceMetaModel metaModel, [FromServices]ICustomerBalanceExcel excel)
+        public async Task<ActionResult> ExportExcel(CustomerBalanceMetaModel metaModel, [FromServices]ICustomerBalanceExcel excel)
         {
             var fileName = await excel.Export(metaModel).ConfigureAwait(false);
             
