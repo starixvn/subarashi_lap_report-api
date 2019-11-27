@@ -90,8 +90,11 @@
                 LongDatePattern = "MM/dd/yyyy",
                 LongTimePattern = "h:mm:ss tt"
             };
-
-            var supportedCultures = new List<CultureInfo>
+            var supportedCultures = new[]
+           {
+                new CultureInfo("en-US"){ DateTimeFormat= dateformat },
+            };
+            var supportedUICultures = new List<CultureInfo>
             {
                 new CultureInfo("en-US") { DateTimeFormat = dateformat },
                 new CultureInfo("zh-TW") { DateTimeFormat = dateformat },
@@ -102,7 +105,11 @@
             {
                 DefaultRequestCulture = new RequestCulture("en-US"),
                 SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
+                SupportedUICultures = supportedUICultures,
+                RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new ApiRequestCultureProvider()
+                },
             });
 
             if (env.IsDevelopment())
