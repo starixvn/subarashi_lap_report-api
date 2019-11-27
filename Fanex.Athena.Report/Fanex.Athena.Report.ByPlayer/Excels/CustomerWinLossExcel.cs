@@ -225,7 +225,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 sheet.Column(ColumnSystemId).Hidden = true;
             }
 
-            if (!metaModel.IsAllowedCustomerComm)
+            if (!metaModel.HasComm)
             {
                 sheet.Column(ColumnCustomerTotal).Hidden = true;
                 sheet.Column(ColumnCustomerComm).Hidden = true;
@@ -235,7 +235,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 sheet.Row(EndTemplateHeaderRowIndex).Hidden = true;
             }
 
-            if (!metaModel.IsAllowBA)
+            if (!metaModel.IsAllowedBA)
             {
                 sheet.Column(ColumnBaCommission).Hidden = true;
                 sheet.Column(ColumnAmtDueToBa).Hidden = true;
