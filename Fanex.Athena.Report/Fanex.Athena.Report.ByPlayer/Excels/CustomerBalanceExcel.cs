@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     using System;
+    using System.Collections.Immutable;
     using System.Data;
     using System.IO;
     using System.Text;
@@ -22,7 +23,24 @@
         private readonly IHostingEnvironment _enviroment;
 
         private readonly IFileService _fileService;
-
+        private static readonly string[] _commonColumns = new[] {
+                "openingbalance",
+                "deposit",
+                "withdrawal",
+                "bonus",
+                "adjustment",
+                "turnover",
+                "drawgame",
+                "netturnover",
+                 "outstanding",
+                 "winloss",
+                 "playercomm",
+                 "closingbalance",
+                 "affiliatetransfer",
+                 "TurnOverBA",
+                 "CommBA",
+                 "AmountDueToBA"
+            };
         public CustomerBalanceExcel(
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
@@ -45,16 +63,17 @@
                 {
                     using (StreamWriter stream = _fileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
                     {
-                        WriteHeaderToCSV(metaModel, stream);
+                        var rowBuilder = new StringBuilder();
+                        WriteHeaderToCSV(metaModel, stream, rowBuilder);
 
                         var index = 1;
                         while (reader.Read())
                         {
-                            WriteDataRowToCSV(stream, reader, metaModel, index);
+                            WriteContentRowToCSV(stream, reader, rowBuilder, metaModel, index);
                             index++;
                         }
 
-                        WriteFooterToCSV(reader, metaModel, stream);
+                        WriteFooterToCSV(reader, metaModel, stream, rowBuilder);
                     }
                 }
             }
@@ -62,9 +81,8 @@
             return fileName;
         }
 
-        private void WriteHeaderToCSV(CustomerBalanceMetaModel metaModel, StreamWriter stream)
+        private void WriteHeaderToCSV(CustomerBalanceMetaModel metaModel, StreamWriter stream, StringBuilder rowBuilder)
         {
-            var rowBuilder = new StringBuilder();
             rowBuilder.Append("#").Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.ExternalId).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.SystemId).Append(_excelOptions.CSVSeparateCharacter);
@@ -99,56 +117,68 @@
             rowBuilder.Clear();
         }
 
-        private void WriteDataRowToCSV(
+        private void WriteContentRowToCSV(
             StreamWriter stream,
             IDataReader reader,
+            StringBuilder rowBuilder,
             CustomerBalanceMetaModel metaModel,
             int index)
         {
-            var rowBuilder = new StringBuilder();
             rowBuilder.Append(index).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(reader["nickname"]).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(reader["username"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["openingbalance"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["deposit"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["withdrawal"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["bonus"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["adjustment"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["turnover"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["drawgame"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(Convert.ToDecimal(reader["turnover"]) - Convert.ToDecimal(reader["drawgame"])).Append(_excelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(reader["outstanding"]).Append(_excelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(reader["winloss"]).Append(_excelOptions.CSVSeparateCharacter);
-
-            if (metaModel.HasComm)
-            {
-                rowBuilder.Append(reader["playercomm"]).Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(Convert.ToDecimal(reader["winloss"]) + Convert.ToDecimal(reader["playercomm"])).Append(_excelOptions.CSVSeparateCharacter);
-            }
-
-            rowBuilder.Append(reader["closingbalance"]).Append(_excelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(reader["affiliatetransfer"]).Append(_excelOptions.CSVSeparateCharacter);
-
-            if (metaModel.IsAllowedBA)
-            {
-                rowBuilder.Append(reader["TurnOverBA"]).Append(_excelOptions.CSVSeparateCharacter);
-
-                rowBuilder.Append(reader["CommBA"]).Append(_excelOptions.CSVSeparateCharacter);
-
-                rowBuilder.Append(reader["AmountDueToBA"]).Append(_excelOptions.CSVSeparateCharacter);
-            }
-
+            BuildCommoncolumn(reader, metaModel, string.Empty, rowBuilder);
             stream.WriteLine(rowBuilder);
             rowBuilder.Clear();
+        }
+
+        private void BuildCommoncolumn(IDataReader reader, CustomerBalanceMetaModel metaModel, string suffixName,
+            StringBuilder rowBuilder)
+        {
+            foreach (var item in _commonColumns)
+            {
+                switch (item)
+                {
+                    case "netturnover":
+                        {
+                            rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "turnover"]) - Convert.ToDecimal(reader[suffixName + "drawgame"]))
+                      .Append(_excelOptions.CSVSeparateCharacter);
+                            break;
+                        }
+                    case "playercomm":
+                        {
+                            if (metaModel.HasComm)
+                            {
+                                rowBuilder.Append(reader[suffixName + "playercomm"]).Append(_excelOptions.CSVSeparateCharacter);
+                                rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "winloss"])
+                                    + Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(_excelOptions.CSVSeparateCharacter);
+                            }
+                            break;
+                        }
+                    case "TurnOverBA":
+                        if (metaModel.IsAllowedBA)
+                        {
+                            rowBuilder.Append(reader[suffixName + "TurnOverBA"]).Append(_excelOptions.CSVSeparateCharacter);
+
+                            rowBuilder.Append(reader[suffixName + "CommBA"]).Append(_excelOptions.CSVSeparateCharacter);
+
+                            rowBuilder.Append(reader[suffixName + "AmountDueToBA"]).Append(_excelOptions.CSVSeparateCharacter);
+                        }
+                        break;
+                    default:
+                        {
+                            rowBuilder.Append(reader[item]).Append(_excelOptions.CSVSeparateCharacter);
+                            break;
+                        }
+                }
+
+            }
         }
 
         private void WriteFooterToCSV(
             IDataReader reader,
             CustomerBalanceMetaModel metaModel,
-            StreamWriter stream)
+            StreamWriter stream, StringBuilder rowBuilder)
         {
             if (reader.NextResult() && reader.Read())
             {
@@ -158,37 +188,10 @@
                 }
                 else
                 {
-                    var rowBuilder = new StringBuilder();
                     rowBuilder.Append(string.Empty).Append(_excelOptions.CSVSeparateCharacter);
                     rowBuilder.Append(string.Empty).Append(_excelOptions.CSVSeparateCharacter);
                     rowBuilder.Append(ViewResources.Total).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumopeningbalance"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumdeposit"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumwithdrawal"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumbonus"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumadjustment"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumturnover"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumdrawgame"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(Convert.ToDecimal(reader["sumturnover"]) - Convert.ToDecimal(reader["sumdrawgame"])).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumoutstanding"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumwinloss"]).Append(_excelOptions.CSVSeparateCharacter);
-
-                    if (metaModel.HasComm)
-                    {
-                        rowBuilder.Append(reader["sumplayercomm"]).Append(_excelOptions.CSVSeparateCharacter);
-                        rowBuilder.Append(Convert.ToDecimal(reader["sumwinloss"]) - Convert.ToDecimal(reader["sumplayercomm"])).Append(_excelOptions.CSVSeparateCharacter);
-                    }
-
-                    rowBuilder.Append(reader["sumclosingbalance"]).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(reader["sumaffiliatetransfer"]).Append(_excelOptions.CSVSeparateCharacter);
-
-                    if (metaModel.IsAllowedBA)
-                    {
-                        rowBuilder.Append(reader["sumturnoverba"]).Append(_excelOptions.CSVSeparateCharacter);
-                        rowBuilder.Append(reader["sumcommba"]).Append(_excelOptions.CSVSeparateCharacter);
-                        rowBuilder.Append(reader["sumamountduetoba"]).Append(_excelOptions.CSVSeparateCharacter);
-                    }
-
+                    BuildCommoncolumn(reader, metaModel, "sum", rowBuilder);
                     stream.WriteLine(rowBuilder);
                     rowBuilder.Clear();
                 }
