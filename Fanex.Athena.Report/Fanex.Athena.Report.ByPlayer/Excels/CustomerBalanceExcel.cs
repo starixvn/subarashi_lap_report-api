@@ -186,7 +186,7 @@
             {
                 if (Convert.ToInt32(reader["TotalRows"]) == 0)
                 {
-                    stream.WriteLine("No information is available");
+                    stream.WriteLine(ViewResources.NoInfo);
                 }
                 else
                 {
