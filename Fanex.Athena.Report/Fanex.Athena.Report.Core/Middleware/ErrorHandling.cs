@@ -56,7 +56,7 @@
 
         private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            _logger.LogCritical(ErrorMessageHelper.GenerateMessage(context, ex));
+            _logger.LogCritical(ex, ErrorMessageHelper.GenerateMessage(context, ex));
 
             var result = JsonConvert.SerializeObject(new
             {
