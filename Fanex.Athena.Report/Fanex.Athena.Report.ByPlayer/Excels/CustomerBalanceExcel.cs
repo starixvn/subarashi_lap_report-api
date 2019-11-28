@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     using System;
-    using System.Collections.Immutable;
     using System.Data;
     using System.IO;
     using System.Text;
@@ -23,24 +22,24 @@
         private readonly IHostingEnvironment _enviroment;
 
         private readonly IFileService _fileService;
-        private static readonly string[] _commonColumns = new[] {
-                "openingbalance",
-                "deposit",
-                "withdrawal",
-                "bonus",
-                "adjustment",
-                "turnover",
-                "drawgame",
-                "netturnover",
-                 "outstanding",
-                 "winloss",
-                 "playercomm",
-                 "closingbalance",
-                 "affiliatetransfer",
-                 "TurnOverBA",
-                 "CommBA",
-                 "AmountDueToBA"
-            };
+
+        private static readonly string[] _commonColumns = {
+            "openingbalance",
+            "deposit",
+            "withdrawal",
+            "bonus",
+            "adjustment",
+            "turnover",
+            "drawgame",
+            "netturnover",
+            "outstanding",
+            "winloss",
+            "winlosscommtotal",
+            "closingbalance",
+            "affiliatetransfer",
+            "ba"
+        };
+
         public CustomerBalanceExcel(
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
@@ -143,35 +142,38 @@
                         {
                             rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "turnover"]) - Convert.ToDecimal(reader[suffixName + "drawgame"]))
                       .Append(_excelOptions.CSVSeparateCharacter);
+
                             break;
                         }
-                    case "playercomm":
+
+                    case "winlosscommtotal":
                         {
                             if (metaModel.HasComm)
                             {
-                                rowBuilder.Append(reader[suffixName + "playercomm"]).Append(_excelOptions.CSVSeparateCharacter);
+                                rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(_excelOptions.CSVSeparateCharacter);
                                 rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "winloss"])
                                     + Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(_excelOptions.CSVSeparateCharacter);
                             }
+
                             break;
                         }
-                    case "TurnOverBA":
+
+                    case "ba":
                         if (metaModel.IsAllowedBA)
                         {
                             rowBuilder.Append(reader[suffixName + "TurnOverBA"]).Append(_excelOptions.CSVSeparateCharacter);
-
                             rowBuilder.Append(reader[suffixName + "CommBA"]).Append(_excelOptions.CSVSeparateCharacter);
-
                             rowBuilder.Append(reader[suffixName + "AmountDueToBA"]).Append(_excelOptions.CSVSeparateCharacter);
                         }
+
                         break;
+
                     default:
                         {
-                            rowBuilder.Append(reader[item]).Append(_excelOptions.CSVSeparateCharacter);
+                            rowBuilder.Append(reader[suffixName + item]).Append(_excelOptions.CSVSeparateCharacter);
                             break;
                         }
                 }
-
             }
         }
 
