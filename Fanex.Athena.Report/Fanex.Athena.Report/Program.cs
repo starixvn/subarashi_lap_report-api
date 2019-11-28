@@ -21,12 +21,14 @@
                      config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                      config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                      config.AddEnvironmentVariables();
+
                  })
              .UseKestrel(x =>
              {
                  x.AddServerHeader = false;
 
              })
-             .UseStartup<Startup>();
+             .UseStartup<Startup>()
+             .UseSentry();
     }
 }

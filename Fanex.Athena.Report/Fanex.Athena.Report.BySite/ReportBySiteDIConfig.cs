@@ -18,6 +18,8 @@
             services.AddTransient<IDailyBetsRepository, DailyBetsRepository>();
             services.AddTransient<IDailyBetsService, DailyBetsService>();
             services.AddTransient<IDailyBetsExcel, DailyBetsExcel>();
+            services.AddTransient<IPromotionPrizeRepository, PromotionPrizeRepository>();
+            services.AddTransient<IPromotionPrizeExcel, PromotionPrizeExcel>();
         }
     }
 }

@@ -15,5 +15,7 @@ namespace Fanex.Athena.Report.Common.Model.DataDomain
             { BaseCurrencyType.IDR, "IDR" },
             { BaseCurrencyType.INH, "INH" },
         };
+
+        public static IEnumerable<string> DefaultBaseCurrencyList { get; } = new[] { "GBP", "EUR", "USD" };
     }
 }

@@ -1,15 +1,13 @@
 ﻿namespace Fanex.Athena.Report
 {
-    using System.Collections.Generic;
-    using System.Globalization;
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
-    using Fanex.Logging;
-    using Fanex.Logging.RabbitMQ;
+
     using MessagePack.AspNetCoreMvcFormatter;
     using MessagePack.Resolvers;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.HttpOverrides;
@@ -18,6 +16,9 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
+    using Microsoft.Extensions.Logging;
+    using System.Collections.Generic;
+    using System.Globalization;
 
     public class Startup
     {
@@ -40,18 +41,10 @@
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 
             services.AddMemoryCache();
-            LogManager
-              .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
-              .Use(new List<ILogEngine>
-               {
-                                 new RabbitMQLogging(Configuration.GetSection("RabbitMQ").Value)
-               });
-
             FanexDataSetting.Setup(Configuration);
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
-            services.AddSingleton(x => LogService.LoggerInstance);
             SharedServiceDIConfig.Setup(services);
             BySite.ReportBySiteDIConfig.Setup(services);
             ByPlayer.ReportByPlayerDIConfig.Setup(services);
@@ -76,6 +69,7 @@
                 option.OutputFormatters.Add(new MessagePackOutputFormatter());
                 option.InputFormatters.Add(new MessagePackInputFormatter());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+          
         }
 
         //// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,7 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Fanex.Athena.ExtService.Common.Model.DTO;
+    using Fanex.Athena.Report.Common.Model.DTO;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Data;
     using Microsoft.Extensions.Caching.Memory;
 

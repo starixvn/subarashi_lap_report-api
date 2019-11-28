@@ -16,12 +16,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="deploy.bat" />
     <None Remove="deploy.LOCAL.bat" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
+    <None Remove="ExcelTemplate\PromotionPrize.xls" />
     <None Remove="SpConfig\FanexSpName.xml" />
   </ItemGroup>
 
@@ -44,6 +52,9 @@
     <Content Include="ExcelTemplate\PlatformWinLossSummary.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ExcelTemplate\PromotionPrize.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SpConfig\FanexSpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -52,8 +63,6 @@
   <ItemGroup>
     <PackageReference Include="Fanex.Data" Version="4.2.0" />
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.0" />
-    <PackageReference Include="Fanex.Logging" Version="2.0.1" />
-    <PackageReference Include="Fanex.Logging.RabbitMQ" Version="1.0.1" />
     <PackageReference Include="MessagePack" Version="1.7.3.7" />
     <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" Version="1.7.3.7" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
@@ -67,6 +76,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="2.2.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="1.2.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.14.0.8411" />
   </ItemGroup>
 
@@ -81,7 +91,6 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -54,9 +54,9 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
         [JsonIgnore]
         public bool IsConvert => SystemBaseCurrency.BaseCurrencyList.Any(t => t.Value.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase));
 
-        public bool IsAllowBA { get; set; }
+        public bool IsAllowedBA { get; set; }
 
-        public bool IsAllowedCustomerComm { get; set; }
+        public bool HasComm { get; set; }
 
         public bool SystemIdVisible { get; set; }
     }

@@ -6,12 +6,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using Fanex.Athena.ExtService.Common.Model.DTO;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service;
 using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Services;
+using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Data;
 using Moq;
 using Xunit;
@@ -85,10 +84,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var expectedResult = fixture.Create<CustomerWinLoss>();
 
             const int ExpectedTotalRow = 100;
-            const int ExpectedSumPromotionPrize = 1;
+            const int ExpectedPromotionPrize = 1;
 
             ConfigureReaderForResult(expectedResult, mockIDataReader);
-            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow, ExpectedSumPromotionPrize, mockIDataReader);
+            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow, ExpectedPromotionPrize, mockIDataReader);
 
             SetUpObjectDb(mockIDataReader);
             var service = new CustomerWinLossService(_balanceUpService.Object);
@@ -109,7 +108,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             Assert.Equal(result.TotalData.LicenseeWL, expectedTotalData.LicenseeWL);
 
             Assert.Equal(result.TotalRows, ExpectedTotalRow);
-            Assert.Equal(result.AdditionalInfo, ExpectedSumPromotionPrize.ToString());
+            Assert.Equal(result.AdditionalInfo, ExpectedPromotionPrize.ToString());
         }
 
         [Fact]
@@ -182,10 +181,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             MapReader(expected, false, reader);
         }
 
-        private static void ConfigureReaderForTotalData(CustomerWinLoss expected, int expectedTotalRow, int expectedSumPromotionPrize, Mock<IDataReader> reader)
+        private static void ConfigureReaderForTotalData(CustomerWinLoss expected, int expectedTotalRow, int expectedPromotionPrize, Mock<IDataReader> reader)
         {
             reader.Setup(r => r["TotalRows"]).Returns(expectedTotalRow);
-            reader.Setup(r => r["SumPromotionPrize"]).Returns(expectedSumPromotionPrize);
+            reader.Setup(r => r["PromotionPrize"]).Returns(expectedPromotionPrize);
             MapReader(expected, true, reader);
         }
 

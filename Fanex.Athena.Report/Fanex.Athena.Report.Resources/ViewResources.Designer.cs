@@ -88,6 +88,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amt Due To BA.
         /// </summary>
         public static string AmtDueToBA {
@@ -192,6 +201,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string CustomerWinLossTitle {
             get {
                 return ResourceManager.GetString("CustomerWinLossTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -358,6 +376,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NPH Promotion.
+        /// </summary>
+        public static string NPHP {
+            get {
+                return ResourceManager.GetString("NPHP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
         public static string Others {
@@ -417,6 +444,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string RefNo {
             get {
                 return ResourceManager.GetString("RefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion Prize.
+        /// </summary>
+        public static string PromotionPrize {
+            get {
+                return ResourceManager.GetString("PromotionPrize", resourceCulture);
             }
         }
         

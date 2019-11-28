@@ -11,7 +11,7 @@
     using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Resources.Helpers;
     using Fanex.Data;
 
@@ -21,17 +21,23 @@
 
         private readonly IBalanceUpService _balanceUpService;
 
-        public PlatformWinLossRepository(IBalanceUpService balanceUpService)
+        private readonly ICurrencyService _currencyService;
+
+        public PlatformWinLossRepository(IBalanceUpService balanceUpService, ICurrencyService currencyService)
         {
             _balanceUpService = balanceUpService;
+            _currencyService = currencyService;
         }
 
         public async Task<ResultModel<PlatformWinLossSummary>> GetSummaryDataAsync(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
+
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                await UpdateUspParamsAsync(db, metaModel).ConfigureAwait(false);
+                UpdateUspParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadSummaryList(reader);
@@ -43,12 +49,16 @@
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
 
+            var balanceUpInfoTask = _balanceUpService.GetBalanceUpAsync();
+            var currencyListTask = _currencyService.GetCurrencyListAsync();
+            await Task.WhenAll(balanceUpInfoTask, currencyListTask).ConfigureAwait(false);
+
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                await UpdateUspParamsAsync(db, metaModel).ConfigureAwait(false);
+                UpdateUspParamsAsync(db, metaModel, (await balanceUpInfoTask).MoveBetsDay);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    return ReadMemberList(reader, metaModel.CurrencyList);
+                    return ReadMemberList(reader, await currencyListTask);
                 }
             }
         }
@@ -117,7 +127,7 @@
             };
         }
 
-        private static SortableResultModel<PlatformWinLossMember> ReadMemberList(IDataReader reader, IList<Currency> currencyList)
+        private static SortableResultModel<PlatformWinLossMember> ReadMemberList(IDataReader reader, IEnumerable<Currency> currencyList)
         {
             var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();
@@ -188,11 +198,10 @@
             totalData.AmtDueToBA += item.AmtDueToBA;
         }
 
-        private async Task UpdateUspParamsAsync(IObjectDb db, PlatformWinLossMetaModel metaModel)
+        private static void UpdateUspParamsAsync(IObjectDb db, PlatformWinLossMetaModel metaModel, DateTime moveBetsDay)
         {
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
             db.SetParameterValue("PlatformType", metaModel.PlatformType);
-            db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
+            db.SetParameterValue("movebetsday", moveBetsDay);
             db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);

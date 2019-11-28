@@ -1,19 +1,21 @@
 ﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using Fanex.Athena.Report.Core.Helpers;
+
+    using Microsoft.AspNetCore.Diagnostics;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+
     using System;
     using System.Net;
     using System.Threading.Tasks;
-    using Fanex.Athena.Report.Core.Helpers;
-    using Fanex.Logging;
-    using Microsoft.AspNetCore.Diagnostics;
-    using Microsoft.AspNetCore.Http;
-    using Newtonsoft.Json;
 
     public class ErrorHandling
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
-        public ErrorHandling(RequestDelegate next, ILogger logger)
+        public ErrorHandling(RequestDelegate next, ILogger<ErrorHandling> logger)
         {
             _next = next;
             _logger = logger;
@@ -54,7 +56,7 @@
 
         private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            _logger.Error(ErrorMessageHelper.GenerateMessage(context, ex));
+            _logger.LogCritical(ex, ErrorMessageHelper.GenerateMessage(context, ex));
 
             var result = JsonConvert.SerializeObject(new
             {

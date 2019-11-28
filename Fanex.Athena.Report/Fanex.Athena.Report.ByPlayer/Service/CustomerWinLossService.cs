@@ -8,7 +8,7 @@ using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services;
+using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Data;
 
 namespace Fanex.Athena.Report.ByPlayer.Service
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                     {
                         result.TotalData = ReadTotalData(reader);
                         result.TotalRows = Convert.ToInt32(reader["TotalRows"]);
-                        result.AdditionalInfo = Convert.ToString(reader["SumPromotionPrize"]);
+                        result.AdditionalInfo = Convert.ToString(reader["PromotionPrize"]);
                     }
                     else
                     {

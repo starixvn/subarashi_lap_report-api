@@ -1,1 +1,0 @@
-"C:\Program Files\Git\bin\sh.exe"  "scp -r  %CompiledDirectory%\*  root@10.18.200.143:/var/www/lap.reportapi.main/Pub"
