@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.DTO;
+using Fanex.Athena.Report.ByPlayer.Extensions;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
@@ -18,7 +19,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
         {
             using (var db = ObjectDbFactory.CreateInstance("Lrf_Rpt_CustomerBalance"))
             {
-                AddParameters(db, metaModel);
+                metaModel.InjectToDbParameter(db);
 
                 var dataList = new List<CustomerBalance>();
 
@@ -48,22 +49,6 @@ namespace Fanex.Athena.Report.ByPlayer.Service
 
                     return result;
                 }
-            }
-        }
-
-        private static void AddParameters(IObjectDb db, CustomerBalanceMetaModel metaModel)
-        {
-            db.SetParameterValue("fromdate", metaModel.FromDate);
-            db.SetParameterValue("todate", metaModel.ToDate);
-            db.SetParameterValue("topcount", metaModel.TopCount);
-            db.SetParameterValue("orderitem", metaModel.OrderItem);
-            db.SetParameterValue("pagesize", metaModel.PageSize);
-            db.SetParameterValue("pageindex", metaModel.PageIndex);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-
-            foreach (var item in metaModel.ProductOptions)
-            {
-                db.SetParameterValue("show" + item.Code, item.Status);
             }
         }
 

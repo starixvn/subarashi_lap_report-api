@@ -28,7 +28,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         public async Task<ActionResult> ExportExcel(CustomerBalanceMetaModel metaModel, [FromServices]ICustomerBalanceExcel excel)
         {
             var fileName = await excel.Export(metaModel).ConfigureAwait(false);
-            
+
             var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
 
             return File(stream, "application/octet-stream");

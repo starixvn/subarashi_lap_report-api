@@ -324,4 +324,7 @@
     <value>其他</value>
     <comment>125553</comment>
   </data>
+  <data name="CustomerBalance" xml:space="preserve">
+    <value>會員餘額</value>
+  </data>
 </root>
