@@ -13,5 +13,7 @@
         public decimal Amount { get; set; }
 
         public string CurrencyName { get; set; }
+
+        public string PromotionType { get; set; }
     }
 }

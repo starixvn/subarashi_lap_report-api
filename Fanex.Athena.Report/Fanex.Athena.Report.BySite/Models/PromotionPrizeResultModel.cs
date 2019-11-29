@@ -7,6 +7,8 @@
     {
         public IList<PromotionPrize> Data { get; set; }
 
-        public IDictionary<string, PromotionPrize> SummaryTotal { get; set; }
+        public IList<PromotionPrize> SummaryTotal { get; set; }
+
+        public decimal GrandTotal { get; set; }
     }
 }

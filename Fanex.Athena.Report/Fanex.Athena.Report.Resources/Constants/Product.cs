@@ -3,5 +3,7 @@
     public static class Product
     {
         public const string BA = "BA";
+
+        public const string NPHP = "NPHP";
     }
 }

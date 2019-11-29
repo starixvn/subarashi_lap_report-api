@@ -308,4 +308,12 @@
   <data name="NPHP" xml:space="preserve">
     <value>NPH Promotion</value>
   </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>Promotion Type</value>
+    <comment>123804</comment>
+  </data>
+  <data name="SummaryTotalIn" xml:space="preserve">
+    <value>Total {0} in {1}</value>
+    <comment>123804</comment>
+  </data>
 </root>
