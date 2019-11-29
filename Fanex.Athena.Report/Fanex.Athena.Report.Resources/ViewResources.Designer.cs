@@ -466,6 +466,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening Balance.
+        /// </summary>
+        public static string OpeningBalance {
+            get {
+                return ResourceManager.GetString("OpeningBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
         public static string Others {
@@ -534,15 +543,6 @@ namespace Fanex.Athena.Report.Resources {
         public static string PromotionPrize {
             get {
                 return ResourceManager.GetString("PromotionPrize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Promotion Type.
-        /// </summary>
-        public static string PromotionType {
-            get {
-                return ResourceManager.GetString("PromotionType", resourceCulture);
             }
         }
         

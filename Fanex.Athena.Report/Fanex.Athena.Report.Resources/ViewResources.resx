@@ -349,4 +349,13 @@
   <data name="CustomerBalance" xml:space="preserve">
     <value>Customer Balance</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>Promotion Prize</value>
+  </data>
 </root>

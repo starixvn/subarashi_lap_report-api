@@ -331,4 +331,13 @@
   <data name="CustomerBalance" xml:space="preserve">
     <value>会员余额</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金额</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活动奖金</value>
+  </data>
 </root>
