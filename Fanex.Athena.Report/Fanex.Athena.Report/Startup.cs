@@ -1,13 +1,15 @@
 ﻿namespace Fanex.Athena.Report
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
-
+    using Fanex.RemotingRef;
     using MessagePack.AspNetCoreMvcFormatter;
     using MessagePack.Resolvers;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.HttpOverrides;
@@ -16,9 +18,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
-    using Microsoft.Extensions.Logging;
-    using System.Collections.Generic;
-    using System.Globalization;
 
     public class Startup
     {
@@ -39,9 +38,16 @@
             services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
-
             services.AddMemoryCache();
+
             FanexDataSetting.Setup(Configuration);
+
+            //// Fanex.RemotingRef
+            RefDataTypeContainer
+            .ConnectTo(new Uri(Configuration["Fanex.RemotingRef.Service.Url"]))
+            .FromApplication("Your Application Name");
+            services.AddSingleton<IRemotingRefService, RemotingRefService>();
+
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
