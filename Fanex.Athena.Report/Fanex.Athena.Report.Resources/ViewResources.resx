@@ -358,4 +358,7 @@
   <data name="PromotionPrize" xml:space="preserve">
     <value>Promotion Prize</value>
   </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
 </root>

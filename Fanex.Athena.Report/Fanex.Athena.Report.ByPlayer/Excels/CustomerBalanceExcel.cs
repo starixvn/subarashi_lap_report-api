@@ -29,6 +29,7 @@
             "withdrawal",
             "bonus",
             "adjustment",
+            "promotion",
             "turnover",
             "drawgame",
             "netturnover",
@@ -90,6 +91,7 @@
             rowBuilder.Append(ViewResources.Withdrawal).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.Bonus).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.Adjustment).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ViewResources.Promotion).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.Turnover).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.DrawGame).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.NetTurnover).Append(_excelOptions.CSVSeparateCharacter);

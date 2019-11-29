@@ -41,5 +41,7 @@
         public decimal CommBA { get; set; }
 
         public decimal AmountDueToBA { get; set; }
+
+        public decimal Promotion { get; set; }
     }
 }

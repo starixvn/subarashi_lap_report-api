@@ -336,4 +336,7 @@
   <data name="PromotionPrize" xml:space="preserve">
     <value>活動獎金</value>
   </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>促銷活動</value>
+  </data>
 </root>
