@@ -116,7 +116,6 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseErrorHandler();
             }
             else
             {
