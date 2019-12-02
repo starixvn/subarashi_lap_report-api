@@ -46,7 +46,7 @@
             //// Fanex.RemotingRef
             RefDataTypeContainer
             .ConnectTo(new Uri(Configuration["Fanex.RemotingRef.Service.Url"]))
-            .FromApplication("Your Application Name");
+            .FromApplication("Fanex.LAP.ReportAPI");
             services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
             services.AddSingleton<IFileProvider>(x =>
