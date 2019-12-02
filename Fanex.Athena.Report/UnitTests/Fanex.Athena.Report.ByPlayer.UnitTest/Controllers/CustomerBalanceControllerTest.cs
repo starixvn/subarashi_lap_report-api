@@ -40,7 +40,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             Assert.Equal(JsonConvert.SerializeObject(expectedResult), JsonConvert.SerializeObject(result));
         }
 
-        //[Fact]
+        [Fact]
         public async Task ExportExcel_WhenCall_ReturnsCorrectFile()
         {
             // Arrange
