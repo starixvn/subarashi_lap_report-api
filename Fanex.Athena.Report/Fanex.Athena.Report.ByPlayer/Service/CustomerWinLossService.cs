@@ -47,11 +47,13 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                         DataList = dataList
                     };
 
-                    if (dataList.Any() && reader.NextResult() && reader.Read())
+                    var hasSummaryResult = reader.NextResult() && reader.Read();
+                    result.AdditionalInfo = hasSummaryResult ? Convert.ToString(reader["PromotionPrize"]) : "0";
+
+                    if (dataList.Any() && hasSummaryResult)
                     {
                         result.TotalData = ReadTotalData(reader);
                         result.TotalRows = Convert.ToInt32(reader["TotalRows"]);
-                        result.AdditionalInfo = Convert.ToString(reader["PromotionPrize"]);
                     }
                     else
                     {
