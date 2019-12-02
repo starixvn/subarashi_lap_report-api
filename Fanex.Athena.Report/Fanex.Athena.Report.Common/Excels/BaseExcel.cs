@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Fanex.Athena.Report.Common.Excels
 {
-    public abstract class BaseExcel
+    public class BaseExcel
     {
         protected readonly IHostingEnvironment Enviroment;
         protected readonly ExcelOptions ExcelOptions;
