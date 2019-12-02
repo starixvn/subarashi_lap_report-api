@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Excels\" />
-  </ItemGroup>
-
 </Project>
