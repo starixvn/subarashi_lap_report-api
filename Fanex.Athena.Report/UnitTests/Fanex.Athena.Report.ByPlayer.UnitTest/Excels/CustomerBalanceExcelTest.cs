@@ -24,17 +24,13 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
     {
         private const string CSVSeparateCharacter = ",";
 
-        private const string rootPath = "D:";
-
-        private const string LapReportTempExcel = "LapReportTempExcel";
+        private const string RootPath = "D:";
 
         private readonly string _firstFooterString = $"{CSVSeparateCharacter}{CSVSeparateCharacter}Total{CSVSeparateCharacter}";
 
         private readonly IFixture _fixture;
 
         private readonly IFileService _fileService;
-
-        private readonly DirectoryInfo _root;
 
         private readonly Mock<IOptions<ExcelOptions>> _excelOptionsAccessor;
 
@@ -48,16 +44,15 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         {
             _fixture = new Fixture();
             _enviroment = new Mock<IHostingEnvironment>();
-            _enviroment.Setup(e => e.ContentRootPath).Returns(rootPath);
+            _enviroment.Setup(e => e.ContentRootPath).Returns(RootPath);
 
             _fileService = new FileService();
-            _root = new DirectoryInfo(rootPath);
 
             _excelOptionsAccessor = new Mock<IOptions<ExcelOptions>>();
             _excelOptions = new ExcelOptions()
             {
-                Path = LapReportTempExcel,
-                CSVSeparateCharacter = ","
+                Path = "LapReportTempExcel",
+                CSVSeparateCharacter = CSVSeparateCharacter
             };
             _excelOptionsAccessor.Setup(eoa => eoa.Value).Returns(_excelOptions);
 
@@ -102,7 +97,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             SetUpObjectDb(mockIDataReader);
             var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
 
-            var root = _fileService.GetParentDirectory(rootPath);
+            var root = _fileService.GetParentDirectory(RootPath);
             var path = Path.Combine(root.FullName, _excelOptions.Path);
 
             // Action
