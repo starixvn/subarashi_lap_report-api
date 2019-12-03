@@ -147,8 +147,7 @@
                 {
                     case "netturnover":
                         {
-                            rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "turnover"]) - Convert.ToDecimal(reader[suffixName + "drawgame"]))
-                      .Append(_excelOptions.CSVSeparateCharacter);
+                            rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "turnover"]) - Convert.ToDecimal(reader[suffixName + "drawgame"])).Append(_excelOptions.CSVSeparateCharacter);
 
                             break;
                         }
@@ -177,7 +176,7 @@
                             {
                                 BuildBAColumn(reader, suffixName == "sum", rowBuilder);
                             }
-                            
+
                             break;
                         }
 

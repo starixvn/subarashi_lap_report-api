@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using Fanex.Athena.Report.ByPlayer.DTO;
@@ -10,13 +12,11 @@ using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Core.DTO;
+using Fanex.Athena.Report.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
-using Fanex.Athena.Report.Resources;
-using System.Linq;
-using System;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 {
@@ -26,7 +26,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 
         private const string RootPath = "D:";
 
-        private readonly string _firstFooterString = $"{CSVSeparateCharacter}{CSVSeparateCharacter}Total{CSVSeparateCharacter}";
+        private readonly string _firstFooterString = $"{CSVSeparateCharacter}{CSVSeparateCharacter}{ViewResources.Total}{CSVSeparateCharacter}";
 
         private readonly IFixture _fixture;
 
