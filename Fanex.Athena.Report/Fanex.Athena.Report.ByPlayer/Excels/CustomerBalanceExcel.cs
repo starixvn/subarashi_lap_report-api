@@ -105,13 +105,14 @@
             }
 
             rowBuilder.Append(ViewResources.ClosingBalance).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.AffiliateTransfer).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ViewResources.AffiliateTransfer);
 
             if (metaModel.IsAllowedBA)
             {
+                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append($"{ViewResources.BA} {ViewResources.Turnover}").Append(_excelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(ViewResources.BACommission).Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(ViewResources.AmtDueToBA).Append(_excelOptions.CSVSeparateCharacter);
+                rowBuilder.Append(ViewResources.AmtDueToBA);
             }
 
             stream.WriteLine(rowBuilder);
@@ -128,12 +129,16 @@
             rowBuilder.Append(index).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(reader["nickname"]).Append(_excelOptions.CSVSeparateCharacter);
             rowBuilder.Append(reader["username"]).Append(_excelOptions.CSVSeparateCharacter);
-            BuildCommoncolumn(reader, metaModel, string.Empty, rowBuilder);
+            BuildCommonColumn(reader, metaModel, string.Empty, rowBuilder);
+
             stream.WriteLine(rowBuilder);
             rowBuilder.Clear();
         }
 
-        private void BuildCommoncolumn(IDataReader reader, CustomerBalanceMetaModel metaModel, string suffixName,
+        private void BuildCommonColumn(
+            IDataReader reader,
+            CustomerBalanceMetaModel metaModel,
+            string suffixName,
             StringBuilder rowBuilder)
         {
             foreach (var item in _commonColumns)
@@ -160,15 +165,21 @@
                             break;
                         }
 
-                    case "ba":
-                        if (metaModel.IsAllowedBA)
+                    case "affiliatetransfer":
                         {
-                            rowBuilder.Append(reader[suffixName + "TurnOverBA"]).Append(_excelOptions.CSVSeparateCharacter);
-                            rowBuilder.Append(reader[suffixName + "CommBA"]).Append(_excelOptions.CSVSeparateCharacter);
-                            rowBuilder.Append(reader[suffixName + "AmountDueToBA"]).Append(_excelOptions.CSVSeparateCharacter);
+                            rowBuilder.Append(reader[suffixName + item]);
+                            break;
                         }
 
-                        break;
+                    case "ba":
+                        {
+                            if (metaModel.IsAllowedBA)
+                            {
+                                BuildBAColumn(reader, suffixName == "sum", rowBuilder);
+                            }
+                            
+                            break;
+                        }
 
                     default:
                         {
@@ -180,9 +191,9 @@
         }
 
         private void WriteFooterToCSV(
-            IDataReader reader,
-            CustomerBalanceMetaModel metaModel,
-            StreamWriter stream, StringBuilder rowBuilder)
+        IDataReader reader,
+        CustomerBalanceMetaModel metaModel,
+        StreamWriter stream, StringBuilder rowBuilder)
         {
             if (reader.NextResult() && reader.Read())
             {
@@ -195,11 +206,22 @@
                     rowBuilder.Append(string.Empty).Append(_excelOptions.CSVSeparateCharacter);
                     rowBuilder.Append(string.Empty).Append(_excelOptions.CSVSeparateCharacter);
                     rowBuilder.Append(ViewResources.Total).Append(_excelOptions.CSVSeparateCharacter);
-                    BuildCommoncolumn(reader, metaModel, "sum", rowBuilder);
+                    BuildCommonColumn(reader, metaModel, "sum", rowBuilder);
                     stream.WriteLine(rowBuilder);
                     rowBuilder.Clear();
                 }
             }
+        }
+
+        private void BuildBAColumn(
+            IDataReader reader,
+            bool isSum,
+            StringBuilder rowBuilder)
+        {
+            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumturnoverba"]) : Convert.ToDecimal(reader["TurnOverBA"])).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumcommba"]) : Convert.ToDecimal(reader["CommBA"])).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumamountduetoba"]) : Convert.ToDecimal(reader["AmountDueToBA"]));
         }
 
         private string EnsureFolderPath()
