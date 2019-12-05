@@ -57,7 +57,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var service = new CustomerWinLossService(_balanceUpService.Object);
 
             // Action
-            await service.GetDataList(metaModel);
+            await service.GetDataList(metaModel, !isExportExcel);
 
             // Assert
             mockObjectDB.Verify(od => od.SetParameterValue("fromdate", metaModel.FromDate), Times.Once);
@@ -69,6 +69,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             mockObjectDB.Verify(od => od.SetParameterValue("BaseCurrency", metaModel.BaseCurrency), Times.Once);
             mockObjectDB.Verify(od => od.SetParameterValue("showSB", true), Times.Once);
             mockObjectDB.Verify(od => od.SetParameterValue("showNG", false), Times.Once);
+            mockObjectDB.Verify(od => od.SetParameterValue("CheckPromotionPrize", !isExportExcel), Times.Once);
         }
 
         [Fact]
@@ -112,12 +113,18 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
         }
 
         [Fact]
-        public async Task GetDataList_NoData_ReturnEmptyResult()
+        public async Task GetDataList_NoDataButHaveTotal_ReturnEmptyResult()
         {
             // Arrange
             var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(false);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(false);
+            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { false, true, false }).Dequeue);
+            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
+
+            const int ExpectedTotalRow = 10;
+            const int ExpectedPromotionPrize = 1;
+            var fixture = new Fixture();
+            var expectedTotalData = fixture.Create<CustomerWinLoss>();
+            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow, ExpectedPromotionPrize, mockIDataReader);
 
             SetUpObjectDb(mockIDataReader);
             var service = new CustomerWinLossService(_balanceUpService.Object);
@@ -128,6 +135,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             // Assert
             Assert.Empty(result.DataList);
             Assert.Equal(0, result.TotalRows);
+            Assert.Equal(ExpectedPromotionPrize.ToString(), result.AdditionalInfo);
         }
 
         [Fact]
@@ -150,6 +158,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             // Assert
             Assert.NotEmpty(result.DataList);
             Assert.Equal(0, result.TotalRows);
+            Assert.Equal("0", result.AdditionalInfo);
         }
 
         private static Mock<IObjectDb> SetUpObjectDb(Mock<IDataReader> mockIDataReader)

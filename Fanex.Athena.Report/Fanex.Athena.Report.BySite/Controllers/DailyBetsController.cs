@@ -28,14 +28,12 @@
         public async Task<ActionResult> Export(DailyBetsMetaModel metaModel, [FromServices]IDailyBetsExcel excel)
         {
             var fileName = await excel.Export(metaModel).ConfigureAwait(false);
-            
+
             if (fileName is null)
             {
                 return NoContent();
             }
-
             var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
-
             return File(stream, "application/octet-stream");
         }
     }

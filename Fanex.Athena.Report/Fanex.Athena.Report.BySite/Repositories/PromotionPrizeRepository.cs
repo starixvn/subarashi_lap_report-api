@@ -4,15 +4,17 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Model.DataDomain;
+    using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Data;
+    using Fanex.RemotingRef;
 
     public class PromotionPrizeRepository : IPromotionPrizeRepository
     {
@@ -20,10 +22,18 @@
 
         private readonly ICurrencyService _currencyService;
 
-        public PromotionPrizeRepository(IBalanceUpService balanceUpService, ICurrencyService currencyService)
+        private readonly IRemotingRefService _remotingRefService;
+
+        private readonly IDictionary<string, string> _betTypeNames = new Dictionary<string, string>();
+
+        public PromotionPrizeRepository(
+            IBalanceUpService balanceUpService,
+            ICurrencyService currencyService,
+            IRemotingRefService remotingRefService)
         {
             _balanceUpService = balanceUpService;
             _currencyService = currencyService;
+            _remotingRefService = remotingRefService;
         }
 
         public async Task<IDictionary<string, PromotionPrizeResultModel>> GetData(PromotionPrizeMetaModel metaModel)
@@ -46,69 +56,80 @@
 
                 using (var reader = db.ExecuteReader())
                 {
-                    return ReadData(reader, metaModel.DefaultBaseCurrency, await currencyListTask);
+                    return ReadData(reader, await currencyListTask);
                 }
             }
         }
 
-        private static IDictionary<string, PromotionPrize> ReadSummaryData(IDataReader reader, IEnumerable<string> baseCurrencies, string defaultBaseCurrency)
+        private IDictionary<string, PromotionPrizeResultModel> ReadData(IDataReader reader, IEnumerable<Currency> currencyList)
         {
-            var data = baseCurrencies.ToDictionary(k => k, v => new PromotionPrize());
-
-            foreach (var total in data)
-            {
-                var suffixColumn = !string.IsNullOrEmpty(defaultBaseCurrency) && total.Key.Equals(defaultBaseCurrency, StringComparison.OrdinalIgnoreCase)
-                                    ? "Base"
-                                    : total.Key;
-
-                total.Value.CurrencyName = total.Key;
-                total.Value.Amount = Convert.ToDecimal(reader["SumAmount" + suffixColumn]);
-            }
-
-            return data;
-        }
-
-        private IDictionary<string, PromotionPrizeResultModel> ReadData(IDataReader reader, string defaultBaseCurrency, IEnumerable<Currency> currencyList)
-        {
-            var summary = new Dictionary<string, PromotionPrizeResultModel>();
-            var baseCurrencies = SystemBaseCurrency.DefaultBaseCurrencyList.Contains(defaultBaseCurrency)
-                ? SystemBaseCurrency.DefaultBaseCurrencyList
-                : SystemBaseCurrency.DefaultBaseCurrencyList.Union(new[] { defaultBaseCurrency });
-
-            while (reader.Read())
-            {
-                var productCode = reader["ProductCode"].ToString();
-                summary.Add(
-                    productCode,
-                    new PromotionPrizeResultModel
-                    {
-                        SummaryTotal = ReadSummaryData(reader, baseCurrencies, defaultBaseCurrency),
-                        Data = new List<PromotionPrize>()
-                    });
-            }
+            var groupData = ReadSummaryData(reader);
 
             reader.NextResult();
 
             while (reader.Read())
             {
-                var productCode = reader["ProductCode"].ToString();
-                summary[productCode].Data.Add(ReadMainData(reader, currencyList));
+                var productCode = reader.GetVal<string>("ProductCode");
+                groupData[productCode].Data.Add(ReadMainData(reader, currencyList));
             }
 
-            return summary;
+            return groupData;
         }
 
-        private static PromotionPrize ReadMainData(IDataReader reader, IEnumerable<Currency> currencyList)
+        private IDictionary<string, PromotionPrizeResultModel> ReadSummaryData(IDataReader reader)
         {
-            var currencyId = Convert.ToInt32(reader["CurrencyId"]);
+            var data = new Dictionary<string, PromotionPrizeResultModel>();
+            while (reader.Read())
+            {
+                var productCode = reader.GetVal<string>("ProductCode");
+                var summary = new PromotionPrize
+                {
+                    PromotionType = this.GetBetTypeName(reader.GetVal<string>("BetType")),
+                    Amount = reader.GetVal<decimal>("SumAmount")
+                };
+
+                if (!data.TryAdd(
+                    productCode,
+                    new PromotionPrizeResultModel
+                    {
+                        SummaryTotal = new List<PromotionPrize> { summary },
+                        Data = new List<PromotionPrize>(),
+                        GrandTotal = summary.Amount
+                    }))
+                {
+                    data[productCode].GrandTotal += summary.Amount;
+                    data[productCode].SummaryTotal.Add(summary);
+                }
+            }
+
+            return data;
+        }
+
+        private PromotionPrize ReadMainData(IDataReader reader, IEnumerable<Currency> currencyList)
+        {
+            var currencyId = reader.GetVal<int>("CurrencyId");
             return new PromotionPrize
             {
-                SystemId = reader["UserName"].ToString(),
-                ExternalId = reader["NickName"].ToString(),
+                SystemId = reader.GetVal<string>("UserName"),
+                ExternalId = reader.GetVal<string>("NickName"),
                 CurrencyName = currencyList.FirstOrDefault(x => x.ID == currencyId)?.Name,
-                Amount = Convert.ToDecimal(reader["Amount"]),
-                Date = Convert.ToDateTime(reader["Date"])
+                Amount = reader.GetVal<decimal>("Amount"),
+                Date = reader.GetVal<DateTime>("Date"),
+                PromotionType = this.GetBetTypeName(reader.GetVal<string>("BetType"))
             };
+        }
+
+        private string GetBetTypeName(string bettype)
+        {
+            if (_betTypeNames.ContainsKey(bettype))
+            {
+                return _betTypeNames[bettype];
+            }
+
+            var name = _remotingRefService.GetBetTypeName(bettype, Thread.CurrentThread.CurrentUICulture.Name);
+            _betTypeNames.Add(bettype, name);
+
+            return name;
         }
     }
 }

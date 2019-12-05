@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
     using System;
+    using Fanex.Athena.Report.Common.Model.DataDomain;
 
     public class PromotionPrizeMetaModel
     {
@@ -18,6 +19,6 @@
 
         public int AgentId { get; set; }
 
-        public string DefaultBaseCurrency { get; set; }
+        public string DefaultBaseCurrency { get; } = SystemBaseCurrency.EUR;
     }
 }

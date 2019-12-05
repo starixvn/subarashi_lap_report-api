@@ -439,20 +439,29 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ref No.
-        /// </summary>
-        public static string RefNo {
-            get {
-                return ResourceManager.GetString("RefNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Promotion Prize.
         /// </summary>
         public static string PromotionPrize {
             get {
                 return ResourceManager.GetString("PromotionPrize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion Type.
+        /// </summary>
+        public static string PromotionType {
+            get {
+                return ResourceManager.GetString("PromotionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ref No.
+        /// </summary>
+        public static string RefNo {
+            get {
+                return ResourceManager.GetString("RefNo", resourceCulture);
             }
         }
         
@@ -471,6 +480,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total {0} in {1}.
+        /// </summary>
+        public static string SummaryTotalIn {
+            get {
+                return ResourceManager.GetString("SummaryTotalIn", resourceCulture);
             }
         }
         

@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Common.Excel;
+using Fanex.Athena.Report.Common.Excels;
 using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.DTO;
+using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Resources;
+
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
+
 using OfficeOpenXml;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace Fanex.Athena.Report.ByPlayer.Excels
 {
-    public class CustomerWinLossExcel : ICustomerWinLossExcel
+    public class CustomerWinLossExcel : BaseExcel, ICustomerWinLossExcel
     {
-        private readonly ExcelOptions _excelOptions;
 
         private const int TemplateSheetIndex = 0;
 
@@ -63,21 +68,21 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 ViewResources.AmtDueToBA
             };
 
-        public CustomerWinLossExcel(IOptions<ExcelOptions> excelOptionsAccessor)
+        public CustomerWinLossExcel(IFileService fileService,
+            IOptions<ExcelOptions> excelOptionsAccessor,
+            IHostingEnvironment enviroment) : base(enviroment, fileService, excelOptionsAccessor)
         {
-            _excelOptions = excelOptionsAccessor.Value;
         }
 
-        public Stream Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+        public string Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             return CreateFileStream(template, data, metaModel);
         }
 
-        private Stream CreateFileStream(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
+
+        private string CreateFileStream(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             var fileInfo = new FileInfo(template);
-            var outputStream = new MemoryStream();
-
             using (var package = new ExcelPackage(fileInfo, false))
             {
                 var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
@@ -86,7 +91,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 if (data.DataList.Any())
                 {
                     var totalRows = data.DataList.Count();
-                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, _excelOptions.MaximumRowPerFile);
+                    var numberOfSheet = ExcelHelper.GetNumberOfSheets(totalRows, ExcelOptions.MaximumRowPerFile);
 
                     for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
                     {
@@ -96,7 +101,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                         AssignTitle(currentSheet, title);
                         AssignHeader(currentSheet);
                         AssignSumData(currentSheet, data.TotalData);
-                        AssignDataList(currentSheet, sheetIndex, _excelOptions.MaximumRowPerFile, totalRows, data.DataList);
+                        AssignDataList(currentSheet, sheetIndex, ExcelOptions.MaximumRowPerFile, totalRows, data.DataList);
 
                         ProcessUI(currentSheet, metaModel);
                     }
@@ -114,12 +119,14 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 }
 
                 package.Workbook.Worksheets.Delete(TemplateSheetIndex);
-                package.SaveAs(outputStream);
+                var fileName = Path.Combine(EnsureFolderPath(), $"{Guid.NewGuid()}.eplus");
+                using (var stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    package.SaveAs(stream);
+                }
+                return fileName;
             }
 
-            outputStream.Seek(0, SeekOrigin.Begin);
-
-            return outputStream;
         }
 
         private static void AssignTitle(ExcelWorksheet sheet, string reportTitle)

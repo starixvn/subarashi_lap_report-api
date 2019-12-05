@@ -7,6 +7,6 @@
 
     public interface ICustomerWinLossExcel
     {
-        Stream Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel);
+        string Export(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel);
     }
 }

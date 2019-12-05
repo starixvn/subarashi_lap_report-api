@@ -1,32 +1,28 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using Fanex.Athena.Report.BySite.Excels.Interfaces;
+    using Fanex.Athena.Report.BySite.Extensions;
+    using Fanex.Athena.Report.BySite.MetaModels;
+    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+    using Fanex.Athena.Report.Common.Excels;
+    using Fanex.Athena.Report.Common.Model.MetaModels;
+    using Fanex.Athena.Report.Common.Services;
+    using Fanex.Athena.Report.Resources;
+    using Fanex.Data;
+
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
-    using Fanex.Athena.Report.BySite.Excels.Interfaces;
-    using Fanex.Athena.Report.BySite.Extensions;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Model.MetaModels;
-    using Fanex.Athena.Report.Common.Services;
-    using Fanex.Athena.Report.Core.DTO;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Data;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Options;
 
-    public class DailyBetsExcel : IDailyBetsExcel
+    public class DailyBetsExcel : BaseExcel, IDailyBetsExcel
     {
-        private readonly ExcelOptions _excelOptions;
-
-        private readonly IHostingEnvironment _enviroment;
-
         private readonly IDailyBetsRepository _repository;
-
-        private readonly IFileService _fileService;
 
         private const string DefaultTextDelimiter = "\"";
 
@@ -45,11 +41,9 @@
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
             IHostingEnvironment enviroment)
+            : base(enviroment, fileService, excelOptionsAccessor)
         {
             _repository = dailyBetsRepository;
-            _fileService = fileService;
-            _excelOptions = excelOptionsAccessor.Value;
-            _enviroment = enviroment;
         }
 
         public async Task<string> Export(DailyBetsMetaModel metaModel)
@@ -57,7 +51,7 @@
             var files = new List<ZipEntry>();
 
             metaModel.PageIndex = 1;
-            metaModel.PageSize = _excelOptions.MaximumRowPerFile;
+            metaModel.PageSize = ExcelOptions.MaximumRowPerFile;
 
             var (totalRows, totalData) = await _repository.GetTotalDataAsync(metaModel).ConfigureAwait(false);
             if (totalRows == 0)
@@ -65,11 +59,11 @@
                 return null;
             }
 
-            CreateTempFolder();
+            _tempFolderPath = EnsureFolderPath();
             _header = GetHeaderString();
             _footer = GetFooterString(totalData.Turnover, totalData.WinLoss, metaModel.BaseCurrency);
 
-            var totalPage = (totalRows - 1) / _excelOptions.MaximumRowPerFile + 1;
+            var totalPage = (totalRows - 1) / ExcelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex;
             var exportTasks = new List<Task<ZipEntry>>();
             while (nextPage <= totalPage)
@@ -83,7 +77,7 @@
             var fileNames = await Task.WhenAll(exportTasks).ConfigureAwait(false);
             files.AddRange(fileNames);
 
-            return ZipExcelFile(files);
+            return ZipExcelFile(files, _tempFolderPath);
         }
 
         private async Task<ZipEntry> ExportOnePageAsync(DailyBetsMetaModel metaModel)
@@ -94,7 +88,7 @@
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var fileName = Path.Combine(_tempFolderPath, $"{Guid.NewGuid()}.dat");
-                    using (StreamWriter stw = _fileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
+                    using (StreamWriter stw = FileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
                     {
                         await stw.WriteLineAsync(_header).ConfigureAwait(false);
 
@@ -122,39 +116,39 @@
             StringBuilder rowBuilder)
         {
             rowBuilder.Append(reader["Index"]);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(reader["PlayerName"]);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(reader["CurrencyName"]);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
             AddBigNumberAsText(rowBuilder, reader["RefNo"].ToString());
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(reader["TransTime"]);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()]());
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
             rowBuilder.Append(reader["BetType"]);
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
             rowBuilder.Append(reader["Turnover"]);
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
             rowBuilder.Append(reader["WinLoss"]);
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter);
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(reader["Status"])]());
 
@@ -165,7 +159,7 @@
         private void AddBigNumberAsText(StringBuilder rowBuilder, string bigNumber)
         {
             rowBuilder.Append("=TEXT(" + bigNumber + ",");
-            rowBuilder.Append(_excelOptions.CSVTextDelimiter == DefaultTextDelimiter ? DefaultTextDelimiter + "\"0\"" + DefaultTextDelimiter + ")" : "\"0\")");
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter == DefaultTextDelimiter ? DefaultTextDelimiter + "\"0\"" + DefaultTextDelimiter + ")" : "\"0\")");
         }
 
         private string GetHeaderString()
@@ -184,7 +178,7 @@
                 ViewResources.Status
             };
 
-            return string.Join(_excelOptions.CSVSeparateCharacter, headers);
+            return string.Join(ExcelOptions.CSVSeparateCharacter, headers);
         }
 
         private string GetFooterString(decimal turnover, decimal winLoss, string baseCurrency)
@@ -198,34 +192,13 @@
                 string.Empty,
                 string.Empty,
                 string.Format(ViewResources.Totalin, baseCurrency),
-                _excelOptions.CSVTextDelimiter + turnover.ToString(DecimalFormat) + _excelOptions.CSVTextDelimiter,
-                 _excelOptions.CSVTextDelimiter + winLoss.ToString(DecimalFormat) + _excelOptions.CSVTextDelimiter,
+                ExcelOptions.CSVTextDelimiter + turnover.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
+                 ExcelOptions.CSVTextDelimiter + winLoss.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
                 string.Empty
             };
 
-            return string.Join(_excelOptions.CSVSeparateCharacter, footer);
+            return string.Join(ExcelOptions.CSVSeparateCharacter, footer);
         }
 
-        private void CreateTempFolder()
-        {
-            _tempFolderPath = GetTempFolderPath();
-            _fileService.CreateFolder(_tempFolderPath);
-        }
-
-        private string ZipExcelFile(List<ZipEntry> files)
-        {
-            var zipPath = Path.Combine(_tempFolderPath, $"{Guid.NewGuid()}.zip");
-
-            _fileService.Compress(files, zipPath, true);
-
-            return zipPath;
-        }
-
-        private string GetTempFolderPath()
-        {
-            var root = _fileService.GetParentDirectory(_enviroment.ContentRootPath);
-
-            return Path.Combine(root.FullName, _excelOptions.Path);
-        }
     }
 }

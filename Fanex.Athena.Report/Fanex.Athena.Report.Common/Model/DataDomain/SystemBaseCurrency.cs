@@ -4,9 +4,11 @@ namespace Fanex.Athena.Report.Common.Model.DataDomain
 {
     public static class SystemBaseCurrency
     {
+        public const string EUR = "EUR";
+
         public static IDictionary<int, string> BaseCurrencyList { get; } = new Dictionary<int, string>
         {
-            { BaseCurrencyType.Eur, "EUR" },
+            { BaseCurrencyType.Eur, EUR },
             { BaseCurrencyType.Usd, "USD" },
             { BaseCurrencyType.Gbp, "GBP" },
             { BaseCurrencyType.MYR, "MYR" },
@@ -16,6 +18,6 @@ namespace Fanex.Athena.Report.Common.Model.DataDomain
             { BaseCurrencyType.INH, "INH" },
         };
 
-        public static IEnumerable<string> DefaultBaseCurrencyList { get; } = new[] { "GBP", "EUR", "USD" };
+        public static IEnumerable<string> DefaultBaseCurrencyList { get; } = new[] { "GBP", EUR, "USD" };
     }
 }
