@@ -178,16 +178,25 @@
 
         private void AssignSummaryTotal(ISheet sheet, ISheet templateSheet, IList<PromotionPrize> summaryTotal, string currencyName, int rowIndex)
         {
+            var summaryRowIndex = rowIndex;
             foreach (var summary in summaryTotal)
             {
                 // Copy template
-                var row = _builder.CopyRow(sheet, templateSheet, RowTotal, rowIndex);
+                var row = _builder.CopyRow(sheet, templateSheet, RowTotal, summaryRowIndex);
                 row.Cells[ColumnAmount].SetCellValue((double)summary.Amount);
-                row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.SummaryTotalIn, summary.PromotionType, currencyName));
+                row.Cells[ColumnPromotionType].SetCellValue(summary.PromotionType);
 
-                // Merge first two column
-                _builder.MergeCells(sheet, firstRow: rowIndex, lastRow: rowIndex, firstCol: ColumnIndex, lastCol: ColumnSystemId);
-                rowIndex++;
+                // Merge column
+                _builder.MergeCells(sheet, firstRow: summaryRowIndex, lastRow: summaryRowIndex, firstCol: ColumnPromotionType, lastCol: ColumnSystemId);
+
+                summaryRowIndex++;
+            }
+
+            if (summaryRowIndex > rowIndex)
+            {
+                var firstSummaryRow = sheet.GetRow(rowIndex);
+                firstSummaryRow.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, currencyName));
+                _builder.MergeCells(sheet, firstRow: rowIndex, lastRow: summaryRowIndex - 1, firstCol: ColumnIndex, lastCol: ColumnDate);
             }
         }
 

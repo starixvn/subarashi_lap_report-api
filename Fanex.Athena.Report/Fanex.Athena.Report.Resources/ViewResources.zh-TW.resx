@@ -294,4 +294,8 @@
   <data name="NPHP" xml:space="preserve">
     <value>NPH促銷活動</value>
   </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>PP 活動類別</value>
+    <comment>123804</comment>
+  </data>
 </root>
