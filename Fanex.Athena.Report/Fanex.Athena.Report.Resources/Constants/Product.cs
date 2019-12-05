@@ -4,6 +4,6 @@
     {
         public const string BA = "BA";
 
-        public const string NPHP = "NPHP";
+        public const string SPR = "SPR";
     }
 }

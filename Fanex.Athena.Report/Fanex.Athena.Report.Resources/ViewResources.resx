@@ -305,8 +305,9 @@
   <data name="PromotionPrize" xml:space="preserve">
     <value>Promotion Prize</value>
   </data>
-  <data name="NPHP" xml:space="preserve">
-    <value>NPH Promotion</value>
+  <data name="SPR" xml:space="preserve">
+    <value>Saba Promotion</value>
+    <comment>124612</comment>
   </data>
   <data name="PromotionType" xml:space="preserve">
     <value>Promotion Type</value>

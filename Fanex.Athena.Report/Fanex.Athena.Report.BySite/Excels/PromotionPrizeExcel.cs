@@ -67,10 +67,10 @@
                         productName,
                         promotionData.Value,
                         metaModel.DefaultBaseCurrency,
-                        promotionData.Key != Product.NPHP)
+                        promotionData.Key != Product.SPR)
                     : CreateEmptySheet(workBook, templateSheet, productName);
 
-                if (promotionData.Key == Product.NPHP)
+                if (promotionData.Key == Product.SPR)
                 {
                     _builder.HideColumn(sheet, ColumnPromotionType);
                 }
