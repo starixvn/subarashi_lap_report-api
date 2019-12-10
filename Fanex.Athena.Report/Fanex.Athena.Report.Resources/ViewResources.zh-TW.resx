@@ -291,11 +291,12 @@
   <data name="PromotionPrize" xml:space="preserve">
     <value>活動獎金</value>
   </data>
-  <data name="NPHP" xml:space="preserve">
-    <value>NPH促銷活動</value>
-  </data>
   <data name="PromotionType" xml:space="preserve">
     <value>PP 活動類別</value>
     <comment>123804</comment>
+  </data>
+  <data name="SPR" xml:space="preserve">
+    <value>沙巴促銷活動</value>
+    <comment>124612</comment>
   </data>
 </root>

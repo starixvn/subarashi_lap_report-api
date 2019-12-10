@@ -376,15 +376,6 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NPH Promotion.
-        /// </summary>
-        public static string NPHP {
-            get {
-                return ResourceManager.GetString("NPHP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
         public static string Others {
@@ -471,6 +462,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SB {
             get {
                 return ResourceManager.GetString("SB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saba Promotion.
+        /// </summary>
+        public static string SPR {
+            get {
+                return ResourceManager.GetString("SPR", resourceCulture);
             }
         }
         
