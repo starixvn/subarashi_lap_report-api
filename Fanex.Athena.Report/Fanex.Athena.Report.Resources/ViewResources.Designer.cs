@@ -556,6 +556,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promotion Type.
+        /// </summary>
+        public static string PromotionType {
+            get {
+                return ResourceManager.GetString("PromotionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ref No.
         /// </summary>
         public static string RefNo {

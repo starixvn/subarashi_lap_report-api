@@ -8,8 +8,8 @@
     using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
     using Fanex.Athena.Report.ByPlayer.Extensions;
     using Fanex.Athena.Report.ByPlayer.MetaModels;
+    using Fanex.Athena.Report.Common.Excels;
     using Fanex.Athena.Report.Common.Services;
-    using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Resources;
     using Fanex.Data;
     using Microsoft.AspNetCore.Hosting;

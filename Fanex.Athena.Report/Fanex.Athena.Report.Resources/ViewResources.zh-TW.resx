@@ -312,10 +312,6 @@
   <data name="PendingFunds" xml:space="preserve">
     <value>待定資金</value>
   </data>
-  <data name="PromotionType" xml:space="preserve">
-    <value>PP 活動類別</value>
-    <comment>123804</comment>
-  </data>
   <data name="SPR" xml:space="preserve">
     <value>沙巴促銷活動</value>
     <comment>124612</comment>
@@ -338,5 +334,9 @@
   </data>
   <data name="Promotion" xml:space="preserve">
     <value>促銷活動</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>PP 活動類別</value>
+    <comment>123804</comment>
   </data>
 </root>

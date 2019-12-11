@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.Controllers;
 using Fanex.Athena.Report.ByPlayer.DTO;
@@ -18,21 +19,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
     public class CustomerWinLossControllerTest : IDisposable
     {
-        private string _fileName;
-        public CustomerWinLossControllerTest()
-        {
-            _fileName = Guid.NewGuid().ToString();
-            File.Create(_fileName);
-        }
+        private static readonly IList<string> FileNameList = new List<string>();
 
-        public void Dispose()
-        {
-            if (!string.IsNullOrEmpty(_fileName) && File.Exists(_fileName))
-            {
-                File.Delete(_fileName);
-            }
-            GC.SuppressFinalize(this);
-        }
         [Fact]
         public async Task Index_WhenCall_ReturnCorrectData()
         {
@@ -82,8 +70,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx")).Returns(fileInfo);
 
             var excelService = new Mock<ICustomerWinLossExcel>();
+            var fileName = CreateFile();
 
-            excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(_fileName);
+            excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(fileName);
 
             var controller = new CustomerWinLossController(service.Object);
 
@@ -91,9 +80,39 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileStreamResult;
 
             // Assert
-
             Assert.NotNull(result.FileStream);
             Assert.Equal("application/octet-stream", result.ContentType);
+
+            result.FileStream.Dispose();
+        }
+
+        private string CreateFile()
+        {
+            var fileName = Guid.NewGuid().ToString() + ".eplus";
+            File.Create(fileName).Dispose();
+            FileNameList.Add(fileName);
+
+            return fileName;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && FileNameList.Any())
+            {
+                foreach (var fileName in FileNameList)
+                {
+                    if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                }
+            }
         }
     }
 }
