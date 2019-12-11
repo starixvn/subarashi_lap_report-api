@@ -15,14 +15,8 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
 
-    public class CustomerBalanceExcel : ICustomerBalanceExcel
+    public class CustomerBalanceExcel : BaseExcel, ICustomerBalanceExcel
     {
-        private readonly ExcelOptions _excelOptions;
-
-        private readonly IHostingEnvironment _enviroment;
-
-        private readonly IFileService _fileService;
-
         private static readonly string[] _commonColumns = {
             "openingbalance",
             "deposit",
@@ -41,14 +35,28 @@
             "ba"
         };
 
+        private static readonly string[] _commonHeaderText = {
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.OpeningBalance,
+                ViewResources.Deposit,
+                ViewResources.Withdrawal,
+                ViewResources.Bonus,
+                ViewResources.Adjustment,
+                ViewResources.Promotion,
+                ViewResources.Turnover,
+                ViewResources.DrawGame,
+                ViewResources.NetTurnover,
+                ViewResources.PendingFunds,
+                ViewResources.CustomerW_L
+            };
+
         public CustomerBalanceExcel(
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
-            IHostingEnvironment enviroment)
+            IHostingEnvironment environment) : base(environment, fileService, excelOptionsAccessor)
         {
-            _fileService = fileService;
-            _excelOptions = excelOptionsAccessor.Value;
-            _enviroment = enviroment;
         }
 
         public async Task<string> Export(CustomerBalanceMetaModel metaModel)
@@ -61,7 +69,7 @@
                 metaModel.InjectToDbParameter(db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    using (StreamWriter stream = _fileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
+                    using (StreamWriter stream = FileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
                     {
                         var rowBuilder = new StringBuilder();
                         WriteHeaderToCSV(metaModel, stream, rowBuilder);
@@ -83,35 +91,23 @@
 
         private void WriteHeaderToCSV(CustomerBalanceMetaModel metaModel, StreamWriter stream, StringBuilder rowBuilder)
         {
-            rowBuilder.Append("#").Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.ExternalId).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.SystemId).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.OpeningBalance).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.Deposit).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.Withdrawal).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.Bonus).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.Adjustment).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.Promotion).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.Turnover).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.DrawGame).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.NetTurnover).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.PendingFunds).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(ViewResources.CustomerW_L).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(string.Join(ExcelOptions.CSVSeparateCharacter, _commonHeaderText));
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             if (metaModel.HasComm)
             {
-                rowBuilder.Append($"{ViewResources.CustomerW_L} {ViewResources.Comm}").Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append($"{ViewResources.CustomerW_L} {ViewResources.Total}").Append(_excelOptions.CSVSeparateCharacter);
+                rowBuilder.Append($"{ViewResources.CustomerW_L} {ViewResources.Comm}").Append(ExcelOptions.CSVSeparateCharacter);
+                rowBuilder.Append($"{ViewResources.CustomerW_L} {ViewResources.Total}").Append(ExcelOptions.CSVSeparateCharacter);
             }
 
-            rowBuilder.Append(ViewResources.ClosingBalance).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ViewResources.ClosingBalance).Append(ExcelOptions.CSVSeparateCharacter);
             rowBuilder.Append(ViewResources.AffiliateTransfer);
 
             if (metaModel.IsAllowedBA)
             {
-                rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append($"{ViewResources.BA} {ViewResources.Turnover}").Append(_excelOptions.CSVSeparateCharacter);
-                rowBuilder.Append(ViewResources.BACommission).Append(_excelOptions.CSVSeparateCharacter);
+                rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
+                rowBuilder.Append($"{ViewResources.BA} {ViewResources.Turnover}").Append(ExcelOptions.CSVSeparateCharacter);
+                rowBuilder.Append(ViewResources.BACommission).Append(ExcelOptions.CSVSeparateCharacter);
                 rowBuilder.Append(ViewResources.AmtDueToBA);
             }
 
@@ -126,9 +122,9 @@
             CustomerBalanceMetaModel metaModel,
             int index)
         {
-            rowBuilder.Append(index).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["nickname"]).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(reader["username"]).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(index).Append(ExcelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(reader["nickname"]).Append(ExcelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(reader["username"]).Append(ExcelOptions.CSVSeparateCharacter);
             BuildCommonColumn(reader, metaModel, string.Empty, rowBuilder);
 
             stream.WriteLine(rowBuilder);
@@ -147,7 +143,7 @@
                 {
                     case "netturnover":
                         {
-                            rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "turnover"]) - Convert.ToDecimal(reader[suffixName + "drawgame"])).Append(_excelOptions.CSVSeparateCharacter);
+                            rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "turnover"]) - Convert.ToDecimal(reader[suffixName + "drawgame"])).Append(ExcelOptions.CSVSeparateCharacter);
 
                             break;
                         }
@@ -156,9 +152,9 @@
                         {
                             if (metaModel.HasComm)
                             {
-                                rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(_excelOptions.CSVSeparateCharacter);
+                                rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(ExcelOptions.CSVSeparateCharacter);
                                 rowBuilder.Append(Convert.ToDecimal(reader[suffixName + "winloss"])
-                                    + Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(_excelOptions.CSVSeparateCharacter);
+                                    + Convert.ToDecimal(reader[suffixName + "playercomm"])).Append(ExcelOptions.CSVSeparateCharacter);
                             }
 
                             break;
@@ -182,7 +178,7 @@
 
                     default:
                         {
-                            rowBuilder.Append(reader[suffixName + item]).Append(_excelOptions.CSVSeparateCharacter);
+                            rowBuilder.Append(reader[suffixName + item]).Append(ExcelOptions.CSVSeparateCharacter);
                             break;
                         }
                 }
@@ -202,9 +198,9 @@
                 }
                 else
                 {
-                    rowBuilder.Append(string.Empty).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(string.Empty).Append(_excelOptions.CSVSeparateCharacter);
-                    rowBuilder.Append(ViewResources.Total).Append(_excelOptions.CSVSeparateCharacter);
+                    rowBuilder.Append(string.Empty).Append(ExcelOptions.CSVSeparateCharacter);
+                    rowBuilder.Append(string.Empty).Append(ExcelOptions.CSVSeparateCharacter);
+                    rowBuilder.Append(ViewResources.Total).Append(ExcelOptions.CSVSeparateCharacter);
                     BuildCommonColumn(reader, metaModel, "sum", rowBuilder);
                     stream.WriteLine(rowBuilder);
                     rowBuilder.Clear();
@@ -217,24 +213,10 @@
             bool isSum,
             StringBuilder rowBuilder)
         {
-            rowBuilder.Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumturnoverba"]) : Convert.ToDecimal(reader["TurnOverBA"])).Append(_excelOptions.CSVSeparateCharacter);
-            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumcommba"]) : Convert.ToDecimal(reader["CommBA"])).Append(_excelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumturnoverba"]) : Convert.ToDecimal(reader["TurnOverBA"])).Append(ExcelOptions.CSVSeparateCharacter);
+            rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumcommba"]) : Convert.ToDecimal(reader["CommBA"])).Append(ExcelOptions.CSVSeparateCharacter);
             rowBuilder.Append(isSum ? Convert.ToDecimal(reader["sumamountduetoba"]) : Convert.ToDecimal(reader["AmountDueToBA"]));
-        }
-
-        private string EnsureFolderPath()
-        {
-            var path = GetTempFolderPath();
-            _fileService.CreateFolder(path);
-            return path;
-        }
-
-        private string GetTempFolderPath()
-        {
-            var root = _fileService.GetParentDirectory(_enviroment.ContentRootPath);
-
-            return Path.Combine(root.FullName, _excelOptions.Path);
         }
     }
 }
