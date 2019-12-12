@@ -46,7 +46,7 @@ namespace Fanex.Athena.Report.Common.Excels
             return zipPath;
         }
 
-        protected void BuildNumberItem(StringBuilder rowBuilder, object value)
+        protected void BuildItemWithTextDelimiter(StringBuilder rowBuilder, object value)
         {
             rowBuilder.Append(ExcelOptions.CSVTextDelimiter)
             .Append(value)
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Report.Common.Excels
         protected void BuildItemAsText(StringBuilder rowBuilder, object value)
         {
             rowBuilder.Append("=");
-            BuildNumberItem(rowBuilder, value);
+            BuildItemWithTextDelimiter(rowBuilder, value);
         }
     }
 }

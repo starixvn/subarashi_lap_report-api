@@ -144,7 +144,7 @@
                     case "netturnover":
                         {
                             var netTurnover = reader.GetVal<decimal>(prefixName + "turnover") - reader.GetVal<decimal>(prefixName + "drawgame");
-                            BuildNumberItem(rowBuilder, netTurnover);
+                            BuildItemWithTextDelimiter(rowBuilder, netTurnover);
                             break;
                         }
 
@@ -152,10 +152,10 @@
                         {
                             if (metaModel.HasComm)
                             {
-                                BuildNumberItem(rowBuilder, reader.GetVal<decimal>(prefixName + "playercomm"));
+                                BuildItemWithTextDelimiter(rowBuilder, reader.GetVal<decimal>(prefixName + "playercomm"));
 
                                 var totalWinLoss = reader.GetVal<decimal>(prefixName + "winloss") + reader.GetVal<decimal>(prefixName + "playercomm");
-                                BuildNumberItem(rowBuilder, totalWinLoss);
+                                BuildItemWithTextDelimiter(rowBuilder, totalWinLoss);
                             }
 
                             break;
@@ -173,7 +173,7 @@
 
                     default:
                         {
-                            BuildNumberItem(rowBuilder, reader[prefixName + item]);
+                            BuildItemWithTextDelimiter(rowBuilder, reader[prefixName + item]);
                             break;
                         }
                 }
@@ -216,7 +216,7 @@
 
             foreach (var columnName in columnNameList)
             {
-                BuildNumberItem(rowBuilder, reader.GetVal<decimal>(columnName));
+                BuildItemWithTextDelimiter(rowBuilder, reader.GetVal<decimal>(columnName));
             }
         }
     }
