@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.Controllers;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
-    public class CustomerBalanceControllerTest
+    public class CustomerBalanceControllerTest : BaseReportExcelTest
     {
         [Fact]
         public async Task Index_WhenCall_ReturnsCorrectResult()
@@ -41,32 +41,29 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
         }
 
         [Fact]
-        public async Task ExportExcel_WhenCall_ReturnsCorrectFile()
+        public async Task ExportExcel_WhenCall_ReturnsCorrectFileAndFileIsDeleted()
         {
             // Arrange
             const string expectedContentType = "application/octet-stream";
             var metaModel = new CustomerBalanceMetaModel();
             var excel = new Mock<ICustomerBalanceExcel>();
-            var fileName = $"D:\\{Guid.NewGuid()}.dat";
-            var filestream = File.Create(fileName);
-            filestream.Close();
+            var fileName = CreateFile();
+
             excel.Setup(e => e.Export(metaModel)).Returns(Task.FromResult(fileName));
             var controller = new CustomerBalanceController();
             var expectedFileContent = File.ReadAllBytes(fileName);
 
             // Action
             var result = await controller.ExportExcel(metaModel, excel.Object) as FileStreamResult;
+            var fileContentResult = GetStreamContent(result.FileStream);
 
             // Assert
             Assert.Equal(expectedContentType, result.ContentType);
-            Assert.Equal(expectedFileContent, GetStreamContent(result.FileStream));
-        }
+            Assert.Equal(expectedFileContent, fileContentResult);
 
-        private byte[] GetStreamContent(Stream fileStream)
-        {
-            byte[] bytes = new byte[fileStream.Length];
-            fileStream.Read(bytes);
-            return bytes;
+            Assert.True(File.Exists(fileName));
+            result.FileStream.Dispose();
+            Assert.False(File.Exists(fileName));
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Moq;
-using NPOI.SS.UserModel;
+﻿using System;
+using System.IO;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {
@@ -11,21 +9,20 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
         {
         }
 
-        protected static void AssertSetTextRowHeader(IRow row, IEnumerable<string> headers, int startIndex = 0)
+        protected string CreateFile()
         {
-            for (int i = 0; i < headers.Count(); i++)
-            {
-                var mockCell = Mock.Get(row.Cells[i + startIndex]);
-                mockCell.Verify(c => c.SetCellValue(headers.ElementAt(i)), Times.Once);
-            }
+            var fileName = $"{Guid.NewGuid()}.dat";
+            File.Create(fileName).Dispose();
+
+            return fileName;
         }
 
-        protected static void AssertHideColumns(Mock<ISheet> mockSheet, params int[] columns)
+        protected byte[] GetStreamContent(Stream fileStream)
         {
-            for (int i = 0; i < columns.Length; i++)
+            using (var memoryStream = new MemoryStream())
             {
-                mockSheet.Verify(s => s.SetColumnWidth(columns[i], 0), Times.Once);
-                mockSheet.Verify(s => s.SetColumnHidden(columns[i], true), Times.Once);
+                fileStream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
             }
         }
     }

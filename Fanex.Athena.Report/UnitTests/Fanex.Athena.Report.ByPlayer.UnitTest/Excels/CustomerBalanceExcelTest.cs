@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoFixture;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Excels;
@@ -24,39 +24,57 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
     {
         private const string CSVSeparateCharacter = ",";
 
-        private const string RootPath = "D:";
-
-        private readonly string _firstFooterString = $"{CSVSeparateCharacter}{CSVSeparateCharacter}{ViewResources.Total}{CSVSeparateCharacter}";
+        private readonly string RootPath = Directory.GetCurrentDirectory();
 
         private readonly IFixture _fixture;
 
-        private readonly IFileService _fileService;
-
-        private readonly Mock<IOptions<ExcelOptions>> _excelOptionsAccessor;
-
-        private readonly ExcelOptions _excelOptions;
+        private readonly ExcelOptions _excelOptions = new ExcelOptions()
+        {
+            Path = "LapReportTempExcel",
+            CSVSeparateCharacter = CSVSeparateCharacter
+        };
 
         private readonly Mock<IHostingEnvironment> _enviroment;
-
-        private readonly ICustomerBalanceExcel _excel;
 
         public CustomerBalanceExcelTest()
         {
             _fixture = new Fixture();
             _enviroment = new Mock<IHostingEnvironment>();
             _enviroment.Setup(e => e.ContentRootPath).Returns(RootPath);
+        }
 
-            _fileService = new FileService();
+        private Mock<IFileService> CreateMockFileService(StreamWriter streamWriter)
+        {
+            var fileService = new Mock<IFileService>();
+            var directoryInfo = new DirectoryInfo(RootPath);
+            fileService.Setup(s => s.GetParentDirectory(RootPath)).Returns(directoryInfo);
+            fileService.Setup(f => f.CreateStreamWriter(It.Is<string>(x => x.Contains(RootPath)), false, Encoding.UTF8)).Returns(streamWriter);
 
-            _excelOptionsAccessor = new Mock<IOptions<ExcelOptions>>();
-            _excelOptions = new ExcelOptions()
+            return fileService;
+        }
+
+        private Mock<IOptions<ExcelOptions>> CreateMockExcelOption()
+        {
+            var excelOptionsAccessor = new Mock<IOptions<ExcelOptions>>();
+            excelOptionsAccessor.Setup(eoa => eoa.Value).Returns(_excelOptions);
+
+            return excelOptionsAccessor;
+        }
+
+        private CustomerBalanceExcel CreateExcelService(StreamWriter streamWriter)
+        {
+            var fileService = CreateMockFileService(streamWriter);
+            var excelOptionAccessor = CreateMockExcelOption();
+
+            return new CustomerBalanceExcel(fileService.Object, excelOptionAccessor.Object, _enviroment.Object);
+        }
+
+        private void TearDown(string fileName)
+        {
+            if (File.Exists(fileName))
             {
-                Path = "LapReportTempExcel",
-                CSVSeparateCharacter = CSVSeparateCharacter
-            };
-            _excelOptionsAccessor.Setup(eoa => eoa.Value).Returns(_excelOptions);
-
-            _excel = new CustomerBalanceExcel(_fileService, _excelOptionsAccessor.Object, _enviroment.Object);
+                File.Delete(fileName);
+            }
         }
 
         [Fact]
@@ -71,245 +89,203 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 ProductOptions = GetProductOptions()
             };
 
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            File.Delete(fileName);
-
-            // Assert
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("fromdate", metaModel.FromDate), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("todate", metaModel.ToDate), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("topcount", metaModel.TopCount), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("orderitem", metaModel.OrderItem), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("pagesize", metaModel.PageSize), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("pageindex", metaModel.PageIndex), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("AgentList", metaModel.AgentListXml), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showSB", true), Times.Once);
-            mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showNG", false), Times.Once);
-        }
-
-        [Fact]
-        public async Task Export_WhenCall_ReturnsCorrectFileName()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(false);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(false);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
-
-            var root = _fileService.GetParentDirectory(RootPath);
-            var path = Path.Combine(root.FullName, _excelOptions.Path);
-
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            File.Delete(fileName);
-
-            // Assert
-            Assert.Contains(path, fileName);
-            Assert.Contains(".dat", fileName);
-        }
-
-        [Fact]
-        public async Task Export_NoData_FileHavesHeaderAndNoInfoLine()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { false, true }).Dequeue);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
-
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            var count = File.ReadAllLines(fileName).Length;
-            var header = File.ReadLines(fileName).First();
-            var noInfoLine = GetLine(fileName, 2);
-            File.Delete(fileName);
-
-            // Assert
-            Assert.True(IsCommonHeader(header) && count == 2 && noInfoLine.Contains(ViewResources.NoInfo));
-        }
-
-        [Fact]
-        public async Task Export_HaveData_FileHavesData()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false, true }).Dequeue);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            var expected = _fixture.Create<CustomerBalance>();
-            ConfigureReaderForResult(expected, mockIDataReader);
-            ConfigureReaderForTotalData(expected, 1, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
-
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            var count = File.ReadAllLines(fileName).Length;
-            var header = File.ReadLines(fileName).First();
-            File.Delete(fileName);
-
-            // Assert
-            Assert.True(count > 2 && IsCommonHeader(header));
-        }
-
-        [Fact]
-        public async Task Export_HaveDataNotHasCommAndNotIsAllowedBA_FileHavesCorrectData()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false, true }).Dequeue);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            var expected = _fixture.Create<CustomerBalance>();
-            expected.NetTurnover = expected.Turnover - expected.DrawGame;
-            ConfigureReaderForResult(expected, mockIDataReader);
-            ConfigureReaderForTotalData(expected, 1, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = new CustomerBalanceMetaModel
+            using (var memoryStream = new MemoryStream())
             {
-                HasComm = false,
-                IsAllowedBA = false,
-                ProductOptions = GetProductOptions()
-            };
+                var streamWriter = new StreamWriter(memoryStream);
+                var excelService = CreateExcelService(streamWriter);
 
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            var header = File.ReadLines(fileName).First();
-            var footer = GetLine(fileName, 3);
-            var totals = GetTotals(footer);
-            File.Delete(fileName);
+                // Action
+                var fileName = await excelService.Export(metaModel);
 
-            // Assert
-            Assert.True(
-                IsCommonHeader(header)
-                && !IsHasCommHeader(header)
-                && !IsHasBAHeader(header)
-                && IsValidFooter(expected, footer, totals, metaModel)
-            );
-        }
+                // Assert
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("fromdate", metaModel.FromDate), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("todate", metaModel.ToDate), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("topcount", metaModel.TopCount), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("orderitem", metaModel.OrderItem), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("pagesize", metaModel.PageSize), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("pageindex", metaModel.PageIndex), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("AgentList", metaModel.AgentListXml), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showSB", true), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showNG", false), Times.Once);
 
-        [Fact]
-        public async Task Export_HasCommAndNotIsAllowedBA_FileHavesCorrectData()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false, true }).Dequeue);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            var expected = _fixture.Create<CustomerBalance>();
-            expected.NetTurnover = expected.Turnover - expected.DrawGame;
-            expected.TotalWL = expected.WinLoss + expected.PlayerComm;
-            ConfigureReaderForResult(expected, mockIDataReader);
-            ConfigureReaderForTotalData(expected, 1, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = new CustomerBalanceMetaModel
-            {
-                HasComm = true,
-                IsAllowedBA = false,
-                ProductOptions = GetProductOptions()
-            };
-
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            var header = File.ReadLines(fileName).First();
-            var footer = GetLine(fileName, 3);
-            var totals = GetTotals(footer);
-            File.Delete(fileName);
-
-            // Assert
-            Assert.True(
-                IsCommonHeader(header)
-                && IsHasCommHeader(header)
-                && !IsHasBAHeader(header)
-                && IsValidFooter(expected, footer, totals, metaModel)
-            );
-        }
-
-        [Fact]
-        public async Task Export_NotHasCommAndIsAllowedBA_FileHavesCorrectData()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false, true }).Dequeue);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            var expected = _fixture.Create<CustomerBalance>();
-            expected.NetTurnover = expected.Turnover - expected.DrawGame;
-            expected.TotalWL = expected.WinLoss + expected.PlayerComm;
-            ConfigureReaderForResult(expected, mockIDataReader);
-            ConfigureReaderForTotalData(expected, 1, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = new CustomerBalanceMetaModel
-            {
-                HasComm = false,
-                IsAllowedBA = true,
-                ProductOptions = GetProductOptions()
-            };
-
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            var header = File.ReadLines(fileName).First();
-            var footer = GetLine(fileName, 3);
-            var totals = GetTotals(footer);
-            File.Delete(fileName);
-
-            // Assert
-            Assert.True(
-                IsCommonHeader(header)
-                && !IsHasCommHeader(header)
-                && IsHasBAHeader(header)
-                && IsValidFooter(expected, footer, totals, metaModel)
-            );
-        }
-
-        [Fact]
-        public async Task Export_HasCommAndIsAllowedBA_FileHavesCorrectData()
-        {
-            // Arrange
-            var mockIDataReader = new Mock<IDataReader>();
-            mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false, true }).Dequeue);
-            mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            var expected = _fixture.Create<CustomerBalance>();
-            expected.NetTurnover = expected.Turnover - expected.DrawGame;
-            expected.TotalWL = expected.WinLoss + expected.PlayerComm;
-            ConfigureReaderForResult(expected, mockIDataReader);
-            ConfigureReaderForTotalData(expected, 1, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
-            var metaModel = new CustomerBalanceMetaModel
-            {
-                HasComm = true,
-                IsAllowedBA = true,
-                ProductOptions = GetProductOptions()
-            };
-
-            // Action
-            var fileName = await _excel.Export(metaModel);
-            var header = File.ReadLines(fileName).First();
-            var footer = GetLine(fileName, 3);
-            var totals = GetTotals(footer);
-            File.Delete(fileName);
-
-            // Assert
-            Assert.True(
-                IsCommonHeader(header)
-                && IsHasCommHeader(header)
-                && IsHasBAHeader(header)
-                && IsValidFooter(expected, footer, totals, metaModel)
-            );
-        }
-
-        private string GetLine(string fileName, int line)
-        {
-            using (var stream = new StreamReader(fileName))
-            {
-                for (int index = 1; index < line; index++)
-                {
-                    stream.ReadLine();
-                }
-
-                return stream.ReadLine();
+                streamWriter.Dispose();
+                TearDown(fileName);
             }
         }
 
-        private bool IsCommonHeader(string header)
+        [Fact]
+        public async Task Export_WhenCall_GenerateHeaderCorrectly()
+        {
+            // Arrange
+            var mockDataReader = new Mock<IDataReader>();
+            SetUpObjectDb(mockDataReader);
+            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+
+            using (var memoryStream = new MemoryStream())
+            {
+                var streamWriter = new StreamWriter(memoryStream);
+                var excelService = CreateExcelService(streamWriter);
+
+                // Action
+                var fileName = await excelService.Export(metaModel);
+
+                var contentLines = Encoding.UTF8.GetString(memoryStream.ToArray())
+                                .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var header = contentLines.First();
+
+                // Assert
+                Assert.True(IsCorrectHeader(header));
+
+                streamWriter.Dispose();
+                TearDown(fileName);
+            }
+        }
+
+        [Fact]
+        public async Task Export_NoData_GenerateNoInfoLine()
+        {
+            // Arrange
+            var mockDataReader = new Mock<IDataReader>();
+            mockDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { false, true }).Dequeue);
+            mockDataReader.Setup(dr => dr.NextResult()).Returns(true);
+            mockDataReader.Setup(r => r["TotalRows"]).Returns(0);
+            SetUpObjectDb(mockDataReader);
+            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+
+            using (var memoryStream = new MemoryStream())
+            {
+                var streamWriter = new StreamWriter(memoryStream);
+                var excelService = CreateExcelService(streamWriter);
+
+                // Action
+                var fileName = await excelService.Export(metaModel);
+
+                var contentLines = Encoding.UTF8.GetString(memoryStream.ToArray())
+                                .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var noInfoLine = contentLines.ElementAt(1);
+
+                // Assert
+                Assert.Equal(ViewResources.NoInfo, noInfoLine);
+
+                streamWriter.Dispose();
+                TearDown(fileName);
+            }
+        }
+
+        [Fact]
+        public async Task Export_HaveData_GenerateContentRowCorrectly()
+        {
+            // Arrange
+            var mockDataReader = new Mock<IDataReader>();
+            mockDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false }).Dequeue);
+            mockDataReader.Setup(dr => dr.NextResult()).Returns(false);
+            var expected = _fixture.Create<CustomerBalance>();
+            ConfigureReaderForResult(expected, mockDataReader);
+            SetUpObjectDb(mockDataReader);
+            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+            metaModel.HasComm = true;
+            metaModel.IsAllowedBA = true;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                var streamWriter = new StreamWriter(memoryStream);
+                var excelService = CreateExcelService(streamWriter);
+
+                // Action
+                var fileName = await excelService.Export(metaModel);
+                var contentLines = Encoding.UTF8.GetString(memoryStream.ToArray())
+                                .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+                // Assert
+                AssertBodyData(expected, contentLines);
+
+                streamWriter.Dispose();
+                TearDown(fileName);
+            }
+        }
+
+        [Fact]
+        public async Task Export_HaveData_GenerateFooterRowCorrectly()
+        {
+            // Arrange
+            var mockDataReader = new Mock<IDataReader>();
+            mockDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { false, true }).Dequeue);
+            mockDataReader.Setup(dr => dr.NextResult()).Returns(true);
+            var expected = _fixture.Create<CustomerBalance>();
+            ConfigureReaderForTotalData(expected, 1, mockDataReader);
+            SetUpObjectDb(mockDataReader);
+            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+            metaModel.HasComm = true;
+            metaModel.IsAllowedBA = true;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                var streamWriter = new StreamWriter(memoryStream);
+                var excelService = CreateExcelService(streamWriter);
+
+                // Action
+                var fileName = await excelService.Export(metaModel);
+                var totalLines = Encoding.UTF8.GetString(memoryStream.ToArray())
+                                .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+                // Assert
+                AssertTotalData(expected, totalLines);
+
+                streamWriter.Dispose();
+                TearDown(fileName);
+            }
+        }
+
+        private static void AssertBodyData(CustomerBalance expected, string[] contentLines)
+        {
+            var dataLines = contentLines.ElementAt(1).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var externalId = "=" + expected.ExternalId;
+
+            Assert.Equal("1", dataLines[0]);
+            Assert.Equal(externalId, dataLines[1]);
+            Assert.Equal(expected.SystemId, dataLines[2]);
+            AssertCommonData(expected, dataLines);
+            Assert.Equal(expected.TurnoverBA.ToString(), dataLines[18]);
+            Assert.Equal(expected.CommBA.ToString(), dataLines[19]);
+            Assert.Equal(expected.AmountDueToBA.ToString(), dataLines[20]);
+        }
+
+        private static void AssertTotalData(CustomerBalance expected, string[] contentLines)
+        {
+            var dataLines = contentLines.ElementAt(1).Split(new[] { ',' });
+
+            Assert.Empty(dataLines[0]);
+            Assert.Empty(dataLines[1]);
+            Assert.Equal(ViewResources.Total, dataLines[2]);
+            AssertCommonData(expected, dataLines);
+            Assert.Equal(expected.TurnoverBA.ToString(), dataLines[18]);
+            Assert.Equal(expected.CommBA.ToString(), dataLines[19]);
+            Assert.Equal(expected.AmountDueToBA.ToString(), dataLines[20]);
+        }
+
+        private static void AssertCommonData(CustomerBalance expected, string[] dataLines)
+        {
+            var netTurnover = expected.Turnover - expected.DrawGame;
+            var totalWinLoss = expected.WinLoss + expected.PlayerComm;
+
+            Assert.Equal(expected.OpeningBalance.ToString(), dataLines[3]);
+            Assert.Equal(expected.Deposit.ToString(), dataLines[4]);
+            Assert.Equal(expected.Withdrawal.ToString(), dataLines[5]);
+            Assert.Equal(expected.Bonus.ToString(), dataLines[6]);
+            Assert.Equal(expected.Adjustment.ToString(), dataLines[7]);
+            Assert.Equal(expected.Promotion.ToString(), dataLines[8]);
+            Assert.Equal(expected.Turnover.ToString(), dataLines[9]);
+            Assert.Equal(expected.DrawGame.ToString(), dataLines[10]);
+            Assert.Equal(netTurnover.ToString(), dataLines[11]);
+            Assert.Equal(expected.PendingFunds.ToString(), dataLines[12]);
+            Assert.Equal(expected.WinLoss.ToString(), dataLines[13]);
+            Assert.Equal(expected.PlayerComm.ToString(), dataLines[14]);
+            Assert.Equal(totalWinLoss.ToString(), dataLines[15]);
+            Assert.Equal(expected.ClosingBalance.ToString(), dataLines[16]);
+            Assert.Equal(expected.AffiliateTransfer.ToString(), dataLines[17]);
+        }
+
+        private bool IsCorrectHeader(string header)
         {
             return header.Contains("#")
                 && header.Contains(ViewResources.ExternalId)
@@ -327,65 +303,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 && header.Contains(ViewResources.CustomerW_L)
                 && header.Contains(ViewResources.ClosingBalance)
                 && header.Contains(ViewResources.AffiliateTransfer);
-        }
-
-        private bool IsHasCommHeader(string header)
-        {
-            return header.Contains($"{ViewResources.CustomerW_L} {ViewResources.Comm}")
-                && header.Contains($"{ViewResources.CustomerW_L} {ViewResources.Total}");
-        }
-
-        private bool IsHasBAHeader(string header)
-        {
-            return header.Contains($"{ViewResources.BA} {ViewResources.Turnover}")
-                && header.Contains(ViewResources.BACommission)
-                && header.Contains(ViewResources.AmtDueToBA);
-        }
-
-        private bool IsValidFooter(CustomerBalance expected, string footer, IList<decimal> totals, CustomerBalanceMetaModel metaModel)
-        {
-            var isCommon = footer.Contains(_firstFooterString)
-                && expected.OpeningBalance == totals[0]
-                && expected.Deposit == totals[1]
-                && expected.Withdrawal == totals[2]
-                && expected.Bonus == totals[3]
-                && expected.Adjustment == totals[4]
-                && expected.Promotion == totals[5]
-                && expected.Turnover == totals[6]
-                && expected.DrawGame == totals[7]
-                && expected.NetTurnover == totals[8]
-                && expected.PendingFunds == totals[9]
-                && expected.WinLoss == totals[10];
-
-            var count = 11;
-            if (metaModel.HasComm)
-            {
-                isCommon = isCommon
-                    && expected.PlayerComm == totals[count]
-                    && expected.TotalWL == totals[count + 1];
-                count = 13;
-            }
-
-            isCommon = isCommon
-                && expected.ClosingBalance == totals[count]
-                && expected.AffiliateTransfer == totals[count + 1];
-
-            if (metaModel.IsAllowedBA)
-            {
-                var totalCount = totals.Count();
-                isCommon = isCommon
-                    && expected.TurnoverBA == totals[totalCount - 3]
-                    && expected.CommBA == totals[totalCount - 2]
-                    && expected.AmountDueToBA == totals[totalCount - 1];
-            }
-
-            return isCommon;
-        }
-
-        private IList<decimal> GetTotals(string footer)
-        {
-            var onlyNumber = footer.Remove(0, _firstFooterString.Length);
-            return onlyNumber.Split(CSVSeparateCharacter).Select(number => Convert.ToDecimal(number)).ToList();
         }
     }
 }
