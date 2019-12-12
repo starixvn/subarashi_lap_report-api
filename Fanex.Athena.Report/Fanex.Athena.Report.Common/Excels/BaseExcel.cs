@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Services;
-
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using Fanex.Athena.Report.Common.Model.MetaModels;
+using Fanex.Athena.Report.Common.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Fanex.Athena.Report.Common.Excels
 {
@@ -15,6 +15,7 @@ namespace Fanex.Athena.Report.Common.Excels
         protected readonly ExcelOptions ExcelOptions;
 
         protected readonly IFileService FileService;
+
         protected BaseExcel(IHostingEnvironment environment, IFileService fileService, IOptions<ExcelOptions> excelOptionsAccessor)
         {
             Enviroment = environment;
@@ -28,12 +29,14 @@ namespace Fanex.Athena.Report.Common.Excels
             FileService.CreateFolder(path);
             return path;
         }
+
         private string GetTempFolderPath()
         {
             var root = FileService.GetParentDirectory(Enviroment.ContentRootPath);
 
             return Path.Combine(root.FullName, ExcelOptions.Path);
         }
+
         protected string ZipExcelFile(List<ZipEntry> files, string tempFolderPath)
         {
             var zipPath = Path.Combine(tempFolderPath, $"{Guid.NewGuid()}.zip");
@@ -43,5 +46,18 @@ namespace Fanex.Athena.Report.Common.Excels
             return zipPath;
         }
 
+        protected void BuildNumberItem(StringBuilder rowBuilder, object value)
+        {
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter)
+            .Append(value)
+            .Append(ExcelOptions.CSVTextDelimiter)
+            .Append(ExcelOptions.CSVSeparateCharacter);
+        }
+
+        protected void BuildItemAsText(StringBuilder rowBuilder, object value)
+        {
+            rowBuilder.Append("=");
+            BuildNumberItem(rowBuilder, value);
+        }
     }
 }
