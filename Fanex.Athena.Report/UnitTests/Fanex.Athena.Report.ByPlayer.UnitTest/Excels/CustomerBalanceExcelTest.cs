@@ -10,32 +10,15 @@ using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Excels;
-using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Resources;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
+using Fanex.Data;
 using Moq;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 {
-    public class CustomerBalanceExcelTest : CustomerBalanceHelperTest
+    public class CustomerBalanceExcelTest : BaseReportExcelTest
     {
-        private const string CSVSeparateCharacter = ",";
-
-        private readonly string RootPath = Directory.GetCurrentDirectory();
-
-        private readonly IFixture _fixture;
-
-        private readonly ExcelOptions _excelOptions = new ExcelOptions()
-        {
-            Path = "LapReportTempExcel",
-            CSVSeparateCharacter = CSVSeparateCharacter
-        };
-
-        private readonly Mock<IHostingEnvironment> _enviroment;
-
         private static readonly string[] _commonHeaderText = {
                 "#",
                 ViewResources.ExternalId,
@@ -55,43 +38,17 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 
         public CustomerBalanceExcelTest()
         {
-            _fixture = new Fixture();
-            _enviroment = new Mock<IHostingEnvironment>();
-            _enviroment.Setup(e => e.ContentRootPath).Returns(RootPath);
-        }
-
-        private Mock<IFileService> CreateMockFileService(StreamWriter streamWriter)
-        {
-            var fileService = new Mock<IFileService>();
-            var directoryInfo = new DirectoryInfo(RootPath);
-            fileService.Setup(s => s.GetParentDirectory(RootPath)).Returns(directoryInfo);
-            fileService.Setup(f => f.CreateStreamWriter(It.Is<string>(x => x.Contains(RootPath)), false, Encoding.UTF8)).Returns(streamWriter);
-
-            return fileService;
-        }
-
-        private Mock<IOptions<ExcelOptions>> CreateMockExcelOption()
-        {
-            var excelOptionsAccessor = new Mock<IOptions<ExcelOptions>>();
-            excelOptionsAccessor.Setup(eoa => eoa.Value).Returns(_excelOptions);
-
-            return excelOptionsAccessor;
+            DbSettingProviderManager
+             .StartTestingSession()
+             .Run();
         }
 
         private CustomerBalanceExcel CreateExcelService(StreamWriter streamWriter)
         {
-            var fileService = CreateMockFileService(streamWriter);
-            var excelOptionAccessor = CreateMockExcelOption();
+            FileService.Setup(f => f.CreateStreamWriter(It.Is<string>(x => x.Contains(RootPath)), false, Encoding.UTF8))
+            .Returns(streamWriter);
 
-            return new CustomerBalanceExcel(fileService.Object, excelOptionAccessor.Object, _enviroment.Object);
-        }
-
-        private void TearDown(string fileName)
-        {
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
+            return new CustomerBalanceExcel(FileService.Object, ExcelOptionAccessor.Object, ExcelEnviroment.Object);
         }
 
         [Fact]
@@ -100,10 +57,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             // Arrange
             var mockIDataReader = new Mock<IDataReader>();
             mockIDataReader.Setup(dr => dr.Read()).Returns(false);
-            var mockObjectDB = SetUpObjectDb(mockIDataReader);
+            var mockObjectDB = CustomerBalanceHelperTest.SetUpObjectDb(mockIDataReader);
             var metaModel = new CustomerBalanceMetaModel
             {
-                ProductOptions = GetProductOptions()
+                ProductOptions = CustomerBalanceHelperTest.GetProductOptions()
             };
 
             using (var memoryStream = new MemoryStream())
@@ -126,7 +83,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showNG", false), Times.Once);
 
                 streamWriter.Dispose();
-                TearDown(fileName);
+                DeleteFile(fileName);
             }
         }
 
@@ -137,8 +94,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         {
             // Arrange
             var mockDataReader = new Mock<IDataReader>();
-            SetUpObjectDb(mockDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+            CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
+            var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = hasComm;
             metaModel.IsAllowedBA = isAllowedBA;
 
@@ -158,7 +115,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 Assert.True(IsCorrectHeader(header, hasComm, isAllowedBA));
 
                 streamWriter.Dispose();
-                TearDown(fileName);
+                DeleteFile(fileName);
             }
         }
 
@@ -170,8 +127,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             mockDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { false, true }).Dequeue);
             mockDataReader.Setup(dr => dr.NextResult()).Returns(true);
             mockDataReader.Setup(r => r["TotalRows"]).Returns(0);
-            SetUpObjectDb(mockDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+            CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
+            var metaModel = fixture.Create<CustomerBalanceMetaModel>();
 
             using (var memoryStream = new MemoryStream())
             {
@@ -189,7 +146,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 Assert.Equal(ViewResources.NoInfo, noInfoLine);
 
                 streamWriter.Dispose();
-                TearDown(fileName);
+                DeleteFile(fileName);
             }
         }
 
@@ -202,10 +159,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var mockDataReader = new Mock<IDataReader>();
             mockDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false }).Dequeue);
             mockDataReader.Setup(dr => dr.NextResult()).Returns(false);
-            var expected = _fixture.Create<CustomerBalance>();
-            ConfigureReaderForResult(expected, mockDataReader);
-            SetUpObjectDb(mockDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+            var expected = fixture.Create<CustomerBalance>();
+            CustomerBalanceHelperTest.ConfigureReaderForResult(expected, mockDataReader);
+            CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
+            var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = hasComm;
             metaModel.IsAllowedBA = isAllowedBA;
 
@@ -223,7 +180,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 AssertBodyData(expected, contentLines, hasComm, isAllowedBA);
 
                 streamWriter.Dispose();
-                TearDown(fileName);
+                DeleteFile(fileName);
             }
         }
 
@@ -234,10 +191,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var mockDataReader = new Mock<IDataReader>();
             mockDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { false, true }).Dequeue);
             mockDataReader.Setup(dr => dr.NextResult()).Returns(true);
-            var expected = _fixture.Create<CustomerBalance>();
-            ConfigureReaderForTotalData(expected, 1, mockDataReader);
-            SetUpObjectDb(mockDataReader);
-            var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
+            var expected = fixture.Create<CustomerBalance>();
+            CustomerBalanceHelperTest.ConfigureReaderForTotalData(expected, 1, mockDataReader);
+            CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
+            var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = true;
             metaModel.IsAllowedBA = true;
 
@@ -255,7 +212,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 AssertTotalData(expected, totalLines);
 
                 streamWriter.Dispose();
-                TearDown(fileName);
+                DeleteFile(fileName);
             }
         }
 
@@ -347,7 +304,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 textHeader.Add(ViewResources.AmtDueToBA);
             }
 
-            var expectedHeader = string.Join(CSVSeparateCharacter, textHeader);
+            var expectedHeader = string.Join(ExcelOptions.CSVSeparateCharacter, textHeader);
 
             return expectedHeader.Equals(header);
         }

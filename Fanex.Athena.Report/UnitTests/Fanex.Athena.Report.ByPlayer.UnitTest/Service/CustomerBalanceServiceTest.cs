@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
 {
-    public class CustomerBalanceServiceTest : CustomerBalanceHelperTest
+    public class CustomerBalanceServiceTest
     {
         private readonly IFixture _fixture;
 
@@ -27,10 +27,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             // Arrange
             var mockIDataReader = new Mock<IDataReader>();
             mockIDataReader.Setup(dr => dr.Read()).Returns(false);
-            var mockObjectDB = SetUpObjectDb(mockIDataReader);
+            var mockObjectDB = CustomerBalanceHelperTest.SetUpObjectDb(mockIDataReader);
             var metaModel = new CustomerBalanceMetaModel
             {
-                ProductOptions = GetProductOptions()
+                ProductOptions = CustomerBalanceHelperTest.GetProductOptions()
             };
             var service = new CustomerBalanceService();
 
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var mockIDataReader = new Mock<IDataReader>();
             mockIDataReader.Setup(dr => dr.Read()).Returns(false);
             mockIDataReader.Setup(dr => dr.NextResult()).Returns(false);
-            SetUpObjectDb(mockIDataReader);
+            CustomerBalanceHelperTest.SetUpObjectDb(mockIDataReader);
             var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
             var service = new CustomerBalanceService();
 
@@ -76,8 +76,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false }).Dequeue);
             mockIDataReader.Setup(dr => dr.NextResult()).Returns(false);
             var expected = _fixture.Create<CustomerBalance>();
-            ConfigureReaderForResult(expected, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
+            CustomerBalanceHelperTest.ConfigureReaderForResult(expected, mockIDataReader);
+            CustomerBalanceHelperTest.SetUpObjectDb(mockIDataReader);
             var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
             var service = new CustomerBalanceService();
 
@@ -98,9 +98,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
             var expected = _fixture.Create<CustomerBalance>();
             var expectedTotalRow = _fixture.Create<int>();
-            ConfigureReaderForResult(expected, mockIDataReader);
-            ConfigureReaderForTotalData(expected, expectedTotalRow, mockIDataReader);
-            SetUpObjectDb(mockIDataReader);
+            CustomerBalanceHelperTest.ConfigureReaderForResult(expected, mockIDataReader);
+            CustomerBalanceHelperTest.ConfigureReaderForTotalData(expected, expectedTotalRow, mockIDataReader);
+            CustomerBalanceHelperTest.SetUpObjectDb(mockIDataReader);
             var metaModel = _fixture.Create<CustomerBalanceMetaModel>();
             var service = new CustomerBalanceService();
 
@@ -111,8 +111,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             // Assert
             Assert.Equal(expected.ExternalId, firstItem.ExternalId);
             Assert.Equal(expected.SystemId, firstItem.SystemId);
-            Assert.True(IsEqualCommonField(expected, firstItem));
-            Assert.True(IsEqualCommonField(expected, result.TotalData));
+            Assert.True(CustomerBalanceHelperTest.IsEqualCommonField(expected, firstItem));
+            Assert.True(CustomerBalanceHelperTest.IsEqualCommonField(expected, result.TotalData));
             Assert.Equal(expectedTotalRow, result.TotalRows);
         }
     }

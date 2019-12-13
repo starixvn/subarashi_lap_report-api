@@ -10,16 +10,9 @@ using Moq;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {
-    public class CustomerBalanceHelperTest
+    public static class CustomerBalanceHelperTest
     {
-        public CustomerBalanceHelperTest()
-        {
-            DbSettingProviderManager
-             .StartTestingSession()
-             .Run();
-        }
-
-        public bool IsEqualCommonField(CustomerBalance expected, CustomerBalance actual)
+        public static bool IsEqualCommonField(CustomerBalance expected, CustomerBalance actual)
         {
             return expected.OpeningBalance == actual.OpeningBalance
                 && expected.Deposit == actual.Deposit
@@ -53,7 +46,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
             return mockObjectDB;
         }
 
-        public IList<ProductOption> GetProductOptions()
+        public static IList<ProductOption> GetProductOptions()
         {
             return new List<ProductOption>
             {
