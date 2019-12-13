@@ -101,11 +101,12 @@
             }
 
             rowBuilder.Append(ViewResources.ClosingBalance).Append(ExcelOptions.CSVSeparateCharacter)
-                .Append(ViewResources.AffiliateTransfer).Append(ExcelOptions.CSVSeparateCharacter);
+                .Append(ViewResources.AffiliateTransfer);
 
             if (metaModel.IsAllowedBA)
             {
-                rowBuilder.Append($"{ViewResources.BA} {ViewResources.Turnover}").Append(ExcelOptions.CSVSeparateCharacter)
+                rowBuilder.Append(ExcelOptions.CSVSeparateCharacter)
+                    .Append($"{ViewResources.BA} {ViewResources.Turnover}").Append(ExcelOptions.CSVSeparateCharacter)
                     .Append(ViewResources.BACommission).Append(ExcelOptions.CSVSeparateCharacter)
                     .Append(ViewResources.AmtDueToBA);
             }
