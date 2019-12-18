@@ -592,6 +592,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SG.
+        /// </summary>
+        public static string SG {
+            get {
+                return ResourceManager.GetString("SG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
