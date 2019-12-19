@@ -14,12 +14,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
 {
     public class CustomerBalanceServiceTest
     {
-        private readonly IFixture _fixture;
-
-        public CustomerBalanceServiceTest()
-        {
-            _fixture = new Fixture();
-        }
+        private readonly IFixture _fixture = new Fixture();
 
         [Fact]
         public async Task GetDataList_WhenCall_PassesCorrectParameter()

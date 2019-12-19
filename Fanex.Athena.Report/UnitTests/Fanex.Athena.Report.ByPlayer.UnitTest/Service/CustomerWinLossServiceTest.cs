@@ -29,6 +29,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
 
         private readonly Mock<IBalanceUpService> _balanceUpService = new Mock<IBalanceUpService>();
 
+        private readonly IFixture _fixture = new Fixture();
+
         public CustomerWinLossServiceTest()
         {
             DbSettingProviderManager
@@ -80,9 +82,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false, true, false }).Dequeue);
             mockIDataReader.Setup(dr => dr.NextResult()).Returns(true);
 
-            var fixture = new Fixture();
-            var expectedTotalData = fixture.Create<CustomerWinLoss>();
-            var expectedResult = fixture.Create<CustomerWinLoss>();
+            var expectedTotalData = _fixture.Create<CustomerWinLoss>();
+            var expectedResult = _fixture.Create<CustomerWinLoss>();
 
             const int ExpectedTotalRow = 100;
             const int ExpectedPromotionPrize = 1;
@@ -94,7 +95,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var service = new CustomerWinLossService(_balanceUpService.Object);
 
             // Action
-            var result = await service.GetDataList(new Fixture().Create<CustomerWinLossMetaModel>());
+            var result = await service.GetDataList(_fixture.Create<CustomerWinLossMetaModel>());
             var firstItem = result.DataList.First();
 
             // Assert
@@ -122,15 +123,14 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
 
             const int ExpectedTotalRow = 10;
             const int ExpectedPromotionPrize = 1;
-            var fixture = new Fixture();
-            var expectedTotalData = fixture.Create<CustomerWinLoss>();
+            var expectedTotalData = _fixture.Create<CustomerWinLoss>();
             ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow, ExpectedPromotionPrize, mockIDataReader);
 
             SetUpObjectDb(mockIDataReader);
             var service = new CustomerWinLossService(_balanceUpService.Object);
 
             // Action
-            var result = await service.GetDataList(new Fixture().Create<CustomerWinLossMetaModel>());
+            var result = await service.GetDataList(_fixture.Create<CustomerWinLossMetaModel>());
 
             // Assert
             Assert.Empty(result.DataList);
@@ -142,18 +142,17 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
         public async Task GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
         {
             // Arrange
-            var fixture = new Fixture();
             var mockIDataReader = new Mock<IDataReader>();
             mockIDataReader.Setup(dr => dr.Read()).Returns(new Queue<bool>(new[] { true, false }).Dequeue);
             mockIDataReader.Setup(dr => dr.NextResult()).Returns(false);
-            var expectedResult = fixture.Create<CustomerWinLoss>();
+            var expectedResult = _fixture.Create<CustomerWinLoss>();
 
             ConfigureReaderForResult(expectedResult, mockIDataReader);
             SetUpObjectDb(mockIDataReader);
             var service = new CustomerWinLossService(_balanceUpService.Object);
 
             // Action
-            var result = await service.GetDataList(fixture.Create<CustomerWinLossMetaModel>());
+            var result = await service.GetDataList(_fixture.Create<CustomerWinLossMetaModel>());
 
             // Assert
             Assert.NotEmpty(result.DataList);

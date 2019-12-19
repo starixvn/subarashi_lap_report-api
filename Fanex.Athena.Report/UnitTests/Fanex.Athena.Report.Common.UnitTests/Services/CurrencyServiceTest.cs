@@ -13,7 +13,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
     public class CurrencyServiceTest
     {
-        protected static readonly IFixture fixture = new Fixture();
+        protected readonly IFixture fixture = new Fixture();
 
         private Mock<IMemoryCache> _cache;
 
