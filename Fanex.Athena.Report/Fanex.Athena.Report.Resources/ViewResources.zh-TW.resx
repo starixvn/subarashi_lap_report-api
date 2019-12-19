@@ -151,7 +151,7 @@
     <value>會員輸贏</value>
   </data>
   <data name="DeepLink" xml:space="preserve">
-    <value>Deep Link</value>
+    <value>數據API</value>
   </data>
   <data name="Euro" xml:space="preserve">
     <value>歐洲</value>
@@ -298,5 +298,9 @@
   <data name="SPR" xml:space="preserve">
     <value>沙巴促銷活動</value>
     <comment>124612</comment>
+  </data>
+  <data name="BetfromOthers" xml:space="preserve">
+    <value>其他</value>
+    <comment>125553</comment>
   </data>
 </root>
