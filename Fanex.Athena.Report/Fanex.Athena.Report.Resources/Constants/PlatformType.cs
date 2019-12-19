@@ -23,5 +23,7 @@
         public const int MobileLiteVersion = 9;
 
         public const int DeepLink = 10;
+
+        public const int BetfromOthers = 11;
     }
 }
