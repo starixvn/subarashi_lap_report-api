@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.ByProdu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B86889F6-AA78-4804-BDE4-669AFE819A3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.ByPlayer.UnitTests", "UnitTests\Fanex.Athena.Report.ByPlayer.UnitTest\Fanex.Athena.Report.ByPlayer.UnitTests.csproj", "{C9995C05-23FD-4D74-8574-C76FBD4F1316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.ByPlayer.UnitTests", "UnitTests\Fanex.Athena.Report.ByPlayer.UnitTests\Fanex.Athena.Report.ByPlayer.UnitTests.csproj", "{C9995C05-23FD-4D74-8574-C76FBD4F1316}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.Report.Resources", "Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj", "{3C8596B4-7A2B-4551-ACF6-8B5F8EFD310C}"
 EndProject
