@@ -317,4 +317,8 @@
     <value>Total {0} in {1}</value>
     <comment>123804</comment>
   </data>
+  <data name="BetfromOthers" xml:space="preserve">
+    <value>Others</value>
+    <comment>125553</comment>
+  </data>
 </root>

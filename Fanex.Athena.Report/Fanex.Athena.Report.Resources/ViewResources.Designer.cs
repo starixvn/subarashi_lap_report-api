@@ -133,6 +133,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string BetfromOthers {
+            get {
+                return ResourceManager.GetString("BetfromOthers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string BetType {
