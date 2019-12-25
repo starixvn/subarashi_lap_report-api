@@ -22,8 +22,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
     {
         private readonly IFixture _fixture = new Fixture();
 
-        private readonly IDailyBetsRepository _repository;
-
         private const string ProductCode = "SB";
         private const byte Status = 1;
 
