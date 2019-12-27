@@ -36,7 +36,7 @@
             "ba"
         };
 
-        private static readonly string[] _commonHeaderText = {
+        private readonly string[] _commonHeaderText = {
                 "#",
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
