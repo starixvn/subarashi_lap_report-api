@@ -321,4 +321,8 @@
     <value>Others</value>
     <comment>125553</comment>
   </data>
+  <data name="NativeApp" xml:space="preserve">
+    <value>Native App</value>
+    <comment>125824</comment>
+  </data>
 </root>

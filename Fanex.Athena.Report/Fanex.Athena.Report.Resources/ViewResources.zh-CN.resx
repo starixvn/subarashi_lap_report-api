@@ -303,4 +303,8 @@
     <value>其他</value>
     <comment>125553</comment>
   </data>
+  <data name="NativeApp" xml:space="preserve">
+    <value>原生App</value>
+    <comment>125824</comment>
+  </data>
 </root>
