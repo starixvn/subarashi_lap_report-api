@@ -20,6 +20,7 @@
                 case PlatformType.MobileApp: return ViewResources.MobileApp;
                 case PlatformType.MobileLiteVersion: return ViewResources.MobileLiteVersion;
                 case PlatformType.DeepLink: return ViewResources.DeepLink;
+                case PlatformType.NativeApp: return ViewResources.NativeApp;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;
                 default: return ViewResources.All;
             }

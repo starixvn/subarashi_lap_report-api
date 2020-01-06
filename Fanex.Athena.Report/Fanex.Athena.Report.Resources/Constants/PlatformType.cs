@@ -24,6 +24,8 @@
 
         public const int DeepLink = 10;
 
-        public const int BetfromOthers = 11;
+        public const int NativeApp = 11;
+
+        public const int BetfromOthers = 88;
     }
 }
