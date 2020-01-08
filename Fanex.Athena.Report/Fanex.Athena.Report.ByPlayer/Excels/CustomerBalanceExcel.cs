@@ -18,6 +18,8 @@
 
     public class CustomerBalanceExcel : BaseExcel, ICustomerBalanceExcel
     {
+        private const int DecimalDigit = 2;
+
         private static readonly string[] _commonColumns = {
             "openingbalance",
             "deposit",
@@ -145,7 +147,7 @@
                     case "netturnover":
                         {
                             var netTurnover = reader.GetVal<decimal>(prefixName + "turnover") - reader.GetVal<decimal>(prefixName + "drawgame");
-                            BuildItemWithTextDelimiter(rowBuilder, netTurnover);
+                            BuildItemWithTextDelimiter(rowBuilder, decimal.Round(netTurnover, DecimalDigit));
                             break;
                         }
 
@@ -153,10 +155,10 @@
                         {
                             if (metaModel.HasComm)
                             {
-                                BuildItemWithTextDelimiter(rowBuilder, reader.GetVal<decimal>(prefixName + "playercomm"));
+                                BuildItemWithTextDelimiter(rowBuilder, decimal.Round(reader.GetVal<decimal>(prefixName + "playercomm"), DecimalDigit));
 
                                 var totalWinLoss = reader.GetVal<decimal>(prefixName + "winloss") + reader.GetVal<decimal>(prefixName + "playercomm");
-                                BuildItemWithTextDelimiter(rowBuilder, totalWinLoss);
+                                BuildItemWithTextDelimiter(rowBuilder, decimal.Round(totalWinLoss, DecimalDigit));
                             }
 
                             break;
@@ -174,7 +176,7 @@
 
                     default:
                         {
-                            BuildItemWithTextDelimiter(rowBuilder, reader[prefixName + item]);
+                            BuildItemWithTextDelimiter(rowBuilder, decimal.Round(reader.GetVal<decimal>(prefixName + item), DecimalDigit));
                             break;
                         }
                 }
@@ -217,7 +219,7 @@
 
             foreach (var columnName in columnNameList)
             {
-                BuildItemWithTextDelimiter(rowBuilder, reader.GetVal<decimal>(columnName));
+                BuildItemWithTextDelimiter(rowBuilder, decimal.Round(reader.GetVal<decimal>(columnName), DecimalDigit));
             }
         }
     }
