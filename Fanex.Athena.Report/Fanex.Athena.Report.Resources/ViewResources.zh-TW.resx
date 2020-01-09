@@ -282,18 +282,35 @@
   <data name="TransTime" xml:space="preserve">
     <value>交易時間</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>日期</value>
+  <data name="Adjustment" xml:space="preserve">
+    <value>調整</value>
   </data>
-  <data name="Amount" xml:space="preserve">
-    <value>金額</value>
+  <data name="AffiliateTransfer" xml:space="preserve">
+    <value>合作夥伴轉賬</value>
   </data>
-  <data name="PromotionPrize" xml:space="preserve">
-    <value>活動獎金</value>
+  <data name="Bonus" xml:space="preserve">
+    <value>紅利</value>
   </data>
-  <data name="PromotionType" xml:space="preserve">
-    <value>PP 活動類別</value>
-    <comment>123804</comment>
+  <data name="ClosingBalance" xml:space="preserve">
+    <value>期末餘額</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>存款</value>
+  </data>
+  <data name="DrawGame" xml:space="preserve">
+    <value>和局</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>前期餘額</value>
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>提款</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>淨交易額</value>
+  </data>
+  <data name="PendingFunds" xml:space="preserve">
+    <value>待定資金</value>
   </data>
   <data name="SPR" xml:space="preserve">
     <value>沙巴促銷活動</value>
@@ -302,5 +319,24 @@
   <data name="BetfromOthers" xml:space="preserve">
     <value>其他</value>
     <comment>125553</comment>
+  </data>
+  <data name="CustomerBalance" xml:space="preserve">
+    <value>會員餘額</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活動獎金</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>促銷活動</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>PP 活動類別</value>
+    <comment>123804</comment>
   </data>
 </root>

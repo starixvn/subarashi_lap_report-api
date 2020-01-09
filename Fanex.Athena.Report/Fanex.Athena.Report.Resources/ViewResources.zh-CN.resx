@@ -282,18 +282,35 @@
   <data name="TransTime" xml:space="preserve">
     <value>交易时间</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>日期</value>
+  <data name="Adjustment" xml:space="preserve">
+    <value>调整</value>
   </data>
-  <data name="Amount" xml:space="preserve">
-    <value>金额</value>
+  <data name="AffiliateTransfer" xml:space="preserve">
+    <value>合作伙伴转账</value>
   </data>
-  <data name="PromotionPrize" xml:space="preserve">
-    <value>活动奖金</value>
+  <data name="Bonus" xml:space="preserve">
+    <value>红利</value>
   </data>
-  <data name="PromotionType" xml:space="preserve">
-    <value>PP 活动类别</value>
-    <comment>123804</comment>
+  <data name="ClosingBalance" xml:space="preserve">
+    <value>期末余额</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>存款</value>
+  </data>
+  <data name="DrawGame" xml:space="preserve">
+    <value>和局</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>前期余额</value>
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>提款</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>净交易额</value>
+  </data>
+  <data name="PendingFunds" xml:space="preserve">
+    <value>待定资金</value>
   </data>
   <data name="SPR" xml:space="preserve">
     <value>沙巴促销活动</value>
@@ -306,5 +323,24 @@
   <data name="NativeApp" xml:space="preserve">
     <value>原生App</value>
     <comment>125824</comment>
+  </data>
+  <data name="CustomerBalance" xml:space="preserve">
+    <value>会员余额</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金额</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活动奖金</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>促销活动</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>PP 活动类别</value>
+    <comment>123804</comment>
   </data>
 </root>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.ByPlayer.Controllers;
@@ -7,6 +6,7 @@ using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
@@ -16,23 +16,8 @@ using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
-    public class CustomerWinLossControllerTest : IDisposable
+    public class CustomerWinLossControllerTest : BaseReportExcelTest
     {
-        private string _fileName;
-        public CustomerWinLossControllerTest()
-        {
-            _fileName = Guid.NewGuid().ToString();
-            File.Create(_fileName);
-        }
-
-        public void Dispose()
-        {
-            if (!string.IsNullOrEmpty(_fileName) && File.Exists(_fileName))
-            {
-                File.Delete(_fileName);
-            }
-            GC.SuppressFinalize(this);
-        }
         [Fact]
         public async Task Index_WhenCall_ReturnCorrectData()
         {
@@ -68,7 +53,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
         }
 
         [Fact]
-        public async Task ExportExcel_WhenCall_CreateCorrectWorkbookObject()
+        public async Task ExportExcel_WhenCall_ReturnsCorrectFileAndFileIsDeleted()
         {
             // Arrange
             var metaModel = new CustomerWinLossMetaModel();
@@ -76,24 +61,30 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var service = new Mock<ICustomerWinLossService>();
             service.Setup(s => s.GetDataList(metaModel, false)).Returns(Task.FromResult(expectedReportData));
 
-            var physicalPath = @"D:\\CustomerWinLoss.xls";
+            var physicalPath = @"D:\\CustomerWinLoss.xlsx";
             var fileInfo = Mock.Of<IFileInfo>(f => f.PhysicalPath == physicalPath);
             var fileProvider = new Mock<IFileProvider>();
             fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx")).Returns(fileInfo);
 
             var excelService = new Mock<ICustomerWinLossExcel>();
+            var fileName = CreateFile();
+            var expectedFileContent = File.ReadAllBytes(fileName);
 
-            excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(_fileName);
+            excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(fileName);
 
             var controller = new CustomerWinLossController(service.Object);
 
             // Action
             var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileStreamResult;
+            var fileContentResult = GetStreamContent(result.FileStream);
 
             // Assert
-
-            Assert.NotNull(result.FileStream);
+            Assert.Equal(expectedFileContent, fileContentResult);
             Assert.Equal("application/octet-stream", result.ContentType);
+
+            Assert.True(File.Exists(fileName));
+            result.FileStream.Dispose();
+            Assert.False(File.Exists(fileName));
         }
     }
 }

@@ -296,22 +296,39 @@
     <value>Loss</value>
     <comment>118874</comment>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
+  <data name="AffiliateTransfer" xml:space="preserve">
+    <value>Affiliate Transfer</value>
   </data>
-  <data name="Amount" xml:space="preserve">
-    <value>Amount</value>
-  </data>
-  <data name="PromotionPrize" xml:space="preserve">
-    <value>Promotion Prize</value>
+  <data name="ClosingBalance" xml:space="preserve">
+    <value>Closing Balance</value>
   </data>
   <data name="SPR" xml:space="preserve">
     <value>Saba Promotion</value>
     <comment>124612</comment>
   </data>
-  <data name="PromotionType" xml:space="preserve">
-    <value>Promotion Type</value>
-    <comment>123804</comment>
+  <data name="DrawGame" xml:space="preserve">
+    <value>Draw Game</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>Net Turnover</value>
+  </data>
+  <data name="PendingFunds" xml:space="preserve">
+    <value>Pending Funds</value>
+  </data>
+  <data name="Adjustment" xml:space="preserve">
+    <value>Adjustment</value>
+  </data>
+  <data name="Bonus" xml:space="preserve">
+    <value>Bonus</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>Opening Balance</value>
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>Withdrawal</value>
   </data>
   <data name="SummaryTotalIn" xml:space="preserve">
     <value>Total {0} in {1}</value>
@@ -324,5 +341,24 @@
   <data name="NativeApp" xml:space="preserve">
     <value>Native App</value>
     <comment>125824</comment>
+  </data>
+  <data name="CustomerBalance" xml:space="preserve">
+    <value>Customer Balance</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>Promotion Prize</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>Promotion Type</value>
+    <comment>123804</comment>
   </data>
 </root>
