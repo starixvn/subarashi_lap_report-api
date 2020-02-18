@@ -343,4 +343,7 @@
     <value>PP 活动类别</value>
     <comment>123804</comment>
   </data>
+  <data name="SG" xml:space="preserve">
+    <value>SG</value>
+  </data>
 </root>
