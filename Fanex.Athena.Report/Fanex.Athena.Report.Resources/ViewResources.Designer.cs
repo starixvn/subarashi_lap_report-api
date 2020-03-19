@@ -583,20 +583,20 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saba Promotion.
-        /// </summary>
-        public static string SPR {
-            get {
-                return ResourceManager.GetString("SPR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SG.
         /// </summary>
         public static string SG {
             get {
                 return ResourceManager.GetString("SG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saba Promotion.
+        /// </summary>
+        public static string SPR {
+            get {
+                return ResourceManager.GetString("SPR", resourceCulture);
             }
         }
         
@@ -714,6 +714,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Viewin {
             get {
                 return ResourceManager.GetString("Viewin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Games.
+        /// </summary>
+        public static string VRG {
+            get {
+                return ResourceManager.GetString("VRG", resourceCulture);
             }
         }
         
