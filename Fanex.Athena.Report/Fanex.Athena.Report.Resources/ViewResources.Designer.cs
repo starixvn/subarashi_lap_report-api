@@ -367,6 +367,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indo 4D.
+        /// </summary>
+        public static string I4D {
+            get {
+                return ResourceManager.GetString("I4D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RNG Keno.
         /// </summary>
         public static string KN {
@@ -561,15 +570,6 @@ namespace Fanex.Athena.Report.Resources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Indo 4D.
-        /// </summary>
-        public static string ProductI4D {
-            get {
-                return ResourceManager.GetString("ProductI4D", resourceCulture);
             }
         }
         
