@@ -26,6 +26,12 @@
 
         public const int NativeApp = 11;
 
+        public const int ESportsDesktop = 12;
+
+        public const int ESportsMobile = 13;
+
+        public const int ESportsApp = 14;
+
         public const int BetfromOthers = 88;
     }
 }

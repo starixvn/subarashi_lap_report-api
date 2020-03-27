@@ -313,6 +313,33 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-Sports App.
+        /// </summary>
+        public static string ESportsApp {
+            get {
+                return ResourceManager.GetString("ESportsApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-Sports Desktop.
+        /// </summary>
+        public static string ESportsDesktop {
+            get {
+                return ResourceManager.GetString("ESportsDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-Sports Mobile.
+        /// </summary>
+        public static string ESportsMobile {
+            get {
+                return ResourceManager.GetString("ESportsMobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Euro.
         /// </summary>
         public static string Euro {

@@ -368,4 +368,14 @@
     <value>Virtual Games</value>
     <comment>124911</comment>
   </data>
+  <data name="ESportsApp" xml:space="preserve">
+    <value>E-Sports App</value>
+  </data>
+  <data name="ESportsDesktop" xml:space="preserve">
+    <value>E-Sports Desktop</value>
+  </data>
+  <data name="ESportsMobile" xml:space="preserve">
+    <value>E-Sports Mobile</value>
+  </data>
+
 </root>
