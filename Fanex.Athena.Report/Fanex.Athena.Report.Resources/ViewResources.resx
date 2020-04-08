@@ -377,5 +377,7 @@
   <data name="ESportsMobile" xml:space="preserve">
     <value>E-Sports Mobile</value>
   </data>
-
+  <data name="ProductTG" xml:space="preserve">
+    <value>Table Games</value>
+  </data>
 </root>
