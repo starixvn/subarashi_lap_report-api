@@ -565,15 +565,6 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table Games.
-        /// </summary>
-        public static string ProductTG {
-            get {
-                return ResourceManager.GetString("ProductTG", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Promotion.
         /// </summary>
         public static string Promotion {
@@ -669,6 +660,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Tablet {
             get {
                 return ResourceManager.GetString("Tablet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table Games.
+        /// </summary>
+        public static string TG {
+            get {
+                return ResourceManager.GetString("TG", resourceCulture);
             }
         }
         
