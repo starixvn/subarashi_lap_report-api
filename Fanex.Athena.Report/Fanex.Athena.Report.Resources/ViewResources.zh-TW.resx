@@ -345,4 +345,7 @@
   <data name="VRG" xml:space="preserve">
     <value>虛擬娛樂城</value>
   </data>
+  <data name="TG" xml:space="preserve">
+    <value>桌面遊戲</value>
+  </data>
 </root>
