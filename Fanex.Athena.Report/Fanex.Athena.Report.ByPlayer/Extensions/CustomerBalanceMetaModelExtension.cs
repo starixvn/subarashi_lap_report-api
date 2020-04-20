@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Report.ByPlayer.MetaModels;
+﻿using System.Linq;
+using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Data;
 
 namespace Fanex.Athena.Report.ByPlayer.Extensions
@@ -14,10 +15,14 @@ namespace Fanex.Athena.Report.ByPlayer.Extensions
             db.SetParameterValue("pagesize", metaModel.PageSize);
             db.SetParameterValue("pageindex", metaModel.PageIndex);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("ProductList", string.Join(",", metaModel.ProductOptions.Where(_ => _.Status && _.Code != "BT" && _.Code != "CO").Select(_ => _.Code)));
 
             foreach (var item in metaModel.ProductOptions)
             {
-                db.SetParameterValue("show" + item.Code, item.Status);
+                if (item.Code == "BT" || item.Code == "CO")
+                {
+                    db.SetParameterValue("show" + item.Code, item.Status);
+                }
             }
         }
     }
