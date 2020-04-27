@@ -655,6 +655,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sexy Gaming.
+        /// </summary>
+        public static string SXG {
+            get {
+                return ResourceManager.GetString("SXG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System ID.
         /// </summary>
         public static string SystemId {
