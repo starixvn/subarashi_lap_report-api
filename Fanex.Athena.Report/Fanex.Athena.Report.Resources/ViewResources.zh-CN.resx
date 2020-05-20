@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AB" xml:space="preserve">
-    <value>AllBet</value>
+    <value>欧博</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>全部</value>
@@ -133,7 +133,7 @@
     <value>BA</value>
   </data>
   <data name="CC" xml:space="preserve">
-    <value>嘻嘻俱乐部</value>
+    <value>乐卡迪亚</value>
   </data>
   <data name="China" xml:space="preserve">
     <value>中国版</value>
@@ -157,7 +157,7 @@
     <value>欧洲版</value>
   </data>
   <data name="FW" xml:space="preserve">
-    <value>Fishing World</value>
+    <value>GG捕鱼</value>
   </data>
   <data name="KN" xml:space="preserve">
     <value>快乐彩</value>
@@ -166,7 +166,7 @@
     <value>承租公司输赢</value>
   </data>
   <data name="LT" xml:space="preserve">
-    <value>Lottery</value>
+    <value>彩票</value>
   </data>
   <data name="Mobile" xml:space="preserve">
     <value>手机版</value>
@@ -193,10 +193,10 @@
     <value>平台</value>
   </data>
   <data name="PlatformWinLossTitle" xml:space="preserve">
-    <value>Platform Win Loss - {0} --&gt; {1} - {2} - {3} - {4}</value>
+    <value>平台输赢 - {0} --&gt; {1} - {2} - {3} - {4}</value>
   </data>
   <data name="PP" xml:space="preserve">
-    <value>PP</value>
+    <value>PP王者电子</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>产品</value>
@@ -220,7 +220,7 @@
     <value>%Turnover</value>
   </data>
   <data name="VB" xml:space="preserve">
-    <value>Macau Games</value>
+    <value>澳门电子娱乐城</value>
   </data>
   <data name="VS" xml:space="preserve">
     <value>虚拟运动</value>
@@ -344,7 +344,7 @@
     <comment>123804</comment>
   </data>
   <data name="SG" xml:space="preserve">
-    <value>SG</value>
+    <value>新霸电子</value>
   </data>
   <data name="VRG" xml:space="preserve">
     <value>虚拟娱乐城</value>
