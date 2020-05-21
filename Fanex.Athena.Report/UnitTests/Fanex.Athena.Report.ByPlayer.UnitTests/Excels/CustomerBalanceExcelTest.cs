@@ -79,8 +79,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("pagesize", metaModel.PageSize), Times.Once);
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("pageindex", metaModel.PageIndex), Times.Once);
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("AgentList", metaModel.AgentListXml), Times.Once);
-                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showSB", true), Times.Once);
-                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("showNG", false), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("ProductList", "SB"), Times.Once);
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
