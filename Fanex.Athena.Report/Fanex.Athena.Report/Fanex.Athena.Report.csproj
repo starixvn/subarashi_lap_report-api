@@ -23,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="deploy.bat" />
-    <None Remove="deploy.LOCAL.bat" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
@@ -34,12 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="deploy.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="deploy.LOCAL.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -97,5 +89,4 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
-
 </Project>
