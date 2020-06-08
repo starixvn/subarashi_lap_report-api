@@ -217,7 +217,7 @@
     <value>交易额</value>
   </data>
   <data name="TurnoverPercent" xml:space="preserve">
-    <value>%Turnover</value>
+    <value>%交易额</value>
   </data>
   <data name="VB" xml:space="preserve">
     <value>澳门电子娱乐城</value>
