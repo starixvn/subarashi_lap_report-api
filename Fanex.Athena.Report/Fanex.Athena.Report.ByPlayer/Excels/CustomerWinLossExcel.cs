@@ -22,7 +22,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     public class CustomerWinLossExcel : BaseExcel, ICustomerWinLossExcel
     {
-
         private const int TemplateSheetIndex = 0;
 
         private const int TemplateTitleRowIndex = 1;
@@ -79,7 +78,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             return CreateFileStream(template, data, metaModel);
         }
 
-
         private string CreateFileStream(string template, ResultModel<CustomerWinLoss> data, CustomerWinLossMetaModel metaModel)
         {
             var fileInfo = new FileInfo(template);
@@ -126,7 +124,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 }
                 return fileName;
             }
-
         }
 
         private static void AssignTitle(ExcelWorksheet sheet, string reportTitle)
@@ -147,7 +144,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             var customerWLCell = sheet.Cells[StartTemplateHeaderRowIndex, ColumnCustomerWl, StartTemplateHeaderRowIndex, ColumnCustomerTotal];
             customerWLCell.Merge = true;
 
-            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerWl, $"{ViewResources.Win}/{ViewResources.Loss}");
+            sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerWl, ViewResources.WinLoss);
             sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerComm, ViewResources.Comm);
             sheet.SetValue(EndTemplateHeaderRowIndex, ColumnCustomerTotal, ViewResources.Total);
 
