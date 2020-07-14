@@ -47,7 +47,7 @@
                 ViewResources.Withdrawal,
                 ViewResources.Bonus,
                 ViewResources.Adjustment,
-                ViewResources.Promotion,
+                ViewResources.ExtraPayout,
                 ViewResources.Turnover,
                 ViewResources.DrawGame,
                 ViewResources.NetTurnover,

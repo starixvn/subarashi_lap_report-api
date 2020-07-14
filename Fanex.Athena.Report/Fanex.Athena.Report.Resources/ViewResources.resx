@@ -389,4 +389,7 @@
   <data name="SBC" xml:space="preserve">
     <value>Saba.club</value>
   </data>
+  <data name="ExtraPayout" xml:space="preserve">
+    <value>Extra Payout</value>
+  </data>
 </root>

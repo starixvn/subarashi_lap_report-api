@@ -364,4 +364,7 @@
   <data name="SXG" xml:space="preserve">
     <value>性感百家</value>
   </data>
+  <data name="ExtraPayout" xml:space="preserve">
+    <value>额外派彩</value>
+  </data>
 </root>
