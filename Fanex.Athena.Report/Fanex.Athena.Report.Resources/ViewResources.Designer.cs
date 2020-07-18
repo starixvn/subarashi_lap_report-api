@@ -214,6 +214,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contribution Amount.
+        /// </summary>
+        public static string ContributionAmount {
+            get {
+                return ResourceManager.GetString("ContributionAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RNG Casino.
         /// </summary>
         public static string CS {
@@ -570,6 +579,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string PP {
             get {
                 return ResourceManager.GetString("PP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PP Jackpot Contribution.
+        /// </summary>
+        public static string PPC {
+            get {
+                return ResourceManager.GetString("PPC", resourceCulture);
             }
         }
         
