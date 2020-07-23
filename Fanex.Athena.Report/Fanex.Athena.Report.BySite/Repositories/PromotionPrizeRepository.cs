@@ -85,7 +85,9 @@
                 var summary = new PromotionPrize
                 {
                     PromotionType = this.GetBetTypeName(reader.GetVal<string>("BetType")),
-                    Amount = reader.GetVal<decimal>("SumAmount")
+                    Amount = reader.GetVal<decimal>("SumAmount"),
+                    Turnover = reader.GetVal<decimal>("SumTurnover"),
+                    ContributionAmount = reader.GetVal<decimal>("SumContributionAmount")
                 };
 
                 if (!data.TryAdd(
@@ -94,7 +96,9 @@
                     {
                         SummaryTotal = new List<PromotionPrize> { summary },
                         Data = new List<PromotionPrize>(),
-                        GrandTotal = summary.Amount
+                        GrandTotal = summary.Amount,
+                        TurnoverTotal = summary.Turnover,
+                        ContributionAmountTotal = summary.ContributionAmount,
                     }))
                 {
                     data[productCode].GrandTotal += summary.Amount;
@@ -114,6 +118,8 @@
                 ExternalId = reader.GetVal<string>("NickName"),
                 CurrencyName = currencyList.FirstOrDefault(x => x.ID == currencyId)?.Name,
                 Amount = reader.GetVal<decimal>("Amount"),
+                Turnover = reader.GetVal<decimal>("Turnover"),
+                ContributionAmount = reader.GetVal<decimal>("ContributionAmount"),
                 Date = reader.GetVal<DateTime>("Date"),
                 PromotionType = this.GetBetTypeName(reader.GetVal<string>("BetType"))
             };

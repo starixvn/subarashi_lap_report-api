@@ -5,5 +5,9 @@
         public const string BA = "BA";
 
         public const string SPR = "SPR";
+
+        public const string PPC = "PPC";
+
+        public const string PP = "PP";
     }
 }

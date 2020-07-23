@@ -1,7 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System;
     using System.Collections.Generic;
-
+    using System.Linq;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -13,7 +14,8 @@
 
     public class PromotionPrizeExcel : IPromotionPrizeExcel
     {
-        private const string TemplateSheetName = "Template";
+        private const string DefaultTemplateSheetName = "Template";
+        private const string PPCTemplateSheetName = "PPCTemplate";
         private const string DefaultSheetName = "Data";
         public const string FormatDate = "MM/dd/yyyy";
 
@@ -24,6 +26,8 @@
         private const int ColumnExternalId = 4;
         private const int ColumnSystemId = 5;
         private const int ColumnAmount = 6;
+        private const int ColumnTurnover = 6;
+        private const int ColumnContributionAmount = 7;
 
         private const int ColumnTemplateCount = 7;
 
@@ -38,6 +42,14 @@
 
         private string _title;
 
+        private static readonly Dictionary<string, Tuple<string, string>> ProductOrderMap =
+            new Dictionary<string, Tuple<string, string>>(StringComparer.OrdinalIgnoreCase)
+        {
+                {Product.PP,new Tuple<string, string>("", DefaultTemplateSheetName)  },
+                {Product.PPC,new Tuple<string, string>("", PPCTemplateSheetName)},
+                {Product.SPR, new Tuple<string, string>(" - " + @ViewResources.PromotionPrize, DefaultTemplateSheetName) }
+        };
+
         public PromotionPrizeExcel(IExcelBuilder builder)
         {
             _builder = builder;
@@ -46,7 +58,8 @@
         public IWorkbook Export(string template, IDictionary<string, PromotionPrizeResultModel> data, PromotionPrizeMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
-            var templateSheet = workBook.GetSheet(TemplateSheetName);
+            var templateSheet = workBook.GetSheet(DefaultTemplateSheetName);
+            var productOrderList = ProductOrderMap.Keys.ToList();
 
             if (data.Count == 0)
             {
@@ -54,10 +67,15 @@
                 CreateEmptySheet(workBook, templateSheet, DefaultSheetName);
             }
 
+            data = data.OrderBy(_ => productOrderList.IndexOf(_.Key)).ToDictionary(_ => _.Key, _ => _.Value);
+
             foreach (var promotionData in data)
             {
                 var productName = ViewResources.ResourceManager.GetString(promotionData.Key);
-                var title = productName + " - " + @ViewResources.PromotionPrize;
+                var title = productName + ProductOrderMap[promotionData.Key].Item1;
+
+                templateSheet = workBook.GetSheet(ProductOrderMap[promotionData.Key].Item2);
+
                 SetTitle(title, metaModel);
 
                 var sheet = promotionData.Value.Data.Count > 0
@@ -67,16 +85,17 @@
                         productName,
                         promotionData.Value,
                         metaModel.DefaultBaseCurrency,
-                        promotionData.Key != Product.SPR)
+                        promotionData.Key)
                     : CreateEmptySheet(workBook, templateSheet, productName);
 
-                if (promotionData.Key == Product.SPR)
+                if (promotionData.Key == Product.SPR || promotionData.Key == Product.PPC)
                 {
                     _builder.HideColumn(sheet, ColumnPromotionType);
                 }
             }
 
-            _builder.RemoveSheet(workBook, TemplateSheetName);
+            _builder.RemoveSheet(workBook, DefaultTemplateSheetName);
+            _builder.RemoveSheet(workBook, PPCTemplateSheetName);
             return workBook;
         }
 
@@ -86,13 +105,14 @@
             string sheetName,
             PromotionPrizeResultModel data,
             string currencyName,
-            bool showSummaryTotal)
+            string productKey)
         {
+            var showSummaryTotal = productKey != Product.SPR && productKey != Product.PPC;
             var sheet = _builder.CloneSheet(workbook, templateSheet.SheetName, sheetName);
 
-            AssignHeader(sheet, templateSheet);
+            AssignHeader(sheet, templateSheet, productKey);
             AssignTitle(sheet, templateSheet);
-            AssignDataRow(sheet, templateSheet, data, currencyName, showSummaryTotal);
+            AssignDataRow(sheet, templateSheet, data, currencyName, showSummaryTotal, productKey);
 
             return sheet;
         }
@@ -125,7 +145,7 @@
             _title = $"{title}, {metaModel.FromDate.ToString(FormatDate)} --> {metaModel.ToDate.ToString(FormatDate)} - {currencyTitle}";
         }
 
-        private void AssignHeader(ISheet sheet, ISheet templateSheet)
+        private void AssignHeader(ISheet sheet, ISheet templateSheet, string productKey = "")
         {
             var row = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate, destRowIndex: RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -134,7 +154,15 @@
             row.Cells[ColumnPromotionType].SetCellValue(ViewResources.PromotionType);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
-            row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
+            if (productKey == Product.PPC)
+            {
+                row.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
+                row.Cells[ColumnContributionAmount].SetCellValue(ViewResources.ContributionAmount);
+            }
+            else
+            {
+                row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
+            }
         }
 
         private void AssignDataRow(
@@ -142,7 +170,8 @@
             ISheet templateSheet,
             PromotionPrizeResultModel data,
             string currencyName,
-            bool showSummaryTotal)
+            bool showSummaryTotal,
+            string productKey = "")
         {
             int index = 0;
             var rowCount = data.Data.Count;
@@ -158,17 +187,25 @@
                 row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
                 row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
-                row.Cells[ColumnAmount].SetCellValue((double)item.Amount);
+                if (productKey == Product.PPC)
+                {
+                    row.Cells[ColumnTurnover].SetCellValue((double)item.Turnover);
+                    row.Cells[ColumnContributionAmount].SetCellValue((double)item.ContributionAmount);
+                }
+                else
+                {
+                    row.Cells[ColumnAmount].SetCellValue((double)item.Amount);
+                }
             }
 
             if (showSummaryTotal)
             {
                 AssignSummaryTotal(sheet, templateSheet, data.SummaryTotal, currencyName, rowCount + RowContentTemplate);
-                AssignGrandTotal(sheet, templateSheet, data.GrandTotal, currencyName, rowCount + data.SummaryTotal.Count + RowContentTemplate);
+                AssignGrandTotal(sheet, templateSheet, data, currencyName, rowCount + data.SummaryTotal.Count + RowContentTemplate);
                 return;
             }
 
-            AssignGrandTotal(sheet, templateSheet, data.GrandTotal, currencyName, rowCount + RowContentTemplate);
+            AssignGrandTotal(sheet, templateSheet, data, currencyName, rowCount + RowContentTemplate, productKey);
         }
 
         private void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
@@ -200,11 +237,19 @@
             }
         }
 
-        private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, decimal grandTotal, string currency, int rowIndex)
+        private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, PromotionPrizeResultModel data, string currency, int rowIndex, string productKey = "")
         {
             // Copy template
             var row = _builder.CopyRow(sheet, templateSheet, RowGrandTotal, rowIndex);
-            row.Cells[ColumnAmount].SetCellValue((double)grandTotal);
+            if (productKey == Product.PPC)
+            {
+                row.Cells[ColumnTurnover].SetCellValue((double)data.TurnoverTotal);
+                row.Cells[ColumnContributionAmount].SetCellValue((double)data.ContributionAmountTotal);
+            }
+            else
+            {
+                row.Cells[ColumnAmount].SetCellValue((double)data.GrandTotal);
+            }
             row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, currency));
 
             // Merge first two column
