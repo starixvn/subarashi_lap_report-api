@@ -411,4 +411,20 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="SAG" xml:space="preserve">
+    <value>SA Gaming</value>
+    <comment>128493</comment>
+  </data>
+  <data name="TipAmount" xml:space="preserve">
+    <value>Tip Amount</value>
+    <comment>128493</comment>
+  </data>
+  <data name="Tips" xml:space="preserve">
+    <value>Tips</value>
+    <comment>128493</comment>
+  </data>
+  <data name="TipSharing" xml:space="preserve">
+    <value>Tip Sharing</value>
+    <comment>128493</comment>
+  </data>
 </root>

@@ -16,6 +16,8 @@
 
         public decimal ContributionAmount { get; set; }
 
+        public decimal TipSharing { get; set; }
+
         public string CurrencyName { get; set; }
 
         public string PromotionType { get; set; }

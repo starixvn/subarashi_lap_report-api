@@ -14,5 +14,7 @@
         public decimal ContributionAmountTotal { get; set; }
 
         public decimal GrandTotal { get; set; }
+
+        public decimal TipTotal { get; set; }
     }
 }
