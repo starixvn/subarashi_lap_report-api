@@ -178,8 +178,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         }
 
         [Theory]
-        [InlineData(ProductCode, 2)]
-        [InlineData(Product.SPR, 1)]
+        [InlineData(Product.SPR, 2)]
         public void AssignGrandTotal_WhenCall_CallSetValueCorrectly(string productCode, int rowIndexCount)
         {
             // Arrange
