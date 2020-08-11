@@ -22,5 +22,7 @@
         public string DefaultBaseCurrency { get; } = SystemBaseCurrency.EUR;
 
         public bool IsVIPPlayerOnly { get; set; }
+
+        public bool HasVIPManagementPermission { get; set; }
     }
 }

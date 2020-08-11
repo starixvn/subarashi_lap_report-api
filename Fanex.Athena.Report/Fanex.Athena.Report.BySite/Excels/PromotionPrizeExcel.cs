@@ -144,6 +144,13 @@
         {
             var currencyTitle = metaModel.CurrencyId <= 0 ? ViewResources.AllCurrencies : $"{ViewResources.Currency}: {metaModel.CurrencyName}";
             _title = $"{title}, {metaModel.FromDate.ToString(FormatDate)} --> {metaModel.ToDate.ToString(FormatDate)} - {currencyTitle}";
+
+            if (metaModel.HasVIPManagementPermission)
+            {
+                var value = metaModel.IsVIPPlayerOnly ? ViewResources.Yes : ViewResources.No;
+                var VIPPlayerTitle = $"{ViewResources.VIPPlayerOnly}: {value}";
+                _title = $"{_title} - {VIPPlayerTitle}";
+            }
         }
 
         private void AssignHeader(ISheet sheet, ISheet templateSheet, string productKey = "")
