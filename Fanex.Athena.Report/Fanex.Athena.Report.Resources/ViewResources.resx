@@ -398,4 +398,7 @@
   <data name="ContributionAmount" xml:space="preserve">
     <value>Contribution Amount</value>
   </data>
+  <data name="SabaPromotionPrizes" xml:space="preserve">
+    <value>Saba Promotion Prizes</value>
+  </data>
 </root>

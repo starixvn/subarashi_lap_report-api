@@ -637,6 +637,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saba Promotion Prizes.
+        /// </summary>
+        public static string SabaPromotionPrizes {
+            get {
+                return ResourceManager.GetString("SabaPromotionPrizes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sportsbook.
         /// </summary>
         public static string SB {

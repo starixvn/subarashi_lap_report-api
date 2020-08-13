@@ -351,4 +351,7 @@
   <data name="ExtraPayout" xml:space="preserve">
     <value>額外派彩</value>
   </data>
+  <data name="SabaPromotionPrizes" xml:space="preserve">
+    <value>沙巴促銷活動</value>
+  </data>
 </root>

@@ -72,7 +72,8 @@
             foreach (var promotionData in data)
             {
                 var productName = ViewResources.ResourceManager.GetString(promotionData.Key);
-                var title = productName + ProductOrderMap[promotionData.Key].Item1;
+                var title = promotionData.Key == Product.SPR
+                    ? ViewResources.SabaPromotionPrizes : productName + ProductOrderMap[promotionData.Key].Item1;
 
                 templateSheet = workBook.GetSheet(ProductOrderMap[promotionData.Key].Item2);
 
@@ -88,7 +89,7 @@
                         promotionData.Key)
                     : CreateEmptySheet(workBook, templateSheet, productName);
 
-                if (promotionData.Key == Product.SPR || promotionData.Key == Product.PPC)
+                if (promotionData.Key == Product.PPC)
                 {
                     _builder.HideColumn(sheet, ColumnPromotionType);
                 }
@@ -107,7 +108,7 @@
             string currencyName,
             string productKey)
         {
-            var showSummaryTotal = productKey != Product.SPR && productKey != Product.PPC;
+            var showSummaryTotal = productKey != Product.PPC;
             var sheet = _builder.CloneSheet(workbook, templateSheet.SheetName, sheetName);
 
             AssignHeader(sheet, templateSheet, productKey);
