@@ -405,6 +405,9 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="PGS" xml:space="preserve">
+    <value>PG Soft</value>
+  </data>
   <data name="VIPPlayerOnly" xml:space="preserve">
     <value>VIP Player only</value>
   </data>

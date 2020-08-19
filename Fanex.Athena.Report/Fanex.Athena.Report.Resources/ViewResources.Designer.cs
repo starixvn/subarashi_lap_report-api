@@ -574,6 +574,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PG Soft.
+        /// </summary>
+        public static string PGS {
+            get {
+                return ResourceManager.GetString("PGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Platform.
         /// </summary>
         public static string Platform {
