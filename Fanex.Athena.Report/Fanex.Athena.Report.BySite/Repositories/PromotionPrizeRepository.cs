@@ -53,6 +53,7 @@
                 db.SetParameterValue("MoveBetsDay", (await balanceUpInfoTask).MoveBetsDay);
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("DefaultBaseCurrency", metaModel.DefaultBaseCurrency);
+                db.SetParameterValue("VIPPlayerOnly", metaModel.IsVIPPlayerOnly);
 
                 using (var reader = db.ExecuteReader())
                 {

@@ -364,4 +364,13 @@
   <data name="SabaPromotionPrizes" xml:space="preserve">
     <value>沙巴促销活动</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>不是</value>
+  </data>
+  <data name="VIPPlayerOnly" xml:space="preserve">
+    <value>只显示VIP玩家</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
 </root>

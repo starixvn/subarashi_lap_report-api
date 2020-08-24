@@ -401,4 +401,13 @@
   <data name="SabaPromotionPrizes" xml:space="preserve">
     <value>Saba Promotion Prizes</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="VIPPlayerOnly" xml:space="preserve">
+    <value>VIP Player only</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>
