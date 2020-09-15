@@ -373,4 +373,8 @@
   <data name="Yes" xml:space="preserve">
     <value>是</value>
   </data>
+  <data name="ProductSXG" xml:space="preserve">
+    <value>AE 真人</value>
+    <comment>#141118</comment>
+  </data>
 </root>
