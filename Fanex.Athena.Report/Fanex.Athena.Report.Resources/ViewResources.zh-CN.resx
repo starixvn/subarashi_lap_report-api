@@ -361,9 +361,6 @@
   <data name="TG" xml:space="preserve">
     <value>桌面游戏</value>
   </data>
-  <data name="SXG" xml:space="preserve">
-    <value>性感百家</value>
-  </data>
   <data name="ExtraPayout" xml:space="preserve">
     <value>额外派彩</value>
   </data>
@@ -378,5 +375,9 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>
+  </data>
+  <data name="SXG" xml:space="preserve">
+    <value>AE 真人</value>
+    <comment>#141118</comment>
   </data>
 </root>
