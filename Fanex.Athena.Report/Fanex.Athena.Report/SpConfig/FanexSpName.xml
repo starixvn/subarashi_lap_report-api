@@ -8,8 +8,8 @@
     <Setting Key="Lrf_Rpt_PlatformWinlossDetail" SpName="Lrf_Rpt_PlatformWinlossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
 
     <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_Audit_DailyBets" SpName="Lrf_Rpt_Audit_DailyBets" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_Audit_DailyBets_Total" SpName="Lrf_Rpt_Audit_DailyBets_Total" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_Audit_DailyBets" SpName="Lrf_Rpt_Audit_DailyBets" DbName="DBPLO.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_Audit_DailyBets_Total" SpName="Lrf_Rpt_Audit_DailyBets_Total" DbName="DBPLO.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PromotionPrize" SpName="Lrf_Rpt_PromotionPrize" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CurrencySel" SpName="Lrf_CurrencySel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
