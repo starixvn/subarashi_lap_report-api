@@ -14,6 +14,7 @@
     {
         private readonly IDictionary<string, string> _siteNameList = new Dictionary<string, string>
         {
+            { "IvoryBet", "ivorysport" },
             { "12B", "12Bet"}
         };
 
