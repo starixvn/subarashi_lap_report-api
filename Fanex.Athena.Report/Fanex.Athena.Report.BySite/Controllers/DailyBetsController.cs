@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -11,9 +12,16 @@
     [Route("api/[controller]/[action]")]
     public class DailyBetsController : ControllerBase
     {
+        private readonly IDictionary<string, string> _siteNameList = new Dictionary<string, string>
+        {
+            { "IvoryBet", "ivorysport" },
+            { "12B", "12Bet"}
+        };
+
         [HttpPost]
         public async Task<dynamic> Index(DailyBetsMetaModel metaModel, [FromServices]IDailyBetsService service)
         {
+            metaModel.SiteName = _siteNameList.TryGetValue(metaModel.SiteName, out string siteName) ? siteName : metaModel.SiteName;
             var result = await service.GetDataAsync(metaModel).ConfigureAwait(false);
 
             return new
@@ -27,6 +35,7 @@
         [HttpPost]
         public async Task<ActionResult> Export(DailyBetsMetaModel metaModel, [FromServices]IDailyBetsExcel excel)
         {
+            metaModel.SiteName = _siteNameList.TryGetValue(metaModel.SiteName, out string siteName) ? siteName : metaModel.SiteName;
             var fileName = await excel.Export(metaModel).ConfigureAwait(false);
 
             if (fileName is null)
