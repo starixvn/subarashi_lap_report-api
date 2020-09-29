@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.Core.Middleware;
+using Fanex.Data;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -22,6 +25,10 @@ namespace Fanex.Athena.Report.Core.UnitTests.Middleware
         private const string ContentType = "application/json";
 
         private const string ExceptionMessage = "ExceptionMessage";
+
+        private const string FanexDataExceptionMessage = "Exception of type 'Fanex.Data.ObjectDbException' was thrown.";
+
+        private const string SqlExceptionMessage = "Exception of type 'System.Data.SqlClient.SqlException' was thrown.";
 
         public ErrorHandlingTest()
         {
@@ -86,6 +93,92 @@ namespace Fanex.Athena.Report.Core.UnitTests.Middleware
             {
                 State = "Internal Server Error",
                 Msg = ExceptionMessage,
+                Code = HttpStatusCode.InternalServerError
+            });
+
+            // Action
+            await middleware.Invoke(context);
+
+            context.Response.Body.Seek(0, SeekOrigin.Begin);
+            using (var stream = new StreamReader(context.Response.Body))
+            {
+                var result = stream.ReadToEnd();
+
+                // Assert
+                Assert.Equal((int)HttpStatusCode.InternalServerError, context.Response.StatusCode);
+                Assert.Equal(ContentType, context.Response.ContentType);
+                Assert.Equal(expectedResponseContent, result);
+                logger.Verify(r =>
+                    r.Log(LogLevel.Critical,
+                    It.IsAny<EventId>(),
+                    It.IsAny<object>(),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<object, Exception, string>>()),
+                    Times.Once);
+            }
+        }
+
+        [Fact]
+        public async Task Invoke_ThrowSqlExceptionWhenCallingNext_ErrorIsLoggedAndResponseHasCorrectContent()
+        {
+            // Arrange
+            var exception = FormatterServices.GetUninitializedObject(typeof(SqlException))
+                as SqlException;
+            var middleware = new ErrorHandling(
+                next: (innerHttpContext) =>
+                {
+                    throw (exception);
+                },
+                logger: logger.Object
+            );
+            var context = CreateHttpContext(hasFeature: false);
+            var expectedResponseContent = JsonConvert.SerializeObject(new
+            {
+                State = "Internal Server Error",
+                Msg = SqlExceptionMessage,
+                Code = HttpStatusCode.InternalServerError
+            });
+
+            // Action
+            await middleware.Invoke(context);
+
+            context.Response.Body.Seek(0, SeekOrigin.Begin);
+            using (var stream = new StreamReader(context.Response.Body))
+            {
+                var result = stream.ReadToEnd();
+
+                // Assert
+                Assert.Equal((int)HttpStatusCode.InternalServerError, context.Response.StatusCode);
+                Assert.Equal(ContentType, context.Response.ContentType);
+                Assert.Equal(expectedResponseContent, result);
+                logger.Verify(r =>
+                    r.Log(LogLevel.Critical,
+                    It.IsAny<EventId>(),
+                    It.IsAny<object>(),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<object, Exception, string>>()),
+                    Times.Once);
+            }
+        }
+
+        [Fact]
+        public async Task Invoke_ThrowFanexDataExceptionWhenCallingNext_ErrorIsLoggedAndResponseHasCorrectContent()
+        {
+            // Arrange
+            var exception = FormatterServices.GetUninitializedObject(typeof(ObjectDbException))
+                as ObjectDbException;
+            var middleware = new ErrorHandling(
+                next: (innerHttpContext) =>
+                {
+                    throw (exception);
+                },
+                logger: logger.Object
+            );
+            var context = CreateHttpContext(hasFeature: false);
+            var expectedResponseContent = JsonConvert.SerializeObject(new
+            {
+                State = "Internal Server Error",
+                Msg = FanexDataExceptionMessage,
                 Code = HttpStatusCode.InternalServerError
             });
 
