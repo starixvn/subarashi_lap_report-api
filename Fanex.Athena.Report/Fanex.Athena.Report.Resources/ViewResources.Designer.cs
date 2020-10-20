@@ -178,7 +178,7 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Card Club.
+        ///   Looks up a localized string similar to Arcadia Gaming.
         /// </summary>
         public static string CC {
             get {
