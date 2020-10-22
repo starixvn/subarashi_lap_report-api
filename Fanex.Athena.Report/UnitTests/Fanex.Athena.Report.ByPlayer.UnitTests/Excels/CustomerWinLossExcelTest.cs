@@ -257,7 +257,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 }
 
                 Assert.Equal(12, columns);
-                Assert.Equal($"{ViewResources.Win}/{ViewResources.Loss}", worksheet.GetValue<string>(EndHeaderRowIndex, 6));
+                Assert.Equal($"{ViewResources.Win} {ViewResources.Loss}", worksheet.GetValue<string>(EndHeaderRowIndex, 6));
                 Assert.Equal(ViewResources.Comm, worksheet.GetValue<string>(EndHeaderRowIndex, 7));
                 Assert.Equal(ViewResources.Total, worksheet.GetValue<string>(EndHeaderRowIndex, 8));
             }

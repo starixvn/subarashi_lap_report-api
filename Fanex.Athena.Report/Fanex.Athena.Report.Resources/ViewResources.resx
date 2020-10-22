@@ -133,7 +133,7 @@
     <value>BA</value>
   </data>
   <data name="CC" xml:space="preserve">
-    <value>Card Club</value>
+    <value>Arcadia Gaming</value>
   </data>
   <data name="China" xml:space="preserve">
     <value>China</value>
@@ -410,5 +410,21 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="SAG" xml:space="preserve">
+    <value>SA Gaming</value>
+    <comment>128493</comment>
+  </data>
+  <data name="TipAmount" xml:space="preserve">
+    <value>Tip Amount</value>
+    <comment>128493</comment>
+  </data>
+  <data name="Tips" xml:space="preserve">
+    <value>Tips</value>
+    <comment>128493</comment>
+  </data>
+  <data name="TipSharing" xml:space="preserve">
+    <value>Tip Sharing</value>
+    <comment>128493</comment>
   </data>
 </root>

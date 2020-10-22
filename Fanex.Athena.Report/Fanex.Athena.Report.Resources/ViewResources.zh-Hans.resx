@@ -133,7 +133,7 @@
     <value>BA</value>
   </data>
   <data name="CC" xml:space="preserve">
-    <value>嘻嘻俱乐部</value>
+    <value>乐卡迪亚</value>
   </data>
   <data name="China" xml:space="preserve">
     <value>中国版</value>
@@ -360,6 +360,9 @@
   </data>
   <data name="ExtraPayout" xml:space="preserve">
     <value>额外派彩</value>
+  </data>
+  <data name="SAG" xml:space="preserve">
+    <value>SA真人娱乐场</value>
   </data>
   <data name="SabaPromotionPrizes" xml:space="preserve">
     <value>沙巴促销活动</value>

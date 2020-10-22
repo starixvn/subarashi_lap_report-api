@@ -9,5 +9,7 @@
         public const string PPC = "PPC";
 
         public const string PP = "PP";
+
+        public const string SAG = "SAG";
     }
 }

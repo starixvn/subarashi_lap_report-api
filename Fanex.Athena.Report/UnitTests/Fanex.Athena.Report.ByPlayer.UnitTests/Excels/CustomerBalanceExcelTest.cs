@@ -28,7 +28,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 ViewResources.Withdrawal,
                 ViewResources.Bonus,
                 ViewResources.Adjustment,
-                ViewResources.Promotion,
+                ViewResources.ExtraPayout,
                 ViewResources.Turnover,
                 ViewResources.DrawGame,
                 ViewResources.NetTurnover,

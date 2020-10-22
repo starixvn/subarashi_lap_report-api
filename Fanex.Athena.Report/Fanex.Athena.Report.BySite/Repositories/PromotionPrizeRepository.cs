@@ -88,7 +88,8 @@
                     PromotionType = this.GetBetTypeName(reader.GetVal<string>("BetType")),
                     Amount = reader.GetVal<decimal>("SumAmount"),
                     Turnover = reader.GetVal<decimal>("SumTurnover"),
-                    ContributionAmount = reader.GetVal<decimal>("SumContributionAmount")
+                    ContributionAmount = reader.GetVal<decimal>("SumContributionAmount"),
+                    TipSharing = reader.GetVal<decimal>("SumTipSharing")
                 };
 
                 if (!data.TryAdd(
@@ -100,9 +101,11 @@
                         GrandTotal = summary.Amount,
                         TurnoverTotal = summary.Turnover,
                         ContributionAmountTotal = summary.ContributionAmount,
+                        TipTotal = summary.TipSharing
                     }))
                 {
                     data[productCode].GrandTotal += summary.Amount;
+                    data[productCode].TipTotal += summary.TipSharing;
                     data[productCode].SummaryTotal.Add(summary);
                 }
             }
@@ -119,6 +122,7 @@
                 ExternalId = reader.GetVal<string>("NickName"),
                 CurrencyName = currencyList.FirstOrDefault(x => x.ID == currencyId)?.Name,
                 Amount = reader.GetVal<decimal>("Amount"),
+                TipSharing = reader.GetVal<decimal>("TipSharing"),
                 Turnover = reader.GetVal<decimal>("Turnover"),
                 ContributionAmount = reader.GetVal<decimal>("ContributionAmount"),
                 Date = reader.GetVal<DateTime>("Date"),
