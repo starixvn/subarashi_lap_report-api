@@ -29,7 +29,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private const int ColumnExternalId = 4;
         private const int ColumnSystemId = 5;
         private const int ColumnAmount = 6;
+        private const int ColumnTurnover = 6;
+        private const int ColumnContributionAmount = 7;
+        private const int ColumnTipAmount = 7;
+        private const int ColumnTipSharing = 8;
 
+        private const int TotalColumnTemplateCount = 9;
         private const int ColumnTemplateCount = 7;
 
         private const int RowTitleTemplate = 0;
@@ -44,7 +49,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private Mock<ISheet> _sheet;
         private Mock<ISheet> _templateSheet;
 
-        private const string ProductCode = "SB";
+        private const string ProductCode = "PP";
         private readonly string ProductName = ViewResources.ResourceManager.GetString(ProductCode);
         private readonly string SabaPromotion = ViewResources.ResourceManager.GetString(Product.SPR);
 
@@ -234,10 +239,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
         private IList<Mock<IRow>> CreateRowList()
         {
-            var headerRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowHeaderTemplate);
-            var bodyRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowContentTemplate);
-            var totalRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowTotal);
-            var grandTotalRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowGrandTotal);
+            var headerRow = ExcelTestHelper.MockGetRow(_sheet, TotalColumnTemplateCount, RowHeaderTemplate);
+            var bodyRow = ExcelTestHelper.MockGetRow(_sheet, TotalColumnTemplateCount, RowContentTemplate);
+            var totalRow = ExcelTestHelper.MockGetRow(_sheet, TotalColumnTemplateCount, RowTotal);
+            var grandTotalRow = ExcelTestHelper.MockGetRow(_sheet, TotalColumnTemplateCount, RowGrandTotal);
 
             return new List<Mock<IRow>> { headerRow, bodyRow, totalRow, grandTotalRow };
         }

@@ -92,7 +92,7 @@
                         promotionData.Key)
                     : CreateEmptySheet(workBook, templateSheet, productName);
 
-                if (promotionData.Key == Product.SPR || promotionData.Key == Product.PPC || promotionData.Key == Product.SAG)
+                if (promotionData.Key == Product.PPC || promotionData.Key == Product.SAG)
                 {
                     _builder.HideColumn(sheet, ColumnPromotionType);
                 }
@@ -121,7 +121,7 @@
             string currencyName,
             string productKey)
         {
-            var showSummaryTotal = productKey != Product.SPR && productKey != Product.PPC;
+            var showSummaryTotal = productKey != Product.PPC;
             var sheet = _builder.CloneSheet(workbook, templateSheet.SheetName, sheetName);
 
             AssignHeader(sheet, templateSheet, productKey);
