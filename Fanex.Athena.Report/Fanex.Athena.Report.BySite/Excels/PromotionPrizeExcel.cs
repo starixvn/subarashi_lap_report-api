@@ -44,13 +44,14 @@
 
         private string _title;
 
-        private static readonly Dictionary<string, Tuple<string, string, string>> ProductOrderMap =
-            new Dictionary<string, Tuple<string, string, string>>(StringComparer.OrdinalIgnoreCase)
+        private static readonly Dictionary<string, Tuple<string, string>> ProductOrderMap =
+            new Dictionary<string, Tuple<string, string>>(StringComparer.OrdinalIgnoreCase)
         {
-                {Product.PP,new Tuple<string, string, string>("", DefaultTemplateSheetName, "")  },
-                {Product.PPC,new Tuple<string, string, string>("", PPCTemplateSheetName, "")},
-                {Product.SPR, new Tuple<string, string, string>(" - " + @ViewResources.PromotionPrize, DefaultTemplateSheetName, "") },
-                {Product.SAG, new Tuple<string, string, string>(" - " + @ViewResources.Tips, DefaultTemplateSheetName, "") }
+                {Product.PP,new Tuple<string, string>("", DefaultTemplateSheetName)  },
+                {Product.PPC,new Tuple<string, string>("", PPCTemplateSheetName)},
+                {Product.SPR, new Tuple<string, string>("", DefaultTemplateSheetName) },
+                {Product.SAG, new Tuple<string, string>(" - " + @ViewResources.Tips, DefaultTemplateSheetName) },
+                {Product.CCB, new Tuple<string, string>("", DefaultTemplateSheetName) }
         };
 
         public PromotionPrizeExcel(IExcelBuilder builder)
@@ -66,17 +67,17 @@
 
             if (data.Count == 0)
             {
-                SetTitle(ViewResources.PromotionPrize, metaModel);
+                SetTitle(ViewResources.ExtraPayout, metaModel);
                 CreateEmptySheet(workBook, templateSheet, DefaultSheetName);
             }
 
-            data = data.OrderBy(_ => productOrderList.IndexOf(_.Key)).ToDictionary(_ => _.Key, _ => _.Value);
+            data = data.Where(_ => ProductOrderMap.ContainsKey(_.Key)).OrderBy(_ => productOrderList.IndexOf(_.Key)).ToDictionary(_ => _.Key, _ => _.Value);
 
             foreach (var promotionData in data)
             {
                 var productName = ViewResources.ResourceManager.GetString(promotionData.Key);
-                var title = productName + ProductOrderMap[promotionData.Key].Item1;
-                var sheetName = productName + ProductOrderMap[promotionData.Key].Item3;
+                var title = promotionData.Key == Product.SPR
+                    ? ViewResources.SabaPromotionPrizes : productName + ProductOrderMap[promotionData.Key].Item1;
 
                 templateSheet = workBook.GetSheet(ProductOrderMap[promotionData.Key].Item2);
 
@@ -86,7 +87,7 @@
                     ? CreateDataSheet(
                         workBook,
                         templateSheet,
-                        sheetName,
+                        productName,
                         promotionData.Value,
                         metaModel.DefaultBaseCurrency,
                         promotionData.Key)
@@ -121,12 +122,12 @@
             string currencyName,
             string productKey)
         {
-            var showSummaryTotal = productKey != Product.PPC;
+            var notShowSummaryTotal = productKey == Product.PPC || productKey == Product.CCB;
             var sheet = _builder.CloneSheet(workbook, templateSheet.SheetName, sheetName);
 
             AssignHeader(sheet, templateSheet, productKey);
             AssignTitle(sheet, templateSheet);
-            AssignDataRow(sheet, templateSheet, data, currencyName, showSummaryTotal, productKey);
+            AssignDataRow(sheet, templateSheet, data, currencyName, !notShowSummaryTotal, productKey);
 
             return sheet;
         }
@@ -172,7 +173,7 @@
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
-            row.Cells[ColumnPromotionType].SetCellValue(ViewResources.PromotionType);
+            row.Cells[ColumnPromotionType].SetCellValue(productKey == Product.CCB ? ViewResources.GameType : ViewResources.PromotionType);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
             if (productKey == Product.PPC)
