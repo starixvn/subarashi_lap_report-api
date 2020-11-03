@@ -427,4 +427,10 @@
     <value>Tip Sharing</value>
     <comment>128493</comment>
   </data>
+  <data name="CCB" xml:space="preserve">
+    <value>Arcadia Gaming Bonus</value>
+  </data>
+  <data name="GameType" xml:space="preserve">
+    <value>Game Type</value>
+  </data>
 </root>

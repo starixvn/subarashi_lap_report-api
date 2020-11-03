@@ -363,4 +363,7 @@
   <data name="Yes" xml:space="preserve">
     <value>是</value>
   </data>
+  <data name="CCB" xml:space="preserve">
+    <value>樂卡迪亞紅利</value>
+  </data>
 </root>

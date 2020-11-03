@@ -187,6 +187,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arcadia Gaming Bonus.
+        /// </summary>
+        public static string CCB {
+            get {
+                return ResourceManager.GetString("CCB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to China.
         /// </summary>
         public static string China {
@@ -381,6 +390,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string FW {
             get {
                 return ResourceManager.GetString("FW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Type.
+        /// </summary>
+        public static string GameType {
+            get {
+                return ResourceManager.GetString("GameType", resourceCulture);
             }
         }
         

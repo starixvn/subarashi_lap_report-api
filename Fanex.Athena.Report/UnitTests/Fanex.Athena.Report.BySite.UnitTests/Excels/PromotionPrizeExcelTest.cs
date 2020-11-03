@@ -64,7 +64,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var metaModel = _fixture.Create<PromotionPrizeMetaModel>();
 
             var currencyTitle = metaModel.CurrencyId <= 0 ? ViewResources.AllCurrencies : $"{ViewResources.Currency}: {metaModel.CurrencyName}";
-            var reportTitle = $"{ViewResources.PromotionPrize}, {metaModel.FromDate.ToString(FormatDate)} --> {metaModel.ToDate.ToString(FormatDate)} - {currencyTitle}";
+            var reportTitle = $"{ViewResources.ExtraPayout}, {metaModel.FromDate.ToString(FormatDate)} --> {metaModel.ToDate.ToString(FormatDate)} - {currencyTitle}";
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
