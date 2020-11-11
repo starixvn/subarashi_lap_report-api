@@ -11,7 +11,9 @@
         public const string PP = "PP";
 
         public const string SAG = "SAG";
-        
+
         public const string CCB = "CCB";
+
+        public const string SBCFB = "SBCFB";
     }
 }

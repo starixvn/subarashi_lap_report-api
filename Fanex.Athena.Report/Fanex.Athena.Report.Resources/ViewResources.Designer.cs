@@ -718,6 +718,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saba.club Free Bets.
+        /// </summary>
+        public static string SBCFB {
+            get {
+                return ResourceManager.GetString("SBCFB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SG.
         /// </summary>
         public static string SG {
