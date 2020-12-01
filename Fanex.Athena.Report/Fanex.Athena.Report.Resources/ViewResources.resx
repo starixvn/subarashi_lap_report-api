@@ -436,4 +436,8 @@
   <data name="GameType" xml:space="preserve">
     <value>Game Type</value>
   </data>
+  <data name="JK" xml:space="preserve">
+    <value>Joker</value>
+    <comment>141408</comment>
+  </data>
 </root>

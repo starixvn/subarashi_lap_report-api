@@ -412,6 +412,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Joker.
+        /// </summary>
+        public static string JK {
+            get {
+                return ResourceManager.GetString("JK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RNG Keno.
         /// </summary>
         public static string KN {
