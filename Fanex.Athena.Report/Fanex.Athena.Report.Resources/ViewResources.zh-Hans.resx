@@ -410,4 +410,7 @@
   <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
     <value>财神爷输赢 , {0} --&gt; {1} , {2}</value>
   </data>
+  <data name="BGG" xml:space="preserve">
+    <value>大遊真人</value>
+  </data>
 </root>
