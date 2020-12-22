@@ -51,7 +51,8 @@
                 {Product.PPC,new Tuple<string, string>("", PPCTemplateSheetName)},
                 {Product.SPR, new Tuple<string, string>("", DefaultTemplateSheetName) },
                 {Product.SAG, new Tuple<string, string>(" - " + @ViewResources.Tips, DefaultTemplateSheetName) },
-                {Product.CCB, new Tuple<string, string>("", DefaultTemplateSheetName) }
+                {Product.CCB, new Tuple<string, string>("", DefaultTemplateSheetName) },
+                {Product.SBCFB, new Tuple<string, string>("", DefaultTemplateSheetName) }
         };
 
         public PromotionPrizeExcel(IExcelBuilder builder)
@@ -122,7 +123,7 @@
             string currencyName,
             string productKey)
         {
-            var notShowSummaryTotal = productKey == Product.PPC || productKey == Product.CCB;
+            var notShowSummaryTotal = productKey == Product.PPC || productKey == Product.CCB || productKey == Product.SBCFB;
             var sheet = _builder.CloneSheet(workbook, templateSheet.SheetName, sheetName);
 
             AssignHeader(sheet, templateSheet, productKey);
@@ -173,7 +174,7 @@
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
-            row.Cells[ColumnPromotionType].SetCellValue(productKey == Product.CCB ? ViewResources.GameType : ViewResources.PromotionType);
+            row.Cells[ColumnPromotionType].SetCellValue(productKey == Product.CCB || productKey == Product.SBCFB ? ViewResources.GameType : ViewResources.PromotionType);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
             if (productKey == Product.PPC)
