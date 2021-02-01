@@ -403,6 +403,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GDG.
+        /// </summary>
+        public static string GDG {
+            get {
+                return ResourceManager.GetString("GDG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indo 4D.
         /// </summary>
         public static string I4D {
