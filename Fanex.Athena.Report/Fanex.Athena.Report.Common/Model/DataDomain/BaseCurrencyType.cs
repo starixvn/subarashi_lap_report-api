@@ -19,5 +19,9 @@
         public const int IDR = -7;
 
         public const int INH = -8;
+
+        public const int BDT = -9;
+
+        public const int INR = -10;
     }
 }
