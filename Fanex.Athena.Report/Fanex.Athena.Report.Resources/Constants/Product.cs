@@ -15,5 +15,9 @@
         public const string CCB = "CCB";
 
         public const string SBCFB = "SBCFB";
+
+        public const string SBCC = "SBCC";
+
+        public const string SBC = "SBC";
     }
 }
