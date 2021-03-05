@@ -16,7 +16,6 @@
     {
         private const string DefaultTemplateSheetName = "Template";
         private const string ContributionTemplate = "ContributionTemplate";
-        private const string DefaultSheetName = "Data";
         public const string FormatDate = "MM/dd/yyyy";
 
         private const int ColumnIndex = 0;
@@ -37,6 +36,7 @@
         private const int RowHeaderTemplate = 1;
         private const int RowContentTemplate = 2;
         private const int RowTotal = 4;
+        private const int RowCurrencyTotal = 5;
         private const int RowGrandTotal = 6;
         private const int RowNoInfoTemplate = 7;
 
@@ -68,13 +68,13 @@
             var templateSheet = workBook.GetSheet(DefaultTemplateSheetName);
             var productOrderList = ProductOrderMap.Keys.ToList();
 
+            data = data.Where(_ => ProductOrderMap.ContainsKey(_.Key)).OrderBy(_ => productOrderList.IndexOf(_.Key)).ToDictionary(_ => _.Key, _ => _.Value);
+
             if (data.Count == 0)
             {
                 SetTitle(ViewResources.ExtraPayout, metaModel);
-                CreateEmptySheet(workBook, templateSheet, DefaultSheetName);
+                CreateEmptySheet(workBook, templateSheet, DefaultTemplateSheetName);
             }
-
-            data = data.Where(_ => ProductOrderMap.ContainsKey(_.Key)).OrderBy(_ => productOrderList.IndexOf(_.Key)).ToDictionary(_ => _.Key, _ => _.Value);
 
             foreach (var promotionData in data)
             {
@@ -231,6 +231,9 @@
                 }
             }
 
+            AssignCurrencyTotal(sheet, templateSheet, data, rowCount + RowContentTemplate, productKey);
+            rowCount = rowCount + data.CurrencyTotal.Count;
+
             if (showSummaryTotal)
             {
                 AssignSummaryTotal(sheet, templateSheet, data.SummaryTotal, currencyName, rowCount + RowContentTemplate);
@@ -301,6 +304,32 @@
         private static bool IsContribution(string productKey)
         {
             return productKey == Product.PPC || productKey == Product.SBCC;
+        }
+
+        private void AssignCurrencyTotal(ISheet sheet, ISheet templateSheet, PromotionPrizeResultModel data, int rowIndex, string productKey = "")
+        {
+            // Copy template
+
+            foreach (var currencyTotal in data.CurrencyTotal)
+            {
+                var row = _builder.CopyRow(sheet, templateSheet, RowCurrencyTotal, rowIndex);
+                row.Cells[ColumnIndex].SetCellValue($"{ViewResources.Total} {currencyTotal.CurrencyName}");
+
+                if (IsContribution(productKey))
+                {
+                    row.Cells[ColumnTurnover].SetCellValue((double)currencyTotal.SumTurnover);
+                    row.Cells[ColumnContributionAmount].SetCellValue((double)currencyTotal.SumContributionAmount);
+                }
+                else
+                {
+                    row.Cells[ColumnAmount].SetCellValue((double)currencyTotal.SumAmount);
+                    row.Cells[ColumnTipAmount].SetCellValue((double)currencyTotal.SumAmount);
+                    row.Cells[ColumnTipSharing].SetCellValue((double)currencyTotal.SumTipSharing);
+                }
+
+                _builder.MergeCells(sheet, firstRow: rowIndex, lastRow: rowIndex, firstCol: ColumnIndex, lastCol: ColumnSystemId);
+                rowIndex++;
+            }
         }
     }
 }
