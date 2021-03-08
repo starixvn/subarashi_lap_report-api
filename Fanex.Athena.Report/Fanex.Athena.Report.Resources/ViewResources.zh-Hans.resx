@@ -389,4 +389,7 @@
   <data name="GDG" xml:space="preserve">
     <value>金大门</value>
   </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>手机欧洲版</value>
+  </data>
 </root>

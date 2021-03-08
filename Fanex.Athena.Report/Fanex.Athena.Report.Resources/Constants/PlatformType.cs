@@ -32,6 +32,8 @@
 
         public const int ESportsApp = 14;
 
+        public const int MobileEuro = 15;
+
         public const int BetfromOthers = 88;
     }
 }

@@ -372,4 +372,7 @@
   <data name="GDG" xml:space="preserve">
     <value>GDG</value>
   </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>手機歐洲版</value>
+  </data>
 </root>

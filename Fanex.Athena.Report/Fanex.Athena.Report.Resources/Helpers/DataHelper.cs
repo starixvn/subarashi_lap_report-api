@@ -24,6 +24,7 @@
                 case PlatformType.ESportsDesktop: return ViewResources.ESportsDesktop;
                 case PlatformType.ESportsMobile: return ViewResources.ESportsMobile;
                 case PlatformType.ESportsApp: return ViewResources.ESportsApp;
+                case PlatformType.MobileEuro: return ViewResources.MobileEuro;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;
                 default: return ViewResources.All;
             }
