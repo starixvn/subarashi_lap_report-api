@@ -453,4 +453,7 @@
     <value>Mobile Euro</value>
     <comment>151019</comment>
   </data>
+  <data name="SLT" xml:space="preserve">
+    <value>Sports Lottery</value>
+  </data>
 </root>

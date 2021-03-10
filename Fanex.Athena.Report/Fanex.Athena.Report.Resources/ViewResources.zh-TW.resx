@@ -375,4 +375,7 @@
   <data name="MobileEuro" xml:space="preserve">
     <value>手機歐洲版</value>
   </data>
+  <data name="SLT" xml:space="preserve">
+    <value>體育時時彩</value>
+  </data>
 </root>

@@ -395,4 +395,7 @@
   <data name="MobileEuro" xml:space="preserve">
     <value>手机欧洲版</value>
   </data>
+  <data name="SLT" xml:space="preserve">
+    <value>体育时时彩</value>
+  </data>
 </root>
