@@ -449,4 +449,8 @@
   <data name="SBCC" xml:space="preserve">
     <value>Saba.club Jackpot Contribution</value>
   </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>Mobile Euro</value>
+    <comment>151019</comment>
+  </data>
 </root>
