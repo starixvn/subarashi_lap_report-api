@@ -8,7 +8,7 @@
     {
         public int CurrencyId { get; set; }
 
-        public int PlatformType { get; set; }
+        public string PlatformType { get; set; }
 
         public int DrawFilter { get; set; }
 

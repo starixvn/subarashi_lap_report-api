@@ -22,6 +22,7 @@
     {
         private const string TemplateSheetName = "Template";
         private const string SheetName = "Data";
+        private const string PlatformAll = "All";
 
         private const int ColumnIndex = 0;
         private const int ColumnExternalId = 1;
@@ -102,6 +103,21 @@
             }
         }
 
+        private static string GetPlatformtTitle(string platformTypes)
+        {
+            if (string.IsNullOrEmpty(platformTypes) || platformTypes == PlatformAll)
+            {
+                return DataHelper.GetPlatformName(PlatformType.All);
+            }
+
+            string[] platformTypeList = Array.ConvertAll(platformTypes.Split(','), p => p.Trim());
+
+            var text = platformTypeList
+                .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? DataHelper.GetPlatformName(Int32.Parse(x)) : ", " + DataHelper.GetPlatformName(Int32.Parse(x))));
+
+            return text;
+        }
+
         private static string GetProductTitle(IList<ProductOption> productOptions)
         {
             if (productOptions.Count() == 1)
@@ -145,7 +161,7 @@
 
         private void AssignTitle(ISheet sheet, ISheet templateSheet, PlatformWinLossMetaModel metaModel)
         {
-            var platformText = ViewResources.Platform + ": " + DataHelper.GetPlatformName(metaModel.PlatformType);
+            var platformText = ViewResources.Platform + ": " + GetPlatformtTitle(metaModel.PlatformType);
             var currencyText = metaModel.CurrencyId == 0
                 ? ViewResources.AllCurrencies
                 : $"{ViewResources.Currency} {metaModel.CurrencyName}";

@@ -51,6 +51,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                     new ProductOption { Code = "NG", Status = false }
                 };
 
+        private readonly string PlatformTypes = "1";
+
         private const string TemplatePath = "TemplatePath";
         private Mock<IExcelBuilder> _excelBuilder;
         private Mock<ISheet> _sheet;
@@ -70,6 +72,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var metaModel = _fixture.Build<PlatformWinLossMetaModel>()
                 .With(x => x.ProductOptions, ProductOptions)
                 .Create();
+            metaModel.PlatformType = PlatformTypes;
 
             var reportTitle = CreateTitle(metaModel);
 
@@ -109,6 +112,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 .Create();
 
             var metaModel = _fixture.Create<PlatformWinLossMetaModel>();
+            metaModel.PlatformType = PlatformTypes;
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -135,6 +139,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 .With(x => x.TotalRows, 0)
                 .Create();
             var metaModel = _fixture.Create<PlatformWinLossMetaModel>();
+            metaModel.PlatformType = PlatformTypes;
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -159,6 +164,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 .With(x => x.HasComm, false)
                 .Create();
 
+            metaModel.PlatformType = PlatformTypes;
+
             // Action
             excel.Export(TemplatePath, data, metaModel);
 
@@ -182,6 +189,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 .With(x => x.TotalRows, 1)
                 .Create();
             var metaModel = _fixture.Create<PlatformWinLossMetaModel>();
+            metaModel.PlatformType = PlatformTypes;
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -206,6 +214,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 .With(x => x.TotalData, totalItem)
                 .Create();
             var metaModel = _fixture.Create<PlatformWinLossMetaModel>();
+            metaModel.PlatformType = PlatformTypes;
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -265,7 +274,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
         private static string CreateTitle(PlatformWinLossMetaModel metaModel)
         {
-            var platformText = ViewResources.Platform + ": " + DataHelper.GetPlatformName(metaModel.PlatformType);
+            var platformText = ViewResources.Platform + ": " + DataHelper.GetPlatformName(Int32.Parse(metaModel.PlatformType));
             var currencyText = metaModel.CurrencyId == 0
                 ? ViewResources.AllCurrencies
                 : $"{ViewResources.Currency} {metaModel.CurrencyName}";

@@ -12,6 +12,7 @@
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources;
+    using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Athena.Report.Resources.Helpers;
 
     using NPOI.SS.UserModel;
@@ -20,6 +21,7 @@
     {
         private const string TemplateSheetName = "Template";
         private const string SheetName = "Data";
+        private const string PlatformAll = "All";
         private const int ColumnPlatform = 0;
         private const int ColumnTurnover = 1;
         private const int ColumnTurnoverPercent = 2;
@@ -83,6 +85,21 @@
             return workBook;
         }
 
+        private static string GetPlatformtTitle(string platformTypes)
+        {
+            if (string.IsNullOrEmpty(platformTypes) || platformTypes == PlatformAll)
+            {
+                return DataHelper.GetPlatformName(PlatformType.All);
+            }
+
+            string[] platformTypeList = Array.ConvertAll(platformTypes.Split(','), p => p.Trim());
+
+            var text = platformTypeList
+                .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? DataHelper.GetPlatformName(Int32.Parse(x)) : ", " + DataHelper.GetPlatformName(Int32.Parse(x))));
+
+            return text;
+        }
+
         private static string GetProductTitle(IList<ProductOption> productOptions)
         {
             var selectedProducts = productOptions.Where(x => x.Status);
@@ -119,7 +136,7 @@
 
         private void AssignTitle(ISheet sheet, ISheet templateSheet, PlatformWinLossMetaModel metaModel)
         {
-            var platformText = ViewResources.Platform + ": " + DataHelper.GetPlatformName(metaModel.PlatformType);
+            var platformText = ViewResources.Platform + ": " + GetPlatformtTitle(metaModel.PlatformType);
             var currencyText = metaModel.CurrencyId == 0 ?
                 ViewResources.AllCurrencies :
                 string.Format("{0} {1}", ViewResources.Currency, metaModel.CurrencyName);
