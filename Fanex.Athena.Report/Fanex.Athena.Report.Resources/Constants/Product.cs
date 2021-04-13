@@ -19,5 +19,7 @@
         public const string SBCC = "SBCC";
 
         public const string SBC = "SBC";
+
+        public const string SXG = "SXG";
     }
 }
