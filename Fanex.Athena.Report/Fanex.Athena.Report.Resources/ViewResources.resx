@@ -135,8 +135,8 @@
   <data name="CC" xml:space="preserve">
     <value>Arcadia Gaming</value>
   </data>
-  <data name="China" xml:space="preserve">
-    <value>China</value>
+  <data name="DesktopChina" xml:space="preserve">
+    <value>Desktop China</value>
   </data>
   <data name="Comm" xml:space="preserve">
     <value>Comm</value>
@@ -168,17 +168,17 @@
   <data name="LT" xml:space="preserve">
     <value>Lottery</value>
   </data>
-  <data name="Mobile" xml:space="preserve">
-    <value>Mobile</value>
+  <data name="MobileStandard" xml:space="preserve">
+    <value>Mobile Standard</value>
   </data>
   <data name="MobileApp" xml:space="preserve">
-    <value>Mobile App</value>
+    <value>Mobile APP</value>
   </data>
-  <data name="MobileLiteVersion" xml:space="preserve">
-    <value>Mobile Lite Version</value>
+  <data name="MobileCompact" xml:space="preserve">
+    <value>Mobile Compact</value>
   </data>
-  <data name="NewAsia" xml:space="preserve">
-    <value>New Asia</value>
+  <data name="DesktopNewAsia" xml:space="preserve">
+    <value>Desktop New Asia</value>
   </data>
   <data name="NG" xml:space="preserve">
     <value>Number Game</value>
@@ -339,7 +339,7 @@
     <comment>125553</comment>
   </data>
   <data name="NativeApp" xml:space="preserve">
-    <value>Native App</value>
+    <value>Native APP</value>
     <comment>125824</comment>
   </data>
   <data name="CustomerBalance" xml:space="preserve">
@@ -369,7 +369,7 @@
     <comment>124911</comment>
   </data>
   <data name="ESportsApp" xml:space="preserve">
-    <value>E-Sports App</value>
+    <value>E-Sports APP</value>
   </data>
   <data name="ESportsDesktop" xml:space="preserve">
     <value>E-Sports Desktop</value>
@@ -455,6 +455,12 @@
   </data>
   <data name="SLT" xml:space="preserve">
     <value>Sports Lottery</value>
+  </data>
+  <data name="DesktopOthers" xml:space="preserve">
+    <value>Desktop Others</value>
+  </data>
+  <data name="MobileOthers" xml:space="preserve">
+    <value>Mobile Others</value>
   </data>
   <data name="HB" xml:space="preserve">
     <value>Habanero</value>
