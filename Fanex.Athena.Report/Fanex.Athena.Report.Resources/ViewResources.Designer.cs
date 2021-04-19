@@ -412,6 +412,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Habanero.
+        /// </summary>
+        public static string HB {
+            get {
+                return ResourceManager.GetString("HB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Togel 4D.
         /// </summary>
         public static string I4D {
