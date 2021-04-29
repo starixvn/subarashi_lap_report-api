@@ -1069,6 +1069,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WM.
+        /// </summary>
+        public static string WM {
+            get {
+                return ResourceManager.GetString("WM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Won.
         /// </summary>
         public static string Won {

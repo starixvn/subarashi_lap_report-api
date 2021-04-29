@@ -384,6 +384,9 @@
   <data name="DiscountValue" xml:space="preserve">
     <value>折扣金額</value>
   </data>
+  <data name="WM" xml:space="preserve">
+    <value>完美真人</value>
+  </data>
   <data name="GodOfFortuneWinLoss" xml:space="preserve">
     <value>財神爺輸贏</value>
   </data>

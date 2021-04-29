@@ -468,6 +468,9 @@
   <data name="DiscountValue" xml:space="preserve">
     <value>Discount Value</value>
   </data>
+  <data name="WM" xml:space="preserve">
+    <value>WM</value>
+  </data>
   <data name="GodOfFortuneWinLoss" xml:space="preserve">
     <value>God of Fortune Win Loss</value>
   </data>
