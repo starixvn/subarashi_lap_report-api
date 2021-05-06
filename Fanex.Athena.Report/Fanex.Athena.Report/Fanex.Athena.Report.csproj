@@ -28,6 +28,7 @@
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
     <None Remove="ExcelTemplate\PromotionPrize.xls" />
+    <None Remove="ExcelTemplate\GodOfFortuneWinLoss.xls" />
     <None Remove="SpConfig\FanexSpName.xml" />
   </ItemGroup>
 
@@ -45,6 +46,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\PromotionPrize.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\GodOfFortuneWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SpConfig\FanexSpName.xml">

@@ -304,6 +304,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discount Value.
+        /// </summary>
+        public static string DiscountValue {
+            get {
+                return ResourceManager.GetString("DiscountValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Draw.
         /// </summary>
         public static string Draw {
@@ -408,6 +417,24 @@ namespace Fanex.Athena.Report.Resources {
         public static string GDG {
             get {
                 return ResourceManager.GetString("GDG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to God of Fortune Win Loss.
+        /// </summary>
+        public static string GodOfFortuneWinLoss {
+            get {
+                return ResourceManager.GetString("GodOfFortuneWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to God of Fortune Win Loss , {0} --&gt; {1} , {2}.
+        /// </summary>
+        public static string GodOfFortuneWinLossTitle {
+            get {
+                return ResourceManager.GetString("GodOfFortuneWinLossTitle", resourceCulture);
             }
         }
         

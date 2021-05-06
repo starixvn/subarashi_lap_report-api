@@ -8,6 +8,22 @@ namespace Fanex.Athena.Report.Common.Extensions
 {
     public static class IDataReaderExtension
     {
+        public static bool HasColumn(this IDataRecord reader, string columnName)
+        {
+            var fieldCount = reader.FieldCount;
+
+            for (var i = 0; i < fieldCount; i++)
+            {
+                var name = reader.GetName(i);
+                if (name.Equals(columnName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static T GetVal<T>(this IDataReader dataReader, string columnName, T defauleValue = default(T))
         {
             var dbValue = dataReader[columnName];
