@@ -456,4 +456,7 @@
   <data name="SLT" xml:space="preserve">
     <value>Sports Lottery</value>
   </data>
+  <data name="HB" xml:space="preserve">
+    <value>Habanero</value>
+  </data>
 </root>
