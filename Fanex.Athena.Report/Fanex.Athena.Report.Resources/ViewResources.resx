@@ -459,4 +459,13 @@
   <data name="HB" xml:space="preserve">
     <value>Habanero</value>
   </data>
+  <data name="DiscountValue" xml:space="preserve">
+    <value>Discount Value</value>
+  </data>
+  <data name="GodOfFortuneWinLoss" xml:space="preserve">
+    <value>God of Fortune Win Loss</value>
+  </data>
+  <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
+    <value>God of Fortune Win Loss , {0} --&gt; {1} , {2}</value>
+  </data>
 </root>

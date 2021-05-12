@@ -398,4 +398,13 @@
   <data name="HB" xml:space="preserve">
     <value>HB电子</value>
   </data>
+  <data name="DiscountValue" xml:space="preserve">
+    <value>折扣金额</value>
+  </data>
+  <data name="GodOfFortuneWinLoss" xml:space="preserve">
+    <value>财神爷输赢</value>
+  </data>
+  <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
+    <value>财神爷输赢 , {0} --&gt; {1} , {2}</value>
+  </data>
 </root>

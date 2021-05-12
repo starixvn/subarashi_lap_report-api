@@ -20,6 +20,9 @@
             services.AddTransient<IDailyBetsExcel, DailyBetsExcel>();
             services.AddTransient<IPromotionPrizeRepository, PromotionPrizeRepository>();
             services.AddTransient<IPromotionPrizeExcel, PromotionPrizeExcel>();
+            services.AddTransient<IGodOfFortuneWinLossRepository, GodOfFortuneWinLossRepository>();
+            services.AddTransient<IGodOfFortuneWinLossService, GodOfFortuneWinLossService>();
+            services.AddTransient<IGodOfFortuneWinLossExcel, GodOfFortuneWinLossExcel>();
         }
     }
 }
