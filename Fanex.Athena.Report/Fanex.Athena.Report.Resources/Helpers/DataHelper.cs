@@ -10,21 +10,21 @@
         {
             switch (type)
             {
-                case PlatformType.Asia: return ViewResources.Asia;
-                case PlatformType.China: return ViewResources.China;
-                case PlatformType.Euro: return ViewResources.Euro;
-                case PlatformType.Wap: return ViewResources.Wap;
-                case PlatformType.Mobile: return ViewResources.Mobile;
-                case PlatformType.Tablet: return ViewResources.Tablet;
-                case PlatformType.NewAsia: return ViewResources.NewAsia;
-                case PlatformType.MobileApp: return ViewResources.MobileApp;
-                case PlatformType.MobileLiteVersion: return ViewResources.MobileLiteVersion;
-                case PlatformType.DeepLink: return ViewResources.DeepLink;
-                case PlatformType.NativeApp: return ViewResources.NativeApp;
+                case PlatformType.DesktopNewAsia: return ViewResources.DesktopNewAsia;
+                case PlatformType.DesktopChina: return ViewResources.DesktopChina;
+                case PlatformType.DesktopOthers: return ViewResources.DesktopOthers;
+                case PlatformType.MobileStandard: return ViewResources.MobileStandard;
+                case PlatformType.MobileEuro: return ViewResources.MobileEuro;
+                case PlatformType.MobileCompact: return ViewResources.MobileCompact;
+                case PlatformType.MobileOthers: return ViewResources.MobileOthers;
                 case PlatformType.ESportsDesktop: return ViewResources.ESportsDesktop;
                 case PlatformType.ESportsMobile: return ViewResources.ESportsMobile;
                 case PlatformType.ESportsApp: return ViewResources.ESportsApp;
-                case PlatformType.MobileEuro: return ViewResources.MobileEuro;
+                case PlatformType.MobileApp: return ViewResources.MobileApp;
+                case PlatformType.NativeApp: return ViewResources.NativeApp;
+                case PlatformType.Tablet: return ViewResources.Tablet;
+                case PlatformType.DeepLink: return ViewResources.DeepLink;
+                case PlatformType.WAP: return ViewResources.Wap;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;
                 default: return ViewResources.All;
             }

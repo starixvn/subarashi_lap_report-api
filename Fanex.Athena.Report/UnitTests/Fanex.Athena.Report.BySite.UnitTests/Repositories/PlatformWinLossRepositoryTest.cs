@@ -56,7 +56,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var expectedDataItem = _fixture.Create<PlatformWinLossSummary>();
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "PlatformType", PlatformType.Asia },
+                { "PlatformType", PlatformType.DesktopNewAsia },
                 { "Turnover", expectedDataItem.Turnover },
                 { "productprefix", "SB" },
                 { "Betcount", expectedDataItem.TotalTransactions },
@@ -77,11 +77,11 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             // Assert
             Assert.Equal(3, result.DataList.Count());
-            Assert.Equal(PlatformType.Asia, firstItem.PlatformType);
-            Assert.Equal(ViewResources.Asia, firstItem.Name);
+            Assert.Equal(PlatformType.DesktopNewAsia, firstItem.PlatformType);
+            Assert.Equal(ViewResources.DesktopNewAsia, firstItem.Name);
             Assert.Equal(expectedDataItem.Turnover * 2, firstItem.Turnover);
 
-            Assert.Equal(PlatformType.Asia.ToString(), secondItem.Parent);
+            Assert.Equal(PlatformType.DesktopNewAsia.ToString(), secondItem.Parent);
             Assert.Equal(ViewResources.ResourceManager.GetString("SB"), secondItem.Name);
             Assert.Equal(expectedDataItem.Turnover, secondItem.Turnover);
 

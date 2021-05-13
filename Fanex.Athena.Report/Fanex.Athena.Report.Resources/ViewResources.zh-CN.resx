@@ -135,8 +135,8 @@
   <data name="CC" xml:space="preserve">
     <value>乐卡迪亚</value>
   </data>
-  <data name="China" xml:space="preserve">
-    <value>中国版</value>
+  <data name="DesktopChina" xml:space="preserve">
+    <value>桌机中国版</value>
   </data>
   <data name="Comm" xml:space="preserve">
     <value>佣金</value>
@@ -168,17 +168,17 @@
   <data name="LT" xml:space="preserve">
     <value>彩票</value>
   </data>
-  <data name="Mobile" xml:space="preserve">
-    <value>手机版</value>
+  <data name="MobileStandard" xml:space="preserve">
+    <value>手机經典版</value>
   </data>
   <data name="MobileApp" xml:space="preserve">
     <value>手机 APP</value>
   </data>
-  <data name="MobileLiteVersion" xml:space="preserve">
+  <data name="MobileCompact" xml:space="preserve">
     <value>手机轻量版</value>
   </data>
-  <data name="NewAsia" xml:space="preserve">
-    <value>新亚洲版</value>
+  <data name="DesktopNewAsia" xml:space="preserve">
+    <value>桌机新亚洲版</value>
   </data>
   <data name="NG" xml:space="preserve">
     <value>百练赛</value>
@@ -321,7 +321,7 @@
     <comment>125553</comment>
   </data>
   <data name="NativeApp" xml:space="preserve">
-    <value>原生App</value>
+    <value>原生 APP</value>
     <comment>125824</comment>
   </data>
   <data name="CustomerBalance" xml:space="preserve">
@@ -350,7 +350,7 @@
     <value>虚拟娱乐城</value>
   </data>
   <data name="ESportsApp" xml:space="preserve">
-    <value>电子竞技App</value>
+    <value>电子竞技 APP</value>
   </data>
   <data name="ESportsDesktop" xml:space="preserve">
     <value>电子竞技 桌机</value>
@@ -397,6 +397,12 @@
   </data>
   <data name="SLT" xml:space="preserve">
     <value>体育时时彩</value>
+  </data>
+  <data name="DesktopOthers" xml:space="preserve">
+    <value>桌机其他</value>
+  </data>
+  <data name="MobileOthers" xml:space="preserve">
+    <value>手机其他</value>
   </data>
   <data name="HB" xml:space="preserve">
     <value>HB电子</value>
