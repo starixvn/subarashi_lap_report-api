@@ -422,4 +422,13 @@
   <data name="BGG" xml:space="preserve">
     <value>大遊真人</value>
   </data>
+  <data name="VGA" xml:space="preserve">
+    <value>Vgaming</value>
+  </data>
+  <data name="VGAC" xml:space="preserve">
+    <value>Vgaming Jackpot Contribution</value>
+  </data>
+  <data name="VGAFB" xml:space="preserve">
+    <value>Vgaming 免费投注</value>
+  </data>
 </root>

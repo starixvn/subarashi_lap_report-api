@@ -304,15 +304,6 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discount Value.
-        /// </summary>
-        public static string DiscountValue {
-            get {
-                return ResourceManager.GetString("DiscountValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Desktop China.
         /// </summary>
         public static string DesktopChina {
@@ -336,6 +327,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string DesktopOthers {
             get {
                 return ResourceManager.GetString("DesktopOthers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount Value.
+        /// </summary>
+        public static string DiscountValue {
+            get {
+                return ResourceManager.GetString("DiscountValue", resourceCulture);
             }
         }
         
@@ -993,6 +993,33 @@ namespace Fanex.Athena.Report.Resources {
         public static string VB {
             get {
                 return ResourceManager.GetString("VB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vgaming.
+        /// </summary>
+        public static string VGA {
+            get {
+                return ResourceManager.GetString("VGA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vgaming Jackpot Contribution.
+        /// </summary>
+        public static string VGAC {
+            get {
+                return ResourceManager.GetString("VGAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vgaming Free Bets.
+        /// </summary>
+        public static string VGAFB {
+            get {
+                return ResourceManager.GetString("VGAFB", resourceCulture);
             }
         }
         
