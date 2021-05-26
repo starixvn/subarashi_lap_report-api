@@ -477,4 +477,7 @@
   <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
     <value>God of Fortune Win Loss , {0} --&gt; {1} , {2}</value>
   </data>
+  <data name="BGG" xml:space="preserve">
+    <value>BG</value>
+  </data>
 </root>
