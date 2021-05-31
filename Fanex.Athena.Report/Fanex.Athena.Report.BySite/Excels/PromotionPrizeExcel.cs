@@ -55,6 +55,9 @@
                 {Product.SBCFB, new Tuple<string, string>("", DefaultTemplateSheetName) },
                 {Product.SBC, new Tuple<string, string>("", DefaultTemplateSheetName) },
                 {Product.SBCC, new Tuple<string, string>("", ContributionTemplate) },
+                {Product.VGAFB, new Tuple<string, string>("", DefaultTemplateSheetName) },
+                {Product.VGA, new Tuple<string, string>("", DefaultTemplateSheetName) },
+                {Product.VGAC, new Tuple<string, string>("", ContributionTemplate) },
                 {Product.SXG, new Tuple<string, string>("", DefaultTemplateSheetName) }
         };
 
@@ -130,7 +133,7 @@
             string currencyName,
             string productKey)
         {
-            var productsNotShowSummaryTotal = new List<string> { Product.CCB, Product.SBCFB, Product.SBC, Product.SXG, Product.SAG };
+            var productsNotShowSummaryTotal = new List<string> { Product.CCB, Product.SBCFB, Product.SBC, Product.SXG, Product.SAG, Product.VGAFB, Product.VGA };
 
             var notShowSummaryTotal = IsContribution(productKey) || productsNotShowSummaryTotal.Contains(productKey);
             var sheet = _builder.CloneSheet(workbook, templateSheet.SheetName, sheetName);
@@ -301,14 +304,14 @@
 
         private static string GetPromotionPrizesHeader(string productKey)
         {
-            var productsShowGameType = new List<string> { Product.CCB, Product.SBCFB, Product.SBCC, Product.SBC, Product.SXG };
+            var productsShowGameType = new List<string> { Product.CCB, Product.SBCFB, Product.SBCC, Product.SBC, Product.SXG, Product.VGAFB, Product.VGA };
 
             return productsShowGameType.Contains(productKey) ? ViewResources.GameType : ViewResources.PromotionType;
         }
 
         private static bool IsContribution(string productKey)
         {
-            return productKey == Product.PPC || productKey == Product.SBCC;
+            return productKey == Product.PPC || productKey == Product.SBCC || productKey == Product.VGAC;
         }
 
         private void AssignCurrencyTotal(ISheet sheet, ISheet templateSheet, PromotionPrizeResultModel data, int rowIndex, string productKey = "")

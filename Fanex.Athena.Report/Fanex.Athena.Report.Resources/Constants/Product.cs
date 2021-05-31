@@ -21,5 +21,11 @@
         public const string SBC = "SBC";
 
         public const string SXG = "SXG";
+
+        public const string VGAFB = "VGAFB";
+
+        public const string VGAC = "VGAC";
+
+        public const string VGA = "VGA";
     }
 }
