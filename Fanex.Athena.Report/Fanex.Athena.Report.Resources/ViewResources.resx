@@ -489,4 +489,7 @@
   <data name="VGAFB" xml:space="preserve">
     <value>Vgaming Free Bets</value>
   </data>
+  <data name="CG" xml:space="preserve">
+    <value>CG</value>
+  </data>
 </root>
