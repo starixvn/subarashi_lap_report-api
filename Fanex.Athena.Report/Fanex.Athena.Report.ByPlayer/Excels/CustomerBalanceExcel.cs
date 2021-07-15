@@ -15,6 +15,8 @@
     using Fanex.Data;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
+    using System.Linq;
+    using System.Collections.Generic;
 
     public class CustomerBalanceExcel : BaseExcel, ICustomerBalanceExcel
     {
@@ -38,7 +40,7 @@
             "ba"
         };
 
-        private readonly string[] _commonHeaderText = {
+        private readonly IEnumerable<string> _headerTexts = new[] {
                 "#",
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
@@ -52,7 +54,14 @@
                 ViewResources.DrawGame,
                 ViewResources.NetTurnover,
                 ViewResources.PendingFunds,
-                ViewResources.CustomerW_L
+                ViewResources.CustomerW_L,
+                $"{ViewResources.CustomerW_L} {ViewResources.Comm}",
+                $"{ViewResources.CustomerW_L} {ViewResources.Total}",
+                ViewResources.ClosingBalance,
+                ViewResources.AffiliateTransfer,
+                $"{ViewResources.BA} {ViewResources.Turnover}",
+                ViewResources.BACommission,
+                ViewResources.AmtDueToBA
             };
 
         public CustomerBalanceExcel(
@@ -94,25 +103,24 @@
 
         private async Task WriteHeaderToCSV(CustomerBalanceMetaModel metaModel, StreamWriter stream, StringBuilder rowBuilder)
         {
-            rowBuilder.Append(string.Join(ExcelOptions.CSVSeparateCharacter, _commonHeaderText)).Append(ExcelOptions.CSVSeparateCharacter);
+            var validHeaderTexts = _headerTexts;
 
-            if (metaModel.HasComm)
+            if (!metaModel.HasComm)
             {
-                rowBuilder.Append($"{ViewResources.CustomerW_L} {ViewResources.Comm}").Append(ExcelOptions.CSVSeparateCharacter)
-                    .Append($"{ViewResources.CustomerW_L} {ViewResources.Total}").Append(ExcelOptions.CSVSeparateCharacter);
+                validHeaderTexts = validHeaderTexts.Except(new[] { $"{ViewResources.CustomerW_L} {ViewResources.Comm}", $"{ViewResources.CustomerW_L} {ViewResources.Total}" });
             }
 
-            rowBuilder.Append(ViewResources.ClosingBalance).Append(ExcelOptions.CSVSeparateCharacter)
-                .Append(ViewResources.AffiliateTransfer);
-
-            if (metaModel.IsAllowedBA)
+            if (!metaModel.IsAllowedBA)
             {
-                rowBuilder.Append(ExcelOptions.CSVSeparateCharacter)
-                    .Append($"{ViewResources.BA} {ViewResources.Turnover}").Append(ExcelOptions.CSVSeparateCharacter)
-                    .Append(ViewResources.BACommission).Append(ExcelOptions.CSVSeparateCharacter)
-                    .Append(ViewResources.AmtDueToBA);
+                validHeaderTexts = validHeaderTexts.Except(new[] { $"{ViewResources.BA} {ViewResources.Turnover}", ViewResources.BACommission, ViewResources.AmtDueToBA });
             }
 
+            if (metaModel.IsEnableSingleWallet)
+            {
+                validHeaderTexts = validHeaderTexts.Except(new[] { ViewResources.OpeningBalance, ViewResources.Deposit, ViewResources.Withdrawal, ViewResources.ClosingBalance });
+            }
+
+            rowBuilder.Append(string.Join(ExcelOptions.CSVSeparateCharacter, validHeaderTexts));
             await stream.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
             rowBuilder.Clear();
         }
@@ -140,7 +148,10 @@
             string prefixName,
             StringBuilder rowBuilder)
         {
-            foreach (var item in _commonColumns)
+            var validCommonColumns = metaModel.IsEnableSingleWallet ? 
+                _commonColumns.Except(new[] { "openingbalance", "deposit", "withdrawal", "closingbalance" }) : _commonColumns;
+
+            foreach (var item in validCommonColumns)
             {
                 switch (item)
                 {

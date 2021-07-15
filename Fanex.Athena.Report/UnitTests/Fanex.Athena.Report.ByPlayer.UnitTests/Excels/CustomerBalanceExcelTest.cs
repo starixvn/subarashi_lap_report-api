@@ -19,8 +19,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 {
     public class CustomerBalanceExcelTest : BaseReportExcelTest
     {
-        private static readonly string[] _commonHeaderText = {
-                "#",
+        private static readonly string[] _headerTexts = {
+                 "#",
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
                 ViewResources.OpeningBalance,
@@ -33,7 +33,14 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 ViewResources.DrawGame,
                 ViewResources.NetTurnover,
                 ViewResources.PendingFunds,
-                ViewResources.CustomerW_L
+                ViewResources.CustomerW_L,
+                $"{ViewResources.CustomerW_L} {ViewResources.Comm}",
+                $"{ViewResources.CustomerW_L} {ViewResources.Total}",
+                ViewResources.ClosingBalance,
+                ViewResources.AffiliateTransfer,
+                $"{ViewResources.BA} {ViewResources.Turnover}",
+                ViewResources.BACommission,
+                ViewResources.AmtDueToBA
             };
 
         public CustomerBalanceExcelTest()
@@ -87,9 +94,11 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         }
 
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(false, false)]
-        public async Task Export_WhenCall_GenerateHeaderCorrectly(bool hasComm, bool isAllowedBA)
+        [InlineData(true, true, true)]
+        [InlineData(false, false, false)]
+        [InlineData(false, true, false)]
+        [InlineData(true, false, true)]
+        public async Task Export_WhenCall_GenerateHeaderCorrectly(bool hasComm, bool isAllowedBA, bool isEnableSingleWallet)
         {
             // Arrange
             var mockDataReader = new Mock<IDataReader>();
@@ -97,6 +106,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = hasComm;
             metaModel.IsAllowedBA = isAllowedBA;
+            metaModel.IsEnableSingleWallet = isEnableSingleWallet;
 
             using (var memoryStream = new MemoryStream())
             {
@@ -111,7 +121,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 var header = contentLines.First();
 
                 // Assert
-                Assert.True(IsCorrectHeader(header, hasComm, isAllowedBA));
+                Assert.True(IsCorrectHeader(header, hasComm, isAllowedBA, isEnableSingleWallet));
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
@@ -150,9 +160,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         }
 
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(false, false)]
-        public async Task Export_HaveData_GenerateContentRowCorrectly(bool hasComm, bool isAllowedBA)
+        [InlineData(true, true, false)]
+        [InlineData(false, false, false)]
+        public async Task Export_HaveData_GenerateContentRowCorrectly(bool hasComm, bool isAllowedBA, bool isEnableSingleWallet)
         {
             // Arrange
             var mockDataReader = new Mock<IDataReader>();
@@ -164,6 +174,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = hasComm;
             metaModel.IsAllowedBA = isAllowedBA;
+            metaModel.IsEnableSingleWallet = isEnableSingleWallet;
 
             using (var memoryStream = new MemoryStream())
             {
@@ -176,7 +187,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                                 .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
                 // Assert
-                AssertBodyData(expected, contentLines, hasComm, isAllowedBA);
+                AssertBodyData(expected, contentLines, hasComm, isAllowedBA, isEnableSingleWallet);
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
@@ -196,6 +207,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = true;
             metaModel.IsAllowedBA = true;
+            metaModel.IsEnableSingleWallet = false;
 
             using (var memoryStream = new MemoryStream())
             {
@@ -215,7 +227,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             }
         }
 
-        private static void AssertBodyData(CustomerBalance expected, string[] contentLines, bool hasComm = true, bool isAllowedBA = true)
+        private static void AssertBodyData(CustomerBalance expected, string[] contentLines, bool hasComm = true, bool isAllowedBA = true, bool isEnableSingleWallet = false)
         {
             var dataLines = contentLines.ElementAt(1).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             var externalId = "=" + expected.ExternalId;
@@ -258,9 +270,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal(expected.PendingFunds.ToString(), dataLines[12]);
             Assert.Equal(expected.WinLoss.ToString(), dataLines[13]);
 
-            var indexClosingBalnce = hasComm ? 16 : 14;
+            var indexClosingBalance = hasComm ? 16 : 14;
             var indexAffTransfer = hasComm ? 17 : 15;
-            Assert.Equal(expected.ClosingBalance.ToString(), dataLines[indexClosingBalnce]);
+            Assert.Equal(expected.ClosingBalance.ToString(), dataLines[indexClosingBalance]);
             Assert.Equal(expected.AffiliateTransfer.ToString(), dataLines[indexAffTransfer]);
 
             if (hasComm)
@@ -284,23 +296,23 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal(expected.AmountDueToBA.ToString(), dataLines[20]);
         }
 
-        private bool IsCorrectHeader(string header, bool hasComm, bool isAllowedBA)
+        private bool IsCorrectHeader(string header, bool hasComm, bool isAllowedBA, bool isEnableSingleWallet)
         {
-            var textHeader = _commonHeaderText.ToList();
-            if (hasComm)
+            IEnumerable<string> textHeader = _headerTexts;
+
+            if (!hasComm)
             {
-                textHeader.Add($"{ViewResources.CustomerW_L} {ViewResources.Comm}");
-                textHeader.Add($"{ViewResources.CustomerW_L} {ViewResources.Total}");
+                textHeader = textHeader.Except(new[] { $"{ViewResources.CustomerW_L} {ViewResources.Comm}", $"{ViewResources.CustomerW_L} {ViewResources.Total}" });
             }
 
-            textHeader.Add(ViewResources.ClosingBalance);
-            textHeader.Add(ViewResources.AffiliateTransfer);
-
-            if (isAllowedBA)
+            if (!isAllowedBA)
             {
-                textHeader.Add($"{ViewResources.BA} {ViewResources.Turnover}");
-                textHeader.Add(ViewResources.BACommission);
-                textHeader.Add(ViewResources.AmtDueToBA);
+                textHeader = textHeader.Except(new[] { $"{ViewResources.BA} {ViewResources.Turnover}", ViewResources.BACommission, ViewResources.AmtDueToBA });
+            }
+
+            if (isEnableSingleWallet)
+            {
+                textHeader = textHeader.Except(new[] { ViewResources.OpeningBalance, ViewResources.Deposit, ViewResources.Withdrawal, ViewResources.ClosingBalance });
             }
 
             var expectedHeader = string.Join(ExcelOptions.CSVSeparateCharacter, textHeader);
