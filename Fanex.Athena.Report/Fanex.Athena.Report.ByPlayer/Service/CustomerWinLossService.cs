@@ -9,6 +9,7 @@ using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Data;
 
 namespace Fanex.Athena.Report.ByPlayer.Service
@@ -95,7 +96,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
             db.SetParameterValue("pageindex", metaModel.PageIndex);
             db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("username", metaModel.Username);
+            db.SetParameterValue("username", SqlHelper.ToSqlTextSearch(metaModel.Username));
             db.SetParameterValue("OrderItem", metaModel.OrderItem);
             db.SetParameterValue("IsAscSort", metaModel.IsAscSort);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
