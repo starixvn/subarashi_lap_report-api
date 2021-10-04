@@ -25,8 +25,8 @@
 
                         var totalData = totalRows == 0 ? new AuditTicket() : new AuditTicket
                         {
-                            Turnover = Convert.ToDecimal(reader["TotalTurnover"]),
-                            WinLoss = Convert.ToDecimal(reader["TotalWinLoss"])
+                            TurnoverBased  = Convert.ToDecimal(reader["TotalTurnover"]),
+                            WinLossBased = Convert.ToDecimal(reader["TotalWinLoss"])
                         };
 
                         return (totalRows, totalData);

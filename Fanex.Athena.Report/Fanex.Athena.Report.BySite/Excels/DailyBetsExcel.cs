@@ -61,7 +61,7 @@
 
             _tempFolderPath = EnsureFolderPath();
             _header = GetHeaderString();
-            _footer = GetFooterString(totalData.Turnover, totalData.WinLoss, metaModel.BaseCurrency);
+            _footer = GetFooterString(totalData.TurnoverBased, totalData.WinLossBased, metaModel.BaseCurrency);
 
             var totalPage = (totalRows - 1) / ExcelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex;
@@ -150,6 +150,16 @@
             rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(reader["TurnoverBased"]);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
+
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(reader["WinLossBased"]);
+            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
+
             rowBuilder.Append(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(reader["Status"])]());
 
             await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
@@ -175,13 +185,15 @@
                 ViewResources.BetType,
                 ViewResources.Turnover,
                 ViewResources.WinLoss,
+                $"{ViewResources.Turnover} (USD)",
+                $"{ViewResources.WinLoss} (USD)",
                 ViewResources.Status
             };
 
             return string.Join(ExcelOptions.CSVSeparateCharacter, headers);
         }
 
-        private string GetFooterString(decimal turnover, decimal winLoss, string baseCurrency)
+        private string GetFooterString(decimal turnoverBased, decimal winLossBased, string baseCurrency)
         {
             var footer = new[]
             {
@@ -191,9 +203,11 @@
                 string.Empty,
                 string.Empty,
                 string.Empty,
+                string.Empty,
+                string.Empty,
                 string.Format(ViewResources.Totalin, baseCurrency),
-                ExcelOptions.CSVTextDelimiter + turnover.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
-                 ExcelOptions.CSVTextDelimiter + winLoss.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
+                ExcelOptions.CSVTextDelimiter + turnoverBased.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
+                 ExcelOptions.CSVTextDelimiter + winLossBased.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
                 string.Empty
             };
 
