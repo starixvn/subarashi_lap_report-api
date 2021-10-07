@@ -20,6 +20,7 @@
             db.SetParameterValue("Date", metaModel.Date);
             db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
             db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue("PageIndex", metaModel.PageIndex);
             db.SetParameterValue("PageSize", metaModel.PageSize);
 

@@ -34,6 +34,10 @@
 
         public decimal WinLoss { get; set; }
 
+        public decimal TurnoverBased { get; set; }
+
+        public decimal WinLossBased { get; set; }
+
         public string Status { get; set; }
 
         [JsonIgnore]

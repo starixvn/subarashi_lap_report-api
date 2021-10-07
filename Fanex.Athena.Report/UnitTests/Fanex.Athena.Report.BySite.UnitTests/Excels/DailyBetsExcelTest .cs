@@ -55,6 +55,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 ViewResources.BetType,
                 ViewResources.Turnover,
                 ViewResources.WinLoss,
+                $"{ViewResources.Turnover} (USD)",
+                $"{ViewResources.WinLoss} (USD)",
                 ViewResources.Status
             };
 
@@ -130,6 +132,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("CurrencyList", DailyBetsMetaModelExtension.CurrencyListToXml(metaModel)), Times.Once);
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("PageSize", metaModel.PageSize), Times.Once);
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("PageIndex", metaModel.PageIndex), Times.Once);
+                mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("BaseCurrency", metaModel.BaseCurrency), Times.Once);
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
@@ -278,9 +281,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         {
             var dataLines = contentLines.ElementAt(2).Split(new[] { ',' });
 
-            Assert.Equal(String.Format(ViewResources.Totalin, model.BaseCurrency), dataLines[6]);
-            Assert.Equal(expected.Turnover.ToString("#.00"), dataLines[7]);
-            Assert.Equal(expected.WinLoss.ToString("#.00"), dataLines[8]);
+            Assert.Equal(String.Format(ViewResources.Totalin, model.BaseCurrency), dataLines[8]);
+            Assert.Equal(expected.TurnoverBased.ToString("#.00"), dataLines[9]);
+            Assert.Equal(expected.WinLossBased.ToString("#.00"), dataLines[10]);
         }
 
         private bool IsCorrectHeader(string header)
