@@ -30,7 +30,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             // Arrange
             var metaModel = _fixture.Create<DailyBetsMetaModel>();
             var reader = new Mock<IDataReader>();
-            reader.Setup(r => r.Read()).Returns(new Queue<bool>(new[] { true, false }).Dequeue);
+            reader.SetupSequence(r => r.Read())
+                .Returns(true)
+                .Returns(false);
             SetUpData(reader);
 
             CreateObjectDb(reader);
@@ -42,8 +44,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             // Assert
             Assert.Equal(1, result.totalRows);
-            Assert.Equal(100m, result.totalData.Turnover);
-            Assert.Equal(200m, result.totalData.WinLoss);
+            Assert.Equal(100m, result.totalData.TurnoverBased);
+            Assert.Equal(200m, result.totalData.WinLossBased);
         }
 
         [Fact]

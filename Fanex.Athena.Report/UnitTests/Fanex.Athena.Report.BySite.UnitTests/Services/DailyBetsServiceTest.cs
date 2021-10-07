@@ -59,7 +59,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             objectDb.Verify(x => x.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml()));
             objectDb.Verify(x => x.SetParameterValue("PageIndex", metaModel.PageIndex));
             objectDb.Verify(x => x.SetParameterValue("PageSize", metaModel.PageSize));
-
+            objectDb.Verify(x => x.SetParameterValue("BaseCurrency", metaModel.BaseCurrency));
             objectDb.Verify(x => x.SetParameterValue("SortBy", metaModel.SortBy));
             objectDb.Verify(x => x.SetParameterValue("SortOrder", metaModel.SortOrder));
         }
@@ -99,6 +99,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             Assert.Equal(expectedMainData.TransTime, dataItem.TransTime);
             Assert.Equal(expectedMainData.Turnover, dataItem.Turnover);
             Assert.Equal(expectedMainData.WinLoss, dataItem.WinLoss);
+            Assert.Equal(expectedMainData.TurnoverBased, dataItem.TurnoverBased);
+            Assert.Equal(expectedMainData.WinLossBased, dataItem.WinLossBased);
         }
 
         private AuditTicket SetUpMainData(Mock<IDataReader> mockDataReader)
@@ -118,6 +120,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
                 { "BetType", mainData.BetType },
                 { "Turnover", mainData.Turnover },
                 { "WinLoss", mainData.WinLoss },
+                { "TurnoverBased", mainData.TurnoverBased },
+                { "WinLossBased", mainData.WinLossBased },
                 { "Status", Status },
             };
 
