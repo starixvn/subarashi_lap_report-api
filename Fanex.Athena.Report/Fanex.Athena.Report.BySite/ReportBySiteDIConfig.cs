@@ -6,6 +6,8 @@
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
+    using Fanex.Athena.Report.Common.Services;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ReportBySiteDIConfig
@@ -23,6 +25,10 @@
             services.AddTransient<IGodOfFortuneWinLossRepository, GodOfFortuneWinLossRepository>();
             services.AddTransient<IGodOfFortuneWinLossService, GodOfFortuneWinLossService>();
             services.AddTransient<IGodOfFortuneWinLossExcel, GodOfFortuneWinLossExcel>();
+            services.AddTransient<ILeagueWinLossRepository, LeagueWinLossRepository>();
+            services.AddTransient<ILeagueWinLossService, LeagueWinLossService>();
+            services.AddTransient<ILeagueWinLossExcel, LeagueWinLossExcel>();
+            services.AddTransient<ICacheRefAdapter, CacheRefAdapter>();
         }
     }
 }

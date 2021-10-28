@@ -492,4 +492,31 @@
   <data name="CG" xml:space="preserve">
     <value>CG</value>
   </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>Bet Count</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>League</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>Base Currency</value>
+  </data>
+  <data name="LeagueWinLossTitle" xml:space="preserve">
+    <value>Win Loss by League , {0} --&gt; {1} , {2}, {3}</value>
+  </data>
+  <data name="Parlay" xml:space="preserve">
+    <value>Parlay</value>
+  </data>
+  <data name="Saba" xml:space="preserve">
+    <value>Saba </value>
+  </data>
+  <data name="SoccerPinGoal" xml:space="preserve">
+    <value>Soccer PinGoal</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
 </root>

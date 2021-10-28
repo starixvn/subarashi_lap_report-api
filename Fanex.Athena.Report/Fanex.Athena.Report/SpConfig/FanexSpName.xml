@@ -17,5 +17,12 @@
     <Setting Key="Lrf_Rpt_GodOfFortuneWinloss" SpName="Lrf_Rpt_GodOfFortuneWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_GodOfFortuneWinloss_Detail" SpName="Lrf_Rpt_GodOfFortuneWinloss_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_GodOfFortuneWinloss_Ag" SpName="Lrf_Rpt_GodOfFortuneWinloss_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+
+    <Setting Key="Lrf_Rpt_WinLossByLeague_League" SpName="Lrf_Rpt_WinLossByLeague_League" DbName="DBEXT.bodb02.bodbLicenseeNet"  TimeOut="300" />
+    <Setting Key="Lrf_Rpt_WinLossByLeague_League_Currency" SpName="Lrf_Rpt_WinLossByLeague_League_Currency" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_WinLossByLeague_Match" SpName="Lrf_Rpt_WinLossByLeague_Match" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_WinLossByLeague_Match_Currency" SpName="Lrf_Rpt_WinLossByLeague_Match_Currency" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_WinLossByLeague_BetType" SpName="Lrf_Rpt_WinLossByLeague_BetType" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_WinLossByLeague_BetType_Currency" SpName="Lrf_Rpt_WinLossByLeague_BetType_Currency" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 </Functions>

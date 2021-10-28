@@ -12,4 +12,13 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         Customer = 2,
     }
+
+    public enum LeagueWinLossReportLevel
+    {
+        League = 0,
+
+        Match = 1,
+
+        Bettype = 2,
+    }
 }

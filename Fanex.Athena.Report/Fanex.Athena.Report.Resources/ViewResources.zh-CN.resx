@@ -434,4 +434,31 @@
   <data name="CG" xml:space="preserve">
     <value>CG电子</value>
   </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>投注数</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>联赛</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>赛事</value>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>基础货币</value>
+  </data>
+  <data name="LeagueWinLossTitle" xml:space="preserve">
+    <value>联赛输赢, {0} --&gt; {1} , {2}, {3}</value>
+  </data>
+  <data name="Parlay" xml:space="preserve">
+    <value>混合过关</value>
+  </data>
+  <data name="Saba" xml:space="preserve">
+    <value>沙巴</value>
+  </data>
+  <data name="SoccerPinGoal" xml:space="preserve">
+    <value>足球台</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>运动</value>
+  </data>
 </root>

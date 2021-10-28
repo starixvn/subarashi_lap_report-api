@@ -24,7 +24,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private const string SheetName = "Data";
 
         private const int ColumnIndex = 0;
-        private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
