@@ -82,8 +82,7 @@
                 CustomerWL = detailData.Sum(_ => _.CustomerWL),
                 LicenseeWL = detailData.Sum(_ => _.LicenseeWL),
                 BAComm = detailData.Sum(_ => _.BAComm),
-                IsBreakdown = true,
-                Detail = detailData
+                IsBreakdown = true
             };
 
             return sumData;
@@ -103,6 +102,7 @@
                 sportData.SportType = sport;
                 sportData.SportName = GetSportName(sport);
                 sportData.Index = index++;
+                sportData.Detail = sportDetail;
                 if (sport == Parlay)
                 {
                     sportData.IsDirectToCurrency = true;
@@ -260,7 +260,7 @@
         private void BuildLeagueTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, int leagueId)
         {
             var leagueData = GetSumData(data);
-            leagueData.Detail = leagueData.Detail.OrderBy(_ => _.EventType).ThenBy(_ => _.MatchId);
+            leagueData.Detail = data.OrderBy(_ => _.EventType).ThenBy(_ => _.MatchId);
             leagueData.LeagueName = GetLeagueName(leagueId);
             dataList.Add(leagueData);
         }
@@ -319,6 +319,7 @@
         private static void BuildMatchTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, LeagueWinLossMetaModel metaModel)
         {
             var matchData = GetSumData(data);
+            matchData.Detail = data;
             matchData.MatchName = metaModel.MatchName;
             dataList.Add(matchData);
         }
