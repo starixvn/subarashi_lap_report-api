@@ -408,4 +408,28 @@
   <data name="CG" xml:space="preserve">
     <value>CG電子</value>
   </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>投注數</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>聯賽</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>賽事</value>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>基礎貨幣</value>
+  </data>
+  <data name="Parlay" xml:space="preserve">
+    <value>混合過關</value>
+  </data>
+  <data name="Saba" xml:space="preserve">
+    <value>沙巴</value>
+  </data>
+  <data name="SoccerPinGoal" xml:space="preserve">
+    <value>足球檯</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>運動</value>
+  </data>
 </root>

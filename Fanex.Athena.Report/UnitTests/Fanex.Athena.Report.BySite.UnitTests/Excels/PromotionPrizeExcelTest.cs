@@ -19,6 +19,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
     {
         private readonly IFixture _fixture = new Fixture();
         private const string DefaultTemplateSheetName = "Template";
+        private const string DefaultNoInfoTemplateSheetName = "Template";
         public const string FormatDate = "MM/dd/yyyy";
 
         private const int ColumnIndex = 0;
@@ -292,7 +293,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             _excelBuilder.Setup(eb => eb.LoadTemplate(TemplatePath)).Returns(workbook.Object);
 
             _sheet = new Mock<ISheet>();
-            _excelBuilder.Setup(eb => eb.CloneSheet(workbook.Object, null, It.Is<string>(x => x == DefaultTemplateSheetName || x == ProductName || x == SabaPromotion))).Returns(_sheet.Object);
+            _excelBuilder.Setup(eb => eb.CloneSheet(workbook.Object, null, It.Is<string>(x => x == DefaultTemplateSheetName || x == DefaultNoInfoTemplateSheetName || x == ProductName || x == SabaPromotion))).Returns(_sheet.Object);
 
             _templateSheet = new Mock<ISheet>();
             workbook.Setup(w => w.GetSheet(DefaultTemplateSheetName)).Returns(_templateSheet.Object);
