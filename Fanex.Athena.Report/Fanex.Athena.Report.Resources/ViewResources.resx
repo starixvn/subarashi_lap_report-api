@@ -519,4 +519,10 @@
   <data name="Sport" xml:space="preserve">
     <value>Sport</value>
   </data>
+  <data name="AP" xml:space="preserve">
+    <value>AdvantPlay</value>
+  </data>
+  <data name="APM" xml:space="preserve">
+    <value>AdvantPlay Mini</value>
+  </data>
 </root>
