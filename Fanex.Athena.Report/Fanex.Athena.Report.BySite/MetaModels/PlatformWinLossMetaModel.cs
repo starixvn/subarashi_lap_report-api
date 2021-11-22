@@ -20,6 +20,8 @@
 
         public IList<ProductOption> ProductOptions { get; set; }
 
+        public string ProductCodeList { get; set; }
+
         public string BaseCurrency { get; set; }
 
         public string CurrencyName { get; set; }

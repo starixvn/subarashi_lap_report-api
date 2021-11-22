@@ -208,9 +208,9 @@
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
 
-            foreach (var product in metaModel.ProductOptions.Where(x => x.Status))
+            foreach (var product in metaModel.ProductCodeList.Split(","))
             {
-                db.SetParameterValue("show" + product.Code, true);
+                db.SetParameterValue("show" + product, true);
             }
         }
     }
