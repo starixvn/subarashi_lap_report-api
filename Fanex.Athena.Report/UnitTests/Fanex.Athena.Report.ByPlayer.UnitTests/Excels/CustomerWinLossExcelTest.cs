@@ -266,7 +266,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         private static string BuildExcelTitle(CustomerWinLossMetaModel metaModel)
         {
             var filterTitle = ExcelTitleBuilder.GetTitleCurrencyName(ViewResources.Viewin, metaModel.IsConvert, metaModel.BaseCurrency, metaModel.CurrencyName)
-                            + ExcelTitleBuilder.GetLicenseeWLProduct(metaModel.ProductOptions, ViewResources.LicenseeW_L)
+                            + ExcelTitleBuilder.GetLicenseeWLProduct(metaModel.OriginalProductOptions, ViewResources.LicenseeW_L)
                             + (string.IsNullOrEmpty(metaModel.Username) ? string.Empty : $", {ViewResources.Username}: {metaModel.Username}");
 
             return string.Format(ViewResources.CustomerWinLossTitle,

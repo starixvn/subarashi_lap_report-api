@@ -118,7 +118,7 @@
             return text;
         }
 
-        private static string GetProductTitle(IList<ProductOption> productOptions)
+        private static string GetProductTitle(IEnumerable<ProductOption> productOptions)
         {
             if (productOptions.Count() == 1)
             {
@@ -176,7 +176,7 @@
                                          metaModel.ToDate.ToString("MM/dd/yyyy"),
                                          currencyText,
                                          baseCurrencyText,
-                                         platformText) + ", " + GetProductTitle(metaModel.ProductOptions);
+                                         platformText) + ", " + GetProductTitle(metaModel.OriginalProductOptions);
 
             _builder.SetRowValue(
                 sheet,
@@ -258,7 +258,7 @@
                 _builder.HideRow(sheet, RowHeaderTemplate + 1);
             }
 
-            if (!metaModel.ProductOptions.Any(x => x.Code == Product.BA && x.Status))
+            if (!metaModel.OriginalProductOptions.Any(x => x.Code == Product.BA && x.Status))
             {
                 _builder.HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }

@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Common.Model.MetaModels;
 using Newtonsoft.Json;
 
 namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
-    public class CustomerWinLossMetaModel
+    public class CustomerWinLossMetaModel : IProductOptionsMetaModel
     {
         private string _baseCurrency = string.Empty;
 
@@ -22,7 +23,8 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
 
         public DateTime ToDate { get; set; }
 
-        public IList<ProductOption> ProductOptions { get; set; }
+        public IEnumerable<ProductOption> ProductOptions { get; set; }
+        public IEnumerable<ProductOption> OriginalProductOptions { get; set; }
 
         public int OrderItem { get; set; }
 

@@ -49,6 +49,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var metaModel = new CustomerWinLossMetaModel
             {
                 ProductOptions = GetProductOptions(),
+                OriginalProductOptions = GetOriginalProductOptions(),
                 BaseCurrency = "UUS",
                 PageSize = pageSize,
                 IsExportExcel = isExportExcel
@@ -172,7 +173,17 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             return mockObjectDB;
         }
 
-        private IList<ProductOption> GetProductOptions()
+        private IEnumerable<ProductOption> GetProductOptions()
+        {
+            return new List<ProductOption>
+            {
+                new ProductOption { Code = "SB", Status = true },
+                new ProductOption { Code = "NG", Status = false },
+                new ProductOption { Code = "SLT", Status = true }
+            };
+        }
+
+        private IEnumerable<ProductOption> GetOriginalProductOptions()
         {
             return new List<ProductOption>
             {
