@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.Report.Common.Model.DTO;
+    using Fanex.Athena.Report.Common.Model.MetaModels;
 
-    public class CustomerBalanceMetaModel
+    public class CustomerBalanceMetaModel : IProductOptionsMetaModel
     {
         public int PageSize { get; set; }
 
@@ -14,7 +15,8 @@
 
         public DateTime ToDate { get; set; }
 
-        public IList<ProductOption> ProductOptions { get; set; }
+        public IEnumerable<ProductOption> ProductOptions { get; set; }
+        public IEnumerable<ProductOption> OriginalProductOptions { get; set; }
 
         public int OrderItem { get; set; }
 

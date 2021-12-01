@@ -46,7 +46,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
             return mockObjectDB;
         }
 
-        public static IList<ProductOption> GetProductOptions()
+        public static IEnumerable<ProductOption> GetProductOptions()
         {
             return new List<ProductOption>
             {

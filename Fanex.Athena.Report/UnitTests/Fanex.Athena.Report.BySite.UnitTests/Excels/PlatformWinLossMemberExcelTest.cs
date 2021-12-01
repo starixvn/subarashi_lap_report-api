@@ -70,7 +70,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 .With(x => x.TotalRows, 1)
                 .Create();
             var metaModel = _fixture.Build<PlatformWinLossMetaModel>()
-                .With(x => x.ProductOptions, ProductOptions)
+                .With(x => x.OriginalProductOptions, ProductOptions)
                 .Create();
             metaModel.PlatformType = PlatformTypes;
 

@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.Report.Common.Model.DTO;
+    using Fanex.Athena.Report.Common.Model.MetaModels;
 
-    public class PlatformWinLossMetaModel
+    public class PlatformWinLossMetaModel : IProductOptionsMetaModel
     {
         public int CurrencyId { get; set; }
 
@@ -18,7 +19,9 @@
 
         public string AgentListXml { get; set; }
 
-        public IList<ProductOption> ProductOptions { get; set; }
+        public IEnumerable<ProductOption> ProductOptions { get; set; }
+
+        public IEnumerable<ProductOption> OriginalProductOptions { get; set; }
 
         public string BaseCurrency { get; set; }
 

@@ -100,7 +100,7 @@
             return text;
         }
 
-        private static string GetProductTitle(IList<ProductOption> productOptions)
+        private static string GetProductTitle(IEnumerable<ProductOption> productOptions)
         {
             var selectedProducts = productOptions.Where(x => x.Status);
             if (selectedProducts.Count() == productOptions.Count())
@@ -151,7 +151,7 @@
                                         metaModel.ToDate.ToString("MM/dd/yyyy"),
                                         currencyText,
                                         baseCurrencyText,
-                                        platformText) + ", " + GetProductTitle(metaModel.ProductOptions);
+                                        platformText) + ", " + GetProductTitle(metaModel.OriginalProductOptions);
 
             _builder.SetRowValue(
                 sheet,
