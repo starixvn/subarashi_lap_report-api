@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Common.Excels
+﻿namespace Fanex.Athena.Report.Common.Excel
 {
     public class ExcelOptions
     {

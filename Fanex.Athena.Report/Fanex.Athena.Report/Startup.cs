@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Fanex.Athena.Report.Common;
-    using Fanex.Athena.Report.Common.Excels;
+    using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;

@@ -517,7 +517,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="True" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.Void Fanex.Athena.Report.ByPlayer.Excels.CustomerBalanceExcel::.ctor(Fanex.Athena.Report.Common.Services.IFileService,Microsoft.Extensions.Options.IOptions`1&lt;Fanex.Athena.Report.Common.Excels.ExcelOptions&gt;,Microsoft.AspNetCore.Hosting.IHostingEnvironment)</Name>
+              <Name>System.Void Fanex.Athena.Report.ByPlayer.Excels.CustomerBalanceExcel::.ctor(Fanex.Athena.Report.Common.Services.IFileService,Microsoft.Extensions.Options.IOptions`1&lt;Fanex.Athena.Report.Common.Excel.ExcelOptions&gt;,Microsoft.AspNetCore.Hosting.IHostingEnvironment)</Name>
               <FileRef uid="6" />
               <SequencePoints>
                 <SequencePoint vc="7" uspid="59" ordinal="0" sl="59" sc="1" el="59" ec="2" bec="0" bev="0" fileid="6" />
@@ -986,7 +986,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="True" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="18" visitedSequencePoints="18" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.Void Fanex.Athena.Report.ByPlayer.Excels.CustomerWinLossExcel::.ctor(Fanex.Athena.Report.Common.Services.IFileService,Microsoft.Extensions.Options.IOptions`1&lt;Fanex.Athena.Report.Common.Excels.ExcelOptions&gt;,Microsoft.AspNetCore.Hosting.IHostingEnvironment)</Name>
+              <Name>System.Void Fanex.Athena.Report.ByPlayer.Excels.CustomerWinLossExcel::.ctor(Fanex.Athena.Report.Common.Services.IFileService,Microsoft.Extensions.Options.IOptions`1&lt;Fanex.Athena.Report.Common.Excel.ExcelOptions&gt;,Microsoft.AspNetCore.Hosting.IHostingEnvironment)</Name>
               <FileRef uid="7" />
               <SequencePoints>
                 <SequencePoint vc="6" uspid="55" ordinal="0" sl="55" sc="1" el="55" ec="2" bec="0" bev="0" fileid="7" />
@@ -2307,12 +2307,12 @@
         </Class>
         <Class>
           <Summary numSequencePoints="30" visitedSequencePoints="25" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="83.33" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="1" numClasses="1" visitedMethods="5" numMethods="6" />
-          <FullName>Fanex.Athena.Report.Common.Excels.BaseExcel</FullName>
+          <FullName>Fanex.Athena.Report.Common.Excel.BaseExcel</FullName>
           <Methods>
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="5" visitedSequencePoints="5" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.String Fanex.Athena.Report.Common.Excels.BaseExcel::EnsureFolderPath()</Name>
+              <Name>System.String Fanex.Athena.Report.Common.Excel.BaseExcel::EnsureFolderPath()</Name>
               <FileRef uid="23" />
               <SequencePoints>
                 <SequencePoint vc="13" uspid="27" ordinal="0" sl="27" sc="1" el="27" ec="2" bec="0" bev="0" fileid="23" />
@@ -2327,7 +2327,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.String Fanex.Athena.Report.Common.Excels.BaseExcel::GetTempFolderPath()</Name>
+              <Name>System.String Fanex.Athena.Report.Common.Excel.BaseExcel::GetTempFolderPath()</Name>
               <FileRef uid="23" />
               <SequencePoints>
                 <SequencePoint vc="13" uspid="34" ordinal="0" sl="34" sc="1" el="34" ec="2" bec="0" bev="0" fileid="23" />
@@ -2341,7 +2341,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
               <MetadataToken />
-              <Name>System.String Fanex.Athena.Report.Common.Excels.BaseExcel::ZipExcelFile(System.Collections.Generic.List`1&lt;Fanex.Athena.Report.Common.Model.MetaModels.ZipEntry&gt;,System.String)</Name>
+              <Name>System.String Fanex.Athena.Report.Common.Excel.BaseExcel::ZipExcelFile(System.Collections.Generic.List`1&lt;Fanex.Athena.Report.Common.Model.MetaModels.ZipEntry&gt;,System.String)</Name>
               <FileRef uid="23" />
               <SequencePoints>
                 <SequencePoint vc="0" uspid="41" ordinal="0" sl="41" sc="1" el="41" ec="2" bec="0" bev="0" fileid="23" />
@@ -2356,7 +2356,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="6" visitedSequencePoints="6" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.Void Fanex.Athena.Report.Common.Excels.BaseExcel::BuildItemWithTextDelimiter(System.Text.StringBuilder,System.Object)</Name>
+              <Name>System.Void Fanex.Athena.Report.Common.Excel.BaseExcel::BuildItemWithTextDelimiter(System.Text.StringBuilder,System.Object)</Name>
               <FileRef uid="23" />
               <SequencePoints>
                 <SequencePoint vc="51" uspid="50" ordinal="0" sl="50" sc="1" el="50" ec="2" bec="0" bev="0" fileid="23" />
@@ -2372,7 +2372,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.Void Fanex.Athena.Report.Common.Excels.BaseExcel::BuildItemAsText(System.Text.StringBuilder,System.Object)</Name>
+              <Name>System.Void Fanex.Athena.Report.Common.Excel.BaseExcel::BuildItemAsText(System.Text.StringBuilder,System.Object)</Name>
               <FileRef uid="23" />
               <SequencePoints>
                 <SequencePoint vc="2" uspid="58" ordinal="0" sl="58" sc="1" el="58" ec="2" bec="0" bev="0" fileid="23" />
@@ -2386,7 +2386,7 @@
             <Method cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="True" isGetter="False" isSetter="False" isStatic="True">
               <Summary numSequencePoints="6" visitedSequencePoints="6" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
-              <Name>System.Void Fanex.Athena.Report.Common.Excels.BaseExcel::.ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Fanex.Athena.Report.Common.Services.IFileService,Microsoft.Extensions.Options.IOptions`1&lt;Fanex.Athena.Report.Common.Excels.ExcelOptions&gt;)</Name>
+              <Name>System.Void Fanex.Athena.Report.Common.Excel.BaseExcel::.ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Fanex.Athena.Report.Common.Services.IFileService,Microsoft.Extensions.Options.IOptions`1&lt;Fanex.Athena.Report.Common.Excel.ExcelOptions&gt;)</Name>
               <FileRef uid="23" />
               <SequencePoints>
                 <SequencePoint vc="13" uspid="19" ordinal="0" sl="19" sc="1" el="19" ec="2" bec="0" bev="0" fileid="23" />

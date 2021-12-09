@@ -8,7 +8,7 @@
     using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
     using Fanex.Athena.Report.ByPlayer.Extensions;
     using Fanex.Athena.Report.ByPlayer.MetaModels;
-    using Fanex.Athena.Report.Common.Excels;
+    using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Services;
     using Fanex.Athena.Report.Resources;

@@ -23,6 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx" />
+    <None Remove="ExcelTemplate\CustomerReports\CustomerRunningTicket.xlsx" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
@@ -34,7 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xls">
+    <Content Include="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\CustomerReports\CustomerRunningTicket.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx">
@@ -83,7 +88,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
-    <ProjectReference Include="..\Fanex.Athena.Report.ByProduct\Fanex.Athena.Report.ByProduct.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Common\Fanex.Athena.Report.Common.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
