@@ -313,15 +313,6 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Currency Name.
-        /// </summary>
-        public static string CurrencyName {
-            get {
-                return ResourceManager.GetString("CurrencyName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customer Balance.
         /// </summary>
         public static string CustomerBalance {

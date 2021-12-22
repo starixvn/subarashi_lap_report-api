@@ -528,9 +528,6 @@
   <data name="ActualStake" xml:space="preserve">
     <value>Actual Stake</value>
   </data>
-  <data name="CurrencyName" xml:space="preserve">
-    <value>Currency Name</value>
-  </data>
   <data name="CustomerClosingBalance" xml:space="preserve">
     <value>Customer Closing Balance</value>
   </data>

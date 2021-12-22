@@ -18,6 +18,7 @@ namespace Fanex.Athena.Report.ByPlayer.DTO
 
     public class CustomerRunningTicket : CustomerSupportTask
     {
+        public string RefNo { get; set; }
         public string TransId { get; set; }
         public string BetType { get; set; }
         public string Status { get; set; }

@@ -27,13 +27,14 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
-        private const int ColumnTransId = 5;
-        private const int ColumnBetType = 6;
-        private const int ColumnStatus = 7;
-        private const int ColumnTransTime = 8;
-        private const int ColumnWinLostDate = 9;
-        private const int ColumnStake = 10;
-        private const int ColumnActualStake = 11;
+        private const int ColumnRefNo = 5;
+        private const int ColumnTransId = 6;
+        private const int ColumnBetType = 7;
+        private const int ColumnStatus = 8;
+        private const int ColumnTransTime = 9;
+        private const int ColumnWinLostDate = 10;
+        private const int ColumnStake = 11;
+        private const int ColumnActualStake = 12;
 
         public CustomerRunningTicketExcel(
              IFileProvider fileProvider,
@@ -49,7 +50,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         protected override string TemplatePath => "/ExcelTemplate/CustomerReports/CustomerRunningTicket.xlsx";
         protected override string UspName => "Lrf_Rpt_CustomerRunningTicket";
 
-        protected override int ColumnTemplateCount => 11;
+        protected override int ColumnTemplateCount => 12;
         protected override int TemplateNoInfoRowIndex => 5;
         protected override int TemplateDataRowIndex => 4;
 
@@ -67,7 +68,8 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnIndex, "#");
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnExternalId, ViewResources.ExternalId);
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnSystemId, ViewResources.SystemId);
-            sheet.SetValue(StartTemplateHeaderRowIndex, ColumnCurrency, ViewResources.CurrencyName);
+            sheet.SetValue(StartTemplateHeaderRowIndex, ColumnCurrency, ViewResources.Currency);
+            sheet.SetValue(StartTemplateHeaderRowIndex, ColumnRefNo, ViewResources.RefNo);
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnTransId, ViewResources.TransId);
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnBetType, ViewResources.BetType);
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnStatus, ViewResources.Status);
@@ -91,6 +93,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 sheet.SetValue(currentRowIndex, ColumnExternalId, rowValue.ExternalId);
                 sheet.SetValue(currentRowIndex, ColumnSystemId, rowValue.SystemId);
                 sheet.SetValue(currentRowIndex, ColumnCurrency, rowValue.Currency);
+                sheet.SetValue(currentRowIndex, ColumnRefNo, rowValue.RefNo);
                 sheet.SetValue(currentRowIndex, ColumnTransId, rowValue.TransId);
                 sheet.SetValue(currentRowIndex, ColumnBetType, rowValue.BetType);
                 sheet.SetValue(currentRowIndex, ColumnStatus, rowValue.Status);
@@ -105,6 +108,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
 
         protected override void BuildDataRecord(IDataReader reader, CustomerRunningTicket record)
         {
+            record.RefNo = reader.GetVal<string>("Refno");
             record.TransId = reader.GetVal<string>("TransId");
             record.BetType = reader.GetVal<string>("BetType");
             record.Status = reader.GetVal<string>("Status");

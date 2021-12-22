@@ -72,7 +72,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnIndex, "#");
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnExternalId, ViewResources.ExternalId);
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnSystemId, ViewResources.SystemId);
-            sheet.SetValue(StartTemplateHeaderRowIndex, ColumnCurrency, ViewResources.CurrencyName);
+            sheet.SetValue(StartTemplateHeaderRowIndex, ColumnCurrency, ViewResources.Currency);
             sheet.SetValue(StartTemplateHeaderRowIndex, ColumnClosingBalance, ViewResources.Balance);
             sheet.View.FreezePanes(TemplateDataRowIndex, ColumnIndex);
         }
