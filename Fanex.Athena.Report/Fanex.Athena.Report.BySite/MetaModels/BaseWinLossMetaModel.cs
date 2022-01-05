@@ -12,10 +12,18 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public DateTime ToDate { get; set; }
 
+        public DateTime DrillDownFromDate { get; set; }
+
+        public DateTime DrillDownToDate { get; set; }
+
         public string AgentListXml { get; set; }
 
         public string SortBy { get; set; }
 
         public string SortOrder { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageIndex { get; set; }
     }
 }

@@ -277,7 +277,7 @@
     <value>状态</value>
   </data>
   <data name="Totalin" xml:space="preserve">
-    <value>总计在{0}</value>
+    <value>总计在 {0}</value>
   </data>
   <data name="TransTime" xml:space="preserve">
     <value>交易时间</value>
@@ -338,10 +338,6 @@
   </data>
   <data name="Promotion" xml:space="preserve">
     <value>促销活动</value>
-  </data>
-  <data name="PromotionType" xml:space="preserve">
-    <value>PP 活动类别</value>
-    <comment>123804</comment>
   </data>
   <data name="SG" xml:space="preserve">
     <value>SG</value>
@@ -451,5 +447,20 @@
   </data>
   <data name="Sport" xml:space="preserve">
     <value>运动</value>
+  </data>
+  <data name="CustomerAmount" xml:space="preserve">
+    <value>玩家金額</value>
+  </data>
+  <data name="LicSharingAmount" xml:space="preserve">
+    <value>承租公司分擔金額</value>
+  </data>
+  <data name="PromotionDetails" xml:space="preserve">
+    <value>活动详情</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>基础货币</value>
+  </data>
+  <data name="FreeBets" xml:space="preserve">
+    <value>免费投注</value>
   </data>
 </root>
