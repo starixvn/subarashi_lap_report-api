@@ -6,6 +6,14 @@ namespace Fanex.Athena.Report.BySite.DTOs
     {
         public DateTime Date { get; set; }
 
+        public int Index { get; set; }
+
+        public int IndexRowSpan { get; set; }
+
+        public int CurencyRowSpan { get; set; }
+
+        public int ProductRowSpan { get; set; }
+
         public string DateString { get; set; }
 
         public string ProductCode { get; set; }

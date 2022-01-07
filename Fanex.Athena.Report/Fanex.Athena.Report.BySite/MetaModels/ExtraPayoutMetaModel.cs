@@ -39,5 +39,7 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public string CurrencyIdList { get; set; }
 
         public bool IsConvertAllToBaseCurrency { get; set; }
+
+        public bool IsExportExcel { get; set; }
     }
 }
