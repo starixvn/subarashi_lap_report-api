@@ -12,6 +12,8 @@
     <Setting Key="Lrf_Rpt_Audit_DailyBets_Total" SpName="Lrf_Rpt_Audit_DailyBets_Total" DbName="DBPLO.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PromotionPrize" SpName="Lrf_Rpt_PromotionPrize" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_CustomerClosingBalance" SpName="Lrf_Rpt_CustomerClosingBalance" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_CustomerRunningTicket" SpName="Lrf_Rpt_CustomerRunningTicket" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CurrencySel" SpName="Lrf_CurrencySel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
 
     <Setting Key="Lrf_Rpt_GodOfFortuneWinloss" SpName="Lrf_Rpt_GodOfFortuneWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />

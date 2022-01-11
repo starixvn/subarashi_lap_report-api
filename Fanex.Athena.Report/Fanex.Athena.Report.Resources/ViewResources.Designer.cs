@@ -70,6 +70,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual Stake.
+        /// </summary>
+        public static string ActualStake {
+            get {
+                return ResourceManager.GetString("ActualStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adjustment.
         /// </summary>
         public static string Adjustment {
@@ -165,6 +174,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string BACommission {
             get {
                 return ResourceManager.GetString("BACommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Balance.
+        /// </summary>
+        public static string Balance {
+            get {
+                return ResourceManager.GetString("Balance", resourceCulture);
             }
         }
         
@@ -300,6 +318,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string CustomerBalance {
             get {
                 return ResourceManager.GetString("CustomerBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Closing Balance.
+        /// </summary>
+        public static string CustomerClosingBalance {
+            get {
+                return ResourceManager.GetString("CustomerClosingBalance", resourceCulture);
             }
         }
         
@@ -844,6 +871,24 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running Ticket Closing Balance.
+        /// </summary>
+        public static string RunningTicketClosingBalance {
+            get {
+                return ResourceManager.GetString("RunningTicketClosingBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running Ticket List.
+        /// </summary>
+        public static string RunningTicketList {
+            get {
+                return ResourceManager.GetString("RunningTicketList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saba .
         /// </summary>
         public static string Saba {
@@ -952,6 +997,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stake.
+        /// </summary>
+        public static string Stake {
+            get {
+                return ResourceManager.GetString("Stake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -1056,6 +1110,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string TotalTransaction {
             get {
                 return ResourceManager.GetString("TotalTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TransId.
+        /// </summary>
+        public static string TransId {
+            get {
+                return ResourceManager.GetString("TransId", resourceCulture);
             }
         }
         
@@ -1200,6 +1263,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string WinLoss {
             get {
                 return ResourceManager.GetString("WinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Lost Date.
+        /// </summary>
+        public static string WinLostDate {
+            get {
+                return ResourceManager.GetString("WinLostDate", resourceCulture);
             }
         }
         

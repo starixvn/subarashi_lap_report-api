@@ -525,4 +525,28 @@
   <data name="APM" xml:space="preserve">
     <value>AdvantPlay Mini</value>
   </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>Actual Stake</value>
+  </data>
+  <data name="CustomerClosingBalance" xml:space="preserve">
+    <value>Customer Closing Balance</value>
+  </data>
+  <data name="RunningTicketClosingBalance" xml:space="preserve">
+    <value>Running Ticket Closing Balance</value>
+  </data>
+  <data name="RunningTicketList" xml:space="preserve">
+    <value>Running Ticket List</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>Stake</value>
+  </data>
+  <data name="TransId" xml:space="preserve">
+    <value>TransId</value>
+  </data>
+  <data name="WinLostDate" xml:space="preserve">
+    <value>Win Lost Date</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
 </root>

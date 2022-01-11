@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using AutoFixture;
-using Fanex.Athena.Report.Common.Excels;
+using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;

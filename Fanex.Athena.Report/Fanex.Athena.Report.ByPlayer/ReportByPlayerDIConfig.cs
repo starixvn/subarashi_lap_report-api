@@ -14,6 +14,8 @@ namespace Fanex.Athena.Report.ByPlayer
             services.AddTransient<ICustomerWinLossExcel, CustomerWinLossExcel>();
             services.AddTransient<ICustomerBalanceService, CustomerBalanceService>();
             services.AddTransient<ICustomerBalanceExcel, CustomerBalanceExcel>();
+            services.AddTransient<ICustomerSupportTaskExcel, CustomerClosingBalanceExcel>();
+            services.AddTransient<ICustomerSupportTaskExcel, CustomerRunningTicketExcel>();
         }
     }
 }

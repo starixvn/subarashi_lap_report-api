@@ -13,7 +13,7 @@ using Fanex.Athena.Report.BySite.Excels;
 using Fanex.Athena.Report.BySite.Extensions;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Excels;
+using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Resources;
 using Fanex.Data;
