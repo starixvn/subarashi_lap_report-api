@@ -32,6 +32,8 @@
     <None Remove="ExcelTemplate\PromotionPrize.xls" />
     <None Remove="ExcelTemplate\GodOfFortuneWinLoss.xls" />
 	<None Remove="ExcelTemplate\LeagueWinLoss.xls" />
+	<None Remove="ExcelTemplate\ExtraPayout.xls" />
+	<None Remove="ExcelTemplate\ExtraPayoutDetail.xls" />
     <None Remove="SpConfig\FanexSpName.xml" />
   </ItemGroup>
 
@@ -58,6 +60,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 	<Content Include="ExcelTemplate\LeagueWinLoss.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\ExtraPayout.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\ExtraPayoutDetail.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SpConfig\FanexSpName.xml">

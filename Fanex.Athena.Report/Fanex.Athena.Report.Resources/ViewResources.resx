@@ -549,4 +549,16 @@
   <data name="Balance" xml:space="preserve">
     <value>Balance</value>
   </data>
+   <data name="CustomerAmount" xml:space="preserve">
+    <value>Customer Amount</value>
+  </data>
+  <data name="LicSharingAmount" xml:space="preserve">
+    <value>Licensee Sharing Amount</value>
+  </data>
+  <data name="PromotionDetails" xml:space="preserve">
+    <value>Promotion Details</value>
+  </data>
+  <data name="FreeBets" xml:space="preserve">
+    <value>Free Bets</value>
+  </data>
 </root>

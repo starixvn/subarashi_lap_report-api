@@ -29,6 +29,10 @@
             services.AddTransient<ILeagueWinLossService, LeagueWinLossService>();
             services.AddTransient<ILeagueWinLossExcel, LeagueWinLossExcel>();
             services.AddTransient<ICacheRefAdapter, CacheRefAdapter>();
+            services.AddTransient<IExtraPayoutRepository, ExtraPayoutRepository>();
+            services.AddTransient<IExtraPayoutService, ExtraPayoutService>();
+            services.AddTransient<IExtraPayoutExcel, ExtraPayoutExcel>();
+            services.AddTransient<IExtraPayoutDetailExcel, ExtraPayoutDetailExcel>();
         }
     }
 }

@@ -313,6 +313,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Amount.
+        /// </summary>
+        public static string CustomerAmount {
+            get {
+                return ResourceManager.GetString("CustomerAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Balance.
         /// </summary>
         public static string CustomerBalance {
@@ -493,6 +502,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free Bets.
+        /// </summary>
+        public static string FreeBets {
+            get {
+                return ResourceManager.GetString("FreeBets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fishing World.
         /// </summary>
         public static string FW {
@@ -606,6 +624,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string LicenseeW_L {
             get {
                 return ResourceManager.GetString("LicenseeW_L", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee Sharing Amount.
+        /// </summary>
+        public static string LicSharingAmount {
+            get {
+                return ResourceManager.GetString("LicSharingAmount", resourceCulture);
             }
         }
         
@@ -840,6 +867,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Promotion {
             get {
                 return ResourceManager.GetString("Promotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion Details.
+        /// </summary>
+        public static string PromotionDetails {
+            get {
+                return ResourceManager.GetString("PromotionDetails", resourceCulture);
             }
         }
         
