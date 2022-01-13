@@ -132,6 +132,7 @@
 
         private static void UpdateSpCommonParamsAsync(IObjectDb db, LeagueWinLossMetaModel metaModel, DateTime moveBetsDay, bool applyBaseCurrency = false)
         {
+            db.SetParameterValue("Username", metaModel.UserName);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", metaModel.FromDate.Date);
             db.SetParameterValue("todate", metaModel.ToDate.Date);
