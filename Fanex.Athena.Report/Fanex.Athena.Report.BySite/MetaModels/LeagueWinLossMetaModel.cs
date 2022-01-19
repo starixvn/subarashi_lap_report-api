@@ -29,6 +29,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         [DefaultValue("")]
         public string BaseCurrency { get; set; }
 
+        public string UserName { get; set; }
+
         public IDictionary<int, string> UserCurrencyList { get; set; }
 
         public string DrillDownCurrencyName { get; set; }
