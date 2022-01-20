@@ -33,6 +33,9 @@
             services.AddTransient<IExtraPayoutService, ExtraPayoutService>();
             services.AddTransient<IExtraPayoutExcel, ExtraPayoutExcel>();
             services.AddTransient<IExtraPayoutDetailExcel, ExtraPayoutDetailExcel>();
+            services.AddTransient<INewCashOutWinLossRepository, NewCashOutWinLossRepository>();
+            services.AddTransient<INewCashOutWinLossService, NewCashOutWinLossService>();
+            services.AddTransient<INewCashOutWinLossExcel, NewCashOutWinLossExcel>();
         }
     }
 }

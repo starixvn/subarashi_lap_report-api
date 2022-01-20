@@ -241,6 +241,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out Win Loss.
+        /// </summary>
+        public static string CashOutWinLoss {
+            get {
+                return ResourceManager.GetString("CashOutWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arcadia Gaming.
         /// </summary>
         public static string CC {
