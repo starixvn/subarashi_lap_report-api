@@ -16,6 +16,8 @@
 
         public string BaseCurrency { get; set; }
 
+        public string GameCodes { get; set; }
+
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
