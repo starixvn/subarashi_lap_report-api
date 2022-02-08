@@ -444,4 +444,7 @@
   <data name="FreeBets" xml:space="preserve">
     <value>免費投注</value>
   </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>即時兌現輸贏</value>
+  </data>
 </root>

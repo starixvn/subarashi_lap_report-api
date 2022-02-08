@@ -8,6 +8,8 @@ namespace Fanex.Athena.Report.BySite.DTOs
 
         public DateTime Date { get; set; }
 
+        public int CustId { get; set; }
+
         public string ExternalId { get; set; }
 
         public string SystemId { get; set; }

@@ -549,7 +549,7 @@
   <data name="Balance" xml:space="preserve">
     <value>Balance</value>
   </data>
-   <data name="CustomerAmount" xml:space="preserve">
+  <data name="CustomerAmount" xml:space="preserve">
     <value>Customer Amount</value>
   </data>
   <data name="LicSharingAmount" xml:space="preserve">
@@ -560,5 +560,8 @@
   </data>
   <data name="FreeBets" xml:space="preserve">
     <value>Free Bets</value>
+  </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>Cash Out Win Loss</value>
   </data>
 </root>
