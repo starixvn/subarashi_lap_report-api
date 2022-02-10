@@ -41,7 +41,9 @@
             { ExtraPayoutMapType.ArcadiaGamingBonus, BetType.ArcadiaGamingBonus },
             { ExtraPayoutMapType.VgamingFreeBets, BetType.VgamingFreeBets },
             { ExtraPayoutMapType.VgamingFreeBetsJackpotPrize, BetType.VgamingFreeBetsJackpotPrize },
-            { ExtraPayoutMapType.VgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution }
+            { ExtraPayoutMapType.VgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
+            { ExtraPayoutMapType.SGJackpotPrize, BetType.SGJackpotPrize },
+            { ExtraPayoutMapType.SGJackpotContribution, BetType.SGJackpotContribution }
         };
 
         public ExtraPayoutRepository(

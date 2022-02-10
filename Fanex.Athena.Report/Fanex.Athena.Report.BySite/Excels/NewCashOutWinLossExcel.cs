@@ -188,7 +188,7 @@
             var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownFromDate : metaModel.FromDate;
             var toDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownToDate : metaModel.ToDate;
 
-            var reportTitle = $"{ViewResources.CashOutWinLoss}, {fromDate.ToString("MM/dd/yyyy")} -> {toDate.ToString("MM/dd/yyyy")}, {currencyText}";
+            var reportTitle = $"{ViewResources.CashOutWinLoss}, {fromDate:MM/dd/yyyy} -> {toDate:MM/dd/yyyy}, {currencyText}";
 
             _builder.SetRowValue(
                 sheet,
