@@ -564,4 +564,7 @@
   <data name="CashOutWinLoss" xml:space="preserve">
     <value>Cash Out Win Loss</value>
   </data>
+  <data name="BasketballPinGoal" xml:space="preserve">
+    <value>Basketball PinGoal</value>
+  </data>
 </root>

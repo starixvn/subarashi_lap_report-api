@@ -196,6 +196,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basketball PinGoal.
+        /// </summary>
+        public static string BasketballPinGoal {
+            get {
+                return ResourceManager.GetString("BasketballPinGoal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Count.
         /// </summary>
         public static string BetCount {

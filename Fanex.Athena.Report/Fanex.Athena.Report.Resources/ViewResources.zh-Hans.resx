@@ -466,4 +466,7 @@
   <data name="CashOutWinLoss" xml:space="preserve">
     <value>即时兑现输赢</value>
   </data>
+  <data name="BasketballPinGoal" xml:space="preserve">
+    <value>篮球台</value>
+  </data>
 </root>
