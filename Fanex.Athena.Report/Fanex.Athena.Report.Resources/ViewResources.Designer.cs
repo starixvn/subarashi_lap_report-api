@@ -1294,6 +1294,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Sports 3.
+        /// </summary>
+        public static string VS3 {
+            get {
+                return ResourceManager.GetString("VS3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wap.
         /// </summary>
         public static string Wap {
