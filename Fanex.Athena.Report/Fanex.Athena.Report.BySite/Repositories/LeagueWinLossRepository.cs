@@ -27,13 +27,14 @@
         private const string MatchIdColumn = "matchId";
         private const string EventTypeColumn = "eventType";
 
-        private readonly List<Tuple<int, int>> SabaVirtualSports = new List<Tuple<int, int>>
+        private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
         {
-            Tuple.Create( SportType.SabaSoccer, SportType.Soccer ),
-            Tuple.Create( SportType.SabaBasketball, SportType.BasketBall ),
-            Tuple.Create( SportType.SabaCricket, SportType.Cricket ),
-            Tuple.Create( SportType.SabaFutsal, SportType.Futsal ),
-            Tuple.Create( SportType.SabaPingoal, 0)
+            Tuple.Create( SportType.SabaSoccer, SportType.Soccer, "" ),
+            Tuple.Create( SportType.SabaSoccerPingoal, 0, ViewResources.SoccerPinGoal),
+            Tuple.Create( SportType.SabaBasketball, SportType.BasketBall, "" ),
+            Tuple.Create( SportType.SabaBasketballPinGoal, 0, ViewResources.BasketballPinGoal),
+            Tuple.Create( SportType.SabaCricket, SportType.Cricket, "" ),
+            Tuple.Create( SportType.SabaFutsal, SportType.Futsal, "" )
         };
 
         public LeagueWinLossRepository(
@@ -125,7 +126,7 @@
             }
             else
             {
-                var sabaSport = sport == SportType.SabaPingoal ? ViewResources.SoccerPinGoal : _cacheRefAdapter.GetSportName(SabaVirtualSports.Find(_ => _.Item1 == sport).Item2);
+                var sabaSport = sport < 0 ? SabaVirtualSports.Find(_ => _.Item1 == sport).Item3 : _cacheRefAdapter.GetSportName(SabaVirtualSports.Find(_ => _.Item1 == sport).Item2);
                 return ViewResources.Saba + (sabaSport);
             }
         }

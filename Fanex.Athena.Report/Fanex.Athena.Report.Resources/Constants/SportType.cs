@@ -20,6 +20,8 @@
 
         public const int SabaFutsal = -4;
 
-        public const int SabaPingoal = -5;
+        public const int SabaSoccerPingoal = -5;
+
+        public const int SabaBasketballPinGoal = -6;
     }
 }
