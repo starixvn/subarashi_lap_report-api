@@ -44,6 +44,7 @@
             db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
             db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue("GameCodes", metaModel.GameCodes);
         }
     }
 }

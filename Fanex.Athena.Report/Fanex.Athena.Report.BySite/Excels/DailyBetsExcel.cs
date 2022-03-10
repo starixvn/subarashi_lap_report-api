@@ -135,6 +135,9 @@
             rowBuilder.Append(DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()]());
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
+            rowBuilder.Append(reader["SportName"].ToString());
+            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
+
             rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
             rowBuilder.Append(reader["BetType"]);
             rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
@@ -182,6 +185,7 @@
                 ViewResources.RefNo,
                 ViewResources.TransTime,
                 ViewResources.Product,
+                ViewResources.Sport,
                 ViewResources.BetType,
                 ViewResources.Turnover,
                 ViewResources.WinLoss,
@@ -197,6 +201,7 @@
         {
             var footer = new[]
             {
+                string.Empty,
                 string.Empty,
                 string.Empty,
                 string.Empty,

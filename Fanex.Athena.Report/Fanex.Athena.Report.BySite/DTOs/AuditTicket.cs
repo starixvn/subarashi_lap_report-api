@@ -28,6 +28,8 @@
 
         public string ProductName { get; set; }
 
+        public string SportName { get; set; }
+
         public string BetType { get; set; }
 
         public decimal Turnover { get; set; }

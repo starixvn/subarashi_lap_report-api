@@ -68,6 +68,7 @@
                 RefNo = Convert.ToInt64(reader["RefNo"]),
                 TransTime = Convert.ToDateTime(reader["TransTime"]),
                 ProductName = DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()](),
+                SportName = reader["SportName"].ToString(),
                 BetType = reader["BetType"].ToString(),
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
                 WinLoss = Convert.ToDecimal(reader["WinLoss"]),
