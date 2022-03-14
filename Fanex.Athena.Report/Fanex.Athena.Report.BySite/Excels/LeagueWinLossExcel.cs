@@ -183,6 +183,10 @@
             var baseCurrency = !string.IsNullOrWhiteSpace(metaModel.BaseCurrency) ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName;
             var baseCurrencyText = $"{ViewResources.BaseCurrency}: {baseCurrency}";
             var extendInfo = "";
+            var userNameText = "";
+            if (!string.IsNullOrWhiteSpace(metaModel.UserName)){
+                userNameText += $", {ViewResources.Username}: {metaModel.UserName}";
+            }
 
             if (metaModel.DrillDownLevel == (int)LeagueWinLossReportLevel.Match && data != null && data.DataList.Any())
             {
@@ -194,12 +198,13 @@
                 extendInfo = $", {data.DataList.FirstOrDefault().MatchName}";
             }
 
+
             var reportTitle = string.Format(
                                          ViewResources.LeagueWinLossTitle,
                                          metaModel.FromDate.ToString("MM/dd/yyyy"),
                                          metaModel.ToDate.ToString("MM/dd/yyyy"),
                                          currencyText,
-                                         baseCurrencyText) + (string.IsNullOrEmpty(extendInfo) ? "" : extendInfo);
+                                         baseCurrencyText) + userNameText + (string.IsNullOrEmpty(extendInfo) ? "" : extendInfo);
 
             _builder.SetRowValue(
                 sheet,
