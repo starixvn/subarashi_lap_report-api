@@ -101,6 +101,8 @@ namespace Fanex.Athena.Report.ByPlayer.Service
             db.SetParameterValue("IsAscSort", metaModel.IsAscSort);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue("CheckPromotionPrize", checkPromotionPrize);
+            db.SetParameterValue("CustomerClass", metaModel.CustomerClass);
+            db.SetParameterValue("OddsGroup", metaModel.OddsGroup);
             foreach (var item in metaModel.ProductOptions)
             {
                 db.SetParameterValue("show" + item.Code, item.Status);

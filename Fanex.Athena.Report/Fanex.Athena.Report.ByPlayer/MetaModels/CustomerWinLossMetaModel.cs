@@ -61,5 +61,9 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
         public bool HasComm { get; set; }
 
         public bool SystemIdVisible { get; set; }
+
+        public string CustomerClass { get; set; }
+
+        public string OddsGroup { get; set; }
     }
 }
