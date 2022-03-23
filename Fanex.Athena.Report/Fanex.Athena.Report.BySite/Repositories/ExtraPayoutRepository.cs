@@ -43,7 +43,8 @@
             { ExtraPayoutMapType.VgamingFreeBetsJackpotPrize, BetType.VgamingFreeBetsJackpotPrize },
             { ExtraPayoutMapType.VgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
             { ExtraPayoutMapType.SGJackpotPrize, BetType.SGJackpotPrize },
-            { ExtraPayoutMapType.SGJackpotContribution, BetType.SGJackpotContribution }
+            { ExtraPayoutMapType.SGJackpotContribution, BetType.SGJackpotContribution },
+            { ExtraPayoutMapType.AllbetPromotion, BetType.AllbetPromotion }
         };
 
         public ExtraPayoutRepository(

@@ -45,5 +45,7 @@ namespace Fanex.Athena.Report.Common.Model.DataDomain
         public const int SGJackpotPrize = 3601;
 
         public const int SGJackpotContribution = 3602;
+
+        public const int AllbetPromotion = 2101;
     }
 }
