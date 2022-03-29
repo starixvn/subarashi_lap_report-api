@@ -11,7 +11,7 @@
         {
             DbSettingProviderManager
             .StartNewSession()
-            .WithSqlServer(resourcePath: "~/SpConfig/")
+            .WithSqlServer(resourcePath: "~/SpConfig/FanexSpName.xml")
             .Use(GetFanexConnectStrings(configuration))
             .Run();
         }
