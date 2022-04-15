@@ -11,12 +11,12 @@ namespace Fanex.Athena.Report.Common.Excel
 {
     public class BaseExcel
     {
-        protected readonly IHostingEnvironment Enviroment;
+        protected readonly IWebHostEnvironment Enviroment;
         protected readonly ExcelOptions ExcelOptions;
 
         protected readonly IFileService FileService;
 
-        protected BaseExcel(IHostingEnvironment environment, IFileService fileService, IOptions<ExcelOptions> excelOptionsAccessor)
+        protected BaseExcel(IWebHostEnvironment environment, IFileService fileService, IOptions<ExcelOptions> excelOptionsAccessor)
         {
             Enviroment = environment;
             FileService = fileService;

@@ -24,6 +24,7 @@
         {
             return builder.UseMiddleware<CustomApiAuthentication>();
         }
+
         public static IApplicationBuilder UseCustomHealthCheck(this IApplicationBuilder builder)
         {
             return builder.UseHealthChecks("/health", new HealthCheckOptions
