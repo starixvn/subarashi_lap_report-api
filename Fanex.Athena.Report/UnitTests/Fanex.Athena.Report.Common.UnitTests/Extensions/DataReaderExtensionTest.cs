@@ -10,11 +10,11 @@ using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Extensions
 {
-    public class IDataReaderExtensionTest
+    public class DataReaderExtensionTest
     {
         private const string ColumnName = "ColName";
 
-        public IDataReaderExtensionTest()
+        public DataReaderExtensionTest()
         {
             DbSettingProviderManager
              .StartTestingSession()

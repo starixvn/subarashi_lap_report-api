@@ -11,11 +11,12 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    public class ErrorHandling
+    public class ErrorHandler
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
-        public ErrorHandling(RequestDelegate next, ILogger<ErrorHandling> logger)
+
+        public ErrorHandler(RequestDelegate next, ILogger<ErrorHandler> logger)
         {
             _next = next;
             _logger = logger;

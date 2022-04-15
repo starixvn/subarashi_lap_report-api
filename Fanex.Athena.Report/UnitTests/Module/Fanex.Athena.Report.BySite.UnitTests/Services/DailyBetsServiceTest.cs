@@ -11,6 +11,7 @@ using Fanex.Athena.Report.BySite.Extensions;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services;
+using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Resources;
 using Fanex.Data;
 using Moq;
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
         public async Task GetDataAsync_GetMainData_PassParameterCorrectly()
         {
             // Arrange
-            var metaModel = _fixture.Create<DailyBetsMetaModel>();
+            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
             metaModel.SortBy = "Index";
             metaModel.SortOrder = "asc";
             var reader = new Mock<IDataReader>();
@@ -68,7 +69,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
         public async Task GetDataAsync_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var metaModel = _fixture.Create<DailyBetsMetaModel>();
+            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
             var reader = new Mock<IDataReader>();
             reader.Setup(r => r.Read()).Returns(new Queue<bool>(new[] { true, false }).Dequeue);
 

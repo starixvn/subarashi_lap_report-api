@@ -10,6 +10,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
 using Newtonsoft.Json;
@@ -44,7 +45,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             });
 
             // Action
-            var result = JsonConvert.SerializeObject(await controller.Index(metaModel, service.Object));
+            var result = JsonConvert.SerializeObject((await controller.Index(metaModel, service.Object) as OkObjectResult).Value);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             });
 
             // Action
-            var result = JsonConvert.SerializeObject(await controller.Index(metaModel, service.Object));
+            var result = JsonConvert.SerializeObject(((await controller.Index(metaModel, service.Object)) as OkObjectResult).Value);
 
             // Assert
             Assert.Equal(expectedResult, result);

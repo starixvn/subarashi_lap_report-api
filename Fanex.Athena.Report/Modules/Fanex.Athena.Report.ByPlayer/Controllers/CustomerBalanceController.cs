@@ -5,7 +5,6 @@ using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,15 +37,14 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             [FromServices] IContextService contextService,
             [FromServices] ILicenseeService licenseeService)
         {
-            metaModel.IsAllowedBA = contextService.IsEnableBA && (await licenseeService.CheckProductBelongsToFromDB(contextService.SiteName, ProductTypes.BA));
+            metaModel.IsAllowedBA = contextService.IsEnableBA && (await licenseeService.CheckProductPermission(contextService.SiteName, ProductTypes.BA));
             metaModel.HasComm = contextService.IsAllowedCustomerComm;
             metaModel.IsEnableSingleWallet = contextService.IsEnableSingleWallet;
             metaModel.PageIndex = 1;
             metaModel.PageSize = ExcelPageSize;
 
             var fileName = await excel.Export(metaModel);
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose)
-                 .EnsureDispose(HttpContext);
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
             return File(stream, "application/octet-stream");
         }
     }

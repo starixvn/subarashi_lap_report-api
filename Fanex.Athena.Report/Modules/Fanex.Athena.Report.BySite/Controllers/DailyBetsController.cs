@@ -15,7 +15,6 @@
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.DailyBets)]
     [RequestValidation(validateCurrencyList: true)]
-    [AutoBindingMetaModel(bindAgent: true)]
     public class DailyBetsController : ControllerBase
     {
         private readonly IContextService _contextService;
@@ -28,7 +27,7 @@
         [HttpPost]
         public async Task<IActionResult> Index([FromBody] DailyBetsMetaModel metaModel, [FromServices] IDailyBetsService service)
         {
-            metaModel.CurrencyList = _contextService.CurrencyList;
+            AssignMetaModel(metaModel);
             var result = await service.GetDataAsync(metaModel);
             return Ok(new
             {
@@ -41,7 +40,7 @@
         [HttpPost]
         public async Task<IActionResult> Export([FromBody] DailyBetsMetaModel metaModel, [FromServices] IDailyBetsExcel excel)
         {
-            metaModel.CurrencyList = _contextService.CurrencyList;
+            AssignMetaModel(metaModel);
             var fileName = await excel.Export(metaModel);
             if (fileName is null)
             {
@@ -49,6 +48,12 @@
             }
             var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
             return File(stream, "application/octet-stream");
+        }
+
+        private void AssignMetaModel(DailyBetsMetaModel metaModel)
+        {
+            metaModel.CurrencyList = _contextService.CurrencyList;
+            metaModel.SiteName = _contextService.SiteName;
         }
     }
 }

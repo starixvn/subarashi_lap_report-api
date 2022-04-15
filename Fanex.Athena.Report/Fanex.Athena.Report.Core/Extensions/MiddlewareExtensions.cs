@@ -1,51 +1,41 @@
 ﻿namespace Fanex.Athena.Report.Core.Extensions
 {
+    using System;
     using System.Linq;
+    using System.Net.Mime;
     using Fanex.Athena.Report.Core.Middleware;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     public static class MiddlewareExtensions
     {
         public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<ErrorHandling>();
+            return builder.UseMiddleware<ErrorHandler>();
         }
 
-        public static IApplicationBuilder UseIPFilter(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<IPFilter>();
-        }
-
-        public static IApplicationBuilder UseCustomApiAuth(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<CustomApiAuthentication>();
-        }
-
-        public static IApplicationBuilder UseCustomHealthCheck(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseHealthCheck(this IApplicationBuilder builder)
         {
             return builder.UseHealthChecks("/health", new HealthCheckOptions
             {
                 AllowCachingResponses = false,
                 Predicate = _ => true,
-                ResponseWriter = async (context, result) =>
+                ResponseWriter = async (context, report) =>
                 {
-                    context.Response.ContentType = "application/json";
-                    var json = new JObject(
-                         new JProperty("status", result.Status.ToString()),
-                         new JProperty("results", new JObject(result.Entries.Select(pair =>
-                             new JProperty(pair.Key, new JObject(
-                                 new JProperty("status", pair.Value.Status.ToString()),
-                                 new JProperty("description", pair.Value.Description),
-                                 new JProperty("data", new JObject(pair.Value.Data.Select(
-                                     p => new JProperty(p.Key, p.Value))))))))));
-                    await context.Response.WriteAsync(
-                        json.ToString(Formatting.Indented));
+                    var result = JsonConvert.SerializeObject(
+                        new
+                        {
+                            status = report.Status.ToString(),
+                            monitors = report.Entries.Select(e => new { name = e.Key, status = Enum.GetName(typeof(HealthStatus), e.Value.Status), values = e.Value.Data })
+                        }, Formatting.Indented);
+
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
                 }
-            });
+        });
         }
     }
 }

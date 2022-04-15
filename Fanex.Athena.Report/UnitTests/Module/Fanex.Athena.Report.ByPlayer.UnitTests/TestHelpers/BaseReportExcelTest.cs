@@ -22,7 +22,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
             MaximumRowPerFile = 10
         };
 
-        protected readonly Mock<IHostingEnvironment> ExcelEnviroment;
+        protected readonly Mock<IWebHostEnvironment> ExcelEnviroment;
 
         protected Mock<IOptions<ExcelOptions>> ExcelOptionAccessor;
 
@@ -30,7 +30,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 
         protected BaseReportExcelTest()
         {
-            ExcelEnviroment = new Mock<IHostingEnvironment>();
+            ExcelEnviroment = new Mock<IWebHostEnvironment>();
             ExcelEnviroment.Setup(e => e.ContentRootPath).Returns(RootPath);
 
             ExcelOptionAccessor = CreateMockExcelOption();

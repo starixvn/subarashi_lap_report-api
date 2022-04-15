@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.IO;
@@ -13,6 +14,7 @@ using Fanex.Athena.Report.BySite.Excels;
 using Fanex.Athena.Report.BySite.Extensions;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Resources;
@@ -28,7 +30,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
     {
         protected static readonly IFixture fixture = new Fixture();
 
-        private readonly Mock<IHostingEnvironment> ExcelEnviroment;
+        private readonly Mock<IWebHostEnvironment> ExcelEnviroment;
 
         private readonly Mock<IOptions<ExcelOptions>> ExcelOptionAccessor;
 
@@ -52,6 +54,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 ViewResources.RefNo,
                 ViewResources.TransTime,
                 ViewResources.Product,
+                ViewResources.Sport,
                 ViewResources.BetType,
                 ViewResources.Turnover,
                 ViewResources.WinLoss,
@@ -62,7 +65,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 
         public DailyBetsExcelTest()
         {
-            ExcelEnviroment = new Mock<IHostingEnvironment>();
+            ExcelEnviroment = new Mock<IWebHostEnvironment>();
             ExcelEnviroment.Setup(e => e.ContentRootPath).Returns(RootPath);
 
             ExcelOptionAccessor = CreateMockExcelOption();
@@ -90,7 +93,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             return excelOptionsAccessor;
         }
 
-        protected Mock<IDailyBetsRepository> CreateMockRepository(DailyBetsMetaModel metaModel,int totalRows, AuditTicket totalData)
+        protected Mock<IDailyBetsRepository> CreateMockRepository(DailyBetsMetaModel metaModel, int totalRows, AuditTicket totalData)
         {
             var repository = new Mock<IDailyBetsRepository>();
             repository.Setup(s => s.GetTotalDataAsync(metaModel)).Returns(Task.FromResult((totalRows, totalData)));
@@ -113,7 +116,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var mockIDataReader = new Mock<IDataReader>();
             mockIDataReader.Setup(dr => dr.Read()).Returns(false);
             var mockObjectDB = SetUpObjectDb(mockIDataReader);
-            var metaModel = fixture.Create<DailyBetsMetaModel>();
+            var metaModel = CreateMetaModel();
             var auditTicket = fixture.Create<AuditTicket>();          
             Repository = CreateMockRepository(metaModel, 1, auditTicket);
 
@@ -143,7 +146,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         public async Task Export_WhenCall_GenerateHeaderCorrectly()
         {
             // Arrange
-            var metaModel = fixture.Create<DailyBetsMetaModel>();
+            var metaModel = CreateMetaModel();
             var auditTicket = fixture.Create<AuditTicket>();
             var mockDataReader = new Mock<IDataReader>();
             SetUpObjectDb(mockDataReader);
@@ -206,7 +209,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 
             ConfigureReaderForResult(expected, mockDataReader);
             SetUpObjectDb(mockDataReader);
-            var metaModel = fixture.Create<DailyBetsMetaModel>();
+            var metaModel = CreateMetaModel();
             Repository = CreateMockRepository(metaModel, 1, expected);
 
             using (var memoryStream = new MemoryStream())
@@ -242,7 +245,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 
             ConfigureReaderForResult(expected, mockDataReader);
             SetUpObjectDb(mockDataReader);
-            var metaModel = fixture.Create<DailyBetsMetaModel>();
+            var metaModel = CreateMetaModel();
             Repository = CreateMockRepository(metaModel, 1, expected);
 
             using (var memoryStream = new MemoryStream())
@@ -271,19 +274,20 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal(expected.CurrencyName, dataLines[2]);
             Assert.Equal(expected.TransTime.ToString(), dataLines[5]);
             Assert.Equal(DailyBetsMetaModelExtension.GetProductName[expected.ProductCode.ToString()](), dataLines[6]);
-            Assert.Equal(expected.BetType, dataLines[7]);
-            Assert.Equal(expected.Turnover.ToString(), dataLines[8]);
-            Assert.Equal(expected.WinLoss.ToString(), dataLines[9]);
-            Assert.Equal(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(expected.Status)](), dataLines[10]);
+            Assert.Equal(expected.SportName, dataLines[7]);
+            Assert.Equal(expected.BetType, dataLines[8]);
+            Assert.Equal(expected.Turnover.ToString(), dataLines[9]);
+            Assert.Equal(expected.WinLoss.ToString(), dataLines[10]);
+            Assert.Equal(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(expected.Status)](), dataLines[11]);
         }
 
         private static void AssertTotalData(AuditTicket expected, DailyBetsMetaModel model, string[] contentLines)
         {
             var dataLines = contentLines.ElementAt(2).Split(new[] { ',' });
 
-            Assert.Equal(String.Format(ViewResources.Totalin, model.BaseCurrency), dataLines[8]);
-            Assert.Equal(expected.TurnoverBased.ToString("#.00"), dataLines[9]);
-            Assert.Equal(expected.WinLossBased.ToString("#.00"), dataLines[10]);
+            Assert.Equal(String.Format(ViewResources.Totalin, model.BaseCurrency), dataLines[9]);
+            Assert.Equal(expected.TurnoverBased.ToString("#.00"), dataLines[10]);
+            Assert.Equal(expected.WinLossBased.ToString("#.00"), dataLines[11]);
         }
 
         private bool IsCorrectHeader(string header)
@@ -325,11 +329,15 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             reader.Setup(r => r["CurrencyName"]).Returns(expected.CurrencyName);
             reader.Setup(r => r["RefNo"]).Returns(expected.RefNo);
             reader.Setup(r => r["TransTime"]).Returns(expected.TransTime);
+            reader.Setup(r => r["SportName"]).Returns(expected.SportName);
             reader.Setup(r => r["ProductCode"]).Returns(expected.ProductCode);
             reader.Setup(r => r["BetType"]).Returns(expected.BetType);
             reader.Setup(r => r["Turnover"]).Returns(expected.Turnover);
             reader.Setup(r => r["WinLoss"]).Returns(expected.WinLoss);
             reader.Setup(r => r["Status"]).Returns(expected.Status);
         }
+
+        private static DailyBetsMetaModel CreateMetaModel()
+            => MetaModelHelper.CreateDailyBetsMetaModel();
     }
 }

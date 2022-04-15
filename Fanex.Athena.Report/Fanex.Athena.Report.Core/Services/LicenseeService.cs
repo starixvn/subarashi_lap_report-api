@@ -6,7 +6,7 @@ namespace Fanex.Athena.Report.Core.Services
 {
     public class LicenseeService : ILicenseeService
     {
-        public async Task<bool> CheckProductBelongsToFromDB(string licenseeName, int productId)
+        public async Task<bool> CheckProductPermission(string licenseeName, int productId)
         {
             const string UspName = "Lrf_CheckBelonging_ValidateProduct";
 

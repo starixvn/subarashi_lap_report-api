@@ -8,6 +8,7 @@ using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
@@ -18,6 +19,14 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
     public class DailyBetsControllerTest
     {
         private readonly Fixture _fixture = new Fixture();
+
+        private readonly Mock<IContextService> _contextService;
+
+        public DailyBetsControllerTest()
+        {
+            _contextService = new Mock<IContextService>();
+        }
+        
 
         [Fact]
         public async Task Index_WhenCall_ReturnCorrectResult()
@@ -35,10 +44,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 expectedData.TotalRows
             });
 
-            var controller = new DailyBetsController();
+            var controller = new DailyBetsController(_contextService.Object);
 
             // Action
-            var result = JsonConvert.SerializeObject(await controller.Index(metaModel, service.Object));
+            var result = JsonConvert.SerializeObject((await controller.Index(metaModel, service.Object) as OkObjectResult).Value);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -53,7 +62,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var excelService = new Mock<IDailyBetsExcel>();
             excelService.Setup(s => s.Export(metaModel)).Returns(Task.FromResult(fileName));
 
-            var controller = new DailyBetsController();
+            var controller = new DailyBetsController(_contextService.Object);
 
             // Action
             var result = await controller.Export(metaModel, excelService.Object) as FileStreamResult;

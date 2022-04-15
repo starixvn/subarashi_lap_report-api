@@ -9,7 +9,6 @@
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Core;
-    using Fanex.Athena.Report.Core.DTO;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Athena.Report.Core.ModelBinding;
@@ -25,7 +24,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
-    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {
@@ -66,13 +64,12 @@
                    options.TokenRetriever = TokenRetrieval.FromAuthorizationHeader();
                });
 
-
-            services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
             services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
             services.AddHttpContextAccessor();
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
             services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
 
             ConfigRequestLocalization(services);
 
@@ -105,16 +102,16 @@
         {
             app.UseForwardedHeaders();
 
-            if (HostingEnvironment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+            if (string.Equals(Configuration["UseErrorHandler"], "1"))
             {
                 app.UseErrorHandler();
             }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-            app.UseCustomHealthCheck();
+            app.UseHealthCheck();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -122,7 +119,7 @@
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("LAP Report API is running"));
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
 

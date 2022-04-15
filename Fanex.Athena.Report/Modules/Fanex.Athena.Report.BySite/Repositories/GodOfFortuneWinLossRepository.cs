@@ -116,7 +116,7 @@
             return data;
         }
 
-        private IEnumerable<GodOfFortuneWinLoss> GetTotalData(IDataReader reader, GodOfFortuneWinLossMetaModel metaModel)
+        private IEnumerable<GodOfFortuneWinLoss> GetTotalData(IDataReader reader)
         {
             var total = new List<GodOfFortuneWinLoss>();
             reader.NextResult();
@@ -185,7 +185,7 @@
             return new SortableReportResultModel<GodOfFortuneWinLoss>
             {
                 DataList = dataList,
-                TotalDataList = GetTotalData(reader, metaModel),
+                TotalDataList = GetTotalData(reader),
                 SummaryTotal = GetSummaryTotal(reader, metaModel)
             };
         }

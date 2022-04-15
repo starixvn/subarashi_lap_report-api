@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,20 +16,22 @@ namespace Fanex.Athena.Report.Core.Middleware
     public class WhoAmIHealthCheck : IHealthCheck
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IWebHostEnvironment _env;
 
-        public WhoAmIHealthCheck(IHttpContextAccessor httpContextAccessor)
+        public WhoAmIHealthCheck(IHttpContextAccessor httpContextAccessor, IWebHostEnvironment env)
         {
             _httpContextAccessor = httpContextAccessor;
+            _env = env;
         }
 
-        public async Task<HealthCheckResult> CheckHealthAsync(
-        HealthCheckContext context,
-        CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
-            IDictionary<string, object> result = new Dictionary<string, object>();
-
+            IDictionary<string, object> result = new Dictionary<string, object>
+            {
+                { "Env", _env.EnvironmentName }
+            };
             await AddServerIPInfo(result);
-            AddExtraServerInfo(result, _httpContextAccessor.HttpContext.Connection);
+            AddExtraServerInfo(result);
 
             return HealthCheckResult.Healthy("Server Info", new ReadOnlyDictionary<string, object>(result));
         }
@@ -35,20 +42,25 @@ namespace Fanex.Athena.Report.Core.Middleware
             result.Add("Host Name", hostName);
 
             var serverIps = await Dns.GetHostAddressesAsync(hostName).ConfigureAwait(false);
-            for (var i = 1; i < serverIps.Length; i++)
+            for (var i = 0; i < serverIps.Length; i++)
             {
-                if (!serverIps[i].Equals("::1"))
+                if (serverIps[i].AddressFamily == AddressFamily.InterNetwork)
                 {
                     result.Add($"IP{i}", serverIps[i].ToString());
                 }
             }
         }
 
-        private static void AddExtraServerInfo(IDictionary<string, object> result, ConnectionInfo connectionInfo)
+        private void AddExtraServerInfo(IDictionary<string, object> result)
         {
-            result.Add("Local Ip", connectionInfo.LocalIpAddress.ToString());
-            result.Add("Local Port", connectionInfo.LocalPort);
-            result.Add("Client Ip", connectionInfo.RemoteIpAddress.ToString());
+            var context = _httpContextAccessor.HttpContext;
+            result.Add("Local Ip", context.Connection.LocalIpAddress.ToString());
+            result.Add("Local Port", context.Connection.LocalPort);
+            result.Add("Client Ip", context.Connection.RemoteIpAddress.ToString());
+            result.Add("Server Time", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            result.Add("Last Upadted", File.GetCreationTime(typeof(WhoAmIHealthCheck).Assembly.Location).ToString(CultureInfo.InvariantCulture));
+            result.Add("Host", context.Request.Host);
+            result.Add("Schema", context.Request.Scheme);
         }
     }
 }

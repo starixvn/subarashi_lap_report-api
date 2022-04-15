@@ -7,6 +7,7 @@ using AutoFixture;
 using Fanex.Athena.Report.BySite.Extensions;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
+using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
 using Fanex.Data;
 using Moq;
 using Xunit;
@@ -28,7 +29,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         public async Task GetTotalDataAsync_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var metaModel = _fixture.Create<DailyBetsMetaModel>();
+            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
             var reader = new Mock<IDataReader>();
             reader.SetupSequence(r => r.Read())
                 .Returns(true)
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         public async Task GetTotalDataAsync_NoData_ReturnEmptyResult()
         {
             // Arrange
-            var metaModel = _fixture.Create<DailyBetsMetaModel>();
+            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
             var reader = new Mock<IDataReader>();
             reader.Setup(r => r.Read()).Returns(false);
             SetUpData(reader);
@@ -72,7 +73,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         public async Task GetTotalDataAsync_WhenCall_SetParameterCorrectly()
         {
             // Arrange
-            var metaModel = _fixture.Create<DailyBetsMetaModel>();
+            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
             var reader = new Mock<IDataReader>();
             reader.Setup(r => r.Read()).Returns(false);
             SetUpData(reader);

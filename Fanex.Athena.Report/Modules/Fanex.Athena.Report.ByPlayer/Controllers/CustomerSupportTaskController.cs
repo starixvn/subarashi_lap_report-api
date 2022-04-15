@@ -6,7 +6,6 @@ using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
@@ -35,9 +34,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             }
 
             var fileName = await excelHandler.CreateZipFile(metaModel);
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose)
-                .EnsureDispose(HttpContext);
-
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
             return File(stream, "application/octet-stream");
         }
     }

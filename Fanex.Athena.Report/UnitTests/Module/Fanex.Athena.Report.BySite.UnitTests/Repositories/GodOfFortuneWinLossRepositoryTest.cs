@@ -11,6 +11,7 @@ using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Services;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Data;
 using Moq;
@@ -167,9 +168,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             };
 
             var balanceUpService = new Mock<IBalanceUpService>();
+            var contextService = new Mock<IContextService>();
+            contextService.Setup(_ => _.CurrencyList).Returns(new Dictionary<int, string>());
+
             balanceUpService.Setup(b => b.GetBalanceUpAsync()).Returns(Task.FromResult(balance));
 
-            return new GodOfFortuneWinLossRepository(balanceUpService.Object);
+            return new GodOfFortuneWinLossRepository(balanceUpService.Object, contextService.Object);
         }
 
         private static void SetUpData(Mock<IDataReader> reader, IDictionary<string, object> expectedData)

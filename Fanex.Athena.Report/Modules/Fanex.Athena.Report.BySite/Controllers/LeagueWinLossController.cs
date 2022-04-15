@@ -43,7 +43,7 @@
             };
         }
 
-        private static dynamic GetEmptyResult()
+        private static LeagueWinLossResultModel GetEmptyResult()
         {
             return new LeagueWinLossResultModel
             {

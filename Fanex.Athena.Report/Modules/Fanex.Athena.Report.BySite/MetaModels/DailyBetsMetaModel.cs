@@ -6,13 +6,15 @@
 
     public class DailyBetsMetaModel : ICurrencyIdListMetaModel, IValidationMetaModel
     {
+        private const string TotalBaseCurrency = "USD";
+
         public string SiteName { get; set; }
 
         public DateTime Date { get; set; }
 
         public string ProductCodeList { get; set; }
 
-        public string BaseCurrency { get; set; }
+        public string BaseCurrency { get; set; } = TotalBaseCurrency;
 
         public string GameCodes { get; set; }
 

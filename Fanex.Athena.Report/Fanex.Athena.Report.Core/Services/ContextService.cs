@@ -21,8 +21,6 @@ namespace Fanex.Athena.Report.Core.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public int LicenseeId => GetClaimValue<int>("LicenseeId");
-
         public bool IsAllowedCustomerComm => GetClaimValue<bool>("IsAllowedCustomerComm");
 
         public bool IsEnableBA => GetClaimValue<bool>("IsEnableBA");
@@ -32,12 +30,6 @@ namespace Fanex.Athena.Report.Core.Services
         public string SiteName => GetClaimValue("SiteName");
 
         public bool IsFakeLicensee => GetClaimValue<bool>("IsFakeLicensee");
-
-        public int UserId => GetClaimValue<int>("UserSEQ");
-
-        public string Username => GetClaimValue("UserID");
-
-        public string Language => CultureInfo.CurrentUICulture.Name;
 
         public IEnumerable<string> OfferedSubProductList
         {

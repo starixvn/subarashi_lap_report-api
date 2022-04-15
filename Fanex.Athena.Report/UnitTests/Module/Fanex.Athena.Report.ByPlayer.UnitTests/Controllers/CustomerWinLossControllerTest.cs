@@ -8,6 +8,7 @@ using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
@@ -35,6 +36,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var service = new Mock<ICustomerWinLossService>();
             service.Setup(s => s.GetDataList(metaModel, true)).Returns(Task.FromResult(expectedReportData));
 
+            var contextService = new Mock<IContextService>();
+            var licenseeService = new Mock<ILicenseeService>();
+
             var expectedResult = new
             {
                 expectedReportData.DataList,
@@ -43,13 +47,13 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
                 PromotionPrize = expectedReportData.AdditionalInfo
             };
 
-            var controller = new CustomerWinLossController(service.Object);
+            var controller = new CustomerWinLossController(service.Object, contextService.Object, licenseeService.Object);
 
             // Action
-            var result = await controller.Index(metaModel);
+            var result = await controller.Index(metaModel) as OkObjectResult;
 
             // Assert
-            Assert.Equal(JsonConvert.SerializeObject(result), JsonConvert.SerializeObject(expectedResult));
+            Assert.Equal(JsonConvert.SerializeObject(expectedResult), JsonConvert.SerializeObject(result.Value));
         }
 
         [Fact]
@@ -67,12 +71,15 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             fileProvider.Setup(fp => fp.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx")).Returns(fileInfo);
 
             var excelService = new Mock<ICustomerWinLossExcel>();
+            var contextService = new Mock<IContextService>();
+            var licenseeService = new Mock<ILicenseeService>();
+
             var fileName = CreateFile();
             var expectedFileContent = File.ReadAllBytes(fileName);
 
             excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(fileName);
 
-            var controller = new CustomerWinLossController(service.Object);
+            var controller = new CustomerWinLossController(service.Object, contextService.Object, licenseeService.Object);
 
             // Action
             var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileStreamResult;

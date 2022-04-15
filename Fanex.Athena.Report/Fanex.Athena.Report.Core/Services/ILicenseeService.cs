@@ -4,7 +4,7 @@ namespace Fanex.Athena.Report.Core.Services
 {
     public interface ILicenseeService
     {
-        Task<bool> CheckProductBelongsToFromDB(string licenseeName, int productId);
+        Task<bool> CheckProductPermission(string licenseeName, int productId);
 
     }
 }

@@ -6,7 +6,6 @@ using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.ModelBinding;
 using Fanex.Athena.Report.Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -60,14 +59,13 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             await PrepareMetaModel(metaModel);
             var data = await _customerWinLossService.GetDataList(metaModel);
             var fileName = excel.Export(template, data, metaModel);
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose)
-                .EnsureDispose(HttpContext);
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
             return File(stream, "application/octet-stream");
         }
 
         private async Task PrepareMetaModel(CustomerWinLossMetaModel metaModel)
         {
-            metaModel.IsAllowedBA = _contextService.IsEnableBA && (await _licenseeService.CheckProductBelongsToFromDB(_contextService.SiteName, ProductTypes.BA));
+            metaModel.IsAllowedBA = _contextService.IsEnableBA && (await _licenseeService.CheckProductPermission(_contextService.SiteName, ProductTypes.BA));
             metaModel.SystemIdVisible = !_contextService.IsFakeLicensee;
         }
     }
