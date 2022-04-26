@@ -63,7 +63,7 @@
 
             if (exception.InnerException != null && limitedInnerException > 0)
             {
-                AddExceptionInfo(builder, exception.InnerException, --limitedInnerException);
+                AddExceptionInfo(builder, exception.InnerException, limitedInnerException - 1);
             }
         }
 
@@ -117,8 +117,7 @@
                     {
                         [nameof(request.Host)] = request?.Host,
                         [nameof(request.Path)] = request?.Path,
-                        [nameof(request.Body)] = request?.Body,
-                        ["Remote IP"] = context.Connection?.RemoteIpAddress
+                        [nameof(request.Body)] = request?.Body
                     };
         }
     }

@@ -39,7 +39,7 @@
             };
         }
 
-        private async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel)
+        private static async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel)
         {
             var result = new List<AuditTicket>();
 

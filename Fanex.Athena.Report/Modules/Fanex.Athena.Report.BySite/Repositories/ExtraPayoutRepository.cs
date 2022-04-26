@@ -26,27 +26,27 @@
 
         private readonly IDictionary<int, int> _extraPayoutMapType = new Dictionary<int, int>
         {
-            { ExtraPayoutMapType.PPTournamentPrize, BetType.PPTournamentPrize },
-            { ExtraPayoutMapType.PPPromotionPrize, BetType.PPPromotionPrize },
-            { ExtraPayoutMapType.PPJackpotPrize, BetType.PPJackpotPrize },
-            { ExtraPayoutMapType.PPJackpotContribution, BetType.PPJackpotContribution },
-            { ExtraPayoutMapType.SabaLuckySpin, BetType.SabaLuckySpin },
-            { ExtraPayoutMapType.SabaLuckySpot, BetType.SabaLuckySpot },
-            { ExtraPayoutMapType.SabaNonCashPrize, BetType.SabaNonCashPrize },
-            { ExtraPayoutMapType.SabaLoyaltyPointsExchange, BetType.SabaLoyaltyPointsExchange },
-            { ExtraPayoutMapType.SabaRedEnvelope, BetType.SabaRedEnvelope },
-            { ExtraPayoutMapType.SAGamingTip, BetType.SAGamingTip },
-            { ExtraPayoutMapType.SCBFreeBets, BetType.SCBFreeBets },
-            { ExtraPayoutMapType.SCBFreeBetsJackpotPrize, BetType.SCBFreeBetsJackpotPrize },
-            { ExtraPayoutMapType.SCBFreeBetsJackpotContribution, BetType.SCBFreeBetsJackpotContribution },
-            { ExtraPayoutMapType.EASexyLuckyDraw, BetType.EASexyLuckyDraw },
-            { ExtraPayoutMapType.ArcadiaGamingBonus, BetType.ArcadiaGamingBonus },
-            { ExtraPayoutMapType.VgamingFreeBets, BetType.VgamingFreeBets },
-            { ExtraPayoutMapType.VgamingFreeBetsJackpotPrize, BetType.VgamingFreeBetsJackpotPrize },
-            { ExtraPayoutMapType.VgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
-            { ExtraPayoutMapType.SGJackpotPrize, BetType.SGJackpotPrize },
-            { ExtraPayoutMapType.SGJackpotContribution, BetType.SGJackpotContribution },
-            { ExtraPayoutMapType.AllbetPromotion, BetType.AllbetPromotion }
+            { ExtraPayoutMapType.PayoutPPTournamentPrize, BetType.PPTournamentPrize },
+            { ExtraPayoutMapType.PayoutPPPromotionPrize, BetType.PPPromotionPrize },
+            { ExtraPayoutMapType.PayoutPPJackpotPrize, BetType.PPJackpotPrize },
+            { ExtraPayoutMapType.PayoutPPJackpotContribution, BetType.PPJackpotContribution },
+            { ExtraPayoutMapType.PayoutSabaLuckySpin, BetType.SabaLuckySpin },
+            { ExtraPayoutMapType.PayoutSabaLuckySpot, BetType.SabaLuckySpot },
+            { ExtraPayoutMapType.PayoutSabaNonCashPrize, BetType.SabaNonCashPrize },
+            { ExtraPayoutMapType.PayoutSabaLoyaltyPointsExchange, BetType.SabaLoyaltyPointsExchange },
+            { ExtraPayoutMapType.PayoutSabaRedEnvelope, BetType.SabaRedEnvelope },
+            { ExtraPayoutMapType.PayoutSAGamingTip, BetType.SAGamingTip },
+            { ExtraPayoutMapType.PayoutSCBFreeBets, BetType.SCBFreeBets },
+            { ExtraPayoutMapType.PayoutSCBFreeBetsJackpotPrize, BetType.SCBFreeBetsJackpotPrize },
+            { ExtraPayoutMapType.PayoutSCBFreeBetsJackpotContribution, BetType.SCBFreeBetsJackpotContribution },
+            { ExtraPayoutMapType.PayoutEASexyLuckyDraw, BetType.EASexyLuckyDraw },
+            { ExtraPayoutMapType.PayoutArcadiaGamingBonus, BetType.ArcadiaGamingBonus },
+            { ExtraPayoutMapType.PayoutVgamingFreeBets, BetType.VgamingFreeBets },
+            { ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize, BetType.VgamingFreeBetsJackpotPrize },
+            { ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
+            { ExtraPayoutMapType.PayoutSGJackpotPrize, BetType.SGJackpotPrize },
+            { ExtraPayoutMapType.PayoutSGJackpotContribution, BetType.SGJackpotContribution },
+            { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion }
         };
 
 

@@ -187,7 +187,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                                 .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
                 // Assert
-                AssertBodyData(expected, contentLines, hasComm, isAllowedBA, isEnableSingleWallet);
+                AssertBodyData(expected, contentLines, hasComm, isAllowedBA);
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
@@ -227,7 +227,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             }
         }
 
-        private static void AssertBodyData(CustomerBalance expected, string[] contentLines, bool hasComm = true, bool isAllowedBA = true, bool isEnableSingleWallet = false)
+        private static void AssertBodyData(CustomerBalance expected, string[] contentLines, bool hasComm = true, bool isAllowedBA = true)
         {
             var dataLines = contentLines.ElementAt(1).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             var externalId = "=" + expected.ExternalId;

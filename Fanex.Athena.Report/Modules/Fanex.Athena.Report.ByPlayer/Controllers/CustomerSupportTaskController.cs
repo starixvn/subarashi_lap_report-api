@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             var excelHandler = _customerSupportTaskExcels.FirstOrDefault(_ => _.Should(metaModel));
             if(excelHandler == default)
             {
-                return File(new byte[] { }, "application/octet-stream");
+                return File(Array.Empty<byte>(), "application/octet-stream");
             }
 
             var fileName = await excelHandler.CreateZipFile(metaModel);
