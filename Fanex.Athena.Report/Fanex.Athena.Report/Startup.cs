@@ -3,26 +3,31 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Threading.Tasks;
+    using Fanex.Athena.Report.ByPlayer;
+    using Fanex.Athena.Report.BySite;
     using Fanex.Athena.Report.Common;
     using Fanex.Athena.Report.Common.Excel;
-    using Fanex.Athena.Report.Core.DTO;
+    using Fanex.Athena.Report.Core;
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
+    using Fanex.Athena.Report.Core.ModelBinding;
     using Fanex.RemotingRef;
-    using MessagePack.AspNetCoreMvcFormatter;
-    using MessagePack.Resolvers;
+    using IdentityModel.AspNetCore.OAuth2Introspection;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.Localization;
-    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Authorization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
 
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
             Configuration = configuration;
             HostingEnvironment = hostingEnvironment;
@@ -30,20 +35,46 @@
 
         public IConfiguration Configuration { get; }
 
-        public IHostingEnvironment HostingEnvironment { get; }
+        public IWebHostEnvironment HostingEnvironment { get; }
 
-        //// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+            services.AddControllers(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                              .RequireAuthenticatedUser()
+                              .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+                options.ModelBinderProviders.AddBodyOrDefaultBinding();
+            }).AddNewtonsoftJson();
+
+            var instrospecCacheDuration = int.TryParse(Configuration["IdentityServer:CacheDuration"], out int cache) ? cache : 0;
+            services.AddAuthentication("Bearer")
+               .AddOAuth2Introspection("Bearer", options =>
+               {
+                   options.Authority = Configuration["IdentityServer:Host"];
+                   options.ClientId = Configuration["IdentityServer:CredentialIntrospection:ClientId"];
+                   options.ClientSecret = Configuration["IdentityServer:CredentialIntrospection:ClientSecret"];
+                   options.SaveToken = true;
+                   options.SkipTokensWithDots = true;
+                   options.EnableCaching = instrospecCacheDuration > 0;
+                   options.CacheKeyPrefix = "OAuth2Introspection:";
+                   options.CacheDuration = TimeSpan.FromMinutes(instrospecCacheDuration);
+                   options.DiscoveryPolicy.RequireHttps = false;
+                   options.TokenRetriever = TokenRetrieval.FromAuthorizationHeader();
+               });
+
             services.Configure<ExcelOptions>(Configuration.GetSection("ExcelOptions"));
 
+            services.AddHttpContextAccessor();
             services.AddHealthChecks().AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
             services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
+
+            ConfigRequestLocalization(services);
 
             FanexDataSetting.Setup(Configuration);
 
-            //// Fanex.RemotingRef
             RefDataTypeContainer
             .ConnectTo(new Uri(Configuration["Fanex.RemotingRef.Service.Url"]))
             .FromApplication("Fanex.LAP.ReportAPI");
@@ -52,79 +83,92 @@
             services.AddSingleton<IFileProvider>(x =>
                 new PhysicalFileProvider(HostingEnvironment.ContentRootPath)
                 );
-            SharedServiceDIConfig.Setup(services);
-            BySite.ReportBySiteDIConfig.Setup(services);
-            ByPlayer.ReportByPlayerDIConfig.Setup(services);
 
-            CompositeResolver.RegisterAndSetAsDefault(
-                     //// resolver custom types first
-                     NativeDateTimeResolver.Instance,
-                     //// finally use standard resolver
-                     ContractlessStandardResolver.Instance);
+            services.AddCore()
+                .AddCommon()
+                .AddByPlayerModule()
+                .AddBySiteModule();
+
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                    ForwardedHeaders.XForwardedProto;
-                // Only loopback proxies are allowed by default.
-                // Clear that restriction because forwarders are enabled by explicit
-                // configuration.
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
             });
-            services.AddMvc(option =>
-            {
-                option.OutputFormatters.Add(new MessagePackOutputFormatter());
-                option.InputFormatters.Add(new MessagePackInputFormatter());
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
           
         }
 
-        //// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseForwardedHeaders();
 
-            var dateformat = new DateTimeFormatInfo
-            {
-                ShortDatePattern = "M/d/yyyy",
-                ShortTimePattern = "h:mm tt",
-                LongDatePattern = "MM/dd/yyyy",
-                LongTimePattern = "h:mm:ss tt"
-            };
-            var supportedCultures = new[]
-           {
-                new CultureInfo("en-US"){ DateTimeFormat= dateformat },
-            };
-            var supportedUICultures = new List<CultureInfo>
-            {
-                new CultureInfo("en-US") { DateTimeFormat = dateformat },
-                new CultureInfo("zh-TW") { DateTimeFormat = dateformat },
-                new CultureInfo("zh-CN") { DateTimeFormat = dateformat },
-                new CultureInfo("zh-Hans") { DateTimeFormat = dateformat }
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("en-US"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedUICultures,
-                RequestCultureProviders = new List<IRequestCultureProvider>
-                {
-                    new ApiRequestCultureProvider()
-                },
-            });
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+            if (string.Equals(Configuration["UseErrorHandler"], "1"))
             {
                 app.UseErrorHandler();
             }
-            app.UseCustomHealthCheck();
-            app.UseIPFilter();
-            app.UseCustomApiAuth();
-            app.UseMvc();
+            else
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseHealthCheck();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseRequestLocalization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context => await context.Response.WriteAsync("LAP Report API is running"));
+                endpoints.MapControllers();
+            });
+        }
+
+        private static void ConfigRequestLocalization(IServiceCollection services)
+        {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                const string EnCultureName = "en-US";
+                var enCulture = new CultureInfo(EnCultureName)
+                {
+                    DateTimeFormat = new DateTimeFormatInfo
+                    {
+                        ShortDatePattern = "M/d/yyyy",
+                        ShortTimePattern = "h:mm tt",
+                        LongDatePattern = "MM/dd/yyyy",
+                        LongTimePattern = "h:mm:ss tt"
+                    }
+                };
+
+                options.DefaultRequestCulture = new RequestCulture(EnCultureName);
+                options.SupportedCultures = new List<CultureInfo>
+                {
+                    enCulture
+                };
+                options.SupportedUICultures = new List<CultureInfo>
+                {
+                    enCulture,
+                    new CultureInfo("zh-CN"),
+                    new CultureInfo("zh-Hans"),
+                    new CultureInfo("zh-TW"),
+                };
+
+                var languageCodeMappers = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+                {
+                    { "en", "en-US" },
+                    { "cs", "zh-CN" },
+                    { "zhcn", "zh-Hans" },
+                    { "ch", "zh-TW" },
+                };
+
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new CustomRequestCultureProvider(context =>
+                    {
+                        var culture = languageCodeMappers[context.User.FindFirst("Language")?.Value ?? "en"];
+                        return Task.FromResult(new ProviderCultureResult(culture: EnCultureName, uiCulture: culture));
+                    })
+                };
+            });
         }
     }
 }

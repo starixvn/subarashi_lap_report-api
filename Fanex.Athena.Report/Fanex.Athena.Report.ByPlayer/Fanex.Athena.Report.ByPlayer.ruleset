@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="SonarQube - Sparta / LAP.ReportAPI Nexcel CSharp" ToolsVersion="15.0">
-  <Include Path="..\.sonarlint\sparta_lap.reportapicsharp.ruleset" Action="Default" />
-</RuleSet>

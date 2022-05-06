@@ -68,7 +68,7 @@
 
             // Get the source / new row
             var newRow = sheet.GetRow(destRowIndex);
-            newRow = newRow ?? sheet.CreateRow(destRowIndex);
+            newRow ??= sheet.CreateRow(destRowIndex);
 
             var sourceRow = sourceSheet.GetRow(sourceRowIndex);
             if (sourceRow != null)

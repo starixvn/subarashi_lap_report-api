@@ -2,6 +2,7 @@
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.RemotingRef;
 using System;
+using System.Globalization;
 using System.Threading;
 
 namespace Fanex.Athena.Report.Common.Services
@@ -67,7 +68,7 @@ namespace Fanex.Athena.Report.Common.Services
 
         private static string GetCurrentIBCLanguageCode(string languageCode = null)
         {
-            return string.IsNullOrEmpty(languageCode) ? Thread.CurrentThread.CurrentUICulture.Name : languageCode;
+            return string.IsNullOrEmpty(languageCode) ? CultureInfo.CurrentUICulture.Name : languageCode;
         }
 
         public string GetMatchName(object homeId, object awayId, bool IsNeutral = false)

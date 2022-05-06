@@ -7,12 +7,13 @@
 
     public static class SharedServiceDIConfig
     {
-        public static void Setup(IServiceCollection services)
+        public static IServiceCollection AddCommon(this IServiceCollection services)
         {
             services.AddTransient<IExcelBuilder, ExcelBuilder>();
             services.AddSingleton<IBalanceUpService, BalanceUpService>();
             services.AddSingleton<IFileService, FileService>();
             services.AddSingleton<ICurrencyService, CurrencyService>();
+            return services;
         }
     }
 }
