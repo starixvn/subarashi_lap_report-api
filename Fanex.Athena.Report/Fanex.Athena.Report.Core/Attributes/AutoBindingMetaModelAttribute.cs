@@ -19,11 +19,12 @@ namespace Fanex.Athena.Report.Core.Attributes
         public AutoBindingMetaModelAttribute(
             bool bindAgent = false,
             bool bindPlayerCom = false,
-            bool bindProductOptions = false
+            bool bindProductOptions = false,
+            bool bindProductCodeList = false
             )
             : base(typeof(AutoBindingMetaModelImplAttribute))
         {
-            Arguments = new object[] { bindAgent, bindPlayerCom, bindProductOptions };
+            Arguments = new object[] { bindAgent, bindPlayerCom, bindProductOptions, bindProductCodeList };
         }
     }
 
@@ -37,6 +38,9 @@ namespace Fanex.Athena.Report.Core.Attributes
         private readonly bool _bindAgent;
         private readonly bool _bindProductOptions;
         private readonly bool _bindPlayerCom;
+        private readonly bool _bindProductCodeList;
+
+        private const string ProductSB = "SB";
 
         public AutoBindingMetaModelImplAttribute(
             IMetaModelBindingService bindingService,
@@ -44,7 +48,8 @@ namespace Fanex.Athena.Report.Core.Attributes
             ISubsidiaryService subsidiaryService,
             bool bindAgent,
             bool bindPlayerCom,
-            bool bindProductOptions
+            bool bindProductOptions,
+            bool bindProductCodeList
          )
         {
             _bindingService = bindingService;
@@ -54,6 +59,7 @@ namespace Fanex.Athena.Report.Core.Attributes
             _bindAgent = bindAgent;
             _bindProductOptions = bindProductOptions;
             _bindPlayerCom = bindPlayerCom;
+            _bindProductCodeList = bindProductCodeList;
         }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -71,6 +77,11 @@ namespace Fanex.Athena.Report.Core.Attributes
             if (_bindProductOptions)
             {
                 BindProductOptions(context.ActionArguments, _contextService.OfferedSubProductList);
+            }
+
+            if (_bindProductCodeList)
+            {
+                BindProductCodeList(context.ActionArguments, _contextService.OfferedSubProductList);
             }
 
             await next();
@@ -96,16 +107,29 @@ namespace Fanex.Athena.Report.Core.Attributes
             }
         }
 
+        public static void BindProductCodeList(IDictionary<string, object> actionArguments, IEnumerable<string> offeredSubProducts)
+        {
+            if (MetaModelHelper.IsMetaModel(actionArguments, out IMetaModelProductCodeList metaModelProductCodeList)
+                && !string.IsNullOrEmpty(metaModelProductCodeList.ProductCodeList))
+            {
+                BindProductCodeList(metaModelProductCodeList, offeredSubProducts);
+            }
+        }
+
         private static void BindProductOptions(IProductOptionsMetaModel metaModel, IEnumerable<string> offeredSubProducts)
         {
             metaModel.OriginalProductOptions = metaModel.ProductOptions;
             metaModel.ProductOptions = GetAllowedSubProductOptions(offeredSubProducts, metaModel.ProductOptions);
         }
 
+        public static void BindProductCodeList(IMetaModelProductCodeList metaModel, IEnumerable<string> offeredSubProducts)
+        {
+            metaModel.OriginalProductCodeList = metaModel.ProductCodeList;
+            metaModel.ProductCodeList = GetAllowedProductCodeList(offeredSubProducts, metaModel.ProductCodeList);
+        }
+
         private static IEnumerable<ProductOption> GetAllowedSubProductOptions(IEnumerable<string> offeredSubProductList, IEnumerable<ProductOption> productOptions)
         {
-            const string ProductSB = "SB";
-
             if (!offeredSubProductList.IsPresent() || !productOptions.Any(_ => _.Code == ProductSB && _.Status))
             {
                 return productOptions;
@@ -119,6 +143,16 @@ namespace Fanex.Athena.Report.Core.Attributes
             }));
 
             return newProductOptions;
+        }
+
+        private static string GetAllowedProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes)
+        {
+            if (!offeredSubProductList.IsPresent() || !(productCodes?.Split(',')).IsPresent(_ => _ == ProductSB))
+            {
+                return productCodes;
+            }
+
+            return productCodes + "," + string.Join(",", offeredSubProductList);
         }
     }
 }

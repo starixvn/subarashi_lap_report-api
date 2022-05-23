@@ -2,6 +2,8 @@
 {
     public static class SportType
     {
+        public const int SportsLottery = 169;
+
         public const int BitCoin = 175;
 
         public const int Soccer = 1;

@@ -31,8 +31,8 @@
                     JsonConvert.SerializeObject(
                     new
                     {
-                        State = "Internal Server Error",
-                        Msg = error.Error.Message
+                        Msg = "Internal Server Error",
+                        Code = HttpStatusCode.InternalServerError
                     }));
             }
             else
@@ -61,8 +61,7 @@
 
             var result = JsonConvert.SerializeObject(new
             {
-                State = "Internal Server Error",
-                Msg = ex.Message,
+                Msg = "Internal Server Error",
                 Code = HttpStatusCode.InternalServerError
             });
 

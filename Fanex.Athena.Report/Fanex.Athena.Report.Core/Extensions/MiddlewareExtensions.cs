@@ -17,9 +17,21 @@
             return builder.UseMiddleware<ErrorHandler>();
         }
 
-        public static IApplicationBuilder UseHealthCheck(this IApplicationBuilder builder)
+        public static void UsePing(this IApplicationBuilder app)
         {
-            return builder.UseHealthChecks("/health", new HealthCheckOptions
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path.StartsWithSegments("/health"))
+                {
+                    return;
+                }
+                await next();
+            });
+        }
+
+        public static IApplicationBuilder UseWhoAmICheck(this IApplicationBuilder builder)
+        {
+            return builder.UseHealthChecks("/whoami", new HealthCheckOptions
             {
                 AllowCachingResponses = false,
                 Predicate = _ => true,
@@ -35,7 +47,7 @@
                     context.Response.ContentType = MediaTypeNames.Application.Json;
                     await context.Response.WriteAsync(result);
                 }
-        });
+            });
         }
     }
 }

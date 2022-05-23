@@ -479,4 +479,7 @@
   <data name="BasketballPinGoal" xml:space="preserve">
     <value>篮球台</value>
   </data>
+  <data name="BTC" xml:space="preserve">
+    <value>比特币</value>
+  </data>
 </root>

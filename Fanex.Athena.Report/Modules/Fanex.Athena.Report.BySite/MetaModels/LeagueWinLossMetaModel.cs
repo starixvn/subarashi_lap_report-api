@@ -1,11 +1,11 @@
-﻿using Fanex.Core.Utils;
+﻿using Fanex.Athena.Report.Common.Model.MetaModels;
+using Fanex.Core.Utils;
 using System.ComponentModel;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class LeagueWinLossMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel
+    public class LeagueWinLossMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, IMetaModelProductCodeList
     {
-
         public int LeagueId { get; set; }
 
         public int MatchId { get; set; }
@@ -17,6 +17,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public string MatchName { get; set; } = string.Empty;
 
         public string ProductCodeList { get; set; }
+
+        public string OriginalProductCodeList { get; set; }
 
         public bool ShowBA { get; set; }
 

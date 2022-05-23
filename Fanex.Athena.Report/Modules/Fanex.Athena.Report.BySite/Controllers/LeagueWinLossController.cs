@@ -18,7 +18,7 @@
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.LeagueWinLoss)]
     [RequestValidation(validateCurrencyList: true)]
-    [AutoBindingMetaModel(bindAgent: true)]
+    [AutoBindingMetaModel(bindAgent: true, bindProductCodeList: true)]
     public class LeagueWinLossController : ControllerBase
     {
         private readonly ILeagueWinLossService _service;
