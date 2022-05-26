@@ -23,19 +23,23 @@
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private const int Parlay = 0;
         private const int Outright = 2;
+        private const int SportsLottery = -63;
+        private const int BitCoin = -69;
         private const string BetTypeListColumn = "betTypeList";
         private const string BalanceUpDayColumn = "balanceupday";
         private const string MatchIdColumn = "matchId";
         private const string EventTypeColumn = "eventType";
 
-        private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
+        public static readonly IEnumerable<int> ProductDirectToCurrency = new[] { SportsLottery, BitCoin };
+
+        private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new()
         {
-            Tuple.Create( SportType.SabaSoccer, SportType.Soccer, "" ),
-            Tuple.Create( SportType.SabaSoccerPingoal, 0, ViewResources.SoccerPinGoal),
-            Tuple.Create( SportType.SabaBasketball, SportType.BasketBall, "" ),
-            Tuple.Create( SportType.SabaBasketballPinGoal, 0, ViewResources.BasketballPinGoal),
-            Tuple.Create( SportType.SabaCricket, SportType.Cricket, "" ),
-            Tuple.Create( SportType.SabaFutsal, SportType.Futsal, "" )
+            Tuple.Create(SportType.SabaSoccer, SportType.Soccer, ""),
+            Tuple.Create(SportType.SabaSoccerPingoal, 0, ViewResources.SoccerPinGoal),
+            Tuple.Create(SportType.SabaBasketball, SportType.BasketBall, ""),
+            Tuple.Create(SportType.SabaBasketballPinGoal, 0, ViewResources.BasketballPinGoal),
+            Tuple.Create(SportType.SabaCricket, SportType.Cricket, ""),
+            Tuple.Create(SportType.SabaFutsal, SportType.Futsal, "")
         };
 
         public LeagueWinLossRepository(
@@ -93,7 +97,8 @@
         private void BuildSportTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList)
         {
             var sportList = data.Where(_ => _.SportType >= 0).Select(_ => _.SportType).Distinct().OrderBy(_ => _).ToList();
-            sportList.AddRange(data.Where(_ => _.SportType < 0).OrderByDescending(_ => _.SportType).Select(_ => _.SportType).Distinct().ToList());
+            sportList.AddRange(data.Where(_ => ProductDirectToCurrency.Contains(_.SportType)).OrderBy(_ => _.SportType).Select(_ => _.SportType).Distinct().ToList());
+            sportList.AddRange(data.Where(_ => _.SportType < 0 && !ProductDirectToCurrency.Contains(_.SportType)).OrderByDescending(_ => _.SportType).Select(_ => _.SportType).Distinct().ToList());
             var index = 1;
 
             foreach (var sport in sportList)
@@ -105,7 +110,7 @@
                 sportData.SportName = GetSportName(sport);
                 sportData.Index = index++;
                 sportData.Detail = sportDetail;
-                if (sport == Parlay)
+                if (sport == Parlay || ProductDirectToCurrency.Contains(sport))
                 {
                     sportData.IsDirectToCurrency = true;
                     sportData.IsBreakdown = false;
@@ -121,6 +126,10 @@
             {
                 return ViewResources.Parlay;
             }
+            else if (ProductDirectToCurrency.Contains(sport))
+            {
+                return GetProductName(sport);
+            }
             else if (sport > 0)
             {
                 return _cacheRefAdapter.GetSportName(sport);
@@ -129,6 +138,21 @@
             {
                 var sabaSport = sport < 0 ? SabaVirtualSports.Find(_ => _.Item1 == sport).Item3 : _cacheRefAdapter.GetSportName(SabaVirtualSports.Find(_ => _.Item1 == sport).Item2);
                 return ViewResources.Saba + (sabaSport);
+            }
+        }
+
+        private static string GetProductName(int product)
+        {
+            switch (product)
+            {
+                case BitCoin:
+                    return ViewResources.BTC;
+
+                case SportsLottery:
+                    return ViewResources.SLT;
+
+                default:
+                    return string.Empty;
             }
         }
 
@@ -164,7 +188,7 @@
 
                 var item = new LeagueWinLoss
                 {
-                    SportType = sportType,
+                    SportType = ProductDirectToCurrency.Contains(leagueId) ? leagueId : sportType,
                     LeagueId = leagueId,
                     LeagueName = GetLeagueName(leagueId, sportType)
                 };

@@ -100,6 +100,7 @@
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UsePing();
             app.UseForwardedHeaders();
 
             if (string.Equals(Configuration["UseErrorHandler"], "1"))
@@ -111,7 +112,7 @@
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHealthCheck();
+            app.UseWhoAmICheck();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
