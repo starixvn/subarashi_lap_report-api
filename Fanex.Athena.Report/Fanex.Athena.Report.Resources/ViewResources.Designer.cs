@@ -529,6 +529,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FGG.
+        /// </summary>
+        public static string FGGL {
+            get {
+                return ResourceManager.GetString("FGGL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Free Bets.
         /// </summary>
         public static string FreeBets {

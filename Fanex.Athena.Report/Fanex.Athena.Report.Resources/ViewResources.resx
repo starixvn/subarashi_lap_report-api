@@ -573,4 +573,7 @@
   <data name="VS3" xml:space="preserve">
     <value>Virtual Sports 3</value>
   </data>
+  <data name="FGGL" xml:space="preserve">
+    <value>FGG</value>
+  </data>
 </root>
