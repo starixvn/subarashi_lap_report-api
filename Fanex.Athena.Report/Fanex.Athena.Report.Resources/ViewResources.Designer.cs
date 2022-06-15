@@ -250,6 +250,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bitcoin.
+        /// </summary>
+        public static string BTC {
+            get {
+                return ResourceManager.GetString("BTC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash Out Win Loss.
         /// </summary>
         public static string CashOutWinLoss {
@@ -258,15 +267,6 @@ namespace Fanex.Athena.Report.Resources {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Bitcoin.
-        /// </summary>
-        public static string BTC {
-            get {
-                return ResourceManager.GetString("BTC", resourceCulture);
-            }
-        }
-       
         /// <summary>
         ///   Looks up a localized string similar to Arcadia Gaming.
         /// </summary>
@@ -750,6 +750,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string MobileStandard {
             get {
                 return ResourceManager.GetString("MobileStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MaxGame.
+        /// </summary>
+        public static string MXG {
+            get {
+                return ResourceManager.GetString("MXG", resourceCulture);
             }
         }
         
