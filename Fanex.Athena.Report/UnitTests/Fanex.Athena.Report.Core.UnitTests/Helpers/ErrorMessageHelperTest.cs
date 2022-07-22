@@ -1,0 +1,25 @@
+﻿using Fanex.Athena.Report.Core.Helpers;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Fanex.Athena.Report.Core.UnitTests.Helpers
+{
+    public class ErrorMessageHelperTest
+    {
+        [Fact]
+        public void GenerateMessage_WebException_BuildMessage()
+        {
+            var context = new DefaultHttpContext();
+            var exception = new NullReferenceException();
+
+            var result = ErrorMessageHelper.GenerateMessage(context.HttpContext, exception);
+
+            Assert.Equal($"ErrMsg: {exception.Message}", result.Substring(0, result.IndexOf(Environment.NewLine)));
+        }
+    }
+}
