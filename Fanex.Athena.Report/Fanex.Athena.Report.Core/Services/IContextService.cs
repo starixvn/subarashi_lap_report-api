@@ -5,6 +5,7 @@ namespace Fanex.Athena.Report.Core.Services
     public interface IContextService
     {
         string SiteName { get; }
+        string SiteDBServer { get; }
         IReadOnlyDictionary<int, int[]> AgentList { get; }
         IReadOnlyDictionary<int, string> CurrencyList { get; }
         bool IsAllowedCustomerComm { get; }
@@ -14,5 +15,6 @@ namespace Fanex.Athena.Report.Core.Services
         byte SubsidiaryViewType { get; }
         IEnumerable<string> OfferedSubProductList { get; }
         bool IsInRoles(params string[] roles);
+        bool ForceIgnoreSharding { get; }
     }
 }

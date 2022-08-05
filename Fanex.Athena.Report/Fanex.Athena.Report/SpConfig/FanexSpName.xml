@@ -8,7 +8,7 @@
     <Setting Key="Lrf_Rpt_PlatformWinloss" SpName="Lrf_Rpt_PlatformWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PlatformWinlossDetail" SpName="Lrf_Rpt_PlatformWinlossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
 
-    <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Shard_Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_Audit_DailyBets" SpName="Lrf_Rpt_Audit_DailyBets" DbName="DBPLO.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_Audit_DailyBets_Total" SpName="Lrf_Rpt_Audit_DailyBets_Total" DbName="DBPLO.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PromotionPrize" SpName="Lrf_Rpt_PromotionPrize" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -38,4 +38,7 @@
   <Function Name="SiteConfig">
     <Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.bodbLicenseeNet" />
   </Function>
+  <SiteDB>
+    <Setting Key="SiteDB_Lrf_Rpt_WinLoss" SpName="SiteDB_Lrf_Rpt_WinLoss_xtest" DbName="DBSID.bodb02.bodbLicenseeNet" />
+  </SiteDB>
 </Functions>

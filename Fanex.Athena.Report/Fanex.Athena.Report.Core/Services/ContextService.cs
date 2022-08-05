@@ -31,6 +31,8 @@ namespace Fanex.Athena.Report.Core.Services
 
         public bool IsFakeLicensee => GetClaimValue<bool>("IsFakeLicensee");
 
+        public string SiteDBServer => GetClaimValue("SiteDBServer");
+
         public IEnumerable<string> OfferedSubProductList
         {
             get
@@ -128,6 +130,8 @@ namespace Fanex.Athena.Report.Core.Services
                 return _rawCurrencyAgentList;
             }
         }
+
+        public bool ForceIgnoreSharding => bool.TrueString.Equals(Context.Request.Headers["X-IgnoreSharding"], StringComparison.OrdinalIgnoreCase);
 
         private T GetClaimValue<T>(string claimType)
             => (T)Convert.ChangeType(GetClaimValue(claimType), typeof(T));

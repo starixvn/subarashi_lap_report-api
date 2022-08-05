@@ -28,7 +28,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
 
         public async Task<ResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel, bool checkPromotionPrize = false)
         {
-            const string UspName = "Lrf_Rpt_WinLoss";
+            const string UspName = "Shard_Lrf_Rpt_WinLoss";
 
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
