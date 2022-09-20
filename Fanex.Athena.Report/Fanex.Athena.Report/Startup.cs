@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.ByPlayer;
     using Fanex.Athena.Report.BySite;
@@ -12,6 +13,9 @@
     using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Athena.Report.Core.ModelBinding;
+    using Fanex.Athena.Report.Core.Services;
+    using Fanex.Data;
+    using Fanex.Data.SqlServer;
     using Fanex.RemotingRef;
     using IdentityModel.AspNetCore.OAuth2Introspection;
     using Microsoft.AspNetCore.Authorization;
@@ -72,8 +76,7 @@
             services.AddDistributedMemoryCache();
 
             ConfigRequestLocalization(services);
-
-            FanexDataSetting.Setup(Configuration);
+            ConfigFanexData(services);
 
             RefDataTypeContainer
             .ConnectTo(new Uri(Configuration["Fanex.RemotingRef.Service.Url"]))
@@ -96,6 +99,24 @@
                 options.KnownProxies.Clear();
             });
           
+        }
+
+        private void ConfigFanexData(IServiceCollection services)
+        {
+            var listConnectionName = Configuration.GetSection("ConnectionStrings").GetChildren().Select(_ => _.Key);
+            var connectionStrings = new Dictionary<string, ConnectionConfiguration>(listConnectionName
+                .Select(connectionName => new KeyValuePair<string, ConnectionConfiguration>(connectionName,
+                    new ConnectionConfiguration(connectionName, Configuration.GetConnectionString(connectionName)))
+                ));
+
+            DbSettingProviderManager
+                .StartNewSession()
+                .WithSqlServer()
+                .Use(connectionStrings)
+                .Use(new ShardDbSettingProvider(new ShardInfoAccessor(
+                    new ContextService(services.BuildServiceProvider().GetRequiredService<IHttpContextAccessor>())),
+                    resourcePath: "~/SpConfig/FanexSpName.xml"))
+                .Run();
         }
 
         public void Configure(IApplicationBuilder app)
