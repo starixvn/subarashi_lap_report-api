@@ -23,5 +23,8 @@
         public const int BDT = -9;
 
         public const int INR = -10;
+
+        // crypto currencies
+        public const int USDT = -99;
     }
 }
