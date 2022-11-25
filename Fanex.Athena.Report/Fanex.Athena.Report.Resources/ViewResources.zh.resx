@@ -482,4 +482,7 @@
   <data name="BTC" xml:space="preserve">
     <value>比特币</value>
   </data>
+  <data name="TIP" xml:space="preserve">
+    <value>玩家打赏</value>
+  </data>
 </root>
