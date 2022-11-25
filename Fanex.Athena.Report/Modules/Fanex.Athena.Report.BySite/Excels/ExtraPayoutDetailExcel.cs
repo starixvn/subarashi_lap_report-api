@@ -27,7 +27,7 @@
         private const int ColumnLicSharingAmount = 7;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 7;
+        private const int ColumnTemplateCount = 8;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
