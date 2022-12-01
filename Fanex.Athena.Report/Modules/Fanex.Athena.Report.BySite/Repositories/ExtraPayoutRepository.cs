@@ -46,9 +46,9 @@
             { ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
             { ExtraPayoutMapType.PayoutSGJackpotPrize, BetType.SGJackpotPrize },
             { ExtraPayoutMapType.PayoutSGJackpotContribution, BetType.SGJackpotContribution },
-            { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion }
+            { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion },
+            { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips }
         };
-
 
         public ExtraPayoutRepository(
             IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, IContextService contextService)

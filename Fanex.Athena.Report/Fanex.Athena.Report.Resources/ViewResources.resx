@@ -579,4 +579,7 @@
   <data name="MXG" xml:space="preserve">
     <value>MaxGame</value>
   </data>
+  <data name="TIP" xml:space="preserve">
+    <value>Player Tips</value>
+  </data>
 </root>
