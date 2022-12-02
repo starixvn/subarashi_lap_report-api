@@ -125,14 +125,14 @@
             {
                 var row = _builder.CopyRow(sheet, templateSheet, RowContentTemplate, index + RowContentTemplate);
                 row.Cells[ColumnIndex].SetCellValue(++index);
-                AssignCellData(row, item);
+                AssignCellData(row, item, true);
             }
 
             AssignTotalCurrency(sheet, templateSheet, data, index + RowContentTemplate);
             AssignGrandTotal(sheet, templateSheet, data, index + RowContentTemplate + data.TotalDataList.Count());
         }
 
-        private static void AssignCellData(IRow row, ExtraPayout item)
+        private static void AssignCellData(IRow row, ExtraPayout item, bool hideLicSharingAmountForTip = false)
         {
             row.Cells[ColumnDate].SetCellValue(item.DateString);
             row.Cells[ColumnExternalId].SetCellValue(item.Nickname);
@@ -143,21 +143,32 @@
             row.Cells[ColumnTurnOver].SetCellValue((double)item.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(item.BetCount);
             row.Cells[ColumnCustomerAmount].SetCellValue((double)item.Amount);
-            row.Cells[ColumnLicSharingAmount].SetCellValue((double)item.SharingAmount);
+            if (item.ProductCode == Product.TIP && hideLicSharingAmountForTip)
+            {
+                row.Cells[ColumnLicSharingAmount].SetCellValue("-");
+            }
+            else
+            {
+                row.Cells[ColumnLicSharingAmount].SetCellValue((double)item.SharingAmount);
+            }
         }
 
         private void AssignTotalCurrency(ISheet sheet, ISheet templateSheet, SortableReportResultModel<ExtraPayout> data, int index)
         {
+            var beginIndex = index;
+
             foreach (var item in data.TotalDataList)
             {
-                var row = _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate, index);
+                var row = index == beginIndex ? _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate, index)
+                    : _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate + 1, index);
                 AssignCellData(row, item);
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
                 row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
-                _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnIndex, lastCol: ColumnSystemId);
                 _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnCurrency, lastCol: ColumnPromotionType);
                 index++;
             }
+
+            _builder.MergeCells(sheet, firstRow: beginIndex, lastRow: index - 1, firstCol: ColumnIndex, lastCol: ColumnSystemId);
         }
 
         private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, SortableReportResultModel<ExtraPayout> data, int index)

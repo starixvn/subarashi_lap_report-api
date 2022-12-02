@@ -66,7 +66,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
             // Assert
             _excelBuilder.Verify(ex => ex.SetRowValue(_sheet.Object, _templateSheet.Object,
-                RowTitleTemplate, RowTitleTemplate, 7, reportTitle), Times.Once);
+                RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle), Times.Once);
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
             // Assert
             _excelBuilder.Verify(ex => ex.SetRowValue(_sheet.Object, _templateSheet.Object,
-                RowNoInfoTemplate, RowContentTemplate, 7, ViewResources.NoInfo), Times.Once);
+                RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo), Times.Once);
         }
 
         [Fact]
