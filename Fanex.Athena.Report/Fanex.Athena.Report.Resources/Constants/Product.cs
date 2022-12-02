@@ -27,5 +27,7 @@
         public const string VGAC = "VGAC";
 
         public const string VGA = "VGA";
+
+        public const string TIP = "TIP";
     }
 }
