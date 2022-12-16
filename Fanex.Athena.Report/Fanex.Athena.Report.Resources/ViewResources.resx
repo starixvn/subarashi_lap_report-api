@@ -582,4 +582,7 @@
   <data name="TIP" xml:space="preserve">
     <value>Player Tips</value>
   </data>
+  <data name="ESportsPinGoal" xml:space="preserve">
+    <value>E-Sports PinGoal</value>
+  </data>
 </root>

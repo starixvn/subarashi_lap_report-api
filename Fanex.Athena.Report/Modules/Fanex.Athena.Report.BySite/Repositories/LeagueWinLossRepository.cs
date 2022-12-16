@@ -5,7 +5,6 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -31,16 +30,6 @@
         private const string EventTypeColumn = "eventType";
 
         public static readonly IEnumerable<int> ProductDirectToCurrency = new[] { SportsLottery, BitCoin };
-
-        private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new()
-        {
-            Tuple.Create(SportType.SabaSoccer, SportType.Soccer, ""),
-            Tuple.Create(SportType.SabaSoccerPingoal, 0, ViewResources.SoccerPinGoal),
-            Tuple.Create(SportType.SabaBasketball, SportType.BasketBall, ""),
-            Tuple.Create(SportType.SabaBasketballPinGoal, 0, ViewResources.BasketballPinGoal),
-            Tuple.Create(SportType.SabaCricket, SportType.Cricket, ""),
-            Tuple.Create(SportType.SabaFutsal, SportType.Futsal, "")
-        };
 
         public LeagueWinLossRepository(
             IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter)
@@ -136,8 +125,10 @@
             }
             else
             {
-                var sabaSport = sport < 0 ? SabaVirtualSports.Find(_ => _.Item1 == sport).Item3 : _cacheRefAdapter.GetSportName(SabaVirtualSports.Find(_ => _.Item1 == sport).Item2);
-                return ViewResources.Saba + (sabaSport);
+                var sabaSport = SportType.GetSabaVirtualSports().Find(_ => _.Item1 == sport);
+
+                var sabaSportName = sabaSport.Item2 != 0 ? _cacheRefAdapter.GetSportName(sabaSport.Item2) : sabaSport.Item3;
+                return ViewResources.Saba + (sabaSportName);
             }
         }
 
