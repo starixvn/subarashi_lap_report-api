@@ -11,6 +11,7 @@
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Core.Attributes;
     using Fanex.Athena.Report.Core.Constants;
+    using Fanex.Athena.Report.Core.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
 
@@ -45,9 +46,11 @@
             [FromServices] INewCashOutWinLossService service,
             [FromServices] IFileProvider file,
             [FromServices] INewCashOutWinLossExcel excel,
+            [FromServices] IContextService contextService,
+            [FromServices] ILicenseeService licenseeService,
             [FromBody] NewCashOutWinLossMetaModel metaModel)
         {
-            metaModel.IsExportExcel = true;
+            metaModel.IsAllowedBA = contextService.IsEnableBA && (await licenseeService.CheckProductPermission(contextService.SiteName, ProductTypes.BA));
             var template = file.GetFileInfo("/ExcelTemplate/NewCashOutWinLoss.xls").PhysicalPath;
             var result = await service.GetDataAsync(metaModel);
             var fileContent = excel.Export(template, result, metaModel);
