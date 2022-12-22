@@ -1,4 +1,7 @@
-﻿namespace Fanex.Athena.Report.Resources.Constants
+﻿using System;
+using System.Collections.Generic;
+
+namespace Fanex.Athena.Report.Resources.Constants
 {
     public static class SportType
     {
@@ -25,5 +28,23 @@
         public const int SabaSoccerPingoal = -5;
 
         public const int SabaBasketballPinGoal = -6;
+
+        public const int SabaESportsPinGoal = -7;
+
+        private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
+        {
+            Tuple.Create(SabaSoccer, Soccer, ""),
+            Tuple.Create(SabaSoccerPingoal, 0, ViewResources.SoccerPinGoal),
+            Tuple.Create(SabaBasketball, BasketBall, ""),
+            Tuple.Create(SabaBasketballPinGoal, 0, ViewResources.BasketballPinGoal),
+            Tuple.Create(SabaCricket, Cricket, ""),
+            Tuple.Create(SabaFutsal, Futsal, ""),
+            Tuple.Create(SabaESportsPinGoal, 0, ViewResources.ESportsPinGoal)
+        };
+
+        public static List<Tuple<int, int, string>> GetSabaVirtualSports()
+        {
+            return SabaVirtualSports;
+        }
     }
 }
