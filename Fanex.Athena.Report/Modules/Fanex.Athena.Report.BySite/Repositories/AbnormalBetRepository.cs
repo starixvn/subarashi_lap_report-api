@@ -301,9 +301,11 @@
             else
             {
                 var sabaVirtualSports = SportType.GetSabaVirtualSports();
-                var sportNameId = sabaVirtualSports.Find(_ => _.Item1 == sport).Item2;
+                var sabaSport = sabaVirtualSports.Find(_ => _.Item1 == sport);
 
-                var sabaSportName = sportNameId != 0 ? _cacheRefAdapter.GetSportName(sportNameId) : sabaVirtualSports.Find(_ => _.Item1 == sport).Item3;
+                var sabaSportName = sabaSport.Item2 != 0
+                    ? _cacheRefAdapter.GetSportName(sabaSport.Item2)
+                    : ViewResources.ResourceManager.GetString(sabaSport.Item3);
 
                 return ViewResources.Saba + (sabaSportName);
             }
