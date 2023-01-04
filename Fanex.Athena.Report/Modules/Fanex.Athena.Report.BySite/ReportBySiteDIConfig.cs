@@ -8,6 +8,10 @@
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Common.Services;
     using Fanex.Athena.Report.Common.Services.Interfaces;
+    using Fanex.Core.Utils.Repository;
+    using Fanex.Core.Utils.Repository.Interfaces;
+    using Fanex.Core.Utils.Service;
+    using Fanex.Core.Utils.Service.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ReportBySiteDIConfig
@@ -34,6 +38,14 @@
             services.AddTransient<INewCashOutWinLossRepository, NewCashOutWinLossRepository>();
             services.AddTransient<INewCashOutWinLossService, NewCashOutWinLossService>();
             services.AddTransient<INewCashOutWinLossExcel, NewCashOutWinLossExcel>();
+            services.AddTransient<IAbnormalBetRepository, AbnormalBetRepository>();
+            services.AddTransient<IAbnormalBetService, AbnormalBetService>();
+            services.AddTransient<IIpRepository, IpRepository>();
+            services.AddTransient<IIpService, IpService>();
+            services.AddTransient<ISubIssueService, SubIssueService>();
+            services.AddTransient<IAbnormalBetSummaryExcel, AbnormalBetSummaryExcel>();
+            services.AddTransient<IAbnormalBetIpSummaryExcel, AbnormalBetIpSummaryExcel>();
+            services.AddTransient<IAbnormalBetDetailExcel, AbnormalBetDetailExcel>();
 
             return services;
         }

@@ -585,4 +585,79 @@
   <data name="ESportsPinGoal" xml:space="preserve">
     <value>E-Sports PinGoal</value>
   </data>
+  <data name="Live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="MixLiveAndNoneLive" xml:space="preserve">
+    <value>Mix Live &amp;amp; Non-Live</value>
+  </data>
+  <data name="NoneLive" xml:space="preserve">
+    <value>Non-Live</value>
+  </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>Abnormal Bet</value>
+  </data>
+  <data name="Away" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="Choice" xml:space="preserve">
+    <value>Choice</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="FinalScore" xml:space="preserve">
+    <value>Final Score</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IpSummary" xml:space="preserve">
+    <value>IP Summary</value>
+  </data>
+  <data name="KOTime" xml:space="preserve">
+    <value>K.O Time</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>Last Login</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Over" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="Ticket" xml:space="preserve">
+    <value>Ticket</value>
+  </data>
+  <data name="Under" xml:space="preserve">
+    <value>Under</value>
+  </data>
+  <data name="HDP" xml:space="preserve">
+    <value>HDP</value>
+  </data>
+  <data name="Odds" xml:space="preserve">
+    <value>Odds</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="ViewinDetail" xml:space="preserve">
+    <value>View in Detail</value>
+  </data>
+  <data name="ViewinIPSummary" xml:space="preserve">
+    <value>View in IP Summary</value>
+  </data>
+  <data name="ViewinSummary" xml:space="preserve">
+    <value>View in Summary</value>
+  </data>
 </root>

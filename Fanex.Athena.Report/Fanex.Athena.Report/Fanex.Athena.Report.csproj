@@ -74,6 +74,15 @@
 	<Content Include="ExcelTemplate\NewCashOutWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+	<Content Include="ExcelTemplate\AbnormalBetDetail.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\AbnormalBetIpSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\AbnormalBetSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
 	<Content Include="SpConfig\FanexSpName.UAT_2.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>

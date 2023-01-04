@@ -3,6 +3,8 @@
   <Function Name="Common">
     <Setting Key="Lrf_SelBalanceUpDay" SpName="Lrf_SelBalanceUpDay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CheckBelonging_ValidateProduct" SpName="Lrf_CheckBelonging_ValidateProduct" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_GetAllIPVN" SpName="Lrf_GetAllIPVN" DbName="DBCUST.IPDB.bodbLicenseeNet" />
+    <Setting Key="Acc_GetIPInfo_Full" SpName="Acc_GetIPInfo_Full" DbName="DBCUST.IPDB.bodbLicenseeNet" />
   </Function>
   <Function Name="Report">
     <Setting Key="Lrf_Rpt_PlatformWinloss" SpName="Lrf_Rpt_PlatformWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -34,6 +36,11 @@
 
     <Setting Key="Lrf_Rpt_CashOut" SpName="Lrf_Rpt_CashOut" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_CashOut_Mem" SpName="Lrf_Rpt_CashOut_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+
+    <Setting Key="Lrf_Rpt_AbnormalBet_Detail" SpName="Lrf_Rpt_AbnormalBet_Detail" DbName="DBWH.bodb_DWRS.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_AbnormalBet_IPSummary" SpName="Lrf_Rpt_AbnormalBet_IPSummary" DbName="DBWH.bodb_DWRS.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_AbnormalBet_Summary" SpName="Lrf_Rpt_AbnormalBet_Summary" DbName="DBWH.bodb_DWRS.bodbLicenseeNet" />
+    <Setting Key="Lrf_AbnormalBet_SubIssueSel" SpName="Lrf_AbnormalBet_SubIssueSel" DbName="DBWH.bodb_DWRS.bodbLicenseeNet" />
   </Function>
   <Function Name="SiteConfig">
     <Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.bodbLicenseeNet" />

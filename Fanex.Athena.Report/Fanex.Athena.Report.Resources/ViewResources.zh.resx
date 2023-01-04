@@ -488,4 +488,76 @@
   <data name="ESportsPinGoal" xml:space="preserve">
     <value>电竞台</value>
   </data>
+  <data name="Live" xml:space="preserve">
+    <value>滚球(不含混合)</value>
+  </data>
+  <data name="MixLiveAndNoneLive" xml:space="preserve">
+    <value>混合过关</value>
+  </data>
+  <data name="NoneLive" xml:space="preserve">
+    <value>非滚球(不含混合)</value>
+  </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>非正规注单</value>
+  </data>
+  <data name="Away" xml:space="preserve">
+    <value>客</value>
+  </data>
+  <data name="Choice" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>主</value>
+  </data>
+  <data name="IpSummary" xml:space="preserve">
+    <value>IP摘要</value>
+  </data>
+  <data name="KOTime" xml:space="preserve">
+    <value>开赛时间</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>上次登录</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>地点</value>
+  </data>
+  <data name="Over" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>摘要</value>
+  </data>
+  <data name="Ticket" xml:space="preserve">
+    <value>注单</value>
+  </data>
+  <data name="Under" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="Odds" xml:space="preserve">
+    <value>赔率</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>比分</value>
+  </data>
+  <data name="FinalScore" xml:space="preserve">
+    <value>最后比分</value>
+  </data>
+  <data name="ViewinDetail" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
+  <data name="ViewinIPSummary" xml:space="preserve">
+    <value>查看 IP 摘要</value>
+  </data>
+  <data name="ViewinSummary" xml:space="preserve">
+    <value>查看摘要</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>投注额</value>
+  </data>
 </root>

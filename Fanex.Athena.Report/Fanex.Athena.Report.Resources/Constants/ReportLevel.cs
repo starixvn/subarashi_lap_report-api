@@ -21,4 +21,13 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         Bettype = 2,
     }
+
+    public enum AbnormalBetViewInLevel
+    {
+        Summary = 0,
+
+        IpSummary = 1,
+
+        Detail = 2,
+    }
 }
