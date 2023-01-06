@@ -1,9 +1,7 @@
 ﻿using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
 using Fanex.RemotingRef;
 using System;
 using System.Globalization;
-using System.Threading;
 
 namespace Fanex.Athena.Report.Common.Services
 {

@@ -10,6 +10,7 @@
         public const string CustomerBalance = "CustomerBalance40";
         public const string GodOfFortuneWinLoss = "GodOfFortuneWinLoss";
         public const string LeagueWinLoss = "LeagueWinLoss";
+        public const string AbnormalBet = "AbnormalBet";
         public const string DailyBets = "DailyBets81";
         public const string NewCashOutWinLoss = "NewCashOutWinLoss";
         public const string PlatformWinLoss = "MobileWinLoss53";
