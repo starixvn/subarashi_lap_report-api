@@ -213,6 +213,12 @@
             {
                 _builder.HideColumn(sheet, ColumnDate);
             }
+
+            if (!metaModel.IsAllowedBA)
+            {
+                _builder.HideColumn(sheet, ColumnBaComm);
+                _builder.HideColumn(sheet, ColumnAmtDueToBA);
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Core.Services;
 using Microsoft.Extensions.FileProviders;
 using Moq;
 using Newtonsoft.Json;
@@ -96,10 +97,19 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedFileContent = _fixture.Create<byte[]>();
             excelService.Setup(e => e.Export(PhysicalPath, expectedData, metaModel)).Returns(expectedFileContent);
 
+            var contextService = new Mock<IContextService>();
+            var licenseeService = new Mock<ILicenseeService>();
+
             var controller = new NewCashOutWinLossController();
 
             // Assert
-            var result = await controller.ExportExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);
+            var result = await controller.ExportExcel(
+                service.Object,
+                fileProvider.Object,
+                excelService.Object,
+                contextService.Object,
+                licenseeService.Object,
+                metaModel);
 
             // Assert
             Assert.Equal("application/octet-stream", result.ContentType);

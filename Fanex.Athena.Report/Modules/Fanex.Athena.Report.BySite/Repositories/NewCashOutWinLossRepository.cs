@@ -113,6 +113,7 @@
         private static void UpdateSpCommonParamsAsync(IObjectDb db, NewCashOutWinLossMetaModel metaModel, DateTime moveBetsDay)
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("SportTypeList", metaModel.SportIdList);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency.ToUpperInvariant());
             db.SetParameterValue("fromdate", metaModel.DrillDownLevel == (int)ReportLevel.Main ? metaModel.FromDate.Date : metaModel.DrillDownFromDate.Date);
             db.SetParameterValue("todate", metaModel.DrillDownLevel == (int)ReportLevel.Main ? metaModel.ToDate.Date : metaModel.DrillDownToDate.Date);
