@@ -660,4 +660,7 @@
   <data name="ViewinSummary" xml:space="preserve">
     <value>View in Summary</value>
   </data>
+  <data name="JIG" xml:space="preserve">
+    <value>Jili</value>
+  </data>
 </root>
