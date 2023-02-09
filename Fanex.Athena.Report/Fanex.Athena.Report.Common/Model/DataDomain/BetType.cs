@@ -42,6 +42,8 @@
 
         public const int SGJackpotContribution = 4599;
 
+        public const int SGPromotion = 4598;
+
         public const int AllbetPromotion = 2499;
 
         public const int TIPStreamerTips = 8700;
