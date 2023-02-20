@@ -42,6 +42,8 @@
 
         public const int PayoutSGJackpotContribution = 3602;
 
+        public const int PayoutSGPromotion = 3603;
+
         public const int PayoutAllbetPromotion = 2101;
 
         public const int PayoutStreamerTips = 7401;

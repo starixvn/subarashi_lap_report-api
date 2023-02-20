@@ -46,6 +46,7 @@
             { ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
             { ExtraPayoutMapType.PayoutSGJackpotPrize, BetType.SGJackpotPrize },
             { ExtraPayoutMapType.PayoutSGJackpotContribution, BetType.SGJackpotContribution },
+            { ExtraPayoutMapType.PayoutSGPromotion, BetType.SGPromotion },
             { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion },
             { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips }
         };
