@@ -1,4 +1,4 @@
-FROM registry.nexdev.net:5050/docker/dotnet/core/sdk:2.2 AS builder
+FROM hub.nexdev.net/base/dotnet/core/sdk:2.2 AS builder
 
 WORKDIR /src
 
@@ -33,7 +33,7 @@ RUN dotnet publish "Fanex.Athena.Report/Fanex.Athena.Report.csproj" -c Release -
   --runtime alpine-x64 \
   --self-contained false
 
-FROM registry.nexdev.net:5050/docker/dotnet/core/aspnet:2.2
+FROM hub.nexdev.net/base/dotnet/core/aspnet:2.2
 EXPOSE 5000
 
 WORKDIR /app
