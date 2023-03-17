@@ -156,9 +156,6 @@
   <data name="Euro" xml:space="preserve">
     <value>欧洲版</value>
   </data>
-  <data name="FW" xml:space="preserve">
-    <value>GG捕鱼</value>
-  </data>
   <data name="KN" xml:space="preserve">
     <value>快乐彩</value>
   </data>
@@ -388,9 +385,6 @@
   </data>
   <data name="SBCFB" xml:space="preserve">
     <value>Saba.Club 免费投注</value>
-  </data>
-  <data name="GDG" xml:space="preserve">
-    <value>金大门</value>
   </data>
   <data name="MobileEuro" xml:space="preserve">
     <value>手机欧洲版</value>
