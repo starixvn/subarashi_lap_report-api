@@ -32,7 +32,7 @@
 
         public static string GetProductName(string productCode)
         {
-            return ViewResources.ResourceManager.GetString(productCode);
+            return ViewResources.ResourceManager.GetString(string.Join("_", productCode.Split(',')));
         }
     }
 }
