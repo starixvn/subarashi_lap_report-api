@@ -1,5 +1,6 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
+using Fanex.Athena.Report.BySite.Enums;
 using Fanex.Athena.Report.BySite.Params;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
@@ -51,34 +52,59 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private IEnumerable<object> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisParam param)
         {
-            if(param.BreakdownMode == Enums.BreakdownMode.Product)
-            {
-                AssignProductName(data.MainData);
-            }
+            AssignRelevantFieldForDetailData(param, data.MainData);
+            AssignRelevantFieldForGroupSumData(param.GroupMode, data.GroupSumData);
 
-            if (param.GroupMode == Enums.GroupByMode.Sport)
-            {
-                AssignSportName(data.GroupSumData);
+            if (param.GroupMode == GroupByMode.Sport || param.GroupMode == GroupByMode.Bettype)
+            {                
                 return BuildTreeListWithProductNameIsRootNode(data);
-            }
-            if (param.GroupMode == Enums.GroupByMode.Bettype)
-            {
-                AssignBetType(data.GroupSumData);
-                return BuildTreeListWithProductNameIsRootNode(data);
-            }
-            if (param.GroupMode == Enums.GroupByMode.Player)
-            {
-                AssignPlayerInfo(data.GroupSumData);
-            }
-            if(param.GroupMode == Enums.GroupByMode.Product)
-            {
-                AssignProductName(data.GroupSumData);
-            }
-            if (param.GroupMode == Enums.GroupByMode.Platform)
-            {
-                AssignPlatformName(data.GroupSumData);
             }
             return BuildDefaultTreeListItem(data);
+        }
+
+        private void AssignRelevantFieldForDetailData(WinlossAnalysisParam param, IEnumerable<WinlossAnalysisDTO> mainData)
+        {
+            foreach (var item in mainData)
+            {
+                item.BreakDownText = item.BreakBy;
+                if (param.BreakdownMode == BreakdownMode.Product)
+                {
+                    item.BreakDownText = DataHelper.GetProductName(item.BreakBy);
+                }
+            }
+        }
+
+        private void AssignRelevantFieldForGroupSumData(GroupByMode groupByMode, IEnumerable<WinlossAnalysisDTO> groupSumData)
+        {
+            switch(groupByMode)
+            {
+                case GroupByMode.Sport:
+                    AssignSportName(groupSumData);                   
+                    break;
+                case GroupByMode.Bettype:
+                    AssignBetType(groupSumData);
+                    break;
+                case GroupByMode.Player:
+                   AssignPlayerInfo(groupSumData);
+                    break;
+                case GroupByMode.Product:
+                   AssignProductName(groupSumData);
+                    break;
+                case GroupByMode.Platform:
+                    AssignPlatformName(groupSumData);
+                    break;
+                default:
+                    AssignGroupByField(groupSumData);
+                    break;
+            }
+        }
+
+        private void AssignGroupByField(IEnumerable<WinlossAnalysisDTO> groupSumData)
+        {
+            foreach (var item in groupSumData)
+            {
+                item.GroupByFieldText = item.GroupBy;
+            }
         }
 
         private void AssignBetType(IEnumerable<WinlossAnalysisDTO> groupSumData)
@@ -89,7 +115,8 @@ namespace Fanex.Athena.Report.BySite.Services
                 var productCode = spiltName[0];
                 var betType = spiltName[1];
                 item.ProductName = DataHelper.GetProductName(productCode);
-                item.BetTypeName = _cacheRefAdapter.GetSportName(betType);
+                item.BetTypeName = _cacheRefAdapter.GetBettype(betType);
+                item.GroupByFieldText = item.BetTypeName;
             }
         }
 
@@ -102,6 +129,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var sportType = spiltName[1];
                 item.ProductName = DataHelper.GetProductName(productCode);
                 item.SportName = _cacheRefAdapter.GetSportName(sportType);
+                item.GroupByFieldText = item.SportName;
             }
         }
 
@@ -110,8 +138,9 @@ namespace Fanex.Athena.Report.BySite.Services
             foreach (var item in groupSumData)
             {
                 var spiltName = item.GroupBy.Split('#');
-                item.SystemId= spiltName[0];
-                item.ExternalId= spiltName[1];
+                item.ExternalId= spiltName[0];
+                item.SystemId= spiltName[1];
+                item.GroupByFieldText = item.ExternalId;
             }
         }
 
@@ -119,7 +148,16 @@ namespace Fanex.Athena.Report.BySite.Services
         {
             foreach (var item in groupSumData)
             {
-                item.PlatformName = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
+                item.GroupByFieldText = item.PlatformName = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
+
+            }
+        }
+
+        private void AssignProductName(IEnumerable<WinlossAnalysisDTO> groupSumData)
+        {
+            foreach (var item in groupSumData)
+            {
+                item.GroupByFieldText = item.ProductName = DataHelper.GetProductName(item.GroupBy);
             }
         }
 
@@ -129,12 +167,12 @@ namespace Fanex.Athena.Report.BySite.Services
             var groupSumData = data.GroupSumData.GroupBy(_ => _.ProductName, _ => new TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>
             {
                 Item = _,
-                Childern = dicMainData[_.RowIndex]
+                Children = dicMainData[_.RowIndex]
             })
             .Select(_ => new TreeViewItem<string, object>
             {
                 Item = _.Key,
-                Childern = _.ToList()
+                Children = _.ToList()
             });
 
             return groupSumData;
@@ -146,16 +184,8 @@ namespace Fanex.Athena.Report.BySite.Services
             return data.GroupSumData.Select(_ => new TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>
             {
                 Item = _,
-                Childern = dicMainData[_.RowIndex]
+                Children = dicMainData[_.RowIndex]
             });
-        }
-
-        private void AssignProductName(IEnumerable<WinlossAnalysisDTO> groupSumData)
-        {
-            foreach (var item in groupSumData)
-            {
-                item.ProductName = DataHelper.GetProductName(item.GroupBy);
-            }
         }
 
         private bool IsRequestDataForAngency(WinlossAnalysisParam param)

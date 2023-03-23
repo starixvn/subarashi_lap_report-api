@@ -59,5 +59,7 @@ namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
         public string SystemId { get; set; }
 
         public string BreakDownText { get; set; }
+
+        public string GroupByFieldText { get; set; }
     }
 }
