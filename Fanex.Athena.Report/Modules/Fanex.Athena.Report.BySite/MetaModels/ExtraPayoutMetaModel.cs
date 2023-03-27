@@ -1,9 +1,10 @@
-﻿using Fanex.Core.Utils;
+﻿using Fanex.Athena.Report.Core.Models;
+using Fanex.Core.Utils;
 using System.ComponentModel;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class ExtraPayoutMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel
+    public class ExtraPayoutMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, ISubsidiarySearchMetaModel
     {
         private string _username;
 
@@ -39,5 +40,9 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public bool IsConvertAllToBaseCurrency { get; set; }
 
         public bool IsExportExcel { get; set; }
+
+        public string SubsidiaryList { get; set; }
+
+        public bool SubsidiarySearch { get; set; }
     }
 }
