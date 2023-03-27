@@ -1,10 +1,11 @@
 ﻿using Fanex.Athena.Report.BySite.Enums;
+using Fanex.Athena.Report.Core.Models;
 using Fanex.Core.Utils;
 using System;
 
 namespace Fanex.Athena.Report.BySite.Params
 {
-    public class WinlossAnalysisParam : IAgentMetaModel
+    public class WinlossAnalysisParam : IAgentMetaModel, ISubsidiarySearchMetaModel
     {
         public DateTime FromDate { get; set; }
 
@@ -38,6 +39,8 @@ namespace Fanex.Athena.Report.BySite.Params
 
         public int? SearchCustID { get; set; }
 
+        public string SearchUserName { get; set; }
+
         public bool IsExludeTestData { get; set; }
 
         public bool IsViewCashOutOnly { get; set; }
@@ -47,5 +50,9 @@ namespace Fanex.Athena.Report.BySite.Params
         public int PageSize { get; set; }
 
         public string AgentListXml { get; set; }
+
+        public string SubsidiaryList { get; set; }
+
+        public bool SubsidiarySearch { get; set; }
     }
 }

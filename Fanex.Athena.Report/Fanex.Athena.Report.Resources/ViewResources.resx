@@ -663,4 +663,7 @@
   <data name="SB_BA" xml:space="preserve">
     <value>Sportsbook &amp; BA</value>
   </data>
+  <data name="CO" xml:space="preserve">
+    <value>Cash Out</value>
+  </data>
 </root>

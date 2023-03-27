@@ -560,4 +560,10 @@
   <data name="YB" xml:space="preserve">
     <value>亿博</value>
   </data>
+  <data name="CO" xml:space="preserve">
+    <value>实时兑现</value>
+  </data>
+  <data name="SB_BA" xml:space="preserve">
+    <value>体育博彩 &amp; BA</value>
+  </data>
 </root>
