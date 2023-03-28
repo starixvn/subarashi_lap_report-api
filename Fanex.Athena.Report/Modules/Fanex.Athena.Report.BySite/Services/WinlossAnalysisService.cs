@@ -18,13 +18,13 @@ namespace Fanex.Athena.Report.BySite.Services
         private const string ALL = "ALL";
 
         private readonly IWinlossAnalysisRepository _repository;
-        private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly INameService _nameService;
         private readonly IBalanceUpService _balanceUpService;
 
-        public WinlossAnalysisService(IWinlossAnalysisRepository repository, ICacheRefAdapter cacheRefAdapter, IBalanceUpService balanceUpService)
+        public WinlossAnalysisService(IWinlossAnalysisRepository repository, INameService nameService, IBalanceUpService balanceUpService)
         {
             _repository = repository;
-            _cacheRefAdapter = cacheRefAdapter;
+            _nameService = nameService;
             _balanceUpService = balanceUpService;
         }
 
@@ -115,7 +115,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var productCode = spiltName[0];
                 var betType = spiltName[1];
                 item.ProductName = DataHelper.GetProductName(productCode);
-                item.BetTypeName = _cacheRefAdapter.GetBettype(betType);
+                item.BetTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType));
                 item.GroupByFieldText = item.BetTypeName;
             }
         }
@@ -128,7 +128,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var productCode = spiltName[0];
                 var sportType = spiltName[1];
                 item.ProductName = DataHelper.GetProductName(productCode);
-                item.SportName = _cacheRefAdapter.GetSportName(sportType);
+                item.SportName = _nameService.GetSportName(Convert.ToInt32(sportType));
                 item.GroupByFieldText = item.SportName;
             }
         }
