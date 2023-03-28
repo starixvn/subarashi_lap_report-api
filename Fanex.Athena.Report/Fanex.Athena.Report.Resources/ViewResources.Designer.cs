@@ -700,6 +700,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jili.
+        /// </summary>
+        public static string JIG {
+            get {
+                return ResourceManager.GetString("JIG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joker.
         /// </summary>
         public static string JK {

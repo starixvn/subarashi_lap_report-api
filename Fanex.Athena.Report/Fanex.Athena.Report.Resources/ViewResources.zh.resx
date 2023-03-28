@@ -560,4 +560,7 @@
   <data name="Stake" xml:space="preserve">
     <value>投注额</value>
   </data>
+  <data name="JIG" xml:space="preserve">
+    <value>吉利电子</value>
+  </data>
 </root>
