@@ -8,6 +8,7 @@ using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,9 @@ namespace Fanex.Athena.Report.BySite.Services
     public class WinlossAnalysisService : IWinlossAnalysisService
     {
         private const string ALL = "ALL";
+        private const string ORIGINAL_DATE_FORMAT = "yyyy-MM-dd";
+        private const string DATE_FORMAT = "MM/dd/yyyy";
+        private const string MONTH_FORMAT = "MM/yyyy";
 
         private readonly IWinlossAnalysisRepository _repository;
         private readonly INameService _nameService;
@@ -93,9 +97,24 @@ namespace Fanex.Athena.Report.BySite.Services
                 case GroupByMode.Platform:
                     AssignPlatformName(groupSumData);
                     break;
+                case GroupByMode.WinlossDate:
+                    AssignDateTime(groupSumData, DATE_FORMAT);
+                    break;
+                case GroupByMode.Month:
+                    AssignDateTime(groupSumData, MONTH_FORMAT);
+                    break;
                 default:
                     AssignGroupByField(groupSumData);
                     break;
+            }
+        }
+
+        private void AssignDateTime(IEnumerable<WinlossAnalysisDTO> groupSumData, string formatDate)
+        {
+            foreach (var item in groupSumData)
+            {
+                var date = DateTime.ParseExact(item.GroupBy, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
+                item.GroupByFieldText = date.ToString(formatDate);
             }
         }
 
