@@ -6,6 +6,7 @@ using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Helpers;
+using NPOI.SS.Util;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,12 +25,17 @@ namespace Fanex.Athena.Report.BySite.Services
         private readonly IWinlossAnalysisRepository _repository;
         private readonly INameService _nameService;
         private readonly IBalanceUpService _balanceUpService;
+        private readonly ICurrencyService _currencyService;
 
-        public WinlossAnalysisService(IWinlossAnalysisRepository repository, INameService nameService, IBalanceUpService balanceUpService)
+        public WinlossAnalysisService(IWinlossAnalysisRepository repository, 
+            INameService nameService, 
+            IBalanceUpService balanceUpService,
+            ICurrencyService currencyService)
         {
             _repository = repository;
             _nameService = nameService;
             _balanceUpService = balanceUpService;
+            _currencyService = currencyService;
         }
 
         public async Task<object> GetData(WinlossAnalysisParam param)
@@ -45,7 +51,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 data = await _repository.GetDataByPlayerCriteria(param);
             }
 
-            return new { TotalRow = data.TotalRow, Data = BuildTreeListItem(data, param), SumTotal = data.SumTotal };
+            return new { TotalRow = data.TotalRow, Data = await BuildTreeListItem(data, param), SumTotal = data.SumTotal };
         }
 
         private async Task AssignMoveBetDayAsync(WinlossAnalysisParam param)
@@ -54,10 +60,10 @@ namespace Fanex.Athena.Report.BySite.Services
             param.MovebetDay = balanceUp.MoveBetsDay;
         }
 
-        private IEnumerable<object> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisParam param)
+        private async Task<IEnumerable<object>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisParam param)
         {
-            AssignRelevantFieldForDetailData(param, data.MainData);
-            AssignRelevantFieldForGroupSumData(param.GroupMode, data.GroupSumData);
+            await AssignRelevantFieldForDetailData(param, data.MainData);
+            await AssignRelevantFieldForGroupSumData(param.GroupMode, data.GroupSumData);
 
             if (param.GroupMode == GroupByMode.Sport || param.GroupMode == GroupByMode.Bettype)
             {                
@@ -66,7 +72,7 @@ namespace Fanex.Athena.Report.BySite.Services
             return BuildDefaultTreeListItem(data);
         }
 
-        private void AssignRelevantFieldForDetailData(WinlossAnalysisParam param, IEnumerable<WinlossAnalysisDTO> mainData)
+        private async Task AssignRelevantFieldForDetailData(WinlossAnalysisParam param, IEnumerable<WinlossAnalysisDTO> mainData)
         {
             foreach (var item in mainData)
             {
@@ -75,10 +81,19 @@ namespace Fanex.Athena.Report.BySite.Services
                 {
                     item.BreakDownText = DataHelper.GetProductName(item.BreakBy);
                 }
+                if (param.BreakdownMode == BreakdownMode.Currency)
+                {
+                    var currencies = await _currencyService.GetCurrencyListAsync();
+                    var currency = currencies.FirstOrDefault(_ => _.ID == Convert.ToInt32(item.BreakBy));
+                    if(currency != null)
+                    {
+                        item.BreakDownText = currency.Name;
+                    }
+                }
             }
         }
 
-        private void AssignRelevantFieldForGroupSumData(GroupByMode groupByMode, IEnumerable<WinlossAnalysisDTO> groupSumData)
+        private async Task AssignRelevantFieldForGroupSumData(GroupByMode groupByMode, IEnumerable<WinlossAnalysisDTO> groupSumData)
         {
             switch(groupByMode)
             {
@@ -103,9 +118,25 @@ namespace Fanex.Athena.Report.BySite.Services
                 case GroupByMode.Month:
                     AssignDateTime(groupSumData, MONTH_FORMAT);
                     break;
+                case GroupByMode.Currency:
+                    await AssignCurrencyName(groupSumData);
+                    break;
                 default:
                     AssignGroupByField(groupSumData);
                     break;
+            }
+        }
+
+        private async Task AssignCurrencyName(IEnumerable<WinlossAnalysisDTO> groupSumData)
+        {
+            foreach (var item in groupSumData)
+            {
+                var currencies = await _currencyService.GetCurrencyListAsync();
+                var currency = currencies.FirstOrDefault(_ => _.ID == Convert.ToInt32(item.GroupBy));
+                if (currency != null)
+                {
+                    item.GroupByFieldText = currency.Name;
+                }
             }
         }
 

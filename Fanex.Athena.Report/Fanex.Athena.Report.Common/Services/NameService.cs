@@ -61,8 +61,11 @@ namespace Fanex.Athena.Report.Common.Services
                     break;
 
                 default:
-                    _cacheRefAdapter.GetSportName(sportTypeId, lang);
                     break;
+            }
+            if (String.IsNullOrWhiteSpace(sportName))
+            {
+                return sportTypeId.ToString();
             }
             return $"{ViewResources.Saba}{sportName}";
         }
