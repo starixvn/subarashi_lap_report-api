@@ -6,6 +6,6 @@ namespace Fanex.Athena.Report.BySite.Services.Interfaces
 {
     public interface IWinlossAnalysisService
     {
-        Task<object> GetData(WinlossAnalysisParam param);
+        Task<object> GetData(WinlossAnalysisMetaModel param);
     }
 }

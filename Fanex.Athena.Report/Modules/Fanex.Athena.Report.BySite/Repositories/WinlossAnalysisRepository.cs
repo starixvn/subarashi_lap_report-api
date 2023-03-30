@@ -22,7 +22,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             _dbFactory = dbFactory;
         }
 
-        public Task<WinlossAnalysisAggregateDTO> GetDataByAgencyCriteria(WinlossAnalysisParam metaModel)
+        public Task<WinlossAnalysisAggregateDTO> GetDataByAgencyCriteria(WinlossAnalysisMetaModel metaModel)
         {
             const string spName = "LAP_Rpt_WinlossAnalysis_AgencySel";
             using (var objectDb = _dbFactory.GetObjectDb(spName))
@@ -33,7 +33,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
         }
 
 
-        public Task<WinlossAnalysisAggregateDTO> GetDataByPlayerCriteria(WinlossAnalysisParam metaModel)
+        public Task<WinlossAnalysisAggregateDTO> GetDataByPlayerCriteria(WinlossAnalysisMetaModel metaModel)
         {
             const string spName = "LAP_Rpt_WinlossAnalysis_PlayerSel";
             using (var objectDb = _dbFactory.GetObjectDb(spName))
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             }
         }
 
-        private static void AddCommonParameter(IObjectDb objectDb, WinlossAnalysisParam metaModel)
+        private static void AddCommonParameter(IObjectDb objectDb, WinlossAnalysisMetaModel metaModel)
         {
             objectDb.SetParameterValue("FromDate", metaModel.FromDate);
             objectDb.SetParameterValue("ToDate", metaModel.ToDate);

@@ -10,7 +10,7 @@
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.WinlossAnalysis)]
-    //[RequestValidation(validateCurrency: true)]
+    [RequestValidation(validateCurrencyList: true)]
     [AutoBindingMetaModel(bindAgent: true)]
     public class WinlossAnalysisController : ControllerBase
     {
@@ -22,7 +22,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetData([FromBody] WinlossAnalysisParam metaModel)
+        public async Task<IActionResult> GetData([FromBody] WinlossAnalysisMetaModel metaModel)
             => Ok(await _service.GetData(metaModel));
 
         //[HttpPost]

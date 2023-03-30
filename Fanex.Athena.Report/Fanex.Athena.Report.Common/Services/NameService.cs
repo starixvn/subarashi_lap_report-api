@@ -4,8 +4,6 @@ using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources;
 using System;
 using Fanex.Athena.Report.Common.Model.DataDomain;
-using NPOI.OpenXmlFormats.Dml;
-using System.Drawing.Drawing2D;
 
 namespace Fanex.Athena.Report.Common.Services
 {

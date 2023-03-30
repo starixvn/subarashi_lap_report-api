@@ -38,7 +38,7 @@ namespace Fanex.Athena.Report.BySite.Services
             _currencyService = currencyService;
         }
 
-        public async Task<object> GetData(WinlossAnalysisParam param)
+        public async Task<object> GetData(WinlossAnalysisMetaModel param)
         {
             await AssignMoveBetDayAsync(param);
             var data = new WinlossAnalysisAggregateDTO();
@@ -54,13 +54,13 @@ namespace Fanex.Athena.Report.BySite.Services
             return new { TotalRow = data.TotalRow, Data = await BuildTreeListItem(data, param), SumTotal = data.SumTotal };
         }
 
-        private async Task AssignMoveBetDayAsync(WinlossAnalysisParam param)
+        private async Task AssignMoveBetDayAsync(WinlossAnalysisMetaModel param)
         {
             var balanceUp = await _balanceUpService.GetBalanceUpAsync();
             param.MovebetDay = balanceUp.MoveBetsDay;
         }
 
-        private async Task<IEnumerable<object>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisParam param)
+        private async Task<IEnumerable<object>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisMetaModel param)
         {
             await AssignRelevantFieldForDetailData(param, data.MainData);
             await AssignRelevantFieldForGroupSumData(param.GroupMode, data.GroupSumData);
@@ -72,7 +72,7 @@ namespace Fanex.Athena.Report.BySite.Services
             return BuildDefaultTreeListItem(data);
         }
 
-        private async Task AssignRelevantFieldForDetailData(WinlossAnalysisParam param, IEnumerable<WinlossAnalysisDTO> mainData)
+        private async Task AssignRelevantFieldForDetailData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> mainData)
         {
             foreach (var item in mainData)
             {
@@ -238,7 +238,7 @@ namespace Fanex.Athena.Report.BySite.Services
             });
         }
 
-        private bool IsRequestDataForAngency(WinlossAnalysisParam param)
+        private bool IsRequestDataForAngency(WinlossAnalysisMetaModel param)
         {
             return (param.SearchCustID == null || param.SearchCustID <=0 )
                 && !param.IsVipOnly 

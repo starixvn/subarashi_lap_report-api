@@ -6,8 +6,8 @@ namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
 {
     public interface IWinlossAnalysisRepository
     {
-        Task<WinlossAnalysisAggregateDTO>GetDataByAgencyCriteria(WinlossAnalysisParam metaModel);
+        Task<WinlossAnalysisAggregateDTO>GetDataByAgencyCriteria(WinlossAnalysisMetaModel metaModel);
 
-        Task<WinlossAnalysisAggregateDTO> GetDataByPlayerCriteria(WinlossAnalysisParam metaModel);
+        Task<WinlossAnalysisAggregateDTO> GetDataByPlayerCriteria(WinlossAnalysisMetaModel metaModel);
     }
 }
