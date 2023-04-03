@@ -65,6 +65,8 @@ namespace Fanex.Athena.Report.BySite.Repositories
             objectDb.SetParameterValue("BreakdownMode", metaModel.BreakdownMode);
             objectDb.SetParameterValue("PageIndex", metaModel.PageIndex);
             objectDb.SetParameterValue("PageSize", metaModel.PageSize);
+            objectDb.SetParameterValue("SortKey", metaModel.SortBy);
+            objectDb.SetParameterValue("SortType", metaModel.SortOrder);
         }
 
         private static async Task<WinlossAnalysisAggregateDTO> ReadDataAsync(IObjectDb objectDb)

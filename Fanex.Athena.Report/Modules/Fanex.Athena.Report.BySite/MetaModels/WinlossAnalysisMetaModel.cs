@@ -5,7 +5,7 @@ using System;
 
 namespace Fanex.Athena.Report.BySite.Params
 {
-    public class WinlossAnalysisMetaModel : IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel
+    public class WinlossAnalysisMetaModel : IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel, IDataTestableMetaModel
     {
         public DateTime FromDate { get; set; }
 
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Report.BySite.Params
 
         public string SearchUserName { get; set; }
 
-        public bool IsExludeTestData { get; set; }
+        public bool IsExcludedTestData { get; set; }
 
         public bool IsViewCashOutOnly { get; set; }
 
@@ -56,5 +56,9 @@ namespace Fanex.Athena.Report.BySite.Params
         public bool SubsidiarySearch { get; set; }
 
         public string CurrencyIdList { get; set; }
+
+        public int SortBy { get; set; }
+
+        public int SortOrder { get; set; }
     }
 }

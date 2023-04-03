@@ -64,11 +64,6 @@ namespace Fanex.Athena.Report.BySite.Services
         {
             await AssignRelevantFieldForDetailData(param, data.MainData);
             await AssignRelevantFieldForGroupSumData(param.GroupMode, data.GroupSumData);
-
-            if (param.GroupMode == GroupByMode.Sport || param.GroupMode == GroupByMode.Bettype)
-            {                
-                return BuildTreeListWithProductNameIsRootNode(data);
-            }
             return BuildDefaultTreeListItem(data);
         }
 
@@ -166,7 +161,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var betType = spiltName[1];
                 item.ProductName = DataHelper.GetProductName(productCode);
                 item.BetTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType));
-                item.GroupByFieldText = item.BetTypeName;
+                item.GroupByFieldText = $"{item.ProductName} -> {item.BetTypeName}";
             }
         }
 
@@ -179,7 +174,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var sportType = spiltName[1];
                 item.ProductName = DataHelper.GetProductName(productCode);
                 item.SportName = _nameService.GetSportName(Convert.ToInt32(sportType));
-                item.GroupByFieldText = item.SportName;
+                item.GroupByFieldText =$"{item.ProductName} -> {item.SportName}";
             }
         }
 
@@ -209,23 +204,6 @@ namespace Fanex.Athena.Report.BySite.Services
             {
                 item.GroupByFieldText = item.ProductName = DataHelper.GetProductName(item.GroupBy);
             }
-        }
-
-        private IEnumerable<object> BuildTreeListWithProductNameIsRootNode(WinlossAnalysisAggregateDTO data)
-        {
-            var dicMainData = data.MainData.GroupBy(_ => _.RowIndex, _ => _).ToDictionary(_ => _.Key, _ => _);
-            var groupSumData = data.GroupSumData.GroupBy(_ => _.ProductName, _ => new TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>
-            {
-                Item = _,
-                Children = dicMainData[_.RowIndex]
-            })
-            .Select(_ => new TreeViewItem<string, object>
-            {
-                Item = _.Key,
-                Children = _.ToList()
-            });
-
-            return groupSumData;
         }
 
         private IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>> BuildDefaultTreeListItem(WinlossAnalysisAggregateDTO data)

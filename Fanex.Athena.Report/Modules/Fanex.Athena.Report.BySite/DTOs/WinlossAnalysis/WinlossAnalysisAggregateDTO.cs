@@ -10,6 +10,6 @@ namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
 
         public SumTotalWinlossAnalysisDTO SumTotal { get; set; }
 
-        public int TotalRow => SumTotal == null ? SumTotal.TotalRow : 0;
+        public int TotalRow => SumTotal != null ? SumTotal.TotalRow : 0;
     }
 }
