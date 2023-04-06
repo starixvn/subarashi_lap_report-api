@@ -43,6 +43,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 objectDb.SetParameterValue("CustomerClass", metaModel.CustomerClass);
                 objectDb.SetParameterValue("OddsGroup", metaModel.OddsGroup);
                 objectDb.SetParameterValue("SearchCustId", metaModel.SearchCustID);
+                objectDb.SetParameterValue("SearchUserName", metaModel.SearchUserName);
                 return ReadDataAsync(objectDb);
             }
         }

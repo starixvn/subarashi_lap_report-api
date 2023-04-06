@@ -218,7 +218,8 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private bool IsRequestDataForAngency(WinlossAnalysisMetaModel param)
         {
-            return (param.SearchCustID == null || param.SearchCustID <=0 )
+            return (param.SearchCustID == null || param.SearchCustID <=0)
+                && string.IsNullOrWhiteSpace(param.SearchUserName)
                 && !param.IsVipOnly 
                 && param.CustomerClass.Equals(ALL, StringComparison.InvariantCultureIgnoreCase)
                 && param.OddsGroup.Equals(ALL,StringComparison.InvariantCultureIgnoreCase);
