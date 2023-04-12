@@ -156,9 +156,6 @@
   <data name="Euro" xml:space="preserve">
     <value>Euro</value>
   </data>
-  <data name="FW" xml:space="preserve">
-    <value>Fishing World</value>
-  </data>
   <data name="KN" xml:space="preserve">
     <value>RNG Keno</value>
   </data>
@@ -442,9 +439,6 @@
   </data>
   <data name="SBCFB" xml:space="preserve">
     <value>Saba.club Free Bets</value>
-  </data>
-  <data name="GDG" xml:space="preserve">
-    <value>GDG</value>
   </data>
   <data name="SBCC" xml:space="preserve">
     <value>Saba.club Jackpot Contribution</value>

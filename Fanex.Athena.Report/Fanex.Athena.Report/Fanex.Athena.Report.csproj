@@ -21,7 +21,6 @@
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
     <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
     <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
-    <None Remove="ExcelTemplate\PromotionPrize.xls" />
     <None Remove="ExcelTemplate\GodOfFortuneWinLoss.xls" />
 	<None Remove="ExcelTemplate\LeagueWinLoss.xls" />
 	<None Remove="ExcelTemplate\ExtraPayout.xls" />
@@ -54,9 +53,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\PlatformWinLossSummary.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\PromotionPrize.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\GodOfFortuneWinLoss.xls">
