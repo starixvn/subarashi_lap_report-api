@@ -38,10 +38,9 @@
         private const int ColumnFinalScore = 19;
         private const int ColumnIP = 20;
         private const int ColumnLocation = 21;
-        private const int ColumnReason = 22;
 
         private const int RowNoInfoTemplate = 5;
-        private const int ColumnTemplateCount = 23;
+        private const int ColumnTemplateCount = 22;
 
         private const int RowTitleTemplate = 0;
         private const int RowHeaderTemplate = 1;
@@ -86,7 +85,7 @@
                 AssignNoInfoRow(sheet, templateSheet);
             }
 
-            sheet.CreateFreezePane(ColumnRefNo, RowContentTemplate);
+            sheet.CreateFreezePane(ColumnOdds, RowContentTemplate);
 
             _builder.RemoveSheet(workBook, TemplateSheetName);
 
@@ -120,8 +119,7 @@
                 ViewResources.Live,
                 ViewResources.FinalScore,
                 ViewResources.IP,
-                ViewResources.Location,
-                ViewResources.Reason
+                ViewResources.Location
             };
 
             SetTextRowHeader(row, headerTextList);
@@ -177,7 +175,6 @@
             row.Cells[ColumnFinalScore].SetCellValue(item.FinalScore);
             row.Cells[ColumnIP].SetCellValue(item.IP);
             row.Cells[ColumnLocation].SetCellValue(item.Location);
-            row.Cells[ColumnReason].SetCellValue(item.Reason);
         }
 
         private void AssignTitle(ISheet sheet, ISheet templateSheet, AbnormalBetMetaModel metaModel)

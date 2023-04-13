@@ -23,7 +23,6 @@
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IIpService _ipService;
-        private readonly ISubIssueService _subIssueService;
         private const int ParlayBettype = 29;
 
         private readonly Dictionary<int, string> LiveStatus = new()
@@ -37,7 +36,6 @@
         {
             _cacheRefAdapter = cacheRefAdapter;
             _ipService = ipService;
-            _subIssueService = subIssueService;
         }
 
         private static void UpdateSpCommonParamsAsync(IObjectDb db, AbnormalBetMetaModel metaModel)
@@ -69,12 +67,10 @@
         public SortableReportResultModel<AbnormalBetSummary> ReadSummaryData(IDataReader reader)
         {
             var dataList = new SortableList<AbnormalBetSummary>();
-            var subIssueList = _subIssueService.GetSubIssueList();
 
             while (reader.Read())
             {
                 LiveStatus.TryGetValue(reader.GetVal<int>("Live"), out string live);
-                subIssueList.TryGetValue(reader.GetVal<int>("reason"), out string reason);
                 var homeId = reader.GetVal<int>("HomeId");
                 var awayId = reader.GetVal<int>("AwayId");
                 var isNeutral = reader.GetVal<bool>("IsNeutral");
@@ -92,7 +88,6 @@
                     Match = string.Equals(matchName, " - vs - ") ? string.Empty : matchName,
                     KOTime = betType == ParlayBettype ? string.Empty : reader.GetVal<DateTime>("KOTime").ToString("MM/dd/yyyy hh:mm:ss tt"),
                     Live = live,
-                    Reason = reason,
                     TotalTransaction = reader.GetVal<int>("TotalTransaction"),
                     BetType = _cacheRefAdapter.GetBettype(betType),
                     Choice = betType == ParlayBettype ? string.Empty : GetChoiceName(betType, reader.GetVal<string>("choice")),
@@ -188,12 +183,10 @@
         public SortableReportResultModel<AbnormalBetDetail> ReadDetaiData(IDataReader reader, AbnormalBetMetaModel metaModel)
         {
             var dataList = new SortableList<AbnormalBetDetail>();
-            var subIssueList = _subIssueService.GetSubIssueList();
 
             while (reader.Read())
             {
                 LiveStatus.TryGetValue(reader.GetVal<int>("Live"), out string live);
-                subIssueList.TryGetValue(reader.GetVal<int>("reason"), out string reason);
                 var homeId = reader.GetVal<int>("HomeId");
                 var awayId = reader.GetVal<int>("AwayId");
                 var isNeutral = reader.GetVal<bool>("IsNeutral");
@@ -226,8 +219,7 @@
                     Live = live,
                     FinalScore = string.Equals(finalScore, "-") || betType == ParlayBettype ? string.Empty : finalScore,
                     IP = ip,
-                    Location = _ipService.GetIpLocation(ip, metaModel.IsShowIpvn).CountryName,
-                    Reason = reason
+                    Location = _ipService.GetIpLocation(ip, metaModel.IsShowIpvn).CountryName
                 };
 
                 dataList.Add(item);

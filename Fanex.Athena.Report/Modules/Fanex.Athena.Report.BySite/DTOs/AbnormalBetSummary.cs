@@ -20,8 +20,6 @@
 
         public string FinalScore { get; set; }
 
-        public string Reason { get; set; }
-
         public int TotalTransaction { get; set; }
     }
 }
