@@ -3,7 +3,7 @@ using Fanex.Athena.Report.Core.Models;
 using Fanex.Core.Utils;
 using System;
 
-namespace Fanex.Athena.Report.BySite.Params
+namespace Fanex.Athena.Report.BySite.MetaModels
 {
     public class WinlossAnalysisMetaModel : IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel, IDataTestableMetaModel
     {
@@ -37,9 +37,9 @@ namespace Fanex.Athena.Report.BySite.Params
 
         public string OddsGroup { get; set; }
 
-        public int? SearchCustID { get; set; }
-
         public string SearchUserName { get; set; }
+
+        public int SearchMode { get; set; }
 
         public bool IsExcludedTestData { get; set; }
 
@@ -60,5 +60,7 @@ namespace Fanex.Athena.Report.BySite.Params
         public int SortBy { get; set; }
 
         public int SortOrder { get; set; }
+
+        public bool IsShowInOrginalCurrency { get; set; }
     }
 }

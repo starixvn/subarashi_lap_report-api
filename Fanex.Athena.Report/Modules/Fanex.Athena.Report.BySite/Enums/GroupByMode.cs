@@ -15,6 +15,7 @@ namespace Fanex.Athena.Report.BySite.Enums
         Bettype = 5,
         Currency = 6,
         Platform = 7,
-        Player = 8
+        Player = 8,
+        Agent = 9
     }
 }

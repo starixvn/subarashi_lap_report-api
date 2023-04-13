@@ -1,15 +1,12 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-using Fanex.Athena.Report.BySite.Params;
+using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Core.Repositories;
 using Fanex.Common.Extensions;
 using Fanex.Data;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static NPOI.HSSF.Record.PageBreakRecord;
 
 namespace Fanex.Athena.Report.BySite.Repositories
 {
@@ -42,7 +39,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 objectDb.SetParameterValue("IsVIPOnly", metaModel.IsVipOnly);
                 objectDb.SetParameterValue("CustomerClass", metaModel.CustomerClass);
                 objectDb.SetParameterValue("OddsGroup", metaModel.OddsGroup);
-                objectDb.SetParameterValue("SearchCustId", metaModel.SearchCustID);
+                objectDb.SetParameterValue("SearchMode", metaModel.SearchMode);
                 objectDb.SetParameterValue("SearchUserName", metaModel.SearchUserName);
                 return ReadDataAsync(objectDb);
             }
