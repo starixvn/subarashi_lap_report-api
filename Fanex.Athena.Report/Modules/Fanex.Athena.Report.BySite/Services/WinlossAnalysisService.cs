@@ -95,7 +95,7 @@ namespace Fanex.Athena.Report.BySite.Services
                     var spiltName = item.BreakBy.Split('#');
                     item.SystemId = spiltName[0];
                     item.ExternalId = spiltName[1];
-                    item.GroupByFieldText = item.SystemId;
+                    item.BreakDownFieldText = item.SystemId;
                     break;
                 default:
                     item.BreakDownFieldText = item.BreakBy;
@@ -211,7 +211,7 @@ namespace Fanex.Athena.Report.BySite.Services
             return groupByDatas.Select(_ => new TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>
             {
                 Item = _,
-                Children = dicMainData[_.RowIndex]
+                Children = dicMainData.ContainsKey(_.RowIndex) ? dicMainData[_.RowIndex] : null
             });
         }
 
