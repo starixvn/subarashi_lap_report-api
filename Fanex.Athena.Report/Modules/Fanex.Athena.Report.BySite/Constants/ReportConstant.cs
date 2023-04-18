@@ -1,7 +1,9 @@
-﻿namespace Fanex.Athena.Report.ByPlayer.Constants
+﻿namespace Fanex.Athena.Report.BySite.Constants
 {
     public static class ReportConstant
     {
+        public const string ALL = "ALL";
+
         public static class LiveStatusTypes
         {
             public const int Mix = 2;

@@ -12,12 +12,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
     public class WinlossAnalysisService : IWinlossAnalysisService
     {
-        private const string ALL = "ALL";
         private const string ORIGINAL_DATE_FORMAT = "yyyy-MM-dd";
         private const string DATE_FORMAT = "MM/dd/yyyy";
         private const string MONTH_FORMAT = "MM/yyyy";
@@ -211,7 +211,7 @@ namespace Fanex.Athena.Report.BySite.Services
             return groupByDatas.Select(_ => new TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>
             {
                 Item = _,
-                Children = dicMainData.ContainsKey(_.RowIndex) ? dicMainData[_.RowIndex] : null
+                Children = dicMainData.ContainsKey(_.RowIndex) ? dicMainData[_.RowIndex] : Enumerable.Empty<WinlossAnalysisViewModel>(),
             });
         }
 
@@ -227,9 +227,10 @@ namespace Fanex.Athena.Report.BySite.Services
                 LicComm = data.LicComm,
                 LicWinloss = data.LicWinloss,
                 Margin = data.Margin,
+                Turnover = data.Turnover,
                 NetTurnover = data.NetTurnover,
                 PlayerComm = data.MemComm,
-                PlayerWinloss = data.MemWinloss
+                PlayerWinloss = data.MemWinloss              
             };
 
         private WinlossAnalysisViewModel GetValueForBaseCurrency(WinlossAnalysisDTO data)
@@ -244,6 +245,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 LicComm = data.BaseLicComm,
                 LicWinloss = data.BaseLicWinloss,
                 Margin = data.Margin,
+                Turnover = data.BaseTurnover,
                 NetTurnover = data.BaseNetTurnover,
                 PlayerComm = data.BaseMemComm,
                 PlayerWinloss = data.BaseMemWinloss

@@ -5,7 +5,7 @@ using System;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class WinlossAnalysisMetaModel : IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel, IDataTestableMetaModel
+    public class WinlossAnalysisMetaModel : IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel, IDataTestableMetaModel, IValidationMetaModel
     {
         public DateTime FromDate { get; set; }
 
@@ -62,5 +62,7 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public int SortOrder { get; set; }
 
         public bool IsShowInOrginalCurrency { get; set; }
+
+        public bool IsValid => true;
     }
 }

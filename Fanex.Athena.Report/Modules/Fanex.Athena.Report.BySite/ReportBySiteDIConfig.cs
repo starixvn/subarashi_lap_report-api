@@ -48,7 +48,7 @@
             services.AddTransient<IAbnormalBetDetailExcel, AbnormalBetDetailExcel>();
             services.AddTransient<IWinlossAnalysisRepository, WinlossAnalysisRepository>();
             services.AddTransient<IWinlossAnalysisService, WinlossAnalysisService>();
-
+            services.AddTransient<IWinlossAnalysisExcel, WinlossAnalysisExcel>();
             return services;
         }
     }
