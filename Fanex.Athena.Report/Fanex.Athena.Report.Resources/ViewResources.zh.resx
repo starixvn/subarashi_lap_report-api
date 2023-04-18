@@ -566,4 +566,28 @@
   <data name="SB_BA" xml:space="preserve">
     <value>体育博彩 &amp; BA</value>
   </data>
+  <data name="WinlossAnalysis" xml:space="preserve">
+    <value>输赢分析</value>
+  </data>
+  <data name="PlayerW_L" xml:space="preserve">
+    <value>玩家输赢</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>玩家佣金</value>
+  </data>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>承租公司佣金</value>
+  </data>
+  <data name="AmountDueToBA" xml:space="preserve">
+    <value>BA金额</value>
+  </data>
+  <data name="Margin" xml:space="preserve">
+    <value>杀数</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>分组方式</value>
+  </data>
+  <data name="BreakdownBy" xml:space="preserve">
+    <value>依项目细分</value>
+  </data>
 </root>

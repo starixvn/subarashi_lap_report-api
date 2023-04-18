@@ -133,6 +133,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount Due To BA.
+        /// </summary>
+        public static string AmountDueToBA {
+            get {
+                return ResourceManager.GetString("AmountDueToBA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amt Due To BA.
         /// </summary>
         public static string AmtDueToBA {
@@ -264,6 +273,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Bonus {
             get {
                 return ResourceManager.GetString("Bonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breakdown By.
+        /// </summary>
+        public static string BreakdownBy {
+            get {
+                return ResourceManager.GetString("BreakdownBy", resourceCulture);
             }
         }
         
@@ -637,6 +655,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group By.
+        /// </summary>
+        public static string GroupBy {
+            get {
+                return ResourceManager.GetString("GroupBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Habanero.
         /// </summary>
         public static string HB {
@@ -763,6 +790,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee Comm.
+        /// </summary>
+        public static string LicenseeComm {
+            get {
+                return ResourceManager.GetString("LicenseeComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee W/L.
         /// </summary>
         public static string LicenseeW_L {
@@ -822,6 +858,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string LT {
             get {
                 return ResourceManager.GetString("LT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Margin.
+        /// </summary>
+        public static string Margin {
+            get {
+                return ResourceManager.GetString("Margin", resourceCulture);
             }
         }
         
@@ -1033,11 +1078,29 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player Comm.
+        /// </summary>
+        public static string PlayerComm {
+            get {
+                return ResourceManager.GetString("PlayerComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Player Name.
         /// </summary>
         public static string PlayerName {
             get {
                 return ResourceManager.GetString("PlayerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player W/L.
+        /// </summary>
+        public static string PlayerW_L {
+            get {
+                return ResourceManager.GetString("PlayerW_L", resourceCulture);
             }
         }
         
@@ -1605,6 +1668,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string WinLoss {
             get {
                 return ResourceManager.GetString("WinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss Analysis.
+        /// </summary>
+        public static string WinlossAnalysis {
+            get {
+                return ResourceManager.GetString("WinlossAnalysis", resourceCulture);
             }
         }
         
