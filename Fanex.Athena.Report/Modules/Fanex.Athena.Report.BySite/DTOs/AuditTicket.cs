@@ -13,7 +13,7 @@
 
         public string CurrencyName { get; set; }
 
-        public long RefNo { get; set; }
+        public string RefNo { get; set; }
 
         [JsonIgnore]
         public DateTime TransTime { get; set; }

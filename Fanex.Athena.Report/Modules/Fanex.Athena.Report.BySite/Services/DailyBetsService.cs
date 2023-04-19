@@ -65,7 +65,7 @@
                 Index = Convert.ToInt32(reader["Index"]),
                 PlayerName = reader["PlayerName"].ToString(),
                 CurrencyName = reader["CurrencyName"].ToString(),
-                RefNo = Convert.ToInt64(reader["RefNo"]),
+                RefNo = reader["RefNo"].ToString(),
                 TransTime = Convert.ToDateTime(reader["TransTime"]),
                 ProductName = DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()](),
                 SportName = reader["SportName"].ToString(),
