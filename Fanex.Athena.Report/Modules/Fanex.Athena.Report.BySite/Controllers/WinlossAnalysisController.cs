@@ -38,7 +38,7 @@
            [FromServices] IContextService contextService,
            [FromBody] WinlossAnalysisMetaModel metaModel)
         {
-            var template = fileProvider.GetFileInfo("/ExcelTemplate/WinlossAnalysis.xls").PhysicalPath;
+            var template = fileProvider.GetFileInfo("/ExcelTemplate/WinLossAnalysis.xls").PhysicalPath;
             AssignParamToExportExcel(metaModel);
             var data = await _service.GetDataAsync(metaModel);
             var excelOption = GenOptionFromParam(contextService, metaModel);
