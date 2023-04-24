@@ -43,7 +43,7 @@
             var data = await _service.GetDataAsync(metaModel);
             var excelOption = GenOptionFromParam(contextService, metaModel);
             var fileContent = excelService.Export(template, data, excelOption);
-            return new FileContentResult(fileContent, "application/octet-stream");
+            return File(fileContent, "application/octet-stream");
         }
 
         private WinlossAnalysisExcelOption GenOptionFromParam(IContextService contextService, WinlossAnalysisMetaModel metaModel)
@@ -65,19 +65,10 @@
             };
         }
 
-        private void AssignParamToExportExcel(WinlossAnalysisMetaModel metaModel)
+        private static void AssignParamToExportExcel(WinlossAnalysisMetaModel metaModel)
         {
             metaModel.PageSize = 0;
             metaModel.PageIndex = 0;
         }
-
-        //private async Task<FileContentResult> ExportMemberData(
-        //    IFileProvider file)
-        //{
-        //    var template = file.GetFileInfo("/ExcelTemplate/WinlossAnalysis.xls").PhysicalPath;
-        //    var data = await _service.GetData(metaModel).ConfigureAwait(false);
-        //    var fileContent = excel.Export(template, data, metaModel);
-        //    return new FileContentResult(fileContent, "application/octet-stream");
-        //}
     }
 }

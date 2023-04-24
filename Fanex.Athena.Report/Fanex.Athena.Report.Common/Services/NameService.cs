@@ -30,17 +30,27 @@ namespace Fanex.Athena.Report.Common.Services
             {
                 return ViewResources.Parlay;
             }
+            string sportName = GetSabaSportSuffixName(sportTypeId, lang);
+            if (String.IsNullOrWhiteSpace(sportName))
+            {
+                return sportTypeId.ToString();
+            }
+            return $"{ViewResources.Saba}{sportName}";
+        }
+
+        private string GetSabaSportSuffixName(int sportTypeId, string lang)
+        {
             var sportName = string.Empty;
             switch (sportTypeId)
             {
                 case HardCodeSportType.SabaBasketball:
-                    sportName = _cacheRefAdapter.GetSportName((int)SportType.BasketBall, lang);
+                    sportName = _cacheRefAdapter.GetSportName(SportType.BasketBall, lang);
                     break;
                 case HardCodeSportType.SabaSoccer:
-                    sportName = _cacheRefAdapter.GetSportName((int)SportType.Soccer, lang);
+                    sportName = _cacheRefAdapter.GetSportName(SportType.Soccer, lang);
                     break;
                 case HardCodeSportType.SabaCricket:
-                    sportName = _cacheRefAdapter.GetSportName((int)SportType.Cricket, lang);
+                    sportName = _cacheRefAdapter.GetSportName(SportType.Cricket, lang);
                     break;
                 case HardCodeSportType.SabaSoccerPinGoal:
                     sportName = ViewResources.SoccerPinGoal;
@@ -55,29 +65,26 @@ namespace Fanex.Athena.Report.Common.Services
                     break;
 
                 case HardCodeSportType.SabaFutsal:
-                    sportName = _cacheRefAdapter.GetSportName((int)SportType.Futsal, lang);
+                    sportName = _cacheRefAdapter.GetSportName(SportType.Futsal, lang);
                     break;
-
                 default:
+                    sportName = string.Empty;
                     break;
             }
-            if (String.IsNullOrWhiteSpace(sportName))
-            {
-                return sportTypeId.ToString();
-            }
-            return $"{ViewResources.Saba}{sportName}";
+
+            return sportName;
         }
 
         private string GetBettypeNameSuffix(int betType)
         {
-            if (betType == (int)BetType.NumberGameHappy5OddEven)
+            if (betType == BetType.NumberGameHappy5OddEven)
             {
-                return " (" + _cacheRefAdapter.GetSportName((int)SportType.NumberGameHappy5) + ")";
+                return " (" + _cacheRefAdapter.GetSportName(SportType.NumberGameHappy5) + ")";
             }
 
-            if (betType >= (int)BetType.VirtualBasketballOverUnder && betType <= (int)BetType.VirtualBasketballFirstHalfHandicap)
+            if (betType >= BetType.VirtualBasketballOverUnder && betType <= BetType.VirtualBasketballFirstHalfHandicap)
             {
-                return " (" + _cacheRefAdapter.GetSportName((int)SportType.VirtualBasketball) + ")";
+                return " (" + _cacheRefAdapter.GetSportName(SportType.VirtualBasketball) + ")";
             }
 
             return string.Empty;

@@ -4,7 +4,6 @@
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using NPOI.XSSF.UserModel;
 
     public class ExcelBuilder : IExcelBuilder
     {
@@ -28,7 +27,7 @@
             return workbook;
         }
 
-        private void AssignDefaultStyle(IWorkbook workbook)
+        private static void AssignDefaultStyle(IWorkbook workbook)
         {
             var defaultStyle = workbook.CreateCellStyle();
             defaultStyle.ShrinkToFit = true;

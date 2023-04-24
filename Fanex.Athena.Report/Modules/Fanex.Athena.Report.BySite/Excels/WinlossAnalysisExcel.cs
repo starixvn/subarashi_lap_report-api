@@ -31,10 +31,10 @@ namespace Fanex.Athena.Report.BySite.Excels
         private const int TEMPLATE_DETAIL_ROW = 4;
         private const int TEMPLATE_TOTAL_ROW = 9;
 
-        private IDictionary<short, ICellStyle> _negativeCellStyleDic = new Dictionary<short, ICellStyle>();
+        private readonly IDictionary<short, ICellStyle> _negativeCellStyleDic = new Dictionary<short, ICellStyle>();
         private Lazy<IFont> _negativeCellFont = new Lazy<IFont>();
 
-        private int TemplateRowIndexCol => 0;
+        private const int TemplateRowIndexCol = 0;
         private int TemplateGroupByCol => TemplateRowIndexCol + 1;
         private int TemplateBreakdownCol => TemplateGroupByCol + 2;
         private int TemplateBetCountCol => TemplateBreakdownCol + 2 ;
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             FreezeHeader(sheet);
         }
 
-        private void InitColumnWidth(ISheet templateSheet, ISheet destSheet)
+        private static void InitColumnWidth(ISheet templateSheet, ISheet destSheet)
         {
             for(var i = 0; i < MAX_NUMBER_OF_COL; i++)
             {
@@ -110,7 +110,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             var headerRow2 = _builder.CopyRow(destSheet, templateSheet, TEMPLATE_HEADER_ROW + 1, TEMPLATE_HEADER_ROW + 1);
             headerRow1.Height = headerRow2.Height = templateRowHeight;
 
-            var commonHeaderName = new string[]
+            var commonHeaderName = new []
             {
                 ViewResources.BetCount,
                 ViewResources.Turnover,
@@ -144,29 +144,29 @@ namespace Fanex.Athena.Report.BySite.Excels
         private void SetUpMergeHeaderRegion(ISheet destSheet)
         {
             // Merge RowIndex Header
-            _builder.MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateRowIndexCol, TemplateRowIndexCol);
+            MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateRowIndexCol, TemplateRowIndexCol);
             // Merge GroupBy Header
             if(IsHasSecondaryHeaderForGroupBy)
             {
-                _builder.MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW, TemplateGroupByCol, TemplateGroupByCol + 1);
+                MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW, TemplateGroupByCol, TemplateGroupByCol + 1);
             }
             else
             {
-                _builder.MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateGroupByCol, TemplateGroupByCol + 1);
+                MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateGroupByCol, TemplateGroupByCol + 1);
             }
             // Merge Breakdown Header
             if (IsHasSecondaryHeaderForBreakDown)
             {
-                _builder.MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW, TemplateBreakdownCol, TemplateBreakdownCol + 1);
+                MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW, TemplateBreakdownCol, TemplateBreakdownCol + 1);
             }
             else
             {
-                _builder.MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateBreakdownCol, TemplateBreakdownCol + 1);
+                MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateBreakdownCol, TemplateBreakdownCol + 1);
             }
             // Merge remaining Header
             for (int i = TemplateBetCountCol; i < MAX_NUMBER_OF_COL; i++)
             {
-                _builder.MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, i, i);
+                MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, i, i);
             }
         }
 
@@ -240,7 +240,8 @@ namespace Fanex.Athena.Report.BySite.Excels
             row.GetCell(TemplateLicenseeWinlossCol).SetCellValue((double) item.LicWinloss);
             row.GetCell(TemplateLicenseeComm).SetCellValue((double)item.LicComm);
             row.GetCell(TemplateAmtDueToBACol).SetCellValue((double)item.AmtDueToBA);
-            row.GetCell(TemplateMarginCol).SetCellValue(string.Format("{0:0.00}%", item.Margin * 100));
+            row.GetCell(TemplateMarginCol).SetCellValue(item.Margin);
+
             if (item.LicWinloss < 0)
             {
                 SetStyleForNegativeValue(row.GetCell(TemplateLicenseeWinlossCol));
@@ -296,7 +297,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 $" {ViewResources.BaseCurrency}: {Option.BaseCurrency}," +
                 $" {ViewResources.LicenseeW_L}: {Option.ProductCodes}";
 
-        private void FreezeHeader(ISheet sheet)
+        private static void FreezeHeader(ISheet sheet)
         {
             sheet.CreateFreezePane(0, TEMPLATE_HEADER_ROW + 2);
         }
@@ -315,7 +316,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         {
             if (!IsHasSecondaryHeader)
             {
-                var secondaryRowIndex = TEMPLATE_HEADER_ROW + 1;
+                const int secondaryRowIndex = TEMPLATE_HEADER_ROW + 1;
                 _builder.HideRow(sheet, secondaryRowIndex);
             }
             if (!IsHasSecondaryHeaderForGroupBy)
@@ -335,6 +336,9 @@ namespace Fanex.Athena.Report.BySite.Excels
                 _builder.HideColumn(sheet, TemplateBetEffectiveCol);
             }
         }
+
+        private void MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
+            => _builder.MergeCells(sheet, firstRow, lastRow, firstCol, lastCol);
 
         public Task<string> CreateZipFile(WinlossAnalysisResultModel metaModel)
         {
