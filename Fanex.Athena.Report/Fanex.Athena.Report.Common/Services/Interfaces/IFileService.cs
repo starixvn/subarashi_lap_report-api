@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Common.Services
+﻿namespace Fanex.Athena.Report.Common.Services.Interfaces
 {
     using System.Collections.Generic;
     using System.IO;
@@ -16,5 +16,9 @@
         StreamWriter CreateStreamWriter(string path, bool append, Encoding encoding);
 
         void Compress(IEnumerable<ZipEntry> entries, string zipPath, bool deleteOriginalFiles);
+
+        void WriteAllBytes(string path, byte[] bytes);
+
+        byte[] ReadAllBytes(string path);
     }
 }

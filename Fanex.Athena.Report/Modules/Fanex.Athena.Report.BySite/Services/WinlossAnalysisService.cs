@@ -72,6 +72,10 @@ namespace Fanex.Athena.Report.BySite.Services
             {
                 listData.Add(await BuildAndAssginRelevantFieldForBreakdownData(param, data));
             }
+            if (param.BreakdownMode == BreakdownMode.Currency)
+            {
+                return listData.OrderBy(_ => _.BreakDownFieldText);
+            }
             return listData;
         }
 
@@ -110,6 +114,10 @@ namespace Fanex.Athena.Report.BySite.Services
             foreach (var data in groupSumData)
             {
                 listData.Add(await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data));
+            }
+            if (groupByMode == GroupByMode.Currency)
+            {
+                return listData.OrderBy(_ => _.GroupByFieldText);
             }
             return listData;
         }
@@ -210,7 +218,7 @@ namespace Fanex.Athena.Report.BySite.Services
             var dicMainData = breakDownDatas.GroupBy(_ => _.RowIndex, _ => _).ToDictionary(_ => _.Key, _ => _);
             return groupByDatas.Select(_ => new TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>
             {
-                Item = _,
+                KeyItem = _,
                 Children = dicMainData.ContainsKey(_.RowIndex) ? dicMainData[_.RowIndex] : Enumerable.Empty<WinlossAnalysisViewModel>(),
             });
         }

@@ -5,6 +5,7 @@
     using System.IO.Compression;
     using System.Text;
     using Fanex.Athena.Report.Common.Model.MetaModels;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
 
     public class FileService : IFileService
     {
@@ -45,5 +46,11 @@
                 }
             }
         }
+
+        public void WriteAllBytes(string path, byte[] bytes)
+            => File.WriteAllBytes(path, bytes);
+
+        public byte[] ReadAllBytes(string path)
+            => File.ReadAllBytes(path);
     }
 }

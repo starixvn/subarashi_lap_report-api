@@ -1,25 +1,20 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs;
+using Fanex.Athena.Report.BySite.Enums;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
 using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Resources;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
 using NPOI.HSSF.Util;
-using NPOI.OpenXmlFormats.Dml;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Excels
 {
-    public class WinlossAnalysisExcel : BaseExcel, IWinlossAnalysisExcel, IExportZipFile<WinlossAnalysisResultModel>
+    public class WinlossAnalysisExcel : IWinlossAnalysisExcel
     {
         private const string DATE_FORMAT = "dd/MM/yyyy";
         private const string TEMPLATE_SHEET_NAME = "Template";
@@ -31,13 +26,13 @@ namespace Fanex.Athena.Report.BySite.Excels
         private const int TEMPLATE_DETAIL_ROW = 4;
         private const int TEMPLATE_TOTAL_ROW = 9;
 
-        private readonly IDictionary<short, ICellStyle> _negativeCellStyleDic = new Dictionary<short, ICellStyle>();
-        private Lazy<IFont> _negativeCellFont = new Lazy<IFont>();
+        private readonly IDictionary<string, ICellStyle> _negativeCellStyleDic = new Dictionary<string, ICellStyle>();
+        private readonly IDictionary<string, IFont> _negativeCellFontDic = new Dictionary<string, IFont>();
 
         private const int TemplateRowIndexCol = 0;
         private int TemplateGroupByCol => TemplateRowIndexCol + 1;
         private int TemplateBreakdownCol => TemplateGroupByCol + 2;
-        private int TemplateBetCountCol => TemplateBreakdownCol + 2 ;
+        private int TemplateBetCountCol => TemplateBreakdownCol + 2;
         private int TemplateTurnoverCol => TemplateBetCountCol + 1;
         private int TemplateNetTurnoverCol => TemplateTurnoverCol + 1;
         private int TemplatePlayerWinlossCol => TemplateNetTurnoverCol + 1;
@@ -59,10 +54,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         private readonly IExcelBuilder _builder;
         private readonly IColor _redColor = new HSSFColor.Red();
 
-        public WinlossAnalysisExcel(IExcelBuilder builder,
-            IFileService fileService,
-            IOptions<ExcelOptions> excelOptionsAccessor,
-            IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor)
+        public WinlossAnalysisExcel(IExcelBuilder builder)
         {
             _builder = builder;
         }
@@ -70,6 +62,11 @@ namespace Fanex.Athena.Report.BySite.Excels
         public byte[] Export(string templatePath, WinlossAnalysisResultModel data, WinlossAnalysisExcelOption option)
         {
             Option = option;
+            return ExportToExcelFileToMemory(templatePath, data);
+        }
+
+        private byte[] ExportToExcelFileToMemory(string templatePath, WinlossAnalysisResultModel data)
+        {
             var workBook = _builder.LoadTemplate(templatePath);
             FillContentToExcel(workBook, data);
             _builder.RemoveSheet(workBook, TEMPLATE_SHEET_NAME);
@@ -90,7 +87,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private static void InitColumnWidth(ISheet templateSheet, ISheet destSheet)
         {
-            for(var i = 0; i < MAX_NUMBER_OF_COL; i++)
+            for (var i = 0; i < MAX_NUMBER_OF_COL; i++)
             {
                 destSheet.SetColumnWidth(i, templateSheet.GetColumnWidth(i));
             }
@@ -103,14 +100,14 @@ namespace Fanex.Athena.Report.BySite.Excels
         }
 
         private void FillAllHeader(ISheet templateSheet, ISheet destSheet)
-        {            
+        {
             SetUpMergeHeaderRegion(destSheet);
             var templateRowHeight = templateSheet.GetRow(TEMPLATE_HEADER_ROW).Height;
             var headerRow1 = _builder.CopyRow(destSheet, templateSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW);
             var headerRow2 = _builder.CopyRow(destSheet, templateSheet, TEMPLATE_HEADER_ROW + 1, TEMPLATE_HEADER_ROW + 1);
             headerRow1.Height = headerRow2.Height = templateRowHeight;
 
-            var commonHeaderName = new []
+            var commonHeaderName = new[]
             {
                 ViewResources.BetCount,
                 ViewResources.Turnover,
@@ -146,7 +143,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             // Merge RowIndex Header
             MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateRowIndexCol, TemplateRowIndexCol);
             // Merge GroupBy Header
-            if(IsHasSecondaryHeaderForGroupBy)
+            if (IsHasSecondaryHeaderForGroupBy)
             {
                 MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW, TemplateGroupByCol, TemplateGroupByCol + 1);
             }
@@ -174,7 +171,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         {
             var mainData = data.Data;
             var totalGroupByRow = mainData.Count();
-            var totalDetailRow = mainData.Select(_ => _.Children.Count()).Sum();
+            var totalDetailRow = Option.ExportExcelMode == WinlossAnalysisExportMode.All ? mainData.Select(_ => _.Children.Count()).Sum() : 0;
             var sumTotalRowIndex = TEMPLATE_GROUP_ROW + totalGroupByRow + totalDetailRow;
             AssignMainData(templateSheet, sheet, data.Data);
             AssginSumTotalData(templateSheet, sheet, data.SumTotal, sumTotalRowIndex);
@@ -187,22 +184,25 @@ namespace Fanex.Athena.Report.BySite.Excels
             var templateDetailRowHeight = templateSheet.GetRow(TEMPLATE_DETAIL_ROW).Height;
             foreach (var data in datas)
             {
-                var groupData = data.Item;
+                var groupData = data.KeyItem;
                 var groupRow = _builder.CopyRow(sheet, templateSheet, TEMPLATE_GROUP_ROW, currenRowIndex);
                 groupRow.Height = templateGroupRowHeight;
                 groupRow.GetCell(TemplateRowIndexCol).SetCellValue(groupData.RowIndex);
                 AssignDataForNormalRow(groupRow, groupData, groupData);
                 currenRowIndex++;
-                var groupIndex = currenRowIndex;
-                foreach (var detailData in data.Children)
+                if (Option.ExportExcelMode == WinlossAnalysisExportMode.All)
                 {
-                    var detailRow = _builder.CopyRow(sheet, templateSheet, TEMPLATE_DETAIL_ROW, currenRowIndex);
-                    detailRow.Height = templateDetailRowHeight;
-                    AssignDataForNormalRow(detailRow, detailData, groupData);
-                    currenRowIndex++;
+                    var groupIndex = currenRowIndex;
+                    foreach (var detailData in data.Children)
+                    {
+                        var detailRow = _builder.CopyRow(sheet, templateSheet, TEMPLATE_DETAIL_ROW, currenRowIndex);
+                        detailRow.Height = templateDetailRowHeight;
+                        AssignDataForNormalRow(detailRow, detailData, groupData);
+                        currenRowIndex++;
+                    }
+                    sheet.GroupRow(groupIndex, groupIndex + data.Children.Count());
+                    sheet.SetRowGroupCollapsed(groupIndex, true);
                 }
-                sheet.GroupRow(groupIndex, groupIndex + data.Children.Count());
-                sheet.SetRowGroupCollapsed(groupIndex, true);
             }
         }
 
@@ -232,12 +232,12 @@ namespace Fanex.Athena.Report.BySite.Excels
         private void AssignCommonData(IRow row, WinlossAnalysisViewModel item)
         {
             row.GetCell(TemplateBetCountCol).SetCellValue(item.BetCount);
-            row.GetCell(TemplateTurnoverCol).SetCellValue((double) item.Turnover);
-            row.GetCell(TemplateNetTurnoverCol).SetCellValue((double) item.NetTurnover);
-            row.GetCell(TemplatePlayerWinlossCol).SetCellValue((double) item.PlayerWinloss);
-            row.GetCell(TemplateBetEffectiveCol).SetCellValue((double) item.BetEffective);
-            row.GetCell(TemplatePlayerCommCol).SetCellValue((double) item.PlayerComm);
-            row.GetCell(TemplateLicenseeWinlossCol).SetCellValue((double) item.LicWinloss);
+            row.GetCell(TemplateTurnoverCol).SetCellValue((double)item.Turnover);
+            row.GetCell(TemplateNetTurnoverCol).SetCellValue((double)item.NetTurnover);
+            row.GetCell(TemplatePlayerWinlossCol).SetCellValue((double)item.PlayerWinloss);
+            row.GetCell(TemplateBetEffectiveCol).SetCellValue((double)item.BetEffective);
+            row.GetCell(TemplatePlayerCommCol).SetCellValue((double)item.PlayerComm);
+            row.GetCell(TemplateLicenseeWinlossCol).SetCellValue((double)item.LicWinloss);
             row.GetCell(TemplateLicenseeComm).SetCellValue((double)item.LicComm);
             row.GetCell(TemplateAmtDueToBACol).SetCellValue((double)item.AmtDueToBA);
             row.GetCell(TemplateMarginCol).SetCellValue(item.Margin);
@@ -246,7 +246,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 SetStyleForNegativeValue(row.GetCell(TemplateLicenseeWinlossCol));
             }
-            if(item.Margin < 0)
+            if (item.Margin < 0)
             {
                 SetStyleForNegativeValue(row.GetCell(TemplateMarginCol));
             }
@@ -254,43 +254,43 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void SetStyleForNegativeValue(ICell cell)
         {
-            cell.CellStyle= GetNegativeCellStyle(cell);
+            cell.CellStyle = GetNegativeCellStyle(cell);
         }
 
         private ICellStyle GetNegativeCellStyle(ICell cell)
-        {            
+        {
             var cellStyle = cell.CellStyle;
-            if (_negativeCellStyleDic.ContainsKey(cellStyle.Index))
-            {
-                return _negativeCellStyleDic[cellStyle.Index];
-            }
             var workbook = cell.Row.Sheet.Workbook;
+            var key = GenerateKeyForStyle(workbook, cellStyle.Index);
+            if (_negativeCellStyleDic.ContainsKey(key))
+            {
+                return _negativeCellStyleDic[key];
+            }
             var newCellStyle = workbook.CreateCellStyle();
             newCellStyle.CloneStyleFrom(cellStyle);
             var font = GetNegativeValueFont(cell);
             newCellStyle.SetFont(font);
-            _negativeCellStyleDic.Add(cellStyle.Index, newCellStyle);
+            _negativeCellStyleDic.Add(key, newCellStyle);
             return newCellStyle;
         }
 
         private IFont GetNegativeValueFont(ICell cell)
         {
-            if (_negativeCellFont.IsValueCreated)
+            var workbook = cell.Row.Sheet.Workbook;
+            var font = cell.CellStyle.GetFont(workbook);
+            var key = GenerateKeyForStyle(workbook, font.Index);
+            if (_negativeCellFontDic.ContainsKey(key))
             {
-                return _negativeCellFont.Value;
+                return _negativeCellFontDic[key];
             }
-            _negativeCellFont = new Lazy<IFont>(() =>
-            {
-                var workbook = cell.Row.Sheet.Workbook;
-                var font = workbook.CreateFont();
-                font.CloneStyleFrom(cell.CellStyle.GetFont(cell.Row.Sheet.Workbook));
-                font.Color = _redColor.Indexed;
-                return font;
-            });
-            return _negativeCellFont.Value;
+            var newFont = workbook.CreateFont();
+            newFont.CloneStyleFrom(font);
+            newFont.Color = _redColor.Indexed;
+            _negativeCellFontDic.Add(key, newFont);
+            return newFont;
         }
 
-        private string GetTitle()       
+        private string GetTitle()
             => $"{ViewResources.WinlossAnalysis}," +
                 $" {Option.FromDate.ToString(DATE_FORMAT)} -> {Option.ToDate.ToString(DATE_FORMAT)}," +
                 $" {ViewResources.Currency}: {Option.CurrencyList}," +
@@ -335,14 +335,16 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 _builder.HideColumn(sheet, TemplateBetEffectiveCol);
             }
+            if(Option.ExportExcelMode == WinlossAnalysisExportMode.GroupByModeOnly)
+            {
+                _builder.HideColumn(sheet, TemplateBreakdownCol);
+            }
         }
 
         private void MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
             => _builder.MergeCells(sheet, firstRow, lastRow, firstCol, lastCol);
 
-        public Task<string> CreateZipFile(WinlossAnalysisResultModel metaModel)
-        {
-            throw new NotImplementedException();
-        }
+        private string GenerateKeyForStyle(IWorkbook workbook, short index)
+            => $"{workbook.GetHashCode()}_{index}";
     }
 }

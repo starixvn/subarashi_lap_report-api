@@ -10,13 +10,13 @@
     using Fanex.Athena.Report.ByPlayer.MetaModels;
     using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Services;
     using Fanex.Athena.Report.Resources;
     using Fanex.Data;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
     using System.Linq;
     using System.Collections.Generic;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
 
     public class CustomerBalanceExcel : BaseExcel, ICustomerBalanceExcel
     {

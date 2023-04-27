@@ -57,6 +57,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public string CurrencyIdList { get; set; }
 
+        public WinlossAnalysisExportMode ExportExcelMode { get; set; }
+
         public int SortBy { get; set; }
 
         public int SortOrder { get; set; }

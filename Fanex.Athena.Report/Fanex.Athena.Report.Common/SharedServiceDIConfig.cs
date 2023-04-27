@@ -14,6 +14,7 @@
             services.AddSingleton<IFileService, FileService>();
             services.AddSingleton<ICurrencyService, CurrencyService>();
             services.AddScoped<INameService, NameService>();
+            services.AddScoped<ICompressService, CompressService>();
             return services;
         }
     }
