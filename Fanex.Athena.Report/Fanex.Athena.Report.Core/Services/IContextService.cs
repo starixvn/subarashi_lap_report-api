@@ -14,7 +14,10 @@ namespace Fanex.Athena.Report.Core.Services
         bool IsFakeLicensee { get; }
         byte SubsidiaryViewType { get; }
         IEnumerable<string> OfferedSubProductList { get; }
+
         bool IsInRoles(params string[] roles);
+
         bool ForceIgnoreSharding { get; }
+        bool IsShowVND { get; }
     }
 }

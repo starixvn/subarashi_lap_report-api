@@ -32,6 +32,8 @@
 
         public bool IsValid => !string.IsNullOrWhiteSpace(ProductCodeList) && !string.IsNullOrWhiteSpace(CurrencyIdList);
 
-        public DailyBetsMetaModel ShallowCopy() => (DailyBetsMetaModel) this.MemberwiseClone();
+        public bool IsShowVND { get; set; }
+
+        public DailyBetsMetaModel ShallowCopy() => (DailyBetsMetaModel)this.MemberwiseClone();
     }
 }
