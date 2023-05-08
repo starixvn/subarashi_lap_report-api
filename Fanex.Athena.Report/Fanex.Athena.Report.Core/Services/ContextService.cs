@@ -46,12 +46,12 @@ namespace Fanex.Athena.Report.Core.Services
         {
             get
             {
-                if(string.IsNullOrEmpty(GetClaimValue("VendorID")))
+                if (string.IsNullOrEmpty(GetClaimValue("VendorID")))
                 {
                     return Constants.SubsidiaryViewType.NotManagement;
                 }
 
-                int? GetWhiteLabelID () 
+                int? GetWhiteLabelID()
                 {
                     var value = GetClaimValue<int>("WhiteLabelID");
                     if (value < 0)
@@ -132,6 +132,8 @@ namespace Fanex.Athena.Report.Core.Services
         }
 
         public bool ForceIgnoreSharding => bool.TrueString.Equals(Context.Request.Headers["X-IgnoreSharding"], StringComparison.OrdinalIgnoreCase);
+
+        public bool IsShowVND => GetClaimValue<bool>("IsShowVND");
 
         private T GetClaimValue<T>(string claimType)
             => (T)Convert.ChangeType(GetClaimValue(claimType), typeof(T));

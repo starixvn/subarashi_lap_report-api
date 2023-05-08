@@ -95,7 +95,7 @@
                         var rowBuilder = new StringBuilder();
                         while (reader.Read())
                         {
-                            await WriteMainDataItemAsync(reader, stw, rowBuilder).ConfigureAwait(false);
+                            await WriteMainDataItemAsync(reader, stw, rowBuilder, metaModel).ConfigureAwait(false);
                         }
 
                         await stw.WriteLineAsync(_footer).ConfigureAwait(false);
@@ -113,7 +113,8 @@
         private async Task WriteMainDataItemAsync(
             IDataReader reader,
             StreamWriter streamWriter,
-            StringBuilder rowBuilder)
+            StringBuilder rowBuilder,
+            DailyBetsMetaModel metaModel)
         {
             rowBuilder.Append(reader["Index"]);
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
@@ -121,7 +122,8 @@
             rowBuilder.Append(reader["PlayerName"]);
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
-            rowBuilder.Append(reader["CurrencyName"]);
+            var currencyName = reader["CurrencyName"].ToString();
+            rowBuilder.Append(metaModel.IsShowVND && currencyName == "INH" ? "VND" : currencyName);
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
@@ -218,6 +220,5 @@
 
             return string.Join(ExcelOptions.CSVSeparateCharacter, footer);
         }
-
     }
 }

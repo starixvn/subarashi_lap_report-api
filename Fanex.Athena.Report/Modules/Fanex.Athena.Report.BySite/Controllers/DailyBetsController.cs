@@ -53,6 +53,7 @@
         {
             metaModel.CurrencyList = _contextService.CurrencyList;
             metaModel.SiteName = _contextService.SiteName;
+            metaModel.IsShowVND = _contextService.IsShowVND;
         }
     }
 }

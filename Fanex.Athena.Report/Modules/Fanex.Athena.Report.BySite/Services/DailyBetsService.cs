@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Extensions;
@@ -10,6 +11,7 @@
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Common.Model.ViewModel;
+    using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Data;
 
     public class DailyBetsService : IDailyBetsService
@@ -50,7 +52,7 @@
                 {
                     while (reader.Read())
                     {
-                        result.Add(ReadMainDataItem(reader));
+                        result.Add(ReadMainDataItem(reader, metaModel));
                     }
                 }
             }
@@ -58,13 +60,15 @@
             return result;
         }
 
-        private static AuditTicket ReadMainDataItem(IDataReader reader)
+        private static AuditTicket ReadMainDataItem(IDataReader reader, DailyBetsMetaModel metaModel)
         {
+            var currencyName = reader["CurrencyName"].ToString();
+
             return new AuditTicket
             {
                 Index = Convert.ToInt32(reader["Index"]),
                 PlayerName = reader["PlayerName"].ToString(),
-                CurrencyName = reader["CurrencyName"].ToString(),
+                CurrencyName = metaModel.IsShowVND && currencyName == "INH" ? "VND" : currencyName,
                 RefNo = reader["RefNo"].ToString(),
                 TransTime = Convert.ToDateTime(reader["TransTime"]),
                 ProductName = DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()](),
