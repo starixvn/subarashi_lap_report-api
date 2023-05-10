@@ -40,7 +40,10 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 objectDb.SetParameterValue("CustomerClass", metaModel.CustomerClass);
                 objectDb.SetParameterValue("OddsGroup", metaModel.OddsGroup);
                 objectDb.SetParameterValue("SearchMode", metaModel.SearchMode);
-                objectDb.SetParameterValue("SearchUserName", metaModel.SearchUserName);
+                if (!string.IsNullOrEmpty(metaModel.SearchUserName))
+                {
+                    objectDb.SetParameterValue("SearchUserName", metaModel.SearchUserName);
+                }
                 return ReadDataAsync(objectDb);
             }
         }

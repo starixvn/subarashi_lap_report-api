@@ -170,8 +170,8 @@
                 IsHasBAProduct = isHasBAProduct,
                 CurrencyList = currencyText,
                 ProductCodes = metaModel.ProductCodes,
-                ExportExcelMode = metaModel.ExportExcelMode
-                
+                ExportExcelMode = metaModel.ExportExcelMode,
+                SearchUsername = metaModel.SearchUserName
             };
         }
 

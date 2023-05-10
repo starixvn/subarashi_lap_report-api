@@ -4,6 +4,8 @@
     {
         public int RowIndex { get; set; }
 
+        public int DisplayRowIndex { get; set; }
+
         public string GroupBy { get; set; }
 
         public string GroupByFieldText { get; set; }

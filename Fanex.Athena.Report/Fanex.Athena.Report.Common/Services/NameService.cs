@@ -87,6 +87,11 @@ namespace Fanex.Athena.Report.Common.Services
                 return " (" + _cacheRefAdapter.GetSportName(SportType.VirtualBasketball) + ")";
             }
 
+            if (betType == BetType.VirtualSportsTennisCorrectSoccer)
+            {
+                return $" ({_cacheRefAdapter.GetSportName(SportType.Tennis)}";
+            }
+
             return string.Empty;
         }
     }

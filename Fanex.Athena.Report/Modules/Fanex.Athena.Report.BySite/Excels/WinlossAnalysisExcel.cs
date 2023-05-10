@@ -7,7 +7,6 @@ using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Resources;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 {
     public class WinlossAnalysisExcel : IWinlossAnalysisExcel
     {
-        private const string DATE_FORMAT = "dd/MM/yyyy";
+        private const string DATE_FORMAT = "MM/dd/yyyy";
         private const string TEMPLATE_SHEET_NAME = "Template";
         private const string SHEET_NAME = "Data";
         private const int MAX_NUMBER_OF_COL = 15;
@@ -45,19 +44,18 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private WinlossAnalysisExcelOption Option { get; set; } = new WinlossAnalysisExcelOption();
 
-        private bool IsHasSecondaryHeaderForGroupBy => Option.GroupByMode == Enums.GroupByMode.Player;
-        private bool IsHasSecondaryHeaderForBreakDown => Option.BreakdownMode == Enums.BreakdownMode.Player;
+        private bool IsHasSecondaryHeaderForGroupBy => Option.GroupByMode == GroupByMode.Player;
+        private bool IsHasSecondaryHeaderForBreakDown => Option.BreakdownMode == BreakdownMode.Player;
         private bool IsHasBACol => Option.IsHasBAProduct;
-        private bool IsHasBetEffectiveCol => Option.GroupByMode == Enums.GroupByMode.Player;
+        private bool IsHasBetEffectiveCol => Option.GroupByMode == GroupByMode.Player;
         private bool IsHasSecondaryHeader => IsHasSecondaryHeaderForGroupBy || IsHasSecondaryHeaderForBreakDown;
 
         private readonly IExcelBuilder _builder;
         private readonly IColor _redColor = new HSSFColor.Red();
 
-        public WinlossAnalysisExcel(IExcelBuilder builder)
-        {
-            _builder = builder;
-        }
+        public WinlossAnalysisExcel(IExcelBuilder builder)        
+            => _builder = builder;
+        
 
         public byte[] Export(string templatePath, WinlossAnalysisResultModel data, WinlossAnalysisExcelOption option)
         {
@@ -187,7 +185,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 var groupData = data.KeyItem;
                 var groupRow = _builder.CopyRow(sheet, templateSheet, TEMPLATE_GROUP_ROW, currenRowIndex);
                 groupRow.Height = templateGroupRowHeight;
-                groupRow.GetCell(TemplateRowIndexCol).SetCellValue(groupData.RowIndex);
+                groupRow.GetCell(TemplateRowIndexCol).SetCellValue(groupData.DisplayRowIndex);
                 AssignDataForNormalRow(groupRow, groupData, groupData);
                 currenRowIndex++;
                 if (Option.ExportExcelMode == WinlossAnalysisExportMode.All)
@@ -292,10 +290,11 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private string GetTitle()
             => $"{ViewResources.WinlossAnalysis}," +
-                $" {Option.FromDate.ToString(DATE_FORMAT)} -> {Option.ToDate.ToString(DATE_FORMAT)}," +
+                $" {Option.FromDate.ToString(DATE_FORMAT)} → {Option.ToDate.ToString(DATE_FORMAT)}," +
                 $" {ViewResources.Currency}: {Option.CurrencyList}," +
                 $" {ViewResources.BaseCurrency}: {Option.BaseCurrency}," +
-                $" {ViewResources.LicenseeW_L}: {Option.ProductCodes}";
+                $" {ViewResources.LicenseeW_L} ({Option.ProductCodes})" +
+                (string.IsNullOrWhiteSpace(Option.SearchUsername) ? string.Empty : $", {ViewResources.Username}: {Option.SearchUsername}");
 
         private static void FreezeHeader(ISheet sheet)
         {

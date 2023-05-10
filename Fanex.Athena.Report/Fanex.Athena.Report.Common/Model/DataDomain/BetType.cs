@@ -53,5 +53,7 @@
         public const int VirtualBasketballOverUnder = 2803;
 
         public const int VirtualBasketballFirstHalfHandicap = 2806;
+
+        public const int VirtualSportsTennisCorrectSoccer = 1235;
     }
 }

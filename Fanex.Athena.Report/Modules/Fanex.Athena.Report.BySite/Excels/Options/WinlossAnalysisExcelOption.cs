@@ -11,6 +11,8 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
 
         public string ProductCodes { get; set; }
 
+        public string SearchUsername { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }

@@ -41,7 +41,7 @@ namespace Fanex.Athena.Report.BySite.Services
         public async Task<WinlossAnalysisAggregateDTO> GetRawDataAsync(WinlossAnalysisMetaModel param)
         {
             await AssignMoveBetDayAsync(param);
-            return IsRequestDataForAngency(param)
+            return IsRequestDataForAgency(param)
                 ? await _repository.GetDataByAgencyCriteria(param)
                 : await _repository.GetDataByPlayerCriteria(param);
         }
@@ -110,16 +110,27 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForGroupByData(GroupByMode groupByMode, IEnumerable<WinlossAnalysisDTO> groupSumData)
         {
-            var listData = new List<WinlossAnalysisViewModel>(groupSumData.Count());
+            var listData = new SortedList<dynamic, WinlossAnalysisViewModel>(groupSumData.Count());
             foreach (var data in groupSumData)
             {
-                listData.Add(await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data));
+                var item = await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data);
+                if (groupByMode == GroupByMode.Currency)
+                {
+                    listData.Add(item.GroupByFieldText, item);
+                }
+                else
+                {
+                    listData.Add(item.RowIndex, item);
+                }
             }
-            if (groupByMode == GroupByMode.Currency)
+
+            var returnList = listData.Values;
+            var startIndex = groupSumData.FirstOrDefault()?.RowIndex;
+            if (groupByMode == GroupByMode.Currency && startIndex != null)
             {
-                return listData.OrderBy(_ => _.GroupByFieldText);
-            }
-            return listData;
+                ReAssignDisplayIndex(returnList, startIndex.Value);
+            }    
+            return returnList;
         }
 
         private async Task<WinlossAnalysisViewModel> BuildAndAssginRelevantFieldForGroupSumData(GroupByMode groupByMode, WinlossAnalysisDTO data)
@@ -185,7 +196,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var betType = spiltName[1];
                 var productName = DataHelper.GetProductName(productCode);
                 var betTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType));
-                item.GroupByFieldText = $"{productName} -> {betTypeName}";
+                item.GroupByFieldText = $"{productName} > {betTypeName}";
         }
 
         private void AssignSportName(WinlossAnalysisViewModel item)
@@ -195,7 +206,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 var sportType = spiltName[1];
                 var productName = DataHelper.GetProductName(productCode);
                 var sportName = _nameService.GetSportName(Convert.ToInt32(sportType));
-                item.GroupByFieldText = $"{productName} -> {sportName}";
+                item.GroupByFieldText = $"{productName} > {sportName}";
         }
 
         private void AssignPlayerInfo(WinlossAnalysisViewModel item)
@@ -223,10 +234,20 @@ namespace Fanex.Athena.Report.BySite.Services
             });
         }
 
+        private static void ReAssignDisplayIndex(IEnumerable<WinlossAnalysisViewModel> list, int startIndex)
+        {
+            foreach (var item in list)
+            {
+                item.DisplayRowIndex= startIndex;
+                startIndex++;
+            }
+        }
+
         private WinlossAnalysisViewModel GetValueForOriginalCurrency(WinlossAnalysisDTO data)
             => new WinlossAnalysisViewModel
             {
                 RowIndex = data.RowIndex,
+                DisplayRowIndex = data.RowIndex,
                 AmtDueToBA = data.AmtDueToBA,
                 BetCount = data.BetCount,
                 BetEffective = data.BetEffective,
@@ -245,6 +266,7 @@ namespace Fanex.Athena.Report.BySite.Services
             => new WinlossAnalysisViewModel
             {
                 RowIndex = data.RowIndex,
+                DisplayRowIndex = data.RowIndex,
                 AmtDueToBA = data.BaseAmtDueToBA,
                 BetCount = data.BetCount,
                 BetEffective = data.BaseBetEffective,
@@ -259,7 +281,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 PlayerWinloss = data.BaseMemWinloss
             };
 
-        private bool IsRequestDataForAngency(WinlossAnalysisMetaModel param)
+        private bool IsRequestDataForAgency(WinlossAnalysisMetaModel param)
             => string.IsNullOrWhiteSpace(param.SearchUserName)
                 && !param.IsVipOnly
                 && param.CustomerClass.Equals(ALL, StringComparison.InvariantCultureIgnoreCase)
