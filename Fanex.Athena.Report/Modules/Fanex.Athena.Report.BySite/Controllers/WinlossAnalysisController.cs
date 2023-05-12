@@ -97,14 +97,9 @@
             foreach (var item in resultData.Data)
             {
                 mainData.Add(item);
-                if (item.KeyItem == lastItem?.KeyItem)
-                {
-                    listPagingData.Add(pagingData);
-                    break;
-                }
                 var childernRowCount = exportMode == WinlossAnalysisExportMode.All ? item.Children.Count() : 0;
                 totalRow = totalRow + 1 + childernRowCount;
-                if (totalRow >= maxRow)
+                if (item.KeyItem == lastItem?.KeyItem || totalRow >= maxRow)
                 {
                     listPagingData.Add(pagingData);
                     pagingData = new WinlossAnalysisResultModel

@@ -179,13 +179,13 @@ namespace Fanex.Athena.Report.BySite.Services
             }
         }
 
-        private void AssignDateTime(WinlossAnalysisViewModel item, string formatDate)
+        private static void AssignDateTime(WinlossAnalysisViewModel item, string formatDate)
         {
                 var date = DateTime.ParseExact(item.GroupBy, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
                 item.GroupByFieldText = date.ToString(formatDate);          
         }
 
-        private void AssignGroupByField(WinlossAnalysisViewModel item)
+        private static void AssignGroupByField(WinlossAnalysisViewModel item)
             => item.GroupByFieldText = item.GroupBy;
         
 
@@ -209,7 +209,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 item.GroupByFieldText = $"{productName} > {sportName}";
         }
 
-        private void AssignPlayerInfo(WinlossAnalysisViewModel item)
+        private static void AssignPlayerInfo(WinlossAnalysisViewModel item)
         {
                 var spiltName = item.GroupBy.Split('#');
                 item.SystemId = spiltName[0];
@@ -217,14 +217,16 @@ namespace Fanex.Athena.Report.BySite.Services
                 item.GroupByFieldText = item.SystemId;
         }
 
-        private void AssignPlatformName(WinlossAnalysisViewModel item)        
+        private static void AssignPlatformName(WinlossAnalysisViewModel item)        
             => item.GroupByFieldText = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
         
 
-        private void AssignProductName(WinlossAnalysisViewModel item)
+        private static void AssignProductName(WinlossAnalysisViewModel item)
             => item.GroupByFieldText = DataHelper.GetProductName(item.GroupBy);
 
-        private IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>> BuildDefaultTreeListItem(IEnumerable<WinlossAnalysisViewModel> groupByDatas, IEnumerable<WinlossAnalysisViewModel> breakDownDatas)
+        private IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>> BuildDefaultTreeListItem(
+            IEnumerable<WinlossAnalysisViewModel> groupByDatas, 
+            IEnumerable<WinlossAnalysisViewModel> breakDownDatas)
         {
             var dicMainData = breakDownDatas.GroupBy(_ => _.RowIndex, _ => _).ToDictionary(_ => _.Key, _ => _);
             return groupByDatas.Select(_ => new TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>
@@ -281,7 +283,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 PlayerWinloss = data.BaseMemWinloss
             };
 
-        private bool IsRequestDataForAgency(WinlossAnalysisMetaModel param)
+        private static bool IsRequestDataForAgency(WinlossAnalysisMetaModel param)
             => string.IsNullOrWhiteSpace(param.SearchUserName)
                 && !param.IsVipOnly
                 && param.CustomerClass.Equals(ALL, StringComparison.InvariantCultureIgnoreCase)
