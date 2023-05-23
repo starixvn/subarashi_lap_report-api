@@ -13,7 +13,7 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int BasketBall = 2;
 
-        public const int Tennis = 3;
+        public const int Tennis = 5;
 
         public const int Cricket = 50;
 

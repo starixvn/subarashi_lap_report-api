@@ -30,6 +30,9 @@
     [AutoBindingMetaModel(bindAgent: true )]
     public class WinlossAnalysisController : ControllerBase
     {
+        private const string FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN = "WinLossReportGroupByAndBreakdownBy";
+        private const string FILE_NAME_GROUP_BY_ONLY = "WinLossReportGroupBy";
+
         private readonly IWinlossAnalysisService _service;
         private readonly IFileService _fileService;
         private readonly IWinlossAnalysisExcel _excelService;
@@ -65,7 +68,7 @@
             const string contentType = "application/octet-stream";
             AssignParamToExportExcel(metaModel);
             var data = await _service.GetDataAsync(metaModel);
-            var excelOption = GenOptionFromParam(_contextService, metaModel);
+            var excelOption = GenOptionFromParam(metaModel);
             var pagingDatas = PagingData(data, metaModel.ExportExcelMode, _option.MaximumRowPerFile);
             if (pagingDatas.Count() > 1)
             {
@@ -120,10 +123,14 @@
         {
             var pageIndex = 0;
             var listEntry = new List<ZipEntry>(pagingDatas.Count());
+            var prefixFileName = excelOption.ExportExcelMode == WinlossAnalysisExportMode.All 
+                ? FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN 
+                : FILE_NAME_GROUP_BY_ONLY;
             foreach (var item in pagingDatas)
             {
                 var excelFileInByte = ExportToExcelFile(item, excelOption);
-                var entry = WriteExcelFile(excelFileInByte, pageIndex);
+
+                var entry = WriteExcelFile(excelFileInByte, $"{prefixFileName}_{pageIndex}");
                 listEntry.Add(entry);
                 pageIndex++;
             }
@@ -137,7 +144,7 @@
         }
 
 
-        private ZipEntry WriteExcelFile(byte[] excelFile, int pageIndex)
+        private ZipEntry WriteExcelFile(byte[] excelFile, string fileName)
         {
             var path = _compressService.EnsureFolderPath();
             var excelFilePath = Path.Combine(path, $"{Guid.NewGuid()}.xls");
@@ -145,16 +152,13 @@
             return new ZipEntry
             {
                 Path = excelFilePath,
-                FileName = $"WinlossAnalysis_{pageIndex}.xls"
+                FileName = $"{fileName}.xls"
             };
         }
 
-        private WinlossAnalysisExcelOption GenOptionFromParam(IContextService contextService, WinlossAnalysisMetaModel metaModel)
+        private WinlossAnalysisExcelOption GenOptionFromParam(WinlossAnalysisMetaModel metaModel)
         {
-            var isHasBAProduct = contextService.IsEnableBA
-                && (string.Equals(metaModel.ProductCodes, ReportConstant.ALL) || metaModel.ProductCodes.Split(',').Contains(Resources.Constants.Product.BA));
-            var licenseeCurrencyIds = string.Join(',', contextService.CurrencyList.Keys);
-            var currencyText = metaModel.CurrencyIdList == licenseeCurrencyIds ? ReportConstant.ALL : metaModel.CurrencyIdList;
+            var isHasBAProduct = metaModel.ProductCodes.Split(',').Contains(Resources.Constants.Product.BA);
             return new WinlossAnalysisExcelOption
             {
                 BaseCurrency = metaModel.BaseCurrency,
@@ -163,7 +167,7 @@
                 ToDate = metaModel.ToDate,
                 GroupByMode = metaModel.GroupMode,
                 IsHasBAProduct = isHasBAProduct,
-                CurrencyList = currencyText,
+                CurrencyList = metaModel.CurrencyCodes,
                 ProductCodes = metaModel.ProductCodes,
                 ExportExcelMode = metaModel.ExportExcelMode,
                 SearchUsername = metaModel.SearchUserName
