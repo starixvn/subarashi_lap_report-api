@@ -1627,6 +1627,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to YeeBet.
+        /// </summary>
+        public static string YB {
+            get {
+                return ResourceManager.GetString("YB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {
