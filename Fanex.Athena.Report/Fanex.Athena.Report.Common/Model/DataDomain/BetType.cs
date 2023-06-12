@@ -47,5 +47,7 @@
         public const int AllbetPromotion = 2499;
 
         public const int TIPStreamerTips = 8700;
+
+        public const int PGSoftPromotion = 6300;
     }
 }
