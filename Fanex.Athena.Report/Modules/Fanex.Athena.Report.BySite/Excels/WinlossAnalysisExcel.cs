@@ -95,7 +95,6 @@ namespace Fanex.Athena.Report.BySite.Excels
         private void FillTitle(ISheet templateSheet, ISheet destSheet)
         {
             _builder.SetRowValue(destSheet, templateSheet, TEMPLATE_TITLE_ROW, TEMPLATE_TITLE_ROW, MAX_NUMBER_OF_COL, GetTitle());
-            destSheet.GetRow(TEMPLATE_TITLE_ROW).Height = templateSheet.GetRow(TEMPLATE_TITLE_ROW).Height;
         }
 
         private void FillAllHeader(ISheet templateSheet, ISheet destSheet)
