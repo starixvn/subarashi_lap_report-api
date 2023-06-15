@@ -185,12 +185,15 @@
         private void AssignTitle(ISheet sheet, ISheet templateSheet, ExtraPayoutMetaModel metaModel)
         {
             var displayedCurrency = string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.CurrencyName : metaModel.BaseCurrency.ToUpperInvariant();
-            var currencyText = string.Format(ViewResources.Viewin, displayedCurrency);
+            var currencyText = $"{ViewResources.Currency}: {metaModel.CurrencyName}";
+            var baseCurrencyText = metaModel.IsConvertAllToBaseCurrency ? $", {ViewResources.BaseCurrency}: {displayedCurrency}" : "";
+            var productText = $"{ViewResources.LicenseeW_L}: ({metaModel.ProductCodeList.Replace(",",", ")})";
+            var userNameText = string.IsNullOrEmpty(metaModel.Username) ? "" : $", {ViewResources.Username}: {metaModel.Username}";
 
             var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownFromDate : metaModel.FromDate;
             var toDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownToDate : metaModel.ToDate;
 
-            var reportTitle = $"{ViewResources.ExtraPayout}, {fromDate:MM/dd/yyyy} -> {toDate:MM/dd/yyyy}, {currencyText}";
+            var reportTitle = $"{ViewResources.ExtraPayout}, {fromDate:MM/dd/yyyy} -> {toDate:MM/dd/yyyy}, {currencyText}{baseCurrencyText}, {productText}{userNameText}";
 
             _builder.SetRowValue(
                 sheet,

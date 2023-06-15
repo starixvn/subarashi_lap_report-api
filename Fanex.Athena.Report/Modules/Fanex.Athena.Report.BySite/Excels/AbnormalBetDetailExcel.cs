@@ -181,10 +181,10 @@
         {
             var currencyText = $"{ViewResources.Currency}: {metaModel.CurrencyName}";
             var baseCurrency = !string.IsNullOrWhiteSpace(metaModel.BaseCurrency) ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName;
-            var baseCurrencyText = $"{ViewResources.BaseCurrency}: {baseCurrency}";
+            var baseCurrencyText = metaModel.IsConvertAllToBaseCurrency? $", {ViewResources.BaseCurrency}: {baseCurrency}":"";
             var userText = string.IsNullOrEmpty(metaModel.UserName) ? "" : $", {ViewResources.Username}: {metaModel.UserName}";
             var reportTitle = $"{ViewResources.AbnormalBet}, {ViewResources.ViewinDetail}, " +
-                $"{metaModel.FromDate:MM/dd/yyyy} -> {metaModel.ToDate:MM/dd/yyyy}, { currencyText }, { baseCurrencyText}" + userText;
+                $"{metaModel.FromDate:MM/dd/yyyy} -> {metaModel.ToDate:MM/dd/yyyy}, {currencyText}" + baseCurrencyText + userText;
 
             _builder.SetRowValue(
                 sheet,
