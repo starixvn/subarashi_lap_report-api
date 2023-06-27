@@ -657,4 +657,7 @@
   <data name="JIG" xml:space="preserve">
     <value>Jili</value>
   </data>
+  <data name="YB" xml:space="preserve">
+    <value>YeeBet</value>
+  </data>
 </root>
