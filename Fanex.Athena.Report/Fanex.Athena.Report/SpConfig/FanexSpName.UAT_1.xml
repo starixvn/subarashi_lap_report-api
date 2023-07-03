@@ -41,8 +41,8 @@
 		<Setting Key="Lrf_Rpt_AbnormalBet_Summary" SpName="Lrf_Rpt_AbnormalBet_Summary" DbName="DBWH.bodb_DWRS.bodbLicenseeNet" />
 		<Setting Key="Lrf_AbnormalBet_SubIssueSel" SpName="Lrf_AbnormalBet_SubIssueSel" DbName="DBWH.bodb_DWRS.bodbLicenseeNet" />
 
-    <Setting Key="LAP_Rpt_WinlossAnalysis_AgencySel" SpName="LAP_Rpt_WinlossAnalysis_AgencySel" DbName="DBEXT.DBEXT.bodb02.bodbLicenseeNet.Test" />
-    <Setting Key="LAP_Rpt_WinlossAnalysis_PlayerSel" SpName="LAP_Rpt_WinlossAnalysis_PlayerSel" DbName="DBEXT.DBEXT.bodb02.bodbLicenseeNet.Test" />
+    <Setting Key="LAP_Rpt_WinlossAnalysis_AgencySel" SpName="LAP_Rpt_WinlossAnalysis_AgencySel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="LAP_Rpt_WinlossAnalysis_PlayerSel" SpName="LAP_Rpt_WinlossAnalysis_PlayerSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
 	</Function>
 	<Function Name="SiteConfig">
 		<Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.bodbLicenseeNet" />
