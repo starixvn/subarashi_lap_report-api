@@ -660,4 +660,34 @@
   <data name="YB" xml:space="preserve">
     <value>YeeBet</value>
   </data>
+  <data name="SB_BA" xml:space="preserve">
+    <value>Sportsbook &amp; BA</value>
+  </data>
+  <data name="CO" xml:space="preserve">
+    <value>Cash Out</value>
+  </data>
+  <data name="WinlossAnalysis" xml:space="preserve">
+    <value>Win Loss Analysis</value>
+  </data>
+  <data name="PlayerW_L" xml:space="preserve">
+    <value>Player W/L</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>Player Comm</value>
+  </data>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>Licensee Comm</value>
+  </data>
+  <data name="AmountDueToBA" xml:space="preserve">
+    <value>Amount Due To BA</value>
+  </data>
+  <data name="Margin" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Group By</value>
+  </data>
+  <data name="BreakdownBy" xml:space="preserve">
+    <value>Breakdown By</value>
+  </data>
 </root>

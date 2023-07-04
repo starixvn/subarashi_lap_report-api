@@ -15,6 +15,7 @@
         public const string DailyBets = "DailyBets81";
         public const string NewCashOutWinLoss = "NewCashOutWinLoss";
         public const string PlatformWinLoss = "MobileWinLoss53";
+        public const string WinlossAnalysis = "WinlossAnalysis";
         public const string AccountInfo = "pa_acc_Info";
         public const string Subsidiary = "SUBSIDIARY";
     }

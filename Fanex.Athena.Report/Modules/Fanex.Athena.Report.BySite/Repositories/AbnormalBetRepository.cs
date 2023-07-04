@@ -17,7 +17,7 @@
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Core.Utils.Service.Interfaces;
     using Fanex.Data;
-    using static Fanex.Athena.Report.ByPlayer.Constants.ReportConstant;
+    using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
     public class AbnormalBetRepository : IAbnormalBetRepository
     {

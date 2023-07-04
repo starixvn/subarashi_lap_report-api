@@ -6,6 +6,8 @@
     {
         IWorkbook LoadTemplate(string path);
 
+        IWorkbook CreateWorkbook();
+
         ISheet CloneSheet(IWorkbook workbook, string sourceSheetName, string newSheetName);
 
         void RemoveSheet(IWorkbook workbook, string sheetName);

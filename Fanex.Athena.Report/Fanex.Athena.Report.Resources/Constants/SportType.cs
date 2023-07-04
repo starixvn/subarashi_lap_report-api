@@ -13,7 +13,13 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int BasketBall = 2;
 
+        public const int Tennis = 5;
+
         public const int Cricket = 50;
+
+        public const int NumberGameHappy5 = 164;
+
+        public const int VirtualBasketball = 193;
 
         public const int SabaSoccer = -1;
 

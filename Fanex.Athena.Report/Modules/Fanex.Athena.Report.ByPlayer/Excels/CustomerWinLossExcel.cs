@@ -3,7 +3,7 @@ using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services;
+using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 
 using Microsoft.AspNetCore.Hosting;

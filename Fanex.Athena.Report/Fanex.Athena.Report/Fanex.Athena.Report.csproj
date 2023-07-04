@@ -26,6 +26,7 @@
 	<None Remove="ExcelTemplate\ExtraPayout.xls" />
 	<None Remove="ExcelTemplate\ExtraPayoutDetail.xls" />
 	<None Remove="ExcelTemplate\NewCashOutWinLoss.xls" />
+	<None Remove="ExcelTemplate\WinLossAnalysis.xls" />
 	<None Remove="SpConfig\FanexSpName.AWS.xml" />
 	<None Remove="SpConfig\FanexSpName.LOCAL.xml" />
 	<None Remove="SpConfig\FanexSpName.LOCAL_1.xml" />
@@ -79,6 +80,9 @@
 	<Content Include="ExcelTemplate\AbnormalBetSummary.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+	<Content Include="ExcelTemplate\WinLossAnalysis.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
 	<Content Include="SpConfig\FanexSpName.UAT_2.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>

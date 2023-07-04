@@ -6,7 +6,7 @@
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Common.Model.MetaModels;
-    using Fanex.Athena.Report.Common.Services;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
     using Fanex.Data;
 

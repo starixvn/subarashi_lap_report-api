@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Report.Core.Services;
+﻿using Fanex.Athena.Report.Core.Repositories;
+using Fanex.Athena.Report.Core.Services;
 using Fanex.Core.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ namespace Fanex.Athena.Report.Core
             services.AddScoped<IContextService, ContextService>();
             services.AddSingleton<ICurrencyValidation, CurrencyValidation>();
             services.AddTransient<ISubsidiaryService, SubsidiaryService>();
+            services.AddScoped<IDbFactory, DbFactory>();
             return services;
         }
     }

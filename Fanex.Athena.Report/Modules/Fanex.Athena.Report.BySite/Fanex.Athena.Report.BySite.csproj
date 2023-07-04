@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fanex.Core.Utils" Version="1.0.3" />
+    <PackageReference Include="Fanex.Common" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

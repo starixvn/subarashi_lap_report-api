@@ -14,12 +14,24 @@
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var workbook = new HSSFWorkbook(stream);
-                var defaultStyle = workbook.CreateCellStyle();
-                defaultStyle.ShrinkToFit = true;
-                defaultStyle.WrapText = true;
+                AssignDefaultStyle(workbook);
 
                 return workbook;
             }
+        }
+
+        public IWorkbook CreateWorkbook()
+        {
+            var workbook = new HSSFWorkbook();
+            AssignDefaultStyle(workbook);
+            return workbook;
+        }
+
+        private static void AssignDefaultStyle(IWorkbook workbook)
+        {
+            var defaultStyle = workbook.CreateCellStyle();
+            defaultStyle.ShrinkToFit = true;
+            defaultStyle.WrapText = true;
         }
 
         public ISheet CloneSheet(IWorkbook workbook, string sourceSheetName, string newSheetName)
@@ -214,5 +226,6 @@
         {
             sheet.RemoveRow(sheet.GetRow(rowIndex));
         }
+
     }
 }
