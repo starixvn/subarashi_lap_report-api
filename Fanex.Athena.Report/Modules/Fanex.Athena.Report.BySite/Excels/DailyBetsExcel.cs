@@ -171,10 +171,9 @@
             rowBuilder.Clear();
         }
 
-        private void AddBigNumberAsText(StringBuilder rowBuilder, string bigNumber)
+        private static void AddBigNumberAsText(StringBuilder rowBuilder, string bigNumber)
         {
-            rowBuilder.Append("=TEXT(" + bigNumber + ",");
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter == DefaultTextDelimiter ? DefaultTextDelimiter + "\"0\"" + DefaultTextDelimiter + ")" : "\"0\")");
+            rowBuilder.Append("=\"\"" + bigNumber + "\"\"");
         }
 
         private string GetHeaderString()
