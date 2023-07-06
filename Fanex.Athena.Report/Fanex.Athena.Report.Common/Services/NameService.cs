@@ -1,9 +1,9 @@
 ﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.Resources;
-using System;
 using Fanex.Athena.Report.Common.Model.DataDomain;
+using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Resources;
+using Fanex.Athena.Report.Resources.Constants;
+using System;
 
 namespace Fanex.Athena.Report.Common.Services
 {
@@ -46,12 +46,15 @@ namespace Fanex.Athena.Report.Common.Services
                 case HardCodeSportType.SabaBasketball:
                     sportName = _cacheRefAdapter.GetSportName(SportType.BasketBall, lang);
                     break;
+
                 case HardCodeSportType.SabaSoccer:
                     sportName = _cacheRefAdapter.GetSportName(SportType.Soccer, lang);
                     break;
+
                 case HardCodeSportType.SabaCricket:
                     sportName = _cacheRefAdapter.GetSportName(SportType.Cricket, lang);
                     break;
+
                 case HardCodeSportType.SabaSoccerPinGoal:
                     sportName = ViewResources.SoccerPinGoal;
                     break;
@@ -67,6 +70,11 @@ namespace Fanex.Athena.Report.Common.Services
                 case HardCodeSportType.SabaFutsal:
                     sportName = _cacheRefAdapter.GetSportName(SportType.Futsal, lang);
                     break;
+
+                case HardCodeSportType.SabaTennis:
+                    sportName = _cacheRefAdapter.GetSportName(SportType.Tennis, lang);
+                    break;
+
                 default:
                     sportName = string.Empty;
                     break;
