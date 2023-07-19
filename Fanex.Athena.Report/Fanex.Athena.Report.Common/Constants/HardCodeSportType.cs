@@ -17,5 +17,7 @@
         public const int SabaESportPinGoal = -7;
 
         public const int SabaCricket = -8;
+
+        public const int SabaTennis = -9;
     }
 }
