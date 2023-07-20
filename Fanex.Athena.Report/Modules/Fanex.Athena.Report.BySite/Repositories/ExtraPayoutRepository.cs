@@ -48,7 +48,8 @@
             { ExtraPayoutMapType.PayoutSGJackpotContribution, BetType.SGJackpotContribution },
             { ExtraPayoutMapType.PayoutSGPromotion, BetType.SGPromotion },
             { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion },
-            { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips }
+            { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips },
+            { ExtraPayoutMapType.PayoutMGRNGPromotion, BetType.MGRNGPromotion }
         };
 
         public ExtraPayoutRepository(

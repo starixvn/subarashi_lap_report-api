@@ -47,5 +47,7 @@
         public const int PayoutAllbetPromotion = 2101;
 
         public const int PayoutStreamerTips = 7401;
+
+        public const int PayoutMGRNGPromotion = 7301;
     }
 }
