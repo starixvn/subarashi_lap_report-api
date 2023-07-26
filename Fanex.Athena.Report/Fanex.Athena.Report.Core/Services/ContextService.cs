@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -133,7 +134,14 @@ namespace Fanex.Athena.Report.Core.Services
 
         public bool ForceIgnoreSharding => bool.TrueString.Equals(Context.Request.Headers["X-IgnoreSharding"], StringComparison.OrdinalIgnoreCase);
 
-        public bool IsShowVND => GetClaimValue<bool>("IsShowVND");
+        public IEnumerable<AuditCurrency> AuditCurrencies
+        {
+            get
+            {
+                var auditCurrenciesClaims = User.Claims.Where(_ => _.Type.Equals("AuditCurrencies", StringComparison.OrdinalIgnoreCase));
+                return auditCurrenciesClaims.Select(_ => JsonConvert.DeserializeObject<AuditCurrency>(_.Value));
+            }
+        }
 
         private T GetClaimValue<T>(string claimType)
             => (T)Convert.ChangeType(GetClaimValue(claimType), typeof(T));

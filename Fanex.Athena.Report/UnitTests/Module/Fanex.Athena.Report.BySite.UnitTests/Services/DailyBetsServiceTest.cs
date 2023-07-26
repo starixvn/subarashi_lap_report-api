@@ -12,6 +12,7 @@ using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services;
 using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
+using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Resources;
 using Fanex.Data;
 using Moq;
@@ -49,9 +50,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
 
             var objectDb = CreateObjectDb(reader);
             var service = new DailyBetsService(repository.Object);
+            var auditCurrencyList = new List<AuditCurrency>();
 
             // Action
-            await service.GetDataAsync(metaModel);
+            await service.GetDataAsync(metaModel, auditCurrencyList);
 
             // Assert
             objectDb.Verify(x => x.SetParameterValue("SiteName", metaModel.SiteName));
@@ -81,9 +83,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             repository.Setup(x => x.GetTotalDataAsync(metaModel)).Returns(Task.FromResult(expectedTotalData));
 
             var service = new DailyBetsService(repository.Object);
+            var auditCurrencyList = new List<AuditCurrency>();
 
             // Action
-            var result = await service.GetDataAsync(metaModel);
+            var result = await service.GetDataAsync(metaModel, auditCurrencyList);
             var dataItem = result.DataList.First();
 
             // Assert

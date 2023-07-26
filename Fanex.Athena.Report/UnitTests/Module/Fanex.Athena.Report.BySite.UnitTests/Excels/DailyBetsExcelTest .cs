@@ -16,6 +16,7 @@ using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Excel;
+using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Data;
@@ -117,16 +118,17 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             mockIDataReader.Setup(dr => dr.Read()).Returns(false);
             var mockObjectDB = SetUpObjectDb(mockIDataReader);
             var metaModel = CreateMetaModel();
-            var auditTicket = fixture.Create<AuditTicket>();          
+            var auditTicket = fixture.Create<AuditTicket>();
             Repository = CreateMockRepository(metaModel, 1, auditTicket);
 
             using (var memoryStream = new MemoryStream())
             {
                 var streamWriter = new StreamWriter(memoryStream);
                 var excelService = CreateExcelService(streamWriter);
+                var auditCurrencyList = new List<AuditCurrency>();
 
                 // Action
-                var fileName = await excelService.Export(metaModel);
+                var fileName = await excelService.Export(metaModel, auditCurrencyList);
 
                 // Assert
                 mockObjectDB.Verify(objectDb => objectDb.SetParameterValue("SiteName", metaModel.SiteName), Times.Once);
@@ -156,9 +158,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             {
                 var streamWriter = new StreamWriter(memoryStream);
                 var excelService = CreateExcelService(streamWriter);
+                var auditCurrencyList = new List<AuditCurrency>();
 
                 // Action
-                var file = await excelService.Export(metaModel);
+                var file = await excelService.Export(metaModel, auditCurrencyList);
 
                 var contentLines = Encoding.UTF8.GetString(memoryStream.ToArray())
                                 .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -184,9 +187,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             {
                 var streamWriter = new StreamWriter(memoryStream);
                 var excelService = CreateExcelService(streamWriter);
+                var auditCurrencyList = new List<AuditCurrency>();
 
                 // Action
-                var file = await excelService.Export(metaModel);
+                var file = await excelService.Export(metaModel, auditCurrencyList);
 
                 // Assert
                 Assert.Null(file);
@@ -216,9 +220,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             {
                 var streamWriter = new StreamWriter(memoryStream);
                 var excelService = CreateExcelService(streamWriter);
+                var auditCurrencyList = new List<AuditCurrency>();
 
                 // Action
-                var fileName = await excelService.Export(metaModel);
+                var fileName = await excelService.Export(metaModel, auditCurrencyList);
                 var contentLines = Encoding.UTF8.GetString(memoryStream.ToArray())
                                 .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
@@ -252,9 +257,10 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             {
                 var streamWriter = new StreamWriter(memoryStream);
                 var excelService = CreateExcelService(streamWriter);
+                var auditCurrencyList = new List<AuditCurrency>();
 
                 // Action
-                var fileName = await excelService.Export(metaModel);
+                var fileName = await excelService.Export(metaModel, auditCurrencyList);
                 var totalLines = Encoding.UTF8.GetString(memoryStream.ToArray())
                                 .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
@@ -293,7 +299,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         private bool IsCorrectHeader(string header)
         {
             var textHeader = _commonHeaderText.ToList();
-            
+
             var expectedHeader = string.Join(ExcelOptions.CSVSeparateCharacter, textHeader);
 
             return expectedHeader.Equals(header);

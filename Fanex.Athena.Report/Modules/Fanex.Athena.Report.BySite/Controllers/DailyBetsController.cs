@@ -27,7 +27,7 @@
         public async Task<IActionResult> Index([FromBody] DailyBetsMetaModel metaModel, [FromServices] IDailyBetsService service)
         {
             AssignMetaModel(metaModel);
-            var result = await service.GetDataAsync(metaModel);
+            var result = await service.GetDataAsync(metaModel, _contextService.AuditCurrencies);
             return Ok(new
             {
                 result.DataList,
@@ -40,7 +40,7 @@
         public async Task<IActionResult> Export([FromBody] DailyBetsMetaModel metaModel, [FromServices] IDailyBetsExcel excel)
         {
             AssignMetaModel(metaModel);
-            var fileName = await excel.Export(metaModel);
+            var fileName = await excel.Export(metaModel, _contextService.AuditCurrencies);
             if (fileName is null)
             {
                 return NoContent();
@@ -53,7 +53,6 @@
         {
             metaModel.CurrencyList = _contextService.CurrencyList;
             metaModel.SiteName = _contextService.SiteName;
-            metaModel.IsShowVND = _contextService.IsShowVND;
         }
     }
 }
