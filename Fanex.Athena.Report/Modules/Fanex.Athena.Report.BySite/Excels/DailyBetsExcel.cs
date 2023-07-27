@@ -26,8 +26,6 @@
     {
         private readonly IDailyBetsRepository _repository;
 
-        private const string DefaultTextDelimiter = "\"";
-
         private const string DecimalFormat = "0.00";
 
         private const string UspName = "Lrf_Rpt_Audit_DailyBets";

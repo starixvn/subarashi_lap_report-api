@@ -278,13 +278,13 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal("1", dataLines[0]);
             Assert.Equal(expected.PlayerName, dataLines[1]);
             Assert.Equal(expected.CurrencyName, dataLines[2]);
-            Assert.Equal(expected.TransTime.ToString(), dataLines[5]);
-            Assert.Equal(DailyBetsMetaModelExtension.GetProductName[expected.ProductCode.ToString()](), dataLines[6]);
-            Assert.Equal(expected.SportName, dataLines[7]);
-            Assert.Equal(expected.BetType, dataLines[8]);
-            Assert.Equal(expected.Turnover.ToString(), dataLines[9]);
-            Assert.Equal(expected.WinLoss.ToString(), dataLines[10]);
-            Assert.Equal(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(expected.Status)](), dataLines[11]);
+            Assert.Equal(expected.TransTime.ToString(), dataLines[4]);
+            Assert.Equal(DailyBetsMetaModelExtension.GetProductName[expected.ProductCode.ToString()](), dataLines[5]);
+            Assert.Equal(expected.SportName, dataLines[6]);
+            Assert.Equal(expected.BetType, dataLines[7]);
+            Assert.Equal(expected.Turnover.ToString(), dataLines[8]);
+            Assert.Equal(expected.WinLoss.ToString(), dataLines[9]);
+            Assert.Equal(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(expected.Status)](), dataLines[10]);
         }
 
         private static void AssertTotalData(AuditTicket expected, DailyBetsMetaModel model, string[] contentLines)
