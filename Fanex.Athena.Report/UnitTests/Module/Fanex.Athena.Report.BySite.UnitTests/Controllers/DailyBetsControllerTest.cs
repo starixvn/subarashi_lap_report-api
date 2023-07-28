@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -7,6 +8,7 @@ using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
+using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +28,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
         {
             _contextService = new Mock<IContextService>();
         }
-        
 
         [Fact]
         public async Task Index_WhenCall_ReturnCorrectResult()
@@ -35,7 +36,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var metaModel = _fixture.Create<DailyBetsMetaModel>();
             var expectedData = _fixture.Create<ResultModel<AuditTicket>>();
             var service = new Mock<IDailyBetsService>();
-            service.Setup(s => s.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
+            var auditCurrencyList = new List<AuditCurrency>();
+
+            service.Setup(s => s.GetDataAsync(metaModel, auditCurrencyList)).Returns(Task.FromResult(expectedData));
 
             var expectedResult = JsonConvert.SerializeObject(new
             {
@@ -60,7 +63,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var metaModel = _fixture.Create<DailyBetsMetaModel>();
             var fileName = CreateFile();
             var excelService = new Mock<IDailyBetsExcel>();
-            excelService.Setup(s => s.Export(metaModel)).Returns(Task.FromResult(fileName));
+            var auditCurrencyList = new List<AuditCurrency>();
+            excelService.Setup(s => s.Export(metaModel, auditCurrencyList)).Returns(Task.FromResult(fileName));
 
             var controller = new DailyBetsController(_contextService.Object);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -18,6 +19,6 @@ namespace Fanex.Athena.Report.Core.Services
         bool IsInRoles(params string[] roles);
 
         bool ForceIgnoreSharding { get; }
-        bool IsShowVND { get; }
+        public IEnumerable<AuditCurrency> AuditCurrencies { get; }
     }
 }

@@ -5,6 +5,7 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Excel;
+    using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.MetaModels;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
@@ -17,14 +18,13 @@
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
     public class DailyBetsExcel : BaseExcel, IDailyBetsExcel
     {
         private readonly IDailyBetsRepository _repository;
-
-        private const string DefaultTextDelimiter = "\"";
 
         private const string DecimalFormat = "0.00";
 
@@ -46,7 +46,7 @@
             _repository = dailyBetsRepository;
         }
 
-        public async Task<string> Export(DailyBetsMetaModel metaModel)
+        public async Task<string> Export(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
         {
             var files = new List<ZipEntry>();
 
@@ -70,7 +70,7 @@
             {
                 var pageMetaModel = metaModel.ShallowCopy();
                 pageMetaModel.PageIndex = nextPage;
-                exportTasks.Add(ExportOnePageAsync(pageMetaModel));
+                exportTasks.Add(ExportOnePageAsync(pageMetaModel, auditCurrencyList));
                 ++nextPage;
             }
 
@@ -80,7 +80,7 @@
             return ZipExcelFile(files, _tempFolderPath);
         }
 
-        private async Task<ZipEntry> ExportOnePageAsync(DailyBetsMetaModel metaModel)
+        private async Task<ZipEntry> ExportOnePageAsync(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
         {
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
@@ -95,7 +95,7 @@
                         var rowBuilder = new StringBuilder();
                         while (reader.Read())
                         {
-                            await WriteMainDataItemAsync(reader, stw, rowBuilder, metaModel).ConfigureAwait(false);
+                            await WriteMainDataItemAsync(reader, stw, rowBuilder, auditCurrencyList).ConfigureAwait(false);
                         }
 
                         await stw.WriteLineAsync(_footer).ConfigureAwait(false);
@@ -114,7 +114,7 @@
             IDataReader reader,
             StreamWriter streamWriter,
             StringBuilder rowBuilder,
-            DailyBetsMetaModel metaModel)
+            IEnumerable<AuditCurrency> auditCurrencyList)
         {
             rowBuilder.Append(reader["Index"]);
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
@@ -123,7 +123,8 @@
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             var currencyName = reader["CurrencyName"].ToString();
-            rowBuilder.Append(metaModel.IsShowVND && currencyName == "INH" ? "VND" : currencyName);
+            var hardCodeCurrency = auditCurrencyList.FirstOrDefault(_ => String.Equals(_.Name, currencyName, StringComparison.InvariantCultureIgnoreCase))?.HardCodeName;
+            rowBuilder.Append(!string.IsNullOrEmpty(hardCodeCurrency) ? hardCodeCurrency : currencyName);
             rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
 
             rowBuilder.Append(ExcelOptions.CSVTextDelimiter);

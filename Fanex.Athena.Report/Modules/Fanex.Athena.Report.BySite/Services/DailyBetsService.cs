@@ -10,6 +10,7 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
+    using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Data;
@@ -25,9 +26,9 @@
             _repository = dailyBetsRepository;
         }
 
-        public async Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel)
+        public async Task<ResultModel<AuditTicket>> GetDataAsync(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
         {
-            var getMainDataTask = GetMainDataAsync(metaModel);
+            var getMainDataTask = GetMainDataAsync(metaModel, auditCurrencyList);
             var getTotalDataTask = _repository.GetTotalDataAsync(metaModel);
 
             await Task.WhenAll(getMainDataTask, getTotalDataTask).ConfigureAwait(false);
@@ -41,7 +42,7 @@
             };
         }
 
-        private static async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel)
+        private static async Task<IList<AuditTicket>> GetMainDataAsync(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
         {
             var result = new List<AuditTicket>();
 
@@ -52,7 +53,7 @@
                 {
                     while (reader.Read())
                     {
-                        result.Add(ReadMainDataItem(reader, metaModel));
+                        result.Add(ReadMainDataItem(reader, auditCurrencyList));
                     }
                 }
             }
@@ -60,15 +61,16 @@
             return result;
         }
 
-        private static AuditTicket ReadMainDataItem(IDataReader reader, DailyBetsMetaModel metaModel)
+        private static AuditTicket ReadMainDataItem(IDataReader reader, IEnumerable<AuditCurrency> auditCurrencyList)
         {
             var currencyName = reader["CurrencyName"].ToString();
+            var hardCodeCurrency = auditCurrencyList.FirstOrDefault(_ => String.Equals(_.Name, currencyName, StringComparison.InvariantCultureIgnoreCase))?.HardCodeName;
 
             return new AuditTicket
             {
                 Index = Convert.ToInt32(reader["Index"]),
                 PlayerName = reader["PlayerName"].ToString(),
-                CurrencyName = metaModel.IsShowVND && currencyName == "INH" ? "VND" : currencyName,
+                CurrencyName = !string.IsNullOrEmpty(hardCodeCurrency) ? hardCodeCurrency : currencyName,
                 RefNo = reader["RefNo"].ToString(),
                 TransTime = Convert.ToDateTime(reader["TransTime"]),
                 ProductName = DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()](),
