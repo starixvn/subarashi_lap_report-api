@@ -19,7 +19,7 @@ namespace Fanex.Athena.Report.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ViewResources {
@@ -331,6 +331,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Room.
+        /// </summary>
+        public static string ChatRoom {
+            get {
+                return ResourceManager.GetString("ChatRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choice.
         /// </summary>
         public static string Choice {
@@ -471,6 +480,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string DesktopChina {
             get {
                 return ResourceManager.GetString("DesktopChina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop Galaxy.
+        /// </summary>
+        public static string DesktopGalaxy {
+            get {
+                return ResourceManager.GetString("DesktopGalaxy", resourceCulture);
             }
         }
         
@@ -916,11 +934,11 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mobile Euro.
+        ///   Looks up a localized string similar to Mobile Galaxy.
         /// </summary>
-        public static string MobileEuro {
+        public static string MobileGalaxy {
             get {
-                return ResourceManager.GetString("MobileEuro", resourceCulture);
+                return ResourceManager.GetString("MobileGalaxy", resourceCulture);
             }
         }
         

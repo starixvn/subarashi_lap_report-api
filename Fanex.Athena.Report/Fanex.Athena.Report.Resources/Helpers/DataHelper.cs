@@ -13,8 +13,9 @@
                 case PlatformType.DesktopNewAsia: return ViewResources.DesktopNewAsia;
                 case PlatformType.DesktopChina: return ViewResources.DesktopChina;
                 case PlatformType.DesktopOthers: return ViewResources.DesktopOthers;
+                case PlatformType.DesktopGalaxy: return ViewResources.DesktopGalaxy;
                 case PlatformType.MobileStandard: return ViewResources.MobileStandard;
-                case PlatformType.MobileEuro: return ViewResources.MobileEuro;
+                case PlatformType.MobileGalaxy: return ViewResources.MobileGalaxy;
                 case PlatformType.MobileCompact: return ViewResources.MobileCompact;
                 case PlatformType.MobileOthers: return ViewResources.MobileOthers;
                 case PlatformType.ESportsDesktop: return ViewResources.ESportsDesktop;
@@ -25,6 +26,7 @@
                 case PlatformType.Tablet: return ViewResources.Tablet;
                 case PlatformType.DeepLink: return ViewResources.DeepLink;
                 case PlatformType.WAP: return ViewResources.Wap;
+                case PlatformType.ChatRoom: return ViewResources.ChatRoom;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;
                 default: return ViewResources.All;
             }
