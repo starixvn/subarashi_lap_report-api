@@ -386,8 +386,8 @@
   <data name="SBCFB" xml:space="preserve">
     <value>Saba.Club 免费投注</value>
   </data>
-  <data name="MobileEuro" xml:space="preserve">
-    <value>手机欧洲版</value>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>手机银河版</value>
   </data>
   <data name="SLT" xml:space="preserve">
     <value>体育时时彩</value>
@@ -592,5 +592,11 @@
   </data>
   <data name="BreakdownBy" xml:space="preserve">
     <value>依项目细分</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>聊天室</value>
+  </data>
+  <data name="DesktopGalaxy" xml:space="preserve">
+    <value>桌机银河版</value>
   </data>
 </root>

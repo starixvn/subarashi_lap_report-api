@@ -443,8 +443,8 @@
   <data name="SBCC" xml:space="preserve">
     <value>Saba.club Jackpot Contribution</value>
   </data>
-  <data name="MobileEuro" xml:space="preserve">
-    <value>Mobile Euro</value>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>Mobile Galaxy</value>
     <comment>151019</comment>
   </data>
   <data name="SLT" xml:space="preserve">
@@ -692,5 +692,11 @@
   </data>
   <data name="BreakdownBy" xml:space="preserve">
     <value>Breakdown By</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Chat Room</value>
+  </data>
+  <data name="DesktopGalaxy" xml:space="preserve">
+    <value>Desktop Galaxy</value>
   </data>
 </root>
