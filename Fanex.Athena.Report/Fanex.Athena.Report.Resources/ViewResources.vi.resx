@@ -409,7 +409,7 @@
     <value>Di động nhỏ gọn</value>
   </data>
   <data name="MobileGalaxy" xml:space="preserve">
-    <value>Mobile Galaxy</value>
+    <value>Mobile Euro</value>
   </data>
   <data name="MobileOthers" xml:space="preserve">
     <value>Các thiết bị di động khác</value>
@@ -643,10 +643,10 @@
     <value>Chỉ người chơi VIP</value>
   </data>
   <data name="VRG" xml:space="preserve">
-    <value>Thể Thao Ảo</value>
+    <value>Trò Chơi Ảo</value>
   </data>
   <data name="VS" xml:space="preserve">
-    <value>Thể thao Ảo</value>
+    <value>Thể Thao Ảo</value>
   </data>
   <data name="VS2" xml:space="preserve">
     <value>Thể Thao Ảo 2</value>
