@@ -388,6 +388,7 @@
   </data>
   <data name="MobileGalaxy" xml:space="preserve">
     <value>手机银河版</value>
+    <comment>revert</comment>
   </data>
   <data name="SLT" xml:space="preserve">
     <value>体育时时彩</value>
