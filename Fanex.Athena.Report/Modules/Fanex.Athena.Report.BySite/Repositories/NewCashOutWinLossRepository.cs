@@ -78,8 +78,8 @@
 
             return dataList.GroupBy(d => d.Currency).Select(g => new CashOutWinLoss
             {
-                Currency = g.FirstOrDefault().Currency,
-                CurrencyName = g.FirstOrDefault().CurrencyName,
+                Currency = g.FirstOrDefault()?.Currency ?? default,
+                CurrencyName = g.FirstOrDefault()?.CurrencyName,
                 TotalTransaction = g.Sum(_ => _.TotalTransaction),
                 Turnover = g.Sum(_ => _.BasedTurnover),
                 CustomerWL = g.Sum(_ => _.BasedCustomerWL),

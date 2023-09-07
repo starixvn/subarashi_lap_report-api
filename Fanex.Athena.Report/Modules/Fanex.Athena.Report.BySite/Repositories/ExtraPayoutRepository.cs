@@ -108,8 +108,8 @@
 
             return dataList.GroupBy(d => d.Currency).Select(g => new ExtraPayout
             {
-                Currency = g.FirstOrDefault().Currency,
-                CurrencyName = g.FirstOrDefault().CurrencyName,
+                Currency = g.FirstOrDefault()?.Currency ?? default,
+                CurrencyName = g.FirstOrDefault()?.CurrencyName,
                 BetCount = g.Sum(_ => _.BetCount),
                 Turnover = g.Sum(_ => _.BasedTurnover),
                 Amount = g.Sum(_ => _.BasedAmount),
