@@ -301,7 +301,7 @@
     <value>ID Ngoại Vi</value>
   </data>
   <data name="ExtraPayout" xml:space="preserve">
-    <value>Trả Thưởng Thêm</value>
+    <value>Thanh Toán Thêm</value>
   </data>
   <data name="FGGL" xml:space="preserve">
     <value>FGG</value>
@@ -628,16 +628,16 @@
     <value>Cược miễn phí Vgaming</value>
   </data>
   <data name="Viewin" xml:space="preserve">
-    <value>Xem trong {0}</value>
+    <value>Xem theo {0}</value>
   </data>
   <data name="ViewinDetail" xml:space="preserve">
-    <value>Xem chi tiết</value>
+    <value>Xem theo Chi Tiết</value>
   </data>
   <data name="ViewinIPSummary" xml:space="preserve">
-    <value>Xem trong Tóm tắt IP </value>
+    <value>Xem theo Tóm tắt IP</value>
   </data>
   <data name="ViewinSummary" xml:space="preserve">
-    <value>Xem trong Tóm tắt</value>
+    <value>Xem theo Tóm Tắt</value>
   </data>
   <data name="VIPPlayerOnly" xml:space="preserve">
     <value>Chỉ người chơi VIP</value>
