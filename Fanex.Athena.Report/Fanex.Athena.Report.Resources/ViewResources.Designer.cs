@@ -1663,7 +1663,7 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Virtual Sports 3.
+        ///   Looks up a localized string similar to Virtual Sports 3 (Old).
         /// </summary>
         public static string VS3 {
             get {
