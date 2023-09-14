@@ -100,18 +100,18 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var firstItem = result.DataList.First();
 
             // Assert
-            Assert.Equal(firstItem.CustId, expectedResult.CustId);
-            Assert.Equal(firstItem.ExternalId, expectedResult.ExternalId);
-            Assert.Equal(firstItem.SystemId, expectedResult.SystemId);
-            Assert.Equal(firstItem.BetEffective, expectedResult.BetEffective);
-            Assert.Equal(firstItem.CustomerTotalWL, expectedResult.CustomerTotalWL);
-            AssertCommonData(firstItem, expectedResult);
+            Assert.Equal(expectedResult.CustId, firstItem.CustId);
+            Assert.Equal(expectedResult.ExternalId, firstItem.ExternalId);
+            Assert.Equal(expectedResult.SystemId, firstItem.SystemId);
+            Assert.Equal(expectedResult.BetEffective, firstItem.BetEffective);
+            Assert.Equal(expectedResult.CustomerTotalWL, firstItem.CustomerTotalWL);
+            AssertCommonData(expectedResult, firstItem);
 
-            AssertCommonData(result.TotalData, expectedTotalData);
-            Assert.Equal(result.TotalData.LicenseeWL, expectedTotalData.LicenseeWL);
+            AssertCommonData(expectedTotalData, result.TotalData);
+            Assert.Equal(expectedTotalData.LicenseeWL, result.TotalData.LicenseeWL);
 
-            Assert.Equal(result.TotalRows, ExpectedTotalRow);
-            Assert.Equal(result.AdditionalInfo, ExpectedPromotionPrize.ToString());
+            Assert.Equal(ExpectedTotalRow, result.TotalRows);
+            Assert.Equal(ExpectedPromotionPrize.ToString(), result.AdditionalInfo);
         }
 
         [Fact]
@@ -234,12 +234,12 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             reader.Setup(r => r[sumcustomertotalwlColumn]).Returns(expected.CustomerTotalWL);
         }
 
-        private static void AssertCommonData(CustomerWinLoss actual, CustomerWinLoss expected)
+        private static void AssertCommonData(CustomerWinLoss expected, CustomerWinLoss actual)
         {
-            Assert.Equal(actual.Turnover, expected.Turnover);
-            Assert.Equal(actual.TotalTransaction, expected.TotalTransaction);
-            Assert.Equal(actual.CustomerWL, expected.CustomerWL);
-            Assert.Equal(actual.PlayerComm, expected.PlayerComm);
+            Assert.Equal(expected.Turnover, actual.Turnover);
+            Assert.Equal(expected.TotalTransaction, actual.TotalTransaction);
+            Assert.Equal(expected.CustomerWL, actual.CustomerWL);
+            Assert.Equal(expected.PlayerComm, actual.PlayerComm);
         }
     }
 }

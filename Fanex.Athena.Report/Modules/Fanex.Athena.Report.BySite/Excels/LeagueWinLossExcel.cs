@@ -1,5 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -8,9 +11,6 @@
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
     using NPOI.SS.UserModel;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
 
     public class LeagueWinLossExcel : ILeagueWinLossExcel
     {
@@ -184,27 +184,28 @@
             var baseCurrencyText = $"{ViewResources.BaseCurrency}: {baseCurrency}";
             var extendInfo = "";
             var userNameText = "";
-            if (!string.IsNullOrWhiteSpace(metaModel.UserName)){
+
+            if (!string.IsNullOrWhiteSpace(metaModel.UserName))
+            {
                 userNameText += $", {ViewResources.Username}: {metaModel.UserName}";
             }
 
-            if (metaModel.DrillDownLevel == (int)LeagueWinLossReportLevel.Match && data != null && data.DataList.Any())
+            if (metaModel.DrillDownLevel == (int)LeagueWinLossReportLevel.Match && HasData(data))
             {
-                extendInfo = $", {data.DataList.FirstOrDefault().LeagueName}";
+                extendInfo = $", {data.DataList.FirstOrDefault()?.LeagueName}";
             }
 
-            if (metaModel.DrillDownLevel == (int)LeagueWinLossReportLevel.Bettype && data != null && data.DataList.Any())
+            if (metaModel.DrillDownLevel == (int)LeagueWinLossReportLevel.Bettype && HasData(data))
             {
-                extendInfo = $", {data.DataList.FirstOrDefault().MatchName}";
+                extendInfo = $", {data.DataList.FirstOrDefault()?.MatchName}";
             }
-
 
             var reportTitle = string.Format(
                                          ViewResources.LeagueWinLossTitle,
                                          metaModel.FromDate.ToString("MM/dd/yyyy"),
                                          metaModel.ToDate.ToString("MM/dd/yyyy"),
                                          currencyText,
-                                         baseCurrencyText) + userNameText + (string.IsNullOrEmpty(extendInfo) ? "" : extendInfo);
+                                         baseCurrencyText) + userNameText + extendInfo;
 
             _builder.SetRowValue(
                 sheet,
@@ -240,6 +241,11 @@
                     _builder.HideColumn(sheet, ColumnSport, ColumnMatch, ColumnLeague);
                     break;
             }
+        }
+
+        private static bool HasData(SortableReportResultModel<LeagueWinLoss> data)
+        {
+            return data != null && data.DataList.Any();
         }
     }
 }

@@ -94,6 +94,7 @@
             {
                 var sportDetail = data.Where(_ => _.SportType == sport);
                 var sportData = GetSumData(sportDetail);
+                var leagueId = sportDetail.FirstOrDefault()?.LeagueId;
 
                 sportData.SportType = sport;
                 sportData.SportName = GetSportName(sport);
@@ -103,7 +104,7 @@
                 {
                     sportData.IsDirectToCurrency = true;
                     sportData.IsBreakdown = false;
-                    sportData.LeagueId = sportDetail.FirstOrDefault().LeagueId;
+                    sportData.LeagueId = leagueId ?? default;
                 }
                 dataList.Add(sportData);
             }
