@@ -600,4 +600,7 @@
   <data name="DesktopGalaxy" xml:space="preserve">
     <value>桌机银河版</value>
   </data>
+  <data name="LG" xml:space="preserve">
+    <value>虚拟运动3</value>
+  </data>
 </root>

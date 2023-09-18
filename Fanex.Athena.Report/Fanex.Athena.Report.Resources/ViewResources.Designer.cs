@@ -808,6 +808,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Sports 3.
+        /// </summary>
+        public static string LG {
+            get {
+                return ResourceManager.GetString("LG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Comm.
         /// </summary>
         public static string LicenseeComm {

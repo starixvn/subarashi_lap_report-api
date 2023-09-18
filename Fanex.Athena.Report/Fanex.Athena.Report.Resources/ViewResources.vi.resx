@@ -366,6 +366,9 @@
   <data name="LeagueWinLossTitle" xml:space="preserve">
     <value>Thắng thua theo Giải đấu , {0} --&gt; {1} , {2}, {3}</value>
   </data>
+  <data name="LG" xml:space="preserve">
+    <value>Thể Thao Ảo 3</value>
+  </data>
   <data name="LicenseeComm" xml:space="preserve">
     <value>Hoa hồng Nhà Cái</value>
   </data>
