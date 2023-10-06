@@ -18,6 +18,7 @@ namespace Fanex.Athena.Report.Common.Model.DataDomain
             { BaseCurrencyType.INH, "INH" },
             { BaseCurrencyType.BDT, "BDT" },
             { BaseCurrencyType.INR, "INR" },
+            { BaseCurrencyType.PHP, "PHP" },
 
             // crypto currencies
             { BaseCurrencyType.USDT, "USDT" },

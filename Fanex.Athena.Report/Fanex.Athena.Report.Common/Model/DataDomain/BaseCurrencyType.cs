@@ -24,6 +24,9 @@
 
         public const int INR = -10;
 
+        public const int PHP = -11;
+
+
         // crypto currencies
         public const int USDT = -99;
     }
