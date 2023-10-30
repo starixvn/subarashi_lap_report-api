@@ -15,6 +15,7 @@
                 case PlatformType.DesktopOthers: return ViewResources.DesktopOthers;
                 case PlatformType.DesktopGalaxy: return ViewResources.DesktopGalaxy;
                 case PlatformType.MobileStandard: return ViewResources.MobileStandard;
+                case PlatformType.MobileEuro: return ViewResources.MobileEuro;
                 case PlatformType.MobileGalaxy: return ViewResources.MobileGalaxy;
                 case PlatformType.MobileCompact: return ViewResources.MobileCompact;
                 case PlatformType.MobileOthers: return ViewResources.MobileOthers;

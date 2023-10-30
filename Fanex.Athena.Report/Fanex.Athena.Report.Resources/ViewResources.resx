@@ -443,9 +443,9 @@
   <data name="SBCC" xml:space="preserve">
     <value>Saba.club Jackpot Contribution</value>
   </data>
-  <data name="MobileGalaxy" xml:space="preserve">
+  <data name="MobileEuro" xml:space="preserve">
     <value>Mobile Euro</value>
-    <comment>revert</comment>
+    
   </data>
   <data name="SLT" xml:space="preserve">
     <value>Sports Lottery</value>
@@ -698,6 +698,9 @@
   </data>
   <data name="DesktopGalaxy" xml:space="preserve">
     <value>Desktop Galaxy</value>
+  </data>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>Mobile Galaxy</value>
   </data>
   <data name="LG" xml:space="preserve">
     <value>Virtual Sports 3</value>
