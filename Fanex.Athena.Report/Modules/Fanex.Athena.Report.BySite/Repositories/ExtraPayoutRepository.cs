@@ -14,6 +14,7 @@
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Core.Helpers;
     using Fanex.Athena.Report.Core.Services;
+    using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Athena.Report.Resources.Helpers;
     using Fanex.Data;
@@ -24,7 +25,7 @@
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IContextService _contextService;
 
-        private readonly IDictionary<int, int> _extraPayoutMapType = new Dictionary<int, int>
+        private static readonly IDictionary<int, int> _extraPayoutMapType = new Dictionary<int, int>
         {
             { ExtraPayoutMapType.PayoutPPTournamentPrize, BetType.PPTournamentPrize },
             { ExtraPayoutMapType.PayoutPPPromotionPrize, BetType.PPPromotionPrize },
@@ -49,7 +50,20 @@
             { ExtraPayoutMapType.PayoutSGPromotion, BetType.SGPromotion },
             { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion },
             { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips },
-            { ExtraPayoutMapType.PayoutMGRNGPromotion, BetType.MGRNGPromotion }
+            { ExtraPayoutMapType.PayoutMGRNGPromotion, BetType.MGRNGPromotion },
+            { ExtraPayoutMapType.PayoutSabaCasinoRoyaleTournamentPrize, BetType.SabaCasinoRoyaleTournamentPrize }
+        };
+
+        private static readonly int[] SBPromotionBettypes = new[] {
+            BetType.SabaLuckySpin,
+            BetType.SabaLuckySpot,
+            BetType.SabaNonCashPrize,
+            BetType.SabaLoyaltyPointsExchange,
+            BetType.SabaRedEnvelope
+        };
+
+        private static readonly int[] CasinoPromotionBettypes = new[] {
+            BetType.SabaCasinoRoyaleTournamentPrize
         };
 
         public ExtraPayoutRepository(
@@ -429,6 +443,16 @@
         public string GetPromotionName(int promotionType)
         {
             promotionType = _extraPayoutMapType.TryGetValue(promotionType, out int mapExtraPayoutType) ? mapExtraPayoutType : promotionType;
+
+            if (SBPromotionBettypes.Contains(promotionType))
+            {
+                return $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(promotionType)}";
+            }
+
+            if (CasinoPromotionBettypes.Contains(promotionType))
+            {
+                return $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(promotionType)}";
+            }
 
             return IsSportType(promotionType) ? _cacheRefAdapter.GetSportName(promotionType) : _cacheRefAdapter.GetBettype(promotionType);
         }

@@ -49,5 +49,7 @@
         public const int PayoutStreamerTips = 7401;
 
         public const int PayoutMGRNGPromotion = 7301;
+
+        public const int PayoutSabaCasinoRoyaleTournamentPrize = 3706;
     }
 }
