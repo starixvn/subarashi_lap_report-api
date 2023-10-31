@@ -1,12 +1,11 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using Fanex.Athena.Report.Common.Model.DTO;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -29,6 +28,8 @@ namespace Fanex.Athena.Report.Core.Services
         public bool IsEnableSingleWallet => GetClaimValue<bool>("IsEnableSingleWallet");
 
         public string SiteName => GetClaimValue("SiteName");
+
+        public string UserName => GetClaimValue("UserID");
 
         public bool IsFakeLicensee => GetClaimValue<bool>("IsFakeLicensee");
 
