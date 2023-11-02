@@ -366,6 +366,9 @@
   <data name="LeagueWinLossTitle" xml:space="preserve">
     <value>Thắng thua theo Giải đấu , {0} --&gt; {1} , {2}, {3}</value>
   </data>
+  <data name="LG" xml:space="preserve">
+    <value>Thể Thao Ảo 3</value>
+  </data>
   <data name="LicenseeComm" xml:space="preserve">
     <value>Hoa hồng Nhà Cái</value>
   </data>
@@ -652,7 +655,7 @@
     <value>Thể Thao Ảo 2</value>
   </data>
   <data name="VS3" xml:space="preserve">
-    <value>Thể Thao Ảo 3</value>
+    <value>Thể Thao Ảo 3 (Cũ)</value>
   </data>
   <data name="Wap" xml:space="preserve">
     <value>Wap</value>

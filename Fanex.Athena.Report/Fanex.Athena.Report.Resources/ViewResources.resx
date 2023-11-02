@@ -565,7 +565,7 @@
     <value>Basketball PinGoal</value>
   </data>
   <data name="VS3" xml:space="preserve">
-    <value>Virtual Sports 3</value>
+    <value>Virtual Sports 3 (Old)</value>
   </data>
   <data name="FGGL" xml:space="preserve">
     <value>FGG</value>
@@ -698,5 +698,8 @@
   </data>
   <data name="DesktopGalaxy" xml:space="preserve">
     <value>Desktop Galaxy</value>
+  </data>
+  <data name="LG" xml:space="preserve">
+    <value>Virtual Sports 3</value>
   </data>
 </root>
