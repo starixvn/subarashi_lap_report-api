@@ -8,6 +8,8 @@
     {
         private const string TotalBaseCurrency = "USD";
 
+        public string LoginName { get; set; }
+
         public string SiteName { get; set; }
 
         public DateTime Date { get; set; }

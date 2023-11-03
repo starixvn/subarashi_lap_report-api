@@ -1,11 +1,12 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Fanex.Athena.Report.Common.Model.DTO;
 
 namespace Fanex.Athena.Report.Core.Services
 {
     public interface IContextService
     {
         string SiteName { get; }
+        string UserName { get; }
         string SiteDBServer { get; }
         IReadOnlyDictionary<int, int[]> AgentList { get; }
         IReadOnlyDictionary<int, string> CurrencyList { get; }

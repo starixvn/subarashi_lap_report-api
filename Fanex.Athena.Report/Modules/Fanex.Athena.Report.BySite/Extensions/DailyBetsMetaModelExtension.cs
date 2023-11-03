@@ -19,6 +19,7 @@
 
         public static void InjectToDbParameter(this DailyBetsMetaModel metaModel, IObjectDb db)
         {
+            db.SetParameterValue("LoginName", metaModel.LoginName);
             db.SetParameterValue("SiteName", metaModel.SiteName);
             db.SetParameterValue("Date", metaModel.Date);
             db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
