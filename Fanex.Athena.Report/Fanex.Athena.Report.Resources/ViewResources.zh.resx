@@ -386,7 +386,7 @@
   <data name="SBCFB" xml:space="preserve">
     <value>Saba.Club 免费投注</value>
   </data>
-  <data name="MobileGalaxy" xml:space="preserve">
+  <data name="MobileEuro" xml:space="preserve">
     <value>手机欧洲版</value>
     <comment>revert</comment>
   </data>
@@ -599,6 +599,9 @@
   </data>
   <data name="DesktopGalaxy" xml:space="preserve">
     <value>桌机银河版</value>
+  </data>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>手机银河版</value>
   </data>
   <data name="LG" xml:space="preserve">
     <value>虚拟运动3</value>

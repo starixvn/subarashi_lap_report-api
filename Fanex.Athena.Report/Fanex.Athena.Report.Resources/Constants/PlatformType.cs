@@ -12,7 +12,7 @@
 
         public const int MobileStandard = 4;
 
-        public const int MobileGalaxy = 5;
+        public const int MobileEuro = 5;
 
         public const int MobileCompact = 6;
 
@@ -37,6 +37,8 @@
         public const int ChatRoom = 16;
 
         public const int DesktopGalaxy = 17;
+
+        public const int MobileGalaxy = 18;
 
         public const int BetfromOthers = 88;
     }
