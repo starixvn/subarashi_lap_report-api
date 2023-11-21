@@ -445,7 +445,6 @@
   </data>
   <data name="MobileEuro" xml:space="preserve">
     <value>Mobile Euro</value>
-    
   </data>
   <data name="SLT" xml:space="preserve">
     <value>Sports Lottery</value>
@@ -704,5 +703,11 @@
   </data>
   <data name="LG" xml:space="preserve">
     <value>Virtual Sports 3</value>
+  </data>
+  <data name="DailyBets" xml:space="preserve">
+    <value>Daily Bets</value>
+  </data>
+  <data name="TotalTickets" xml:space="preserve">
+    <value>Total tickets</value>
   </data>
 </root>

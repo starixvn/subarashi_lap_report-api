@@ -448,6 +448,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daily Bets.
+        /// </summary>
+        public static string DailyBets {
+            get {
+                return ResourceManager.GetString("DailyBets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -1506,6 +1515,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Totalin {
             get {
                 return ResourceManager.GetString("Totalin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total tickets.
+        /// </summary>
+        public static string TotalTickets {
+            get {
+                return ResourceManager.GetString("TotalTickets", resourceCulture);
             }
         }
         

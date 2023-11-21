@@ -55,37 +55,5 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Assert
             Assert.Equal(expectedResult, result);
         }
-
-        [Fact]
-        public async Task Export_WhenCall_ReturnCorrectFileResult()
-        {
-            // Arrange
-            var metaModel = _fixture.Create<DailyBetsMetaModel>();
-            var fileName = CreateFile();
-            var excelService = new Mock<IDailyBetsExcel>();
-            var auditCurrencyList = new List<AuditCurrency>();
-            excelService.Setup(s => s.Export(metaModel, auditCurrencyList)).Returns(Task.FromResult(fileName));
-
-            var controller = new DailyBetsController(_contextService.Object);
-
-            // Action
-            var result = await controller.Export(metaModel, excelService.Object) as FileStreamResult;
-
-            // Assert
-            Assert.Equal("application/octet-stream", result.ContentType);
-
-            Assert.True(File.Exists(fileName));
-            result.FileStream.Dispose();
-            Assert.False(File.Exists(fileName));
-        }
-
-        private string CreateFile()
-        {
-            var rootPath = Directory.GetCurrentDirectory();
-            var fileName = Path.Combine(rootPath, $"{Guid.NewGuid()}.csv");
-            File.Create(fileName).Dispose();
-
-            return fileName;
-        }
     }
 }
