@@ -618,4 +618,7 @@
   <data name="CasinoPromotion" xml:space="preserve">
     <value>真人娱乐促销活动</value>
   </data>
+  <data name="WE" xml:space="preserve">
+    <value>WE世界娱乐</value>
+  </data>
 </root>
