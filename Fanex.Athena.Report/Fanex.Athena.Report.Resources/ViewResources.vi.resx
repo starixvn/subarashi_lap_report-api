@@ -693,7 +693,13 @@
   <data name="DailyBets" xml:space="preserve">
     <value>Cược Hằng Ngày</value>
   </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Di động</value>
+  </data>
   <data name="TotalTickets" xml:space="preserve">
     <value>Tổng số vé</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Máy tính</value>
   </data>
 </root>

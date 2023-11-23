@@ -41,5 +41,12 @@
         public const int MobileGalaxy = 18;
 
         public const int BetfromOthers = 88;
+
+        // Jollysports
+        public const int Desktop = 91;
+
+        public const int Mobile = 92;
+
+        public const int Others = 99;
     }
 }

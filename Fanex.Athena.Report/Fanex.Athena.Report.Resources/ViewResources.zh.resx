@@ -606,4 +606,10 @@
   <data name="LG" xml:space="preserve">
     <value>虚拟运动3</value>
   </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>桌机</value>
+  </data>
 </root>

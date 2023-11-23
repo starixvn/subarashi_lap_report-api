@@ -67,6 +67,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public bool IsShowInOrginalCurrency { get; set; }
 
+        public int SpecialPlatform { get; set; }
+
         public bool IsValid => true;
     }
 }

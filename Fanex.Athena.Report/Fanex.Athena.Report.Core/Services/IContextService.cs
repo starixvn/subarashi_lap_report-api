@@ -21,5 +21,7 @@ namespace Fanex.Athena.Report.Core.Services
 
         bool ForceIgnoreSharding { get; }
         public IEnumerable<AuditCurrency> AuditCurrencies { get; }
+
+        public int SpecialPlatform { get; }
     }
 }

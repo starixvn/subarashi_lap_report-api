@@ -710,4 +710,10 @@
   <data name="TotalTickets" xml:space="preserve">
     <value>Total tickets</value>
   </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
 </root>

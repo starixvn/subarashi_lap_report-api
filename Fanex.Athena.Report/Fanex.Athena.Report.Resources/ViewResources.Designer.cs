@@ -484,6 +484,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Desktop.
+        /// </summary>
+        public static string Desktop {
+            get {
+                return ResourceManager.GetString("Desktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Desktop China.
         /// </summary>
         public static string DesktopChina {
@@ -930,6 +939,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string MixLiveAndNoneLive {
             get {
                 return ResourceManager.GetString("MixLiveAndNoneLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mobile.
+        /// </summary>
+        public static string Mobile {
+            get {
+                return ResourceManager.GetString("Mobile", resourceCulture);
             }
         }
         
