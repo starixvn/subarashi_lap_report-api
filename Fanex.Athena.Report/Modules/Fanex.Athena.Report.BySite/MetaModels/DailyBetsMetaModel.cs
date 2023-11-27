@@ -16,6 +16,8 @@
 
         public string ProductCodeList { get; set; }
 
+        public long RefNo { get; set; }
+
         public string BaseCurrency { get; set; } = TotalBaseCurrency;
 
         public string GameCodes { get; set; }
