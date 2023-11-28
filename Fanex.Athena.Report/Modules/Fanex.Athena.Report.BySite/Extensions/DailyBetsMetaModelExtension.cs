@@ -2,6 +2,7 @@
 {
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.Resources;
+    using Fanex.Common.Extensions;
     using Fanex.Data;
     using System;
     using System.Collections.Generic;
@@ -33,6 +34,10 @@
             {
                 db.SetParameterValue("SortBy", metaModel.SortBy);
                 db.SetParameterValue("SortOrder", metaModel.SortOrder);
+            }
+            if (metaModel.RefNo > 0 && string.Equals(metaModel.SiteName, "IvoryBet", StringComparison.InvariantCultureIgnoreCase))
+            {
+                db.SetParameterValue("SearchRefNo", metaModel.RefNo);
             }
         }
 

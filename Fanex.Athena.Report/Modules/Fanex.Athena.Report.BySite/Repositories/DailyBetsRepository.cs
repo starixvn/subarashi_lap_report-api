@@ -26,7 +26,7 @@
 
                         var totalData = totalRows == 0 ? new AuditTicket() : new AuditTicket
                         {
-                            TurnoverBased  = Convert.ToDecimal(reader["TotalTurnover"]),
+                            TurnoverBased = Convert.ToDecimal(reader["TotalTurnover"]),
                             WinLossBased = Convert.ToDecimal(reader["TotalWinLoss"])
                         };
 
@@ -46,6 +46,11 @@
             db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml());
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue("GameCodes", metaModel.GameCodes);
+
+            if (metaModel.RefNo > 0 && string.Equals(metaModel.SiteName, "IvoryBet", StringComparison.InvariantCultureIgnoreCase))
+            {
+                db.SetParameterValue("SearchRefNo", metaModel.RefNo);
+            }
         }
     }
 }
