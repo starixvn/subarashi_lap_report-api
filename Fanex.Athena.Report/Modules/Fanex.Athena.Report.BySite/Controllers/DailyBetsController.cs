@@ -9,6 +9,7 @@
     using Fanex.Athena.Report.Core.Constants;
     using Fanex.Athena.Report.Core.Services;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
 
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -37,16 +38,17 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Export([FromBody] DailyBetsMetaModel metaModel, [FromServices] IDailyBetsExcel excel)
+        public async Task<IActionResult> Export(
+            [FromBody] DailyBetsMetaModel metaModel,
+            [FromServices] IDailyBetsExcel excel,
+            [FromServices] IFileProvider file)
         {
             AssignMetaModel(metaModel);
-            var fileName = await excel.Export(metaModel, _contextService.AuditCurrencies);
-            if (fileName is null)
-            {
-                return NoContent();
-            }
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
-            return File(stream, "application/octet-stream");
+            var template = file.GetFileInfo("/ExcelTemplate/DailyBets.xls").PhysicalPath;
+            var zipFilePath = await excel.Export(template, metaModel, _contextService.AuditCurrencies);
+
+            var stream = new FileStream(zipFilePath, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
+            return File(stream, "application/zip");
         }
 
         private void AssignMetaModel(DailyBetsMetaModel metaModel)

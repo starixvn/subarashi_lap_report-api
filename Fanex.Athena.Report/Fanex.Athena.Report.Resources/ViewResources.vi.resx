@@ -690,4 +690,10 @@
   <data name="MobileGalaxy" xml:space="preserve">
     <value>Mobile Galaxy</value>
   </data>
+  <data name="DailyBets" xml:space="preserve">
+    <value>Cược Hằng Ngày</value>
+  </data>
+  <data name="TotalTickets" xml:space="preserve">
+    <value>Tổng số vé</value>
+  </data>
 </root>

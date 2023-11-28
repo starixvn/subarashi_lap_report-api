@@ -1,52 +1,73 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
-    using Fanex.Athena.Report.BySite.Extensions;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+    using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.MetaModels;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
-    using Fanex.Data;
-
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
-
+    using NPOI.SS.UserModel;
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public class DailyBetsExcel : BaseExcel, IDailyBetsExcel
     {
         private readonly IDailyBetsRepository _repository;
-
-        private const string DecimalFormat = "0.00";
-
-        private const string UspName = "Lrf_Rpt_Audit_DailyBets";
-
-        private string _header;
-
-        private string _footer;
-
+        private readonly IDailyBetsService _service;
+        private const string TemplateSheetName = "Template";
+        private const string SheetName = "Data";
         private string _tempFolderPath;
+        private int _totalRows;
+        private AuditTicket _totalData;
+
+        private const int ColumnIndex = 0;
+        private const int ColumnPlayerName = 1;
+        private const int ColumnCurrency = 2;
+        private const int ColumnRefNo = 3;
+        private const int ColumnTransTime = 4;
+        private const int ColumnProduct = 5;
+        private const int ColumnSport = 6;
+        private const int ColumnBetType = 7;
+        private const int ColumnTurnover = 8;
+        private const int ColumnWL = 9;
+        private const int ColumnTurnoverUSD = 10;
+        private const int ColumnWLUSD = 11;
+        private const int ColumnStatus = 12;
+
+        private const int RowNoInfoTemplate = 6;
+        private const int ColumnTemplateCount = 13;
+
+        private const int RowHeaderTemplate = 1;
+        private const int RowTitleTemplate = 0;
+        private const int RowContentTemplate = 3;
+        private const int RowTotalCurrencyTemplate = 5;
+
+        private readonly IExcelBuilder _builder;
 
         public DailyBetsExcel(
+            IExcelBuilder builder,
             IDailyBetsRepository dailyBetsRepository,
+            IDailyBetsService dailyBetsService,
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
             IWebHostEnvironment enviroment)
             : base(enviroment, fileService, excelOptionsAccessor)
         {
+            _builder = builder;
             _repository = dailyBetsRepository;
+            _service = dailyBetsService;
         }
 
-        public async Task<string> Export(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
+        public async Task<string> Export(string templatePath, DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
         {
             var files = new List<ZipEntry>();
 
@@ -59,18 +80,19 @@
                 return null;
             }
 
+            _totalRows = totalRows;
+            _totalData = totalData;
             _tempFolderPath = EnsureFolderPath();
-            _header = GetHeaderString();
-            _footer = GetFooterString(totalData.TurnoverBased, totalData.WinLossBased, metaModel.BaseCurrency);
 
             var totalPage = (totalRows - 1) / ExcelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex;
             var exportTasks = new List<Task<ZipEntry>>();
+
             while (nextPage <= totalPage)
             {
                 var pageMetaModel = metaModel.ShallowCopy();
                 pageMetaModel.PageIndex = nextPage;
-                exportTasks.Add(ExportOnePageAsync(pageMetaModel, auditCurrencyList));
+                exportTasks.Add(ExportOnePageAsync(pageMetaModel, auditCurrencyList, templatePath));
                 ++nextPage;
             }
 
@@ -80,106 +102,58 @@
             return ZipExcelFile(files, _tempFolderPath);
         }
 
-        private async Task<ZipEntry> ExportOnePageAsync(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList)
+        private async Task<ZipEntry> ExportOnePageAsync(DailyBetsMetaModel metaModel, IEnumerable<AuditCurrency> auditCurrencyList, string templatePath)
         {
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            var data = await _service.GetDataAsync(metaModel, auditCurrencyList);
+            var workBook = GetWorkbook(templatePath, data.DataList, metaModel);
+
+            using var stream = new MemoryStream();
+            workBook.Write(stream);
+            workBook.Close();
+
+            return WriteExcelFile(stream.ToArray(), $"DailyBets_{metaModel.PageIndex}");
+        }
+
+        private ZipEntry WriteExcelFile(byte[] excelFile, string fileName)
+        {
+            var excelFilePath = Path.Combine(_tempFolderPath, $"{Guid.NewGuid()}.dat");
+            FileService.WriteAllBytes(excelFilePath, excelFile);
+
+            return new ZipEntry
             {
-                metaModel.InjectToDbParameter(db);
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    var fileName = Path.Combine(_tempFolderPath, $"{Guid.NewGuid()}.dat");
-                    using (StreamWriter stw = FileService.CreateStreamWriter(fileName, false, Encoding.UTF8))
-                    {
-                        await stw.WriteLineAsync(_header).ConfigureAwait(false);
+                Path = excelFilePath,
+                FileName = $"{fileName}.xls"
+            };
+        }
 
-                        var rowBuilder = new StringBuilder();
-                        while (reader.Read())
-                        {
-                            await WriteMainDataItemAsync(reader, stw, rowBuilder, auditCurrencyList).ConfigureAwait(false);
-                        }
+        public IWorkbook GetWorkbook(string template, IEnumerable<AuditTicket> dataList, DailyBetsMetaModel metaModel)
+        {
+            var workBook = _builder.LoadTemplate(template);
+            var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
+            var templateSheet = workBook.GetSheet(TemplateSheetName);
 
-                        await stw.WriteLineAsync(_footer).ConfigureAwait(false);
-                    }
+            AssignHeader(sheet, templateSheet);
+            AssignTitle(sheet, templateSheet, metaModel);
 
-                    return new ZipEntry
-                    {
-                        Path = fileName,
-                        FileName = $"DailyBets_{metaModel.PageIndex}.csv"
-                    };
-                }
+            if (dataList.Any())
+            {
+                AssignSheetData(sheet, templateSheet, dataList);
             }
+            else
+            {
+                AssignNoInfoRow(sheet, templateSheet);
+            }
+
+            _builder.RemoveSheet(workBook, TemplateSheetName);
+
+            return workBook;
         }
 
-        private async Task WriteMainDataItemAsync(
-            IDataReader reader,
-            StreamWriter streamWriter,
-            StringBuilder rowBuilder,
-            IEnumerable<AuditCurrency> auditCurrencyList)
+        protected void AssignHeader(ISheet sheet, ISheet templateSheet)
         {
-            rowBuilder.Append(reader["Index"]);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
+            var row = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate, destRowIndex: RowHeaderTemplate);
 
-            rowBuilder.Append(reader["PlayerName"]);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            var currencyName = reader["CurrencyName"].ToString();
-            var hardCodeCurrency = auditCurrencyList.FirstOrDefault(_ => String.Equals(_.Name, currencyName, StringComparison.InvariantCultureIgnoreCase))?.HardCodeName;
-            rowBuilder.Append(!string.IsNullOrEmpty(hardCodeCurrency) ? hardCodeCurrency : currencyName);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            AddBigNumberAsText(rowBuilder, reader["RefNo"].ToString());
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(reader["TransTime"]);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(DailyBetsMetaModelExtension.GetProductName[reader["ProductCode"].ToString()]());
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(reader["SportName"].ToString());
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(reader["BetType"]);
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(reader["Turnover"]);
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(reader["WinLoss"]);
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(reader["TurnoverBased"]);
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(reader["WinLossBased"]);
-            rowBuilder.Append(ExcelOptions.CSVTextDelimiter);
-            rowBuilder.Append(ExcelOptions.CSVSeparateCharacter);
-
-            rowBuilder.Append(DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(reader["Status"])]());
-
-            await streamWriter.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
-            rowBuilder.Clear();
-        }
-
-        private static void AddBigNumberAsText(StringBuilder rowBuilder, string bigNumber)
-        {
-            rowBuilder.Append("=\"\"" + bigNumber + "\"\"");
-        }
-
-        private string GetHeaderString()
-        {
-            var headers = new[]
+            var headerTextList = new[]
             {
                 "#",
                 ViewResources.PlayerName,
@@ -196,29 +170,84 @@
                 ViewResources.Status
             };
 
-            return string.Join(ExcelOptions.CSVSeparateCharacter, headers);
+            SetTextRowHeader(row, headerTextList);
         }
 
-        private string GetFooterString(decimal turnoverBased, decimal winLossBased, string baseCurrency)
+        private static void SetTextRowHeader(IRow row, IEnumerable<string> headerTextList)
         {
-            var footer = new[]
+            for (int i = 0; i < headerTextList.Count(); i++)
             {
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Format(ViewResources.Totalin, baseCurrency),
-                ExcelOptions.CSVTextDelimiter + turnoverBased.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
-                 ExcelOptions.CSVTextDelimiter + winLossBased.ToString(DecimalFormat) + ExcelOptions.CSVTextDelimiter,
-                string.Empty
-            };
+                row.Cells[i].SetCellValue(headerTextList.ElementAt(i));
+            }
+        }
 
-            return string.Join(ExcelOptions.CSVSeparateCharacter, footer);
+        private void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
+        {
+            _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+        }
+
+        private void AssignSheetData(ISheet sheet, ISheet templateSheet, IEnumerable<AuditTicket> dataList)
+        {
+            var index = 0;
+
+            foreach (var item in dataList)
+            {
+                var row = _builder.CopyRow(sheet, templateSheet, RowContentTemplate, index + RowContentTemplate);
+                ++index;
+                AssignCellData(row, item);
+            }
+
+            AssignTotalCurrency(sheet, templateSheet, index + RowContentTemplate);
+        }
+
+        private void AssignTotalCurrency(ISheet sheet, ISheet templateSheet, int index)
+        {
+            var row = _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate, index);
+            row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, "USD"));
+            row.Cells[ColumnTurnoverUSD].SetCellValue((double)_totalData.TurnoverBased);
+            row.Cells[ColumnWLUSD].SetCellValue((double)_totalData.WinLossBased);
+
+            _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnIndex, lastCol: ColumnWL);
+        }
+
+        private static void AssignCellData(IRow row, AuditTicket item)
+        {
+            row.Cells[ColumnIndex].SetCellValue(item.Index);
+            row.Cells[ColumnPlayerName].SetCellValue(item.PlayerName);
+            row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+            row.Cells[ColumnRefNo].SetCellValue(item.RefNo);
+            row.Cells[ColumnTransTime].SetCellValue(item.TransTimeString);
+            row.Cells[ColumnProduct].SetCellValue(item.ProductName);
+            row.Cells[ColumnSport].SetCellValue(item.SportName);
+            row.Cells[ColumnBetType].SetCellValue(item.BetType);
+            row.Cells[ColumnTurnover].SetCellValue((double)item.Turnover);
+            row.Cells[ColumnWL].SetCellValue((double)item.WinLoss);
+            row.Cells[ColumnTurnoverUSD].SetCellValue((double)item.TurnoverBased);
+            row.Cells[ColumnWLUSD].SetCellValue((double)item.WinLossBased);
+            row.Cells[ColumnStatus].SetCellValue(item.Status);
+        }
+
+        private void AssignTitle(ISheet sheet, ISheet templateSheet, DailyBetsMetaModel metaModel)
+        {
+            var currencyIdSelectedList = metaModel.CurrencyIdList.Split(',').Select(int.Parse);
+            var displayedCurrency = metaModel.CurrencyList.Count == currencyIdSelectedList.Count()
+                ? ViewResources.AllCurrencies
+                : string.Join(",", metaModel.CurrencyList.Where(_ => currencyIdSelectedList.Contains(_.Key)).Select(_ => _.Value));
+            var totalTicketText = $"{ViewResources.TotalTickets}: {_totalRows}";
+
+            var reportTitle = $"{ViewResources.DailyBets}, GMT+8, {metaModel.Date:dd/MM/yyyy} - {displayedCurrency} - {totalTicketText}";
+
+            _builder.SetRowValue(
+                sheet,
+                templateSheet,
+                sourceRowIndex: RowTitleTemplate,
+                destRowIndex: RowTitleTemplate,
+                columnCount: ColumnTemplateCount,
+                value: reportTitle);
+
+            sheet.CreateFreezePane(0, RowContentTemplate);
+
+            _builder.ClearTemplate(sheet, RowContentTemplate);
         }
     }
 }

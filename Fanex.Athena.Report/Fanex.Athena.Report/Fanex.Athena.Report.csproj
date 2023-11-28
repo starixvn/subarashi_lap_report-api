@@ -83,6 +83,9 @@
 	<Content Include="ExcelTemplate\WinLossAnalysis.xls">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
+	<Content Include="ExcelTemplate\DailyBets.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
 	<Content Include="SpConfig\FanexSpName.UAT_2.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
