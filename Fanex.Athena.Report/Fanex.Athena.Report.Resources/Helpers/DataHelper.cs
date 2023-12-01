@@ -29,6 +29,9 @@
                 case PlatformType.WAP: return ViewResources.Wap;
                 case PlatformType.ChatRoom: return ViewResources.ChatRoom;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;
+                case PlatformType.Others: return ViewResources.BetfromOthers;
+                case PlatformType.Desktop: return ViewResources.Desktop;
+                case PlatformType.Mobile: return ViewResources.Mobile;
                 default: return ViewResources.All;
             }
         }
