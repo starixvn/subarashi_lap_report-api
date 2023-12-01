@@ -181,7 +181,9 @@
                     { "cs", "zh-CN" },
                     { "zhcn", "zh-Hans" },
                     { "ch", "zh-TW" },
-                    { "vn", "vi-VN" }
+                    { "vn", "vi-VN" },
+                    { "id-ID", "id" },
+                    { "th-TH", "th" },
                 };
 
                 options.RequestCultureProviders = new List<IRequestCultureProvider>
