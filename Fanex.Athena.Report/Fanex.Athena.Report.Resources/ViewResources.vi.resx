@@ -198,6 +198,9 @@
   <data name="CashOutWinLoss" xml:space="preserve">
     <value>Thắng Thua của vé cược đã bán</value>
   </data>
+  <data name="CasinoPromotion" xml:space="preserve">
+    <value>Casino Khuyến Mãi</value>
+  </data>
   <data name="CC" xml:space="preserve">
     <value>Arcadia Gaming</value>
   </data>
@@ -530,6 +533,9 @@
   </data>
   <data name="SBCFB" xml:space="preserve">
     <value>Saba.club Cược Miễn phí</value>
+  </data>
+  <data name="SBPromotion" xml:space="preserve">
+    <value>Sportsbook Khuyến Mãi</value>
   </data>
   <data name="SB_BA" xml:space="preserve">
     <value>Sportsbook &amp; BA</value>

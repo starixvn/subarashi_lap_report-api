@@ -49,7 +49,7 @@
         public const int TIPStreamerTips = 8700;
 
         public const int MGRNGPromotion = 8695;
-        
+
         public const int NumberGameHappy5OddEven = 8102;
 
         public const int VirtualBasketballOverUnder = 2803;
@@ -57,5 +57,7 @@
         public const int VirtualBasketballFirstHalfHandicap = 2806;
 
         public const int VirtualSportsTennisCorrectSoccer = 1235;
+
+        public const int SabaCasinoRoyaleTournamentPrize = 17006;
     }
 }
