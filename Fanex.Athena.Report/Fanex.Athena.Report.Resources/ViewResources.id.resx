@@ -183,9 +183,6 @@
   <data name="BetType" xml:space="preserve">
     <value>Jenis Taruhan</value>
   </data>
-  <data name="BGG" xml:space="preserve">
-    <value />
-  </data>
   <data name="Bonus" xml:space="preserve">
     <value>Bonus</value>
   </data>
@@ -203,9 +200,6 @@
   </data>
   <data name="CCB" xml:space="preserve">
     <value>Bonus Permainan Arcadia</value>
-  </data>
-  <data name="CG" xml:space="preserve">
-    <value />
   </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>Ruang Obrolan</value>
@@ -264,9 +258,6 @@
   <data name="DesktopChina" xml:space="preserve">
     <value>Desktop Cina</value>
   </data>
-  <data name="DesktopGalaxy" xml:space="preserve">
-    <value />
-  </data>
   <data name="DesktopNewAsia" xml:space="preserve">
     <value>Desktop New Asia</value>
   </data>
@@ -309,9 +300,6 @@
   <data name="ExtraPayout" xml:space="preserve">
     <value>Pembayaran Tambahan</value>
   </data>
-  <data name="FGGL" xml:space="preserve">
-    <value />
-  </data>
   <data name="FinalScore" xml:space="preserve">
     <value>Skor Akhir</value>
   </data>
@@ -333,17 +321,11 @@
   <data name="HB" xml:space="preserve">
     <value>Habanero</value>
   </data>
-  <data name="HDP" xml:space="preserve">
-    <value />
-  </data>
   <data name="Home" xml:space="preserve">
     <value>Rumah</value>
   </data>
   <data name="I4D" xml:space="preserve">
     <value>Togel 4D</value>
-  </data>
-  <data name="IP" xml:space="preserve">
-    <value />
   </data>
   <data name="IpSummary" xml:space="preserve">
     <value>Ringkasan IP</value>
@@ -353,9 +335,6 @@
   </data>
   <data name="JK" xml:space="preserve">
     <value>Joker</value>
-  </data>
-  <data name="KN" xml:space="preserve">
-    <value />
   </data>
   <data name="KOTime" xml:space="preserve">
     <value>Waktu Mulai</value>
@@ -405,9 +384,6 @@
   <data name="Match" xml:space="preserve">
     <value>Pertandingan</value>
   </data>
-  <data name="MGRNG" xml:space="preserve">
-    <value />
-  </data>
   <data name="MixLiveAndNoneLive" xml:space="preserve">
     <value>Campuran Live &amp; Non-Live</value>
   </data>
@@ -422,9 +398,6 @@
   </data>
   <data name="MobileEuro" xml:space="preserve">
     <value>Mobile Euro</value>
-  </data>
-  <data name="MobileGalaxy" xml:space="preserve">
-    <value />
   </data>
   <data name="MobileOthers" xml:space="preserve">
     <value>Lainnya (Mobile)</value>
@@ -549,9 +522,6 @@
   <data name="Score" xml:space="preserve">
     <value>Skor</value>
   </data>
-  <data name="SG" xml:space="preserve">
-    <value />
-  </data>
   <data name="SLT" xml:space="preserve">
     <value>Lotre Olahraga</value>
   </data>
@@ -669,12 +639,6 @@
   <data name="VS2" xml:space="preserve">
     <value>Virtual Sports 2</value>
   </data>
-  <data name="VS3" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Wap" xml:space="preserve">
-    <value />
-  </data>
   <data name="Win" xml:space="preserve">
     <value>Menang</value>
   </data>
@@ -696,10 +660,13 @@
   <data name="Won" xml:space="preserve">
     <value>Menang</value>
   </data>
-  <data name="YB" xml:space="preserve">
-    <value />
-  </data>
   <data name="Yes" xml:space="preserve">
     <value>Ya</value>
+  </data>
+  <data name="SBPromotion" xml:space="preserve">
+    <value>Promosi Sportsbook Saba</value>
+  </data>
+  <data name="CasinoPromotion" xml:space="preserve">
+    <value>Promosi Kasino</value>
   </data>
 </root>

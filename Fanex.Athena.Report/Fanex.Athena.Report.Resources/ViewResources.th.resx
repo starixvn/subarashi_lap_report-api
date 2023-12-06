@@ -354,9 +354,6 @@
   <data name="JK" xml:space="preserve">
     <value>Joker</value>
   </data>
-  <data name="KN" xml:space="preserve">
-    <value />
-  </data>
   <data name="KOTime" xml:space="preserve">
     <value>เวลา K.O</value>
   </data>
@@ -404,9 +401,6 @@
   </data>
   <data name="Match" xml:space="preserve">
     <value>การแข่งขัน</value>
-  </data>
-  <data name="MGRNG" xml:space="preserve">
-    <value />
   </data>
   <data name="MixLiveAndNoneLive" xml:space="preserve">
     <value>Mix แทงบอลสด &amp;amp; ไม่แทงบอลสด</value>
@@ -549,9 +543,6 @@
   <data name="Score" xml:space="preserve">
     <value>คะแนน</value>
   </data>
-  <data name="SG" xml:space="preserve">
-    <value />
-  </data>
   <data name="SLT" xml:space="preserve">
     <value>ลอตเตอรีกีฬา</value>
   </data>
@@ -669,12 +660,6 @@
   <data name="VS2" xml:space="preserve">
     <value>กีฬาเสมือนจริง 2</value>
   </data>
-  <data name="VS3" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Wap" xml:space="preserve">
-    <value />
-  </data>
   <data name="Win" xml:space="preserve">
     <value>ชนะ</value>
   </data>
@@ -696,10 +681,13 @@
   <data name="Won" xml:space="preserve">
     <value>ชนะ</value>
   </data>
-  <data name="YB" xml:space="preserve">
-    <value />
-  </data>
   <data name="Yes" xml:space="preserve">
     <value>ใช่</value>
+  </data>
+  <data name="SBPromotion" xml:space="preserve">
+    <value>โปรโมชั่น Saba Sportsbook</value>
+  </data>
+  <data name="CasinoPromotion" xml:space="preserve">
+    <value>โปรโมชั่นคาสิโน</value>
   </data>
 </root>
