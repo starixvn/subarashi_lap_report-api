@@ -722,4 +722,7 @@
   <data name="SBPromotion" xml:space="preserve">
     <value>Sportsbook Promotion</value>
   </data>
+  <data name="SEA" xml:space="preserve">
+    <value>SEAL Entertainment</value>
+  </data>
 </root>

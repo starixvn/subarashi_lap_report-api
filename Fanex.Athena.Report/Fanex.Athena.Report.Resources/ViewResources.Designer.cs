@@ -1375,6 +1375,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEAL Entertainment.
+        /// </summary>
+        public static string SEA {
+            get {
+                return ResourceManager.GetString("SEA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SG.
         /// </summary>
         public static string SG {
