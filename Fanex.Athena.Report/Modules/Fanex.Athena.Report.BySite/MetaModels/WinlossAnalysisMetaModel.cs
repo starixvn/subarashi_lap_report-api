@@ -31,6 +31,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public string BaseCurrency { get; set; }
 
+        public string BaseCurrencyName { get; set; }
+
         public bool IsVipOnly { get; set; }
 
         public string CustomerClass { get; set; }

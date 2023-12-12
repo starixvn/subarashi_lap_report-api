@@ -21,6 +21,7 @@ namespace Fanex.Athena.Report.BySite.Services
         private const string ORIGINAL_DATE_FORMAT = "yyyy-MM-dd";
         private const string DATE_FORMAT = "MM/dd/yyyy";
         private const string MONTH_FORMAT = "MM/yyyy";
+        private const int DEFAULT_SORT_BY = 0;
 
         private readonly IWinlossAnalysisRepository _repository;
         private readonly INameService _nameService;
@@ -61,7 +62,7 @@ namespace Fanex.Athena.Report.BySite.Services
         private async Task<IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisMetaModel param)
         {
             var breakDownDatas = await BuildDataListForBreakdownData(param, data.MainData);
-            var groupByDatas = await BuildDataListForGroupByData(param.GroupMode, data.GroupSumData);
+            var groupByDatas = await BuildDataListForGroupByData(param, data.GroupSumData);
             return BuildDefaultTreeListItem(groupByDatas, breakDownDatas);
         }
 
@@ -108,13 +109,14 @@ namespace Fanex.Athena.Report.BySite.Services
             return item;
         }
 
-        private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForGroupByData(GroupByMode groupByMode, IEnumerable<WinlossAnalysisDTO> groupSumData)
+        private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForGroupByData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> groupSumData)
         {
+            var groupByMode = param.GroupMode;
             var listData = new SortedList<dynamic, WinlossAnalysisViewModel>(groupSumData.Count());
             foreach (var data in groupSumData)
             {
                 var item = await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data);
-                if (groupByMode == GroupByMode.Currency)
+                if (groupByMode == GroupByMode.Currency && param.SortBy == DEFAULT_SORT_BY)
                 {
                     listData.Add(item.GroupByFieldText, item);
                 }

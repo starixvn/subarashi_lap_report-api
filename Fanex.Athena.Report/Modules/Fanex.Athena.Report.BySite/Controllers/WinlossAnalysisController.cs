@@ -165,7 +165,7 @@
             var isHasBAProduct = metaModel.ProductCodes.Split(',').Contains(Resources.Constants.Product.BA);
             return new WinlossAnalysisExcelOption
             {
-                BaseCurrency = metaModel.BaseCurrency,
+                BaseCurrency = metaModel.BaseCurrencyName,
                 BreakdownMode = metaModel.BreakdownMode,
                 FromDate = metaModel.FromDate,
                 ToDate = metaModel.ToDate,
