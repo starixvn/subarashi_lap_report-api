@@ -51,6 +51,9 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\..\.sonarlint\lap.reportapi\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+    <Content Include="App_Data\UserGuide\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
 	<Content Include="App_Data\*.*">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
