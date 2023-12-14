@@ -1,6 +1,6 @@
 ﻿using Fanex.Data;
 
-namespace Fanex.Athena.Report.Core.Repositories
+namespace Fanex.Athena.Report.Core.Repositories.Abstraction
 {
     public interface IDbFactory
     {

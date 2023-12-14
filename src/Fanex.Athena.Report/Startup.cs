@@ -5,7 +5,6 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
-    using Fanex.Athena.Report.Base;
     using Fanex.Athena.Report.ByPlayer;
     using Fanex.Athena.Report.BySite;
     using Fanex.Athena.Report.Common;
@@ -94,7 +93,6 @@
 
             services.AddCore()
                     .AddCommon()
-                    .AddBaseModule()
                     .AddByPlayerModule()
                     .AddBySiteModule();
             services.Configure<ForwardedHeadersOptions>(options =>

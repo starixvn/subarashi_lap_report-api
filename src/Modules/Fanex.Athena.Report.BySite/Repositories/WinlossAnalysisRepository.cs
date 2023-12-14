@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Core.Repositories;
 using Fanex.Common.Extensions;
 using Fanex.Data;
+using Fanex.Athena.Report.Core.Repositories.Abstraction;
 
 namespace Fanex.Athena.Report.BySite.Repositories
 {

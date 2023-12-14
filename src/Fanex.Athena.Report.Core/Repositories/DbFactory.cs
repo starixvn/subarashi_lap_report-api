@@ -1,4 +1,5 @@
-﻿using Fanex.Data;
+﻿using Fanex.Athena.Report.Core.Repositories.Abstraction;
+using Fanex.Data;
 
 namespace Fanex.Athena.Report.Core.Repositories
 {

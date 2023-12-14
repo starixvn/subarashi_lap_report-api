@@ -14,6 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\Abtraction\**" />
+    <EmbeddedResource Remove="Repositories\Abtraction\**" />
+    <None Remove="Repositories\Abtraction\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\.sonarlint\lap.reportapi\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using Fanex.Athena.Report.Core.Repositories;
+using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Core.Utility;
