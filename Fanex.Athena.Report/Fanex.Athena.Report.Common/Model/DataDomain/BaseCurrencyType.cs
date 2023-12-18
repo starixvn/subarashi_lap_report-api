@@ -26,6 +26,7 @@
 
         public const int PHP = -11;
 
+        public const int MP = -11;
 
         // crypto currencies
         public const int USDT = -99;
