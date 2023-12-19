@@ -51,7 +51,8 @@
             { ExtraPayoutMapType.PayoutAllbetPromotion, BetType.AllbetPromotion },
             { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips },
             { ExtraPayoutMapType.PayoutMGRNGPromotion, BetType.MGRNGPromotion },
-            { ExtraPayoutMapType.PayoutSabaCasinoRoyaleTournamentPrize, BetType.SabaCasinoRoyaleTournamentPrize }
+            { ExtraPayoutMapType.PayoutSabaCasinoRoyaleTournamentPrize, BetType.SabaCasinoRoyaleTournamentPrize },
+            { ExtraPayoutMapType.PayoutSabaRewardRiskFreeRebate, BetType.SabaRewardRiskFreeRebate }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {
@@ -59,7 +60,8 @@
             BetType.SabaLuckySpot,
             BetType.SabaNonCashPrize,
             BetType.SabaLoyaltyPointsExchange,
-            BetType.SabaRedEnvelope
+            BetType.SabaRedEnvelope,
+            BetType.SabaRewardRiskFreeRebate
         };
 
         private static readonly int[] CasinoPromotionBettypes = new[] {

@@ -51,5 +51,7 @@
         public const int PayoutMGRNGPromotion = 7301;
 
         public const int PayoutSabaCasinoRoyaleTournamentPrize = 3706;
+
+        public const int PayoutSabaRewardRiskFreeRebate = 3707;
     }
 }
