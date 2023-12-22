@@ -313,6 +313,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Trade.
+        /// </summary>
+        public static string BT {
+            get {
+                return ResourceManager.GetString("BT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bitcoin.
         /// </summary>
         public static string BTC {

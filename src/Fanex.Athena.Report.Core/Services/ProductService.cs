@@ -63,6 +63,17 @@ namespace Fanex.Athena.Report.Core.Services
             return new ProductAccess(productList);
         }
 
+        public ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
+        {
+            var allowedProducts = GetAllowedProducts(functionConfigKey);
+
+            var originalProducts = GetProductList(licenseeId, languageCode);
+
+            var productList = allowedProducts.Any() ? originalProducts.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList()
+                : originalProducts;
+            return new ProductAccess(productList);
+        }
+
         #endregion Public Methods and Operators
 
         public string[] GetAllowedProducts(string functionName = null)

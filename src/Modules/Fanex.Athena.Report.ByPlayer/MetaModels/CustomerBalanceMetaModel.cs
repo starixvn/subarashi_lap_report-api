@@ -29,14 +29,16 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
 
         public bool IsExcludedTestData { get; set; }
 
-        public int CurrencyId { get; set; }
-
         public bool IsAllowedBA { get; set; }
 
         public bool IsEnableSingleWallet { get; set; }
 
+        public bool IsAllowedCustomerCommission { get; set; }
+
         public bool HasComm { get; set; }
 
         public bool IsValid => FromDate <= ToDate && ProductOptions.Any(p => p.Status);
+
+        public int CurrencyId { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
     public class CustomerBalanceControllerTest : BaseReportExcelTest
     {
         [Fact]
-        public async Task Index_WhenCall_ReturnsCorrectResult()
+        public async Task GetData_WhenCall_ReturnsCorrectResult()
         {
             // Arrange
             var metaModel = new CustomerBalanceMetaModel();
@@ -35,7 +35,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var controller = new CustomerBalanceController();
 
             // Action
-            var result = await controller.Index(metaModel, service.Object) as OkObjectResult;
+            var result = await controller.GetData(metaModel, service.Object) as OkObjectResult;
 
             // Assert
             Assert.Equal(JsonConvert.SerializeObject(expectedResult), JsonConvert.SerializeObject(result.Value));
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
         public async Task ExportExcel_WhenCall_ReturnsCorrectFileAndFileIsDelete()
         {
             // Arrange
-            const string expectedContentType = "application/octet-stream";
+            const string ExpectedContentType = "application/octet-stream";
             var metaModel = new CustomerBalanceMetaModel();
             var excel = new Mock<ICustomerBalanceExcel>();
             var contextService = new Mock<IContextService>();
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var fileContentResult = GetStreamContent(result.FileStream);
 
             // Assert
-            Assert.Equal(expectedContentType, result.ContentType);
+            Assert.Equal(ExpectedContentType, result.ContentType);
             Assert.Equal(expectedFileContent, fileContentResult);
             Assert.True(File.Exists(fileName));
             result.FileStream.Dispose();

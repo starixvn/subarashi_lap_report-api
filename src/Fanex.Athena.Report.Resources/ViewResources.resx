@@ -758,4 +758,7 @@
   <data name="WeeklyLiveMatches" xml:space="preserve">
     <value>Weekly Live Matches</value>
   </data>
+  <data name="BT" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
 </root>

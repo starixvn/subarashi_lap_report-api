@@ -717,4 +717,7 @@
   <data name="WeeklyLiveMatches" xml:space="preserve">
     <value>Trận Đấu Trực Tiếp Hàng Tuần</value>
   </data>
+  <data name="BT" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
 </root>

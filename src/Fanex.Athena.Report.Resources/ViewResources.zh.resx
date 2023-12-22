@@ -633,4 +633,7 @@
   <data name="Sportsbook" xml:space="preserve">
     <value>体育博彩</value>
   </data>
+  <data name="BT" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
 </root>

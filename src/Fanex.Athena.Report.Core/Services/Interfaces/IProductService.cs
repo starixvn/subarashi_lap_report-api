@@ -7,6 +7,8 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
     {
         ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
 
+        ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
+
         IList<ProductInfo> GetProductList(int licenseeId, string languageCode);
     }
 }
