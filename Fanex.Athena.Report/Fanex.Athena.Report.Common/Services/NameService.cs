@@ -4,6 +4,7 @@ using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using System;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Common.Services
 {
@@ -14,13 +15,13 @@ namespace Fanex.Athena.Report.Common.Services
         public NameService(ICacheRefAdapter cacheRefAdapter)
             => _cacheRefAdapter = cacheRefAdapter;
 
-        public string GetBetTypeName(int betTypeId, string lang = null)
+        public string GetBetTypeName(int betTypeId, bool isHideSaba = false, string lang = null)
         {
             string suffix = GetBettypeNameSuffix(betTypeId);
-            return _cacheRefAdapter.GetBettype(Convert.ToInt32(betTypeId)) + suffix;
+            return _cacheRefAdapter.GetBettype(Convert.ToInt32(betTypeId), isHideSaba) + suffix;
         }
 
-        public string GetSportName(int sportTypeId, string lang = null)
+        public string GetSportName(int sportTypeId, bool isHideSaba = false, string lang = null)
         {
             if (sportTypeId > 0)
             {
@@ -31,11 +32,12 @@ namespace Fanex.Athena.Report.Common.Services
                 return ViewResources.Parlay;
             }
             string sportName = GetSabaSportSuffixName(sportTypeId, lang);
+            var prefixText = isHideSaba ? ViewResources.Virtual : ViewResources.Saba;
             if (String.IsNullOrWhiteSpace(sportName))
             {
                 return sportTypeId.ToString();
             }
-            return $"{ViewResources.Saba}{sportName}";
+            return $"{prefixText}{sportName}";
         }
 
         private string GetSabaSportSuffixName(int sportTypeId, string lang)

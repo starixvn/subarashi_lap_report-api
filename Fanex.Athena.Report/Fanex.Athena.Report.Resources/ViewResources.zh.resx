@@ -621,4 +621,7 @@
   <data name="WE" xml:space="preserve">
     <value>WE世界娱乐</value>
   </data>
+  <data name="Virtual" xml:space="preserve">
+    <value>虚拟</value>
+  </data>
 </root>

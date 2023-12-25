@@ -259,6 +259,24 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OU Time Machine.
+        /// </summary>
+        public static string BetType_228 {
+            get {
+                return ResourceManager.GetString("BetType_228", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HDP Time Machine.
+        /// </summary>
+        public static string BetType_229 {
+            get {
+                return ResourceManager.GetString("BetType_229", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BG.
         /// </summary>
         public static string BGG {
@@ -1713,6 +1731,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string VIPPlayerOnly {
             get {
                 return ResourceManager.GetString("VIPPlayerOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual .
+        /// </summary>
+        public static string Virtual {
+            get {
+                return ResourceManager.GetString("Virtual", resourceCulture);
             }
         }
         

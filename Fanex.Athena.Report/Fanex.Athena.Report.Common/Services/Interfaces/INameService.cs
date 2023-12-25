@@ -2,8 +2,8 @@
 {
     public interface INameService
     {
-        string GetBetTypeName(int betTypeId, string lang = null);
+        string GetBetTypeName(int betTypeId, bool isHideSaba = false, string lang = null);
 
-        string GetSportName(int sportTypeId, string lang = null);
+        string GetSportName(int sportTypeId, bool isHideSaba = false, string lang = null);
     }
 }

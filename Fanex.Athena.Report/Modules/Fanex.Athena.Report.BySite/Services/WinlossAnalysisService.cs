@@ -6,6 +6,9 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Helpers;
+using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Helpers;
 using System;
 using System.Collections.Generic;
@@ -61,8 +64,9 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private async Task<IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisMetaModel param)
         {
+            var isHideSaba = SabaHelper.IsHideSaba(param.SpecialPlatform);
             var breakDownDatas = await BuildDataListForBreakdownData(param, data.MainData);
-            var groupByDatas = await BuildDataListForGroupByData(param, data.GroupSumData);
+            var groupByDatas = await BuildDataListForGroupByData(param, data.GroupSumData, isHideSaba);
             return BuildDefaultTreeListItem(groupByDatas, breakDownDatas);
         }
 
@@ -88,6 +92,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 case BreakdownMode.Product:
                     item.BreakDownFieldText = DataHelper.GetProductName(item.BreakBy);
                     break;
+
                 case BreakdownMode.Currency:
                     var currencies = await _currencyService.GetCurrencyListAsync();
                     var currency = currencies.FirstOrDefault(_ => _.ID == Convert.ToInt32(item.BreakBy));
@@ -96,12 +101,14 @@ namespace Fanex.Athena.Report.BySite.Services
                         item.BreakDownFieldText = currency.Name;
                     }
                     break;
+
                 case BreakdownMode.Player:
                     var spiltName = item.BreakBy.Split('#');
                     item.SystemId = spiltName[0];
                     item.ExternalId = spiltName[1];
                     item.BreakDownFieldText = item.SystemId;
                     break;
+
                 default:
                     item.BreakDownFieldText = item.BreakBy;
                     break;
@@ -109,13 +116,13 @@ namespace Fanex.Athena.Report.BySite.Services
             return item;
         }
 
-        private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForGroupByData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> groupSumData)
+        private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForGroupByData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> groupSumData, bool isHideSaba)
         {
             var groupByMode = param.GroupMode;
             var listData = new SortedList<dynamic, WinlossAnalysisViewModel>(groupSumData.Count());
             foreach (var data in groupSumData)
             {
-                var item = await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data);
+                var item = await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data, isHideSaba);
                 if (groupByMode == GroupByMode.Currency && param.SortBy == DEFAULT_SORT_BY)
                 {
                     listData.Add(item.GroupByFieldText, item);
@@ -131,39 +138,47 @@ namespace Fanex.Athena.Report.BySite.Services
             if (groupByMode == GroupByMode.Currency && startIndex != null)
             {
                 ReAssignDisplayIndex(returnList, startIndex.Value);
-            }    
+            }
             return returnList;
         }
 
-        private async Task<WinlossAnalysisViewModel> BuildAndAssginRelevantFieldForGroupSumData(GroupByMode groupByMode, WinlossAnalysisDTO data)
+        private async Task<WinlossAnalysisViewModel> BuildAndAssginRelevantFieldForGroupSumData(GroupByMode groupByMode, WinlossAnalysisDTO data, bool isHideSaba)
         {
             var item = GetValueForBaseCurrency(data);
             switch (groupByMode)
             {
                 case GroupByMode.Sport:
-                    AssignSportName(item);
+                    AssignSportName(item, isHideSaba);
                     break;
+
                 case GroupByMode.Bettype:
-                    AssignBetType(item);
+                    AssignBetType(item, isHideSaba);
                     break;
+
                 case GroupByMode.Player:
                     AssignPlayerInfo(item);
                     break;
+
                 case GroupByMode.Product:
                     AssignProductName(item);
                     break;
+
                 case GroupByMode.Platform:
                     AssignPlatformName(item);
                     break;
+
                 case GroupByMode.WinlossDate:
                     AssignDateTime(item, DATE_FORMAT);
                     break;
+
                 case GroupByMode.Month:
                     AssignDateTime(item, MONTH_FORMAT);
                     break;
+
                 case GroupByMode.Currency:
                     await AssignCurrencyName(item);
                     break;
+
                 default:
                     AssignGroupByField(item);
                     break;
@@ -183,51 +198,49 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private static void AssignDateTime(WinlossAnalysisViewModel item, string formatDate)
         {
-                var date = DateTime.ParseExact(item.GroupBy, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
-                item.GroupByFieldText = date.ToString(formatDate);          
+            var date = DateTime.ParseExact(item.GroupBy, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
+            item.GroupByFieldText = date.ToString(formatDate);
         }
 
         private static void AssignGroupByField(WinlossAnalysisViewModel item)
             => item.GroupByFieldText = item.GroupBy;
-        
 
-        private void AssignBetType(WinlossAnalysisViewModel item)
+        private void AssignBetType(WinlossAnalysisViewModel item, bool isHideSaba)
         {
-                var spiltName = item.GroupBy.Split('#');
-                var productCode = spiltName[0];
-                var betType = spiltName[1];
-                var productName = DataHelper.GetProductName(productCode);
-                var betTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType));
-                item.GroupByFieldText = $"{productName} > {betTypeName}";
+            var spiltName = item.GroupBy.Split('#');
+            var productCode = spiltName[0];
+            var betType = spiltName[1];
+            var productName = DataHelper.GetProductName(productCode);
+            var betTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType), isHideSaba);
+            item.GroupByFieldText = $"{productName} > {betTypeName}";
         }
 
-        private void AssignSportName(WinlossAnalysisViewModel item)
+        private void AssignSportName(WinlossAnalysisViewModel item, bool isHideSaba)
         {
-                var spiltName = item.GroupBy.Split('#');
-                var productCode = spiltName[0];
-                var sportType = spiltName[1];
-                var productName = DataHelper.GetProductName(productCode);
-                var sportName = _nameService.GetSportName(Convert.ToInt32(sportType));
-                item.GroupByFieldText = $"{productName} > {sportName}";
+            var spiltName = item.GroupBy.Split('#');
+            var productCode = spiltName[0];
+            var sportType = spiltName[1];
+            var productName = DataHelper.GetProductName(productCode);
+            var sportName = _nameService.GetSportName(Convert.ToInt32(sportType), isHideSaba);
+            item.GroupByFieldText = $"{productName} > {sportName}";
         }
 
         private static void AssignPlayerInfo(WinlossAnalysisViewModel item)
         {
-                var spiltName = item.GroupBy.Split('#');
-                item.SystemId = spiltName[0];
-                item.ExternalId = spiltName[1];
-                item.GroupByFieldText = item.SystemId;
+            var spiltName = item.GroupBy.Split('#');
+            item.SystemId = spiltName[0];
+            item.ExternalId = spiltName[1];
+            item.GroupByFieldText = item.SystemId;
         }
 
-        private static void AssignPlatformName(WinlossAnalysisViewModel item)        
+        private static void AssignPlatformName(WinlossAnalysisViewModel item)
             => item.GroupByFieldText = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
-        
 
         private static void AssignProductName(WinlossAnalysisViewModel item)
             => item.GroupByFieldText = DataHelper.GetProductName(item.GroupBy);
 
         private IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>> BuildDefaultTreeListItem(
-            IEnumerable<WinlossAnalysisViewModel> groupByDatas, 
+            IEnumerable<WinlossAnalysisViewModel> groupByDatas,
             IEnumerable<WinlossAnalysisViewModel> breakDownDatas)
         {
             var dicMainData = breakDownDatas.GroupBy(_ => _.RowIndex, _ => _).ToDictionary(_ => _.Key, _ => _);
@@ -242,7 +255,7 @@ namespace Fanex.Athena.Report.BySite.Services
         {
             foreach (var item in list)
             {
-                item.DisplayRowIndex= startIndex;
+                item.DisplayRowIndex = startIndex;
                 startIndex++;
             }
         }
@@ -263,7 +276,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 Turnover = data.Turnover,
                 NetTurnover = data.NetTurnover,
                 PlayerComm = data.MemComm,
-                PlayerWinloss = data.MemWinloss              
+                PlayerWinloss = data.MemWinloss
             };
 
         private WinlossAnalysisViewModel GetValueForBaseCurrency(WinlossAnalysisDTO data)
@@ -290,6 +303,5 @@ namespace Fanex.Athena.Report.BySite.Services
                 && !param.IsVipOnly
                 && param.CustomerClass.Equals(ALL, StringComparison.InvariantCultureIgnoreCase)
                 && param.OddsGroup.Equals(ALL, StringComparison.InvariantCultureIgnoreCase);
-
     }
 }

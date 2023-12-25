@@ -1,12 +1,24 @@
-﻿using Fanex.Athena.Report.Common.Services.Interfaces;
+﻿using Fanex.Athena.Report.Common.Constants;
+using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Resources.Constants;
+using Fanex.Athena.Report.Resources;
 using Fanex.RemotingRef;
 using System;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Fanex.Athena.Report.Common.Services
 {
     public class CacheRefAdapter : ICacheRefAdapter
     {
+        private static readonly string[] SabaBetTypeMap = new[]
+        {
+            "228",
+            "229"
+        };
+
         public CacheRefAdapter(IRemotingRefService remotingRefService)
         {
             RemotingRefService = remotingRefService;
@@ -84,11 +96,16 @@ namespace Fanex.Athena.Report.Common.Services
             return RemotingRefService.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public string GetBettype(object bettypeId)
+        public string GetBettype(object bettypeId, bool isHideSaba = false)
         {
             if (!IsValidId(bettypeId))
             {
                 return string.Empty;
+            }
+
+            if (isHideSaba && SabaBetTypeMap.Contains(bettypeId.ToString()))
+            {
+                return ViewResources.ResourceManager.GetString($"BetType_{bettypeId}");
             }
 
             return RemotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
