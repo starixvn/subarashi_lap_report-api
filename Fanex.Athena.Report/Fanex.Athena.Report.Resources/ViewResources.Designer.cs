@@ -1762,6 +1762,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WE Live Casino.
+        /// </summary>
+        public static string WE {
+            get {
+                return ResourceManager.GetString("WE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Win.
         /// </summary>
         public static string Win {
