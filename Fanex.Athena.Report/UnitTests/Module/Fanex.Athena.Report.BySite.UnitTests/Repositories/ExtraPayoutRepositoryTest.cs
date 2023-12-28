@@ -78,7 +78,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             _cacheRefAdapter = new Mock<ICacheRefAdapter>();
             _cacheRefAdapter.Setup(c => c.GetSportName(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
-            _cacheRefAdapter.Setup(c => c.GetBettype(It.IsAny<int>())).Returns(_fixture.Create<string>());
+            _cacheRefAdapter.Setup(c => c.GetBettype(It.IsAny<int>(), false)).Returns(_fixture.Create<string>());
 
             _contextService = new Mock<IContextService>();
             _contextService.Setup(c => c.CurrencyList).Returns(_fixture.CreateMany<KeyValuePair<int, string>>(10).ToDictionary(x => x.Key, x => x.Value));

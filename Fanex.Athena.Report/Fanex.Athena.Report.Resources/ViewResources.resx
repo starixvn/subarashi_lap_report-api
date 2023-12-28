@@ -728,4 +728,13 @@
   <data name="WE" xml:space="preserve">
     <value>WE Live Casino</value>
   </data>
+  <data name="Virtual" xml:space="preserve">
+    <value>Virtual </value>
+  </data>
+  <data name="BetType_228" xml:space="preserve">
+    <value>OU Time Machine</value>
+  </data>
+  <data name="BetType_229" xml:space="preserve">
+    <value>HDP Time Machine</value>
+  </data>
 </root>
