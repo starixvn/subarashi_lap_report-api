@@ -235,7 +235,7 @@
     <value>Saldo Penutupan Pelanggan</value>
   </data>
   <data name="CustomerWinLossTitle" xml:space="preserve">
-    <value>Win/Loss Pelanggan, {0} --&gt; {1} - {2}</value>
+    <value>Kemenangan dan Kerugian Pelanggan, {0} --&gt; {1} - {2}</value>
   </data>
   <data name="CustomerW_L" xml:space="preserve">
     <value>Kemenangan dan Kerugian Pelanggan</value>
@@ -352,7 +352,7 @@
     <value>Kemenangan/Kerugian menurut Liga, {0} --&gt; {1}, {2}, {3}</value>
   </data>
   <data name="LG" xml:space="preserve">
-    <value>Virtual Sports 3</value>
+    <value>Olahraga Virtual 3</value>
   </data>
   <data name="LicenseeComm" xml:space="preserve">
     <value>Komisi perusahaan sewa-menyewa</value>
@@ -616,7 +616,7 @@
     <value>Taruhan Gratis Vgaming</value>
   </data>
   <data name="Viewin" xml:space="preserve">
-    <value>Tampilan dalam {0}</value>
+    <value>Lihat {0}</value>
   </data>
   <data name="ViewinDetail" xml:space="preserve">
     <value>Lihat secara Detail</value>
@@ -625,7 +625,7 @@
     <value>Lihat dalam Ringkasan IP</value>
   </data>
   <data name="ViewinSummary" xml:space="preserve">
-    <value>Tampilkan secara Ringkas</value>
+    <value>Lihat Ringkasan</value>
   </data>
   <data name="VIPPlayerOnly" xml:space="preserve">
     <value>Hanya Pemain VIP</value>
@@ -637,7 +637,7 @@
     <value>Olahraga Virtual</value>
   </data>
   <data name="VS2" xml:space="preserve">
-    <value>Virtual Sports 2</value>
+    <value>Olahraga Virtual 2</value>
   </data>
   <data name="Win" xml:space="preserve">
     <value>Menang</value>
@@ -668,5 +668,8 @@
   </data>
   <data name="CasinoPromotion" xml:space="preserve">
     <value>Promosi Kasino</value>
+  </data>
+  <data name="VS3" xml:space="preserve">
+    <value>Olahraga Virtual 3 (old)</value>
   </data>
 </root>

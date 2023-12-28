@@ -241,7 +241,7 @@
     <value>ยอดปิดของลูกค้า</value>
   </data>
   <data name="CustomerWinLossTitle" xml:space="preserve">
-    <value>ลูกค้าชนะ/แพ้, {0} --&gt; {1} - {2}</value>
+    <value>ลูกค้าแพ้ชนะ, {0} --&gt; {1} - {2}</value>
   </data>
   <data name="CustomerW_L" xml:space="preserve">
     <value>ลูกค้าแพ้ชนะ</value>
@@ -475,7 +475,7 @@
     <value>แพลตฟอร์ม แพ้ชนะ - {0} --&gt; {1} - {2} - {3} - {4}</value>
   </data>
   <data name="PlayerComm" xml:space="preserve">
-    <value>ผู้เล่น Comm</value>
+    <value>ค่าคอมมิชชั่นผู้เล่น</value>
   </data>
   <data name="PlayerName" xml:space="preserve">
     <value>ชื่อผู้เล่น</value>
@@ -689,5 +689,8 @@
   </data>
   <data name="CasinoPromotion" xml:space="preserve">
     <value>โปรโมชั่นคาสิโน</value>
+  </data>
+  <data name="VS3" xml:space="preserve">
+    <value>กีฬาเสมือนจริง 3 (old)</value>
   </data>
 </root>
