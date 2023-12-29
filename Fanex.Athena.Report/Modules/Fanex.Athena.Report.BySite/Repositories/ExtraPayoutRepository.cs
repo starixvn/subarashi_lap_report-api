@@ -52,7 +52,8 @@
             { ExtraPayoutMapType.PayoutStreamerTips, BetType.TIPStreamerTips },
             { ExtraPayoutMapType.PayoutMGRNGPromotion, BetType.MGRNGPromotion },
             { ExtraPayoutMapType.PayoutSabaCasinoRoyaleTournamentPrize, BetType.SabaCasinoRoyaleTournamentPrize },
-            { ExtraPayoutMapType.PayoutSabaRewardRiskFreeRebate, BetType.SabaRewardRiskFreeRebate }
+            { ExtraPayoutMapType.PayoutSabaRewardRiskFreeRebate, BetType.SabaRewardRiskFreeRebate },
+            { ExtraPayoutMapType.Live22Promotion, BetType.Live22Promotion }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {

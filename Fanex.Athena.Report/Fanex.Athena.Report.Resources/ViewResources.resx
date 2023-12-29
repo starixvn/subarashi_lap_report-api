@@ -743,4 +743,7 @@
   <data name="Payout" xml:space="preserve">
     <value>Payout</value>
   </data>
+  <data name="L22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
 </root>
