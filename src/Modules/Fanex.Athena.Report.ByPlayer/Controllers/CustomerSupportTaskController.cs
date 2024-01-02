@@ -7,6 +7,7 @@ using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
@@ -21,6 +22,15 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         public CustomerSupportTaskController(IEnumerable<ICustomerSupportTaskExcel> customerSupportTaskExcels)
         {
             _customerSupportTaskExcels = customerSupportTaskExcels;
+        }
+
+        [HttpPost]
+        public ActionResult Index([FromServices] IContextService contextService)
+        {
+            return Ok(new
+            {
+                currencies = contextService.CurrencyList.ToArray()
+            });
         }
 
         [HttpPost]
