@@ -740,4 +740,7 @@
   <data name="BetID" xml:space="preserve">
     <value>Bet ID</value>
   </data>
+  <data name="Payout" xml:space="preserve">
+    <value>Payout</value>
+  </data>
 </root>

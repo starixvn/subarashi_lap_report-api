@@ -1150,6 +1150,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payout.
+        /// </summary>
+        public static string Payout {
+            get {
+                return ResourceManager.GetString("Payout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pending Funds.
         /// </summary>
         public static string PendingFunds {

@@ -34,9 +34,13 @@
 
         public decimal Turnover { get; set; }
 
+        public decimal Payout { get; set; }
+
         public decimal WinLoss { get; set; }
 
         public decimal TurnoverBased { get; set; }
+
+        public decimal PayoutBased { get; set; }
 
         public decimal WinLossBased { get; set; }
 

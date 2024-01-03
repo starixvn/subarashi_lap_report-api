@@ -38,13 +38,15 @@
         private const int ColumnSport = 6;
         private const int ColumnBetType = 7;
         private const int ColumnTurnover = 8;
-        private const int ColumnWL = 9;
-        private const int ColumnTurnoverUSD = 10;
-        private const int ColumnWLUSD = 11;
-        private const int ColumnStatus = 12;
+        private const int ColumnPayout = 9;
+        private const int ColumnWL = 10;
+        private const int ColumnTurnoverUSD = 11;
+        private const int ColumnPayoutUSD = 12;
+        private const int ColumnWLUSD = 13;
+        private const int ColumnStatus = 14;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 13;
+        private const int ColumnTemplateCount = 15;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -144,9 +146,19 @@
                 AssignNoInfoRow(sheet, templateSheet);
             }
 
+            HideColumnsBySite(sheet, metaModel);
             _builder.RemoveSheet(workBook, TemplateSheetName);
 
             return workBook;
+        }
+
+        private void HideColumnsBySite(ISheet sheet, DailyBetsMetaModel metaModel)
+        {
+            if (!string.Equals(metaModel.SiteName, "12B", StringComparison.InvariantCultureIgnoreCase))
+            {
+                _builder.HideColumn(sheet, ColumnPayout);
+                _builder.HideColumn(sheet, ColumnPayoutUSD);
+            }
         }
 
         protected void AssignHeader(ISheet sheet, ISheet templateSheet)
@@ -164,8 +176,10 @@
                 ViewResources.Sport,
                 ViewResources.BetType,
                 ViewResources.Turnover,
+                ViewResources.Payout,
                 ViewResources.WinLoss,
                 $"{ViewResources.Turnover} (USD)",
+                $"{ViewResources.Payout} (USD)",
                 $"{ViewResources.WinLoss} (USD)",
                 ViewResources.Status
             };
@@ -205,6 +219,7 @@
             var row = _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate, index);
             row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, "USD"));
             row.Cells[ColumnTurnoverUSD].SetCellValue((double)_totalData.TurnoverBased);
+            row.Cells[ColumnPayoutUSD].SetCellValue((double)_totalData.PayoutBased);
             row.Cells[ColumnWLUSD].SetCellValue((double)_totalData.WinLossBased);
 
             _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnIndex, lastCol: ColumnWL);
@@ -221,8 +236,10 @@
             row.Cells[ColumnSport].SetCellValue(item.SportName);
             row.Cells[ColumnBetType].SetCellValue(item.BetType);
             row.Cells[ColumnTurnover].SetCellValue((double)item.Turnover);
+            row.Cells[ColumnPayout].SetCellValue((double)item.Payout);
             row.Cells[ColumnWL].SetCellValue((double)item.WinLoss);
             row.Cells[ColumnTurnoverUSD].SetCellValue((double)item.TurnoverBased);
+            row.Cells[ColumnPayoutUSD].SetCellValue((double)item.PayoutBased);
             row.Cells[ColumnWLUSD].SetCellValue((double)item.WinLossBased);
             row.Cells[ColumnStatus].SetCellValue(item.Status);
         }
