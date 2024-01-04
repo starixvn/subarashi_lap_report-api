@@ -1,5 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -7,9 +10,6 @@
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources;
     using NPOI.SS.UserModel;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
 
     public class AbnormalBetIpSummaryExcel : IAbnormalBetIpSummaryExcel
     {

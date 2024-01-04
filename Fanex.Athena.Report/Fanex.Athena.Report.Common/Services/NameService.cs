@@ -1,10 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Constants;
+﻿using System;
+using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
-using System;
-using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Common.Services
 {

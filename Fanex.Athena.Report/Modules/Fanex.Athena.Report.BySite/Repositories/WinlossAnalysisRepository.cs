@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Core.Repositories;
 using Fanex.Common.Extensions;
 using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Repositories
 {
@@ -14,7 +14,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
     {
         private readonly IDbFactory _dbFactory;
 
-        public WinlossAnalysisRepository(IDbFactory dbFactory) 
+        public WinlossAnalysisRepository(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
         }
@@ -28,7 +28,6 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 return ReadDataAsync(objectDb);
             }
         }
-
 
         public Task<WinlossAnalysisAggregateDTO> GetDataByPlayerCriteria(WinlossAnalysisMetaModel metaModel)
         {

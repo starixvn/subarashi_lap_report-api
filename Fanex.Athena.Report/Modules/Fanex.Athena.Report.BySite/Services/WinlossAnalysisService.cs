@@ -1,4 +1,9 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
 using Fanex.Athena.Report.BySite.Enums;
 using Fanex.Athena.Report.BySite.MetaModels;
@@ -6,15 +11,8 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
 namespace Fanex.Athena.Report.BySite.Services

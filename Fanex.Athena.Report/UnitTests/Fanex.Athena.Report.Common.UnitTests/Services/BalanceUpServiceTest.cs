@@ -13,10 +13,12 @@ using Xunit;
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
 #pragma warning disable S3881 // "IDisposable" should be implemented correctly
+
     public class BalanceUpServiceTest : IDisposable
 #pragma warning restore S3881 // "IDisposable" should be implemented correctly
     {
         private readonly IMemoryCache _memoryCache;
+
         public BalanceUpServiceTest()
         {
             DbSettingProviderManager
@@ -87,8 +89,6 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             // Assert
             Assert.Equal(result, balanceupInfo);
-
         }
-
     }
 }

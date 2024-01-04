@@ -1,6 +1,4 @@
-﻿
-
-namespace Fanex.Athena.Report.BySite.Enums
+﻿namespace Fanex.Athena.Report.BySite.Enums
 {
     public enum WinlossAnalysisExportMode
     {

@@ -1,15 +1,13 @@
 ﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using System;
+    using System.Net;
+    using System.Threading.Tasks;
     using Fanex.Athena.Report.Core.Helpers;
-
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
-
-    using System;
-    using System.Net;
-    using System.Threading.Tasks;
 
     public class ErrorHandler
     {

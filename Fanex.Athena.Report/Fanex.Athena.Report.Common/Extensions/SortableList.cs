@@ -7,13 +7,13 @@
     {
         private string _propertyName;
         private bool _ascending;
+
         public SortableList()
         {
-
         }
+
         public SortableList(IEnumerable<T> collection) : base(collection)
         {
-
         }
 
         public void SortByDictionary(object key, string propertyName, bool ascending)

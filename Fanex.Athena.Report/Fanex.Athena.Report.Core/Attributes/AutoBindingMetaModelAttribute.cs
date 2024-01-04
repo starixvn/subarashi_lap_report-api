@@ -1,4 +1,8 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Model.MetaModels;
 using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models;
@@ -6,10 +10,6 @@ using Fanex.Athena.Report.Core.Services;
 using Fanex.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Attributes
 {

@@ -29,7 +29,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         public async Task<FileResult> ExportExcel([FromBody] CustomerSupportTaskMetaModel metaModel)
         {
             var excelHandler = _customerSupportTaskExcels.FirstOrDefault(_ => _.Should(metaModel));
-            if(excelHandler == default)
+            if (excelHandler == default)
             {
                 return File(Array.Empty<byte>(), "application/octet-stream");
             }

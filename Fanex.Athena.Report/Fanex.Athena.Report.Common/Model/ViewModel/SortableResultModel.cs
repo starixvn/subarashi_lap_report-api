@@ -6,6 +6,7 @@
     public class SortableResultModel<T> : ResultModel<T>
     {
         private ISortableList<T> _sortableDataList;
+
         public override IEnumerable<T> DataList
         {
             get => this._sortableDataList;

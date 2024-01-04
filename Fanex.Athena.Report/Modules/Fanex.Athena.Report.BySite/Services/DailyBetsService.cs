@@ -12,7 +12,6 @@
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Data;
 
     public class DailyBetsService : IDailyBetsService

@@ -1,4 +1,9 @@
-﻿using Fanex.Athena.Report.ByPlayer.Constants;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.ByPlayer.Constants;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
@@ -11,11 +16,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Excels
 {
@@ -48,10 +48,13 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
          => metaModel.SupportTask == CustomerSupportTaskConstant.CustomerSupportTaskReportType.RunnningTicket;
 
         protected override string TemplatePath => "/ExcelTemplate/CustomerReports/CustomerRunningTicket.xlsx";
+
         protected override string UspName => "Lrf_Rpt_CustomerRunningTicket";
 
         protected override int ColumnTemplateCount => 12;
+
         protected override int TemplateNoInfoRowIndex => 5;
+
         protected override int TemplateDataRowIndex => 4;
 
         protected override string GetFileName(CustomerSupportTaskMetaModel metaModel)

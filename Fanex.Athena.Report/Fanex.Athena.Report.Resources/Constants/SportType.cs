@@ -39,7 +39,6 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int SabaTennis = -8;
 
-
         private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
         {
             Tuple.Create(SabaSoccer, Soccer, ""),

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Fanex.Athena.Report.Resources.Constants
+﻿namespace Fanex.Athena.Report.Resources.Constants
 {
     public enum ReportLevel
     {

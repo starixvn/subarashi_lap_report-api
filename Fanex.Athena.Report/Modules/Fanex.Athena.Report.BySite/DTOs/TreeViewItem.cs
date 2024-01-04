@@ -2,7 +2,7 @@
 
 namespace Fanex.Athena.Report.BySite.DTOs
 {
-    public class TreeViewItem <TParent, TChildren>
+    public class TreeViewItem<TParent, TChildren>
     {
         public TParent KeyItem { get; set; }
 

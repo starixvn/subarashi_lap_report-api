@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.DTOs
 {
-    using System;
-
     public class GodOfFortuneWinLoss : BaseWinLoss
     {
         public int CustomerId { get; set; }

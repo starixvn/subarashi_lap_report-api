@@ -32,7 +32,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         }
 
         [HttpPost]
-        public async Task<FileResult> ExportExcel([FromForm] CustomerBalanceMetaModel metaModel, 
+        public async Task<FileResult> ExportExcel([FromForm] CustomerBalanceMetaModel metaModel,
             [FromServices] ICustomerBalanceExcel excel,
             [FromServices] IContextService contextService,
             [FromServices] ILicenseeService licenseeService)

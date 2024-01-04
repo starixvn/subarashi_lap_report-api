@@ -1,16 +1,17 @@
-﻿using Fanex.Athena.Report.Core.Constants;
-using Fanex.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Fanex.Athena.Report.Core.Constants;
+using Fanex.Data;
 
 namespace Fanex.Athena.Report.Core.Services
 {
     public class SubsidiaryService : ISubsidiaryService
     {
         private readonly IContextService _contextService;
+
         public SubsidiaryService(IContextService contextService)
             => _contextService = contextService;
 
@@ -34,7 +35,6 @@ namespace Fanex.Athena.Report.Core.Services
             var userAgentList = agentList.SelectMany(i => i.Value);
             return subsidiaryList.Where(i => userAgentList.Contains(i.AgentId));
         }
-
 
         private async Task<IEnumerable<SubsidiaryAgent>> GetLicenseeSubsidiaryAgentsFromDB(string siteName)
         {
@@ -63,7 +63,9 @@ namespace Fanex.Athena.Report.Core.Services
     internal class SubsidiaryAgent
     {
         public int AgentId { get; set; }
+
         public int CurrencyId { get; set; }
+
         public string OperatorId { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
         public string CustomerClass { get; set; }
 
         public string OddsGroup { get; set; }
-        
+
         public bool IsValid => FromDate <= ToDate && ProductOptions.Any(p => p.Status);
     }
 }

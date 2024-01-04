@@ -1,6 +1,4 @@
-﻿using Fanex.Data;
-
-namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
+﻿namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
 {
     public record WinlossAnalysisDTO
     {
@@ -54,7 +52,7 @@ namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
 
         public string BetTypeName { get; set; }
 
-        public string ExternalId { get; set;}
+        public string ExternalId { get; set; }
 
         public string SystemId { get; set; }
 

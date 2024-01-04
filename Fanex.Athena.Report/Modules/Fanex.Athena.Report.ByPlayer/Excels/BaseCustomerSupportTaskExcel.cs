@@ -1,4 +1,10 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Extensions;
@@ -10,12 +16,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Excels
 {
@@ -39,24 +39,34 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
         }
 
         protected abstract int ColumnTemplateCount { get; }
+
         protected abstract int TemplateNoInfoRowIndex { get; }
+
         protected abstract int TemplateDataRowIndex { get; }
+
         protected abstract string TemplatePath { get; }
+
         protected abstract string UspName { get; }
 
         protected abstract string GetFileName(CustomerSupportTaskMetaModel metaModel);
+
         protected abstract Task AddParameters(IObjectDb db, CustomerSupportTaskMetaModel metaModel);
+
         protected abstract void AssignHeader(ExcelWorksheet sheet);
+
         protected abstract void AssignBody(ExcelWorksheet sheet, IEnumerable<TData> dataList);
+
         protected abstract string BuildTitle(CustomerSupportTaskMetaModel metaModel);
+
         protected abstract void BuildDataRecord(IDataReader reader, TData record);
 
         private ExcelPackage _package;
+
         protected ExcelPackage Package
         {
-            get 
+            get
             {
-                if(_package == null)
+                if (_package == null)
                 {
                     var physicalPath = _fileProvider.GetFileInfo(TemplatePath).PhysicalPath;
                     var fileInfo = new FileInfo(physicalPath);
@@ -87,7 +97,7 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
             AssignTitle(currentSheet, metaModel);
             AssignHeader(currentSheet);
 
-            if(batchResult.Any())
+            if (batchResult.Any())
             {
                 currentSheet.DeleteRow(TemplateNoInfoRowIndex, 1);
                 AssignBody(currentSheet, batchResult);
@@ -165,7 +175,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 }
             }
         }
-
 
         private void AssignNoInfoRow(ExcelWorksheet sheet)
         {

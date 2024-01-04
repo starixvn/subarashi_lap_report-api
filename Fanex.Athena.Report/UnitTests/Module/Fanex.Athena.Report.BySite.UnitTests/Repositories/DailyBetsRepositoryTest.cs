@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using Fanex.Athena.Report.BySite.Extensions;
-using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
 using Fanex.Data;

@@ -226,6 +226,5 @@
         {
             sheet.RemoveRow(sheet.GetRow(rowIndex));
         }
-
     }
 }

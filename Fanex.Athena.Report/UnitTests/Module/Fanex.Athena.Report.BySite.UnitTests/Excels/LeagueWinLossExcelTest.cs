@@ -8,7 +8,6 @@ using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
