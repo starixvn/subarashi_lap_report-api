@@ -98,7 +98,6 @@
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
             });
-          
         }
 
         private void ConfigFanexData(IServiceCollection services)
@@ -172,7 +171,9 @@
                     new CultureInfo("zh-CN"),
                     new CultureInfo("zh-Hans"),
                     new CultureInfo("zh-TW"),
-                    new CultureInfo("vi-VN")
+                    new CultureInfo("vi-VN"),
+                    new CultureInfo("th-TH"),
+                    new CultureInfo("id-ID"),
                 };
 
                 var languageCodeMappers = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -181,7 +182,9 @@
                     { "cs", "zh-CN" },
                     { "zhcn", "zh-Hans" },
                     { "ch", "zh-TW" },
-                    { "vn", "vi-VN" }
+                    { "vn", "vi-VN" },
+                    { "id", "id-ID" },
+                    { "th", "th-TH" },
                 };
 
                 options.RequestCultureProviders = new List<IRequestCultureProvider>
