@@ -34,5 +34,7 @@ namespace Fanex.Athena.Report.Core.Services
         public IEnumerable<AuditCurrency> AuditCurrencies { get; }
 
         public int SpecialPlatform { get; }
+
+        public int SpecialPlatformType { get; }
     }
 }

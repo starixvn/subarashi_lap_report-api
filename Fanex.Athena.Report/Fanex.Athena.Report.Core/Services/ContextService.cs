@@ -32,6 +32,8 @@ namespace Fanex.Athena.Report.Core.Services
 
         public int SpecialPlatform => GetClaimValue<int>("SpecialPlatform");
 
+        public int SpecialPlatformType => GetClaimValue<int>("SpecialPlatformType");
+
         public string UserName => GetClaimValue("UserID");
 
         public bool IsFakeLicensee => GetClaimValue<bool>("IsFakeLicensee");
