@@ -7,5 +7,7 @@
         public int PromotionType { get; set; }
 
         public string PromotionName { get; set; }
+
+        public string BetID { get; set; }
     }
 }

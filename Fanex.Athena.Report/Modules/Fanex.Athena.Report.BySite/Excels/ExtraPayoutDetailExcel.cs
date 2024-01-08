@@ -20,14 +20,15 @@
         private const int ColumnIndex = 0;
         private const int ColumnDate = 1;
         private const int ColumnRefNo = 2;
-        private const int ColumnProduct = 3;
-        private const int ColumnPromotionType = 4;
-        private const int ColumnTurnOver = 5;
-        private const int ColumnCustomerAmount = 6;
-        private const int ColumnLicSharingAmount = 7;
+        private const int ColumnBetID = 3;
+        private const int ColumnProduct = 4;
+        private const int ColumnPromotionType = 5;
+        private const int ColumnTurnOver = 6;
+        private const int ColumnCustomerAmount = 7;
+        private const int ColumnLicSharingAmount = 8;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 8;
+        private const int ColumnTemplateCount = 9;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -86,6 +87,7 @@
                 "#",
                 ViewResources.Date,
                 ViewResources.RefNo,
+                ViewResources.BetID,
                 ViewResources.Product,
                 ViewResources.PromotionType,
                 ViewResources.Turnover,
@@ -126,6 +128,7 @@
         {
             row.Cells[ColumnDate].SetCellValue(item.DateString);
             row.Cells[ColumnRefNo].SetCellValue(item.Refno);
+            row.Cells[ColumnBetID].SetCellValue(item.BetID);
             row.Cells[ColumnProduct].SetCellValue(item.ProductName);
             row.Cells[ColumnPromotionType].SetCellValue(item.PromotionName);
             row.Cells[ColumnTurnOver].SetCellValue((double)item.Turnover);

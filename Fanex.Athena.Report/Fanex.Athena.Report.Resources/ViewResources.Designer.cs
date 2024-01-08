@@ -250,6 +250,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet ID.
+        /// </summary>
+        public static string BetID {
+            get {
+                return ResourceManager.GetString("BetID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string BetType {
