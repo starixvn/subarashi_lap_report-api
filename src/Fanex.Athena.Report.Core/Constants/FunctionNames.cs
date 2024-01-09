@@ -3,5 +3,9 @@
     public static class FunctionNames
     {
         public const string CustomerBalance = "CustomerBalance";
+
+        public const string SettledMatchCount = "SettledMatchCount";
+
+        public const string WeeklyLiveMatch = "WeeklyLiveMatch";
     }
 }
