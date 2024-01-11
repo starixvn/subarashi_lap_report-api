@@ -22,6 +22,7 @@ namespace Fanex.Athena.Report.Base.Controllers
 
         private static readonly HashSet<string> ListResourceNoBindData = new ()
         {
+            FunctionNames.ExtraPayout.ToLowerInvariant(),
             FunctionNames.SettledMatchCount.ToLowerInvariant(),
             FunctionNames.WeeklyLiveMatch.ToLowerInvariant(),
         };
