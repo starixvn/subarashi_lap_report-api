@@ -690,6 +690,27 @@
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>Total Penambah Peluang Bonus</value>
   </data>
+  <data name="ProductAB" xml:space="preserve">
+    <value>AllBet</value>
+  </data>
+  <data name="ProductMGRNG" xml:space="preserve">
+    <value>MG-RNG</value>
+  </data>
+  <data name="ProductPP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="ProductSBC" xml:space="preserve">
+    <value>Saba.club</value>
+  </data>
+  <data name="ProductSG" xml:space="preserve">
+    <value>SG</value>
+  </data>
+  <data name="ProductVGA" xml:space="preserve">
+    <value>Vgaming</value>
+  </data>
+  <data name="ProductTIP" xml:space="preserve">
+    <value>Tips Pemain</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Tanggal Keuangan</value>
   </data>

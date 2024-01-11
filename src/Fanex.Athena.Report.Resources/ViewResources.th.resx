@@ -714,6 +714,27 @@
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>ตัวเพิ่มอัตราต่อรอง โบนัส รวม</value>
   </data>
+  <data name="ProductAB" xml:space="preserve">
+    <value>เดิมพันทั้งหมด</value>
+  </data>
+  <data name="ProductMGRNG" xml:space="preserve">
+    <value>MG-RNG</value>
+  </data>
+  <data name="ProductPP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="ProductSBC" xml:space="preserve">
+    <value>Saba.club</value>
+  </data>
+  <data name="ProductSG" xml:space="preserve">
+    <value>SG</value>
+  </data>
+  <data name="ProductVGA" xml:space="preserve">
+    <value>Vgaming</value>
+  </data>
+  <data name="ProductTIP" xml:space="preserve">
+    <value>ผู้เล่น Tips</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>วันที่การเงิน</value>
   </data>

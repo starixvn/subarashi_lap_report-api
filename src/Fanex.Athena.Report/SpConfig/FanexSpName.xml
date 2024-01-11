@@ -55,6 +55,7 @@
 	</Function>
 	<Function Name="SiteConfig">
 		<Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.wsv_lap" />
+    <Setting Key="Portal_Sub_GetSubsidiaryList" SpName="Portal_Sub_GetSubsidiaryList" DbName="DBCUST.SiteConfig.Dot_Admin_Portal" />
 	</Function>
 	<SiteDB>
 		<Setting Key="SiteDB_Lrf_Rpt_WinLoss" SpName="SiteDB_Lrf_Rpt_WinLoss_xtest" DbName="DBSID.bodb02.wsv_lap" />

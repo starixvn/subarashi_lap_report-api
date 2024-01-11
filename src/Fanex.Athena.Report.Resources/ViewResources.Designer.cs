@@ -1375,6 +1375,69 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AllBet.
+        /// </summary>
+        public static string ProductAB {
+            get {
+                return ResourceManager.GetString("ProductAB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MG-RNG.
+        /// </summary>
+        public static string ProductMGRNG {
+            get {
+                return ResourceManager.GetString("ProductMGRNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PP.
+        /// </summary>
+        public static string ProductPP {
+            get {
+                return ResourceManager.GetString("ProductPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saba.club.
+        /// </summary>
+        public static string ProductSBC {
+            get {
+                return ResourceManager.GetString("ProductSBC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SG.
+        /// </summary>
+        public static string ProductSG {
+            get {
+                return ResourceManager.GetString("ProductSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player Tips.
+        /// </summary>
+        public static string ProductTIP {
+            get {
+                return ResourceManager.GetString("ProductTIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vgaming.
+        /// </summary>
+        public static string ProductVGA {
+            get {
+                return ResourceManager.GetString("ProductVGA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Promotion.
         /// </summary>
         public static string Promotion {

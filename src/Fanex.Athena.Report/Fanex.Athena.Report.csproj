@@ -28,6 +28,8 @@
     <None Remove="App_Data\UserGuide\CustomerBalance\th-TH.htm" />
     <None Remove="App_Data\UserGuide\CustomerBalance\vi-VN.htm" />
     <None Remove="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
+    <None Remove="App_Data\UserGuide\ExtraPayout\id-ID.htm" />
+    <None Remove="App_Data\UserGuide\ExtraPayout\th-TH.htm" />
     <None Remove="App_Data\UserGuide\SettledMatchCount\id-ID.htm" />
     <None Remove="App_Data\UserGuide\SettledMatchCount\th-TH.htm" />
     <None Remove="App_Data\UserGuide\WeeklyLiveMatches\id-ID.htm" />
