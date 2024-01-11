@@ -64,6 +64,12 @@ namespace Fanex.Athena.Report.Core.Attributes
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            if (context.ActionDescriptor.EndpointMetadata.OfType<SkipBindingMetaModelAttribute>().Any())
+            {
+                await next();
+                return;
+            }
+
             if (_bindAgent)
             {
                 await BindAgent(context);
