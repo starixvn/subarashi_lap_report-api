@@ -1,5 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -8,9 +11,6 @@
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
     using NPOI.SS.UserModel;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
 
     public class ExtraPayoutExcel : IExtraPayoutExcel
     {
@@ -187,7 +187,7 @@
             var displayedCurrency = string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.CurrencyName : metaModel.BaseCurrency.ToUpperInvariant();
             var currencyText = $"{ViewResources.Currency}: {metaModel.CurrencyName}";
             var baseCurrencyText = metaModel.IsConvertAllToBaseCurrency ? $", {ViewResources.BaseCurrency}: {displayedCurrency}" : "";
-            var productText = $"{ViewResources.LicenseeW_L}: ({metaModel.ProductCodeList.Replace(",",", ")})";
+            var productText = $"{ViewResources.LicenseeW_L}: ({metaModel.ProductCodeList.Replace(",", ", ")})";
             var userNameText = string.IsNullOrEmpty(metaModel.Username) ? "" : $", {ViewResources.Username}: {metaModel.Username}";
 
             var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownFromDate : metaModel.FromDate;

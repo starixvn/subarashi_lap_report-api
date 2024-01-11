@@ -89,7 +89,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             Assert.Equal(expectedFileContent, result.FileContents);
         }
 
-
         [Fact]
         public async Task ExportMemberData_WhenCallMemberLevel_ReturnCorrectContentResult()
         {
@@ -118,6 +117,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             Assert.Equal("application/octet-stream", result.ContentType);
             Assert.Equal(expectedFileContent, result.FileContents);
         }
+
         private PlatformWinLossController CreateController()
         {
             _repository = new Mock<IPlatformWinLossRepository>();

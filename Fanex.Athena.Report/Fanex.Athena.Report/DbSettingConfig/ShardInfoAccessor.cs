@@ -1,6 +1,6 @@
-﻿using Fanex.Athena.Report.Core.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Fanex.Athena.Report.Core.Services;
 
 namespace Fanex.Athena.Report
 {
@@ -13,13 +13,13 @@ namespace Fanex.Athena.Report
 
     public class ShardInfoAccessor : IShardInfoAccessor
     {
-        const string PrefixShardingDefault = "shard_";
+        private const string PrefixShardingDefault = "shard_";
 
-        readonly string _prefixSharding;
+        private readonly string _prefixSharding;
 
         protected Lazy<IReadOnlyDictionary<int, string>> SiteDBConfig { get; }
 
-        private readonly IContextService _contextService; 
+        private readonly IContextService _contextService;
 
         public ShardInfoAccessor(IContextService contextService, string prefixSharding = PrefixShardingDefault)
         {
@@ -27,7 +27,6 @@ namespace Fanex.Athena.Report
 
             _prefixSharding = prefixSharding;
         }
-
 
         public bool TryUseShardDB(string key, out string dbServer)
         {

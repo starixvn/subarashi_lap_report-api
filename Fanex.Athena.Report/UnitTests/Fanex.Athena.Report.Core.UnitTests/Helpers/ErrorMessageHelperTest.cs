@@ -1,10 +1,6 @@
-﻿using Fanex.Athena.Report.Core.Helpers;
+﻿using System;
+using Fanex.Athena.Report.Core.Helpers;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Helpers

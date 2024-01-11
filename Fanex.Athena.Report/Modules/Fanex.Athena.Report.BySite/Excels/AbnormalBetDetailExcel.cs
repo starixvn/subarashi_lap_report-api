@@ -1,5 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -7,9 +10,6 @@
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Resources;
     using NPOI.SS.UserModel;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
 
     public class AbnormalBetDetailExcel : IAbnormalBetDetailExcel
     {
@@ -181,7 +181,7 @@
         {
             var currencyText = $"{ViewResources.Currency}: {metaModel.CurrencyName}";
             var baseCurrency = !string.IsNullOrWhiteSpace(metaModel.BaseCurrency) ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName;
-            var baseCurrencyText = metaModel.IsConvertAllToBaseCurrency? $", {ViewResources.BaseCurrency}: {baseCurrency}":"";
+            var baseCurrencyText = metaModel.IsConvertAllToBaseCurrency ? $", {ViewResources.BaseCurrency}: {baseCurrency}" : "";
             var userText = string.IsNullOrEmpty(metaModel.UserName) ? "" : $", {ViewResources.Username}: {metaModel.UserName}";
             var reportTitle = $"{ViewResources.AbnormalBet}, {ViewResources.ViewinDetail}, " +
                 $"{metaModel.FromDate:MM/dd/yyyy} -> {metaModel.ToDate:MM/dd/yyyy}, {currencyText}" + baseCurrencyText + userText;

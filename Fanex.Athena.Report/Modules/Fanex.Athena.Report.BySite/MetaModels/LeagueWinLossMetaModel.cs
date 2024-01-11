@@ -1,6 +1,6 @@
-﻿using Fanex.Athena.Report.Common.Model.MetaModels;
+﻿using System.ComponentModel;
+using Fanex.Athena.Report.Common.Model.MetaModels;
 using Fanex.Core.Utils;
-using System.ComponentModel;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {

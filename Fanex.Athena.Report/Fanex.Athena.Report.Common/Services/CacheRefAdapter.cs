@@ -1,13 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Constants;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources;
 using Fanex.RemotingRef;
-using System;
-using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Fanex.Athena.Report.Common.Services
 {

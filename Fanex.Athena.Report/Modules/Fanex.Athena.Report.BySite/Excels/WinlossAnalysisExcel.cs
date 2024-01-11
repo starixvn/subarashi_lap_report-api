@@ -1,4 +1,7 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Enums;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
@@ -7,9 +10,6 @@ using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Resources;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace Fanex.Athena.Report.BySite.Excels
 {
@@ -30,7 +30,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         private readonly IDictionary<string, IFont> _negativeCellFontDic = new Dictionary<string, IFont>();
 
         private const int TemplateRowIndexCol = 0;
-        private const int TemplateGroupByCol =  1;
+        private const int TemplateGroupByCol = 1;
         private const int TemplateBreakdownCol = 3;
         private const int TemplateBetCountCol = 5;
         private const int TemplateTurnoverCol = 6;
@@ -46,17 +46,20 @@ namespace Fanex.Athena.Report.BySite.Excels
         private WinlossAnalysisExcelOption Option { get; set; } = new WinlossAnalysisExcelOption();
 
         private bool IsHasSecondaryHeaderForGroupBy => Option.GroupByMode == GroupByMode.Player;
+
         private bool IsHasSecondaryHeaderForBreakDown => Option.BreakdownMode == BreakdownMode.Player;
+
         private bool IsHasBACol => Option.IsHasBAProduct;
+
         private bool IsHasBetEffectiveCol => Option.GroupByMode == GroupByMode.Player;
+
         private bool IsHasSecondaryHeader => IsHasSecondaryHeaderForGroupBy || IsHasSecondaryHeaderForBreakDown;
 
         private readonly IExcelBuilder _builder;
         private readonly IColor _redColor = new HSSFColor.Red();
 
-        public WinlossAnalysisExcel(IExcelBuilder builder)        
+        public WinlossAnalysisExcel(IExcelBuilder builder)
             => _builder = builder;
-        
 
         public byte[] Export(string templatePath, WinlossAnalysisResultModel data, WinlossAnalysisExcelOption option)
         {
@@ -141,17 +144,17 @@ namespace Fanex.Athena.Report.BySite.Excels
             // Merge RowIndex Header
             MergeCells(destSheet, TEMPLATE_HEADER_ROW, TEMPLATE_HEADER_ROW + 1, TemplateRowIndexCol, TemplateRowIndexCol);
             // Merge GroupBy Header
-            MergeCells(destSheet, 
+            MergeCells(destSheet,
                 TEMPLATE_HEADER_ROW,
-                IsHasSecondaryHeaderForGroupBy ?  TEMPLATE_HEADER_ROW : TEMPLATE_HEADER_ROW + 1, 
-                TemplateGroupByCol, 
+                IsHasSecondaryHeaderForGroupBy ? TEMPLATE_HEADER_ROW : TEMPLATE_HEADER_ROW + 1,
+                TemplateGroupByCol,
                 TemplateGroupByCol + 1);
 
             // Merge Breakdown Header
-            MergeCells(destSheet, 
+            MergeCells(destSheet,
                 TEMPLATE_HEADER_ROW,
-                IsHasSecondaryHeaderForBreakDown ? TEMPLATE_HEADER_ROW : TEMPLATE_HEADER_ROW + 1, 
-                TemplateBreakdownCol, 
+                IsHasSecondaryHeaderForBreakDown ? TEMPLATE_HEADER_ROW : TEMPLATE_HEADER_ROW + 1,
+                TemplateBreakdownCol,
                 TemplateBreakdownCol + 1);
 
             // Merge remaining Header
@@ -330,7 +333,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 _builder.HideColumn(sheet, TemplateBetEffectiveCol);
             }
-            if(Option.ExportExcelMode == WinlossAnalysisExportMode.GroupByModeOnly)
+            if (Option.ExportExcelMode == WinlossAnalysisExportMode.GroupByModeOnly)
             {
                 _builder.HideColumn(sheet, TemplateBreakdownCol);
             }

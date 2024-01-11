@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System;
+﻿using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fanex.Athena.Report.Core.Attributes
 {

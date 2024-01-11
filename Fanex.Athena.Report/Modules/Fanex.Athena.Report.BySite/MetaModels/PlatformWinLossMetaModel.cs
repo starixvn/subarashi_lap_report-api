@@ -41,6 +41,7 @@
         public int Level { get; set; }
 
         public string SubsidiaryList { get; set; }
+
         public bool SubsidiarySearch { get; set; }
     }
 }

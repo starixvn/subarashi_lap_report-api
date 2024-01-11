@@ -1,5 +1,5 @@
-﻿using Fanex.Data;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
+using Fanex.Data;
 
 namespace Fanex.Athena.Report
 {

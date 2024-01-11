@@ -1,6 +1,6 @@
-﻿using Fanex.Data;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Fanex.Data;
 
 namespace Fanex.Athena.Report.Core.Services
 {

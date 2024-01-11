@@ -1,13 +1,10 @@
-﻿using Fanex.Athena.Report.Common.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Data;
 using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Common.Services
 {

@@ -14,6 +14,7 @@ namespace Fanex.Athena.Report.Core.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         protected HttpContext Context => _httpContextAccessor.HttpContext;
+
         protected ClaimsPrincipal User => Context.User;
 
         public ContextService(IHttpContextAccessor httpContextAccessor)
@@ -155,7 +156,9 @@ namespace Fanex.Athena.Report.Core.Services
         protected internal class CurrencyAgentInfo
         {
             public int[] AgentId { get; set; }
+
             public int CurrencyId { get; set; }
+
             public string Currency { get; set; }
         }
     }

@@ -1,4 +1,11 @@
-﻿using AutoFixture;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoFixture;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.Common.Model.DTO;
@@ -6,13 +13,6 @@ using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Services;
 using Fanex.Data;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories

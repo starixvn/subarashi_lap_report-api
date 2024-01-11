@@ -1,5 +1,5 @@
-﻿using Fanex.Athena.Report.Common.Model.MetaModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Fanex.Athena.Report.Common.Model.MetaModels;
 
 namespace Fanex.Athena.Report.Common.Services.Interfaces
 {

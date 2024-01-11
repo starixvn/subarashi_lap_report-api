@@ -5,7 +5,6 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Fanex.Athena.Report.BySite.Constants;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Enums;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -27,7 +26,7 @@
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.WinlossAnalysis)]
     [RequestValidation(validateCurrencyList: true)]
-    [AutoBindingMetaModel(bindAgent: true )]
+    [AutoBindingMetaModel(bindAgent: true)]
     public class WinlossAnalysisController : ControllerBase
     {
         private const string FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN = "WinLossReportGroupByAndBreakdownBy";
@@ -89,7 +88,7 @@
             metaModel.PageIndex = 0;
         }
 
-        private IEnumerable<WinlossAnalysisResultModel> PagingData(WinlossAnalysisResultModel resultData, WinlossAnalysisExportMode exportMode,int maxRow)
+        private IEnumerable<WinlossAnalysisResultModel> PagingData(WinlossAnalysisResultModel resultData, WinlossAnalysisExportMode exportMode, int maxRow)
         {
             var listPagingData = new List<WinlossAnalysisResultModel>();
             var pagingData = new WinlossAnalysisResultModel
@@ -120,15 +119,14 @@
                 }
             }
             return listPagingData;
-
         }
 
         private string ExportToZipFile(IEnumerable<WinlossAnalysisResultModel> pagingDatas, WinlossAnalysisExcelOption excelOption)
         {
             var pageIndex = 0;
             var listEntry = new List<ZipEntry>(pagingDatas.Count());
-            var prefixFileName = excelOption.ExportExcelMode == WinlossAnalysisExportMode.All 
-                ? FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN 
+            var prefixFileName = excelOption.ExportExcelMode == WinlossAnalysisExportMode.All
+                ? FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN
                 : FILE_NAME_GROUP_BY_ONLY;
             foreach (var item in pagingDatas)
             {
@@ -146,7 +144,6 @@
             var template = _fileProvider.GetFileInfo("/ExcelTemplate/WinLossAnalysis.xls").PhysicalPath;
             return _excelService.Export(template, data, excelOption);
         }
-
 
         private ZipEntry WriteExcelFile(byte[] excelFile, string fileName)
         {
@@ -177,6 +174,5 @@
                 SearchUsername = metaModel.SearchUserName
             };
         }
-
     }
 }

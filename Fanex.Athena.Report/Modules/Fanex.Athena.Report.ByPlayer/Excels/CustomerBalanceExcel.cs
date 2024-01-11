@@ -1,8 +1,10 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
@@ -10,13 +12,11 @@
     using Fanex.Athena.Report.ByPlayer.MetaModels;
     using Fanex.Athena.Report.Common.Excel;
     using Fanex.Athena.Report.Common.Extensions;
+    using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
     using Fanex.Data;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
-    using System.Linq;
-    using System.Collections.Generic;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
 
     public class CustomerBalanceExcel : BaseExcel, ICustomerBalanceExcel
     {
@@ -148,7 +148,7 @@
             string prefixName,
             StringBuilder rowBuilder)
         {
-            var validCommonColumns = metaModel.IsEnableSingleWallet ? 
+            var validCommonColumns = metaModel.IsEnableSingleWallet ?
                 _commonColumns.Except(new[] { "openingbalance", "deposit", "withdrawal", "closingbalance" }) : _commonColumns;
 
             foreach (var item in validCommonColumns)

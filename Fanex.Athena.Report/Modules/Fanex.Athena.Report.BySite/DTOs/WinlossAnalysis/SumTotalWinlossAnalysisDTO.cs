@@ -1,5 +1,4 @@
-﻿
-namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
+﻿namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
 {
     public record SumTotalWinlossAnalysisDTO : WinlossAnalysisDTO
     {
