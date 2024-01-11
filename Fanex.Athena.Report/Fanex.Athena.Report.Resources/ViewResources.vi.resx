@@ -708,4 +708,7 @@
   <data name="Desktop" xml:space="preserve">
     <value>Máy tính</value>
   </data>
+  <data name="BetId" xml:space="preserve">
+    <value>ID Cược</value>
+  </data>
 </root>

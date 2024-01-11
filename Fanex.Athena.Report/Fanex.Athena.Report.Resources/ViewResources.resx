@@ -737,4 +737,7 @@
   <data name="BetType_229" xml:space="preserve">
     <value>HDP Time Machine</value>
   </data>
+  <data name="BetID" xml:space="preserve">
+    <value>Bet ID</value>
+  </data>
 </root>

@@ -624,4 +624,7 @@
   <data name="Virtual" xml:space="preserve">
     <value>虚拟</value>
   </data>
+  <data name="BetId" xml:space="preserve">
+    <value>投注单号</value>
+  </data>
 </root>

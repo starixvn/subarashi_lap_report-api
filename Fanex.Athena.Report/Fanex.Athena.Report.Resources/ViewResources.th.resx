@@ -693,4 +693,7 @@
   <data name="VS3" xml:space="preserve">
     <value>กีฬาเสมือนจริง 3 (old)</value>
   </data>
+  <data name="BetId" xml:space="preserve">
+    <value>รหัสเดิมพัน</value>
+  </data>
 </root>
