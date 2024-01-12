@@ -76,8 +76,10 @@
                 SportName = reader["SportName"].ToString(),
                 BetType = reader["BetType"].ToString(),
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
+                Payout = Convert.ToDecimal(reader["Payout"]),
                 WinLoss = Convert.ToDecimal(reader["WinLoss"]),
                 TurnoverBased = Convert.ToDecimal(reader["TurnoverBased"]),
+                PayoutBased = Convert.ToDecimal(reader["PayoutBased"]),
                 WinLossBased = Convert.ToDecimal(reader["WinLossBased"]),
                 Status = DailyBetsMetaModelExtension.GetStatusName[Convert.ToInt16(reader["Status"])]()
             };
