@@ -27,14 +27,15 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private const int ColumnIndex = 0;
         private const int ColumnDate = 1;
         private const int ColumnRefNo = 2;
-        private const int ColumnProduct = 3;
-        private const int ColumnPromotionType = 4;
-        private const int ColumnTurnOver = 5;
-        private const int ColumnCustomerAmount = 6;
-        private const int ColumnLicSharingAmount = 7;
+        private const int ColumnBetID = 3;
+        private const int ColumnProduct = 4;
+        private const int ColumnPromotionType = 5;
+        private const int ColumnTurnOver = 6;
+        private const int ColumnCustomerAmount = 7;
+        private const int ColumnLicSharingAmount = 8;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 8;
+        private const int ColumnTemplateCount = 9;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -86,6 +87,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 "#",
                 ViewResources.Date,
                 ViewResources.RefNo,
+                ViewResources.BetID,
                 ViewResources.Product,
                 ViewResources.PromotionType,
                 ViewResources.Turnover,
@@ -237,6 +239,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         {
             Mock.Get(row.Object.Cells[ColumnDate]).Verify(c => c.SetCellValue(dataItem.DateString), Times.Once);
             Mock.Get(row.Object.Cells[ColumnRefNo]).Verify(c => c.SetCellValue(dataItem.Refno), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnBetID]).Verify(c => c.SetCellValue(dataItem.BetID), Times.Once);
             Mock.Get(row.Object.Cells[ColumnProduct]).Verify(c => c.SetCellValue(dataItem.ProductName), Times.Once);
             Mock.Get(row.Object.Cells[ColumnPromotionType]).Verify(c => c.SetCellValue(dataItem.PromotionName), Times.Once);
             Mock.Get(row.Object.Cells[ColumnTurnOver]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.Turnover)), Times.Once);
