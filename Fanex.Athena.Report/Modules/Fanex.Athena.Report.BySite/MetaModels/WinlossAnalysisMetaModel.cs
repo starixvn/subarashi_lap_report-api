@@ -71,6 +71,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public int SpecialPlatform { get; set; }
 
+        public int SpecialPlatformType { get; set; }
+
         public bool IsValid => true;
     }
 }

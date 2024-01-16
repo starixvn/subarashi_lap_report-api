@@ -61,6 +61,7 @@
         public async Task<IActionResult> GetData([FromBody] WinlossAnalysisMetaModel metaModel)
         {
             metaModel.SpecialPlatform = _contextService.SpecialPlatform;
+            metaModel.SpecialPlatformType = _contextService.SpecialPlatformType;
             return Ok(await _service.GetDataAsync(metaModel));
         }
 
@@ -69,6 +70,7 @@
         {
             const string contentType = "application/octet-stream";
             metaModel.SpecialPlatform = _contextService.SpecialPlatform;
+            metaModel.SpecialPlatformType = _contextService.SpecialPlatformType;
             AssignParamToExportExcel(metaModel);
             var data = await _service.GetDataAsync(metaModel);
             var excelOption = GenOptionFromParam(metaModel);

@@ -101,8 +101,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             Assert.Equal(expectedMainData.Status, dataItem.Status);
             Assert.Equal(expectedMainData.TransTime, dataItem.TransTime);
             Assert.Equal(expectedMainData.Turnover, dataItem.Turnover);
+            Assert.Equal(expectedMainData.Payout, dataItem.Payout);
             Assert.Equal(expectedMainData.WinLoss, dataItem.WinLoss);
             Assert.Equal(expectedMainData.TurnoverBased, dataItem.TurnoverBased);
+            Assert.Equal(expectedMainData.PayoutBased, dataItem.PayoutBased);
             Assert.Equal(expectedMainData.WinLossBased, dataItem.WinLossBased);
         }
 
@@ -122,8 +124,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
                 { "ProductCode", ProductCode },
                 { "BetType", mainData.BetType },
                 { "Turnover", mainData.Turnover },
+                { "Payout", mainData.Payout },
                 { "WinLoss", mainData.WinLoss },
                 { "TurnoverBased", mainData.TurnoverBased },
+                { "PayoutBased", mainData.PayoutBased },
                 { "WinLossBased", mainData.WinLossBased },
                 { "Status", Status },
             };
