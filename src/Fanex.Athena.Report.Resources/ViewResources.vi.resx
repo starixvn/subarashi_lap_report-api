@@ -759,6 +759,9 @@
   <data name="ProductTIP" xml:space="preserve">
     <value>Tiền boa của Người chơi</value>
   </data>
+  <data name="ProductL22" xml:space="preserve">
+    <value>ProductL22</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Ngày Tài Chính</value>
   </data>

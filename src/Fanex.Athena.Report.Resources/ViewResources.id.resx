@@ -711,6 +711,9 @@
   <data name="ProductTIP" xml:space="preserve">
     <value>Tips Pemain</value>
   </data>
+  <data name="ProductL22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Tanggal Keuangan</value>
   </data>

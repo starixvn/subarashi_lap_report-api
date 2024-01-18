@@ -69,6 +69,10 @@ namespace Fanex.Athena.Report.Core.Services
 
         public string SiteDBServer => GetClaimValue("SiteDBServer");
 
+        public int WhiteLabelID => GetClaimValue("WhiteLabelID", -1);
+
+        public string DefaultBaseCurrency => GetClaimValue("DefaultBaseCurrency", "EUR");
+
         public IEnumerable<string> OfferedSubProductList
         {
             get

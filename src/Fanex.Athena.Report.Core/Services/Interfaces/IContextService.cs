@@ -38,5 +38,9 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         public int SpecialPlatform { get; }
 
         public int SpecialPlatformType { get; }
+        
+        int WhiteLabelID { get; }
+
+        string DefaultBaseCurrency { get; }
     }
 }

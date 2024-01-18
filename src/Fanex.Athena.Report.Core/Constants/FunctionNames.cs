@@ -7,5 +7,7 @@
         public const string SettledMatchCount = "SettledMatchCount";
 
         public const string WeeklyLiveMatch = "WeeklyLiveMatch";
+
+        public const string ExtraPayout = "ExtraPayout";
     }
 }

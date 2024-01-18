@@ -5,6 +5,8 @@
         public const string PortalSuperAdmin = "super_admin";
 
         public const string PlayerSabaCoins = "SabaCoins";
+        public const string DisplayPlayerTips_ExtraPayoutReportOnly = "DisplayPlayerTips_ExtraPayoutReportOnly";
+
         public const string ExtraPayout = "ExtraPayout";
         public const string CustomerSupportTask = "CustomerSupportTask";
         public const string CustomerWinLoss = "CustomerWinLoss29";

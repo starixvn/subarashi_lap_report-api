@@ -812,6 +812,9 @@
   <data name="ProductVGA" xml:space="preserve">
     <value>Vgaming</value>
   </data>
+  <data name="ProductL22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
   <data name="PTRNG" xml:space="preserve">
     <value>Playtech</value>
   </data>

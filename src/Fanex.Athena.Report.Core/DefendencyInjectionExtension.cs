@@ -19,6 +19,7 @@ namespace Fanex.Athena.Report.Core
             services.AddScoped<IContextService, ContextService>();
             services.AddSingleton<ICurrencyValidation, CurrencyValidation>();
             services.AddTransient<ISubsidiaryService, SubsidiaryService>();
+            services.AddTransient<IBaseCurrencyService, BaseCurrencyService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddScoped<IDbFactory, DbFactory>();

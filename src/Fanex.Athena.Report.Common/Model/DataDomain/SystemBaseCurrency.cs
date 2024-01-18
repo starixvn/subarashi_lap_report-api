@@ -32,5 +32,44 @@
         };
 
         public static IEnumerable<string> DefaultBaseCurrencyList { get; } = new[] { "GBP", EUR, "USD" };
+
+        public static IDictionary<int, string> CryptoBaseCurrencyList { get; } = new Dictionary<int, string> {
+            { BaseCurrencyType.USDT,"USDT" }
+        };
+
+        public static IDictionary<int, string> CryptoSupportEurBaseCurrencyList { get; } = new Dictionary<int, string> {
+            { BaseCurrencyType.Eur,"EUR" },
+            { BaseCurrencyType.MYR,"MYR" },
+            { BaseCurrencyType.CNY,"CNY" }
+        };
+
+        public static IDictionary<int, string> JollySportsBaseCurrencyList { get; } = new Dictionary<int, string> {
+            { BaseCurrencyType.Eur,"EUR" },
+            { BaseCurrencyType.Usd,"USD" },
+            { BaseCurrencyType.Gbp,"GBP" },
+            { BaseCurrencyType.MYR,"MYR" },
+            { BaseCurrencyType.CNY,"CNY" },
+            { BaseCurrencyType.THB,"THB" },
+            { BaseCurrencyType.IDR,"IDR" },
+            { BaseCurrencyType.INH,"INH" },
+            { BaseCurrencyType.BDT,"BDT" },
+            { BaseCurrencyType.INR,"INR" },
+            { BaseCurrencyType.MP,"MP" },
+        };
+
+        public static IDictionary<int, string> FlatBaseCurrencyList { get; } = new Dictionary<int, string> {
+            { BaseCurrencyType.Eur,"EUR" },
+            { BaseCurrencyType.Usd,"USD" },
+            { BaseCurrencyType.Gbp,"GBP" },
+            { BaseCurrencyType.MYR,"MYR" },
+            { BaseCurrencyType.CNY,"CNY" },
+            { BaseCurrencyType.THB,"THB" },
+            { BaseCurrencyType.IDR,"IDR" },
+            { BaseCurrencyType.INH,"INH" },
+            { BaseCurrencyType.BDT,"BDT" },
+            { BaseCurrencyType.INR,"INR" },
+            { BaseCurrencyType.PHP,"PHP" },
+        };
+
     }
 }

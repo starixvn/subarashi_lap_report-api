@@ -2,6 +2,16 @@
 {
     public static class Product
     {
+        public const string SBC  = "SBC";
+
+        public const string SPR = "SPR";
+
+        public const string MGRNG = "MGRNG";
+
+        public const string SXG = "SXG";
+
+        public const string SAG = "SAG";
+
         public const string SB = "SB";
 
         public const string NG = "NG";
@@ -59,5 +69,7 @@
         public const string TIP = "TIP";
 
         public const string YB = "YB";
+
+        public const string L22 = "L22";
     }
 }

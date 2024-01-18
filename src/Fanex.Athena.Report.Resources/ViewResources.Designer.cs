@@ -1384,6 +1384,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live22.
+        /// </summary>
+        public static string ProductL22 {
+            get {
+                return ResourceManager.GetString("ProductL22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MG-RNG.
         /// </summary>
         public static string ProductMGRNG {

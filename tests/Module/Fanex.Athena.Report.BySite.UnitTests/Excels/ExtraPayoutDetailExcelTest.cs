@@ -19,32 +19,48 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 {
     public class ExtraPayoutDetailExcelTest
     {
-        private readonly IFixture _fixture = new Fixture();
-
         private const string TemplateSheetName = "Template";
+
         private const string SheetName = "Data";
 
         private const int ColumnIndex = 0;
+
         private const int ColumnDate = 1;
+
         private const int ColumnRefNo = 2;
-        private const int ColumnBetID = 3;
+
+        private const int ColumnBetId = 3;
+
         private const int ColumnProduct = 4;
+
         private const int ColumnPromotionType = 5;
+
         private const int ColumnTurnOver = 6;
+
         private const int ColumnCustomerAmount = 7;
+
         private const int ColumnLicSharingAmount = 8;
 
         private const int RowNoInfoTemplate = 6;
+
         private const int ColumnTemplateCount = 9;
 
         private const int RowHeaderTemplate = 1;
+
         private const int RowTitleTemplate = 0;
+
         private const int RowContentTemplate = 3;
+
         private const int RowGrantTotalTemplate = 5;
 
         private const string TemplatePath = "TemplatePath";
+
+        private readonly IFixture _fixture = new Fixture();
+
         private Mock<IExcelBuilder> _excelBuilder;
+
         private Mock<ISheet> _sheet;
+
         private Mock<ISheet> _templateSheet;
 
         [Fact]
@@ -55,10 +71,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             CreateRows();
 
             var data = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                .With(x => x.DataList, new SortableList<ExtraPayoutDetail>())
-                .Create();
+                               .With(x => x.DataList, new SortableList<ExtraPayoutDetail>())
+                               .Create();
             var metaModel = _fixture.Build<ExtraPayoutDetailMetaModel>()
-                .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
+                                    .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
 
             var reportTitle = CreateTitle(metaModel);
 
@@ -78,10 +94,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var rows = CreateRows();
 
             var data = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                .With(x => x.DataList, new SortableList<ExtraPayoutDetail>())
-                .Create();
+                               .With(x => x.DataList, new SortableList<ExtraPayoutDetail>())
+                               .Create();
             var metaModel = _fixture.Build<ExtraPayoutDetailMetaModel>()
-                .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
+                                    .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
             var headerTextList = new[]
             {
                 "#",
@@ -111,10 +127,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             CreateRows();
 
             var data = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                 .With(x => x.DataList, new SortableList<ExtraPayoutDetail>())
-                 .Create();
+                               .With(x => x.DataList, new SortableList<ExtraPayoutDetail>())
+                               .Create();
             var metaModel = _fixture.Build<ExtraPayoutDetailMetaModel>()
-                .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
+                                    .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -133,13 +149,13 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
             var bodyData = _fixture.Create<ExtraPayoutDetail>();
             var currencyData = _fixture.Build<ExtraPayoutDetail>()
-                .With(x => x.Currency, 9).Create();
+                                       .With(x => x.Currency, 9).Create();
             var data = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                 .With(x => x.DataList, new SortableList<ExtraPayoutDetail> { bodyData })
-                 .With(x => x.TotalDataList, new SortableList<ExtraPayoutDetail> { currencyData })
-                 .Create();
+                               .With(x => x.DataList, new SortableList<ExtraPayoutDetail> { bodyData, })
+                               .With(x => x.TotalDataList, new SortableList<ExtraPayoutDetail> { currencyData, })
+                               .Create();
             var metaModel = _fixture.Build<ExtraPayoutDetailMetaModel>()
-                .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
+                                    .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -158,15 +174,15 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
             var bodyData = _fixture.Create<ExtraPayoutDetail>();
             var currencyData = _fixture.Build<ExtraPayoutDetail>()
-                .With(x => x.Currency, 9).Create();
+                                       .With(x => x.Currency, 9).Create();
             var totalData = _fixture.Create<ExtraPayoutDetail>();
             var data = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                 .With(x => x.DataList, new SortableList<ExtraPayoutDetail> { bodyData })
-                 .With(x => x.TotalDataList, new SortableList<ExtraPayoutDetail> { currencyData })
-                 .With(x => x.TotalData, totalData)
-                 .Create();
+                               .With(x => x.DataList, new SortableList<ExtraPayoutDetail> { bodyData, })
+                               .With(x => x.TotalDataList, new SortableList<ExtraPayoutDetail> { currencyData, })
+                               .With(x => x.TotalData, totalData)
+                               .Create();
             var metaModel = _fixture.Build<ExtraPayoutDetailMetaModel>()
-                .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
+                                    .With(x => x.DrillDownLevel, (int)ReportLevel.Main).Create();
 
             // Action
             excel.Export(TemplatePath, data, metaModel);
@@ -186,14 +202,18 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var bodyRow = rowList[2];
             var grandTotalRow = rowList[3];
 
-            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, RowHeaderTemplate, RowHeaderTemplate))
-                .Returns(firstHeaderRow.Object);
-            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, RowHeaderTemplate + 1, RowHeaderTemplate + 1))
-                .Returns(secondHeaderRow.Object);
-            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, It.Is<int>(x => x == RowContentTemplate || x == RowNoInfoTemplate), RowContentTemplate))
-                .Returns(bodyRow.Object);
-            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, RowGrantTotalTemplate, It.Is<int>(x => x >= RowContentTemplate)))
-               .Returns(grandTotalRow.Object);
+            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, RowHeaderTemplate,
+                              RowHeaderTemplate))
+                         .Returns(firstHeaderRow.Object);
+            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, RowHeaderTemplate + 1,
+                              RowHeaderTemplate + 1))
+                         .Returns(secondHeaderRow.Object);
+            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object,
+                              It.Is<int>(x => x == RowContentTemplate || x == RowNoInfoTemplate), RowContentTemplate))
+                         .Returns(bodyRow.Object);
+            _excelBuilder.Setup(ex => ex.CopyRow(_sheet.Object, _templateSheet.Object, RowGrantTotalTemplate,
+                              It.Is<int>(x => x >= RowContentTemplate)))
+                         .Returns(grandTotalRow.Object);
 
             return rowList;
         }
@@ -205,7 +225,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var bodyRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowContentTemplate);
             var grandTotalRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowGrantTotalTemplate);
 
-            return new List<Mock<IRow>> { firstHeaderRow, secondHeaderRow, bodyRow, grandTotalRow };
+            return new List<Mock<IRow>> { firstHeaderRow, secondHeaderRow, bodyRow, grandTotalRow, };
         }
 
         private ExtraPayoutDetailExcel CreateExcel()
@@ -215,7 +235,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             _excelBuilder.Setup(eb => eb.LoadTemplate(TemplatePath)).Returns(workbook.Object);
 
             _sheet = new Mock<ISheet>();
-            _excelBuilder.Setup(eb => eb.CloneSheet(workbook.Object, TemplateSheetName, SheetName)).Returns(_sheet.Object);
+            _excelBuilder.Setup(eb => eb.CloneSheet(workbook.Object, TemplateSheetName, SheetName))
+                         .Returns(_sheet.Object);
 
             _templateSheet = new Mock<ISheet>();
             workbook.Setup(w => w.GetSheet(TemplateSheetName)).Returns(_templateSheet.Object);
@@ -225,26 +246,37 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 
         private static string CreateTitle(ExtraPayoutDetailMetaModel metaModel)
         {
-            var displayedCurrency = string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.CurrencyName : metaModel.BaseCurrency.ToUpperInvariant();
+            var displayedCurrency = string.IsNullOrEmpty(metaModel.BaseCurrency) ?
+                metaModel.CurrencyName :
+                metaModel.BaseCurrency.ToUpperInvariant();
             var currencyText = string.Format(ViewResources.Viewin, displayedCurrency);
             var usernameText = $"- {metaModel.ExternalId} ({metaModel.SystemId})";
 
-            var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownFromDate : metaModel.FromDate;
-            var toDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownToDate : metaModel.ToDate;
+            var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ?
+                metaModel.DrillDownFromDate :
+                metaModel.FromDate;
+            var toDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ?
+                metaModel.DrillDownToDate :
+                metaModel.ToDate;
 
-            return $"{ViewResources.PromotionDetails}, {fromDate.ToString("MM/dd/yyyy")} -> {toDate.ToString("MM/dd/yyyy")} {usernameText} - {currencyText}";
+            return
+                $"{ViewResources.PromotionDetails}, {fromDate.ToString("MM/dd/yyyy")} -> {toDate.ToString("MM/dd/yyyy")} {usernameText} - {currencyText}";
         }
 
         private void AssertCommonCellData(Mock<IRow> row, ExtraPayoutDetail dataItem)
         {
             Mock.Get(row.Object.Cells[ColumnDate]).Verify(c => c.SetCellValue(dataItem.DateString), Times.Once);
             Mock.Get(row.Object.Cells[ColumnRefNo]).Verify(c => c.SetCellValue(dataItem.Refno), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnBetID]).Verify(c => c.SetCellValue(dataItem.BetID), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnBetId]).Verify(c => c.SetCellValue(dataItem.BetID), Times.Once);
             Mock.Get(row.Object.Cells[ColumnProduct]).Verify(c => c.SetCellValue(dataItem.ProductName), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnPromotionType]).Verify(c => c.SetCellValue(dataItem.PromotionName), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnTurnOver]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.Turnover)), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnCustomerAmount]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.Amount)), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnLicSharingAmount]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.SharingAmount)), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnPromotionType])
+                .Verify(c => c.SetCellValue(dataItem.PromotionName), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnTurnOver])
+                .Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.Turnover)), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnCustomerAmount])
+                .Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.Amount)), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnLicSharingAmount])
+                .Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.SharingAmount)), Times.Once);
         }
     }
 }
