@@ -18,7 +18,7 @@ namespace Fanex.Athena.Report.Base.Controllers
     {
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        protected const string DefaultLanguage = "en-US";
+        private const string DefaultLanguage = "en-US";
 
         private static readonly HashSet<string> ListResourceNoBindData = new ()
         {
@@ -46,19 +46,19 @@ namespace Fanex.Athena.Report.Base.Controllers
         }
 
         [HttpGet]
-        public ActionResult<string> Index(string resourceName)
+        public IActionResult Index(string resourceName)
         {
             var content = GetFileContent(resourceName);
             if (ListResourceNoBindData.Contains(resourceName.ToLowerInvariant()))
             {
-                return content;
+                return Ok(content);
             }
 
             var products = _productService.GetProductList(_contextService.LicenseeId);
             content = AddSpecialProducts(content, products);
             content = AddOpenBalanceInfo(content);
             
-            return content;
+            return Ok(content);
         }
 
         private string GetDefaultFilePathIfNotExist(string language, string filePath)
