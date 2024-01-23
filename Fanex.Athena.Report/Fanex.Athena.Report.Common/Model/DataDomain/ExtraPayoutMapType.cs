@@ -53,5 +53,7 @@
         public const int PayoutSabaCasinoRoyaleTournamentPrize = 3706;
 
         public const int PayoutSabaRewardRiskFreeRebate = 3707;
+        
+        public const int Live22Promotion = 7901;
     }
 }
