@@ -28,6 +28,10 @@
 
         public const int MP = -12;
 
+        public const int NPR = -14;
+
+        public const int TRY = -15;
+
         // crypto currencies
         public const int USDT = -99;
     }
