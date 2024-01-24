@@ -49,6 +49,9 @@
             services.AddTransient<IWinlossAnalysisRepository, WinlossAnalysisRepository>();
             services.AddTransient<IWinlossAnalysisService, WinlossAnalysisService>();
             services.AddTransient<IWinlossAnalysisExcel, WinlossAnalysisExcel>();
+            services.AddTransient<IDailyBetDetailsService, DailyBetDetailsService>();
+            services.AddTransient<IDailyBetDetailsRepository, DailyBetDetailsRepository>();
+            services.AddTransient<IDailyBetDetailsExcel, DailyBetDetailsExcel>();
             return services;
         }
     }

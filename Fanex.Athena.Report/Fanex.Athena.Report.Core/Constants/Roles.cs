@@ -13,6 +13,7 @@
         public const string AbnormalBet = "AbnormalBet";
         public const string GrossGamingRevenue = "GrossGamingRevenue";
         public const string DailyBets = "DailyBets81";
+        public const string DailyBetDetails = "DailyBetDetails";
         public const string NewCashOutWinLoss = "NewCashOutWinLoss";
         public const string PlatformWinLoss = "MobileWinLoss53";
         public const string WinlossAnalysis = "WinlossAnalysis";
