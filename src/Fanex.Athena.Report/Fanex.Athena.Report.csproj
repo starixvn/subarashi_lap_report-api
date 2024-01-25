@@ -1,0 +1,168 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>69cc38fa-b379-4d53-8874-6cb0cfd4de05</UserSecretsId>
+    <CodeAnalysisRuleSet>..\..\.sonarlint\lap.reportapicsharp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Connected Services\**" />
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Connected Services\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Connected Services\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Connected Services\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx" />
+    <None Remove="ExcelTemplate\CustomerReports\CustomerRunningTicket.xlsx" />
+    <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
+    <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
+    <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
+    <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
+    <None Remove="ExcelTemplate\GodOfFortuneWinLoss.xls" />
+	<None Remove="ExcelTemplate\LeagueWinLoss.xls" />
+	<None Remove="ExcelTemplate\ExtraPayout.xls" />
+	<None Remove="ExcelTemplate\ExtraPayoutDetail.xls" />
+	<None Remove="ExcelTemplate\NewCashOutWinLoss.xls" />
+	<None Remove="ExcelTemplate\WinLossAnalysis.xls" />
+	<None Remove="ExcelTemplate\WeeklyLiveMatch.xls" />
+	<None Remove="SpConfig\FanexSpName.AWS.xml" />
+	<None Remove="SpConfig\FanexSpName.KLDR.xml" />
+	<None Remove="SpConfig\FanexSpName.LOCAL.xml" />
+	<None Remove="SpConfig\FanexSpName.LOCAL_1.xml" />
+	<None Remove="SpConfig\FanexSpName.PROD.xml" />
+	<None Remove="SpConfig\FanexSpName.SIT.xml" />
+	<None Remove="SpConfig\FanexSpName.SIT_1.xml" />
+	<None Remove="SpConfig\FanexSpName.UAT.xml" />
+	<None Remove="SpConfig\FanexSpName.UAT_1.xml" />
+	<None Remove="SpConfig\FanexSpName.UAT_2.xml" />
+    <None Remove="SpConfig\FanexSpName.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\.sonarlint\lap.reportapi\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+	<Content Include="App_Data\*.*">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+
+    <Content Include="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\CustomerReports\CustomerRunningTicket.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\PlatformWinLossSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\GodOfFortuneWinLoss.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\LeagueWinLoss.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\ExtraPayout.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\ExtraPayoutDetail.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\NewCashOutWinLoss.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\AbnormalBetDetail.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\AbnormalBetIpSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\AbnormalBetSummary.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="ExcelTemplate\WinLossAnalysis.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="ExcelTemplate\DailyBets.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.KLDR.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="ExcelTemplate\DailyBetDetails.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="ExcelTemplate\WeeklyLiveMatch.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.UAT_2.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.SIT_1.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.AWS.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.LOCAL.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.SIT.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.PROD.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.UAT_1.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.UAT.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.LOCAL_1.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+    <Content Include="SpConfig\FanexSpName.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SonarQubeSetting Include="sonar.coverage.exclusions">
+      <Value>**/Startup.cs</Value>
+    </SonarQubeSetting>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.15" />
+    <PackageReference Include="Sentry.AspNetCore" Version="2.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.Report.Common\Fanex.Athena.Report.Common.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
+    <ProjectReference Include="..\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
+    <ProjectReference Include="..\Modules\Fanex.Athena.Report.Base\Fanex.Athena.Report.Base.csproj" />
+    <ProjectReference Include="..\Modules\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
+    <ProjectReference Include="..\Modules\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+</Project>
