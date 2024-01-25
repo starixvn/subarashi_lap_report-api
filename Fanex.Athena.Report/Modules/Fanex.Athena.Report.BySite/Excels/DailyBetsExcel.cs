@@ -23,11 +23,16 @@
     {
         private readonly IDailyBetsRepository _repository;
         private readonly IDailyBetsService _service;
-        private const string TemplateSheetName = "Template";
+        private const string DefaultTemplateSheetName = "PayoutTemplate";
+        private const string HidePayoutTemplateSheetName = "HidePayoutTemplate";
         private const string SheetName = "Data";
         private string _tempFolderPath;
         private int _totalRows;
         private AuditTicket _totalData;
+        private int _payoutDiffColumn;
+        private int _payoutUSDDiffColumn;
+        private bool _showPayout;
+        private string _templateSheetName;
 
         private const int ColumnIndex = 0;
         private const int ColumnPlayerName = 1;
@@ -85,6 +90,7 @@
             _totalRows = totalRows;
             _totalData = totalData;
             _tempFolderPath = EnsureFolderPath();
+            CallculatePayoutDiffValue(metaModel);
 
             var totalPage = (totalRows - 1) / ExcelOptions.MaximumRowPerFile + 1;
             var nextPage = metaModel.PageIndex;
@@ -131,8 +137,8 @@
         public IWorkbook GetWorkbook(string template, IEnumerable<AuditTicket> dataList, DailyBetsMetaModel metaModel)
         {
             var workBook = _builder.LoadTemplate(template);
-            var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
-            var templateSheet = workBook.GetSheet(TemplateSheetName);
+            var sheet = _builder.CloneSheet(workBook, _templateSheetName, SheetName);
+            var templateSheet = workBook.GetSheet(_templateSheetName);
 
             AssignHeader(sheet, templateSheet);
             AssignTitle(sheet, templateSheet, metaModel);
@@ -145,19 +151,25 @@
             {
                 AssignNoInfoRow(sheet, templateSheet);
             }
-
-            HideColumnsBySite(sheet, metaModel);
-            _builder.RemoveSheet(workBook, TemplateSheetName);
+            _builder.RemoveSheet(workBook, DefaultTemplateSheetName);
+            _builder.RemoveSheet(workBook, HidePayoutTemplateSheetName);
 
             return workBook;
         }
 
-        private void HideColumnsBySite(ISheet sheet, DailyBetsMetaModel metaModel)
+        private void CallculatePayoutDiffValue(DailyBetsMetaModel metaModel)
         {
-            if (!string.Equals(metaModel.SiteName, "12B", StringComparison.InvariantCultureIgnoreCase))
+            const int PayoutDiffValue = 1;
+            const int PayoutUSDDiffValue = 2;
+
+            _showPayout = string.Equals(metaModel.SiteName, "12B", StringComparison.InvariantCultureIgnoreCase);
+            _templateSheetName = DefaultTemplateSheetName;
+
+            if (!_showPayout)
             {
-                _builder.HideColumn(sheet, ColumnPayout);
-                _builder.HideColumn(sheet, ColumnPayoutUSD);
+                _templateSheetName = HidePayoutTemplateSheetName;
+                _payoutDiffColumn = PayoutDiffValue;
+                _payoutUSDDiffColumn = PayoutUSDDiffValue;
             }
         }
 
@@ -165,7 +177,7 @@
         {
             var row = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate, destRowIndex: RowHeaderTemplate);
 
-            var headerTextList = new[]
+            var headerTextList = new List<string>
             {
                 "#",
                 ViewResources.PlayerName,
@@ -184,6 +196,12 @@
                 ViewResources.Status
             };
 
+            if (!_showPayout)
+            {
+                headerTextList.RemoveAt(ColumnPayoutUSD);
+                headerTextList.RemoveAt(ColumnPayout);
+            }
+
             SetTextRowHeader(row, headerTextList);
         }
 
@@ -197,7 +215,7 @@
 
         private void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
         {
-            _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount - _payoutUSDDiffColumn, ViewResources.NoInfo);
         }
 
         private void AssignSheetData(ISheet sheet, ISheet templateSheet, IEnumerable<AuditTicket> dataList)
@@ -216,16 +234,21 @@
 
         private void AssignTotalCurrency(ISheet sheet, ISheet templateSheet, int index)
         {
-            var row = _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate, index);
+            var row = _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate - _payoutDiffColumn, index);
             row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, "USD"));
             row.Cells[ColumnTurnoverUSD].SetCellValue((double)_totalData.TurnoverBased);
-            row.Cells[ColumnPayoutUSD].SetCellValue((double)_totalData.PayoutBased);
-            row.Cells[ColumnWLUSD].SetCellValue((double)_totalData.WinLossBased);
+            row.Cells[ColumnWLUSD - _payoutUSDDiffColumn].SetCellValue((double)_totalData.WinLossBased);
+            row.Cells[ColumnStatus - _payoutUSDDiffColumn].SetCellValue(string.Empty);
 
-            _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnIndex, lastCol: ColumnWL);
+            if (_showPayout)
+            {
+                row.Cells[ColumnPayoutUSD].SetCellValue((double)_totalData.PayoutBased);
+            }
+
+            _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnIndex, lastCol: ColumnWL - _payoutUSDDiffColumn);
         }
 
-        private static void AssignCellData(IRow row, AuditTicket item)
+        private void AssignCellData(IRow row, AuditTicket item)
         {
             row.Cells[ColumnIndex].SetCellValue(item.Index);
             row.Cells[ColumnPlayerName].SetCellValue(item.PlayerName);
@@ -236,12 +259,16 @@
             row.Cells[ColumnSport].SetCellValue(item.SportName);
             row.Cells[ColumnBetType].SetCellValue(item.BetType);
             row.Cells[ColumnTurnover].SetCellValue((double)item.Turnover);
-            row.Cells[ColumnPayout].SetCellValue((double)item.Payout);
-            row.Cells[ColumnWL].SetCellValue((double)item.WinLoss);
-            row.Cells[ColumnTurnoverUSD].SetCellValue((double)item.TurnoverBased);
-            row.Cells[ColumnPayoutUSD].SetCellValue((double)item.PayoutBased);
-            row.Cells[ColumnWLUSD].SetCellValue((double)item.WinLossBased);
-            row.Cells[ColumnStatus].SetCellValue(item.Status);
+            row.Cells[ColumnWL - _payoutDiffColumn].SetCellValue((double)item.WinLoss);
+            row.Cells[ColumnTurnoverUSD - _payoutDiffColumn].SetCellValue((double)item.TurnoverBased);
+            row.Cells[ColumnWLUSD - _payoutUSDDiffColumn].SetCellValue((double)item.WinLossBased);
+            row.Cells[ColumnStatus - _payoutUSDDiffColumn].SetCellValue(item.Status);
+
+            if (_showPayout)
+            {
+                row.Cells[ColumnPayout].SetCellValue((double)item.Payout);
+                row.Cells[ColumnPayoutUSD].SetCellValue((double)item.PayoutBased);
+            }
         }
 
         private void AssignTitle(ISheet sheet, ISheet templateSheet, DailyBetsMetaModel metaModel)
@@ -259,7 +286,7 @@
                 templateSheet,
                 sourceRowIndex: RowTitleTemplate,
                 destRowIndex: RowTitleTemplate,
-                columnCount: ColumnTemplateCount,
+                columnCount: ColumnTemplateCount - _payoutUSDDiffColumn,
                 value: reportTitle);
 
             sheet.CreateFreezePane(0, RowContentTemplate);
