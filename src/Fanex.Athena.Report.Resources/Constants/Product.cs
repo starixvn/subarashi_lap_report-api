@@ -71,5 +71,7 @@
         public const string YB = "YB";
 
         public const string L22 = "L22";
+
+        public const string VS3 = "VS3";
     }
 }

@@ -34,6 +34,11 @@
     <None Remove="App_Data\UserGuide\SettledMatchCount\th-TH.htm" />
     <None Remove="App_Data\UserGuide\WeeklyLiveMatches\id-ID.htm" />
     <None Remove="App_Data\UserGuide\WeeklyLiveMatches\th-TH.htm" />
+    <None Remove="App_Data\UserGuide\WinlossAnalysis\en-US.htm" />
+    <None Remove="App_Data\UserGuide\WinlossAnalysis\id-ID.htm" />
+    <None Remove="App_Data\UserGuide\WinlossAnalysis\th-TH.htm" />
+    <None Remove="App_Data\UserGuide\WinlossAnalysis\vi-VN.htm" />
+    <None Remove="App_Data\UserGuide\WinlossAnalysis\zh-CN.htm" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerRunningTicket.xlsx" />
     <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
