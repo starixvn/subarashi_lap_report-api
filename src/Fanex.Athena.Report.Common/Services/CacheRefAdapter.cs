@@ -106,5 +106,30 @@ namespace Fanex.Athena.Report.Common.Services
 
             return RemotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
         }
+
+        public string GetBettype(object bettypeId)
+        {
+            if (!IsValidId(bettypeId))
+            {
+                return string.Empty;
+            }
+
+            return RemotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
+        }
+
+        public string GetBetTypeName(object bettypeId, string languageCode, bool isHideSaba = false)
+        {
+            if (!IsValidId(bettypeId))
+            {
+                return string.Empty;
+            }
+
+            if (isHideSaba && SabaBetTypeMap.Contains(bettypeId.ToString()))
+            {
+                return ViewResources.ResourceManager.GetString($"BetType_{bettypeId}");
+            }
+
+            return RemotingRefService.GetBetTypeName(bettypeId.ToString(), languageCode);
+        }
     }
 }

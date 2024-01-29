@@ -1,4 +1,5 @@
-﻿namespace Fanex.Athena.Report.BySite.Controllers
+﻿
+namespace Fanex.Athena.Report.BySite.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,9 +10,13 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
     using Fanex.Athena.Report.Core.Attributes;
     using Fanex.Athena.Report.Core.Constants;
+    using Fanex.Athena.Report.Core.Models.DTOs;
     using Fanex.Athena.Report.Core.Services.Interfaces;
+    using Fanex.Athena.Report.Resources.Constants;
+    using Fanex.Athena.Report.Resources;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
 
@@ -29,6 +34,36 @@
         {
             _service = service;
             _contextService = contextService;
+        }
+        
+        [HttpPost]
+        [SkipRequestValidation]
+        public IActionResult Index([FromServices] IBaseCurrencyService baseCurrencyService, [FromServices] IProductService productService, [FromServices] IContextService contextService)
+        {
+            var productAccess = productService.GetSingleWalletProductAccess(
+                contextService.LicenseeId,
+                contextService.Language,
+                FunctionNames.LeagueWinLoss);
+
+            return Ok(new
+            {
+                productOptions = productAccess.SelectProductOptions(),
+                currencyList = contextService.CurrencyList.ToArray(),
+                isAllowedCustomerCommission = contextService.IsAllowedCustomerComm,
+                statusList = GetStatusList(),
+                defaultBaseCurrency = contextService.DefaultBaseCurrency,
+                baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToArray(),
+            });
+        }
+
+        private static IEnumerable<CheckedItem> GetStatusList()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = StatusTypes.Won, Name = ViewResources.Won, Checked = true },
+                new() { ID = StatusTypes.Lose, Name = ViewResources.Lost, Checked = true },
+                new() { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = true }
+            };
         }
 
         [HttpPost]

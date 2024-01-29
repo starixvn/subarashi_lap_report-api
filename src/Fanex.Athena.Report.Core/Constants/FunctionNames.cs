@@ -9,5 +9,7 @@
         public const string WeeklyLiveMatch = "WeeklyLiveMatch";
 
         public const string ExtraPayout = "ExtraPayout";
+
+        public const string LeagueWinLoss = "LeagueWinLoss";
     }
 }

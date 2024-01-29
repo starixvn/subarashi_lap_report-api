@@ -21,5 +21,9 @@ namespace Fanex.Athena.Report.Common.Services.Interfaces
         string[] GetBetBuilderSelectionNames(int[] selectionIds);
 
         string GetBettype(object bettypeId, bool isHideSaba);
+
+        string GetBettype(object bettypeId);
+
+        string GetBetTypeName(object bettypeId, string languageCode, bool isHideSaba = false);
     }
 }

@@ -10,5 +10,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         ProductAccess GetSingleWalletProductAccess(int licenseeId, string functionConfigKey = null);
 
         IList<ProductInfo> GetProductList(int licenseeId);
+
+        string GetAllowedSubProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes);
     }
 }

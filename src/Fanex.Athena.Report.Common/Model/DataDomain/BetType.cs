@@ -2,6 +2,18 @@
 {
     public static class BetType
     {
+        public const int Handicap = 1;
+
+        public const int OverUnder = 3;
+
+        public const int Ft1X2 = 5;
+
+        public const int FirstHalfHandicap = 7;
+
+        public const int FirstHalfOverUnder = 8;
+
+        public const int FirstHalf1X2 = 15;
+
         public const int PPTournamentPrize = 4299;
 
         public const int PPPromotionPrize = 4300;

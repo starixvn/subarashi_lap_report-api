@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Fanex.Athena.Report.Common.Settings;
+using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
@@ -100,6 +101,16 @@ namespace Fanex.Athena.Report.Core.Services
             var config = functions.FirstOrDefault(x => x.Attribute("Name").Value.Equals(configFunctionName, StringComparison.OrdinalIgnoreCase));
             return config == null ? new string[] { } : config.Attribute(nameof(Product)).Value.Split(',')
                     .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        }
+
+        public string GetAllowedSubProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes)
+        {
+            if (!offeredSubProductList.IsPresent() || !(productCodes?.Split(',')).IsPresent(_ => _ == Product.SB))
+            {
+                return productCodes;
+            }
+
+            return productCodes + "," + string.Join(",", offeredSubProductList);
         }
 
         private static void MapProductName(IList<ProductInfo> productList) 

@@ -6,6 +6,7 @@
 
         public const string PlayerSabaCoins = "SabaCoins";
         public const string DisplayPlayerTips_ExtraPayoutReportOnly = "DisplayPlayerTips_ExtraPayoutReportOnly";
+        public const string PlayerVIPManagement = "PlayerSegmentation_VIPManagement";
 
         public const string ExtraPayout = "ExtraPayout";
         public const string CustomerSupportTask = "CustomerSupportTask";

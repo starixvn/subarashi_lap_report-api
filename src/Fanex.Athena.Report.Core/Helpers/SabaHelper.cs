@@ -10,6 +10,7 @@ namespace Fanex.Athena.Report.Core.Helpers
             {
                 return true;
             }
+
             return false;
         }
     }

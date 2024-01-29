@@ -23,6 +23,10 @@ namespace Fanex.Athena.Report.Core
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddScoped<IDbFactory, DbFactory>();
+            services.AddTransient<IBetTypeService, BetTypeService>();
+            services.AddTransient<ISportService, SportService>();
+            services.AddTransient<IBetTypeRepository, BetTypeRepository>();
+            services.AddTransient<ISportRepository, SportRepository>();
             return services;
         }
     }
