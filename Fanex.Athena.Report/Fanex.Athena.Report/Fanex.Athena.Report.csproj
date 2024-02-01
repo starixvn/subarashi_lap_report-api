@@ -90,6 +90,9 @@
 	<Content Include="SpConfig\FanexSpName.KLDR.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
+	<Content Include="ExcelTemplate\DailyBetDetails.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
 	<Content Include="SpConfig\FanexSpName.UAT_2.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>

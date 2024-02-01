@@ -746,4 +746,7 @@
   <data name="L22" xml:space="preserve">
     <value>Live22</value>
   </data>
+  <data name="DailyBetDetails" xml:space="preserve">
+    <value>Daily Bet Details</value>
+  </data>
 </root>
