@@ -81,5 +81,35 @@ namespace Fanex.Athena.Report.Core.Repositories
 
             return betTypes;
         }
+
+        public async Task<IEnumerable<(string ProductCode, int BetType)>> GetBetTypeForProductsAsync(int licenseeId, string productCodes)
+        {
+            const string UspName = "LAP_Rpt_WinlossAnalysis_BettypeSel";
+
+            IList<(string ProductCode, int BetType)> results = new List<(string ProductCode, int BetType)>();
+
+            if (string.IsNullOrEmpty(productCodes))
+            {
+                return results;
+            }
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("productCodes", productCodes);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    while (reader.Read())
+                    {
+                        var productCode = reader["ProductCode"].ToString();
+                        var betType = int.Parse(reader["Bettype"].ToString());
+
+                        results.Add((productCode, betType));
+                    }
+                }
+            }
+
+            return results;
+        }
     }
 }

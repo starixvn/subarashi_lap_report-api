@@ -6,6 +6,7 @@ using Fanex.Athena.Report.Core.Utility;
 using Fanex.Athena.Report.Core.Utility.Interfaces;
 using Fanex.Core.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Fanex.Athena.Report.Core
 {
@@ -27,6 +28,7 @@ namespace Fanex.Athena.Report.Core
             services.AddTransient<ISportService, SportService>();
             services.AddTransient<IBetTypeRepository, BetTypeRepository>();
             services.AddTransient<ISportRepository, SportRepository>();
+            services.AddTransient<ICustomerClassService, CustomerClassService>();
             return services;
         }
     }

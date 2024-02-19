@@ -12,5 +12,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         IList<ProductInfo> GetProductList(int licenseeId);
 
         string GetAllowedSubProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes);
+
+        bool IsOfferCashOutProduct(int licenseeId, string languageCode);
     }
 }

@@ -403,7 +403,7 @@
     <value>การแข่งขัน</value>
   </data>
   <data name="MixLiveAndNoneLive" xml:space="preserve">
-    <value>Mix แทงบอลสด &amp;amp; ไม่แทงบอลสด</value>
+    <value>Mix แทงบอลสด &amp; ไม่แทงบอลสด</value>
   </data>
   <data name="Mobile" xml:space="preserve">
     <value>โทรศัพท์มือถือ</value>

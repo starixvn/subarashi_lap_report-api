@@ -4,6 +4,10 @@ namespace Fanex.Athena.Report.Core.Helpers
 {
     public static class DateTimeHelper
     {
+        public static Func<DateTimeOffset> DateTimeOffsetProvider { get; set; } = () => DateTimeOffset.Now;
+
+        public static DateTime Now => DateTimeOffsetProvider().DateTime;
+
         public static DateTime GetMaxDate(DateTime dateOne, DateTime dateTwo) => dateOne > dateTwo ? dateOne : dateTwo;
 
         public static DateTime GetMinDate(DateTime dateOne, DateTime dateTwo) => dateOne < dateTwo ? dateOne : dateTwo;

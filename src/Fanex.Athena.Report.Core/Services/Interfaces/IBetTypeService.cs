@@ -7,5 +7,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
     public interface IBetTypeService
     {
         Task<IList<CheckedItem>> GetBetTypesByProduct(int licenseeId, string productCode, string languageCode, bool isHideSaba = false);
+
+        Task<IEnumerable<CheckedItem>> GetBetTypeForProducts(int licenseeId, string lang, string productCodes, bool isHideSaba = false);
     }
 }

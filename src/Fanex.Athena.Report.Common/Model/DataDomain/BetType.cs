@@ -78,6 +78,8 @@
 
         public const int Live22Promotion = 7698;
 
+        public const int VirtualSportCorrectScoreTennis = 1235;
+        
         public const int SabaCoinsCashExchange = 17008;
 
         public const int PromotionJackpotPrize = 17009;

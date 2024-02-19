@@ -13,6 +13,10 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
 
         string SiteDBServer { get; }
 
+        int UserId { get; }
+
+        byte UserLevel { get; }
+
         IReadOnlyDictionary<int, int[]> AgentList { get; }
 
         IReadOnlyDictionary<int, string> CurrencyList { get; }
@@ -42,5 +46,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         int WhiteLabelID { get; }
 
         string DefaultBaseCurrency { get; }
+
+        IEnumerable<string> OfferedOddsGroupsList { get; }
     }
 }

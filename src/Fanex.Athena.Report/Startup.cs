@@ -45,7 +45,7 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddHttpClient();
             services.AddControllers(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()

@@ -9,7 +9,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "");
 
         Task<IEnumerable<SportProductItem>> GetSportAndProductAndSabaSport(int licenseeId, string languageCode, string productCodes = "", bool isHideSaba = false);
+
+        Task<IEnumerable<CheckedItem>> GetSportsForTreeView(int licenseeId, string languageCode, string productCodes = "", bool isHideSaba = false);
     }
-
-
 }

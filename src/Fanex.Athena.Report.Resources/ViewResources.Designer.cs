@@ -1060,7 +1060,7 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mix Live &amp;amp; Non-Live.
+        ///   Looks up a localized string similar to Mix Live &amp; Non-Live.
         /// </summary>
         public static string MixLiveAndNoneLive {
             get {

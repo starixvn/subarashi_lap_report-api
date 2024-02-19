@@ -68,5 +68,15 @@ namespace Fanex.Athena.Report.Core.Repositories
                 }
             }
         }
+
+        public async Task<IEnumerable<SportForTreeViewItem>> GetSportsForTreeView(int licenseeId, string productCodes)
+        {
+            const string UspName = "LAP_Rpt_WinlossAnalysis_SportSel";
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                return await db.QueryAsync<SportForTreeViewItem>(new { licenseeId, productCodes });
+            }
+        }
     }
 }

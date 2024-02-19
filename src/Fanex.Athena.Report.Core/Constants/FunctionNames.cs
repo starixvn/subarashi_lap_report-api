@@ -11,5 +11,7 @@
         public const string ExtraPayout = "ExtraPayout";
 
         public const string LeagueWinLoss = "LeagueWinLoss";
+
+        public const string WinLossAnalysis = "WinlossAnalysis";
     }
 }
