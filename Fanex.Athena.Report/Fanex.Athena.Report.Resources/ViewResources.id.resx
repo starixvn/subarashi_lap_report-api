@@ -211,7 +211,7 @@
     <value>Saldo Penutupan</value>
   </data>
   <data name="CO" xml:space="preserve">
-    <value>Penarikan Tunai</value>
+    <value>Penukaran Instan</value>
   </data>
   <data name="Comm" xml:space="preserve">
     <value>Komisi</value>
@@ -436,7 +436,7 @@
     <value>Lainnya</value>
   </data>
   <data name="Over" xml:space="preserve">
-    <value>Lebih</value>
+    <value>Besar</value>
   </data>
   <data name="Parlay" xml:space="preserve">
     <value>Parlay</value>
@@ -598,7 +598,7 @@
     <value>%Omset</value>
   </data>
   <data name="Under" xml:space="preserve">
-    <value>Di bawah</value>
+    <value>Kecil</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nama Pengguna</value>
@@ -643,7 +643,7 @@
     <value>Menang</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
-    <value>Menang atau kalah</value>
+    <value>Menang-Kalah</value>
   </data>
   <data name="WinlossAnalysis" xml:space="preserve">
     <value>Analisis Menang Kalah</value>
