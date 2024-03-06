@@ -37,6 +37,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 AddCommonParameter(objectDb, metaModel);
                 objectDb.SetParameterValue("IsVIPOnly", metaModel.IsVipOnly);
                 objectDb.SetParameterValue("CustomerClass", metaModel.CustomerClass);
+                objectDb.SetParameterValue("FullCustomerClass", metaModel.FullCustomerClass);
                 objectDb.SetParameterValue("OddsGroup", metaModel.OddsGroup);
                 objectDb.SetParameterValue("SearchMode", metaModel.SearchMode);
                 if (!string.IsNullOrEmpty(metaModel.SearchUserName))

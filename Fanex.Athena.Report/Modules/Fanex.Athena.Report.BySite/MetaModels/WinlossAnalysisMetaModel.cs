@@ -37,6 +37,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public string CustomerClass { get; set; }
 
+        public string FullCustomerClass { get; set; }
+
         public string OddsGroup { get; set; }
 
         public string SearchUserName { get; set; }
