@@ -447,6 +447,11 @@
 
         public string GetPromotionName(int promotionType)
         {
+            if (promotionType == ExtraPayoutMapType.SBParlayBoost)
+            {
+                return ViewResources.ParlayBoost;
+            }
+
             promotionType = _extraPayoutMapType.TryGetValue(promotionType, out int mapExtraPayoutType) ? mapExtraPayoutType : promotionType;
 
             if (SBPromotionBettypes.Contains(promotionType))
