@@ -52,7 +52,7 @@
         {
             { 0, () => ViewResources.Draw },
             { 1, () => ViewResources.Won },
-            { -1, () => ViewResources.Lose }
+            { -1, () => ViewResources.Lost }
         };
     }
 }

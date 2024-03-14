@@ -369,7 +369,7 @@
   <data name="Location" xml:space="preserve">
     <value>Lokasi</value>
   </data>
-  <data name="Lose" xml:space="preserve">
+  <data name="Lost" xml:space="preserve">
     <value>Kalah</value>
   </data>
   <data name="Loss" xml:space="preserve">

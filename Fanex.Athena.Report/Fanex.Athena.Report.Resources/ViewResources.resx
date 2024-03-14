@@ -261,8 +261,8 @@
   <data name="Draw" xml:space="preserve">
     <value>Draw</value>
   </data>
-  <data name="Lose" xml:space="preserve">
-    <value>Lose</value>
+  <data name="Lost" xml:space="preserve">
+    <value>Lost</value>
   </data>
   <data name="Won" xml:space="preserve">
     <value>Won</value>
