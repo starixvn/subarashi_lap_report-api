@@ -54,7 +54,7 @@
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    return GetLeagueData(reader);
+                    return GetLeagueData(reader, metaModel.IsHideSaba);
                 }
             }
         }
@@ -83,7 +83,7 @@
             return sumData;
         }
 
-        private void BuildSportTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList)
+        private void BuildSportTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, bool isHideSaba)
         {
             var sportList = data.Where(_ => _.SportType >= 0).Select(_ => _.SportType).Distinct().OrderBy(_ => _).ToList();
             sportList.AddRange(data.Where(_ => ProductDirectToCurrency.Contains(_.SportType)).OrderBy(_ => _.SportType).Select(_ => _.SportType).Distinct().ToList());
@@ -97,7 +97,7 @@
                 var leagueId = sportDetail.FirstOrDefault()?.LeagueId;
 
                 sportData.SportType = sport;
-                sportData.SportName = GetSportName(sport);
+                sportData.SportName = GetSportName(sport, isHideSaba);
                 sportData.Index = index++;
                 sportData.Detail = sportDetail;
                 if (sport == Parlay || ProductDirectToCurrency.Contains(sport))
@@ -110,7 +110,7 @@
             }
         }
 
-        private string GetSportName(int sport)
+        private string GetSportName(int sport, bool isHideSaba)
         {
             if (sport == Parlay)
             {
@@ -131,7 +131,9 @@
                 var sabaSportName = sabaSport.Item2 != 0
                     ? _cacheRefAdapter.GetSportName(sabaSport.Item2)
                     : ViewResources.ResourceManager.GetString(sabaSport.Item3);
-                return ViewResources.Saba + (sabaSportName);
+
+                var prefix = isHideSaba ? ViewResources.Virtual : ViewResources.Saba;
+                return prefix + sabaSportName;
             }
         }
 
@@ -163,14 +165,22 @@
             db.SetParameterValue("BaseCurrency", !metaModel.IsGroupInOriginalCurrency || applyBaseCurrency ? metaModel.BaseCurrency.ToUpperInvariant() : string.Empty);
         }
 
-        private string GetLeagueName(int leagueId, int sportType = 0)
+        private string GetLeagueName(int leagueId, bool isHideSaba, int sportType = 0)
         {
             var leagueName = sportType == SportType.BitCoin ? _cacheRefAdapter.GetLeagueName3rd(leagueId) : _cacheRefAdapter.GetLeagueName(leagueId);
+            if (isHideSaba)
+            {
+                leagueName = System.Text.RegularExpressions.Regex.Replace(
+                        leagueName, ViewResources.Saba
+                        , string.Empty
+                        , System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            }
             return leagueName;
         }
 
         private SortableReportResultModel<LeagueWinLoss> GetLeagueData(
-            IDataReader reader)
+            IDataReader reader,
+            bool isHideSaba)
         {
             var dataList = new SortableList<LeagueWinLoss>();
             var data = new List<LeagueWinLoss>();
@@ -184,14 +194,14 @@
                 {
                     SportType = ProductDirectToCurrency.Contains(leagueId) ? leagueId : sportType,
                     LeagueId = leagueId,
-                    LeagueName = GetLeagueName(leagueId, sportType)
+                    LeagueName = GetLeagueName(leagueId, isHideSaba, sportType)
                 };
                 ReadCommonData(reader, item);
 
                 data.Add(item);
             }
 
-            BuildSportTotalData(data, dataList);
+            BuildSportTotalData(data, dataList, isHideSaba);
 
             return new SortableReportResultModel<LeagueWinLoss>
             {
@@ -236,13 +246,13 @@
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    return GetMatchData(reader, metaModel.LeagueId);
+                    return GetMatchData(reader, metaModel.LeagueId, metaModel.IsHideSaba);
                 }
             }
         }
 
         private SortableReportResultModel<LeagueWinLoss> GetMatchData(
-            IDataReader reader, int leagueId)
+            IDataReader reader, int leagueId, bool isHideSaba)
         {
             var dataList = new SortableList<LeagueWinLoss>();
             var data = new List<LeagueWinLoss>();
@@ -269,7 +279,7 @@
                 data.Add(item);
             }
 
-            BuildLeagueTotalData(data, dataList, leagueId);
+            BuildLeagueTotalData(data, dataList, leagueId, isHideSaba);
 
             return new SortableReportResultModel<LeagueWinLoss>
             {
@@ -278,11 +288,11 @@
             };
         }
 
-        private void BuildLeagueTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, int leagueId)
+        private void BuildLeagueTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, int leagueId, bool isHideSaba)
         {
             var leagueData = GetSumData(data);
             leagueData.Detail = data.OrderBy(_ => _.EventType).ThenBy(_ => _.MatchId);
-            leagueData.LeagueName = GetLeagueName(leagueId);
+            leagueData.LeagueName = GetLeagueName(leagueId, isHideSaba);
             dataList.Add(leagueData);
         }
 
@@ -319,7 +329,7 @@
                 var item = new LeagueWinLoss
                 {
                     BetTypeId = betTypeId,
-                    BetTypeName = _cacheRefAdapter.GetBettype(betTypeId),
+                    BetTypeName = _cacheRefAdapter.GetBettype(betTypeId, metaModel.IsHideSaba),
                     MatchId = metaModel.MatchId,
                     EventType = metaModel.EventType
                 };

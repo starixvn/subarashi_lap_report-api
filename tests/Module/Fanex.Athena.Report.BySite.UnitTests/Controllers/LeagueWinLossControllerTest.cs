@@ -10,6 +10,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Core.Services;
 using Microsoft.Extensions.FileProviders;
 using Moq;
 using Newtonsoft.Json;
@@ -38,7 +39,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                     .Create();
 
             var service = new Mock<ILeagueWinLossService>();
-            var controller = new LeagueWinLossController(service.Object);
+            var context = new Mock<IContextService>();
+
+            var controller = new LeagueWinLossController(service.Object, context.Object);
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
             var expectedResult = JsonConvert.SerializeObject(new
@@ -62,7 +65,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedData = _fixture.Build<SortableReportResultModel<LeagueWinLoss>>().Create();
 
             var service = new Mock<ILeagueWinLossService>();
-            var controller = new LeagueWinLossController(service.Object);
+            var context = new Mock<IContextService>();
+
+            var controller = new LeagueWinLossController(service.Object, context.Object);
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
             var expectedResult = JsonConvert.SerializeObject(new
@@ -88,7 +93,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                     .Create();
 
             var service = new Mock<ILeagueWinLossService>();
-            var controller = new LeagueWinLossController(service.Object);
+            var context = new Mock<IContextService>();
+
+            var controller = new LeagueWinLossController(service.Object, context.Object);
             service.Setup(r => r.GetCurrencyDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
             var expectedResult = JsonConvert.SerializeObject(new LeagueWinLossResultModel
@@ -111,7 +118,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedData = _fixture.Build<SortableReportResultModel<LeagueWinLoss>>().Create();
 
             var service = new Mock<ILeagueWinLossService>();
-            var controller = new LeagueWinLossController(service.Object);
+            var context = new Mock<IContextService>();
+
+            var controller = new LeagueWinLossController(service.Object, context.Object);
             service.Setup(r => r.GetCurrencyDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
             var expectedResult = JsonConvert.SerializeObject(new
@@ -141,7 +150,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             fileProvider.Setup(f => f.GetFileInfo("/ExcelTemplate/LeagueWinLoss.xls")).Returns(fileInfo);
 
             var service = new Mock<ILeagueWinLossService>();
-            var controller = new LeagueWinLossController(service.Object);
+            var context = new Mock<IContextService>();
+
+            var controller = new LeagueWinLossController(service.Object, context.Object);
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
             var excelService = new Mock<ILeagueWinLossExcel>();

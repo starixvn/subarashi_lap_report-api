@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
+using Fanex.Athena.Report.Core.Helpers;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class AbnormalBetMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel
+    public class AbnormalBetMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, ISpecialPlatformMetaModel
     {
         public int ViewIn { get; set; }
 
@@ -64,5 +66,9 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public bool IsConvertAllToBaseCurrency { get; set; }
 
         public bool IsShowIpvn { get; set; }
+
+        public int SpecialPlatform { get ; set ; }
+
+        public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
     }
 }

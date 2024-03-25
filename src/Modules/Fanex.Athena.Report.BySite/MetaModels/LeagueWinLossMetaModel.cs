@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using Fanex.Athena.Report.Common.Model.MetaModels;
+using Fanex.Athena.Report.Core.Helpers;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class LeagueWinLossMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, IMetaModelProductCodeList
+    public class LeagueWinLossMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, IMetaModelProductCodeList, ISpecialPlatformMetaModel
     {
         public int LeagueId { get; set; }
 
@@ -56,5 +58,9 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public string CurrencyIdList { get; set; }
 
         public bool IsGroupInOriginalCurrency { get; set; }
+
+        public int SpecialPlatform { get; set; }
+
+        public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
     }
 }

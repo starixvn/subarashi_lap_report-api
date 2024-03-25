@@ -92,7 +92,7 @@ namespace Fanex.Athena.Report.Common.Services
             return RemotingRefService.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public string GetBettype(object bettypeId, bool isHideSaba = false)
+        public string GetBettype(object bettypeId, bool isHideSaba)
         {
             if (!IsValidId(bettypeId))
             {

@@ -8,6 +8,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 
@@ -20,9 +21,16 @@ namespace Fanex.Athena.Report.BySite.Controllers
     [AutoBindingMetaModel(bindAgent: true)]
     public class ExtraPayoutController : ControllerBase
     {
+        private readonly IContextService _contextService;
+
+        public ExtraPayoutController(IContextService contextService) { 
+            _contextService = contextService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> GetData([FromBody] ExtraPayoutMetaModel metaModel, [FromServices] IExtraPayoutService service)
         {
+            AssignCommonMetaModel(metaModel);
             var result = await service.GetDataAsync(metaModel);
 
             if (!result.DataList.Any())
@@ -42,6 +50,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
         [HttpPost]
         public async Task<IActionResult> GetDetailData([FromBody] ExtraPayoutDetailMetaModel metaModel, [FromServices] IExtraPayoutService service)
         {
+            AssignCommonMetaModel(metaModel);
             var result = await service.GetDetailDataAsync(metaModel).ConfigureAwait(false);
 
             if (!result.DataList.Any())
@@ -67,6 +76,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             [FromServices] IExtraPayoutExcel excel,
             [FromBody] ExtraPayoutMetaModel metaModel)
         {
+            AssignCommonMetaModel(metaModel);
             metaModel.IsExportExcel = true;
             var template = file.GetFileInfo("/ExcelTemplate/ExtraPayout.xls").PhysicalPath;
             var result = await service.GetDataAsync(metaModel).ConfigureAwait(false);
@@ -81,6 +91,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             [FromServices] IExtraPayoutDetailExcel excel,
             [FromBody] ExtraPayoutDetailMetaModel metaModel)
         {
+            AssignCommonMetaModel(metaModel);
             metaModel.IsExportExcel = true;
             var template = file.GetFileInfo("/ExcelTemplate/ExtraPayoutDetail.xls").PhysicalPath;
             var result = await service.GetDetailDataAsync(metaModel).ConfigureAwait(false);
@@ -96,6 +107,11 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 TotalCurrency = new List<ExtraPayout>(),
                 TotalSummary = new ExtraPayout()
             };
+        }
+
+        private void AssignCommonMetaModel(ExtraPayoutMetaModel metaModel)
+        {
+            metaModel.SpecialPlatform = _contextService.SpecialPlatform;
         }
     }
 }
