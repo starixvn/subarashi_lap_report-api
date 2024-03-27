@@ -387,7 +387,7 @@
   <data name="Location" xml:space="preserve">
     <value>Vị trí</value>
   </data>
-  <data name="Lose" xml:space="preserve">
+  <data name="Lost" xml:space="preserve">
     <value>Thua</value>
   </data>
   <data name="Loss" xml:space="preserve">

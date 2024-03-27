@@ -934,20 +934,20 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lose.
-        /// </summary>
-        public static string Lose {
-            get {
-                return ResourceManager.GetString("Lose", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Loss.
         /// </summary>
         public static string Loss {
             get {
                 return ResourceManager.GetString("Loss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lost.
+        /// </summary>
+        public static string Lost {
+            get {
+                return ResourceManager.GetString("Lost", resourceCulture);
             }
         }
         

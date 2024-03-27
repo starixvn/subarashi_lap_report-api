@@ -258,7 +258,7 @@
   <data name="Draw" xml:space="preserve">
     <value>和局</value>
   </data>
-  <data name="Lose" xml:space="preserve">
+  <data name="Lost" xml:space="preserve">
     <value>输</value>
   </data>
   <data name="Won" xml:space="preserve">
