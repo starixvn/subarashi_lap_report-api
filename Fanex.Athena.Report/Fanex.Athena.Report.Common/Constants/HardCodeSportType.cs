@@ -19,5 +19,7 @@
         public const int SabaCricket = -8;
 
         public const int SabaTennis = -9;
+
+        public const int SabaIceHockey = -10;
     }
 }
