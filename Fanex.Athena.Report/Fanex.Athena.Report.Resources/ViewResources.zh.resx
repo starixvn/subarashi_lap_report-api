@@ -627,4 +627,7 @@
   <data name="BetId" xml:space="preserve">
     <value>投注单号</value>
   </data>
+  <data name="UUSL" xml:space="preserve">
+    <value>UU 老虎机</value>
+  </data>
 </root>

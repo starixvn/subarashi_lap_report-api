@@ -749,4 +749,7 @@
   <data name="DailyBetDetails" xml:space="preserve">
     <value>Daily Bet Details</value>
   </data>
+  <data name="UUSL" xml:space="preserve">
+    <value>UU SLOTS</value>
+  </data>
 </root>
