@@ -52,6 +52,7 @@
 	<None Remove="SpConfig\FanexSpName.PROD.xml" />
 	<None Remove="SpConfig\FanexSpName.SIT.xml" />
 	<None Remove="SpConfig\FanexSpName.SIT_1.xml" />
+	<None Remove="SpConfig\FanexSpName.STAGING.xml" />
 	<None Remove="SpConfig\FanexSpName.UAT.xml" />
 	<None Remove="SpConfig\FanexSpName.UAT_1.xml" />
 	<None Remove="SpConfig\FanexSpName.UAT_2.xml" />
@@ -110,6 +111,9 @@
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
 	<Content Include="ExcelTemplate\DailyBets.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="SpConfig\FanexSpName.STAGING.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
 	<Content Include="SpConfig\FanexSpName.KLDR.xml">
