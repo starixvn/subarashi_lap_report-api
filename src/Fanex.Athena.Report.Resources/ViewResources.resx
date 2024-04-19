@@ -815,6 +815,30 @@
   <data name="ProductL22" xml:space="preserve">
     <value>Live22</value>
   </data>
+  <data name="IsNeutral" xml:space="preserve">
+    <value>(N)</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>Number Game No</value>
+  </data>
+  <data name="MatchWinLossTitle" xml:space="preserve">
+    <value>Match Win Loss, {0} - {1}</value>
+  </data>
+  <data name="ProductNG" xml:space="preserve">
+    <value>Number Game</value>
+  </data>
+  <data name="ProductVS" xml:space="preserve">
+    <value>Virtual Sports</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>Bet List</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>Outright</value>
+  </data>
   <data name="PTRNG" xml:space="preserve">
     <value>Playtech</value>
   </data>

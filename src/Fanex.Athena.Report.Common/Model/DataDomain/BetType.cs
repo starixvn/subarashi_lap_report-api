@@ -12,7 +12,19 @@
 
         public const int FirstHalfOverUnder = 8;
 
+        public const int MixParlay = 9;
+
+        public const int Outright = 10;
+
         public const int FirstHalf1X2 = 15;
+
+        public const int CombinationMixParlay = 29;
+
+        public const int BeginHappy5LinkedGames = 3601;
+
+        public const int EndHappy5LinkedGames = 3610;
+
+        public const int VirtualSports2MixParlay = 2799;
 
         public const int PPTournamentPrize = 4299;
 

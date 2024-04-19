@@ -48,5 +48,9 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         string DefaultBaseCurrency { get; }
 
         IEnumerable<string> OfferedOddsGroupsList { get; }
+
+        bool IsShowIpVn { get; }
+
+        bool IsShowIp { get; }
     }
 }

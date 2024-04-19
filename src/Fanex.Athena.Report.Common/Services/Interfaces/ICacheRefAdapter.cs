@@ -25,5 +25,7 @@ namespace Fanex.Athena.Report.Common.Services.Interfaces
         string GetBettype(object bettypeId);
 
         string GetBetTypeName(object bettypeId, string languageCode, bool isHideSaba = false);
+
+        string GetBettypeWithProductName(int betType, string productCode = "", bool liveIndicator = false);
     }
 }

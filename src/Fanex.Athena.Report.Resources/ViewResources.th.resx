@@ -738,6 +738,30 @@
   <data name="ProductL22" xml:space="preserve">
     <value>Live22</value>
   </data>
+  <data name="IsNeutral" xml:space="preserve">
+    <value>สนามกลาง</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>เลขเกมตัวเลข</value>
+  </data>
+  <data name="MatchWinLossTitle" xml:space="preserve">
+    <value>การแข่งขัน ชนะ แพ้, {0} - {1}</value>
+  </data>
+  <data name="ProductNG" xml:space="preserve">
+    <value>เกมตัวเลข</value>
+  </data>
+  <data name="ProductVS" xml:space="preserve">
+    <value>กีฬาเสมือนจริง</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>ผลรวมทั้งสิ้น</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>รายการเดิมพัน</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>แทงบอลทายผลชนะเลิศ</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>วันที่การเงิน</value>
   </data>

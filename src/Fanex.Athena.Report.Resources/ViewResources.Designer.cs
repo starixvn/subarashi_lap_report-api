@@ -259,6 +259,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet List.
+        /// </summary>
+        public static string BetList {
+            get {
+                return ResourceManager.GetString("BetList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string BetType {
@@ -790,6 +799,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grand Total.
+        /// </summary>
+        public static string GrandTotal {
+            get {
+                return ResourceManager.GetString("GrandTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GPI Live Casino.
         /// </summary>
         public static string GPILC {
@@ -867,6 +885,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string IpSummary {
             get {
                 return ResourceManager.GetString("IpSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (N).
+        /// </summary>
+        public static string IsNeutral {
+            get {
+                return ResourceManager.GetString("IsNeutral", resourceCulture);
             }
         }
         
@@ -1051,6 +1078,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match Win Loss, {0} - {1}.
+        /// </summary>
+        public static string MatchWinLossTitle {
+            get {
+                return ResourceManager.GetString("MatchWinLossTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MG-RNG.
         /// </summary>
         public static string MGRNG {
@@ -1204,6 +1240,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number Game No.
+        /// </summary>
+        public static string NumberGameNo {
+            get {
+                return ResourceManager.GetString("NumberGameNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odds.
         /// </summary>
         public static string Odds {
@@ -1245,6 +1290,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outright.
+        /// </summary>
+        public static string Outright {
+            get {
+                return ResourceManager.GetString("Outright", resourceCulture);
             }
         }
         
@@ -1402,6 +1456,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number Game.
+        /// </summary>
+        public static string ProductNG {
+            get {
+                return ResourceManager.GetString("ProductNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PP.
         /// </summary>
         public static string ProductPP {
@@ -1443,6 +1506,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ProductVGA {
             get {
                 return ResourceManager.GetString("ProductVGA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Sports.
+        /// </summary>
+        public static string ProductVS {
+            get {
+                return ResourceManager.GetString("ProductVS", resourceCulture);
             }
         }
         

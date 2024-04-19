@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
+using Fanex.Athena.Report.Resources.Constants;
 using Fanex.RemotingRef;
 
 namespace Fanex.Athena.Report.Common.Services
@@ -130,6 +131,18 @@ namespace Fanex.Athena.Report.Common.Services
             }
 
             return RemotingRefService.GetBetTypeName(bettypeId.ToString(), languageCode);
+        }
+
+        public string GetBettypeWithProductName(int betType, string productCode = "", bool liveIndicator = false)
+        {
+            var betTypeName = GetBettype(betType, liveIndicator);
+
+            if (productCode == Product.VS2)
+            {
+                return betTypeName + " (" + ViewResources.ProductVS + ")";
+            }
+
+            return betTypeName;
         }
     }
 }

@@ -141,8 +141,8 @@
         private static IEnumerable<ProductInfo> MoveBaProductToBelowSportBook(ReadOnlyCollection<ProductInfo> productList)
         {
             var list = productList.ToList();
-            var baProduct = list.FirstOrDefault(c => c.ProductID == ProductTypes.BA);
-            var sbProduct = list.FirstOrDefault(c => c.ProductID == ProductTypes.Sportsbook);
+            var baProduct = list.Find(c => c.ProductID == ProductTypes.BA);
+            var sbProduct = list.Find(c => c.ProductID == ProductTypes.Sportsbook);
             if (baProduct != null && sbProduct != null)
             {
                 list.Remove(baProduct);

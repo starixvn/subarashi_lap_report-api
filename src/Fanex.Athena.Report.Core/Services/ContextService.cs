@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -74,6 +75,10 @@ namespace Fanex.Athena.Report.Core.Services
         public byte UserLevel => GetClaimValue<byte>("UserLevel");
 
         public int WhiteLabelID => GetClaimValue("WhiteLabelID", -1);
+
+        public bool IsShowIp => GetClaimValue("IsShowIP", true);
+
+        public bool IsShowIpVn => IsShowIp && IsInRoles("Administrator", Roles.BetListViewIpVn);
 
         public string DefaultBaseCurrency => GetClaimValue("DefaultBaseCurrency", "EUR");
 

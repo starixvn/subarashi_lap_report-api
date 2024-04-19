@@ -687,6 +687,30 @@
   <data name="ProductL22" xml:space="preserve">
     <value>Live22</value>
   </data>
+  <data name="IsNeutral" xml:space="preserve">
+    <value>(N)</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>百练赛编号</value>
+  </data>
+  <data name="MatchWinLossTitle" xml:space="preserve">
+    <value>球赛输赢, {0} - {1}</value>
+  </data>
+  <data name="ProductNG" xml:space="preserve">
+    <value>百练赛</value>
+  </data>
+  <data name="ProductVS" xml:space="preserve">
+    <value>虚拟运动</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>累计</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>投注历史</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>优胜冠军</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>依财务日期时间搜寻</value>
   </data>

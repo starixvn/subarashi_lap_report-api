@@ -60,6 +60,9 @@
             services.AddTransient<IPlayerSabaCoinsRepository, PlayerSabaCoinsRepository>();
             services.AddTransient<IPlayerSabaCoinsService, PlayerSabaCoinsService>();
             services.AddTransient<IPlayerSabaCoinsExcel, PlayerSabaCoinsExcel>();
+            services.AddTransient<IMatchWinLossService, MatchWinLossService>();
+            services.AddTransient<IMatchWinLossRepository, MatchWinLossRepository>();
+            services.AddTransient<IMatchWinLossExcel, MatchWinLossExcel>();
             return services;
         }
     }

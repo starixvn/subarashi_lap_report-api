@@ -45,7 +45,10 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var settings = Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
             services.AddHttpClient();
+            services.AddBetListApiClient(settings);
+
             services.AddControllers(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -95,6 +98,7 @@
                     .AddCommon()
                     .AddByPlayerModule()
                     .AddBySiteModule();
+
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;

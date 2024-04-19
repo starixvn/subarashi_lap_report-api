@@ -35,14 +35,12 @@ namespace Fanex.Athena.Report.Core.Helpers
             }
             else
             {
-                foreach (var currencyId in currencyIdList)
-                {
-                    if (currencyAgentList.ContainsKey(currencyId))
-                    {
-                        var agentList = currencyAgentList.Single(x => x.Key == currencyId).Value;
-                        result.Append(GenerateAgentXmlBody(currencyId, agentList));
-                    }
-                }
+                var agentList = currencyIdList
+                               .Where(currencyId => currencyAgentList.ContainsKey(currencyId))
+                               .Select(currencyId => (currencyId, agents: currencyAgentList[currencyId]))
+                               .Select(tuple => GenerateAgentXmlBody(tuple.currencyId, tuple.agents));
+
+                result.Append(string.Concat(agentList));
             }
 
             result.Append("</ROOT>");

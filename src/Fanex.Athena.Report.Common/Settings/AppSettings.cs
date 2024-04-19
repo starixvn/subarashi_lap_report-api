@@ -14,5 +14,9 @@ namespace Fanex.Athena.Report.Common.Settings
 
         public List<string> CryptoLicenseesSupportBaseEur { get; set; }
 
+        public string BetListApiHostUrl { get; set; }
+
+        public string BetListApiTokenValue { get; set; }
+
     }
 }

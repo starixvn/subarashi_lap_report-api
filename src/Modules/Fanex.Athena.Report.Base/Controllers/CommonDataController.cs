@@ -15,7 +15,7 @@ namespace Fanex.Athena.Report.Base.Controllers
     [Route("api/[controller]/[action]")]
     public class CommonDataController : Controller
     {
-        private static readonly string MemoryCacheBetTypeForTreeView = "MemoryCache_BetType_TreeView";
+        private const string MemoryCacheBetTypeForTreeView = "MemoryCache_BetType_TreeView";
 
         private readonly IContextService _contextService;
 

@@ -762,6 +762,30 @@
   <data name="ProductL22" xml:space="preserve">
     <value>ProductL22</value>
   </data>
+  <data name="IsNeutral" xml:space="preserve">
+    <value>(N)</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>Number Game số</value>
+  </data>
+  <data name="MatchWinLossTitle" xml:space="preserve">
+    <value>Thắng Thua theo Trận, {0} - {1}</value>
+  </data>
+  <data name="ProductNG" xml:space="preserve">
+    <value>Number Game</value>
+  </data>
+  <data name="ProductVS" xml:space="preserve">
+    <value>Thể Thao Ảo</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>Danh sách cược</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>Cược thắng</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Ngày Tài Chính</value>
   </data>

@@ -13,5 +13,7 @@
         public const string LeagueWinLoss = "LeagueWinLoss";
 
         public const string WinLossAnalysis = "WinlossAnalysis";
+
+        public const string MatchWinLoss = "MatchWinLoss";
     }
 }

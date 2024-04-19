@@ -53,6 +53,16 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int NumberGame = 161;
         
+        public const int VirtualHorseRacing = 181;
+
+        public const int VirtualGreyhound = 182;
+
+        public const int VirtualSpeedway = 183;
+
+        public const int VirtualMotoRacing = 184;
+
+        public const int VirtualCycling = 185;
+
         public const int UnknowThaiSport = 46;
 
         public const int DuplicatedCricket = 27;

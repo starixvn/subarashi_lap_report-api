@@ -61,7 +61,12 @@
 
 		<Setting Key="LAP_Rpt_SabaCoins_Performance" SpName="LAP_Rpt_SabaCoins_Performance_xtest" DbName="DBACC.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_SabaCoins_Performance_ExtraInfo" SpName="LAP_Rpt_SabaCoins_Performance_ExtraInfo_xtest" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByOutrightParlay" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" DbName="DBEXT.bodb02.wsv_lap" />
 	</Function>
+
 	<Function Name="SiteConfig">
 		<Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.wsv_lap" />
     <Setting Key="Portal_Sub_GetSubsidiaryList" SpName="Portal_Sub_GetSubsidiaryList" DbName="DBCUST.SiteConfig.Dot_Admin_Portal" />

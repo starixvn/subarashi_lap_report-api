@@ -73,5 +73,7 @@
         public const string L22 = "L22";
 
         public const string VS3 = "VS3";
+
+        public const string VS2 = "VS2";
     }
 }

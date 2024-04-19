@@ -55,6 +55,8 @@
             { BaseCurrencyType.BDT,"BDT" },
             { BaseCurrencyType.INR,"INR" },
             { BaseCurrencyType.MP,"MP" },
+            { BaseCurrencyType.NPR,"NPR" },
+            { BaseCurrencyType.TRY,"TRY" },
         };
 
         public static IDictionary<int, string> FlatBaseCurrencyList { get; } = new Dictionary<int, string> {
@@ -69,6 +71,8 @@
             { BaseCurrencyType.BDT,"BDT" },
             { BaseCurrencyType.INR,"INR" },
             { BaseCurrencyType.PHP,"PHP" },
+            { BaseCurrencyType.NPR,"NPR" },
+            { BaseCurrencyType.TRY,"TRY" },
         };
 
     }
