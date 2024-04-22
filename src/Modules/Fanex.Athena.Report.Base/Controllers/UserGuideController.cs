@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Fanex.Athena.Report.Base.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class UserGuideController : Controller
+    public class UserGuideController : ControllerBase
     {
         private const string LICENSEE_SUFFIX_SECTION = "licensee-section";
 

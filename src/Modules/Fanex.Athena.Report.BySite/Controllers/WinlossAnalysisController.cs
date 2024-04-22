@@ -79,7 +79,6 @@
 
         [HttpPost]
         [SkipRequestValidation]
-        [SkipBindingMetaModel]
         public async Task<IActionResult> Index()
         {
             var productAccess = _productService.GetProductAccess(

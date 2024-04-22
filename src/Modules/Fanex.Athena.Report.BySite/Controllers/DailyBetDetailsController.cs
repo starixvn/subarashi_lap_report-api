@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System.IO;
     using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;

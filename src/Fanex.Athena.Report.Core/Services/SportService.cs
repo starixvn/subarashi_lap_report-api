@@ -16,7 +16,7 @@ namespace Fanex.Athena.Report.Core.Services
 {
     public class SportService : ISportService
     {
-        private static readonly string MemoryCacheSportListForTreeView = "MemoryCache_SportList_TreeView";
+        private const string MemoryCacheSportListForTreeView = "MemoryCache_SportList_TreeView";
 
         private readonly ISportRepository _sportRepository;
 

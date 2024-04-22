@@ -35,7 +35,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpPost]
-        [SkipBindingMetaModel]
         [SkipRequestValidation]
         public async Task<IActionResult> Index([FromServices] IBaseCurrencyService baseCurrencyService,
                                                [FromServices] ISubsidiaryService subsidiaryService)
@@ -75,7 +74,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpGet]
-        [SkipBindingMetaModel]
         [SkipRequestValidation]
         public ActionResult GetPromotionTypes(string productCode, [FromServices] IExtraPayoutService service)
         {

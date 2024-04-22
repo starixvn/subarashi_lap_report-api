@@ -187,7 +187,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             // Action
             excel.Export(TemplatePath, data, metaModel);
             var totalRow = rows.Last();
-            var totalRowIndex = RowContentTemplate + 2;
 
             // Assert
             Mock.Get(totalRow.Object.Cells[ColumnIndex]).Verify(c => c.SetCellValue(ViewResources.Total), Times.Once);
