@@ -49,6 +49,8 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int Kabaddi = 47;
 
+        public const int LiveCasino = 162;
+
         public const int VirtualSport = 180;
 
         public const int NumberGame = 161;

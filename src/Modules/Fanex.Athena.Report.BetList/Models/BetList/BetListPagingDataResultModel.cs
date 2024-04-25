@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Fanex.Athena.Report.BetList.Models
+namespace Fanex.Athena.Report.BetList.Models.BetList
 {
     public class BetListPagingDataResultModel
     {

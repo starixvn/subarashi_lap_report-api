@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.BetList.Models
+﻿namespace Fanex.Athena.Report.BetList.Models.BetList
 {
     public class BetListResultModel<T>
     {

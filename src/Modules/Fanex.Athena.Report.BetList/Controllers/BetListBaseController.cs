@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.BetList.MetaModels;
-using Fanex.Athena.Report.BetList.Models;
+using Fanex.Athena.Report.BetList.Models.BetList;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
@@ -13,6 +13,8 @@ namespace Fanex.Athena.Report.BetList.Controllers
     [ApiController]
     public class BetListBaseController : ControllerBase
     {
+        protected const int BetEffectiveColumn = 8;
+
         protected IBalanceUpService BalanceUpService;
 
         protected IBetListApiClient BetListApiClient;
@@ -32,11 +34,10 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         protected internal async Task<IActionResult> GetPagingBetListResult(
             BetListMetaModel metaModel,
-            string uspKey,
             int pageIndex,
             int pageSize)
         {
-            await AssignDefaultPagingBetListMetaModel(metaModel, uspKey, pageIndex, pageSize);
+            await AssignDefaultPagingBetListMetaModel(metaModel, pageIndex, pageSize);
 
             var result = await BetListApiClient.PostStringAsync("/BetList/GetBetListPaging",
                 metaModel,
@@ -49,11 +50,10 @@ namespace Fanex.Athena.Report.BetList.Controllers
         protected internal async Task<IActionResult> GetPagingBetListResultWithSettings(
             BetListMetaModel metaModel,
             BetListSettingModel settings,
-            string uspKey,
             int pageIndex,
             int pageSize)
         {
-            await AssignDefaultPagingBetListMetaModel(metaModel, uspKey, pageIndex, pageSize);
+            await AssignDefaultPagingBetListMetaModel(metaModel, pageIndex, pageSize);
 
             var data = await BetListApiClient.PostAsync<BetListPagingDataResultModel>("/BetList/GetBetListPaging",
                 metaModel,
@@ -69,7 +69,6 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         protected internal virtual async Task AssignDefaultPagingBetListMetaModel(
             BetListMetaModel metaModel,
-            string uspKey,
             int pageIndex,
             int pageSize)
         {
@@ -81,16 +80,13 @@ namespace Fanex.Athena.Report.BetList.Controllers
             metaModel.PageSize = pageSize < 1 ? DefaultPageSize : pageSize;
             metaModel.LicenseeId = ContextService.LicenseeId;
             metaModel.HasPlayerCom = ContextService.IsAllowedCustomerComm;
-            metaModel.UspKey = uspKey;
             metaModel.IsShowIpvn = ContextService.IsShowIpVn;
             metaModel.IsShowIp = ContextService.IsShowIp;
         }
 
-        protected internal async Task<IActionResult> GetBetListResult(
-            BetListMetaModel metaModel,
-            string uspKey)
+        protected internal async Task<IActionResult> GetBetListResult(BetListMetaModel metaModel)
         {
-            await AssignDefaultBetListMetaModel(metaModel, uspKey);
+            await AssignDefaultBetListMetaModel(metaModel);
 
             var result = await BetListApiClient
                               .PostStringAsync("/BetList/GetBetList", metaModel, ContextService.Language)
@@ -101,10 +97,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         protected internal async Task<IActionResult> GetBetListResultWithSettings(
             BetListMetaModel metaModel,
-            BetListSettingModel settings,
-            string uspKey)
+            BetListSettingModel settings)
         {
-            await AssignDefaultBetListMetaModel(metaModel, uspKey);
+            await AssignDefaultBetListMetaModel(metaModel);
 
             var data = await BetListApiClient
                             .PostAsync<BetListDataResultModel>("/BetList/GetBetList", metaModel,
@@ -118,7 +113,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
             });
         }
 
-        protected internal virtual async Task AssignDefaultBetListMetaModel(BetListMetaModel metaModel, string uspKey)
+        protected internal virtual async Task AssignDefaultBetListMetaModel(BetListMetaModel metaModel)
         {
             await CheckDataPermission(metaModel.CustId, metaModel.TransId);
 
@@ -129,7 +124,6 @@ namespace Fanex.Athena.Report.BetList.Controllers
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.HasPlayerCom = ContextService.IsAllowedCustomerComm;
-            metaModel.UspKey = uspKey;
             metaModel.IsShowIpvn = ContextService.IsShowIpVn;
             metaModel.IsShowIp = ContextService.IsShowIp;
         }

@@ -786,6 +786,162 @@
   <data name="Outright" xml:space="preserve">
     <value>Cược thắng</value>
   </data>
+  <data name="ProductBA" xml:space="preserve">
+    <value>BA</value>
+  </data>
+  <data name="VirtualSoccer" xml:space="preserve">
+    <value>Bóng đá ảo</value>
+  </data>
+  <data name="VirtualHorseRacing" xml:space="preserve">
+    <value>Đua ngựa ảo</value>
+  </data>
+  <data name="VirtualGreyhounds" xml:space="preserve">
+    <value>Đua Chó Ảo</value>
+  </data>
+  <data name="VirtualSpeedway" xml:space="preserve">
+    <value>Đua Xe Ảo</value>
+  </data>
+  <data name="VirtualMotoRacing" xml:space="preserve">
+    <value>Đua xe ảo</value>
+  </data>
+  <data name="VirtualCycling" xml:space="preserve">
+    <value>Đua xe ảo</value>
+  </data>
+  <data name="VirtualTennis" xml:space="preserve">
+    <value>Quần vợt ảo</value>
+  </data>
+  <data name="ProductCS" xml:space="preserve">
+    <value>Saba Casino</value>
+  </data>
+  <data name="ProductKN" xml:space="preserve">
+    <value>RNG Keno</value>
+  </data>
+  <data name="ProductVB" xml:space="preserve">
+    <value>Macau Games</value>
+  </data>
+  <data name="ProductVS2" xml:space="preserve">
+    <value>Thể Thao Ảo 2</value>
+  </data>
+  <data name="VirtualSoccerLeague" xml:space="preserve">
+    <value>Giải đấu Bóng đá ảo</value>
+  </data>
+  <data name="VirtualSoccerNation" xml:space="preserve">
+    <value>Bóng đá ảo Nation</value>
+  </data>
+  <data name="VirtualSoccerWorldCup" xml:space="preserve">
+    <value>Bóng đá World Cup Ảo</value>
+  </data>
+  <data name="VirtualBasketball" xml:space="preserve">
+    <value>Bóng rổ Ảo</value>
+  </data>
+  <data name="VirtualSoccerAsianCup" xml:space="preserve">
+    <value>Cúp bóng đá ảo châu Á</value>
+  </data>
+  <data name="VirtualSoccerEnglishPremier" xml:space="preserve">
+    <value>Bóng đá ảo Ngoại hạng Anh</value>
+  </data>
+  <data name="VirtualSoccerChampionsCup" xml:space="preserve">
+    <value>Cúp Vô địch Bóng đá ảo</value>
+  </data>
+  <data name="VirtualSoccerEuroCup" xml:space="preserve">
+    <value>Cúp Bóng đá Euro Ảo</value>
+  </data>
+  <data name="ProductLT" xml:space="preserve">
+    <value>Xổ số</value>
+  </data>
+  <data name="ProductCC" xml:space="preserve">
+    <value>Arcadia Gaming</value>
+  </data>
+  <data name="ProductAGC" xml:space="preserve">
+    <value>AG Casino</value>
+  </data>
+  <data name="ProductVRG" xml:space="preserve">
+    <value>Trò Chơi Ảo</value>
+  </data>
+  <data name="ProductTG" xml:space="preserve">
+    <value>Trò Chơi Trên Bàn</value>
+  </data>
+  <data name="ProductI4D" xml:space="preserve">
+    <value>Togel 4D</value>
+  </data>
+  <data name="ProductSXG" xml:space="preserve">
+    <value>AE Sexy</value>
+  </data>
+  <data name="ProductSAG" xml:space="preserve">
+    <value>SA Gaming</value>
+  </data>
+  <data name="ProductPGS" xml:space="preserve">
+    <value>PG Soft</value>
+  </data>
+  <data name="ProductJK" xml:space="preserve">
+    <value>Joker</value>
+  </data>
+  <data name="ProductSLT" xml:space="preserve">
+    <value>Thể Thao Xổ Số</value>
+  </data>
+  <data name="ProductHB" xml:space="preserve">
+    <value>Habanero</value>
+  </data>
+  <data name="ProductWM" xml:space="preserve">
+    <value>WM</value>
+  </data>
+  <data name="ProductBGG" xml:space="preserve">
+    <value>BG</value>
+  </data>
+  <data name="ProductCG" xml:space="preserve">
+    <value>CG</value>
+  </data>
+  <data name="ProductCO" xml:space="preserve">
+    <value>Bán vé cược</value>
+  </data>
+  <data name="ProductBX" xml:space="preserve">
+    <value>Exchange</value>
+  </data>
+  <data name="ProductAP" xml:space="preserve">
+    <value>AdvantPlay</value>
+  </data>
+  <data name="ProductVS3" xml:space="preserve">
+    <value>Thể Thao Ảo 3 (Cũ)</value>
+  </data>
+  <data name="ProductFGGL" xml:space="preserve">
+    <value>FGG</value>
+  </data>
+  <data name="ProductMXG" xml:space="preserve">
+    <value>MaxGame</value>
+  </data>
+  <data name="ProductJIG" xml:space="preserve">
+    <value>Jili</value>
+  </data>
+  <data name="ProductYB" xml:space="preserve">
+    <value>YeeBet</value>
+  </data>
+  <data name="ProductLG" xml:space="preserve">
+    <value>Thể Thao Ảo 3</value>
+  </data>
+  <data name="ProductAPM" xml:space="preserve">
+    <value>AdvantPlay Mini</value>
+  </data>
+  <data name="LiveAndNonLive" xml:space="preserve">
+    <value>Trực tiếp và không trực tiếp</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value> dữ liệu</value>
+  </data>
+  <data name="ByBetType" xml:space="preserve">
+    <value>Theo Loại Cược</value>
+  </data>
+  <data name="AmountDueTo" xml:space="preserve">
+    <value>Số tiền từ</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Theo Đơn vị tiền tệ</value>
+  </data>
+  <data name="BySportsType" xml:space="preserve">
+    <value>Theo Loại Thể Thao</value>
+  </data>
+  <data name="LiveReportTitle" xml:space="preserve">
+    <value>Báo cáo trực tiếp - {0}, {1} --&gt; {2} - {3}</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Ngày Tài Chính</value>
   </data>

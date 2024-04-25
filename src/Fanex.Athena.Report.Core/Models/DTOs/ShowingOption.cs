@@ -29,5 +29,7 @@
         public bool GrandTotalVisible { get; set; }
 
         public bool CustomerCommVisible { get; set; }
+
+        public bool HasAmountDueToColumn { get; set; }
     }
 }

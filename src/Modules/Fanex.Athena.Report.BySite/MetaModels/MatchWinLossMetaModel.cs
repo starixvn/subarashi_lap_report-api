@@ -27,6 +27,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public string BaseCurrency { get; set; }
 
+        public string ProductCode { get; set; }
+
         public int MatchId { get; set; }
 
         public int LeagueId { get; set; }

@@ -131,6 +131,7 @@ Global
 		{B9527333-073C-4E74-BF4B-F1811F07D3F8} = {9A9CF71E-AFD5-49C4-A74B-16D8CB163DBA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_AutoApplyExistingTranslations = True
 		SolutionGuid = {03541499-F762-410E-996E-B067DDF610D6}
 	EndGlobalSection
 EndGlobal

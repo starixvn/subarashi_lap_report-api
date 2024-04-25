@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Fanex.Athena.Report.BetList.Controllers;
 using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss;
-using Fanex.Athena.Report.BetList.Models;
+using Fanex.Athena.Report.BetList.Models.BetList;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;

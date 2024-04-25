@@ -2,6 +2,30 @@
 {
     public static class Product
     {
+        public const string SLT = "SLT";
+
+        public const string PGS = "PGS";
+
+        public const string VRG = "VRG";
+
+        public const string UUSL = "UUSL";
+
+        public const string WE = "WE";
+
+        public const string SEA = "SEA";
+
+        public const string LG = "LG";
+
+        public const string JIG = "JIG";
+
+        public const string MXG = "MXG";
+
+        public const string FGGL = "FGGL";
+
+        public const string APM = "APM";
+
+        public const string AGC = "AGC";
+
         public const string SBC  = "SBC";
 
         public const string SPR = "SPR";

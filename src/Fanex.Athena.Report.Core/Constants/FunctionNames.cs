@@ -15,5 +15,7 @@
         public const string WinLossAnalysis = "WinlossAnalysis";
 
         public const string MatchWinLoss = "MatchWinLoss";
+
+        public const string LiveReport = "LiveReport";
     }
 }

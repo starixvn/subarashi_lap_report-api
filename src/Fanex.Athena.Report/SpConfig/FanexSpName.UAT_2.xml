@@ -65,6 +65,14 @@
     <Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail" DbName="DBEXT.bodb02.wsv_lap" />
     <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype" DbName="DBEXT.bodb02.wsv_lap" />
     <Setting Key="Lrf_Rpt_MatchWinLossByOutrightParlay" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" DbName="DBEXT.bodb02.wsv_lap" />
+
+    <Setting Key="Lrf_Rpt_LiveReportWinlossByMatch" SpName="Lrf_Rpt_LiveReportWinlossByMatch" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportSummary" SpName="Lrf_Rpt_LiveReportSummary" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportSummaryDetail" SpName="Lrf_Rpt_LiveReportSummaryDetail" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportBySport" SpName="Lrf_Rpt_LiveReportBySport" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReport" SpName="Lrf_Rpt_LiveReport" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportDetail" SpName="Lrf_Rpt_LiveReportDetail" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportBySportType" SpName="Lrf_Rpt_LiveReportBySportType" DbName="DBEXT.bodb02.wsv_lap"></Setting>
 	</Function>
 
 	<Function Name="SiteConfig">

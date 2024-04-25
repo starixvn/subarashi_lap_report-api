@@ -28,5 +28,6 @@
         public const string Subsidiary = "SUBSIDIARY";
         public const string SettledMatchCount = "SettledMatchCount28";
         public const string WeeklyLiveMatches = "WeeklyLiveMatches69";
+        public const string LiveReport = "LiveReport38";
     }
 }

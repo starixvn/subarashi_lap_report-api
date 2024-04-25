@@ -63,6 +63,10 @@
             services.AddTransient<IMatchWinLossService, MatchWinLossService>();
             services.AddTransient<IMatchWinLossRepository, MatchWinLossRepository>();
             services.AddTransient<IMatchWinLossExcel, MatchWinLossExcel>();
+            services.AddTransient<ILiveReportRepository, LiveReportRepository>();
+            services.AddTransient<ILiveReportService, LiveReportService>();
+            services.AddTransient<ILiveReportExcel, LiveReportExcel>();
+            services.AddTransient<ILiveReportMatchListExcel, LiveReportMatchListExcel>();
             return services;
         }
     }

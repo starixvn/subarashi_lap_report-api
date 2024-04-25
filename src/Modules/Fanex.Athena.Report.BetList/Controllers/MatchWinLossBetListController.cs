@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss;
-using Fanex.Athena.Report.BetList.Models;
+using Fanex.Athena.Report.BetList.Models.BetList;
+using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Attributes;
@@ -50,88 +52,79 @@ namespace Fanex.Athena.Report.BetList.Controllers
         {
             metaModel.IsServerPaging = true;
             var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            var uspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
+            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
 
             if (dataOnly)
             {
-                return await GetBetListResult(metaModel, uspKey).ConfigureAwait(false);
+                return await GetBetListResult(metaModel).ConfigureAwait(false);
             }
 
             var settings = new BetListSettingModel
             {
-                Title = GetOutRightTitle(metaModel.FromDate),
+                Title = $"{ViewResources.BetList} - {ViewResources.Outright}",
                 BaseCurrency = metaModel.BaseCurrency,
-                ExcelPath = $"api/{GetControllerName()}/{nameof(ExportExcel)}",
-                ExcelFileName = ExcelFileName
+                FromDate = metaModel.FromDate.ToShortDateString()
             };
 
-            return await GetBetListResultWithSettings(metaModel, settings, uspKey);
+            return await GetBetListResultWithSettings(metaModel, settings);
         }
 
-        private string GetOutRightTitle(DateTime date) => $"{ViewResources.BetList} - {ViewResources.Outright} - {date.ToShortDateString()}";
-
         [HttpGet]
-        public async Task<IActionResult> MatchBetType([FromQuery] BetListMetaModel metaModel, int page, int rows,
-                                                      bool dataOnly = true)
+        public async Task<IActionResult> MatchBetType([FromQuery] BetListMetaModel metaModel, int page, int rows, bool dataOnly = true)
         {
             var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            var uspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
+            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
 
             if (dataOnly)
             {
-                return await GetPagingBetListResult(metaModel, uspKey, page, rows).ConfigureAwait(false);
+                return await GetPagingBetListResult(metaModel, page, rows).ConfigureAwait(false);
             }
 
             var settings = new BetListSettingModel
             {
                 Title = GetMatchBetTypeTitle(metaModel),
                 BaseCurrency = metaModel.BaseCurrency,
-                ExcelPath = $"api/{GetControllerName()}/{nameof(ExportExcel)}",
-                ExcelFileName = ExcelFileName,
+                FromDate = metaModel.FromDate.ToShortDateString(),
                 IsServerPaging = true
             };
 
-            return await GetPagingBetListResultWithSettings(metaModel, settings, uspKey, page, rows);
+            return await GetPagingBetListResultWithSettings(metaModel, settings, page, rows);
         }
 
         private string GetMatchBetTypeTitle(BetListMetaModel metaModel)
         {
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0 ?
                 _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " +
-                _cacheRefAdapter.GetTeamName(metaModel.AwayId) + " - " :
+                _cacheRefAdapter.GetTeamName(metaModel.AwayId) :
                 string.Empty;
-            var betTypeName = metaModel.BetType > 0 ?
-                _cacheRefAdapter.GetBettype(metaModel.BetType) + " - " :
+            var betTypeName = metaModel.BetType > 0 ? " - " +
+                _cacheRefAdapter.GetBettype(metaModel.BetType):
                 string.Empty;
 
-            return $"{ViewResources.BetList} - {matchName} {betTypeName} {metaModel.FromDate.ToShortDateString()}";
+            return $"{ViewResources.BetList} - {matchName}{betTypeName}";
         }
 
         [HttpGet]
-        public async Task<IActionResult> BetTypeWinLoss([FromQuery] BetListMetaModel metaModel, int page, int rows,
-                                                        bool dataOnly = true)
+        public async Task<IActionResult> BetTypeWinLoss([FromQuery] BetListMetaModel metaModel, int page, int rows, bool dataOnly = true)
         {
             var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            var uspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
+            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
 
             if (dataOnly)
             {
-                return await GetPagingBetListResult(metaModel, uspKey, page, rows).ConfigureAwait(false);
+                return await GetPagingBetListResult(metaModel, page, rows).ConfigureAwait(false);
             }
 
             var settings = new BetListSettingModel
             {
-                Title = GetBetTypeWinLossTitle(metaModel.BetType, metaModel.FromDate),
+                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}",
                 BaseCurrency = metaModel.BaseCurrency,
-                ExcelPath = $"api/{GetControllerName()}/{nameof(ExportExcel)}",
-                ExcelFileName = ExcelFileName,
+                FromDate = metaModel.FromDate.ToShortDateString(),
                 IsServerPaging = true
             };
 
-            return await GetPagingBetListResultWithSettings(metaModel, settings, uspKey, page, rows);
+            return await GetPagingBetListResultWithSettings(metaModel, settings, page, rows);
         }
-
-        private string GetBetTypeWinLossTitle(int betType, DateTime date) => $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(betType)} - {date.ToShortDateString()}";
 
         [HttpGet]
         public async Task<IActionResult> MixParlay([FromQuery] MixParlayMetaModel metaModel, int page, int rows,
@@ -154,27 +147,24 @@ namespace Fanex.Athena.Report.BetList.Controllers
             };
 
             var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            var uspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate.Date, balanceUp.BalanceUpDay);
+            apiModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate.Date, balanceUp.BalanceUpDay);
 
             if (dataOnly)
             {
-                return await GetPagingBetListResult(apiModel, uspKey, page, rows).ConfigureAwait(false);
+                return await GetPagingBetListResult(apiModel, page, rows).ConfigureAwait(false);
             }
 
             var settings = new BetListSettingModel
             {
-                Title = GetMixParlayTitle(apiModel.BetType, apiModel.FromDate),
-                BaseCurrency = metaModel.BaseCurrency,
-                ExcelPath = $"api/{GetControllerName()}/{nameof(ExportExcel)}",
-                ExcelFileName = ExcelFileName,
+                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}",
                 IsAllowedCustomerCommision = ContextService.IsAllowedCustomerComm,
+                BaseCurrency = apiModel.BaseCurrency,
+                FromDate = apiModel.FromDate.ToShortDateString(),
                 IsServerPaging = true
             };
 
-            return await GetPagingBetListResultWithSettings(apiModel, settings, uspKey, page, rows);
+            return await GetPagingBetListResultWithSettings(apiModel, settings, page, rows);
         }
-
-        private string GetMixParlayTitle(int betType, DateTime date) => $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(betType)} - {date.ToShortDateString()}";
 
         [HttpPost]
         public async Task<IActionResult> ExportExcel(BetListExcelMetaModel metaModel)
@@ -189,7 +179,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
             metaModel.ShowingOption = new ShowingOption
             {
-                CustomerCommVisible = ContextService.IsAllowedCustomerComm,
+                CustomerCommVisible = ContextService.IsAllowedCustomerComm
             };
 
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0 ?
