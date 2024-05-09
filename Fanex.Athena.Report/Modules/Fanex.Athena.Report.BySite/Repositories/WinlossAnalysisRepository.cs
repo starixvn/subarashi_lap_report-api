@@ -61,7 +61,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             objectDb.SetParameterValue("StatusIds", metaModel.StatusIds);
             objectDb.SetParameterValue("PlatformIds", metaModel.PlatformIds);
             objectDb.SetParameterValue("LiveStatusIds", metaModel.LiveStatusIds);
-            objectDb.SetParameterValue("IsViewCOOnly", metaModel.IsViewCashOutOnly);
+            objectDb.SetParameterValue("CashOutMode", metaModel.CashOutMode);
             objectDb.SetParameterValue("GroupMode", metaModel.GroupMode);
             objectDb.SetParameterValue("BreakdownMode", metaModel.BreakdownMode);
             objectDb.SetParameterValue("PageIndex", metaModel.PageIndex);
