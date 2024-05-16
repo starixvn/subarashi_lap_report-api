@@ -53,8 +53,6 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private readonly IExcelBuilder _builder;
 
-        private readonly string SportName;
-
         private SortableList<LiveReportWinLossByMatch> _data;
 
         private LiveReportMatchListMetalModel _metaModel;
@@ -66,7 +64,8 @@ namespace Fanex.Athena.Report.BySite.Excels
             _builder = builder;
         }
 
-        public byte[] Export(string template, SortableList<LiveReportWinLossByMatch> data,
+        public byte[] Export(string template, 
+                             SortableList<LiveReportWinLossByMatch> data,
                              LiveReportMatchListMetalModel metaModel,
                              LiveReportExcelOption excelOption)
         {
@@ -144,7 +143,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
         {
-            _builder.SetRowValue(sheet, templateSheet, RowSportType, RowSportType, 1, SportName);
+            _builder.SetRowValue(sheet, templateSheet, RowSportType, RowSportType, 1, _options.SportName);
             _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount,
                 ViewResources.NoInfo);
             ProcessUi(sheet);
@@ -154,7 +153,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         {
             var rowCount = _data.Count;
 
-            _builder.SetRowValue(sheet, templateSheet, RowSportType, RowSportType, 1, SportName);
+            _builder.SetRowValue(sheet, templateSheet, RowSportType, RowSportType, 1, _options.SportName);
 
             for (var index = 0; index < rowCount; index++)
             {

@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.StatelessCore.Enum;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
     public interface IContextService
     {
         int LicenseeId { get; }
+
         string Language { get; }
+
         string SiteName { get; }
 
         string UserName { get; }
@@ -52,5 +55,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         bool IsShowIpVn { get; }
 
         bool IsShowIp { get; }
+
+        AppMode ApplicationMode { get; }
     }
 }

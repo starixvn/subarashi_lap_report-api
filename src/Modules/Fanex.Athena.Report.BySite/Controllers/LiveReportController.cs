@@ -14,6 +14,7 @@ using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
+using Fanex.Athena.Report.StatelessCore.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 
@@ -42,7 +43,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
         private bool IsOneworksMaster =>
             _contextService.UserLevel == UserLevelType.OneWorks
-         && _contextService.SubsidiaryViewType == (byte)SubsidiaryViewType.NormalManagement;
+         && _contextService.SubsidiaryViewType == SubsidiaryViewType.NormalManagement;
 
         public LiveReportController(ILiveReportService liveReportService, IBalanceUpService balanceUpService,
                                     IContextService contextService, AppSettings appSettings,
@@ -56,11 +57,13 @@ namespace Fanex.Athena.Report.BySite.Controllers
             _baseCurrencyService = baseCurrencyService;
         }
 
+
         [HttpGet]
         [SkipRequestValidation]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index([FromServices] ISubsidiaryService subsidiaryService)
         {
-            var productAccess = GetProductAccess(_contextService.LicenseeId, _contextService.Language);
+            var productAccess = GetProductAccess();
+            var subsidiaryList = await subsidiaryService.GetWhiteLabelTree(_contextService.SiteName);
 
             return Ok(new LiveReportViewModel
             {
@@ -73,50 +76,58 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 IsAllowBa = productAccess.IsAllowBa,
                 HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
                 IsFakeLicensee = _contextService.IsFakeLicensee,
+                IsOneworksMaster = IsOneworksMaster,
+                WhitelabelList = subsidiaryList,
+                SubsidiaryList = subsidiaryList.SelectMany(x => x.Children.Select(y => y.Value)).Distinct(),
                 SubsidiaryViewType = IsOneworksMaster ? SubsidiaryViewType.MasterManagement : _contextService.SubsidiaryViewType,
-                IsOneworksMaster = IsOneworksMaster
+                SubsidiarySearch = _contextService.SubsidiaryViewType == SubsidiaryViewType.NotManagement && subsidiaryList.Any() && _contextService.ApplicationMode == AppMode.Parasitic,
             });
         }
 
+
         [HttpPost]
-        public async Task<ActionResult> Summary(LiveReportMetaModel metaModel)
+        public async Task<ActionResult> Summary([FromBody] LiveReportMetaModel metaModel)
         {
-            var productAccess = GetProductAccess(_contextService.LicenseeId, _contextService.Language);
-            metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
+            var productAccess = GetProductAccess();
+            metaModel.OriginalProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
+            metaModel.ProductCodeList =
+                _productService.GetAllowedSubProductCodeList(_contextService.OfferedSubProductList,
+                    metaModel.OriginalProductCodeList);
 
             return Ok(await _liveReportService.GetLiveReportSummary(metaModel));
         }
 
         [HttpPost]
         [AutoBindingMetaModel(bindProductCodeList: true)]
-        public async Task<ActionResult> Detail(LiveReportMetaModel metaModel, string productCode)
+        public async Task<ActionResult> Detail([FromBody] LiveReportMetaModel metaModel)
         {
-            var productAccess = GetProductAccess(_contextService.LicenseeId, _contextService.Language);
-            var balanceUpDay = await GetBalanceUpDay();
+            var productAccess = GetProductAccess();
 
             var resultModel = await GetDetailResult(metaModel, productAccess).ConfigureAwait(false);
             resultModel.IsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm;
+
+            var balanceUpDay = await GetBalanceUpDay();
             resultModel.IsShowedDetailLink = metaModel.FromDate >= balanceUpDay;
 
             return Ok(resultModel);
         }
 
-        private async Task<LiveReportDetailResultModel> GetDetailResult(LiveReportMetaModel metaModel,
-                                                                        ProductAccess productAccess)
+        private async Task<LiveReportDetailResultModel> GetDetailResult(LiveReportMetaModel metaModel, ProductAccess productAccess)
         {
             IEnumerable<ProductInfo> productList;
 
             if (metaModel.ProductCode == ProductCodeAll)
             {
                 productList = productAccess.ProductList.ToList();
-                metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
+                metaModel.OriginalProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
             }
             else
             {
                 productList = productAccess.ProductList.Where(i => i.ProductCode == metaModel.ProductCode).ToList();
-                metaModel.ProductCodeList = metaModel.ProductCode;
+                metaModel.OriginalProductCodeList = metaModel.ProductCode;
             }
 
+            metaModel.ProductCodeList = _productService.GetAllowedSubProductCodeList(_contextService.OfferedSubProductList, metaModel.OriginalProductCodeList);
             return await _liveReportService.GetLiveReportSummaryDetail(metaModel,
                 _contextService.CurrencyList.ToDictionary(x => x.Key, x => x.Value), productList).ConfigureAwait(false);
         }
@@ -124,7 +135,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
         [HttpGet]
         public async Task<ActionResult> MatchList([FromQuery] LiveReportMatchListMetalModel metaModel)
         {
-            var productAccess = GetProductAccess(_contextService.LicenseeId, _contextService.Language);
+            var productAccess = GetProductAccess();
 
             return Ok(new LiveReportMatchListResultModel
             {
@@ -142,16 +153,16 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ExportMatchListExcel([FromServices] IFileProvider file,
-                                                              [FromServices] ILiveReportMatchListExcel excel, 
-                                                              [FromBody] LiveReportMatchListMetalModel metaModel)
+        public async Task<IActionResult> MatchListExport([FromServices] IFileProvider file,
+                                                         [FromServices] ILiveReportMatchListExcel excel,
+                                                         [FromServices] ICacheRefAdapter cacheRefAdapter,
+                                                         [FromBody] LiveReportMatchListMetalModel metaModel)
         {
-            var productAccess = GetProductAccess(_contextService.LicenseeId, _contextService.Language);
-
+            var productAccess = GetProductAccess();
             var showingOption = new ShowingOption
             {
-                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
                 BAVisible = productAccess.IsAllowBa,
+                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
                 HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
             };
 
@@ -160,7 +171,8 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 ShowingOption = showingOption,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
+                CurrencyName = metaModel.CurrencyName,
+                SportName = cacheRefAdapter.GetSportName(metaModel.SportId)
             };
 
             var data = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false);
@@ -176,7 +188,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                                                     [FromServices] ILiveReportExcel excel,
                                                     [FromBody] LiveReportMetaModel metaModel)
         {
-            var productAccess = GetProductAccess(_contextService.LicenseeId, _contextService.Language);
+            var productAccess = GetProductAccess();
             metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
 
             var summaryReport = await _liveReportService.GetLiveReportSummary(metaModel);
@@ -204,8 +216,8 @@ namespace Fanex.Athena.Report.BySite.Controllers
             return new FileContentResult(fileContent, "application/octet-stream");
         }
 
-        protected ProductAccess GetProductAccess(int licenseeId, string language) =>
-            _productService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);
+        protected ProductAccess GetProductAccess() =>
+            _productService.GetProductAccess(_contextService.LicenseeId, _contextService.Language, FunctionNames.LiveReport);
 
         private async Task<DateTime> GetBalanceUpDay()
         {

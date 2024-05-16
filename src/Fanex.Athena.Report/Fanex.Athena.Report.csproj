@@ -121,7 +121,13 @@
 	<Content Include="ExcelTemplate\DailyBets.xls">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
-	<Content Include="SpConfig\FanexSpName.STAGING.xml">
+  <Content Include="ExcelTemplate\LiveReport.xls">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+  <Content Include="ExcelTemplate\LiveReportMatchList.xls">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+  <Content Include="SpConfig\FanexSpName.STAGING.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
   <Content Include="ExcelTemplate\MatchWinLoss.xls">

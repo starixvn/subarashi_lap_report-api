@@ -71,13 +71,13 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private readonly IExcelBuilder _builder;
 
-        private IList<LiveReport> _summaryLiveReports;
-
         private LiveReportDetailResultModel _data;
 
         private LiveReportMetaModel _metaModel;
 
         private LiveReportExcelOption _options;
+
+        private IList<LiveReport> _summaryLiveReports;
 
         public LiveReportExcel(IExcelBuilder builder)
         {
@@ -331,7 +331,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
                 for (var i = 0; i < liveReportSportList.Count; i++)
                 {
-                    var liveReportSport = liveReportSportList.ElementAt(i);
+                    var liveReportSport = liveReportSportList[i];
 
                     var row = _builder.CopyRow(sheet, templateSheet, RowContentDetailTemplate, rowIndex + i);
 
@@ -368,7 +368,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             for (var i = 0; i < liveReportSportList.Count; i++)
             {
-                var liveReportSport = liveReportSportList.ElementAt(i);
+                var liveReportSport = liveReportSportList[i];
 
                 var row = _builder.CopyRow(sheet, templateSheet, RowBySportsTypeContentTemplate, rowIndex + i);
 
@@ -377,7 +377,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 AssignCommonData(row, liveReportSport);
             }
 
-            return rowIndex + liveReportSportList.Count();
+            return rowIndex + liveReportSportList.Count;
         }
 
         private int AssignTotalSummary(ISheet sheet, ISheet templateSheet)

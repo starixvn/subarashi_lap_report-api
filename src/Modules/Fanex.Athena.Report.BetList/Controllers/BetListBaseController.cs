@@ -126,6 +126,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
             metaModel.HasPlayerCom = ContextService.IsAllowedCustomerComm;
             metaModel.IsShowIpvn = ContextService.IsShowIpVn;
             metaModel.IsShowIp = ContextService.IsShowIp;
+            metaModel.UserId = ContextService.UserId;
         }
 
         protected static string GetViewInCurrency(BetListMetaModel metaModel) =>
@@ -154,6 +155,25 @@ namespace Fanex.Athena.Report.BetList.Controllers
             }
         }
 
-        protected string GetControllerName() => ControllerContext.RouteData.Values["controller"]?.ToString();
+        protected BetListSettingModel CreateDefaultSettings(BetListMetaModel metaModel)
+        {
+            return new BetListSettingModel
+            {
+                FromDate = metaModel.FromDate.ToShortDateString(),
+                BaseCurrency = metaModel.BaseCurrency,
+                IsAllowedCustomerCommission = ContextService.IsAllowedCustomerComm
+            };
+        }
+
+        protected BetListSettingModel CreateDefaultDayRangeSettings(BetListMetaModel metaModel)
+        {
+            return new BetListSettingModel
+            {
+                FromDate = metaModel.FromDate.ToShortDateString(),
+                ToDate = metaModel.ToDate.ToShortDateString(),
+                BaseCurrency = metaModel.BaseCurrency,
+                IsAllowedCustomerCommission = ContextService.IsAllowedCustomerComm
+            };
+        }
     }
 }

@@ -70,8 +70,9 @@ namespace Fanex.Athena.Report.BySite.Services
             foreach (var data in dataList)
             {
                 data.MatchName = model.SportId == SportType.LiveCasino
-                    ? string.Format("{0} {1} {2} ", _cacheRefAdapter.GetSportName(model.SportId), _cacheRefAdapter.GetBettype(data.BetType), data.ShowTime)
-                    : string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId), _cacheRefAdapter.GetTeamName(data.AwayId));
+                    ?
+                    $"{_cacheRefAdapter.GetSportName(model.SportId)} {_cacheRefAdapter.GetBettype(data.BetType)} {data.ShowTime} " :
+                    $"{_cacheRefAdapter.GetTeamName(data.HomeId)} vs {_cacheRefAdapter.GetTeamName(data.AwayId)}";
             }
 
             if (!string.IsNullOrEmpty(model.SortColumn) && !string.IsNullOrEmpty(model.SortDirection))

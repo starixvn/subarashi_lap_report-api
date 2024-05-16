@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Fanex.Athena.Report.Common.Model.DataDomain;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Report.BySite.MetaModels
             get
             {
                 return FromDate <= ToDate
-                    && (string.IsNullOrEmpty(BaseCurrency) || SystemConstants.BaseCurrencyList
+                    && (string.IsNullOrEmpty(BaseCurrency) || SystemBaseCurrency.BaseCurrencyList
                                                                              .Any(x => x.Value.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase)));
             }
         }

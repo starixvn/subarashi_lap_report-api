@@ -306,7 +306,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             ObjectDbFactory.Mock((x, y) => _objectDb.Object);
         }
 
-        private MatchWinLossRepository MockRepository() =>
-            new MatchWinLossRepository(_balanceUpService.Object, _cacheRefAdapter.Object);
+        private MatchWinLossRepository MockRepository() => new(_balanceUpService.Object, _cacheRefAdapter.Object);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fanex.Athena.Report.Core.Models.DTOs;
 
 namespace Fanex.Athena.Report.BySite.Models
 {
@@ -32,5 +33,9 @@ namespace Fanex.Athena.Report.BySite.Models
         public bool IsOneworksMaster { get; set; }
 
         public bool SubsidiarySearch { get; set; }
+
+        public IEnumerable<string> SubsidiaryList { get; set; }
+
+        public IEnumerable<CheckedItem> WhitelabelList { get; set; }
     }
 }

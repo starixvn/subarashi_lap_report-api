@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss;
 using Fanex.Athena.Report.BetList.Models.BetList;
-using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Attributes;
@@ -59,18 +57,15 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return await GetBetListResult(metaModel).ConfigureAwait(false);
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {ViewResources.Outright}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString()
-            };
+            var settings = CreateDefaultSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {ViewResources.Outright}";
 
             return await GetBetListResultWithSettings(metaModel, settings);
         }
 
         [HttpGet]
-        public async Task<IActionResult> MatchBetType([FromQuery] BetListMetaModel metaModel, int page, int rows, bool dataOnly = true)
+        public async Task<IActionResult> MatchBetType([FromQuery] BetListMetaModel metaModel, int page, int rows,
+                                                      bool dataOnly = true)
         {
             var balanceUp = await BalanceUpService.GetBalanceUpAsync();
             metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
@@ -80,13 +75,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return await GetPagingBetListResult(metaModel, page, rows).ConfigureAwait(false);
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = GetMatchBetTypeTitle(metaModel),
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultSettings(metaModel);
+            settings.Title = GetMatchBetTypeTitle(metaModel);
+            settings.IsServerPaging = true;
 
             return await GetPagingBetListResultWithSettings(metaModel, settings, page, rows);
         }
@@ -97,15 +88,22 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " +
                 _cacheRefAdapter.GetTeamName(metaModel.AwayId) :
                 string.Empty;
-            var betTypeName = metaModel.BetType > 0 ? " - " +
-                _cacheRefAdapter.GetBettype(metaModel.BetType):
+            var betTypeName = metaModel.BetType > 0 ?
+                " - " +
+                _cacheRefAdapter.GetBettype(metaModel.BetType) :
                 string.Empty;
+
+            if (string.IsNullOrEmpty(matchName) && string.IsNullOrEmpty(betTypeName))
+            {
+                return ViewResources.BetList;
+            }
 
             return $"{ViewResources.BetList} - {matchName}{betTypeName}";
         }
 
         [HttpGet]
-        public async Task<IActionResult> BetTypeWinLoss([FromQuery] BetListMetaModel metaModel, int page, int rows, bool dataOnly = true)
+        public async Task<IActionResult> BetTypeWinLoss([FromQuery] BetListMetaModel metaModel, int page, int rows,
+                                                        bool dataOnly = true)
         {
             var balanceUp = await BalanceUpService.GetBalanceUpAsync();
             metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
@@ -115,13 +113,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return await GetPagingBetListResult(metaModel, page, rows).ConfigureAwait(false);
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}";
+            settings.IsServerPaging = true;
 
             return await GetPagingBetListResultWithSettings(metaModel, settings, page, rows);
         }
@@ -154,14 +148,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return await GetPagingBetListResult(apiModel, page, rows).ConfigureAwait(false);
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}",
-                IsAllowedCustomerCommision = ContextService.IsAllowedCustomerComm,
-                BaseCurrency = apiModel.BaseCurrency,
-                FromDate = apiModel.FromDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultSettings(apiModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}";
+            settings.IsServerPaging = true;
 
             return await GetPagingBetListResultWithSettings(apiModel, settings, page, rows);
         }

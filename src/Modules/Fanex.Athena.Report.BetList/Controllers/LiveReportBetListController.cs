@@ -58,13 +58,8 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetData(metaModel));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = GetMatchTitle(metaModel),
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                ToDate = metaModel.ToDate.ToShortDateString()
-            };
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = GetMatchTitle(metaModel);
 
             return Ok(await GetDataWithSettings(metaModel, settings));
         }
@@ -110,13 +105,8 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetData(metaModel));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {ViewResources.Outright}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                ToDate = metaModel.ToDate.ToShortDateString()
-            };
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {ViewResources.Outright}";
 
             return Ok(await GetDataWithSettings(metaModel, settings));
         }
@@ -142,14 +132,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetPagingData(metaModel, page, rows));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {ViewResources.ProductNG}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                ToDate = metaModel.ToDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {ViewResources.ProductNG}";
+            settings.IsServerPaging = true;
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
@@ -173,14 +158,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetPagingData(metaModel, page, rows));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                ToDate = metaModel.ToDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetBettype(metaModel.BetType)}";
+            settings.IsServerPaging = true;
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
@@ -204,13 +184,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetPagingData(metaModel, page, rows));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}";
+            settings.IsServerPaging = true;
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
@@ -236,13 +212,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetPagingData(metaModel, page, rows));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}";
+            settings.IsServerPaging = true;
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
@@ -268,14 +240,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetPagingData(metaModel, page, rows));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {metaModel.ProductName}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                ToDate = metaModel.ToDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {metaModel.ProductName}";
+            settings.IsServerPaging = true;
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
@@ -299,14 +266,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 return Ok(await GetPagingData(metaModel, page, rows));
             }
 
-            var settings = new BetListSettingModel
-            {
-                Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}",
-                BaseCurrency = metaModel.BaseCurrency,
-                FromDate = metaModel.FromDate.ToShortDateString(),
-                ToDate = metaModel.ToDate.ToShortDateString(),
-                IsServerPaging = true
-            };
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}";
+            settings.IsServerPaging = true;
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
@@ -389,7 +351,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 ContextService.Language
             ).ConfigureAwait(false);
 
-            settings.IsAllowedCustomerCommision = metaModel.HasPlayerCom;
+            settings.IsAllowedCustomerCommission = metaModel.HasPlayerCom;
             return new BetListResultModel<LiveReportBetListPagingDataResultModel>
             {
                 Data = data,

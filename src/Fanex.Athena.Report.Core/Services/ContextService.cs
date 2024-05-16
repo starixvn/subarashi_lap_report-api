@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Services.Interfaces;
+using Fanex.Athena.Report.StatelessCore.Enum;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -80,7 +81,9 @@ namespace Fanex.Athena.Report.Core.Services
 
         public bool IsShowIpVn => IsShowIp && IsInRoles("Administrator", Roles.BetListViewIpVn);
 
-        public string DefaultBaseCurrency => GetClaimValue("DefaultBaseCurrency", "EUR");
+        public string DefaultBaseCurrency => GetClaimValue("BaseCurrency", "EUR");
+
+        public AppMode ApplicationMode => GetClaimValue("Name").StartsWith("lrf") ? AppMode.Self : AppMode.Parasitic;
 
         public IEnumerable<string> OfferedOddsGroupsList
         {
@@ -115,7 +118,7 @@ namespace Fanex.Athena.Report.Core.Services
 
                 if (GetClaimValue<bool>("IsEnabledSubsidiary") && GetClaimValue<int>("UserLevel") < SubsidiaryLevel)
                 {
-                    if (GetClaimValue<bool>("IsMasterLicensee") && WhiteLabelID > 0)
+                    if (GetClaimValue<bool>("IsMasterLicensee") && WhiteLabelID < 0)
                     {
                         return Constants.SubsidiaryViewType.MasterManagement;
                     }

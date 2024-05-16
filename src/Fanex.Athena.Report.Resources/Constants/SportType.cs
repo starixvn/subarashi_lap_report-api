@@ -69,6 +69,8 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int DuplicatedCricket = 27;
 
+        public const int AllBet = 211;
+
         private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
         {
             Tuple.Create(SabaSoccer, Soccer, ""),

@@ -7,6 +7,8 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
     {
         public ShowingOption ShowingOption { get; set; }
 
+        public string SportName { get; set; }
+
         public bool IsConvert { get; set; } = true;
 
         public string BaseCurrency { get; set; } = @"EUR";

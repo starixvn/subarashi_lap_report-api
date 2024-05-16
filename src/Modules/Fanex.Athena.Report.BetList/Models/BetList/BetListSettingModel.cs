@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.BetList.Models.BetList
+﻿namespace Fanex.Athena.Report.BetList.Models.BetList
 {
     public class BetListSettingModel
     {
@@ -14,6 +12,6 @@ namespace Fanex.Athena.Report.BetList.Models.BetList
 
         public bool IsServerPaging { get; set; }
 
-        public bool IsAllowedCustomerCommision { get; set; }
+        public bool IsAllowedCustomerCommission { get; set; }
     }
 }

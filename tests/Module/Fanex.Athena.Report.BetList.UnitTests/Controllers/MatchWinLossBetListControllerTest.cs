@@ -64,8 +64,6 @@ namespace Fanex.Athena.Report.BetList.UnitTests.Controllers
             // Assert
             Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.Title));
             Assert.Equal(metaModel.BaseCurrency, resultValue.Settings.BaseCurrency);
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelPath));
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelFileName));
             Assert.False(resultValue.Settings.IsServerPaging);
         }
 
@@ -141,8 +139,6 @@ namespace Fanex.Athena.Report.BetList.UnitTests.Controllers
             // Assert
             Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.Title));
             Assert.Equal(metaModel.BaseCurrency, resultValue.Settings.BaseCurrency);
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelPath));
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelFileName));
             Assert.True(resultValue.Settings.IsServerPaging);
         }
 
@@ -218,8 +214,6 @@ namespace Fanex.Athena.Report.BetList.UnitTests.Controllers
             // Assert
             Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.Title));
             Assert.Equal(metaModel.BaseCurrency, resultValue.Settings.BaseCurrency);
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelPath));
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelFileName));
             Assert.True(resultValue.Settings.IsServerPaging);
         }
 
@@ -299,10 +293,8 @@ namespace Fanex.Athena.Report.BetList.UnitTests.Controllers
             // Assert
             Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.Title));
             Assert.Equal(metaModel.BaseCurrency, resultValue.Settings.BaseCurrency);
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelPath));
-            Assert.False(string.IsNullOrWhiteSpace(resultValue!.Settings.ExcelFileName));
             Assert.True(resultValue.Settings.IsServerPaging);
-            Assert.Equal(IsAllowedCustomerCom, resultValue.Settings.IsAllowedCustomerCommision);
+            Assert.Equal(IsAllowedCustomerCom, resultValue.Settings.IsAllowedCustomerCommission);
         }
 
         [Fact]

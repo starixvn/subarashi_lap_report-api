@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Common.Model.MetaModels;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models;
 using Fanex.Core.Utils;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class LiveReportMetaModel : ISubsidiarySearchMetaModel, ICurrencyIdMetaModel, IAgentMetaModel
+    public class LiveReportMetaModel : ISubsidiarySearchMetaModel, ICurrencyIdMetaModel, IAgentMetaModel, IMetaModelProductCodeList
     {
         public LiveReportMetaModel()
         {
@@ -22,9 +23,6 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public string CurrencyName { get; set; }
 
-
-        public bool IsViewedHistory { get; set; }
-
         public int LiveIndicator { get; set; }
 
         public string ProductCodeList { get; set; }
@@ -32,12 +30,6 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public string ProductCode { get; set; }
 
         public string OriginalProductCodeList { get; set; }
-
-        public bool IsExportExcel { get; set; }
-
-        public int PageSize { get; set; }
-
-        public int PageIndex { get; set; }
 
         public string SubsidiaryList { get; set; }
 
@@ -72,6 +64,5 @@ namespace Fanex.Athena.Report.BySite.MetaModels
                                                                              .Any(x => x.Value.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase)));
             }
         }
-
     }
 }

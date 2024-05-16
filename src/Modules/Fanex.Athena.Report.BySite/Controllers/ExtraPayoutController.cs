@@ -53,7 +53,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 currencyList = _contextService.CurrencyList.ToArray(),
                 baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToArray(),
                 isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                viewType = _contextService.SubsidiaryViewType,
+                viewType = !subsidiaryList.Any() ? SubsidiaryViewType.NotManagement : _contextService.SubsidiaryViewType,
                 defaultBaseCurrency = _contextService.DefaultBaseCurrency,
                 productOptions = hasPlayerTipsPermission ? AddPlayerTipsProduct(productOptions) : productOptions,
                 whitelabelList = subsidiaryList,
