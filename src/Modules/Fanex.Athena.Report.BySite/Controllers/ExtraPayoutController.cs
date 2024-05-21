@@ -8,7 +8,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Services;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 
@@ -23,7 +23,8 @@ namespace Fanex.Athena.Report.BySite.Controllers
     {
         private readonly IContextService _contextService;
 
-        public ExtraPayoutController(IContextService contextService) { 
+        public ExtraPayoutController(IContextService contextService)
+        {
             _contextService = contextService;
         }
 
