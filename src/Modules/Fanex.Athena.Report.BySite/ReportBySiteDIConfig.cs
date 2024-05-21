@@ -57,6 +57,9 @@
             services.AddTransient<IDailyBetDetailsService, DailyBetDetailsService>();
             services.AddTransient<IDailyBetDetailsRepository, DailyBetDetailsRepository>();
             services.AddTransient<IDailyBetDetailsExcel, DailyBetDetailsExcel>();
+            services.AddTransient<IPlayerSabaCoinsRepository, PlayerSabaCoinsRepository>();
+            services.AddTransient<IPlayerSabaCoinsService, PlayerSabaCoinsService>();
+            services.AddTransient<IPlayerSabaCoinsExcel, PlayerSabaCoinsExcel>();
             return services;
         }
     }

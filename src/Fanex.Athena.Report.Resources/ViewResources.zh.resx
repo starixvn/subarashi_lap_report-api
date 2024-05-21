@@ -636,4 +636,13 @@
   <data name="BT" xml:space="preserve">
     <value>Bet Trade</value>
   </data>
+  <data name="ExchangeToCash" xml:space="preserve">
+    <value>兑换现金</value>
+  </data>
+  <data name="PlayerSabaCoins" xml:space="preserve">
+    <value>玩家的沙巴点数</value>
+  </data>
+  <data name="Reward_Promotion" xml:space="preserve">
+    <value>成就/活动</value>
+  </data>
 </root>

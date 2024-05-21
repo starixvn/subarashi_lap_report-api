@@ -720,4 +720,13 @@
   <data name="BT" xml:space="preserve">
     <value>Bet Trade</value>
   </data>
+  <data name="ExchangeToCash" xml:space="preserve">
+    <value>Quy Đổi Tiền</value>
+  </data>
+  <data name="PlayerSabaCoins" xml:space="preserve">
+    <value>Saba Xu của người chơi</value>
+  </data>
+  <data name="Reward_Promotion" xml:space="preserve">
+    <value>Thưởng/Khuyến Mãi</value>
+  </data>
 </root>
