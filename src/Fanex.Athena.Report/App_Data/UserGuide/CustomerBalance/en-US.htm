@@ -1,0 +1,105 @@
+﻿<div class="rule">
+    <h4>
+        General Info
+    </h4>
+    <ul>
+        <li>This report supports up-to-date data. You can filter data up to 2 months per query. </li>
+        <li>Data of RNG Products, Live Casino Products will be delayed up to 5 minutes after settling tickets.</li>
+        <li>OANDA Exchange Service will use the exchange rate of the end date of each selected month when converting the figures.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Search Filters
+    </h4>
+    <ul>
+        <li><b>Currency:</b> select the currency which data will be retrieved for the report.</li>
+        <li><b>Exclude Test Data:</b> Excludes all tickets from test account. </li>
+        <li>
+            <b>Select Top</b>
+            <ul>
+                <li><b>All:</b> lists all customers.</li>
+            </ul>
+        </li>
+        <li>
+            <b>Product:</b> selects the Product type which data will be retrieved.
+            <br />
+            Note that, there is no BA from product filters (BA win loss, turnover and related data already are included in Sportsbook).
+        </li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Report Guidelines
+    </h4>
+    <ul>
+        <li><b>External ID:</b> The username registered by the ticket owner.</li>
+        <li><b>System ID:</b> The Numeric sequential ID generated from the system for each account.</li>
+        {open-balance-section}
+        <li>
+            <b>Opening Balance:</b> this is Customer Opening Balance, the amount of funds in Customer account at the beginning of a day. Note that report will take From date as the date to retrieve data for Opening Balance.
+        </li>
+        <li><b>Deposit:</b> The total amount Customer has deposited for each day.</li>
+        <li><b>Withdrawal:</b> Customer withdrawal amount.</li>
+        {/open-balance-section}
+        <li><b>Bonus:</b> the bonus amount that Licensee has given to Customer.</li>
+        <li>
+            <b>Adjustment:</b> the total adjustment amount Licensee used to adjust the Customer balance.
+        </li>
+        <li><b>Extra Payout:</b> the total amount of Tip amount, Promotion Prize, Jackpot Prize, Jackpot Contribution, Saba Promotion, Saba.club Free Bets, Arcadia Gaming Bonus, Saba Red Envelope, AE Casino Lucky Draw, Vgaming Free Bets.</li>
+        <li><b>Turnover:</b> Customer turnover for each day within the selected date range.</li>
+        <li><b>Draw Game:</b> the total stake of draw tickets.</li>
+        <li>
+            <b>Net Turnover:</b> the amount of turnover after deducting draw tickets.
+            <center>
+                Net Turnover = Turnover - Draw game.
+            </center>
+        </li>
+        <li><b>Pending Funds:</b> total stake of running tickets.</li>
+        <li>
+            <b>Customer W/L:</b>
+            <ul>
+                <li><b>Win Loss:</b> the amount customer won or lost based on their bets.</li>
+                <li><b>Comm:</b> total commission counted on bet tickets. </li>
+                <li>
+                    <b>Total:</b> Total win/loss amount including commission.
+                    <br />
+                    Total = Win/Loss + Commission
+                </li>
+            </ul>
+        </li>
+        {open-balance-section}
+        <li>
+            <b>Closing Balance:</b> this is Customer Closing Balance, the amount of funds at the end of a day.
+            <center>
+                Closing Balance = Opening Balance + Deposit – Withdrawal + Bonus + Adjustment – Pending funds + Customer W/L
+            </center>
+        </li>
+        {/open-balance-section}
+        <li><b>Affiliate Transfer:</b> the total payout for affiliate.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        BA
+    </h4>
+    <ul>
+        <li>
+            <b>Turnover:</b> total Customer stake of BA tickets.
+            <br />
+            Note that, BA Turnover is for reference only, because it is included in the overall Turnover.
+        </li>
+        <li><b>Comm:</b> Licensee commission income for BA tickets.</li>
+        <li>
+            <b>Amount Due To:</b> the settlement amounts between Licensee and BA service.
+            <br />
+            Note that for Amount Due to BA, the black negative number indicates the receiving amount from BA and black positive number indicates the paying amount to BA.
+        </li>
+    </ul>
+</div>

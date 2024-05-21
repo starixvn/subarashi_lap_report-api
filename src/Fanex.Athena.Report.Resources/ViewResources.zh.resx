@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AB" xml:space="preserve">
+    <value>欧博</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>所有货币</value>
+  </data>
+  <data name="Asia" xml:space="preserve">
+    <value>亚洲版</value>
+  </data>
+  <data name="BA" xml:space="preserve">
+    <value>BA</value>
+  </data>
+  <data name="CC" xml:space="preserve">
+    <value>乐卡迪亚</value>
+  </data>
+  <data name="DesktopChina" xml:space="preserve">
+    <value>桌机中国版</value>
+  </data>
+  <data name="Comm" xml:space="preserve">
+    <value>佣金</value>
+  </data>
+  <data name="CS" xml:space="preserve">
+    <value>娱乐城</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="CustomerW_L" xml:space="preserve">
+    <value>会员输赢</value>
+  </data>
+  <data name="DeepLink" xml:space="preserve">
+    <value>深度链结</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>欧洲版</value>
+  </data>
+  <data name="KN" xml:space="preserve">
+    <value>快乐彩</value>
+  </data>
+  <data name="LicenseeW_L" xml:space="preserve">
+    <value>承租公司输赢</value>
+  </data>
+  <data name="LT" xml:space="preserve">
+    <value>彩票</value>
+  </data>
+  <data name="MobileStandard" xml:space="preserve">
+    <value>手机經典版</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>手机 APP</value>
+  </data>
+  <data name="MobileCompact" xml:space="preserve">
+    <value>手机轻量版</value>
+  </data>
+  <data name="DesktopNewAsia" xml:space="preserve">
+    <value>桌机新亚洲版</value>
+  </data>
+  <data name="NG" xml:space="preserve">
+    <value>百练赛</value>
+  </data>
+  <data name="NoInfo" xml:space="preserve">
+    <value>没资料显示</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Platform" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="PlatformWinLossTitle" xml:space="preserve">
+    <value>平台输赢 - {0} --&gt; {1} - {2} - {3} - {4}</value>
+  </data>
+  <data name="PP" xml:space="preserve">
+    <value>PP王者电子</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="SB" xml:space="preserve">
+    <value>体育博彩</value>
+  </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>平板</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>总和</value>
+  </data>
+  <data name="TotalTransaction" xml:space="preserve">
+    <value>总交易数</value>
+  </data>
+  <data name="Turnover" xml:space="preserve">
+    <value>交易额</value>
+  </data>
+  <data name="TurnoverPercent" xml:space="preserve">
+    <value>%交易额</value>
+  </data>
+  <data name="VB" xml:space="preserve">
+    <value>澳门电子娱乐城</value>
+  </data>
+  <data name="VS" xml:space="preserve">
+    <value>虚拟运动</value>
+  </data>
+  <data name="VS2" xml:space="preserve">
+    <value>虚拟运动2</value>
+  </data>
+  <data name="Wap" xml:space="preserve">
+    <value>Wap</value>
+  </data>
+  <data name="WinLoss" xml:space="preserve">
+    <value>输赢</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>以 {0} 查看</value>
+  </data>
+  <data name="AmtDueToBA" xml:space="preserve">
+    <value>BA金额</value>
+  </data>
+  <data name="BACommission" xml:space="preserve">
+    <value>BA佣金</value>
+  </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="SystemId" xml:space="preserve">
+    <value>系统账号</value>
+  </data>
+  <data name="EffectiveBettingValue" xml:space="preserve">
+    <value>有效投注额</value>
+  </data>
+  <data name="CustomerWinLossTitle" xml:space="preserve">
+    <value>会员输赢, {0} --&gt; {1} - {2}</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="Draw" xml:space="preserve">
+    <value>和局</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>输</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>赢</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>投注类别</value>
+  </data>
+  <data name="RefNo" xml:space="preserve">
+    <value>注单号码</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Totalin" xml:space="preserve">
+    <value>总计在 {0}</value>
+  </data>
+  <data name="TransTime" xml:space="preserve">
+    <value>交易时间</value>
+  </data>
+  <data name="Adjustment" xml:space="preserve">
+    <value>调整</value>
+  </data>
+  <data name="AffiliateTransfer" xml:space="preserve">
+    <value>合作伙伴转账</value>
+  </data>
+  <data name="Bonus" xml:space="preserve">
+    <value>红利</value>
+  </data>
+  <data name="ClosingBalance" xml:space="preserve">
+    <value>期末余额</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>存款</value>
+  </data>
+  <data name="DrawGame" xml:space="preserve">
+    <value>和局</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>前期余额</value>
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>提款</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>净交易额</value>
+  </data>
+  <data name="PendingFunds" xml:space="preserve">
+    <value>待定资金</value>
+  </data>
+  <data name="SPR" xml:space="preserve">
+    <value>沙巴促销活动</value>
+    <comment>124612</comment>
+  </data>
+  <data name="BetfromOthers" xml:space="preserve">
+    <value>其他</value>
+    <comment>125553</comment>
+  </data>
+  <data name="NativeApp" xml:space="preserve">
+    <value>原生 APP</value>
+    <comment>125824</comment>
+  </data>
+  <data name="CustomerBalance" xml:space="preserve">
+    <value>会员余额</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金额</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活动奖金</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>促销活动</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>活动类型</value>
+    <comment>123804</comment>
+  </data>
+  <data name="SG" xml:space="preserve">
+    <value>新霸电子</value>
+  </data>
+  <data name="VRG" xml:space="preserve">
+    <value>虚拟娱乐城</value>
+  </data>
+  <data name="ESportsApp" xml:space="preserve">
+    <value>电子竞技 APP</value>
+  </data>
+  <data name="ESportsDesktop" xml:space="preserve">
+    <value>电子竞技 桌机</value>
+  </data>
+  <data name="ESportsMobile" xml:space="preserve">
+    <value>电子竞技 手机</value>
+  </data>
+  <data name="TG" xml:space="preserve">
+    <value>桌面游戏</value>
+  </data>
+  <data name="ExtraPayout" xml:space="preserve">
+    <value>额外派彩</value>
+  </data>
+  <data name="SabaPromotionPrizes" xml:space="preserve">
+    <value>沙巴促销活动</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>不是</value>
+  </data>
+  <data name="VIPPlayerOnly" xml:space="preserve">
+    <value>只显示VIP玩家</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="SXG" xml:space="preserve">
+    <value>AE性感真人</value>
+    <comment>#141118</comment>
+  </data>
+  <data name="SAG" xml:space="preserve">
+    <value>SA真人娱乐场</value>
+  </data>
+  <data name="CCB" xml:space="preserve">
+    <value>乐卡迪亚额外奖金</value>
+  </data>
+  <data name="SBCFB" xml:space="preserve">
+    <value>Saba.Club 免费投注</value>
+  </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>手机欧洲版</value>
+    <comment>revert</comment>
+  </data>
+  <data name="SLT" xml:space="preserve">
+    <value>体育时时彩</value>
+  </data>
+  <data name="DesktopOthers" xml:space="preserve">
+    <value>桌机其他</value>
+  </data>
+  <data name="MobileOthers" xml:space="preserve">
+    <value>手机其他</value>
+  </data>
+  <data name="HB" xml:space="preserve">
+    <value>HB电子</value>
+  </data>
+  <data name="DiscountValue" xml:space="preserve">
+    <value>折扣金额</value>
+  </data>
+  <data name="WM" xml:space="preserve">
+    <value>完美真人</value>
+  </data>
+  <data name="GodOfFortuneWinLoss" xml:space="preserve">
+    <value>财神爷输赢</value>
+  </data>
+  <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
+    <value>财神爷输赢 , {0} --&gt; {1} , {2}</value>
+  </data>
+  <data name="BGG" xml:space="preserve">
+    <value>大遊真人</value>
+  </data>
+  <data name="VGA" xml:space="preserve">
+    <value>Vgaming</value>
+  </data>
+  <data name="VGAC" xml:space="preserve">
+    <value>Vgaming Jackpot Contribution</value>
+  </data>
+  <data name="VGAFB" xml:space="preserve">
+    <value>Vgaming 免费投注</value>
+  </data>
+  <data name="CG" xml:space="preserve">
+    <value>CG电子</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>投注数</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>联赛</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>赛事</value>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>基础货币</value>
+  </data>
+  <data name="LeagueWinLossTitle" xml:space="preserve">
+    <value>联赛输赢, {0} --&gt; {1} , {2}, {3}</value>
+  </data>
+  <data name="Parlay" xml:space="preserve">
+    <value>混合过关</value>
+  </data>
+  <data name="Saba" xml:space="preserve">
+    <value>沙巴</value>
+  </data>
+  <data name="SoccerPinGoal" xml:space="preserve">
+    <value>足球台</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>运动</value>
+  </data>
+  <data name="CustomerAmount" xml:space="preserve">
+    <value>玩家金額</value>
+  </data>
+  <data name="LicSharingAmount" xml:space="preserve">
+    <value>承租公司分擔金額</value>
+  </data>
+  <data name="PromotionDetails" xml:space="preserve">
+    <value>活动详情</value>
+  </data>
+  <data name="FreeBets" xml:space="preserve">
+    <value>免费投注</value>
+  </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>即时兑现输赢</value>
+  </data>
+  <data name="BasketballPinGoal" xml:space="preserve">
+    <value>篮球台</value>
+  </data>
+  <data name="BTC" xml:space="preserve">
+    <value>比特币</value>
+  </data>
+  <data name="TIP" xml:space="preserve">
+    <value>玩家打赏</value>
+  </data>
+  <data name="ESportsPinGoal" xml:space="preserve">
+    <value>电竞台</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>滚球(不含混合)</value>
+  </data>
+  <data name="MixLiveAndNoneLive" xml:space="preserve">
+    <value>混合过关</value>
+  </data>
+  <data name="NoneLive" xml:space="preserve">
+    <value>非滚球(不含混合)</value>
+  </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>非正规注单</value>
+  </data>
+  <data name="Away" xml:space="preserve">
+    <value>客</value>
+  </data>
+  <data name="Choice" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>主</value>
+  </data>
+  <data name="IpSummary" xml:space="preserve">
+    <value>IP摘要</value>
+  </data>
+  <data name="KOTime" xml:space="preserve">
+    <value>开赛时间</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>上次登录</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>地点</value>
+  </data>
+  <data name="Over" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>摘要</value>
+  </data>
+  <data name="Ticket" xml:space="preserve">
+    <value>注单</value>
+  </data>
+  <data name="Under" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="Odds" xml:space="preserve">
+    <value>赔率</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>比分</value>
+  </data>
+  <data name="FinalScore" xml:space="preserve">
+    <value>最后比分</value>
+  </data>
+  <data name="ViewinDetail" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
+  <data name="ViewinIPSummary" xml:space="preserve">
+    <value>查看 IP 摘要</value>
+  </data>
+  <data name="ViewinSummary" xml:space="preserve">
+    <value>查看摘要</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>投注额</value>
+  </data>
+  <data name="JIG" xml:space="preserve">
+    <value>吉利电子</value>
+  </data>
+  <data name="YB" xml:space="preserve">
+    <value>亿博</value>
+  </data>
+  <data name="CO" xml:space="preserve">
+    <value>实时兑现</value>
+  </data>
+  <data name="MGRNG" xml:space="preserve">
+    <value>MG-RNG</value>
+  </data>
+  <data name="SB_BA" xml:space="preserve">
+    <value>体育博彩 &amp; BA</value>
+  </data>
+  <data name="WinlossAnalysis" xml:space="preserve">
+    <value>输赢分析</value>
+  </data>
+  <data name="PlayerW_L" xml:space="preserve">
+    <value>玩家输赢</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>玩家佣金</value>
+  </data>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>承租公司佣金</value>
+  </data>
+  <data name="AmountDueToBA" xml:space="preserve">
+    <value>BA金额</value>
+  </data>
+  <data name="Margin" xml:space="preserve">
+    <value>杀数</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>分组方式</value>
+  </data>
+  <data name="BreakdownBy" xml:space="preserve">
+    <value>依项目细分</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>聊天室</value>
+  </data>
+  <data name="DesktopGalaxy" xml:space="preserve">
+    <value>桌机银河版</value>
+  </data>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>手机银河版</value>
+  </data>
+  <data name="LG" xml:space="preserve">
+    <value>虚拟运动3</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>桌机</value>
+  </data>
+  <data name="SBPromotion" xml:space="preserve">
+    <value>体育促销活动</value>
+  </data>
+  <data name="CasinoPromotion" xml:space="preserve">
+    <value>真人娱乐促销活动</value>
+  </data>
+  <data name="WE" xml:space="preserve">
+    <value>WE世界娱乐</value>
+  </data>
+  <data name="Virtual" xml:space="preserve">
+    <value>虚拟</value>
+  </data>
+  <data name="BetId" xml:space="preserve">
+    <value>投注单号</value>
+  </data>
+  <data name="UUSL" xml:space="preserve">
+    <value>UU 老虎机</value>
+  </data>
+  <data name="Sportsbook" xml:space="preserve">
+    <value>体育博彩</value>
+  </data>
+  <data name="BT" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
+</root>

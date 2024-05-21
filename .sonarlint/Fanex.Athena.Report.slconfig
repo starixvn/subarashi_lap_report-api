@@ -1,0 +1,20 @@
+{
+  "ServerUri": "https://sonarqube.nexdev.net/",
+  "Organization": null,
+  "ProjectKey": "LAP.ReportAPI",
+  "ProjectName": "LEGION / LAP.ReportAPI",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "cs-sonar-way-80515",
+      "ProfileTimestamp": "2023-10-19T02:35:01Z"
+    },
+    "Js": {
+      "ProfileKey": "AWl04iZWj9olo_-BB-_e",
+      "ProfileTimestamp": "2023-08-07T03:32:55Z"
+    },
+    "Ts": {
+      "ProfileKey": "ts-tslint-55020",
+      "ProfileTimestamp": "2023-08-07T03:27:09Z"
+    }
+  }
+}
