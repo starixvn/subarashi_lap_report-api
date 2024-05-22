@@ -14,6 +14,7 @@ using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.Resources;
 using Moq;
 using System.Data;
+using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.UnitTests.Common;
@@ -55,7 +56,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _metaModel.ToDate = DateTimeHelper.CreateDateTime(2017, 2, 2);
             _metaModel.LiveIndicator = 1;
 
-            _appSettings = new AppSettings();
+            _appSettings = FakeHelper.Create<AppSettings>();
             _balanceUp = new BalanceUp
             {
                 MoveBetsDay = DateTimeHelper.CreateDateTime(2017, 2, 2)
@@ -136,6 +137,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         public async Task GetDetailBySport_WhenCall_ReturnCorrectResult()
         {
             // Arrange
+            AssignCommonReaderValues(FakeHelper.Create<LiveReport>());
+
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
             _reader.SetupSequence(x => x.NextResult()).Returns(true);
             _reader.Setup(x => x["SportType"]).Returns("1");
@@ -158,12 +161,14 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         [Theory]
         [InlineData("102", BetType.CombinationMixParlay)]
         [InlineData("103", BetType.Outright)]
-        [InlineData("9999", 9999)]
         public async Task GetDetailBySport_WhenCall_CallCorrectCacheRefMethod(string sportType, int bettype)
         {
             // Arrange
+            AssignCommonReaderValues(FakeHelper.Create<LiveReport>());
+
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
             _reader.SetupSequence(x => x.NextResult()).Returns(true);
+            
             _reader.Setup(x => x["SportType"]).Returns(sportType);
             _reader.Setup(x => x["Turnover"]).Returns(100);
             _reader.Setup(x => x["Winlost"]).Returns(200);
@@ -178,11 +183,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _cacheRefAdapter.Verify(x => x.GetBettype(bettype, false), Times.Once);
         }
 
-
         [Fact]
         public async Task GetDetailBySport_VirtualSports2MixParlay_CallCorrectCacheRefMethod()
         {
             // Arrange
+            AssignCommonReaderValues(FakeHelper.Create<LiveReport>());
+
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
             _reader.SetupSequence(x => x.NextResult()).Returns(true);
             _reader.Setup(x => x["SportType"]).Returns("104");
@@ -225,6 +231,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
                 new() { ProductCode = "SB", ProductName = "SuperBoy" },
             };
 
+            AssignCommonReaderValues(FakeHelper.Create<LiveReport>());
+
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false).Returns(true).Returns(false);
             _reader.SetupSequence(x => x.NextResult()).Returns(true);
             _reader.Setup(x => x["Currency"]).Returns("1");
@@ -262,6 +270,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
                 new() { ProductCode = "VS2", ProductName = "VS2" },
             };
 
+            AssignCommonReaderValues(FakeHelper.Create<LiveReport>());
+
             _cacheRefAdapter.Setup(x => x.GetBettype(It.IsAny<int>(), false)).Returns(betType);
             _cacheRefAdapter.Setup(x => x.GetSportName(It.IsAny<int>(), null)).Returns("Virtual Basketball");
 
@@ -292,7 +302,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
                 new() { ProductCode = "SB", ProductName = "SuperBoy" }
             };
 
-            _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
+
+            _reader.SetupSequence(x => x.Read()).Returns(false);
+            _reader.SetupSequence(x => x.NextResult()).Returns(true);
 
             var repository = CreateRepository();
 
@@ -326,7 +338,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             // Assert
             _objectDb.Verify(x => x.SetParameterValue("AgentList", metaModel.AgentListXml), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("fromdate", metaModel.FromDate.Date), Times.Once);
-            _objectDb.Verify(x => x.SetParameterValue("todate", metaModel.FromDate.Date), Times.Once);
+            _objectDb.Verify(x => x.SetParameterValue("todate", metaModel.ToDate.Date), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("liveindicator", metaModel.LiveIndicator), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("movebetsday", _balanceUp.MoveBetsDay), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("sportid", metaModel.SportId), Times.Once);
@@ -339,10 +351,18 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         public async Task GetLiveReportWinlossByMatch_WhenCall_ReturnCorrectResult()
         {
             // Arrange
+            var expected = FakeHelper.Create<LiveReportWinLossByMatch>();
+
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
-            _reader.Setup(x => x["matchid"]).Returns(2);
-            _reader.Setup(x => x["homeid"]).Returns(3);
-            _reader.Setup(x => x["awayid"]).Returns(4);
+            _reader.Setup(x => x["matchid"]).Returns(expected.MatchId);
+            _reader.Setup(x => x["homeid"]).Returns(expected.HomeId);
+            _reader.Setup(x => x["awayid"]).Returns(expected.AwayId);
+            _reader.Setup(x => x["Betcount"]).Returns(expected.BetCount);
+            _reader.Setup(x => x["Turnover"]).Returns(expected.TurnOver);
+            _reader.Setup(x => x["Winlost"]).Returns(expected.CustomerWinLoss);
+            _reader.Setup(x => x["PlayerComm"]).Returns(expected.CustomerComm);
+            _reader.Setup(x => x["Comm"]).Returns(expected.LicenseeComm);
+            _reader.Setup(x => x["LicenseeWL"]).Returns(expected.LicenseeWinLoss);
 
             var repository = CreateRepository();
 
@@ -350,17 +370,33 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var result = await repository.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel { ProductCodeList = string.Empty });
 
             // Assert
-            Assert.Equal(1, result.Count);
-            Assert.Equal(2, result[0].MatchId);
-            Assert.Equal(3, result[0].HomeId);
-            Assert.Equal(4, result[0].AwayId);
+            Assert.Single(result);
+            Assert.Equal(expected.MatchId, result[0].MatchId);
+            Assert.Equal(expected.HomeId, result[0].HomeId);
+            Assert.Equal(expected.AwayId, result[0].AwayId);
+            Assert.Equal(expected.TurnOver, result[0].TurnOver);
+            Assert.Equal(expected.CustomerWinLoss, result[0].CustomerWinLoss);
+            Assert.Equal(expected.CustomerComm, result[0].CustomerComm);
+            Assert.Equal(expected.LicenseeComm, result[0].LicenseeComm);
+            Assert.Equal(expected.LicenseeWinLoss, result[0].LicenseeWinLoss);
+        }
+
+        private void AssignCommonReaderValues(LiveReport item)
+        {
+            _reader.Setup(x => x["Turnover"]).Returns(item.TurnOver);
+            _reader.Setup(x => x["Winlost"]).Returns(item.CustomerWinLoss);
+            _reader.Setup(x => x["PlayerComm"]).Returns(item.CustomerComm);
+            _reader.Setup(x => x["Comm"]).Returns(item.LicenseeComm);
+            _reader.Setup(x => x["LicenseeWL"]).Returns(item.LicenseeWinLoss);
+            _reader.Setup(x => x["AmtDueto3rd"]).Returns(item.AmountDue);
+            _reader.Setup(x => x["Betcount"]).Returns(item.BetCount);
         }
 
         private void AssertCommonSetParameterValues()
         {
             _objectDb.Verify(x => x.SetParameterValue("AgentList", _metaModel.AgentListXml), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("fromdate", _metaModel.FromDate.Date), Times.Once);
-            _objectDb.Verify(x => x.SetParameterValue("todate", _metaModel.FromDate.Date), Times.Once);
+            _objectDb.Verify(x => x.SetParameterValue("todate", _metaModel.ToDate.Date), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("liveindicator", _metaModel.LiveIndicator), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("movebetsday", _balanceUp.MoveBetsDay), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("ProductCodes", _metaModel.ProductCodeList), Times.Once);

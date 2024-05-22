@@ -9,6 +9,6 @@ namespace Fanex.Athena.Report.BySite.Excels.Interfaces
     {
         byte[] Export(string template, SortableList<LiveReportWinLossByMatch> data,
                       LiveReportMatchListMetalModel metaModel,
-                      LiveReportExcelOption excelOption);
+                      LiveReportMatchListExcelOption excelOption);
     }
 }

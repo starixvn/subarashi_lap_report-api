@@ -1,5 +1,4 @@
 ﻿using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
 
 namespace Fanex.Athena.Report.BySite.Excels.Options
 {

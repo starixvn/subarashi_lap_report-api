@@ -25,7 +25,9 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             var mockObjectDB = CustomerBalanceHelperTest.SetUpObjectDb(mockIDataReader);
             var metaModel = new CustomerBalanceMetaModel
             {
-                ProductOptions = CustomerBalanceHelperTest.GetProductOptions()
+                ProductOptions = CustomerBalanceHelperTest.GetProductOptions().
+                                                           Append(new() {Code = "BT"}).
+                                                           Append(new() { Code = "CO" })
             };
             var service = new CustomerBalanceService();
 

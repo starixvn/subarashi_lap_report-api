@@ -1,6 +1,5 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.Common.Extensions;
-using Newtonsoft.Json;
 
 namespace Fanex.Athena.Report.BySite.Models
 {

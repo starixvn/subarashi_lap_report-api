@@ -91,20 +91,21 @@ namespace Fanex.Athena.Report.Base.Controllers
 
             var customContent = content;
 
-            if (customContent.Contains(openingTag))
+            if (!customContent.Contains(openingTag))
             {
-                if (products.Any(x => x.ProductID == productId))
-                {
-                    var closingTag = "{/" + productCode + "-productlist-section}";
-                    customContent = customContent.Replace(openingTag, string.Empty);
-                    customContent = customContent.Replace(closingTag, string.Empty);
-                }
-                else
-                {
-                    var pattern = @"\{" + productCode + @"-productlist-section\}([\s\S]*?){/" + productCode +
-                                  @"-productlist-section\}";
-                    customContent = new Regex(pattern).Replace(customContent, string.Empty);
-                }
+                return customContent;
+            }
+
+            if (products.Any(x => x.ProductID == productId))
+            {
+                var closingTag = "{/" + productCode + "-productlist-section}";
+                customContent = customContent.Replace(openingTag, string.Empty);
+                customContent = customContent.Replace(closingTag, string.Empty);
+            }
+            else
+            {
+                var pattern = @"\{" + productCode + @"-productlist-section\}([\s\S]*?){/" + productCode + @"-productlist-section\}";
+                customContent = new Regex(pattern).Replace(customContent, string.Empty);
             }
 
             return customContent;
@@ -149,7 +150,6 @@ namespace Fanex.Athena.Report.Base.Controllers
             var customContent = content;
             var licenseeTagPattern = $"{{[\\w\\d]+-{LICENSEE_SUFFIX_SECTION}}}";
             var matchItems = new Regex(licenseeTagPattern).Matches(customContent)
-                                                          .OfType<Match>()
                                                           .Select(_ => _.Value);
 
             foreach (var matchItem in matchItems)

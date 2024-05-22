@@ -145,8 +145,8 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
 
-                var productList = metaModel.ProductCodeList.Split(',');
-                db.SetParameterValue("ShowBA", productList.Any(_ => string.Equals(_, Product.BA, StringComparison.OrdinalIgnoreCase)));
+                var productList = metaModel.ProductCodeList.Split(',').ToList();
+                db.SetParameterValue("ShowBA", productList.Exists(_ => string.Equals(_, Product.BA, StringComparison.OrdinalIgnoreCase)));
                 db.SetParameterValue("ProductList", string.Join(",", productList.Where(_ => !string.Equals(_, Product.BA, StringComparison.OrdinalIgnoreCase))));
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
