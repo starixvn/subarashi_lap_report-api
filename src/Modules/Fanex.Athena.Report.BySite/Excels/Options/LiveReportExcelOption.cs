@@ -5,9 +5,11 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
 {
     public class LiveReportExcelOption : IConvertingOption
     {
-        public ShowingOption ShowingOption { get; set; }
+        public bool CustomerCommVisible { get; set; }
 
-        public string SportName { get; set; }
+        public bool BaVisible { get; set; }
+
+        public bool HasAmountDueToColumn { get; set; }
 
         public bool IsConvert { get; set; } = true;
 

@@ -136,19 +136,10 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 _contextService.Language,
                 FunctionNames.MatchWinLoss);
 
-            var showingOption = new ShowingOption
-            {
-                BAVisible = productAccess.IsAllowBa,
-                NGVisible = productAccess.IsAllowNg,
-                SBVisible = productAccess.IsAllowSb,
-                VSVisible = productAccess.IsAllowVs,
-                KNVisible = productAccess.IsAllowKn,
-                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-            };
-
             var option = new MatchWinLossExcelOption
             {
-                ShowingOption = showingOption,
+                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
+                BaVisible = productAccess.IsAllowBa,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName

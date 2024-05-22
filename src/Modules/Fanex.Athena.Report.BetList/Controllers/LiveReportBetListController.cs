@@ -23,6 +23,18 @@ namespace Fanex.Athena.Report.BetList.Controllers
     {
         protected const string ExcelFileName = "LiveReportBetList";
 
+        private const string LiveReportSpKey = "Lrf_BetList_LiveReport";
+
+        private const string MatchSpKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
+
+        private const string OutRightSpKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
+
+        private const string NumberGameSpKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
+
+        private const string MixParlaySpKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
+
+        private const string VirtualSportSpKey = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+
         private static readonly int[] HiddenColumns = { BetEffectiveColumn, };
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -43,7 +55,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> MatchExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
+            metaModel.UspKey = MatchSpKey;
 
             return await ExportExcel(metaModel);
         }
@@ -51,7 +63,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpGet]
         public async Task<IActionResult> Match([FromQuery] LiveReportBetListMetaModel metaModel, bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
+            metaModel.UspKey = MatchSpKey;
 
             if (dataOnly)
             {
@@ -89,7 +101,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> OutrightExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
+            metaModel.UspKey = OutRightSpKey;
 
             return await ExportExcel(metaModel, ViewResources.Outright);
         }
@@ -98,7 +110,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> Outright([FromQuery] LiveReportBetListMetaModel metaModel,
                                                   bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
+            metaModel.UspKey = OutRightSpKey;
 
             if (dataOnly)
             {
@@ -114,7 +126,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> NumberGameExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
+            metaModel.UspKey = NumberGameSpKey;
             metaModel.IsServerPaging = true;
 
             return await ExportExcel(metaModel, ViewResources.ProductNG);
@@ -124,8 +136,8 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> NumberGame([FromQuery] LiveReportBetListMetaModel metaModel, int page,
                                                     int rows, bool dataOnly = true)
         {
+            metaModel.UspKey = NumberGameSpKey;
             metaModel.IsServerPaging = true;
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
 
             if (dataOnly)
             {
@@ -142,7 +154,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> MixParlayExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
+            metaModel.UspKey = MixParlaySpKey;
 
             return await ExportExcel(metaModel);
         }
@@ -151,7 +163,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> MixParlay([FromQuery] LiveReportBetListMetaModel metaModel, int page, int rows,
                                                    bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
+            metaModel.UspKey = MixParlaySpKey;
 
             if (dataOnly)
             {
@@ -168,7 +180,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> VirtualSportsExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+            metaModel.UspKey = VirtualSportSpKey;
 
             return await ExportExcel(metaModel, _cacheRefAdapter.GetSportName(metaModel.SportType));
         }
@@ -177,7 +189,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> VirtualSports([FromQuery] LiveReportBetListMetaModel metaModel, int page,
                                                        int rows, bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+            metaModel.UspKey = VirtualSportSpKey;
 
             if (dataOnly)
             {
@@ -194,7 +206,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> SportsLotteryExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport";
+            metaModel.UspKey = LiveReportSpKey;
             metaModel.ProductCodeList += $",{Product.SLT}";
 
             return await ExportExcel(metaModel, _cacheRefAdapter.GetSportName(metaModel.SportType));
@@ -204,7 +216,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> SportsLottery([FromQuery] LiveReportBetListMetaModel metaModel, int page,
                                                        int rows, bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport";
+            metaModel.UspKey = LiveReportSpKey;
             metaModel.ProductCodeList += $",{Product.SLT}";
 
             if (dataOnly)
@@ -222,7 +234,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> BitCoinExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport";
+            metaModel.UspKey = LiveReportSpKey;
             metaModel.ProductCodeList += $",{Product.BTC}";
 
             return await ExportExcel(metaModel, metaModel.ProductName);
@@ -232,7 +244,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> BitCoin([FromQuery] LiveReportBetListMetaModel metaModel, int page, int rows,
                                                  bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport";
+            metaModel.UspKey = LiveReportSpKey;
             metaModel.ProductCodeList += $",{Product.BTC}";
 
             if (dataOnly)
@@ -250,7 +262,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> VS3ExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport";
+            metaModel.UspKey = LiveReportSpKey;
 
             return await ExportExcel(metaModel);
         }
@@ -259,7 +271,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> VS3([FromQuery] LiveReportBetListMetaModel metaModel, int page, int rows,
                                              bool dataOnly = true)
         {
-            metaModel.UspKey = "Lrf_BetList_LiveReport";
+            metaModel.UspKey = LiveReportSpKey;
 
             if (dataOnly)
             {

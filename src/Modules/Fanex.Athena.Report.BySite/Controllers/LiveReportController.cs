@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -159,16 +160,12 @@ namespace Fanex.Athena.Report.BySite.Controllers
                                                          [FromBody] LiveReportMatchListMetalModel metaModel)
         {
             var productAccess = GetProductAccess();
-            var showingOption = new ShowingOption
-            {
-                BAVisible = productAccess.IsAllowBa,
-                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
-            };
 
-            var excelOption = new LiveReportExcelOption
+            var excelOption = new LiveReportMatchListExcelOption
             {
-                ShowingOption = showingOption,
+                BaVisible = productAccess.IsAllowBa,
+                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName,
@@ -193,16 +190,11 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             var summaryReport = await _liveReportService.GetLiveReportSummary(metaModel);
 
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-                BAVisible = productAccess.IsAllowBa,
-                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
-            };
-
             var excelOption = new LiveReportExcelOption
             {
-                ShowingOption = showingOption,
+                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
+                BaVisible = productAccess.IsAllowBa,
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName

@@ -209,19 +209,19 @@ namespace Fanex.Athena.Report.BySite.Excels
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUI(ISheet sheet)
         {
-            if (!_options.ShowingOption.CustomerCommVisible)
+            if (!_options.CustomerCommVisible)
             {
                 const int DetailCustomerWlHeader = SummarySectionRowIndex + 2;
                 _builder.HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 _builder.HideRow(sheet, DetailCustomerWlHeader);
             }
 
-            if (!_options.ShowingOption.BAVisible)
+            if (!_options.BaVisible)
             {
                 _builder.HideColumn(sheet, ColumnLicenseeComm);
             }
 
-            if (!_options.ShowingOption.HasAmountDueToColumn)
+            if (!_options.HasAmountDueToColumn)
             {
                 _builder.HideColumn(sheet, ColumnAmountDue);
             }
@@ -279,7 +279,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 RowByBetTypeHeaderTemplate, rowIndex);
             rowIndex += SeparateSectionEmptyRow + 1;
 
-            if (!_options.ShowingOption.CustomerCommVisible)
+            if (!_options.CustomerCommVisible)
             {
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
                 var rowHeaderMerge = rowIndex - 2;
@@ -322,7 +322,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                     RowByCurrencyHeaderTemplate, rowIndex);
                 rowIndex += SeparateSectionEmptyRow + 1;
 
-                if (!_options.ShowingOption.CustomerCommVisible)
+                if (!_options.CustomerCommVisible)
                 {
                     // If row isn't hide (in case BA visible), then merge cell and set value for header
                     var rowHeaderMerge = rowIndex - 2;
@@ -359,7 +359,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 RowBySportsTypeHeaderTemplate, rowIndex);
             rowIndex += SeparateSectionEmptyRow + 1;
 
-            if (!_options.ShowingOption.CustomerCommVisible)
+            if (!_options.CustomerCommVisible)
             {
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
                 var rowHeaderMerge = rowIndex - 2;

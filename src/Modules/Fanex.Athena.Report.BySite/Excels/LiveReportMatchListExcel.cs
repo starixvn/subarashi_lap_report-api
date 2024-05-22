@@ -57,7 +57,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private LiveReportMatchListMetalModel _metaModel;
 
-        private LiveReportExcelOption _options;
+        private LiveReportMatchListExcelOption _options;
 
         public LiveReportMatchListExcel(IExcelBuilder builder)
         {
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         public byte[] Export(string template, 
                              SortableList<LiveReportWinLossByMatch> data,
                              LiveReportMatchListMetalModel metaModel,
-                             LiveReportExcelOption excelOption)
+                             LiveReportMatchListExcelOption excelOption)
         {
             _data = data;
             _metaModel = metaModel;
@@ -210,18 +210,18 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected void ProcessUi(ISheet sheet)
         {
-            if (!_options.ShowingOption.CustomerCommVisible)
+            if (!_options.CustomerCommVisible)
             {
                 _builder.HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 _builder.HideColumn(sheet, RowTableHeaderTemplate + 1);
             }
 
-            if (!_options.ShowingOption.BAVisible)
+            if (!_options.BaVisible)
             {
                 _builder.HideColumn(sheet, ColumnLicenseeComm);
             }
 
-            if (!_options.ShowingOption.HasAmountDueToColumn)
+            if (!_options.HasAmountDueToColumn)
             {
                 _builder.HideColumn(sheet, ColumnAmountDue);
             }

@@ -346,13 +346,13 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected virtual void ProcessUi(ISheet sheet)
         {
-            if (!_option.ShowingOption.CustomerCommVisible)
+            if (!_option.CustomerCommVisible)
             {
                 _builder.HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 _builder.HideRow(sheet, RowTableHeaderTemplate + 1);
             }
 
-            if (!_option.ShowingOption.BAVisible)
+            if (!_option.BaVisible)
             {
                 _builder.HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }
