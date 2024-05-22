@@ -12,7 +12,9 @@
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.ViewModel;
+    using Fanex.Athena.Report.Core.Extensions;
     using NPOI.HSSF.Record.Chart;
+    using NPOI.SS.Formula.Functions;
 
     public class PlayerSabaCoinsService : IPlayerSabaCoinsService
     {
@@ -51,25 +53,23 @@
         {
             if (main != null && main.Any())
             {
-                if (extraInfo != null && extraInfo.Any())
+                if (extraInfo != null)
                 {
-                    return main.Join(extraInfo,
-                          m => m.CustId,
-                          e => e.CustId,
-                          (main, extra) => new PlayerSabaCoins
-                          {
-                              CustId = main.CustId,
-                              Username = main.Username,
-                              ExternalId = main.ExternalId,
-                              OpeningBalance = main.OpeningBalance,
-                              Turnover = main.Turnover,
-                              Outstanding = main.Outstanding,
-                              WinLoss = main.WinLoss,
-                              ClosingBalance = main.ClosingBalance,
-                              RewardPromotionAmt = extra.RewardPromotionAmt,
-                              ExchangeAmt = extra.ExchangeAmt
-                          }
-                        );
+                    return main.LeftOuterJoin(extraInfo, main => main.CustId, extra => extra.CustId,
+                        (main, extra) => new PlayerSabaCoins
+                        {
+                            CustId = main.CustId,
+                            Username = main.Username,
+                            ExternalId = main.ExternalId,
+                            OpeningBalance = main.OpeningBalance,
+                            Turnover = main.Turnover,
+                            Outstanding = main.Outstanding,
+                            WinLoss = main.WinLoss,
+                            ClosingBalance = main.ClosingBalance,
+                            RewardPromotionAmt = extra?.RewardPromotionAmt ?? 0,
+                            ExchangeAmt = extra?.ExchangeAmt ?? 0
+                        }
+                    );
                 }
 
                 return main;
