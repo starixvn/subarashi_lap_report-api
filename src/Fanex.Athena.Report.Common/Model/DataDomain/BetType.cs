@@ -61,7 +61,13 @@
         public const int SabaCasinoRoyaleTournamentPrize = 17006;
 
         public const int SabaRewardRiskFreeRebate = 17007;
-        
+
         public const int Live22Promotion = 7698;
+
+        public const int SabaCoinsCashExchange = 17008;
+
+        public const int PromotionJackpotPrize = 17009;
+
+        public const int PromotionCashPrize = 17010;
     }
 }

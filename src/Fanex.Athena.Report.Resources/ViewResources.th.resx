@@ -696,4 +696,13 @@
   <data name="BetId" xml:space="preserve">
     <value>รหัสเดิมพัน</value>
   </data>
+  <data name="ExchangeToCash" xml:space="preserve">
+    <value>แลกเป็นเงินสด</value>
+  </data>
+  <data name="PlayerSabaCoins" xml:space="preserve">
+    <value>เหรียญสำหรับนักเดิมพัน SABA</value>
+  </data>
+  <data name="Reward_Promotion" xml:space="preserve">
+    <value>รางวัล/โปรโมชั่น</value>
+  </data>
 </root>
