@@ -29,5 +29,7 @@
         public const string SettledMatchCount = "SettledMatchCount28";
         public const string WeeklyLiveMatches = "WeeklyLiveMatches69";
         public const string LiveReport = "LiveReport38";
+        public const string Turnover = "Turnover39";
+        public const string CustomerTurnover = "CustomerTurnover51";
     }
 }

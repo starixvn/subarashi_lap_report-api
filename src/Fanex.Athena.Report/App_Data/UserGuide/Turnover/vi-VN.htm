@@ -1,0 +1,96 @@
+﻿<div class="rule">
+    <h4>
+        Thông Tin Chung
+    </h4>
+    <ul>
+        <li>Bất kỳ truy vấn nào được thực hiện trước 4:00 chiều (GMT-4) trong ngày sẽ trả về dữ liệu đến 4:00 chiều của ngày trước đó. Mỗi truy vấn có thể xem dữ liệu lên đến 1 tháng. </li>
+        <li>Báo cáo này chỉ bao gồm vé cược thắng, thua và hòa.</li>
+        <li>Dữ liệu được hiển thị theo ngày. </li>
+        <li>Dịch Vụ Ngoại Hối OANDA sẽ sử dụng tỷ giá hối đoái ở ngày cuối cùng của mỗi tháng đã chọn để chuyển đổi số liệu.</li>
+        <li>Dữ liệu của sản phẩm RNG, Live Casino sẽ có độ trễ lên đến 5 phút sau khi kết toán vé cược.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Bộ Lọc Tìm Kiếm
+    </h4>
+    <ul>
+        <li>
+            <b>Tiền Tệ:</b> chọn đơn vị tiền tệ cho dữ liệu cần truy xuất.
+            <ul>
+                <li><b>Tất Cả: Liệt kê tất cả đơn vị tiền tệ được hỗ trợ. </li>
+            </ul>
+        </li>
+        <li><b>Tiền Tệ Cơ Sở:</b> chuyển tất cả dữ liệu sang tiền tệ cơ sở nhằm mục đích tham chiếu.</li>
+        <li><b>Loại Trừ Dữ Liệu Kiểm Thử:</b> loại trừ tất cả vé cược từ tài khoản kiểm thử. </li>
+        <li>
+            <b>Tên Người Dùng:</b> nhập ID ngoại vi hoặc ID hệ thống của tài khoản cần tìm kiếm.
+            <br />
+            Lưu ý: nếu bạn chưa chọn bất kỳ tài khoản khách hàng nào thì báo cáo sẽ liệt kê dữ liệu của tất cả khách hàng trong khoảng thời gian đã chọn.
+        </li>
+        <li>
+            <b>Sản Phẩm:</b> chọn Loại Sản Phẩm để truy xuất dữ liệu.
+            <br />
+            Lưu ý: không có tùy chọn sản phẩm BA trong bộ lọc sản phẩm, vì tất cả dữ liệu của BA như tiền thắng thua, doanh thu cùng các dữ liệu liên quan khác đã bao gồm trong sản phẩm Sportsbook.
+        </li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Hướng Dẫn Sử Dụng Báo Cáo
+    </h4>
+    <ul>
+        <li><b>Ngày:</b> danh sách các ngày có dữ liệu trong khoảng thời gian đã chọn.</li>
+        {open-balance-section}
+        <li><b>Số Dư Đầu Kỳ:</b> số tiền trong tài khoản của khách hàng vào đầu ngày.</li>
+        <li><b>Tiền Nạp:</b> tổng số tiền khách hàng đã nạp mỗi ngày.</li>
+        <li><b>Tiền Rút:</b> số tiền khách hàng rút.</li>
+        {/open-balance-section}
+        <li><b>Tiền Thưởng:</b> số tiền mà Nhà Cái đã thưởng cho khách hàng.</li>
+        <li><b>Điều Chỉnh Số Dư:</b> số tiền mà Nhà Cái sử dụng để điều chỉnh số dư của khách hàng.</li>
+        <li><b>Trả Thưởng Thêm:</b> tổng số Tiền Boa, Thưởng Khuyến Mãi, Giải Thưởng Jackpot, Tích Lũy Jackpot, Trao Đổi Điểm SABA, Cược Miễn Phí Saba.club, Tiền Thưởng Arcadia Gaming, Lì Xì Saba, Rút Thăm May Mắn AE Casino, Cược Miễn Phí Vgaming.</li>
+        <li><b>Doanh Thu:</b> tổng tiền cược của khách hàng trong khoảng thời gian đã chọn.</li>
+        <li><b>Tiền Vé Cược Hòa:</b> tổng tiền cược của các vé cược hòa.</li>
+        <li>
+            <b>Doanh Thu Thực:</b> doanh thu sau khi trừ đi tiền vé cược hòa.
+            <center>
+                Doanh Thu Thực = Doanh Thu - Tiền Vé Cược Hòa
+            </center>
+        </li>
+        <li><b>Tiền Chưa Xử Lý:</b> tổng tiền cược của các vé cược đang diễn ra.</li>
+        <li><b>Thắng Thua Khách Hàng:</b> tiền thắng thua mỗi ngày của khách hàng.</li>
+        {open-balance-section}
+        <li>
+            <b>Số Dư Cuối Kỳ:</b> số dư của khách hàng vào cuối ngày.
+            <center>
+                Số Dư Cuối Kỳ = Số Dư Đầu Kỳ + Tiền Nạp – Tiền Rút + Tiền Thưởng + Điều Chỉnh Số Dư – Tiền Chưa Xử Lý + Thắng Thua Khách Hàng
+            </center>
+        </li>
+        {/open-balance-section}
+        <li><b>Chuyển Khoản Đối Tác Liên Kết:</b> tổng số tiền chi trả cho đối tác liên kết.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        BA
+    </h4>
+    <ul>
+        <li>
+            <b>Doanh Thu:</b> tổng tiền cược của khách hàng trên các vé cược BA.
+            <br />
+            Lưu ý: Doanh Thu của vé cược BA chỉ mang tính chất tham khảo, vì số tiền này đã được tính vào Doanh Thu chung.
+        </li>
+        <li><b>Hoa Hồng:</b> hoa hồng Nhà Cái từ vé cược BA.</li>
+        <li>
+            <b>Tiền BA:</b> khoản tiền kết toán giữa Nhà Cái và bên cung cấp dịch vụ BA.
+            <br />
+            Lưu ý: trong tiền BA, số âm màu đen là số tiền nhận được, còn số dương màu đen là tiền phải trả.
+        </li>
+    </ul>
+</div>

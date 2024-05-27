@@ -1,0 +1,96 @@
+﻿<div class="rule">
+    <h4>
+        Informasi Umum
+    </h4>
+    <ul>
+        <li>Setiap permintaan sebelum pukul 4PM GMT-4 akan mengembalikan data hingga pukul 4PM hari sebelumnya. Anda dapat menyaring data hingga 1 bulan per permintaan. </li>
+        <li>Laporan ini hanya berisi tiket yang menang/kalah/seri.</li>
+        <li>Data direpresentasikan berdasarkan Harian. </li>
+        <li>OANDA Exchange Service akan menggunakan kurs pada tanggal akhir setiap bulan yang dipilih saat mengkonversi angka-angka tersebut.</li>
+        <li>Data dari Produk RNG, Live Casino akan tertunda hingga 5 menit setelah penyelesaian tiket.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Filter Pencarian
+    </h4>
+    <ul>
+        <li>
+            <b>Mata Uang:</b> Memilih mata uang yang data akan diambil.
+            <ul>
+                <li><b>Semua:</b> semua mata uang yang didukung akan terdaftar. </li>
+            </ul>
+        </li>
+        <li><b>Mata Uang Dasar:</b> Ubah semua data ke mata uang dasar hanya untuk referensi.</li>
+        <li><b>Kecualikan Data Uji:</b> Mengkecualikan semua tiket dari akun uji. </li>
+        <li>
+            <b>Username:</b> Masukkan ID eksternal atau ID sistem akun yang dicari.
+            <br />
+            Perhatikan, jika Anda tidak menentukan akun Pelanggan tertentu, Laporan akan mencantumkan data semua Pelanggan dalam rentang tanggal yang dipilih.
+        </li>
+        <li>
+            <b>Produk:</b> memilih jenis Produk yang data akan diambil.
+            <br />
+            Perhatikan, tidak ada BA dari filter produk (kemenangan/kerugian BA, omset, dan data terkait sudah termasuk dalam Sportsbook).
+        </li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Panduan Laporan
+    </h4>
+    <ul>
+        <li><b>Hari:</b> daftar hari yang memiliki data dalam rentang tanggal yang dipilih.</li>
+        {open-balance-section}
+        <li><b>Saldo Awal:</b> ini adalah Saldo Awal Pelanggan, jumlah dana dalam akun Pelanggan pada awal hari.</li>
+        <li><b>Deposit:</b> Jumlah total yang Pelanggan depositkan setiap hari.</li>
+        <li><b>Penarikan:</b> Jumlah penarikan oleh Pelanggan.</li>
+        {/open-balance-section}
+        <li><b>Bonus:</b> Jumlah bonus yang diberikan Lisensi kepada Pelanggan.</li>
+        <li><b>Penyesuaian:</b> Jumlah total penyesuaian yang digunakan oleh Lisensi untuk menyeimbangkan saldo Pelanggan.</li>
+        <li><b>Pembayaran Ekstra:</b> jumlah total dari jumlah Tip, Hadiah Promosi, Hadiah Jackpot, Kontribusi Jackpot, Promosi Saba, Taruhan Gratis Saba.club, Bonus Permainan Arcadia, Amplop Merah Saba, Undian Beruntung Kasino AE, Taruhan Gratis Vgaming.</li>
+        <li><b>Omset:</b> Omset Pelanggan setiap harinya dalam rentang tanggal yang dipilih.</li>
+        <li><b>Permainan Seri:</b> Total taruhan tiket seri.</li>
+        <li>
+            <b>Omset Bersih:</b> Jumlah omset setelah dikurangi tiket seri.
+            <center>
+                Omset Bersih = Omset - Permainan seri
+            </center>
+        </li>
+        <li><b>Dana Tertunda:</b> total taruhan yang sedang berjalan.</li>
+        <li><b>Kemenangan/Kerugian Pelanggan:</b> Kemenangan/kerugian Pelanggan setiap harinya.</li>
+        {open-balance-section}
+        <li>
+            <b>Saldo Akhir:</b> Ini adalah Saldo Penutupan Pelanggan, jumlah dana pada akhir hari.
+            <center>
+                Saldo Akhir = Saldo Awal + Deposit – Penarikan + Bonus + Penyesuaian – Dana tertunda + Kemenangan/Kerugian Pelanggan
+            </center>
+        </li>
+        {/open-balance-section}
+        <li><b>Transfer Afiliasi:</b> Total pembayaran untuk afiliasi.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        BA
+    </h4>
+    <ul>
+        <li>
+            <b>Omset:</b> Total taruhan pelanggan untuk tiket BA.
+            <br />
+            Perhatikan, Omset BA hanya untuk referensi, karena sudah termasuk dalam Omset keseluruhan.
+        </li>
+        <li><b>Komisi:</b> Pendapatan komisi Lisensi untuk tiket BA.</li>
+        <li>
+            <b>Jumlah yang Harus Dibayar Kepada:</b> Jumlah penyelesaian antara Lisensi dan layanan BA.
+            <br />
+            Perhatikan bahwa untuk Jumlah yang Harus Dibayarkan ke BA, angka negatif berwarna hitam menunjukkan jumlah penerimaan dari BA dan angka positif berwarna hitam menunjukkan jumlah pembayaran kepada BA.
+        </li>
+    </ul>
+</div>
