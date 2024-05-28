@@ -126,13 +126,11 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             _repository.Verify(x => x.GetLiveReportWinlossByMatch(metaModel), Times.Never);
         }
 
-        [Theory]
-        [InlineData(SportType.LiveCasino, "ShowTime")]
-        [InlineData(SportType.AllBet, "vs")]
-        public async Task GetLiveReportWinLossByMatch_ValidMetaModel_ReturnCorrectData(int sportType, string expectedMatchName)
+        [Fact]
+        public async Task GetLiveReportWinLossByMatch_ValidMetaModel_ReturnCorrectData()
         {
             // Arrange
-            var metaModel = new LiveReportMatchListMetalModel { SportId = sportType };
+            var metaModel = new LiveReportMatchListMetalModel { SportId = SportType.AllBet };
 
             var dataList = new SortableList<LiveReportWinLossByMatch>
             {
@@ -148,7 +146,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
 
             // Assert
             Assert.Equal(dataList.Count, result.Count);
-            Assert.Contains(expectedMatchName, result[0].MatchName);
+            Assert.Contains("vs", result[0].MatchName);
         }
 
         private LiveReportService CreateService() => new(_cacheRefAdapter.Object, _repository.Object);

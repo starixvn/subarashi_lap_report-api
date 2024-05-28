@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss;
-using Fanex.Athena.Report.BetList.Models.BetList;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Attributes;
@@ -26,8 +25,6 @@ namespace Fanex.Athena.Report.BetList.Controllers
         protected const int PageIndex = 1;
 
         protected const int PageSizeExcel = 63000;
-
-        protected const int BetEffectiveColumn = 8;
 
         protected const string SP_BETLIST_MATCHWL = "Lrf_BetList_MatchWL";
 

@@ -478,7 +478,7 @@
     <value>Tên người chơi</value>
   </data>
   <data name="PlayerW_L" xml:space="preserve">
-    <value>Thắng Thua Người Chơi </value>
+    <value>Thắng Thua Người Chơi</value>
   </data>
   <data name="PP" xml:space="preserve">
     <value>PP</value>
@@ -517,7 +517,7 @@
     <value>Saba</value>
   </data>
   <data name="SabaPromotionPrizes" xml:space="preserve">
-    <value>Giải thưởng Saba </value>
+    <value>Giải thưởng Saba</value>
   </data>
   <data name="SAG" xml:space="preserve">
     <value>SA Gaming</value>

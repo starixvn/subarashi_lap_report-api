@@ -2,7 +2,7 @@
 {
     public class LiveReportBetListMetaModel : BetListExcelMetaModel
     {
-        public new int SportType { get; set; }
+        public int SportType { get; set; }
 
         public string ProductName { get; set; }
     }

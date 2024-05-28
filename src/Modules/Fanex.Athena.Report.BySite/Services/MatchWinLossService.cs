@@ -15,7 +15,7 @@ namespace Fanex.Athena.Report.BySite.Services
 {
     public class MatchWinLossService : IMatchWinLossService
     {
-        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
+        private const string KickOffTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
         private static readonly IEnumerable<int> VSSportTypes = new List<int>
         {
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Report.BySite.Services
 
             if (VSSportTypes.Contains(matchWinLoss.SportType))
             {
-                return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickOffTime);
+                return string.Format(EnglishCulture, KickOffTimeFormat, matchWinLoss.KickOffTime);
             }
 
             var homeName = _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) +
