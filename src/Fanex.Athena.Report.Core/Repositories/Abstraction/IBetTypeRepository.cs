@@ -6,6 +6,8 @@ namespace Fanex.Athena.Report.Core.Repositories.Abstraction
 {
     public interface IBetTypeRepository
     {
+        Task<IList<(string ProductPrefix, int BetTypeId)>> GetBettypes(string xmlSportList);
+
         Task<IList<CheckedItem>> GetBetTypesByProduct(int licenseeId, string productCode, string languageCode,
                                                       bool isHideSaba);
 

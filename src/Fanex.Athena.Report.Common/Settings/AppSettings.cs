@@ -21,5 +21,7 @@ namespace Fanex.Athena.Report.Common.Settings
         public string BetListApiTokenValue { get; set; }
 
         public bool HasAmountDueToColumn { get; set; }
+
+        public int MaxRowPerExcelFile { get; set; }
     }
 }

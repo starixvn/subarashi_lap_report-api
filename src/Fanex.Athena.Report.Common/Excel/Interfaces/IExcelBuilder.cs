@@ -20,6 +20,8 @@
 
         int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol);
 
+        int MergeRows(ISheet sheet, int firstRow, int lastRow, int colIndex);
+
         int MergeCols(ISheet sheet, int firstCol, int lastCol, int rowIndex);
 
         void HideRow(ISheet sheet, params int[] rowIndex);

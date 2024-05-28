@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
@@ -22,6 +24,60 @@ namespace Fanex.Athena.Report.Core.Services
         {
             _betTypeRepository = betTypeRepository;
             _cacheRefAdapter = cacheRefAdapter;
+        }
+
+        public async Task<IList<BettypeProductItem>> GetBettypes(IEnumerable<SportProductItem> sports, string languageCode, bool isHideSaba)
+        {
+            if (sports != null && sports.Any())
+            {
+                var sportsParameters = BuildSportXmlParameter(sports);
+                var betypes = await _betTypeRepository.GetBettypes(sportsParameters).ConfigureAwait(false);
+                return betypes.Select(bettype => BuildBetTypeCheckItem(bettype, languageCode, isHideSaba)).ToList();
+            }
+
+            return new List<BettypeProductItem>();
+        }
+
+        private BettypeProductItem BuildBetTypeCheckItem((string ProductPrefix, int BetTypeId) betType, string languageCode, bool isHideSaba)
+        {
+            var betTypeId = betType.BetTypeId;
+            var bettypeName = _cacheRefAdapter.GetBetTypeName(betTypeId, languageCode, isHideSaba);
+            if (MappingHelper.MapBettypeSportBySport.ContainsKey(betType.BetTypeId))
+            {
+                var suffix = _cacheRefAdapter.GetSportName(MappingHelper.MapBettypeSportBySport[betTypeId], languageCode);
+                bettypeName += " (" + suffix + ")";
+            }
+
+            return new BettypeProductItem
+            {
+                Checked = true,
+                Id = betTypeId,
+                Name = bettypeName,
+                Value = bettypeName,
+                ProductPrefix = string.IsNullOrEmpty(betType.ProductPrefix) ? Product.SB : betType.ProductPrefix
+            };
+        }
+
+        private static string BuildSportXmlParameter(IEnumerable<SportProductItem> sports)
+        {
+            const string SportXMLItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
+            var sportItemXML = new StringBuilder();
+            var products = sports.Where(i => i.ParentId == -1);
+
+            foreach (var product in products)
+            {
+                var childSports = sports.Where(i => i.ParentId == product.Id && i.ParentId > -1)
+                                        .Select(i => i.Id).ToArray();
+                if (childSports.Length == 0)
+                {
+                    childSports = new[] { product.Id };
+                }
+
+                sportItemXML.Append(string.Format(SportXMLItemPattern, product.Id, string.Join(",", childSports)));
+            }
+
+            var sportsParameters = "<products>" + sportItemXML + "</products>";
+            return sportsParameters;
         }
 
         public async Task<IList<CheckedItem>>

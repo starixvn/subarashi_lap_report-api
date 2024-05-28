@@ -14,8 +14,8 @@ namespace Fanex.Athena.Report.Core.Models.DTOs
         /// </summary>
         public SportProductItem()
         {
-            this.Id = -1;
-            this.ParentId = -1; /*in case it's a product*/
+            Id = -1;
+            ParentId = -1; /*in case it's a product*/
         }
 
         public int Id { get; set; }

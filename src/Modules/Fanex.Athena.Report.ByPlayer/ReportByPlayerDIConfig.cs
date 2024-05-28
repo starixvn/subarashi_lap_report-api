@@ -1,5 +1,7 @@
 ﻿using Fanex.Athena.Report.ByPlayer.Excels;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
+using Fanex.Athena.Report.ByPlayer.Repository;
+using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
 using Fanex.Athena.Report.ByPlayer.Service;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,9 @@ namespace Fanex.Athena.Report.ByPlayer
             services.AddTransient<ICustomerSupportTaskExcel, CustomerClosingBalanceExcel>();
             services.AddTransient<ICustomerSupportTaskExcel, CustomerRunningTicketExcel>();
             services.AddTransient<ISearchCustomerService, SearchCustomerService>();
+            services.AddTransient<ICustomerTurnoverExcel, CustomerTurnoverExcel>();
+            services.AddTransient<ICustomerTurnoverService, CustomerTurnoverService>();
+            services.AddTransient<ICustomerTurnoverRepository, CustomerTurnoverRepository>();
             return services;
         }
     }

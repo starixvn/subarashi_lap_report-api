@@ -18,6 +18,6 @@
 
         public const int VS3 = 49;
 
-
+        public const int Parlay = 999;
     }
 }

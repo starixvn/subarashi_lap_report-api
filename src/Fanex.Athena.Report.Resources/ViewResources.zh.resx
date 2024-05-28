@@ -807,6 +807,15 @@
   <data name="ProductFS" xml:space="preserve">
     <value>FS电子</value>
   </data>
+  <data name="CustomerTurnover" xml:space="preserve">
+    <value>会员交易额</value>
+  </data>
+  <data name="MinimumOdds" xml:space="preserve">
+    <value>最低赔率</value>
+  </data>
+  <data name="TotalTurnover" xml:space="preserve">
+    <value>总交易额</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>依财务日期时间搜寻</value>
   </data>

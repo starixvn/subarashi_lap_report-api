@@ -520,6 +520,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Turnover.
+        /// </summary>
+        public static string CustomerTurnover {
+            get {
+                return ResourceManager.GetString("CustomerTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer W/L.
         /// </summary>
         public static string CustomerW_L {
@@ -1155,6 +1164,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string MGRNG {
             get {
                 return ResourceManager.GetString("MGRNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum odds.
+        /// </summary>
+        public static string MinimumOdds {
+            get {
+                return ResourceManager.GetString("MinimumOdds", resourceCulture);
             }
         }
         
@@ -2316,6 +2334,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string TotalTransaction {
             get {
                 return ResourceManager.GetString("TotalTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Turnover.
+        /// </summary>
+        public static string TotalTurnover {
+            get {
+                return ResourceManager.GetString("TotalTurnover", resourceCulture);
             }
         }
         

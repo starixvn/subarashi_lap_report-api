@@ -1010,6 +1010,15 @@
   <data name="ProductFS" xml:space="preserve">
     <value>FastSpin</value>
   </data>
+  <data name="CustomerTurnover" xml:space="preserve">
+    <value>Customer Turnover</value>
+  </data>
+  <data name="MinimumOdds" xml:space="preserve">
+    <value>Minimum odds</value>
+  </data>
+  <data name="TotalTurnover" xml:space="preserve">
+    <value>Total Turnover</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Financial Date</value>
   </data>

@@ -114,6 +114,12 @@
             return sheet.AddMergedRegion(rangeAddress);
         }
 
+        public int MergeRows(ISheet sheet, int firstRow, int lastRow, int colIndex)
+        {
+            var rangeAddress = new CellRangeAddress(firstRow, lastRow, colIndex, colIndex);
+            return sheet.AddMergedRegion(rangeAddress);
+        }
+
         public int MergeCols(ISheet sheet, int firstCol, int lastCol, int rowIndex)
         {
             var rangeAddress = new CellRangeAddress(rowIndex, rowIndex, firstCol, lastCol);

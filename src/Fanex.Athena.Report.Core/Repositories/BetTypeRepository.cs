@@ -8,6 +8,7 @@ using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Resources.Constants;
+using Fanex.Common.Extensions;
 using Fanex.Data;
 
 namespace Fanex.Athena.Report.Core.Repositories
@@ -19,6 +20,28 @@ namespace Fanex.Athena.Report.Core.Repositories
         public BetTypeRepository(ICacheRefAdapter cacheRefAdapter)
         {
             _cacheRefAdapter = cacheRefAdapter;
+        }
+
+        public async Task<IList<(string ProductPrefix, int BetTypeId)>> GetBettypes(string xmlSportList)
+        {
+            const string UspName = "Lrf_SelBetTypeBySport";
+            IList<(string ProductPrefix, int BetType)> results = new List<(string ProductPrefix, int BetType)>();
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                db.SetParameterValue("sportlist", xmlSportList);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    while (reader.Read())
+                    {
+                        var productPrefix = reader.ToString("ProductPrefix");
+                        var betTypeId = reader.ToInt("BetType");
+                        results.Add((productPrefix, betTypeId));
+                    }
+                }
+            }
+
+            return results;
         }
 
         public async Task<IList<CheckedItem>> GetBetTypesByProduct(int licenseeId, string productCode,

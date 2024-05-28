@@ -882,6 +882,15 @@
   <data name="LiveReportTitle" xml:space="preserve">
     <value>Laporan Langsung - {0}, {1} --&gt; {2} - {3}</value>
   </data>
+  <data name="CustomerTurnover" xml:space="preserve">
+    <value>Omset Pelanggan</value>
+  </data>
+  <data name="MinimumOdds" xml:space="preserve">
+    <value>Minimum odds</value>
+  </data>
+  <data name="TotalTurnover" xml:space="preserve">
+    <value>Total Omset</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Tanggal Keuangan</value>
   </data>
