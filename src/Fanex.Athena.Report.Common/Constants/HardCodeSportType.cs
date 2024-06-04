@@ -21,5 +21,7 @@
         public const int SabaTennis = -9;
 
         public const int SabaIceHockey = -10;
+
+        public const int SabaKabaddi = -11;
     }
 }

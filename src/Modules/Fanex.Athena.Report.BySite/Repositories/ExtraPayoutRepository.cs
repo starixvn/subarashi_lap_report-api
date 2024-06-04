@@ -253,7 +253,7 @@
                     DateString = dateString
                 };
                 ReadCommonData(reader, item, metaModel);
-                ReadMemberData(reader, item);
+                ReadMemberData(reader, item, metaModel.IsHideSaba);
 
                 dataList.Add(item);
             }
@@ -283,14 +283,14 @@
             };
         }
 
-        private void ReadMemberData(IDataReader reader, ExtraPayout data)
+        private void ReadMemberData(IDataReader reader, ExtraPayout data, bool isHideSaba)
         {
             var promotionType = reader.GetVal<int>("PromotionType");
 
             data.CustId = reader.GetVal<int>("CustId");
             data.Username = reader.GetVal<string>("username");
             data.PromotionType = promotionType;
-            data.PromotionName = GetPromotionName(promotionType);
+            data.PromotionName = GetPromotionName(promotionType, isHideSaba);
             data.Nickname = reader.GetVal<string>("Nickname");
         }
 
@@ -335,7 +335,7 @@
                     ProductCode = productCode,
                     ProductName = DataHelper.GetProductName(productCode),
                     PromotionType = promotionType,
-                    PromotionName = GetPromotionName(promotionType),
+                    PromotionName = GetPromotionName(promotionType, metaModel.IsHideSaba),
                     BasedTurnover = reader.GetVal<decimal>("BasedTurnover"),
                     BasedAmount = reader.GetVal<decimal>("BasedAmount"),
                     BasedSharingAmount = productCode == Product.TIP ? 0 : basedSharingAmount,
@@ -451,21 +451,21 @@
             return betType == BetType.VgamingFreeBets || betType == BetType.SCBFreeBets;
         }
 
-        public string GetPromotionName(int promotionType)
+        public string GetPromotionName(int promotionType, bool isHideSaba)
         {
             promotionType = _extraPayoutMapType.TryGetValue(promotionType, out int mapExtraPayoutType) ? mapExtraPayoutType : promotionType;
 
             if (SBPromotionBettypes.Contains(promotionType))
             {
-                return $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(promotionType)}";
+                return $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
             }
 
             if (CasinoPromotionBettypes.Contains(promotionType))
             {
-                return $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(promotionType)}";
+                return $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
             }
 
-            return IsSportType(promotionType) ? _cacheRefAdapter.GetSportName(promotionType) : _cacheRefAdapter.GetBettype(promotionType);
+            return IsSportType(promotionType) ? _cacheRefAdapter.GetSportName(promotionType) : _cacheRefAdapter.GetBettype(promotionType, isHideSaba);
         }
     }
 }

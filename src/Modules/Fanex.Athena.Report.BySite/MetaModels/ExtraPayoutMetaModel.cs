@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class ExtraPayoutMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, ISubsidiarySearchMetaModel
+    public class ExtraPayoutMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, ISubsidiarySearchMetaModel, ISpecialPlatformMetaModel
     {
         private string _username;
 
@@ -44,5 +46,9 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public string SubsidiaryList { get; set; }
 
         public bool SubsidiarySearch { get; set; }
+
+        public int SpecialPlatform { get; set; }
+
+        public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
     }
 }

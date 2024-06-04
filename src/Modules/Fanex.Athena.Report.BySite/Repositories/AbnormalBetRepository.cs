@@ -13,6 +13,7 @@
     using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
+    using Fanex.Athena.Report.Core.Helpers;
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Core.Utils.Service.Interfaces;
@@ -55,16 +56,15 @@
         public async Task<SortableReportResultModel<AbnormalBetSummary>> GetSummaryData(AbnormalBetMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AbnormalBet_Summary";
-
             using var db = ObjectDbFactory.CreateInstance(UspName);
             db.SetParameterValue("LicenseeName", metaModel.LicenseeName);
             UpdateSpCommonParamsAsync(db, metaModel);
 
             using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return ReadSummaryData(reader);
+            return ReadSummaryData(reader, metaModel.IsHideSaba);
         }
 
-        public SortableReportResultModel<AbnormalBetSummary> ReadSummaryData(IDataReader reader)
+        public SortableReportResultModel<AbnormalBetSummary> ReadSummaryData(IDataReader reader, bool isHideSaba)
         {
             var dataList = new SortableList<AbnormalBetSummary>();
 
@@ -83,13 +83,13 @@
                 var item = new AbnormalBetSummary
                 {
                     Date = reader.GetVal<DateTime>("Date").ToString("MM/dd/yyyy"),
-                    Sport = GetSportName(sportType, betType),
-                    League = GetLeagueName(leagueId, sportType),
+                    Sport = GetSportName(sportType, betType, isHideSaba),
+                    League = GetLeagueName(leagueId, sportType, isHideSaba),
                     Match = string.Equals(matchName, " - vs - ") ? string.Empty : matchName,
                     KOTime = betType == ParlayBettype ? string.Empty : reader.GetVal<DateTime>("KOTime").ToString("MM/dd/yyyy hh:mm:ss tt"),
                     Live = live,
                     TotalTransaction = reader.GetVal<int>("TotalTransaction"),
-                    BetType = _cacheRefAdapter.GetBettype(betType),
+                    BetType = _cacheRefAdapter.GetBettype(betType, isHideSaba),
                     Choice = betType == ParlayBettype ? string.Empty : GetChoiceName(betType, reader.GetVal<string>("choice")),
                     FinalScore = string.Equals(finalScore, "-") || betType == ParlayBettype ? string.Empty : finalScore,
                 };
@@ -209,11 +209,11 @@
                     HDP = reader.GetVal<decimal>("HDP"),
                     LiveHomeScore = betType == ParlayBettype ? string.Empty : reader.GetVal<int>("liveHomeScore").ToString(),
                     LiveAwayScore = betType == ParlayBettype ? string.Empty : reader.GetVal<int>("liveAwayScore").ToString(),
-                    Sport = GetSportName(sportType, betType),
-                    BetType = _cacheRefAdapter.GetBettype(betType),
+                    Sport = GetSportName(sportType, betType, metaModel.IsHideSaba),
+                    BetType = _cacheRefAdapter.GetBettype(betType, metaModel.IsHideSaba),
                     Choice = betType == ParlayBettype ? string.Empty : GetChoiceName(betType, reader.GetVal<string>("choice")),
                     TransTime = reader.GetVal<DateTime>("transTime").ToString("MM/dd/yyyy hh:mm:ss tt"),
-                    League = GetLeagueName(leagueId, sportType),
+                    League = GetLeagueName(leagueId, sportType, metaModel.IsHideSaba),
                     Match = string.Equals(matchName, " - vs - ") ? string.Empty : matchName,
                     KOTime = betType == ParlayBettype ? string.Empty : reader.GetVal<DateTime>("kOTime").ToString("MM/dd/yyyy hh:mm:ss tt"),
                     Live = live,
@@ -233,9 +233,16 @@
             };
         }
 
-        private string GetLeagueName(int leagueId, int sportType = 0)
+        private string GetLeagueName(int leagueId, int sportType = 0, bool isHideSaba = false)
         {
             var leagueName = sportType == SportType.BitCoin ? _cacheRefAdapter.GetLeagueName3rd(leagueId) : _cacheRefAdapter.GetLeagueName(leagueId);
+            if (isHideSaba)
+            {
+                leagueName = System.Text.RegularExpressions.Regex.Replace(
+                        leagueName, ViewResources.Saba
+                        , string.Empty
+                        , System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            }
             return leagueName;
         }
 
@@ -279,7 +286,7 @@
             }
         }
 
-        private string GetSportName(int sport, int bettype)
+        private string GetSportName(int sport, int bettype, bool isHideSaba)
         {
             if (bettype == ParlayBettype)
             {
@@ -299,7 +306,7 @@
                     ? _cacheRefAdapter.GetSportName(sabaSport.Item2)
                     : ViewResources.ResourceManager.GetString(sabaSport.Item3);
 
-                return ViewResources.Saba + (sabaSportName);
+                return (isHideSaba ? ViewResources.Virtual : ViewResources.Saba) + (sabaSportName);
             }
         }
 

@@ -76,6 +76,10 @@ namespace Fanex.Athena.Report.Common.Services
                     sportName = _cacheRefAdapter.GetSportName(SportType.Tennis, lang);
                     break;
 
+                case HardCodeSportType.SabaKabaddi:
+                    sportName = _cacheRefAdapter.GetSportName(SportType.Kabaddi, lang);
+                    break;
+
                 case HardCodeSportType.SabaIceHockey:
                     sportName = _cacheRefAdapter.GetSportName(SportType.IceHockey, lang);
                     break;

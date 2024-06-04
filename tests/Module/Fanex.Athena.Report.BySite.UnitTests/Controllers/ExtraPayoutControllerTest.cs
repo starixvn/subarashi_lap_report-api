@@ -10,6 +10,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
@@ -31,8 +32,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayout>>()
                     .With(x => x.DataList, new SortableList<ExtraPayout>() { new ExtraPayout { ProductCode = "SB", Turnover = 200 } })
                     .Create();
+            var contextService = new Mock<IContextService>();
 
-            var controller = new ExtraPayoutController();
+            var controller = new ExtraPayoutController(contextService.Object);
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -58,7 +60,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayout>>().Create();
 
-            var controller = new ExtraPayoutController();
+            var contextService = new Mock<IContextService>();
+
+            var controller = new ExtraPayoutController(contextService.Object);
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -85,7 +89,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                     .With(x => x.DataList, new SortableList<ExtraPayoutDetail>() { new ExtraPayoutDetail { PromotionType = 99, Turnover = 200 } })
                     .Create();
 
-            var controller = new ExtraPayoutController();
+            var contextService = new Mock<IContextService>();
+
+            var controller = new ExtraPayoutController(contextService.Object);
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDetailDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -109,7 +115,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var metaModel = _fixture.Create<ExtraPayoutDetailMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>().Create();
 
-            var controller = new ExtraPayoutController();
+            var contextService = new Mock<IContextService>();
+
+            var controller = new ExtraPayoutController(contextService.Object);
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDetailDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -146,7 +154,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedFileContent = _fixture.Create<byte[]>();
             excelService.Setup(e => e.Export(PhysicalPath, expectedData, metaModel)).Returns(expectedFileContent);
 
-            var controller = new ExtraPayoutController();
+            var contextService = new Mock<IContextService>();
+
+            var controller = new ExtraPayoutController(contextService.Object);
 
             // Assert
             var result = await controller.ExportExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);
@@ -176,7 +186,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedFileContent = _fixture.Create<byte[]>();
             excelService.Setup(e => e.Export(PhysicalPath, expectedData, metaModel)).Returns(expectedFileContent);
 
-            var controller = new ExtraPayoutController();
+            var contextService = new Mock<IContextService>();
+
+            var controller = new ExtraPayoutController(contextService.Object);
 
             // Assert
             var result = await controller.ExportDetailExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);

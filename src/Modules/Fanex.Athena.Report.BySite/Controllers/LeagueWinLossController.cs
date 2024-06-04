@@ -11,6 +11,7 @@
     using Fanex.Athena.Report.BySite.Services.Interfaces;
     using Fanex.Athena.Report.Core.Attributes;
     using Fanex.Athena.Report.Core.Constants;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
 
@@ -22,13 +23,19 @@
     public class LeagueWinLossController : ControllerBase
     {
         private readonly ILeagueWinLossService _service;
+        private readonly IContextService _contextService;
 
-        public LeagueWinLossController(ILeagueWinLossService service)
-            => _service = service;
+        public LeagueWinLossController(ILeagueWinLossService service, IContextService contextService)
+        {
+            _service = service;
+            _contextService = contextService;
+        }
 
         [HttpPost]
         public async Task<LeagueWinLossResultModel> GetMainData([FromBody] LeagueWinLossMetaModel metaModel)
         {
+            AssignCommonMetaModel(metaModel);
+
             var result = await _service.GetDataAsync(metaModel);
 
             if (!result.DataList.Any())
@@ -55,6 +62,8 @@
         [HttpPost]
         public async Task<LeagueWinLossResultModel> GetCurrencyData([FromBody] LeagueWinLossMetaModel metaModel)
         {
+            AssignCommonMetaModel(metaModel);
+
             var result = await _service.GetCurrencyDataAsync(metaModel);
 
             if (!result.DataList.Any())
@@ -76,11 +85,18 @@
         {
             var template = file.GetFileInfo("/ExcelTemplate/LeagueWinLoss.xls").PhysicalPath;
 
+            AssignCommonMetaModel(metaModel);
+
             var result = await _service.GetDataAsync(metaModel).ConfigureAwait(false);
 
             var fileContent = excel.Export(template, result, metaModel);
 
             return new FileContentResult(fileContent, "application/octet-stream");
+        }
+
+        private void AssignCommonMetaModel(LeagueWinLossMetaModel metaModel)
+        {
+            metaModel.SpecialPlatform = _contextService.SpecialPlatform;
         }
     }
 }
