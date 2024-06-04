@@ -288,6 +288,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         private async Task<IActionResult> ExportExcel(LiveReportBetListMetaModel metaModel, string caption = null)
         {
             await AssignDefaultBetListMetaModel(metaModel);
+
             metaModel.StartIndex = (metaModel.PageIndex - 1) * metaModel.PageSize + 1;
             metaModel.Title = GetExcelTitle(metaModel, caption);
             metaModel.HiddenColumns = HiddenColumns;
@@ -319,7 +320,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         private async Task<string> GetData(LiveReportBetListMetaModel metaModel)
         {
-            await AssignDefaultLiveReportMetaModel(metaModel);
+            await AssignDefaultBetListMetaModel(metaModel);
 
             return await BetListApiClient.PostStringAsync("/LiveReportBetList/GetData",
                 metaModel, ContextService.Language).ConfigureAwait(false);
@@ -328,7 +329,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         private async Task<BetListResultModel<BetListDataResultModel>> GetDataWithSettings(
             LiveReportBetListMetaModel metaModel, BetListSettingModel settings)
         {
-            await AssignDefaultLiveReportMetaModel(metaModel);
+            await AssignDefaultBetListMetaModel(metaModel);
 
             var data = await BetListApiClient.PostAsync<BetListDataResultModel>("/LiveReportBetList/GetData",
                 metaModel,
@@ -370,16 +371,6 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 Settings = settings
             };
         }
-
-        private async Task AssignDefaultLiveReportMetaModel(LiveReportBetListMetaModel metaModel)
-        {
-            await AssignDefaultBetListMetaModel(metaModel);
-
-            metaModel.HasPlayerCom = ContextService.IsAllowedCustomerComm;
-            metaModel.IsShowIpvn = ContextService.IsShowIpVn;
-            metaModel.IsShowIp = ContextService.IsShowIp;
-        }
-
         #endregion Utility
     }
 }

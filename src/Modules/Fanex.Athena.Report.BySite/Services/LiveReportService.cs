@@ -1,23 +1,22 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
+using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
     public class LiveReportService : ILiveReportService
     {
-        private readonly ILiveReportRepository _liveReportRepository;
-
         private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        private readonly ILiveReportRepository _liveReportRepository;
 
         public LiveReportService(ICacheRefAdapter cacheRefAdapter, ILiveReportRepository liveReportRepository)
         {
@@ -25,12 +24,10 @@ namespace Fanex.Athena.Report.BySite.Services
             _liveReportRepository = liveReportRepository;
         }
 
-        public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel model)
-        {
-            return model.IsValid ?
+        public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel model) =>
+            model.IsValid ?
                 await _liveReportRepository.GetLiveReportSummary(model).ConfigureAwait(false) :
                 new List<LiveReport>();
-        }
 
         public async Task<LiveReportDetailResultModel> GetLiveReportSummaryDetail(
             LiveReportMetaModel model,
@@ -49,7 +46,9 @@ namespace Fanex.Athena.Report.BySite.Services
 
             var detailBySport = await _liveReportRepository.GetDetailBySport(model).ConfigureAwait(false);
 
-            var tupleCurrencyAndBettype = await _liveReportRepository.GetDetailByCurrencyAndBettype(model, currencyList, products).ConfigureAwait(false);
+            var tupleCurrencyAndBettype = await _liveReportRepository
+                                               .GetDetailByCurrencyAndBettype(model, currencyList, products)
+                                               .ConfigureAwait(false);
             return new LiveReportDetailResultModel
             {
                 DataBySport = detailBySport,
@@ -58,7 +57,8 @@ namespace Fanex.Athena.Report.BySite.Services
             };
         }
 
-        public async Task<SortableList<LiveReportWinLossByMatch>> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model)
+        public async Task<SortableList<LiveReportWinLossByMatch>> GetLiveReportWinLossByMatch(
+            LiveReportMatchListMetalModel model)
         {
             if (!model.IsValid)
             {
@@ -69,7 +69,8 @@ namespace Fanex.Athena.Report.BySite.Services
 
             foreach (var data in dataList)
             {
-                data.MatchName = $"{_cacheRefAdapter.GetTeamName(data.HomeId)} vs {_cacheRefAdapter.GetTeamName(data.AwayId)}";
+                data.MatchName =
+                    $"{_cacheRefAdapter.GetTeamName(data.HomeId)} vs {_cacheRefAdapter.GetTeamName(data.AwayId)}";
             }
 
             if (!string.IsNullOrEmpty(model.SortColumn) && !string.IsNullOrEmpty(model.SortDirection))
@@ -78,7 +79,6 @@ namespace Fanex.Athena.Report.BySite.Services
             }
 
             return dataList;
-
         }
     }
 }

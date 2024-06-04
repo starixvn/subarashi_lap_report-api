@@ -82,6 +82,15 @@ namespace Fanex.Athena.Report.BetList.Controllers
             metaModel.HasPlayerCom = ContextService.IsAllowedCustomerComm;
             metaModel.IsShowIpvn = ContextService.IsShowIpVn;
             metaModel.IsShowIp = ContextService.IsShowIp;
+            metaModel.SpecialPlatform = ContextService.SpecialPlatform;
+        }
+
+        protected void AssignSpecialPlatformValue(BetListMetaModel metaModel)
+        {
+            if (metaModel != null)
+            {
+                metaModel.SpecialPlatform = ContextService.SpecialPlatform;
+            }
         }
 
         protected internal async Task<IActionResult> GetBetListResult(BetListMetaModel metaModel)
@@ -127,6 +136,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
             metaModel.IsShowIpvn = ContextService.IsShowIpVn;
             metaModel.IsShowIp = ContextService.IsShowIp;
             metaModel.UserId = ContextService.UserId;
+            metaModel.SpecialPlatform = ContextService.SpecialPlatform;
         }
 
         protected static string GetViewInCurrency(BetListMetaModel metaModel) =>

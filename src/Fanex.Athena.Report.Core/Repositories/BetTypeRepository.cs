@@ -21,7 +21,8 @@ namespace Fanex.Athena.Report.Core.Repositories
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public async Task<IList<CheckedItem>> GetBetTypesByProduct(int licenseeId, string productCode, string languageCode, bool isHideSaba = false)
+        public async Task<IList<CheckedItem>> GetBetTypesByProduct(int licenseeId, string productCode,
+                                                                   string languageCode, bool isHideSaba)
         {
             const string UspName = "Lrf_SelBetTypesByProduct";
 
@@ -40,17 +41,20 @@ namespace Fanex.Athena.Report.Core.Repositories
             }
 
             IEnumerable<int> betTypeIds;
+
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
-                betTypeIds = await db.QueryAsync<int>(new { licenseeId, productCode });
+                betTypeIds = await db.QueryAsync<int>(new { licenseeId, productCode, });
             }
 
             results.AddRange(betTypeIds.Select(id =>
             {
                 var name = _cacheRefAdapter.GetBetTypeName(id, languageCode, isHideSaba);
+
                 if (MappingHelper.MapBettypeSportByProduct.ContainsKey(id))
                 {
-                    var suffix = _cacheRefAdapter.GetSportName(MappingHelper.MapBettypeSportByProduct[id], languageCode);
+                    var suffix =
+                        _cacheRefAdapter.GetSportName(MappingHelper.MapBettypeSportByProduct[id], languageCode);
                     name += " (" + suffix + ")";
                 }
 
@@ -65,24 +69,8 @@ namespace Fanex.Athena.Report.Core.Repositories
             return results;
         }
 
-        private List<CheckedItem> GetNewCoBetTypes()
-        {
-            var betTypes = new List<CheckedItem>();
-
-            betTypes.AddRange(new List<CheckedItem>
-            {
-                new() { ID = BetType.Handicap, Name = _cacheRefAdapter.GetBettype(BetType.Handicap) },
-                new() { ID = BetType.OverUnder, Name = _cacheRefAdapter.GetBettype(BetType.OverUnder) },
-                new() { ID = BetType.Ft1X2, Name = _cacheRefAdapter.GetBettype(BetType.Ft1X2) },
-                new() { ID = BetType.FirstHalfHandicap, Name = _cacheRefAdapter.GetBettype(BetType.FirstHalfHandicap) },
-                new() { ID = BetType.FirstHalfOverUnder, Name = _cacheRefAdapter.GetBettype(BetType.FirstHalfOverUnder) },
-                new() { ID = BetType.FirstHalf1X2, Name = _cacheRefAdapter.GetBettype(BetType.FirstHalf1X2) }
-            });
-
-            return betTypes;
-        }
-
-        public async Task<IEnumerable<(string ProductCode, int BetType)>> GetBetTypeForProductsAsync(int licenseeId, string productCodes)
+        public async Task<IEnumerable<(string ProductCode, int BetType)>> GetBetTypeForProductsAsync(
+            int licenseeId, string productCodes)
         {
             const string UspName = "LAP_Rpt_WinlossAnalysis_BettypeSel";
 
@@ -97,6 +85,7 @@ namespace Fanex.Athena.Report.Core.Repositories
             {
                 db.SetParameterValue("licenseeid", licenseeId);
                 db.SetParameterValue("productCodes", productCodes);
+
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
@@ -110,6 +99,29 @@ namespace Fanex.Athena.Report.Core.Repositories
             }
 
             return results;
+        }
+
+        private List<CheckedItem> GetNewCoBetTypes()
+        {
+            var betTypes = new List<CheckedItem>();
+
+            betTypes.AddRange(new List<CheckedItem>
+            {
+                new() { ID = BetType.Handicap, Name = _cacheRefAdapter.GetBettype(BetType.Handicap), },
+                new() { ID = BetType.OverUnder, Name = _cacheRefAdapter.GetBettype(BetType.OverUnder), },
+                new() { ID = BetType.Ft1X2, Name = _cacheRefAdapter.GetBettype(BetType.Ft1X2), },
+                new()
+                {
+                    ID = BetType.FirstHalfHandicap, Name = _cacheRefAdapter.GetBettype(BetType.FirstHalfHandicap)
+                },
+                new()
+                {
+                    ID = BetType.FirstHalfOverUnder, Name = _cacheRefAdapter.GetBettype(BetType.FirstHalfOverUnder)
+                },
+                new() { ID = BetType.FirstHalf1X2, Name = _cacheRefAdapter.GetBettype(BetType.FirstHalf1X2), }
+            });
+
+            return betTypes;
         }
     }
 }

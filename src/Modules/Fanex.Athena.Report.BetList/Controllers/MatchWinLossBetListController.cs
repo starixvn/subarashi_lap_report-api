@@ -45,9 +45,8 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpGet]
         public async Task<IActionResult> Outright([FromQuery] BetListMetaModel metaModel, bool dataOnly = true)
         {
+            await AssignDefaultMetalModel(metaModel);
             metaModel.IsServerPaging = true;
-            var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
 
             if (dataOnly)
             {
@@ -64,8 +63,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> MatchBetType([FromQuery] BetListMetaModel metaModel, int page, int rows,
                                                       bool dataOnly = true)
         {
-            var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
+            await AssignDefaultMetalModel(metaModel);
 
             if (dataOnly)
             {
@@ -102,8 +100,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
         public async Task<IActionResult> BetTypeWinLoss([FromQuery] BetListMetaModel metaModel, int page, int rows,
                                                         bool dataOnly = true)
         {
-            var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate, balanceUp.BalanceUpDay);
+            await AssignDefaultMetalModel(metaModel);
 
             if (dataOnly)
             {
@@ -137,8 +134,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 SubsidiaryList = metaModel.SubsidiaryList
             };
 
-            var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            apiModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate.Date, balanceUp.BalanceUpDay);
+            await AssignDefaultMetalModel(apiModel);
 
             if (dataOnly)
             {
@@ -155,13 +151,12 @@ namespace Fanex.Athena.Report.BetList.Controllers
         [HttpPost]
         public async Task<IActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
+            await AssignDefaultMetalModel(metaModel);
+
             metaModel.PageIndex = PageIndex;
             metaModel.PageSize = PageSizeExcel;
             metaModel.HiddenColumns = HiddenColumns;
             metaModel.IsServerPaging = true;
-
-            var balanceUp = await BalanceUpService.GetBalanceUpAsync();
-            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate.Date, balanceUp.BalanceUpDay);
 
             metaModel.ShowingOption = new ShowingOption
             {
@@ -184,6 +179,14 @@ namespace Fanex.Athena.Report.BetList.Controllers
                                   currencyTitle);
 
             return await ProcessExportExcel(metaModel, ExcelFileName).ConfigureAwait(false);
+        }
+
+        private async Task AssignDefaultMetalModel(BetListMetaModel metaModel)
+        {
+            var balanceUp = await BalanceUpService.GetBalanceUpAsync();
+            metaModel.UspKey = GetSpNameBasedOnBalanceUpDay(metaModel.FromDate.Date, balanceUp.BalanceUpDay);
+
+            AssignSpecialPlatformValue(metaModel);
         }
 
         private string GetSpNameBasedOnBalanceUpDay(DateTime fromDate, DateTime balanceUpDay) =>

@@ -48,7 +48,7 @@ namespace Fanex.Athena.Report.Base.Controllers
             var isHideSaba = SabaHelper.IsHideSaba(_contextService.SpecialPlatform) && applyHideSaba;
 
             var sports = includeSabaSport
-                ? await _sportService.GetSportAndProductAndSabaSport(licenseeId, lang, productCode, isHideSaba)
+                ? await _sportService.GetSportAndProductAndSabaSport(licenseeId, lang, isHideSaba, productCode)
                 : await _sportService.GetSportsAndProducts(licenseeId, lang, productCode);
 
             return sports.Where(x => x.ParentId > -1).Select(x => new { value = x.Id, label = x.Name, status = true });
@@ -72,15 +72,14 @@ namespace Fanex.Athena.Report.Base.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CheckedItem>> GetSportsForTreeView(string productCodes, bool applyHideSaba = false)
+        public async Task<IEnumerable<CheckedItem>> GetSportsForTreeView(string productCodes)
         {
             if (string.IsNullOrEmpty(productCodes))
             {
                 return new List<CheckedItem>();
             }
 
-            var isHideSaba = SabaHelper.IsHideSaba(_contextService.SpecialPlatform) && applyHideSaba;
-            return await _sportService.GetSportsForTreeView(_contextService.LicenseeId, _contextService.Language, productCodes, isHideSaba);
+            return await _sportService.GetSportsForTreeView(_contextService.LicenseeId, _contextService.Language, productCodes, _contextService.IsHideSaba);
         }
 
         [HttpGet]

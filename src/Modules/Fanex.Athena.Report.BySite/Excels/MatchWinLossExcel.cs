@@ -274,6 +274,11 @@ namespace Fanex.Athena.Report.BySite.Excels
 
                 var currentLeagueName = Converter.ToString2(exportRow["leaguename"]);
 
+                if (_option.IsHideSaba)
+                {
+                    currentLeagueName = SabaHelper.RemoveSabaText(currentLeagueName);
+                }
+
                 if (leagueName != currentLeagueName)
                 {
                     currentRowIndex = AssignMatchData(sheet, templateSheet, matchInfoList, formatMatchName,

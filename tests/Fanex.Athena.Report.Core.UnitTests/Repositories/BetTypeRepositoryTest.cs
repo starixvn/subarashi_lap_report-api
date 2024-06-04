@@ -82,7 +82,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
         public async Task GetBetTypesByProduct_PresentProductCO_AssignNewCoBetType()
         {
             // Arrange
-            var productCodes = $"{Product.CO}";
+            var productCodes = $"{Product.SB},{Product.CO}";
             var licenseeId = FakeHelper.Create<int>();
             var languageCode = FakeHelper.Create<string>();
             var isHideSaba = FakeHelper.Create<bool>();
@@ -97,7 +97,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 
             // Assert
             Assert.Equal(6, result.Count);
-            _cacheRefAdapter.Verify(x => x.GetBettype(It.IsAny<int>(), false), Times.Exactly(6));
+            _cacheRefAdapter.Verify(x => x.GetBettype(It.IsAny<int>()), Times.Exactly(6));
         }
 
         [Fact]

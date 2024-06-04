@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fanex.Core.Utils" Version="1.0.2" />
+    <PackageReference Include="Fanex.Core.Utils" Version="1.0.3" />
     <PackageReference Include="Fanex.Data" Version="4.2.2" />
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

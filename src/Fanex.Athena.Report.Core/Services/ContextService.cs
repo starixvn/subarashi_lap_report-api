@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.StatelessCore.Enum;
 using Microsoft.AspNetCore.Http;
@@ -76,6 +77,8 @@ namespace Fanex.Athena.Report.Core.Services
         public byte UserLevel => GetClaimValue<byte>("UserLevel");
 
         public int WhiteLabelID => GetClaimValue("WhiteLabelID", -1);
+
+        public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
 
         public bool IsShowIp => GetClaimValue("IsShowIP", true);
 

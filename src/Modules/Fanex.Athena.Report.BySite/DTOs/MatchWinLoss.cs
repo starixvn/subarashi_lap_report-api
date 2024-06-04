@@ -8,6 +8,8 @@ namespace Fanex.Athena.Report.BySite.DTOs
 
         public int LeagueId { get; set; }
 
+        public int LeagueGroupId { get; set; }
+
         public string LeagueName { get; set; }
 
         public short SportType { get; set; }

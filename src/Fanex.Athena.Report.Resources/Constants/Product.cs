@@ -99,5 +99,7 @@
         public const string VS3 = "VS3";
 
         public const string VS2 = "VS2";
+
+        public const string FS = "FS";
     }
 }

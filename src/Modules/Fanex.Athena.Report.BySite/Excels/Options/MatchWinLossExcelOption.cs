@@ -4,6 +4,8 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
 {
     public class MatchWinLossExcelOption : IConvertingOption
     {
+        public bool IsHideSaba { get; set; }
+
         public bool CustomerCommVisible { get; set; }
 
         public bool BaVisible { get; set; }

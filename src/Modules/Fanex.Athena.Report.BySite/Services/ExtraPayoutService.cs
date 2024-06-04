@@ -123,6 +123,16 @@
                 });
             }
 
+            if (productCodeList.IsPresent(_ => _ == Product.FS))
+            {
+                promotionTypeList.AddRange(new List<CheckedItem>
+                {
+                    new()
+                    { ID = ExtraPayoutMapType.PayoutFastSpinPromotion,
+                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
+                });
+            }
+
             return promotionTypeList;
         }
 

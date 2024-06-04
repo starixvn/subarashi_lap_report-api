@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Core.Utility.Interfaces;
@@ -117,7 +116,7 @@ namespace Fanex.Athena.Report.Base.Controllers
             const string ClosingTag = "{/SABA-section}";
             var customContent = content;
 
-            if (!SabaHelper.IsHideSaba(_contextService.SpecialPlatform))
+            if (!_contextService.IsHideSaba)
             {
                 customContent = customContent.Replace(OpeningTag, string.Empty);
                 customContent = customContent.Replace(ClosingTag, string.Empty);

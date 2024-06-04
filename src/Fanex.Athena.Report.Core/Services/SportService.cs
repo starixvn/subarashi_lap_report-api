@@ -34,8 +34,7 @@ namespace Fanex.Athena.Report.Core.Services
         public Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "") 
             => _sportRepository.GetSportsAndProducts(licenseeId, languageCode, productCodes);
 
-        public async Task<IEnumerable<SportProductItem>> GetSportAndProductAndSabaSport(int licenseeId, string languageCode, string productCodes = "",
-                                                                                  bool isHideSaba = false)
+        public async Task<IEnumerable<SportProductItem>> GetSportAndProductAndSabaSport(int licenseeId, string languageCode, bool isHideSaba, string productCodes = "")
         {
             var result = new List<SportProductItem>();
             result.AddRange(await GetSportsAndProducts(licenseeId, languageCode, productCodes));
@@ -136,6 +135,14 @@ namespace Fanex.Athena.Report.Core.Services
 
                 case HardCodeSportType.SabaTennis:
                     sportName = _cacheRefAdapter.GetSportName(SportType.Tennis);
+                    break;
+
+                case HardCodeSportType.SabaIceHockey:
+                    sportName = _cacheRefAdapter.GetSportName(SportType.IceHockey);
+                    break;
+
+                case HardCodeSportType.SabaKabaddi:
+                    sportName = _cacheRefAdapter.GetSportName(SportType.Kabaddi);
                     break;
 
                 default:

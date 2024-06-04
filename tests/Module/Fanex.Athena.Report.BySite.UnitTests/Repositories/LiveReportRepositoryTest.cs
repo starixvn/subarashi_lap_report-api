@@ -180,7 +180,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var result = await repository.GetDetailBySport(_metaModel);
 
             // Assert
-            _cacheRefAdapter.Verify(x => x.GetBettype(bettype, false), Times.Once);
+            _cacheRefAdapter.Verify(x => x.GetBettype(bettype), Times.Once);
         }
 
         [Fact]
@@ -202,7 +202,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var result = await repository.GetDetailBySport(_metaModel);
 
             // Assert
-            _cacheRefAdapter.Verify(x => x.GetBettype(BetType.MixParlay, false), Times.Once);
+            _cacheRefAdapter.Verify(x => x.GetBettype(BetType.MixParlay), Times.Once);
         }
 
 
@@ -272,7 +272,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             AssignCommonReaderValues(FakeHelper.Create<LiveReport>());
 
-            _cacheRefAdapter.Setup(x => x.GetBettype(It.IsAny<int>(), false)).Returns(betType);
+            _cacheRefAdapter.Setup(x => x.GetBettype(It.IsAny<int>())).Returns(betType);
             _cacheRefAdapter.Setup(x => x.GetSportName(It.IsAny<int>(), null)).Returns("Virtual Basketball");
 
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false).Returns(true).Returns(false);

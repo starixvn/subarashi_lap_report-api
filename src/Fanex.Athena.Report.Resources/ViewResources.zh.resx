@@ -804,6 +804,9 @@
   <data name="LiveReportTitle" xml:space="preserve">
     <value>滚球报告 - {0}, {1} --&gt; {2} - {3}</value>
   </data>
+  <data name="ProductFS" xml:space="preserve">
+    <value>FS电子</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>依财务日期时间搜寻</value>
   </data>

@@ -51,6 +51,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             const int LicenseeId = 1;
             const string Lang = "VN";
             const string ProductCode = "Sport";
+            const bool IsHideSaba = false;
 
             var service = CreateService();
 
@@ -62,7 +63,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             _sportRepository.Setup(x => x.GetSportsAndProducts(LicenseeId, Lang, ProductCode)).ReturnsAsync(sportsAndProducts);
 
             //Action
-            var result = await service.GetSportAndProductAndSabaSport(LicenseeId, Lang, ProductCode);
+            var result = await service.GetSportAndProductAndSabaSport(LicenseeId, Lang, IsHideSaba, ProductCode);
             var stringResult = string.Join(",", result.Select(r => r.Id));
 
             //Assert

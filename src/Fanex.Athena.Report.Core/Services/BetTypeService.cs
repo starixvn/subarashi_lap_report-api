@@ -24,12 +24,13 @@ namespace Fanex.Athena.Report.Core.Services
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public async Task<IList<CheckedItem>> GetBetTypesByProduct(int licenseeId, string productCode, string languageCode, bool isHideSaba = false)
-        {
-            return await _betTypeRepository.GetBetTypesByProduct(licenseeId, productCode, languageCode, isHideSaba).ConfigureAwait(false);
-        }
+        public async Task<IList<CheckedItem>>
+            GetBetTypesByProduct(int licenseeId, string productCode, string languageCode, bool isHideSaba) =>
+            await _betTypeRepository.GetBetTypesByProduct(licenseeId, productCode, languageCode, isHideSaba)
+                                    .ConfigureAwait(false);
 
-        public async Task<IEnumerable<CheckedItem>> GetBetTypeForProducts(int licenseeId, string lang, string productCodes, bool isHideSaba = false)
+        public async Task<IEnumerable<CheckedItem>> GetBetTypeForProducts(
+            int licenseeId, string lang, string productCodes, bool isHideSaba)
         {
             var betTypes = await _betTypeRepository.GetBetTypeForProductsAsync(licenseeId, productCodes);
             var result = betTypes.GroupBy(_ => _.ProductCode,
@@ -39,7 +40,7 @@ namespace Fanex.Athena.Report.Core.Services
                     Children = null,
                     ID = _.BetType,
                     Name = GetBetTypeName(_.BetType, lang, isHideSaba),
-                    Value = $"{_.BetType}_{MapBAProductCode(_.ProductCode)}",
+                    Value = $"{_.BetType}_{MapBAProductCode(_.ProductCode)}"
                 },
                 (key, items) => new CheckedItem
                 {
@@ -58,7 +59,7 @@ namespace Fanex.Athena.Report.Core.Services
         }
 
         private string MapBAProductCode(string productCode)
-            => (productCode == Product.BA || productCode == $"{Product.SB},{Product.BA}") ? Product.SB : productCode;
+            => productCode == Product.BA || productCode == $"{Product.SB},{Product.BA}" ? Product.SB : productCode;
 
         private string GetBetTypeNameSuffix(int betType)
         {

@@ -3,13 +3,14 @@ using System.Globalization;
 using Fanex.Athena.Report.Common.Model.MetaModels;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
 
 namespace Fanex.Athena.Report.BetList.MetaModels
 {
     public class BetListMetaModel : IValidationMetaModel, IPlayerComMetaModel, IMetaModelProductCodeList,
                                     IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdMetaModel,
-                                    ICurrencyIdListMetaModel
+                                    ICurrencyIdListMetaModel, ISpecialPlatformMetaModel
     {
         public BetListMetaModel()
         {
@@ -104,6 +105,11 @@ namespace Fanex.Athena.Report.BetList.MetaModels
 
         public bool SubsidiarySearch { get; set; }
 
+        public int SpecialPlatform { get; set; }
+
+        public bool IsHideSaba { get; }
+
         public bool IsValid => FromDate <= ToDate;
+
     }
 }

@@ -11,6 +11,7 @@ using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
@@ -96,7 +97,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             return Ok(new MatchWinLossResultModel
             {
                 Data = reportData,
-                LeagueList = CreateLeagueList(reportData),
+                LeagueList = CreateLeagueList(reportData, _contextService.IsHideSaba),
                 SpecialBetTypeResult = reportDataOutrightParlay,
                 ColumnCount = GetColumnCount(productAccess, _contextService.IsAllowedCustomerComm),
                 Total = total,
@@ -139,6 +140,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var option = new MatchWinLossExcelOption
             {
                 CustomerCommVisible = _contextService.IsAllowedCustomerComm,
+                IsHideSaba = _contextService.IsHideSaba,
                 BaVisible = productAccess.IsAllowBa,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
@@ -151,14 +153,20 @@ namespace Fanex.Athena.Report.BySite.Controllers
             return new FileContentResult(fileContent, "application/octet-stream");
         }
 
-        private static IDictionary<int, string> CreateLeagueList(IList<MatchWinLoss> reportData)
+        private static IDictionary<int, string> CreateLeagueList(IList<MatchWinLoss> reportData, bool isHideSaba)
         {
             if (reportData == null || reportData.Count == 0)
             {
                 return new Dictionary<int, string>();
             }
 
-            return reportData.GroupBy(i => i.LeagueId).ToDictionary(i => i.Key, i => i.FirstOrDefault()?.LeagueName);
+            return reportData.GroupBy(i => i.LeagueId).ToDictionary(
+                i => i.Key,
+                i =>
+                {
+                    var leagueName = i.FirstOrDefault()?.LeagueName;
+                    return isHideSaba ? SabaHelper.RemoveSabaText(leagueName) : leagueName;
+                });
         }
 
         private static MatchWinLoss GetTotal(IList<MatchWinLoss> dataList)

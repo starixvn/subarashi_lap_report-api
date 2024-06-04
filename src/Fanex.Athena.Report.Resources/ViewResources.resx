@@ -1007,6 +1007,9 @@
   <data name="LiveReportTitle" xml:space="preserve">
     <value>Live Report - {0}, {1} --&gt; {2} - {3}</value>
   </data>
+  <data name="ProductFS" xml:space="preserve">
+    <value>FastSpin</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Financial Date</value>
   </data>

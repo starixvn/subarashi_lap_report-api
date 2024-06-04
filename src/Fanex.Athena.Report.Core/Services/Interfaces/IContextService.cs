@@ -56,6 +56,8 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
 
         bool IsShowIp { get; }
 
+        bool IsHideSaba { get; }
+
         AppMode ApplicationMode { get; }
     }
 }
