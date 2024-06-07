@@ -924,6 +924,21 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>เทิร์นโอเวอร์ทั้งหมด</value>
   </data>
+  <data name="ExternalIdOrSystemId" xml:space="preserve">
+    <value>รหัสภายนอก หรือ รหัสระบบ</value>
+  </data>
+  <data name="CasinoTransfer" xml:space="preserve">
+    <value>การโอนย้ายคาสิโน</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>ลูกค้า</value>
+  </data>
+  <data name="TurnoverTitle" xml:space="preserve">
+    <value>เทิร์นโอเวอร์, {0} --&gt; {1} - {2} {3} ({4})</value>
+  </data>
+  <data name="TurnoverTitleNoUser" xml:space="preserve">
+    <value>เทิร์นโอเวอร์, {0} --&gt; {1}, {2}</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>วันที่การเงิน</value>
   </data>

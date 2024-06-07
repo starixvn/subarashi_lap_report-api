@@ -34,6 +34,7 @@ namespace Fanex.Athena.Report.Core
             services.AddTransient<IBetTypeRepository, BetTypeRepository>();
             services.AddTransient<ISportRepository, SportRepository>();
             services.AddTransient<ICustomerClassService, CustomerClassService>();
+            services.AddTransient<IDataPermissionService, DataPermissionService>();
             return services;
         }
 

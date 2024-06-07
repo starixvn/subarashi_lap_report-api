@@ -394,6 +394,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Casino Transfer.
+        /// </summary>
+        public static string CasinoTransfer {
+            get {
+                return ResourceManager.GetString("CasinoTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arcadia Gaming.
         /// </summary>
         public static string CC {
@@ -489,6 +498,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
@@ -759,6 +777,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ExternalId {
             get {
                 return ResourceManager.GetString("ExternalId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External ID or System ID.
+        /// </summary>
+        public static string ExternalIdOrSystemId {
+            get {
+                return ResourceManager.GetString("ExternalIdOrSystemId", resourceCulture);
             }
         }
         
@@ -2379,6 +2406,24 @@ namespace Fanex.Athena.Report.Resources {
         public static string TurnoverPercent {
             get {
                 return ResourceManager.GetString("TurnoverPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turnover, {0} --&amp;gt; {1} - {2} {3} ({4}).
+        /// </summary>
+        public static string TurnoverTitle {
+            get {
+                return ResourceManager.GetString("TurnoverTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turnover, {0} --&gt; {1}, {2}.
+        /// </summary>
+        public static string TurnoverTitleNoUser {
+            get {
+                return ResourceManager.GetString("TurnoverTitleNoUser", resourceCulture);
             }
         }
         

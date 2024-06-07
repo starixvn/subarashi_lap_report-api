@@ -17,5 +17,7 @@
         public const string MatchWinLoss = "MatchWinLoss";
 
         public const string LiveReport = "LiveReport";
+
+        public const string Turnover = "Turnover";
     }
 }

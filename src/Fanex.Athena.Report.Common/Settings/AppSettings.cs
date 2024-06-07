@@ -4,6 +4,8 @@ namespace Fanex.Athena.Report.Common.Settings
 {
     public class AppSettings
     {
+        public List<int> LicenseeAllowCasinoTransfer { get; set; }
+
         public List<int> LiveReportNoDetailLinkSports { get; set; }
 
         public string CustomerClassCategoryApi { get; set; }

@@ -1019,6 +1019,21 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>Total Turnover</value>
   </data>
+  <data name="ExternalIdOrSystemId" xml:space="preserve">
+    <value>External ID or System ID</value>
+  </data>
+  <data name="CasinoTransfer" xml:space="preserve">
+    <value>Casino Transfer</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="TurnoverTitle" xml:space="preserve">
+    <value>Turnover, {0} --&amp;gt; {1} - {2} {3} ({4})</value>
+  </data>
+  <data name="TurnoverTitleNoUser" xml:space="preserve">
+    <value>Turnover, {0} --&gt; {1}, {2}</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Financial Date</value>
   </data>

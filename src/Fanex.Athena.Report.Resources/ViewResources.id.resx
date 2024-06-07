@@ -891,6 +891,21 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>Total Omset</value>
   </data>
+  <data name="ExternalIdOrSystemId" xml:space="preserve">
+    <value>ID Eksternal atau ID Sistem</value>
+  </data>
+  <data name="CasinoTransfer" xml:space="preserve">
+    <value>Transfer Casino</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Pelanggan</value>
+  </data>
+  <data name="TurnoverTitle" xml:space="preserve">
+    <value>Volume Permainan, {0} --&gt; {1} - {2} {3} ({4})</value>
+  </data>
+  <data name="TurnoverTitleNoUser" xml:space="preserve">
+    <value>Omset, {0} --&gt; {1}, {2}</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Tanggal Keuangan</value>
   </data>

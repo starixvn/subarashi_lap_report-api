@@ -31,6 +31,15 @@ namespace Fanex.Athena.Report.Common.Excel
                 : string.Format(ViewResources.Viewin, convertingOption.CurrencyName);
         }
 
+        public static string GetTitleBaseCurrency(string baseCurrency, string currencyName)
+        {
+            var currency = string.IsNullOrEmpty(baseCurrency) ?
+                currencyName :
+                baseCurrency;
+            return ViewResources.Currency + ": " + currencyName + ", " +
+                   ViewResources.BaseCurrency + ": " + currency.ToUpperInvariant();
+        }
+
         public static string GetLicenseeWlProduct(IEnumerable<ProductOption> productOptions, string caption = null)
         {
             var productCodeList = productOptions.Where(p => p.Status)

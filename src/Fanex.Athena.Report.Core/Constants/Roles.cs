@@ -8,6 +8,8 @@
         public const string DisplayPlayerTips_ExtraPayoutReportOnly = "DisplayPlayerTips_ExtraPayoutReportOnly";
         public const string PlayerVIPManagement = "PlayerSegmentation_VIPManagement";
 
+        public const string HidePlayerWL_WL_Comm_Total = "HidePlayerWL_WL_Comm_Total";
+
         public const string BetListViewIpVn = "bl_view_ipvn";
 
         public const string ExtraPayout = "ExtraPayout";

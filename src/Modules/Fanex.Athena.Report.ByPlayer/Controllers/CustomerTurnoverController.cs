@@ -13,7 +13,6 @@ using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
@@ -48,8 +47,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             {
                 currencyList = _contextService.CurrencyList.ToArray(),
                 productOptions = await GetSportsAndProducts(productService, sportService),
-                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                isAllowSLT = _contextService.OfferedSubProductList.IsPresent(_ => _ == Product.SLT)
+                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm
             });
         }
 

@@ -67,6 +67,10 @@
             services.AddTransient<ILiveReportService, LiveReportService>();
             services.AddTransient<ILiveReportExcel, LiveReportExcel>();
             services.AddTransient<ILiveReportMatchListExcel, LiveReportMatchListExcel>();
+            services.AddTransient<ITurnoverRepository, TurnoverRepository>();
+            services.AddTransient<ITurnoverService, TurnoverService>();
+            services.AddTransient<ITurnoverExcel, TurnoverExcel>();
+
             return services;
         }
     }

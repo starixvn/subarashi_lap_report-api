@@ -951,6 +951,21 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>Tổng Doanh thu</value>
   </data>
+  <data name="ExternalIdOrSystemId" xml:space="preserve">
+    <value>ID Ngoại Vi hoặc ID Hệ thống</value>
+  </data>
+  <data name="CasinoTransfer" xml:space="preserve">
+    <value>Chuyển khoản Casino</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="TurnoverTitle" xml:space="preserve">
+    <value>Doanh thu, {0} --&gt; {1} - {2} {3} ({4})</value>
+  </data>
+  <data name="TurnoverTitleNoUser" xml:space="preserve">
+    <value>Doanh thu, {0} --&gt; {1}, {2}</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Ngày Tài Chính</value>
   </data>

@@ -816,6 +816,21 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>总交易额</value>
   </data>
+  <data name="ExternalIdOrSystemId" xml:space="preserve">
+    <value>或系统帐号(支援前缀搜寻)</value>
+  </data>
+  <data name="CasinoTransfer" xml:space="preserve">
+    <value>娱乐城的总转账额</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>会员</value>
+  </data>
+  <data name="TurnoverTitle" xml:space="preserve">
+    <value>交易額, {0} --&gt; {1} - {2} {3} ({4})</value>
+  </data>
+  <data name="TurnoverTitleNoUser" xml:space="preserve">
+    <value>交易額, {0} --&gt; {1}, {2}</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>依财务日期时间搜寻</value>
   </data>

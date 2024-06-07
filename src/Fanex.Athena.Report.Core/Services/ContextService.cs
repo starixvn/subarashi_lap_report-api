@@ -62,6 +62,8 @@ namespace Fanex.Athena.Report.Core.Services
 
         public string SiteName => GetClaimValue("SiteName");
 
+        public bool IsSuperAdmin => GetClaimValue<bool>("Administrator");
+
         public int SpecialPlatform => GetClaimValue<int>("SpecialPlatform");
 
         public int SpecialPlatformType => GetClaimValue<int>("SpecialPlatformType");

@@ -11,6 +11,8 @@ using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources.Helpers;
+using Fanex.Common.Extensions;
+using Fanex.NAP.Core.Web;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -60,23 +62,23 @@ namespace Fanex.Athena.Report.Core.Services
 
         private static string BuildSportXmlParameter(IEnumerable<SportProductItem> sports)
         {
-            const string SportXMLItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
-            var sportItemXML = new StringBuilder();
-            var products = sports.Where(i => i.ParentId == -1);
+            const string SportXmlItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
+            var sportItemXml = new StringBuilder();
 
-            foreach (var product in products)
+            var sportProductItems = sports.ToList();
+            sportProductItems.Where(i => i.ParentId == -1).ForEach(product =>
             {
-                var childSports = sports.Where(i => i.ParentId == product.Id && i.ParentId > -1)
-                                        .Select(i => i.Id).ToArray();
+                var childSports = sportProductItems.Where(i => i.ParentId == product.Id && i.ParentId > -1)
+                                                   .Select(i => i.Id).ToArray();
                 if (childSports.Length == 0)
                 {
                     childSports = new[] { product.Id };
                 }
 
-                sportItemXML.Append(string.Format(SportXMLItemPattern, product.Id, string.Join(",", childSports)));
-            }
+                sportItemXml.Append(string.Format(SportXmlItemPattern, product.Id, string.Join(",", childSports)));
+            });
 
-            var sportsParameters = "<products>" + sportItemXML + "</products>";
+            var sportsParameters = "<products>" + sportItemXml + "</products>";
             return sportsParameters;
         }
 
