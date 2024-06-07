@@ -29,6 +29,7 @@
                 case PlatformType.DeepLink: return ViewResources.DeepLink;
                 case PlatformType.WAP: return ViewResources.Wap;
                 case PlatformType.ChatRoom: return ViewResources.ChatRoom;
+                case PlatformType.DesktopCompact: return ViewResources.DesktopCompact;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;
                 case PlatformType.Others: return ViewResources.BetfromOthers;
                 case PlatformType.Desktop: return ViewResources.Desktop;

@@ -770,4 +770,7 @@
   <data name="Reward_Promotion" xml:space="preserve">
     <value>Reward/ Promotion</value>
   </data>
+  <data name="DesktopCompact" xml:space="preserve">
+    <value>Desktop Compact</value>
+  </data>
 </root>

@@ -729,4 +729,7 @@
   <data name="Reward_Promotion" xml:space="preserve">
     <value>Thưởng/Khuyến Mãi</value>
   </data>
+  <data name="DesktopCompact" xml:space="preserve">
+    <value>Desktop nhỏ gọn</value>
+  </data>
 </root>
