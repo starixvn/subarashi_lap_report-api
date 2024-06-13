@@ -645,4 +645,7 @@
   <data name="Reward_Promotion" xml:space="preserve">
     <value>成就/活动</value>
   </data>
+  <data name="DesktopCompact" xml:space="preserve">
+    <value>桌机轻量版</value>
+  </data>
 </root>
