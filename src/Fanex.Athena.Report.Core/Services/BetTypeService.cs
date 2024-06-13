@@ -12,7 +12,6 @@ using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources.Helpers;
 using Fanex.Common.Extensions;
-using Fanex.NAP.Core.Web;
 
 namespace Fanex.Athena.Report.Core.Services
 {
