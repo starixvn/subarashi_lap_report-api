@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Group Name="Default">
-		<Function Name="_Default" Product="SB,BA,NG,VS,CS,KN,AGC,PTCS,VG,BT,VB,AB,CO,LT,SG,BX,PP,CC,VRG,TG,I4D,SXG,SBC,SAG,PGS,JK,HB,WM,BGG,VGA,CG,AP,APM,FGGL,MXG,JIG,YB,MGRNG,SEA,WE,L22,UUSL"></Function>
+	<Group Name="Default">
+		<Function Name="_Default" Product="SB,BA,NG,VS,CS,KN,AGC,PTCS,VG,BT,VB,AB,CO,LT,SG,BX,PP,CC,VRG,TG,I4D,SXG,SBC,SAG,PGS,JK,HB,WM,BGG,VGA,CG,AP,APM,FGGL,MXG,JIG,YB,MGRNG,SEA,WE,L22,UUSL,FS"></Function>
 	</Group>
 
-  <Group Name="Report">
-    <Function Name="CustomerBalance" Product="SB,BA,NG,VS,CS,KN,BT,AGC,VB,AB,CO,LT,SG,PP,CC,VRG,TG,I4D,SXG,SBC,SAG,PGS,JK,HB,WM,BGG,VGA,CG,AP,APM,FGGL,MXG,JIG,YB,MGRNG,SEA,WE,L22,UUSL"></Function>
-  </Group>
+	<Group Name="Report">
+		<Function Name="CustomerBalance" Product="SB,BA,NG,VS,CS,KN,BT,AGC,VB,AB,CO,LT,SG,PP,CC,VRG,TG,I4D,SXG,SBC,SAG,PGS,JK,HB,WM,BGG,VGA,CG,AP,APM,FGGL,MXG,JIG,YB,MGRNG,SEA,WE,L22,UUSL,FS"></Function>
+	</Group>
 </Root>
