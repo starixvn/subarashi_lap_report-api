@@ -1,0 +1,59 @@
+﻿<div class="rule">
+    <h4>General Info</h4>
+    <ul>
+        <li>Win Loss By Time Zone report displays Licensee win loss by GMT-4 or GMT+8. Note that due to the difference in data conversion, the converted amount (GMT+8) is for reference only.</li>
+        <li>The report contains only won/lost/draw tickets.</li>
+        <li>This report supports up-to-date data. You can filter data up to 3 months per query.</li>
+        <li>A red negative number indicates a loss for Licensee whereas the black positive indicates a win.</li>
+        <ul>
+            <li><b>Licensee Net WL:</b> total win loss amount including commission.
+                <br />
+                Licensee Net WL = Licensee WL - Customer Comm + Licensee Comm
+            </li>
+            <li><b>Margin:</b> percentage of Licensee Net WL over Turnover.
+                <br />
+                Margin = (Licensee Net WL/Turnover) * 100%
+            </li>
+        </ul>
+        <li>OANDA Exchange Service will use the exchange rate of the end date of each selected month when converting the figures.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>Search Filters</h4>
+    <ul>
+        <li><b>Time Zone:</b> select time zone in which data is reported.</li>
+        <li><b>Product:</b> select the product type of bet tickets.</li>
+        <li><b>Currency:</b> select the currency which data will be retrieved.</li>
+        <li><b>Base Currency:</b> Convert all data to base currency for reference only.</li>
+        <li><b>Group By:</b> group data in 2 ways:
+            <ul>
+                <li><b>Product:</b> convert data into a based currency and grouped by product.</li>
+                <li><b>Currency:</b> group data by currency.</li>
+            </ul>
+        </li>
+        <li><b>Report By:</b> represent data by Daily, Monthly or Summary (based on Product or Currency).</li>
+        <li><b>Include Draw data:</b> win loss results will include Draw tickets.</li>
+        <li><b>Convert all figures to Base Currency:</b> convert all data into based currency. This checkbox will be disabled when the data is grouped by product.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>Report Guidelines</h4>
+    <ul>
+        <li><b>Date/Month:</b> can be daily or monthly based on your Report By selection and its format is:
+            <br />
+            - Date: mm/dd/yyyy
+            <br />
+            - Month: mm/yyyy
+        </li>
+        <li><b>Product/Currency:</b> the title of column will be Product or Currency based on your Group By selection.</li>
+        <li><b>Bet Count:</b> total bet tickets of selected products.</li>
+        <li><b>Turnover:</b> total customer betting amount.</li>
+        <li><b>Customer Comm:</b> commission given to customers based on their commission settings.</li>
+        <li><b>Licensee WL:</b> the win loss amount Licensee has settled with customer.</li>
+        <li><b>Licensee Comm:</b> commission that Licensee received from specific products.</li>
+    </ul>
+</div>

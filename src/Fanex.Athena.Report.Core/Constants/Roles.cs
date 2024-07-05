@@ -25,6 +25,7 @@
         public const string NewCashOutWinLoss = "NewCashOutWinLoss";
         public const string PlatformWinLoss = "MobileWinLoss53";
         public const string WinlossAnalysis = "WinlossAnalysis";
+        public const string WinLossByTimeZone = "LicenseeWinLossByTimeZone76";
         public const string MatchWinLoss = "MatchWinLoss31";
         public const string AccountInfo = "pa_acc_Info";
         public const string Subsidiary = "SUBSIDIARY";

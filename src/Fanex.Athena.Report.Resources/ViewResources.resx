@@ -1148,4 +1148,19 @@
   <data name="ProductPS" xml:space="preserve">
     <value>PLAYSTAR</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>Win Loss By Time Zone</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>Customer Comm</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>Licensee WL</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>Licensee Net WL</value>
+  </data>
 </root>

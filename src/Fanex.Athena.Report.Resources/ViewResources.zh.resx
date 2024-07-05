@@ -846,6 +846,21 @@
   <data name="FinancialDate" xml:space="preserve">
     <value>依财务日期时间搜寻</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>投注时区输赢</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月份</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>会员佣金</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>承租公司輸贏</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>承租公司净输赢</value>
+  </data>
   <data name="SettlementTime" xml:space="preserve">
     <value>依注单结算时间搜寻</value>
   </data>

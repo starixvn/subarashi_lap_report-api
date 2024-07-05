@@ -1,4 +1,6 @@
-﻿using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Excel;
+using Fanex.Athena.Report.Common.Excel.Interfaces;
+using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.ApiClients;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Repositories;

@@ -556,6 +556,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Comm.
+        /// </summary>
+        public static string CustomerComm {
+            get {
+                return ResourceManager.GetString("CustomerComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Turnover.
         /// </summary>
         public static string CustomerTurnover {
@@ -1150,11 +1159,29 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee Net WL.
+        /// </summary>
+        public static string LicenseeNetWL {
+            get {
+                return ResourceManager.GetString("LicenseeNetWL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee W/L.
         /// </summary>
         public static string LicenseeW_L {
             get {
                 return ResourceManager.GetString("LicenseeW_L", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee WL.
+        /// </summary>
+        public static string LicenseeWL {
+            get {
+                return ResourceManager.GetString("LicenseeWL", resourceCulture);
             }
         }
         
@@ -1362,6 +1389,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Moderate {
             get {
                 return ResourceManager.GetString("Moderate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Month.
+        /// </summary>
+        public static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
             }
         }
         
@@ -3054,6 +3090,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string WinlossAnalysis {
             get {
                 return ResourceManager.GetString("WinlossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss By Time Zone.
+        /// </summary>
+        public static string WinLossByTimeZone {
+            get {
+                return ResourceManager.GetString("WinLossByTimeZone", resourceCulture);
             }
         }
         
