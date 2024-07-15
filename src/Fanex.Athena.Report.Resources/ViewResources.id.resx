@@ -1011,4 +1011,13 @@
   <data name="VG" xml:space="preserve">
     <value>Macau</value>
   </data>
+  <data name="BetCounts" xml:space="preserve">
+    <value>Jumlah Taruhan</value>
+  </data>
+  <data name="CustomerPedingFundsTitle" xml:space="preserve">
+    <value>Dana Tertunda Pelanggan - {0}</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Berjalan</value>
+  </data>
 </root>

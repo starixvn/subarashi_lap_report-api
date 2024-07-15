@@ -14,6 +14,7 @@
 
         public const string ExtraPayout = "ExtraPayout";
         public const string CustomerSupportTask = "CustomerSupportTask";
+        public const string CustomerPendingFunds = "CustomerPendingFunds30";
         public const string CustomerWinLoss = "CustomerWinLoss29";
         public const string CustomerBalance = "CustomerBalance40";
         public const string GodOfFortuneWinLoss = "GodOfFortuneWinLoss";

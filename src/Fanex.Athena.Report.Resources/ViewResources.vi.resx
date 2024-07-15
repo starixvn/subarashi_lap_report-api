@@ -1062,4 +1062,13 @@
   <data name="LicenseeNetWL" xml:space="preserve">
     <value>Thắng Thua Thực của Nhà Cái</value>
   </data>
+  <data name="BetCounts" xml:space="preserve">
+    <value>Số cược</value>
+  </data>
+  <data name="CustomerPedingFundsTitle" xml:space="preserve">
+    <value>Tiền khách hàng đang chờ xử lý - {0}</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Đang diễn ra</value>
+  </data>
 </root>

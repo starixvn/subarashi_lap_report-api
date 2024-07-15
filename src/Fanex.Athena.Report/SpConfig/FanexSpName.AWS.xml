@@ -85,7 +85,12 @@
 		<Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.wsv_lap" />
 	</Function>
 
+  <Function Name="Licensee">
+    <Setting Key="Lrf_CheckBelonging_GetAgentInfo" SpName="Lrf_CheckBelonging_GetAgentInfo" DbName="DBEXT.bodb02.wsv_lap" />
+  </Function>
+
   <SiteDB>
 		<Setting Key="SiteDB_Lrf_Rpt_WinLoss" SpName="SiteDB_Lrf_Rpt_WinLoss" DbName="DBSID.bodb02.wsv_lap" />
+    <Setting Key="SiteDB_Lrf_Rpt_Outstanding" SpName="SiteDB_Lrf_Rpt_Outstanding" DbName="DBSID.bodb02.wsv_lap" />
 	</SiteDB>
 </Functions>

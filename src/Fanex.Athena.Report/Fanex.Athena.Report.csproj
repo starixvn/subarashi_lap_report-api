@@ -33,6 +33,9 @@
 	  <Content Include="App_Data\*.*">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+    <Content Include="ExcelTemplate\CustomerReports\CustomerPendingFunds.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -40,6 +43,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\LicenseeWinLossByTimeZone.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
@@ -138,10 +144,6 @@
     <Content Include="SpConfig\FanexSpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="ExcelTemplate\LicenseeWinLossByTimeZone.xls" />
   </ItemGroup>
 
   <ItemGroup>
