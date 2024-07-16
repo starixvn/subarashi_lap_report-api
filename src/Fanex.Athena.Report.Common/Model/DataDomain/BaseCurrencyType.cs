@@ -32,6 +32,12 @@
 
         public const int TRY = -15;
 
+        public const int JPY = -16;
+
+        public const int MXN = -17;
+
+        public const int NGN = -18;
+
         // crypto currencies
         public const int USDT = -99;
     }
