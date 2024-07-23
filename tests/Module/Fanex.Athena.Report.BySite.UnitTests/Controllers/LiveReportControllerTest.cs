@@ -1,31 +1,33 @@
-﻿using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using AutoFixture.Xunit2;
+    using BySite.Controllers;
+    using BySite.Excels.Interfaces;
+    using BySite.Excels.Options;
+    using BySite.Services.Interfaces;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.DTO;
+    using Common.Services.Interfaces;
+    using Common.Settings;
+    using Core.Constants;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using DTOs;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class LiveReportControllerTest
     {
         private const string ProductCodeAll = "ALL";
-
-        private const int CurrencyId = 999;
 
         private static readonly DateTime BalanceUpDate = DateTimeHelper.CreateDateTime(2017, 3, 4);
 
@@ -72,9 +74,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 FakeHelper.Create<ProductInfo>(x => x.ProductCode, "BA")
             });
 
-            _productService.Setup(x => x.GetProductAccess(
-                _contextService.Object.LicenseeId,
-                FunctionNames.LiveReport)).Returns(productAccess);
+            MockProductAccess(productAccess);
 
             var controller = CreateController();
 
@@ -106,13 +106,11 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 FakeHelper.Create<ProductInfo>(x => x.ProductCode, "BA")
             });
 
-            _productService.Setup(x => x.GetProductAccess(
-                _contextService.Object.LicenseeId,
-                FunctionNames.LiveReport)).Returns(productAccess);
+            MockProductAccess(productAccess);
 
-            var fakeResut = FakeHelper.Create<LiveReportDetailResultModel>();
+            var fakeResult = FakeHelper.Create<LiveReportDetailResultModel>();
             _liveReportService.Setup(x => x.GetLiveReportSummaryDetail(metaModel, It.IsAny<IDictionary<int, string>>(),
-                It.IsAny<IEnumerable<ProductInfo>>())).ReturnsAsync(fakeResut);
+                It.IsAny<IEnumerable<ProductInfo>>())).ReturnsAsync(fakeResult);
 
             _contextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
             _contextService.Setup(x => x.CurrencyList).Returns(FakeHelper.Create<IReadOnlyDictionary<int, string>>());
@@ -150,13 +148,11 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 FakeHelper.Create<ProductInfo>(x => x.ProductCode, "BA")
             });
 
-            _productService.Setup(x => x.GetProductAccess(
-                _contextService.Object.LicenseeId,
-                FunctionNames.LiveReport)).Returns(productAccess);
+            MockProductAccess(productAccess);
 
-            var fakeResut = FakeHelper.Create<LiveReportDetailResultModel>();
+            var fakeResult = FakeHelper.Create<LiveReportDetailResultModel>();
             _liveReportService.Setup(x => x.GetLiveReportSummaryDetail(metaModel, It.IsAny<IDictionary<int, string>>(),
-                It.IsAny<IEnumerable<ProductInfo>>())).ReturnsAsync(fakeResut);
+                It.IsAny<IEnumerable<ProductInfo>>())).ReturnsAsync(fakeResult);
 
             _contextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
             _contextService.Setup(x => x.CurrencyList).Returns(FakeHelper.Create<IReadOnlyDictionary<int, string>>());
@@ -165,7 +161,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             // Action
             var response = await controller.Detail(metaModel) as OkObjectResult;
-            var result = response.Value as LiveReportDetailResultModel;
+            var result = response!.Value as LiveReportDetailResultModel;
 
             // Assert
             _contextService.Verify(x => x.OfferedSubProductList, Times.Once);
@@ -196,15 +192,13 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 FakeHelper.Create<ProductInfo>(x => x.ProductCode, "BA")
             });
 
-            _productService.Setup(x => x.GetProductAccess(
-                _contextService.Object.LicenseeId,
-                FunctionNames.LiveReport)).Returns(productAccess);
+            MockProductAccess(productAccess);
 
             var controller = CreateController();
 
             // Action
             var response = await controller.MatchList(metaModel) as OkObjectResult;
-            var result = response.Value as LiveReportMatchListResultModel;
+            var result = response!.Value as LiveReportMatchListResultModel;
 
             // Assert
             Assert.Equal(fakeData, result.Data);
@@ -226,11 +220,92 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             // Action
             var response = await controller.MatchListSort(metaModel) as OkObjectResult;
-            var result = response.Value as SortableList<LiveReportWinLossByMatch>;
+            var result = response!.Value as SortableList<LiveReportWinLossByMatch>;
 
             // Assert
             Assert.All(result, item => fakeResult.Contains(item));
             Assert.Equal(result.Count, fakeResult.Count);
+        }
+
+        [Theory]
+        [AutoData]
+        public async Task MatchListExport_WhenCall_ReturnCorectResult(
+            string template,
+            LiveReportMatchListMetalModel metaModel,
+            SortableList<LiveReportWinLossByMatch> result,
+            ProductAccess productAccess)
+        {
+            // Arrange
+            var cacheRefAdapter = new Mock<ICacheRefAdapter>();
+            var excelService = new Mock<ILiveReportMatchListExcel>();
+
+            MockProductAccess(productAccess);
+
+            _liveReportService.Setup(x => x.GetLiveReportWinLossByMatch(metaModel)).ReturnsAsync(result);
+
+            var fileInfo = new Mock<IFileInfo>();
+            fileInfo.Setup(x => x.PhysicalPath).Returns(template);
+
+            var file = new Mock<IFileProvider>();
+            file.Setup(x => x.GetFileInfo("/ExcelTemplate/LiveReportMatchList.xls")).Returns(fileInfo.Object);
+
+            var controller = CreateController();
+
+            // Action
+            var response = await controller.MatchListExport(file.Object, excelService.Object, cacheRefAdapter.Object, metaModel) as FileContentResult;
+
+            // Assert
+            Assert.NotNull(response);
+            fileInfo.VerifyGet(x => x.PhysicalPath, Times.Once);
+            excelService.Verify(x => x.Export(template, result, metaModel, It.IsAny<LiveReportMatchListExcelOption>()));
+        }
+
+        [Theory]
+        [AutoData]
+        public async Task ExportExcel_WhenCall_ReturnCorectResult(
+            string template,
+            List<LiveReport> summaryReports,
+            LiveReportDetailResultModel result,
+            LiveReportMetaModel metaModel,
+            ProductAccess productAccess)
+        {
+            // Arrange
+            var excelService = new Mock<ILiveReportExcel>();
+
+            MockProductAccess(productAccess);
+
+            _contextService.Setup(x => x.CurrencyList).Returns(FakeHelper.Create<Dictionary<int, string>>());
+
+            _liveReportService.Setup(x => x.GetLiveReportSummary(metaModel)).ReturnsAsync(summaryReports);
+            _liveReportService.Setup(x => x.GetLiveReportSummaryDetail(metaModel,
+                    It.IsAny<Dictionary<int, string>>(),
+                    It.IsAny<IEnumerable<ProductInfo>>()))
+                .ReturnsAsync(result);
+
+            var fileInfo = new Mock<IFileInfo>();
+            fileInfo.Setup(x => x.PhysicalPath).Returns(template);
+
+            var file = new Mock<IFileProvider>();
+            file.Setup(x => x.GetFileInfo("/ExcelTemplate/LiveReport.xls")).Returns(fileInfo.Object);
+
+            var controller = CreateController();
+
+            // Action
+            var response = await controller.ExportExcel(file.Object, excelService.Object, metaModel) as FileContentResult;
+
+            // Assert
+            Assert.NotNull(response);
+            fileInfo.VerifyGet(x => x.PhysicalPath, Times.Once);
+            excelService.Verify(x => x.Export(template, summaryReports, result, metaModel, It.IsAny<LiveReportExcelOption>()));
+        }
+
+        #region TestHelpers
+
+        private void MockProductAccess(ProductAccess productAccess)
+        {
+            _productService.Setup(x => x.GetProductAccess(
+                _contextService.Object.LicenseeId,
+                FunctionNames.LiveReport)).Returns(productAccess);
         }
 
         private LiveReportController CreateController()
@@ -245,5 +320,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             return controller;
         }
+
+        #endregion
     }
 }

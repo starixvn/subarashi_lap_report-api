@@ -60,7 +60,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 MatchId = 1,
                 LeagueId = 1
             };
-            var dataList = new List<MatchWinLoss> { new(), };
+            var dataList = FakeHelper.CreateMany<MatchWinLoss>().ToList();
             _matchWinLossService.Setup(x => x.GetDetailDataList(metaModel)).ReturnsAsync(dataList);
 
             // Action
