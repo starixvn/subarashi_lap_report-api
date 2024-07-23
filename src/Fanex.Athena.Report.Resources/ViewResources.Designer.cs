@@ -241,6 +241,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basketball.
+        /// </summary>
+        public static string Basketball {
+            get {
+                return ResourceManager.GetString("Basketball", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basketball PinGoal.
         /// </summary>
         public static string BasketballPinGoal {
@@ -403,6 +412,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out Commission.
+        /// </summary>
+        public static string CashOutCommission {
+            get {
+                return ResourceManager.GetString("CashOutCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash Out Win Loss.
         /// </summary>
         public static string CashOutWinLoss {
@@ -511,6 +529,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cricket.
+        /// </summary>
+        public static string Cricket {
+            get {
+                return ResourceManager.GetString("Cricket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saba Casino.
         /// </summary>
         public static string CS {
@@ -552,6 +579,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string CustomerBalance {
             get {
                 return ResourceManager.GetString("CustomerBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Bet List.
+        /// </summary>
+        public static string CustomerBetList {
+            get {
+                return ResourceManager.GetString("CustomerBetList", resourceCulture);
             }
         }
         
@@ -1051,6 +1087,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ice Hockey.
+        /// </summary>
+        public static string IceHockey {
+            get {
+                return ResourceManager.GetString("IceHockey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP.
         /// </summary>
         public static string IP {
@@ -1092,6 +1137,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string JK {
             get {
                 return ResourceManager.GetString("JK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kabaddi.
+        /// </summary>
+        public static string Kabaddi {
+            get {
+                return ResourceManager.GetString("Kabaddi", resourceCulture);
             }
         }
         
@@ -2059,6 +2113,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saba Virtual Sports.
+        /// </summary>
+        public static string ProductSBVS {
+            get {
+                return ResourceManager.GetString("ProductSBVS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEAL Entertainment.
         /// </summary>
         public static string ProductSEA {
@@ -2302,20 +2365,20 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Running.
-        /// </summary>
-        public static string Running {
-            get {
-                return ResourceManager.GetString("Running", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Robot.
         /// </summary>
         public static string Robot {
             get {
                 return ResourceManager.GetString("Robot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        public static string Running {
+            get {
+                return ResourceManager.GetString("Running", resourceCulture);
             }
         }
         
@@ -2352,6 +2415,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SabaPromotionPrizes {
             get {
                 return ResourceManager.GetString("SabaPromotionPrizes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saba Virtual Sports Win Loss.
+        /// </summary>
+        public static string SabaVirtualSportsWinLoss {
+            get {
+                return ResourceManager.GetString("SabaVirtualSportsWinLoss", resourceCulture);
             }
         }
         
@@ -2473,6 +2545,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Soccer.
+        /// </summary>
+        public static string Soccer {
+            get {
+                return ResourceManager.GetString("Soccer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Soccer PinGoal.
         /// </summary>
         public static string SoccerPinGoal {
@@ -2577,6 +2658,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Tablet {
             get {
                 return ResourceManager.GetString("Tablet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tennis.
+        /// </summary>
+        public static string Tennis {
+            get {
+                return ResourceManager.GetString("Tennis", resourceCulture);
             }
         }
         

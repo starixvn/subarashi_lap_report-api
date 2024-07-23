@@ -35,5 +35,6 @@
         public const string LiveReport = "LiveReport38";
         public const string Turnover = "Turnover39";
         public const string CustomerTurnover = "CustomerTurnover51";
+        public const string SabaVirtualSportsWinLoss = "SabaVirtualSportsWinLoss";
     }
 }

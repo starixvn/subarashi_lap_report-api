@@ -14,6 +14,7 @@ namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
     public abstract class BaseApiClient
     {
         private const string LanguageKey = "Language";
+        private const string JsonContentType = "application/json";
 
         private static readonly JsonSerializerSettings JsonSerializerSettings = new()
         {
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
 
         protected abstract string ApiName { get; }
 
-        protected abstract Task PrepareHeaders(HttpRequestHeaders headers);
+        protected virtual Task PrepareHeaders(HttpRequestHeaders headers) => Task.CompletedTask;
 
         public async Task<T> PostAsync<T>(string path, object value, string language)
         {
@@ -84,6 +85,7 @@ namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
 
             await PrepareHeaders(request.Headers).ConfigureAwait(false);
             request.Headers.Add(LanguageKey, language);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
 
             var result = await SendRequestAsync(request, cancelToken.Token).ConfigureAwait(false);
 

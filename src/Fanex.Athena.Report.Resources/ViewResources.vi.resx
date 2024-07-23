@@ -1071,4 +1071,31 @@
   <data name="Running" xml:space="preserve">
     <value>Đang diễn ra</value>
   </data>
+  <data name="CustomerBetList" xml:space="preserve">
+    <value>Danh sách cược của Khách Hàng</value>
+  </data>
+  <data name="Soccer" xml:space="preserve">
+    <value>Bóng đá</value>
+  </data>
+  <data name="Basketball" xml:space="preserve">
+    <value>Bóng rổ</value>
+  </data>
+  <data name="Cricket" xml:space="preserve">
+    <value>Bóng gậy</value>
+  </data>
+  <data name="Tennis" xml:space="preserve">
+    <value>Quần vợt</value>
+  </data>
+  <data name="IceHockey" xml:space="preserve">
+    <value>Khúc côn cầu trên băng</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>Hoa hồng vé cược đã bán</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>Thể Thao Ảo Saba</value>
+  </data>
+  <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
+    <value>Thắng Thua Thể Thao Ảo Saba</value>
+  </data>
 </root>

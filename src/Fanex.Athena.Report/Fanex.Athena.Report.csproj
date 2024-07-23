@@ -45,9 +45,6 @@
     <Content Include="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExcelTemplate\LicenseeWinLossByTimeZone.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ExcelTemplate\PlatformWinLossMember.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -94,6 +91,9 @@
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
   <Content Include="ExcelTemplate\LiveReportMatchList.xls">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+    <Content Include="ExcelTemplate\SabaVirtualSportsWinLoss.xls">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
   <Content Include="SpConfig\FanexSpName.STAGING.xml">
@@ -144,6 +144,11 @@
     <Content Include="SpConfig\FanexSpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ExcelTemplate\LicenseeWinLossByTimeZone.xlsx" />
+    <None Include="ExcelTemplate\SabaVirtualSportsWinLoss.xls" />
   </ItemGroup>
 
   <ItemGroup>

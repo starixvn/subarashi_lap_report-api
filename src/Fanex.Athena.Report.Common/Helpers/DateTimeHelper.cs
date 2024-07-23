@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System;
+
     public static class DateTimeHelper
     {
         public static Func<DateTimeOffset> DateTimeOffsetProvider { get; set; } = () => DateTimeOffset.Now;
@@ -9,6 +9,9 @@ namespace Fanex.Athena.Report.Common.Helpers
         public static DateTime Now => DateTimeOffsetProvider().DateTime;
 
         public static DateTime MinValue => DateTimeOffset.MinValue.DateTime;
+
+        public static bool IsBetween(DateTime date, DateTime minDate, DateTime maxDate)
+            => date.Date >= minDate.Date && date.Date <= maxDate.Date;
 
         public static DateTime GetMaxDate(DateTime dateOne, DateTime dateTwo) => dateOne > dateTwo ? dateOne : dateTwo;
 

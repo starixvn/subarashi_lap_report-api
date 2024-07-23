@@ -37,21 +37,43 @@ namespace Fanex.Athena.Report.Core
             services.AddTransient<ISportRepository, SportRepository>();
             services.AddTransient<ICustomerClassService, CustomerClassService>();
             services.AddTransient<IDataPermissionService, DataPermissionService>();
+            services.AddTransient<ILeagueRepository, LeagueRepository>();
+            services.AddTransient<IPortalApiService, PortalApiService>();
             return services;
+        }
+
+        public static IServiceCollection AddApiClient(this IServiceCollection services, AppSettings settings)
+        {
+            return services.AddBetListApiClient(settings).AddLgApiClient(settings);
         }
 
         public static IServiceCollection AddBetListApiClient(this IServiceCollection services, AppSettings settings)
         {
-            const string BetListTokenKey = "BETLIST_TOKEN_KEY";
             services.AddHttpClient<IBetListApiClient, BetListApiClient>(client =>
             {
                 client.BaseAddress = new Uri(settings.BetListApiHostUrl);
-                client.DefaultRequestHeaders.Add(BetListTokenKey, settings.BetListApiTokenValue);
+                client.DefaultRequestHeaders.Add("BETLIST_TOKEN_KEY", settings.BetListApiTokenValue);
             }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
                 AllowAutoRedirect = false,
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddLgApiClient(this IServiceCollection services, AppSettings settings)
+        {
+            services.AddHttpClient<ILgApiClient, LgApiClient>(client =>
+            {
+                client.BaseAddress = new Uri(settings.LgApiHostUrl);
+                client.DefaultRequestHeaders.Add("LGAPI_TOKEN_KEY", settings.LgApiTokenValue);
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AllowAutoRedirect = false,
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            });
+
 
             return services;
         }

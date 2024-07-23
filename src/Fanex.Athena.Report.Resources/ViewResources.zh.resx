@@ -933,4 +933,31 @@
   <data name="Running" xml:space="preserve">
     <value>进行中</value>
   </data>
+  <data name="CustomerBetList" xml:space="preserve">
+    <value>会员注单</value>
+  </data>
+  <data name="Soccer" xml:space="preserve">
+    <value>足球</value>
+  </data>
+  <data name="Basketball" xml:space="preserve">
+    <value>篮球</value>
+  </data>
+  <data name="Cricket" xml:space="preserve">
+    <value>板球</value>
+  </data>
+  <data name="Tennis" xml:space="preserve">
+    <value>网球</value>
+  </data>
+  <data name="IceHockey" xml:space="preserve">
+    <value>冰上曲棍球</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>即时兑现佣金</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>沙巴虚拟赛事</value>
+  </data>
+  <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
+    <value>沙巴虚拟赛事输赢</value>
+  </data>
 </root>

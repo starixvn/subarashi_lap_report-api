@@ -4,6 +4,8 @@ namespace Fanex.Athena.Report.Common.Settings
 {
     public class AppSettings
     {
+        public string Environment { get; set; }
+
         public List<int> LicenseeAllowCasinoTransfer { get; set; }
 
         public List<int> LiveReportNoDetailLinkSports { get; set; }
@@ -17,6 +19,10 @@ namespace Fanex.Athena.Report.Common.Settings
         public List<string> OfferCryptoCurrencyLicensees { get; set; }
 
         public List<string> CryptoLicenseesSupportBaseEur { get; set; }
+
+        public string LgApiTokenValue { get; set; }
+
+        public string LgApiHostUrl { get; set; }
 
         public string BetListApiHostUrl { get; set; }
 

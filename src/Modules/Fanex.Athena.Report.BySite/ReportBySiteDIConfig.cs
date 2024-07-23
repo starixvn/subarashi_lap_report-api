@@ -73,6 +73,9 @@
             services.AddTransient<IWinLossByTimeZoneRepository, WinLossByTimeZoneRepository>();
             services.AddTransient<IWinLossByTimeZoneService, WinLossByTimeZoneService>();
             services.AddTransient<IWinLossByTimeZoneExcel, WinLossByTimeZoneExcel>();
+            services.AddTransient<ISabaVirtualSportsWinLossRepository, SabaVirtualSportsWinLossRepository>();
+            services.AddTransient<ISabaVirtualSportsWinLossService, SabaVirtualSportsWinLossService>();
+            services.AddTransient<ISabaVirtualSportsWinLossExcel, SabaVirtualSportsWinLossExcel>();
 
             return services;
         }

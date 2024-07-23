@@ -23,5 +23,7 @@
         public const string WinLossByTimeZone = "WinLossByTimeZone";
 
         public const string CustomerPendingFunds = "CustomerPendingFunds";
+
+        public const string SabaVirtualSportsWinLoss = "SabaVirtualSportsWinLoss";
     }
 }

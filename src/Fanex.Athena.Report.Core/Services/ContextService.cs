@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using Fanex.Athena.Report.Common.Model.DataDomain;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -87,6 +88,12 @@ namespace Fanex.Athena.Report.Core.Services
         public bool IsShowIpVn => IsShowIp && IsInRoles("Administrator", Roles.BetListViewIpVn);
 
         public string DefaultBaseCurrency => GetClaimValue("BaseCurrency", "EUR");
+
+        public int DefaultBaseCurrencyId => SystemBaseCurrency.BaseCurrencyList
+                                                              .FirstOrDefault(x => x.Value.Equals(
+                                                                   DefaultBaseCurrency, 
+                                                                   StringComparison.OrdinalIgnoreCase))
+                                                              .Key;
 
         public AppMode ApplicationMode => GetClaimValue("Name").StartsWith("lrf") ? AppMode.Self : AppMode.Parasitic;
 
