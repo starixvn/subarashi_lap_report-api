@@ -69,5 +69,7 @@
         public const int PromotionJackpotPrize = 17009;
 
         public const int PromotionCashPrize = 17010;
+
+        public const int FastSpinPromotionPrize = 11295;
     }
 }

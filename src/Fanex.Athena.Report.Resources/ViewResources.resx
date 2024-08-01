@@ -773,4 +773,7 @@
   <data name="DesktopCompact" xml:space="preserve">
     <value>Desktop Compact</value>
   </data>
+  <data name="FS" xml:space="preserve">
+    <value>FastSpin</value>
+  </data>
 </root>

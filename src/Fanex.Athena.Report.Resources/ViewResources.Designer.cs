@@ -736,6 +736,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FastSpin.
+        /// </summary>
+        public static string FS {
+            get {
+                return ResourceManager.GetString("FS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game Type.
         /// </summary>
         public static string GameType {
