@@ -43,6 +43,7 @@
             { ExtraPayoutMapType.PayoutEASexyLuckyDraw, BetType.EASexyLuckyDraw },
             { ExtraPayoutMapType.PayoutArcadiaGamingBonus, BetType.ArcadiaGamingBonus },
             { ExtraPayoutMapType.PayoutVgamingFreeBets, BetType.VgamingFreeBets },
+            { ExtraPayoutMapType.PayoutVgamingPromotionPrize, BetType.VgamingPromotionPrize },
             { ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize, BetType.VgamingFreeBetsJackpotPrize },
             { ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution, BetType.VgamingFreeBetsJackpotContribution },
             { ExtraPayoutMapType.PayoutSGJackpotPrize, BetType.SGJackpotPrize },
