@@ -960,4 +960,22 @@
   <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
     <value>沙巴虚拟赛事输赢</value>
   </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>子网站输赢</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>子网站</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>子网站综合报表</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>基于</value>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>体育博彩</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>包网商</value>
+  </data>
 </root>

@@ -22,7 +22,7 @@
 
         public string DefaultBaseCurrency { get; set; }
 
-        public string CustId { get; set; }
+        public int CustId { get; set; }
 
         public int DrillDownLevel { get; set; }
 

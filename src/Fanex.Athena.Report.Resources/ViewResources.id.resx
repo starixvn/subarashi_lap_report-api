@@ -1047,4 +1047,22 @@
   <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
     <value>Saba Virtual Sports Win Loss</value>
   </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>Kemenangan/Kerugian Anak Perusahaan</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>Cabang</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>Performa Cabang</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>Berdasarkan</value>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>Sportsbook</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Whitelabel</value>
+  </data>
 </root>

@@ -1098,4 +1098,22 @@
   <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
     <value>Thắng Thua Thể Thao Ảo Saba</value>
   </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>Thắng Thua Chi nhánh</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>Chi nhánh</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>Hiệu suất Chi Nhánh</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>Dựa trên</value>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>Sportsbook</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Nhóm Chi Nhánh</value>
+  </data>
 </root>

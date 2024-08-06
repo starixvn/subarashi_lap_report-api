@@ -95,6 +95,8 @@ namespace Fanex.Athena.Report.Core.Services
                                                                    StringComparison.OrdinalIgnoreCase))
                                                               .Key;
 
+        public string OperatorId => GetClaimValue("OperatorID");
+
         public AppMode ApplicationMode => GetClaimValue("Name").StartsWith("lrf") ? AppMode.Self : AppMode.Parasitic;
 
         public IEnumerable<string> OfferedOddsGroupsList

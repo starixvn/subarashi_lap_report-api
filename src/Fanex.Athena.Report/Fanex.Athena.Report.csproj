@@ -33,6 +33,12 @@
 	  <Content Include="App_Data\*.*">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+    <Content Include="ExcelTemplate\SubsidiaryPerformance/SubsidiaryPerformanceDetail.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\SubsidiaryPerformance/SubsidiaryPerformanceSummary.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerPendingFunds.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -149,6 +155,8 @@
   <ItemGroup>
     <None Include="ExcelTemplate\LicenseeWinLossByTimeZone.xlsx" />
     <None Include="ExcelTemplate\SabaVirtualSportsWinLoss.xls" />
+    <None Include="ExcelTemplate\SubsidiaryPerformance\SubsidiaryPerformanceDetail.xlsx" />
+    <None Include="ExcelTemplate\SubsidiaryPerformance\SubsidiaryPerformanceSummary.xlsx" />
   </ItemGroup>
 
   <ItemGroup>

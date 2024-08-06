@@ -25,5 +25,7 @@
         public const string CustomerPendingFunds = "CustomerPendingFunds";
 
         public const string SabaVirtualSportsWinLoss = "SabaVirtualSportsWinLoss";
+
+        public const string SubsidiaryPerformance = "SubsidiaryPerformance";
     }
 }

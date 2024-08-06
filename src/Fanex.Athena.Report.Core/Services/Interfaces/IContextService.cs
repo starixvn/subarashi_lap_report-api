@@ -63,5 +63,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         bool IsHideSaba { get; }
 
         AppMode ApplicationMode { get; }
+
+        string OperatorId { get; }
     }
 }

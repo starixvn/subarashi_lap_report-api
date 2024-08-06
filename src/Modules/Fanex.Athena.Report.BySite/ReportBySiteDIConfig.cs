@@ -76,6 +76,10 @@
             services.AddTransient<ISabaVirtualSportsWinLossRepository, SabaVirtualSportsWinLossRepository>();
             services.AddTransient<ISabaVirtualSportsWinLossService, SabaVirtualSportsWinLossService>();
             services.AddTransient<ISabaVirtualSportsWinLossExcel, SabaVirtualSportsWinLossExcel>();
+            services.AddTransient<ISubsidiaryPerformanceRepository, SubsidiaryPerformanceRepository>();
+            services.AddTransient<ISubsidiaryPerformanceService, SubsidiaryPerformanceService>();
+            services.AddTransient<ISubsidiaryPerformanceSummaryExcel, SubsidiaryPerformanceSummaryExcel>();
+            services.AddTransient<ISubsidiaryPerformanceDetailExcel, SubsidiaryPerformanceDetailExcel>();
 
             return services;
         }

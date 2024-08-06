@@ -241,6 +241,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Based.
+        /// </summary>
+        public static string Based {
+            get {
+                return ResourceManager.GetString("Based", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basketball.
         /// </summary>
         public static string Basketball {
@@ -2608,6 +2617,33 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subsidiary.
+        /// </summary>
+        public static string Subsidiary {
+            get {
+                return ResourceManager.GetString("Subsidiary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subsidiary Performance.
+        /// </summary>
+        public static string SubsidiaryPerformance {
+            get {
+                return ResourceManager.GetString("SubsidiaryPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subsidiary W/L.
+        /// </summary>
+        public static string SubsidiaryWL {
+            get {
+                return ResourceManager.GetString("SubsidiaryWL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Summary.
         /// </summary>
         public static string Summary {
@@ -3180,6 +3216,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string WeeklyLiveMatches {
             get {
                 return ResourceManager.GetString("WeeklyLiveMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WhiteLabel.
+        /// </summary>
+        public static string WhiteLabel {
+            get {
+                return ResourceManager.GetString("WhiteLabel", resourceCulture);
             }
         }
         
