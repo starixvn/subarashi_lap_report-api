@@ -153,13 +153,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="ExcelTemplate\LicenseeWinLossByTimeZone.xlsx" />
-    <None Include="ExcelTemplate\SabaVirtualSportsWinLoss.xls" />
-    <None Include="ExcelTemplate\SubsidiaryPerformance\SubsidiaryPerformanceDetail.xlsx" />
-    <None Include="ExcelTemplate\SubsidiaryPerformance\SubsidiaryPerformanceSummary.xlsx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <SonarQubeSetting Include="sonar.coverage.exclusions">
       <Value>**/Startup.cs</Value>
     </SonarQubeSetting>

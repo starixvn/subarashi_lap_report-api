@@ -1220,4 +1220,22 @@
   <data name="WhiteLabel" xml:space="preserve">
     <value>WhiteLabel</value>
   </data>
+  <data name="Contribution" xml:space="preserve">
+    <value>Contribution</value>
+  </data>
+  <data name="JackpotPrize" xml:space="preserve">
+    <value>JackpotPrize</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>Licensee</value>
+  </data>
+  <data name="PlayerWL" xml:space="preserve">
+    <value>Player W/L</value>
+  </data>
+  <data name="W_L" xml:space="preserve">
+    <value>W\L</value>
+  </data>
+  <data name="AGCasinoWinLoss" xml:space="preserve">
+    <value>AG Casino Win Loss</value>
+  </data>
 </root>

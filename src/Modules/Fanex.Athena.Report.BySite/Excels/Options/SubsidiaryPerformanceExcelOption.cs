@@ -2,6 +2,6 @@
 {
     public class SubsidiaryPerformanceExcelOption
     {
-        public bool isMasterViewType { get; set; }
+        public bool IsMasterViewType { get; set; }
     }
 }

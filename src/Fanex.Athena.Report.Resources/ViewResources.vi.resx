@@ -1116,4 +1116,37 @@
   <data name="WhiteLabel" xml:space="preserve">
     <value>Nhóm Chi Nhánh</value>
   </data>
+  <data name="PlayerWL" xml:space="preserve">
+    <value>Thắng Thua Người Chơi</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>Nhà Cái</value>
+  </data>
+  <data name="W_L" xml:space="preserve">
+    <value>Thắng Thua</value>
+  </data>
+  <data name="Contribution" xml:space="preserve">
+    <value>Tích Lũy</value>
+  </data>
+  <data name="JackpotPrize" xml:space="preserve">
+    <value>Giải Thưởng Jackpot</value>
+  </data>
+  <data name="PlayerWL_Duplicate[1]" xml:space="preserve">
+    <value>玩家输赢</value>
+  </data>
+  <data name="Licensee_Duplicate[1]" xml:space="preserve">
+    <value>承租公司</value>
+  </data>
+  <data name="W_L_Duplicate[1]" xml:space="preserve">
+    <value>输赢</value>
+  </data>
+  <data name="Contribution_Duplicate[1]" xml:space="preserve">
+    <value>贡献金</value>
+  </data>
+  <data name="JackpotPrize_Duplicate[1]" xml:space="preserve">
+    <value>积宝奖金</value>
+  </data>
+  <data name="AGCasinoWinLoss" xml:space="preserve">
+    <value>Thắng Thua AG Casino</value>
+  </data>
 </root>

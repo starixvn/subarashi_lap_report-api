@@ -59,6 +59,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected SubsidiaryPerformanceMetaModel MetaModel;
 
+
         public SubsidiaryPerformanceDetailExcel(IFileService fileService, IOptions<ExcelOptions> excelOptionsAccessor,
                                                 IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor) { }
 

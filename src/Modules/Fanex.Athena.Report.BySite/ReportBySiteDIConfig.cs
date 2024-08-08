@@ -1,4 +1,6 @@
-﻿namespace Fanex.Athena.Report.BySite
+﻿using Fanex.Athena.Report.BySite.DTOs;
+
+namespace Fanex.Athena.Report.BySite
 {
     using Fanex.Athena.Report.BySite.Excels;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -80,6 +82,8 @@
             services.AddTransient<ISubsidiaryPerformanceService, SubsidiaryPerformanceService>();
             services.AddTransient<ISubsidiaryPerformanceSummaryExcel, SubsidiaryPerformanceSummaryExcel>();
             services.AddTransient<ISubsidiaryPerformanceDetailExcel, SubsidiaryPerformanceDetailExcel>();
+            services.AddTransient(typeof(IThirdPartyWinLossRepository<>), typeof(ThirdPartyWinLossRepository<>));
+            services.AddTransient(typeof(IThirdPartyWinLossExcel<>), typeof(ThirdPartyWinLossExcel<>));
 
             return services;
         }

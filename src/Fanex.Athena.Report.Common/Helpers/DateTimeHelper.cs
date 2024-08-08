@@ -10,6 +10,8 @@
 
         public static DateTime MinValue => DateTimeOffset.MinValue.DateTime;
 
+        public static DateTime CreateDateTime() => MinValue;
+
         public static bool IsBetween(DateTime date, DateTime minDate, DateTime maxDate)
             => date.Date >= minDate.Date && date.Date <= maxDate.Date;
 

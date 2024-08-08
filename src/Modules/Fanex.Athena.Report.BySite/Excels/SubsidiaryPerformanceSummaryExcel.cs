@@ -99,7 +99,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void ProcessUi(ExcelWorksheet sheet)
         {
-            if (!Option.isMasterViewType)
+            if (!Option.IsMasterViewType)
             {
                 sheet.Column(ColumnWhiteLabel).Hidden = true;
             }
@@ -135,7 +135,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             foreach (var bodyData in Data.Data)
             {
                 var groupWhiteLabelCell = sheet.Cells[rowIndex, ColumnWhiteLabel, rowIndex + bodyData.TotalItem - 1, ColumnWhiteLabel];
-                groupWhiteLabelCell.Value = Option.isMasterViewType ? bodyData.WhiteLabel : "";
+                groupWhiteLabelCell.Value = Option.IsMasterViewType ? bodyData.WhiteLabel : "";
                 groupWhiteLabelCell.Merge = true;
 
                 foreach (var groupData in bodyData.Details)

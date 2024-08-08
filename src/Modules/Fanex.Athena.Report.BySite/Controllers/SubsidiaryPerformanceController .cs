@@ -109,7 +109,7 @@
             var data = await _subsidiaryPerformanceService.GetData(metaModel, _contextService.CurrencyList).ConfigureAwait(false);
             var excelOption = new SubsidiaryPerformanceExcelOption
             {
-                isMasterViewType = _contextService.SubsidiaryViewType == SubsidiaryViewType.MasterManagement
+                IsMasterViewType = _contextService.SubsidiaryViewType == SubsidiaryViewType.MasterManagement
             };
 
             var template = file.GetFileInfo("/ExcelTemplate/SubsidiaryPerformance/SubsidiaryPerformanceSummary.xlsx").PhysicalPath;

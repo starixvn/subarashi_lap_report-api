@@ -12,7 +12,7 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
 
         public bool IsConvert { get; set; } = true;
 
-        public string BaseCurrency { get; set; } = @"EUR";
+        public string BaseCurrency { get; set; } = "EUR";
 
         public string CurrencyName { get; set; }
     }

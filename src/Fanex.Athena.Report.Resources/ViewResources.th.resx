@@ -1098,4 +1098,22 @@
   <data name="WhiteLabel" xml:space="preserve">
     <value>ป้ายขาว</value>
   </data>
+  <data name="PlayerWL" xml:space="preserve">
+    <value>ผู้เล่น ชนะ/แพ้</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>ผู้ได้รับอนุญาต</value>
+  </data>
+  <data name="W_L" xml:space="preserve">
+    <value>W/L</value>
+  </data>
+  <data name="Contribution" xml:space="preserve">
+    <value>ส่วนร่วม</value>
+  </data>
+  <data name="JackpotPrize" xml:space="preserve">
+    <value>เงินรางวัลแจ็คพอต</value>
+  </data>
+  <data name="AGCasinoWinLoss" xml:space="preserve">
+    <value>AGคาสิโน แพ้ชนะ</value>
+  </data>
 </root>
