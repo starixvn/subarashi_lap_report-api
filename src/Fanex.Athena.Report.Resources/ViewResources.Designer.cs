@@ -1168,6 +1168,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nextspin.
+        /// </summary>
+        public static string NS {
+            get {
+                return ResourceManager.GetString("NS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odds.
         /// </summary>
         public static string Odds {
