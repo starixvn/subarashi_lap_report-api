@@ -45,6 +45,10 @@
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Ag" SpName="LRF_Rpt_AGCasinoWinloss_Ag" DbName="DBACC.bodb02.wsv_lap" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Mem" SpName="LRF_Rpt_AGCasinoWinloss_Mem" DbName="DBACC.bodb02.wsv_lap" />
 
+    <Setting Key="Lrf_Rpt_AGCasinoBalance" SpName="Lrf_Rpt_AGCasinoBalance" DbName="DBPTCS.bodb_PlaytechCS.wsv_lap" />
+    <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBPTCS.bodb_PlaytechCS.wsv_lap" />
+    <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBPTCS.bodb_PlaytechCS.wsv_lap" />
+
 		<Setting Key="Lrf_Rpt_ExtraPayout" SpName="Lrf_Rpt_ExtraPayout" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_ExtraPayout_Mem" SpName="Lrf_Rpt_ExtraPayout_Mem" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_ExtraPayout_Mem_Detail" SpName="Lrf_Rpt_ExtraPayout_Mem_Detail" DbName="DBACC.bodb02.wsv_lap" />

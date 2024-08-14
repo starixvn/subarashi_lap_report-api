@@ -21,6 +21,7 @@
         public const string LeagueWinLoss = "LeagueWinLoss";
         public const string AbnormalBet = "AbnormalBet";
         public const string AGCasinoWinLoss = "AGCasinoWinLoss62";
+        public const string AGCasinoBalance = "AGCasinoBalance63";
         public const string GrossGamingRevenue = "GrossGamingRevenue";
         public const string DailyBets = "DailyBets81";
         public const string DailyBetDetails = "DailyBetDetails";

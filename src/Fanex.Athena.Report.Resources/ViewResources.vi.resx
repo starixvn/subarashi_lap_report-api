@@ -1131,22 +1131,16 @@
   <data name="JackpotPrize" xml:space="preserve">
     <value>Giải Thưởng Jackpot</value>
   </data>
-  <data name="PlayerWL_Duplicate[1]" xml:space="preserve">
-    <value>玩家输赢</value>
-  </data>
-  <data name="Licensee_Duplicate[1]" xml:space="preserve">
-    <value>承租公司</value>
-  </data>
-  <data name="W_L_Duplicate[1]" xml:space="preserve">
-    <value>输赢</value>
-  </data>
-  <data name="Contribution_Duplicate[1]" xml:space="preserve">
-    <value>贡献金</value>
-  </data>
-  <data name="JackpotPrize_Duplicate[1]" xml:space="preserve">
-    <value>积宝奖金</value>
-  </data>
   <data name="AGCasinoWinLoss" xml:space="preserve">
     <value>Thắng Thua AG Casino</value>
+  </data>
+  <data name="TransferIn" xml:space="preserve">
+    <value>Chuyển vào</value>
+  </data>
+  <data name="TransferOut" xml:space="preserve">
+    <value>Chuyển ra</value>
+  </data>
+  <data name="AGCasinoBalance" xml:space="preserve">
+    <value>Số Dư AG Casino</value>
   </data>
 </root>

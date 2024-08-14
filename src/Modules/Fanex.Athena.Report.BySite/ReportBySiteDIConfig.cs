@@ -82,6 +82,9 @@ namespace Fanex.Athena.Report.BySite
             services.AddTransient<ISubsidiaryPerformanceService, SubsidiaryPerformanceService>();
             services.AddTransient<ISubsidiaryPerformanceSummaryExcel, SubsidiaryPerformanceSummaryExcel>();
             services.AddTransient<ISubsidiaryPerformanceDetailExcel, SubsidiaryPerformanceDetailExcel>();
+            services.AddTransient<IAgCasinoBalanceRepository, AgCasinoBalanceRepository>();
+            services.AddTransient<IAgCasinoBalanceService, AgCasinoBalanceService>();
+            services.AddTransient<IAgCasinoBalanceExcel, AgCasinoBalanceExcel>();
             services.AddTransient(typeof(IThirdPartyWinLossRepository<>), typeof(ThirdPartyWinLossRepository<>));
             services.AddTransient(typeof(IThirdPartyWinLossExcel<>), typeof(ThirdPartyWinLossExcel<>));
 

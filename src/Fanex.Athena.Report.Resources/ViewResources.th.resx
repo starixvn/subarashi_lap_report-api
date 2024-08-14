@@ -1116,4 +1116,13 @@
   <data name="AGCasinoWinLoss" xml:space="preserve">
     <value>AGคาสิโน แพ้ชนะ</value>
   </data>
+  <data name="TransferIn" xml:space="preserve">
+    <value>โอนเข้า</value>
+  </data>
+  <data name="TransferOut" xml:space="preserve">
+    <value>โอนออก</value>
+  </data>
+  <data name="AGCasinoBalance" xml:space="preserve">
+    <value>ยอดคงเหลือ AGคาสิโน</value>
+  </data>
 </root>

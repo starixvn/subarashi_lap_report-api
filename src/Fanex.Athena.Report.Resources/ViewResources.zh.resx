@@ -978,4 +978,28 @@
   <data name="WhiteLabel" xml:space="preserve">
     <value>包网商</value>
   </data>
+  <data name="TransferIn" xml:space="preserve">
+    <value>Transfer In</value>
+  </data>
+  <data name="TransferOut" xml:space="preserve">
+    <value>Transfer Out</value>
+  </data>
+  <data name="AGCasinoBalance" xml:space="preserve">
+    <value>AG Casino Balance</value>
+  </data>
+  <data name="PlayerWL" xml:space="preserve">
+    <value>玩家输赢</value>
+  </data>
+  <data name="JackpotPrize" xml:space="preserve">
+    <value>积宝奖金</value>
+  </data>
+  <data name="Contribution" xml:space="preserve">
+    <value>贡献金</value>
+  </data>
+  <data name="W_L" xml:space="preserve">
+    <value>输赢</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>承租公司</value>
+  </data>
 </root>

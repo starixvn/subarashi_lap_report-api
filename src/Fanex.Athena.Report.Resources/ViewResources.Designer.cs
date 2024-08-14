@@ -115,6 +115,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AG Casino Balance.
+        /// </summary>
+        public static string AGCasinoBalance {
+            get {
+                return ResourceManager.GetString("AGCasinoBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AG Casino Win Loss.
         /// </summary>
         public static string AGCasinoWinLoss {
@@ -2856,6 +2865,24 @@ namespace Fanex.Athena.Report.Resources {
         public static string TotalTurnover {
             get {
                 return ResourceManager.GetString("TotalTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer In.
+        /// </summary>
+        public static string TransferIn {
+            get {
+                return ResourceManager.GetString("TransferIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer Out.
+        /// </summary>
+        public static string TransferOut {
+            get {
+                return ResourceManager.GetString("TransferOut", resourceCulture);
             }
         }
         

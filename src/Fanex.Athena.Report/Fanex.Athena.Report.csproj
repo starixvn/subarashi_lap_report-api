@@ -57,6 +57,9 @@
     <Content Include="ExcelTemplate\PlatformWinLossSummary.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ExcelTemplate\AgCasinoBalance.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\GodOfFortuneWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -150,6 +153,10 @@
     <Content Include="SpConfig\FanexSpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ExcelTemplate\AgCasinoBalance.xls" />
   </ItemGroup>
 
   <ItemGroup>

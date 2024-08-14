@@ -1083,4 +1083,13 @@
   <data name="AGCasinoWinLoss" xml:space="preserve">
     <value>AG Casino Win Loss</value>
   </data>
+  <data name="TransferIn" xml:space="preserve">
+    <value>Transfer Masuk</value>
+  </data>
+  <data name="TransferOut" xml:space="preserve">
+    <value>Transfer Keluar</value>
+  </data>
+  <data name="AGCasinoBalance" xml:space="preserve">
+    <value>Saldo AG Casino</value>
+  </data>
 </root>
