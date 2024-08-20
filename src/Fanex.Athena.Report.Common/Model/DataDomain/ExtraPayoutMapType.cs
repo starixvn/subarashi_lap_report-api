@@ -34,6 +34,8 @@
 
         public const int PayoutVgamingFreeBets = 6601;
 
+        public const int PayoutVgamingPromotionPrize = 6604;
+
         public const int PayoutVgamingFreeBetsJackpotPrize = 6602;
 
         public const int PayoutVgamingFreeBetsJackpotContribution = 6603;
