@@ -58,7 +58,8 @@
             { ExtraPayoutMapType.PayoutSabaCoinsCashExchange, BetType.SabaCoinsCashExchange },
             { ExtraPayoutMapType.PayoutPromotionJackpotPrize, BetType.PromotionJackpotPrize },
             { ExtraPayoutMapType.PayoutPromotionCashPrize, BetType.PromotionCashPrize },
-            { ExtraPayoutMapType.PayoutFastSpinPromotion, BetType.FastSpinPromotionPrize }
+            { ExtraPayoutMapType.PayoutFastSpinPromotion, BetType.FastSpinPromotionPrize },
+            { ExtraPayoutMapType.PayoutFACHAIPromotion, BetType.FACHAIPromotion }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {

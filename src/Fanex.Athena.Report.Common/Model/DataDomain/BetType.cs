@@ -73,5 +73,7 @@
         public const int PromotionCashPrize = 17010;
 
         public const int FastSpinPromotionPrize = 11295;
+
+        public const int FACHAIPromotion = 11399;
     }
 }

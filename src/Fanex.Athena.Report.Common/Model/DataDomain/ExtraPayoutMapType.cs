@@ -65,5 +65,7 @@
         public const int PayoutPromotionCashPrize = 3710;
 
         public const int PayoutFastSpinPromotion = 8701;
+
+        public const int PayoutFACHAIPromotion = 8901;
     }
 }
