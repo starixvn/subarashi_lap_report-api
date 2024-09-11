@@ -9,6 +9,8 @@ using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using Resources.Constants;
+
     public class ProductRepositoryTest
     {
         private const int LicenseeId = 1;
@@ -54,7 +56,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             _reader.Setup(x => x.GetInt32(ProductIdIndex)).Returns(expectedProductAccess.ProductID);
             const int ProductPrefixIndex = 1;
             _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("productprefix")))).Returns(ProductPrefixIndex);
-            _reader.Setup(x => x.GetString(ProductPrefixIndex)).Returns("NG");
+            _reader.Setup(x => x.GetString(ProductPrefixIndex)).Returns(expectedProductAccess.ProductCode);
             const int CommIndex = 2;
             _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("comm")))).Returns(CommIndex);
             _reader.Setup(x => x.GetBoolean(CommIndex)).Returns(expectedProductAccess.AllowCommission);
@@ -74,10 +76,12 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 
             // Action
             var result = repository.GetProductAccessList(LicenseeId);
+            
 
             // Assert
             Assert.Equal(0, result[0].ProductID);
             Assert.Equal("SB", result[0].ProductCode);
+            Assert.Equal(nameof(Product.SB), result[0].ProductName);
 
             Assert.Equal(expectedProductAccess.ProductID, result[1].ProductID);
             Assert.Equal(expectedProductAccess.ProductCode, result[1].ProductCode);
@@ -87,10 +91,9 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
         }
 
         private static ProductInfo GetFakeProductAccess() =>
-            new ProductInfo
+            new()
             {
                 ProductID = 1,
-                ProductName = "Number Game",
                 ProductCode = "NG",
                 AllowCommission = true,
                 AllowWinloss = true
