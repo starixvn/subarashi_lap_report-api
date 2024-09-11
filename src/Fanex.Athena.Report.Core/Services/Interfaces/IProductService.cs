@@ -5,10 +5,10 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
     public interface IProductService
     {
-        ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
+        ProductAccess GetProductAccess(int licenseeId, string functionConfigKey = null);
 
-        ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
+        ProductAccess GetSingleWalletProductAccess(int licenseeId, string functionConfigKey = null);
 
-        IList<ProductInfo> GetProductList(int licenseeId, string languageCode);
+        IList<ProductInfo> GetProductList(int licenseeId);
     }
 }

@@ -53,7 +53,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var result = await controller.Index();
 
             // Assert
-            _productService.Verify(x => x.GetProductAccess(licenseeId, language, It.IsAny<string>()));
+            _productService.Verify(x => x.GetProductAccess(licenseeId, It.IsAny<string>()));
 
             //Assert.Equal(expected, result);
         }
