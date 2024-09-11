@@ -51,7 +51,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
                 _webHostEnvironment.Object);
 
             // Action
-            var result = service.GetProductList(_licenseeId, _languageCode);
+            var result = service.GetProductList(_licenseeId);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -70,7 +70,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
                 _webHostEnvironment.Object);
 
             // Action
-            var result = service.GetProductList(_licenseeId, _languageCode);
+            var result = service.GetProductList(_licenseeId);
 
             // Assert
             Assert.Equal(expectedResult, result);

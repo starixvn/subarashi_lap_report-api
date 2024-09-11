@@ -53,7 +53,7 @@ namespace Fanex.Athena.Report.Base.Controllers
                 return content;
             }
 
-            var products = _productService.GetProductList(_contextService.LicenseeId, _contextService.Language);
+            var products = _productService.GetProductList(_contextService.LicenseeId);
             content = AddSpecialProducts(content, products);
             content = AddOpenBalanceInfo(content);
             

@@ -8,6 +8,7 @@ using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
+using Fanex.Athena.Report.Resources.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using NPOI.SS.Formula.Functions;
@@ -26,6 +27,8 @@ namespace Fanex.Athena.Report.Core.Services
 
         private readonly AppSettings _appSetting;
 
+        private const int DefaultTimeExpired = 5;
+
         public ProductService(IMemoryCache cache, IProductRepository productRepository, AppSettings appSettings, IWebHostEnvironment webHostEnvironment)
         {
             _cache = cache;
@@ -36,38 +39,40 @@ namespace Fanex.Athena.Report.Core.Services
 
         #region Public Methods and Operators
 
-        public IList<ProductInfo> GetProductList(int licenseeId, string languageCode)
+        public IList<ProductInfo> GetProductList(int licenseeId)
         {
-            var cacheKey = MemoryCacheCommonProduct + licenseeId + languageCode;
+            var cacheKey = MemoryCacheCommonProduct + licenseeId;
             var productList = _cache.Get<IList<ProductInfo>>(cacheKey);
 
             if (productList != null)
             {
+                MapProductName(productList);
                 return productList;
             }
 
             productList = _productRepository.GetProductAccessList(licenseeId);
-            _cache.Set(cacheKey, productList);
+            _cache.Set(cacheKey, productList, TimeSpan.FromMinutes(DefaultTimeExpired));
 
+            MapProductName(productList);
             return productList;
         }
 
-        public ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
+        public ProductAccess GetProductAccess(int licenseeId, string functionConfigKey = null)
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
-            var originalProducts = GetProductList(licenseeId, languageCode);
+            var originalProducts = GetProductList(licenseeId);
 
             var productList = allowedProducts.Any() ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
             return new ProductAccess(productList);
         }
 
-        public ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
+        public ProductAccess GetSingleWalletProductAccess(int licenseeId, string functionConfigKey = null)
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
-            var originalProducts = GetProductList(licenseeId, languageCode);
+            var originalProducts = GetProductList(licenseeId);
 
             var productList = allowedProducts.Any() ? originalProducts.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
@@ -96,5 +101,8 @@ namespace Fanex.Athena.Report.Core.Services
             return config == null ? new string[] { } : config.Attribute(nameof(Product)).Value.Split(',')
                     .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
         }
+
+        private static void MapProductName(IList<ProductInfo> productList) 
+            => productList.ToList().ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
     }
 }

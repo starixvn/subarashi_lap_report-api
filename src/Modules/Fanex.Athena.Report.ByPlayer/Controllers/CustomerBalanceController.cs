@@ -22,8 +22,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         [HttpPost]
         public IActionResult Index([FromServices] IContextService contextService, [FromServices] IProductService productService)
         {
-            var productAccess = productService.GetSingleWalletProductAccess(contextService.LicenseeId,
-                contextService.Language, FunctionNames.CustomerBalance);
+            var productAccess = productService.GetSingleWalletProductAccess(contextService.LicenseeId, FunctionNames.CustomerBalance);
             return Ok(new 
             {
                 isEnableSingleWallet = contextService.IsEnableSingleWallet,
