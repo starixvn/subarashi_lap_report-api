@@ -657,4 +657,10 @@
   <data name="NS" xml:space="preserve">
     <value>虎游</value>
   </data>
+  <data name="OddsBoostBonus" xml:space="preserve">
+    <value>特优赔率奬金</value>
+  </data>
+  <data name="TotalOddsBootsBonus" xml:space="preserve">
+    <value>总特优赔率奬金</value>
+  </data>
 </root>
