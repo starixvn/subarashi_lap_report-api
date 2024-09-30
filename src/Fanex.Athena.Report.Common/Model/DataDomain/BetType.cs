@@ -75,5 +75,7 @@
         public const int FastSpinPromotionPrize = 11295;
 
         public const int FACHAIPromotion = 11399;
+
+        public const int OddsBoostAdjustment = 997;
     }
 }

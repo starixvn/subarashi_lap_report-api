@@ -708,4 +708,10 @@
   <data name="DesktopCompact" xml:space="preserve">
     <value>เดสก์ท็อปคอมแพค</value>
   </data>
+  <data name="OddsBoostBonus" xml:space="preserve">
+    <value>ตัวเพิ่มอัตราต่อรอง โบนัส </value>
+  </data>
+  <data name="TotalOddsBootsBonus" xml:space="preserve">
+    <value>ตัวเพิ่มอัตราต่อรอง โบนัส รวม</value>
+  </data>
 </root>

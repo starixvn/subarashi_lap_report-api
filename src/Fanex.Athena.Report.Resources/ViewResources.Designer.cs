@@ -1186,6 +1186,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odds Boost Bonus.
+        /// </summary>
+        public static string OddsBoostBonus {
+            get {
+                return ResourceManager.GetString("OddsBoostBonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening Balance.
         /// </summary>
         public static string OpeningBalance {
@@ -1695,6 +1704,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Totalin {
             get {
                 return ResourceManager.GetString("Totalin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Odds Boost Bonus.
+        /// </summary>
+        public static string TotalOddsBootsBonus {
+            get {
+                return ResourceManager.GetString("TotalOddsBootsBonus", resourceCulture);
             }
         }
         

@@ -684,4 +684,10 @@
   <data name="DesktopCompact" xml:space="preserve">
     <value>Desktop Kompak</value>
   </data>
+  <data name="OddsBoostBonus" xml:space="preserve">
+    <value>Penambah Peluang Bonus</value>
+  </data>
+  <data name="TotalOddsBootsBonus" xml:space="preserve">
+    <value>Total Penambah Peluang Bonus</value>
+  </data>
 </root>

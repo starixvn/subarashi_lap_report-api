@@ -782,4 +782,10 @@
   <data name="NS" xml:space="preserve">
     <value>Nextspin</value>
   </data>
+  <data name="TotalOddsBootsBonus" xml:space="preserve">
+    <value>Total Odds Boost Bonus</value>
+  </data>
+  <data name="OddsBoostBonus" xml:space="preserve">
+    <value>Odds Boost Bonus</value>
+  </data>
 </root>
