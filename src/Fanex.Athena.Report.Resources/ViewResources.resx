@@ -788,4 +788,7 @@
   <data name="OddsBoostBonus" xml:space="preserve">
     <value>Odds Boost Bonus</value>
   </data>
+  <data name="ON" xml:space="preserve">
+    <value>ON Casino</value>
+  </data>
 </root>
