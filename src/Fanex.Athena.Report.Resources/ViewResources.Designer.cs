@@ -1384,6 +1384,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playtech.
+        /// </summary>
+        public static string PTRNG {
+            get {
+                return ResourceManager.GetString("PTRNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reason.
         /// </summary>
         public static string Reason {
