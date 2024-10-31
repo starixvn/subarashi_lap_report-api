@@ -133,6 +133,15 @@
                 });
             }
 
+            if (productCodeList.IsPresent(_ => _ == Product.FAC))
+            {
+                promotionTypeList.AddRange(new List<CheckedItem>
+                {
+                    new() { ID = ExtraPayoutMapType.PayoutFACHAIPromotion,
+                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
+                });
+            }
+
             return promotionTypeList;
         }
 
@@ -221,6 +230,11 @@
                     new()
                     { ID = ExtraPayoutMapType.PayoutVgamingFreeBets,
                         Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
+                    new() 
+                    { 
+                        ID = ExtraPayoutMapType.PayoutVgamingPromotionPrize,
+                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true 
+                    },
                     new()
                     { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize,
                         Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },

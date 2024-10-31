@@ -101,5 +101,7 @@
         public const string VS2 = "VS2";
 
         public const string FS = "FS";
+
+        public const string FAC = "FAC";
     }
 }
