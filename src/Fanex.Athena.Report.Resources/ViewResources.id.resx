@@ -906,6 +906,9 @@
   <data name="TurnoverTitleNoUser" xml:space="preserve">
     <value>Omset, {0} --&gt; {1}, {2}</value>
   </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>Sportsbook</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Tanggal Keuangan</value>
   </data>

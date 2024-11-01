@@ -1034,6 +1034,18 @@
   <data name="TurnoverTitleNoUser" xml:space="preserve">
     <value>Turnover, {0} --&gt; {1}, {2}</value>
   </data>
+  <data name="ProductFAC" xml:space="preserve">
+    <value>FA CHAI</value>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>Sportsbook</value>
+  </data>
+  <data name="ProductNS" xml:space="preserve">
+    <value>Nextspin</value>
+  </data>
+  <data name="ProductON" xml:space="preserve">
+    <value>ON Casino</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Financial Date</value>
   </data>

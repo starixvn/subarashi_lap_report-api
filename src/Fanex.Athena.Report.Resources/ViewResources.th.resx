@@ -939,6 +939,9 @@
   <data name="TurnoverTitleNoUser" xml:space="preserve">
     <value>เทิร์นโอเวอร์, {0} --&gt; {1}, {2}</value>
   </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>สปอร์ตบุ๊ค</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>วันที่การเงิน</value>
   </data>
