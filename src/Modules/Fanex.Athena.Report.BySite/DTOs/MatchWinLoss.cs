@@ -28,6 +28,10 @@ namespace Fanex.Athena.Report.BySite.DTOs
 
         public string ProductCode { get; set; }
 
+        public string VendorMatchId { get; set; }
+
+        public string Distance { get; set; }
+
         public bool IsLive { get; set; }
 
         public int HomeId { get; set; }
@@ -35,6 +39,8 @@ namespace Fanex.Athena.Report.BySite.DTOs
         public int AwayId { get; set; }
 
         public int BetType { get; set; }
+
+        public int EventType { get; set; }
 
         public string BettypeName { get; set; }
 

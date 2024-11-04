@@ -57,7 +57,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
         {
             var productAccess = _productService.GetSingleWalletProductAccess(
                 _contextService.LicenseeId,
-                _contextService.Language,
                 FunctionNames.MatchWinLoss);
 
             return Ok(new
@@ -91,7 +90,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             var productAccess = _productService.GetSingleWalletProductAccess(
                 _contextService.LicenseeId,
-                _contextService.Language,
                 FunctionNames.MatchWinLoss);
 
             return Ok(new MatchWinLossResultModel
@@ -134,7 +132,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             var productAccess = _productService.GetSingleWalletProductAccess(
                 _contextService.LicenseeId,
-                _contextService.Language,
                 FunctionNames.MatchWinLoss);
 
             var option = new MatchWinLossExcelOption

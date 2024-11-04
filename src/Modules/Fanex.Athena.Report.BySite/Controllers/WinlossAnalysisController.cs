@@ -83,7 +83,6 @@
         {
             var productAccess = _productService.GetProductAccess(
                 _contextService.LicenseeId,
-                _contextService.Language,
                 FunctionNames.WinLossAnalysis);
 
             var productOptions = MoveBaProductToBelowSportBook(productAccess.ProductList).Select(i => new ProductOption
@@ -112,7 +111,7 @@
                 platformList = PlatformHelper.GetPlatformList(_contextService.SpecialPlatform).ToArray(),
                 isHasPermissionViewVip = _contextService.IsInRoles(Roles.PlayerVIPManagement),
                 oddsGroupList = _contextService.OfferedOddsGroupsList,
-                isOfferCashOutProduct = _productService.IsOfferCashOutProduct(_contextService.LicenseeId, _contextService.Language),
+                isOfferCashOutProduct = _productService.IsOfferCashOutProduct(_contextService.LicenseeId),
                 riskLevel = await _customerClassService.GetAllRiskLevel(),
             });
         }

@@ -74,20 +74,19 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.LiveReport)).Returns(productAccess);
 
             var controller = CreateController();
 
             // Action
-            var result = await controller.Summary(metaModel);
+            await controller.Summary(metaModel);
 
             // Assert
             _contextService.Verify(x => x.OfferedSubProductList, Times.Once);
             _productService.Verify(
                 x => x.GetAllowedSubProductCodeList(It.IsAny<IEnumerable<string>>(), ProductCodeList), Times.Once);
             _productService.Verify(
-                x => x.GetProductAccess(_contextService.Object.LicenseeId, _contextService.Object.Language,
+                x => x.GetProductAccess(_contextService.Object.LicenseeId,
                     FunctionNames.LiveReport), Times.Once);
             _liveReportService.Verify(x => x.GetLiveReportSummary(metaModel), Times.Once);
         }
@@ -109,7 +108,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.LiveReport)).Returns(productAccess);
 
             var fakeResut = FakeHelper.Create<LiveReportDetailResultModel>();
@@ -131,7 +129,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 x => x.GetAllowedSubProductCodeList(It.IsAny<IEnumerable<string>>(), metaModel.OriginalProductCodeList),
                 Times.Once);
             _productService.Verify(
-                x => x.GetProductAccess(_contextService.Object.LicenseeId, _contextService.Object.Language,
+                x => x.GetProductAccess(_contextService.Object.LicenseeId,
                     FunctionNames.LiveReport), Times.Once);
             Assert.Equal(ProductCodeList, metaModel.OriginalProductCodeList);
             Assert.True(result.IsAllowedCustomerCommission);
@@ -154,7 +152,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.LiveReport)).Returns(productAccess);
 
             var fakeResut = FakeHelper.Create<LiveReportDetailResultModel>();
@@ -176,7 +173,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 x => x.GetAllowedSubProductCodeList(It.IsAny<IEnumerable<string>>(), metaModel.OriginalProductCodeList),
                 Times.Once);
             _productService.Verify(
-                x => x.GetProductAccess(_contextService.Object.LicenseeId, _contextService.Object.Language,
+                x => x.GetProductAccess(_contextService.Object.LicenseeId,
                     FunctionNames.LiveReport), Times.Once);
             Assert.Equal("BA", metaModel.OriginalProductCodeList);
             Assert.True(result.IsAllowedCustomerCommission);
@@ -201,7 +198,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.LiveReport)).Returns(productAccess);
 
             var controller = CreateController();

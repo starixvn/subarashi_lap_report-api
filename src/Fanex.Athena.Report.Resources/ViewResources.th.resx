@@ -942,6 +942,9 @@
   <data name="ProductSB" xml:space="preserve">
     <value>สปอร์ตบุ๊ค</value>
   </data>
+  <data name="Event" xml:space="preserve">
+    <value>กิจกรรม</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>วันที่การเงิน</value>
   </data>

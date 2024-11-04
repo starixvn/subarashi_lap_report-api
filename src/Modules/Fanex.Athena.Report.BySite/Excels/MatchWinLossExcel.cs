@@ -78,8 +78,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             BetType.VirtualSports2MixParlay
         };
 
-        private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238, };
-
         private static readonly IList<string> CommonColumnNameList = new List<string>
         {
             "turnover",
@@ -145,17 +143,17 @@ namespace Fanex.Athena.Report.BySite.Excels
             foreach (DataRow row in table.Rows)
             {
                 var betType = Converter.ToInt(row["bettype"]);
+                var sport = Converter.ToInt(row["SportType"]);
                 row[NewProductIdColumnName] = ProductHelper.GetProductId(betType);
 
-                AssignMatchName(row, betType);
-
-                AssignLeagueName(row);
+                AssignMatchName(row, betType, sport);
+                AssignLeagueName(row, sport);
             }
 
             return table;
         }
 
-        protected virtual void AssignMatchName(DataRow row, int betType)
+        protected internal virtual void AssignMatchName(DataRow row, int betType, int sport)
         {
             if ((int)row[NewProductIdColumnName] == ProductTypes.NumberGame)
             {
@@ -166,28 +164,42 @@ namespace Fanex.Athena.Report.BySite.Excels
             }
             else
             {
-                if (VirtualHrBettypes.Contains(betType))
+                if (SportHelper.IsVirtualBetRadarSports(sport))
                 {
-                    var culture = new CultureInfo("en-US");
-                    const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
-                    var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                    row[MatchNameColumn] = string.Format(culture, TimeFormatter, kickOffTime);
+                    var distance = row["Distance"].ToString();
+                    var vendorMatchId = row["VendorMatchId"].ToString();
+                    var id = !string.IsNullOrEmpty(distance) ? $" - ID {distance}" : string.Empty;
+                    row[MatchNameColumn] = $"{ViewResources.Event} {vendorMatchId}{id}";
                 }
                 else
                 {
                     var homeName = _cacheRefAdapter.GetTeamName(row["homeid"]) +
-                                   (Converter.ToBool(row["isneutral"]) ? " " + ViewResources.IsNeutral : string.Empty);
+                               (Converter.ToBool(row["isneutral"])
+                                    ? " " + ViewResources.IsNeutral
+                                    : string.Empty);
                     var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
                     row[MatchNameColumn] = homeName + "-vs-" + awayName;
                 }
             }
         }
 
-        protected void AssignLeagueName(DataRow row)
+        protected internal virtual void AssignLeagueName(DataRow row, int sportType)
         {
             row["leaguename"] = (int)row[NewProductIdColumnName] == ProductTypes.NumberGame ?
                 ViewResources.ProductNG :
-                _cacheRefAdapter.GetLeagueName(row["leagueid"]);
+                GetLeagueName(row, sportType);
+        }
+
+        private string GetLeagueName(DataRow row, int sportType)
+        {
+            if (SportHelper.IsVirtualBetRadarSports(sportType))
+            {
+                return _cacheRefAdapter.GetLeagueName3rd(row["leagueid"]);
+            }
+            else
+            {
+                return _cacheRefAdapter.GetLeagueName(row["leagueid"]);
+            }
         }
 
         private IWorkbook GetWorkbook(string template)

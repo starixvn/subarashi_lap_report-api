@@ -8,7 +8,10 @@ using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using Fanex.Athena.Report.Resources.Helpers;
+    using Fanex.Common.Extensions;
     using Resources.Constants;
+    using System.Collections.Generic;
 
     public class ProductRepositoryTest
     {
@@ -25,8 +28,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
                .Run();
 
             _objectDb = new Mock<IObjectDb>();
-            _reader = new Mock<IDataReader>();        private static void MapProductName(IList<ProductInfo> productList) 
-            => productList.ToList().ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
+            _reader = new Mock<IDataReader>();        
 
         }
 
@@ -112,5 +114,8 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             ObjectDbFactory.SwitchToTestingMode();
             ObjectDbFactory.Mock((x, y) => _objectDb.Object);
         }
+
+        private static void MapProductName(IList<ProductInfo> productList)
+            => productList.ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
     }
 }

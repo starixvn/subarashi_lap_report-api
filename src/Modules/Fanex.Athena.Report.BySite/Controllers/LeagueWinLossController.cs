@@ -42,7 +42,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
         {
             var productAccess = productService.GetSingleWalletProductAccess(
                 contextService.LicenseeId,
-                contextService.Language,
                 FunctionNames.LeagueWinLoss);
 
             return Ok(new

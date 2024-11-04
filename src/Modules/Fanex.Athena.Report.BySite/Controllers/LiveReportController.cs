@@ -209,7 +209,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         protected ProductAccess GetProductAccess() =>
-            _productService.GetProductAccess(_contextService.LicenseeId, _contextService.Language, FunctionNames.LiveReport);
+            _productService.GetProductAccess(_contextService.LicenseeId, FunctionNames.LiveReport);
 
         private async Task<DateTime> GetBalanceUpDay()
         {

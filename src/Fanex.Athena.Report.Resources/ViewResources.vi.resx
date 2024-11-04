@@ -969,6 +969,9 @@
   <data name="ProductSB" xml:space="preserve">
     <value>Sportsbook</value>
   </data>
+  <data name="Event" xml:space="preserve">
+    <value>Sự kiện</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Ngày Tài Chính</value>
   </data>

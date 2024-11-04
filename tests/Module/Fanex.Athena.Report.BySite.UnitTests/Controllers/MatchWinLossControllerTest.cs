@@ -86,7 +86,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             _contextService.Setup(x => x.IsAllowedCustomerComm).Returns(isAllowCustomerComm);
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(FakeHelper.CreateMany<ProductInfo>().ToList()));
 
             using var controller = CreateController();
@@ -112,7 +111,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             productInfos[0].ProductCode = Product.BA;
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(productInfos));
 
             using var controller = CreateController();
@@ -136,7 +134,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(FakeHelper.CreateMany<ProductInfo>().ToList()));
 
             using var controller = CreateController();
@@ -160,7 +157,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(FakeHelper.CreateMany<ProductInfo>().ToList()));
 
             using var controller = CreateController();
@@ -183,7 +179,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(FakeHelper.CreateMany<ProductInfo>().ToList()));
 
             using var controller = CreateController();
@@ -208,7 +203,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(FakeHelper.CreateMany<ProductInfo>().ToList()));
 
             using var controller = CreateController();
@@ -238,7 +232,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.MatchWinLoss)).Returns(new ProductAccess(FakeHelper.CreateMany<ProductInfo>().ToList()));
 
             using var controller = CreateController();
@@ -283,7 +276,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             metaModel.CurrencyId = -999;
             _contextService.Setup(x => x.CurrencyList).Returns(new Dictionary<int, string> {{ metaModel.CurrencyId , "Any"} });
             _productService
-               .Setup(x => x.GetSingleWalletProductAccess(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
+               .Setup(x => x.GetSingleWalletProductAccess(It.IsAny<int>(), It.IsAny<string>()))
                .Returns(FakeHelper.Create<ProductAccess>());
 
             var fileProvider = new Mock<IFileProvider>();

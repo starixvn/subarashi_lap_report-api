@@ -8,6 +8,7 @@ using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 
@@ -19,7 +20,6 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private static readonly IEnumerable<int> VSSportTypes = new List<int>
         {
-            SportType.VirtualHorseRacing,
             SportType.VirtualGreyhound,
             SportType.VirtualMotoRacing,
             SportType.VirtualSpeedway,
@@ -88,6 +88,7 @@ namespace Fanex.Athena.Report.BySite.Services
                                       AwayId = g.Select(r => r.AwayId).FirstOrDefault(),
                                       BetType = g.Select(r => r.BetType).FirstOrDefault(),
                                       IsNeutral = g.Select(r => r.IsNeutral).FirstOrDefault(),
+                                      EventType = g.Select(r => r.EventType).FirstOrDefault(),
                                       Turnover = g.Sum(r => r.Turnover),
                                       TotalTransaction = g.Sum(r => r.TotalTransaction),
                                       CustomerWL = g.Sum(r => r.CustomerWL),
@@ -121,8 +122,17 @@ namespace Fanex.Athena.Report.BySite.Services
                 string.Empty :
                 _cacheRefAdapter.GetTeamName(matchWinLoss.AwayId);
 
-        private string GetLeagueName(MatchWinLoss matchWinLoss) =>
-            _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId);
+        private string GetLeagueName(MatchWinLoss matchWinLoss)
+        {
+            if (SportHelper.IsVirtualBetRadarSports(matchWinLoss.SportType))
+            {
+                return _cacheRefAdapter.GetLeagueName3rd(matchWinLoss.LeagueId);
+            }
+            else
+            {
+                return _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId);
+            }
+        }
 
         private string GetMatchName(MatchWinLoss matchWinLoss)
         {
@@ -137,6 +147,12 @@ namespace Fanex.Athena.Report.BySite.Services
             if (VSSportTypes.Contains(matchWinLoss.SportType))
             {
                 return string.Format(EnglishCulture, KickOffTimeFormat, matchWinLoss.KickOffTime);
+            }
+
+            if (SportHelper.IsVirtualBetRadarSports(matchWinLoss.SportType))
+            {
+                var id = !string.IsNullOrEmpty(matchWinLoss.Distance) ? $" - ID {matchWinLoss.Distance}" : string.Empty;
+                return $"{ViewResources.Event} {matchWinLoss.VendorMatchId}{id}";
             }
 
             var homeName = _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) +

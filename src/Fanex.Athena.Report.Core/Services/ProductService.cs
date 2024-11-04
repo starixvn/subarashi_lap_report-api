@@ -113,9 +113,9 @@ namespace Fanex.Athena.Report.Core.Services
             return productCodes + "," + string.Join(",", offeredSubProductList);
         }
 
-        public bool IsOfferCashOutProduct(int licenseeId, string languageCode)
+        public bool IsOfferCashOutProduct(int licenseeId)
         {
-            var originalProducts = GetProductList(licenseeId, languageCode);
+            var originalProducts = GetProductList(licenseeId);
             return originalProducts.Any(_ => _.ProductCode == Product.CO);
         }
         

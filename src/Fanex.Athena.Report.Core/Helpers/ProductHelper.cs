@@ -16,14 +16,9 @@ namespace Fanex.Athena.Report.Core.Helpers
                 return ProductTypes.NumberGame;
             }
 
-            if (BetTypeHelper.IsVirtualSports(bettype))
+            if (BetTypeHelper.IsVirtualSports(bettype) || BetTypeHelper.IsVirtualSports2(bettype))
             {
                 return ProductTypes.VirtualSports;
-            }
-
-            if (BetTypeHelper.IsVirtualSports2(bettype))
-            {
-                return ProductTypes.VirtualSports2;
             }
 
             return ProductTypes.Sportsbook;
@@ -100,7 +95,11 @@ namespace Fanex.Athena.Report.Core.Helpers
                 { Product.SEA, nameof(ViewResources.ProductSEA) },
                 { Product.WE, nameof(ViewResources.ProductWE) },
                 { Product.L22, nameof(ViewResources.ProductL22) },
-                { Product.UUSL, nameof(ViewResources.ProductUUSL) }
+                { Product.UUSL, nameof(ViewResources.ProductUUSL) },
+                { Product.FS, nameof(ViewResources.ProductFS) },
+                { Product.FAC, nameof(ViewResources.ProductFAC) },
+                { Product.NS, nameof(ViewResources.ProductNS) },
+                { Product.ON, nameof(ViewResources.ProductON) }
             };
     }
 }

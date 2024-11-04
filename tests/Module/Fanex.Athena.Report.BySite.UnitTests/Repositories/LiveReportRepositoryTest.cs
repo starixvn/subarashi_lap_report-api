@@ -177,7 +177,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var repository = CreateRepository();
 
             // Action
-            var result = await repository.GetDetailBySport(_metaModel);
+            await repository.GetDetailBySport(_metaModel);
 
             // Assert
             _cacheRefAdapter.Verify(x => x.GetBettype(bettype), Times.Once);
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var repository = CreateRepository();
 
             // Action
-            var result = await repository.GetDetailBySport(_metaModel);
+            await repository.GetDetailBySport(_metaModel);
 
             // Assert
             _cacheRefAdapter.Verify(x => x.GetBettype(BetType.MixParlay), Times.Once);

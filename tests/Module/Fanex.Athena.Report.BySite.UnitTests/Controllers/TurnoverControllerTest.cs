@@ -80,7 +80,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var productService = new Mock<IProductService>();
             productService.Setup(x => x.GetSingleWalletProductAccess(
                 _contextService.Object.LicenseeId,
-                _contextService.Object.Language,
                 FunctionNames.Turnover)).Returns(new ProductAccess(productList.ToList()));
 
             _contextService.Setup(x => x.IsInRoles(Roles.HidePlayerWL_WL_Comm_Total)).Returns(true);

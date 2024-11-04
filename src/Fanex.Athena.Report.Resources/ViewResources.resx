@@ -1046,6 +1046,9 @@
   <data name="ProductON" xml:space="preserve">
     <value>ON Casino</value>
   </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Financial Date</value>
   </data>

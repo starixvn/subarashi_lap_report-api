@@ -43,7 +43,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             var productOptions = _productService.GetSingleWalletProductAccess(
                 _contextService.LicenseeId,
-                _contextService.Language,
                 FunctionNames.ExtraPayout).SelectProductOptions();
 
             var hasPlayerTipsPermission = _contextService.IsInRoles(Roles.DisplayPlayerTips_ExtraPayoutReportOnly);
@@ -63,7 +62,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
         private IList<ProductOption> AddPlayerTipsProduct(IList<ProductOption> productList)
         {
-            var originalProductList = _productService.GetProductList(_contextService.LicenseeId, _contextService.Language);
+            var originalProductList = _productService.GetProductList(_contextService.LicenseeId);
 
             if (originalProductList.Any(_ => _.ProductCode == Product.SB))
             {

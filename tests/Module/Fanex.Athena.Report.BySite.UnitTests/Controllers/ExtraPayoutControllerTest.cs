@@ -45,7 +45,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                                             new SortableList<ExtraPayout>
                                                 { new() { ProductCode = "SB", Turnover = 200, }, })
                                        .Create();
-            var contextService = new Mock<IContextService>();
 
             var controller = BuildController();
             var service = new Mock<IExtraPayoutService>();

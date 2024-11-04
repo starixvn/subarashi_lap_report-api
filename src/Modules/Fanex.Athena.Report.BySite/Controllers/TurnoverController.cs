@@ -123,7 +123,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
         private ProductAccess GetProductAccess() =>
             _productService.GetSingleWalletProductAccess(
                 _contextService.LicenseeId,
-                _contextService.Language,
                 FunctionNames.Turnover);
     }
 }
