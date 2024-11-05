@@ -20,6 +20,12 @@
 
         public int BetCount { get; set; }
 
+        public int EventType { get; set; }
+
+        public string VendorMatchId { get; set; }
+
+        public string Distance { get; set; }
+
         public decimal LicenseeComm { get; set; }
 
         public decimal AmountDue { get; set; }

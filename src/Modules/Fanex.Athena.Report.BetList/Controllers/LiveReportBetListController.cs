@@ -76,6 +76,32 @@ namespace Fanex.Athena.Report.BetList.Controllers
             return Ok(await GetDataWithSettings(metaModel, settings));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Betradar([FromQuery] LiveReportBetListMetaModel metaModel, int page, int rows,
+                             bool dataOnly = true)
+        {
+            metaModel.UspKey = LiveReportSpKey;
+
+            if (dataOnly)
+            {
+                return Ok(await GetPagingData(metaModel, page, rows));
+            }
+
+            var settings = CreateDefaultDayRangeSettings(metaModel);
+            settings.Title = $"{ViewResources.BetList} - {_cacheRefAdapter.GetSportName(metaModel.SportType)}";
+            settings.IsServerPaging = true;
+
+            return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BetradarExportExcel([FromBody] LiveReportBetListMetaModel metaModel)
+        {
+            metaModel.UspKey = LiveReportSpKey;
+
+            return await ExportExcel(metaModel);
+        }
+
         private string GetMatchTitle(BetListMetaModel metaModel)
         {
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0 ?
@@ -284,6 +310,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
             return Ok(await GetPagingDataWithSettings(metaModel, settings, page, rows));
         }
+
 
         private async Task<IActionResult> ExportExcel(LiveReportBetListMetaModel metaModel, string caption = null)
         {

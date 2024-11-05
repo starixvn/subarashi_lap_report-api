@@ -9,6 +9,8 @@ using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
+using Fanex.Athena.Report.Resources.Constants;
+using Fanex.Athena.Report.Resources;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
@@ -69,8 +71,7 @@ namespace Fanex.Athena.Report.BySite.Services
 
             foreach (var data in dataList)
             {
-                data.MatchName =
-                    $"{_cacheRefAdapter.GetTeamName(data.HomeId)} vs {_cacheRefAdapter.GetTeamName(data.AwayId)}";
+                data.MatchName = GetMatchName(model, data);
             }
 
             if (!string.IsNullOrEmpty(model.SortColumn) && !string.IsNullOrEmpty(model.SortDirection))
@@ -79,6 +80,30 @@ namespace Fanex.Athena.Report.BySite.Services
             }
 
             return dataList;
+        }
+
+        private string GetMatchName(LiveReportMatchListMetalModel model, LiveReportWinLossByMatch data)
+        {
+            string matchName;
+
+            switch (model.SportId)
+            {
+                case SportType.LiveCasino:
+                    matchName = string.Format("{0} {1} {2} ", _cacheRefAdapter.GetSportName(model.SportId), _cacheRefAdapter.GetBettype(data.BetType), data.ShowTime);
+                    break;
+
+                case SportType.VirtualDogRacing:
+                case SportType.VirtualHorseRacing:
+                    var id = !string.IsNullOrEmpty(data.Distance) ? $" - ID {data.Distance}" : string.Empty;
+                    matchName = $"{ViewResources.Event} {data.VendorMatchId}{id}";
+                    break;
+
+                default:
+                    matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId), _cacheRefAdapter.GetTeamName(data.AwayId));
+                    break;
+            }
+
+            return matchName;
         }
     }
 }
