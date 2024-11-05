@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss;
@@ -6,9 +7,11 @@ using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
+using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fanex.Athena.Report.BetList.Controllers
@@ -31,6 +34,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
         protected const string SP_BETLIST_MATCHWL_OLD = "Lrf_BetList_MatchWL_Old";
 
         protected static readonly int[] HiddenColumns = { BetEffectiveColumn, };
+
+        private static readonly CultureInfo EnglishCulture = new CultureInfo("en-US");
+        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
@@ -79,10 +85,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         private string GetMatchBetTypeTitle(BetListMetaModel metaModel)
         {
-            var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0 ?
-                _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " +
-                _cacheRefAdapter.GetTeamName(metaModel.AwayId) :
-                string.Empty;
+            var matchName = GetMatchName(metaModel);
             var betTypeName = metaModel.BetType > 0 ?
                 " - " +
                 _cacheRefAdapter.GetBettype(metaModel.BetType) :
@@ -163,10 +166,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
                 CustomerCommVisible = ContextService.IsAllowedCustomerComm
             };
 
-            var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0 ?
-                _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " +
-                _cacheRefAdapter.GetTeamName(metaModel.AwayId) + " - " :
-                string.Empty;
+            var matchName = GetMatchName(metaModel);
             var currencyTitle = GetViewInCurrency(metaModel);
 
             metaModel.Title = ViewResources.BetList
@@ -191,5 +191,29 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         private string GetSpNameBasedOnBalanceUpDay(DateTime fromDate, DateTime balanceUpDay) =>
             fromDate < balanceUpDay ? SP_BETLIST_MATCHWL_OLD : SP_BETLIST_MATCHWL;
+
+        protected string GetMatchName(BetListMetaModel metaModel)
+        {
+            if (metaModel.ProductCodeList == Product.NG)
+            {
+                var prefix = metaModel.SportType == SportType.NumberGameHappy5 ? ViewResources.No + "." : ViewResources.NumberGameNo;
+                return prefix + " " + metaModel.MatchCode + " - ";
+            }
+
+            if (SportHelper.IsVSSportTypes(metaModel.SportType))
+            {
+                return string.Format(EnglishCulture, KickOfTimeFormat, metaModel.KickOffTime) + " - ";
+            }
+
+            if (SportHelper.IsVirtualBetRadarSports(metaModel.SportType))
+            {
+                var id = !string.IsNullOrEmpty(metaModel.Distance) ? $" - ID {metaModel.Distance}" : string.Empty;
+                return $"{ViewResources.Event} {metaModel.VendorMatchId}{id} - ";
+            }
+
+            return metaModel.HomeId > 0 && metaModel.AwayId > 0
+                ? _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " + _cacheRefAdapter.GetTeamName(metaModel.AwayId) + " - "
+                : string.Empty;
+        }
     }
 }

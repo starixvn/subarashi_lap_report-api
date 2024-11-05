@@ -12,6 +12,16 @@ namespace Fanex.Athena.Report.Core.Helpers
             SportType.VirtualDogRacing
         };
 
+        private static readonly IEnumerable<int> VSSportTypes = new List<int>
+        {
+            SportType.VirtualGreyhound,
+            SportType.VirtualMotoRacing,
+            SportType.VirtualSpeedway,
+            SportType.VirtualCycling
+        };
+
         public static bool IsVirtualBetRadarSports(int sportType) => VSBetRadarSportTypes.Contains(sportType);
+
+        public static bool IsVSSportTypes(int sportType) => VSSportTypes.Contains(sportType);
     }
 }

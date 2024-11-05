@@ -18,14 +18,6 @@ namespace Fanex.Athena.Report.BySite.Services
     {
         private const string KickOffTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
-        private static readonly IEnumerable<int> VSSportTypes = new List<int>
-        {
-            SportType.VirtualGreyhound,
-            SportType.VirtualMotoRacing,
-            SportType.VirtualSpeedway,
-            SportType.VirtualCycling
-        };
-
         private static readonly CultureInfo EnglishCulture = new("en-US");
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -122,17 +114,11 @@ namespace Fanex.Athena.Report.BySite.Services
                 string.Empty :
                 _cacheRefAdapter.GetTeamName(matchWinLoss.AwayId);
 
-        private string GetLeagueName(MatchWinLoss matchWinLoss)
-        {
-            if (SportHelper.IsVirtualBetRadarSports(matchWinLoss.SportType))
-            {
-                return _cacheRefAdapter.GetLeagueName3rd(matchWinLoss.LeagueId);
-            }
-            else
-            {
-                return _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId);
-            }
-        }
+        private string GetLeagueName(MatchWinLoss matchWinLoss)       
+            => SportHelper.IsVirtualBetRadarSports(matchWinLoss.SportType)
+                ? _cacheRefAdapter.GetLeagueName3rd(matchWinLoss.LeagueId)
+                : _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId);
+        
 
         private string GetMatchName(MatchWinLoss matchWinLoss)
         {
@@ -144,7 +130,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 return prefix + " " + matchWinLoss.MatchCode;
             }
 
-            if (VSSportTypes.Contains(matchWinLoss.SportType))
+            if (SportHelper.IsVSSportTypes(matchWinLoss.SportType))
             {
                 return string.Format(EnglishCulture, KickOffTimeFormat, matchWinLoss.KickOffTime);
             }

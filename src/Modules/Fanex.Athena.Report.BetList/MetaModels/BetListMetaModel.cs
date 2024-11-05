@@ -71,6 +71,8 @@ namespace Fanex.Athena.Report.BetList.MetaModels
 
         public int BetType { get; set; }
 
+        public int SportType { get; set; }
+
         public int? LiveIndicator { get; set; }
 
         public long TransId { get; set; }
@@ -108,6 +110,18 @@ namespace Fanex.Athena.Report.BetList.MetaModels
         public int SpecialPlatform { get; set; }
 
         public bool IsHideSaba { get; }
+
+        public string MatchName { get; set; }
+
+        public string MatchCode { get; set; }
+
+        public string VendorMatchId { get; set; }
+
+        public string Distance { get; set; }
+
+        public bool IsNeutral { get; set; }
+
+        public DateTime KickOffTime { get; set; }
 
         public bool IsValid => FromDate <= ToDate;
 
