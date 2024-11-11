@@ -790,6 +790,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GPI.
+        /// </summary>
+        public static string GPIRNG {
+            get {
+                return ResourceManager.GetString("GPIRNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group By.
         /// </summary>
         public static string GroupBy {

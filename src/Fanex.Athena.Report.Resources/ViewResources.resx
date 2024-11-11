@@ -800,4 +800,7 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>Settlement Time</value>
   </data>
+  <data name="GPIRNG" xml:space="preserve">
+    <value>GPI</value>
+  </data>
 </root>
