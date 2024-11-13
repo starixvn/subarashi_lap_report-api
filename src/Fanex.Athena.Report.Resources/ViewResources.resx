@@ -791,4 +791,7 @@
   <data name="ON" xml:space="preserve">
     <value>ON Casino</value>
   </data>
+  <data name="PTRNG" xml:space="preserve">
+    <value>Playtech</value>
+  </data>
 </root>
