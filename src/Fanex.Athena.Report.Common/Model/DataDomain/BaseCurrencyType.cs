@@ -38,6 +38,8 @@
 
         public const int NGN = -18;
 
+        public const int BRL = -19;
+
         // crypto currencies
         public const int USDT = -99;
     }
