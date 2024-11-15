@@ -738,4 +738,10 @@
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>Tổng Tiền Thưởng Tăng Cường Tỷ Lệ Cược</value>
   </data>
+  <data name="FinancialDate" xml:space="preserve">
+    <value>Ngày Tài Chính</value>
+  </data>
+  <data name="SettlementTime" xml:space="preserve">
+    <value>Thời Gian Tất Toán</value>
+  </data>
 </root>

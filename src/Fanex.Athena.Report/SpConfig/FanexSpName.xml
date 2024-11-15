@@ -48,6 +48,7 @@
 
 		<Setting Key="LAP_Rpt_WinlossAnalysis_AgencySel" SpName="LAP_Rpt_WinlossAnalysis_AgencySel" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_WinlossAnalysis_PlayerSel" SpName="LAP_Rpt_WinlossAnalysis_PlayerSel" DbName="DBEXT.bodb02.wsv_lap" />
+		<Setting Key="LAP_Rpt_WinlossAnalysis_SettleTimeSel" SpName="LAP_Rpt_WinlossAnalysis_SettleTimeSel_xtest" DbName="DBACC.bodb02.wsv_lap" />
 
 		<Setting Key="LAP_Rpt_SabaCoins_Performance" SpName="LAP_Rpt_SabaCoins_Performance_xtest" DbName="DBACC.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_SabaCoins_Performance_ExtraInfo" SpName="LAP_Rpt_SabaCoins_Performance_ExtraInfo_xtest" DbName="DBEXT.bodb02.wsv_lap" />

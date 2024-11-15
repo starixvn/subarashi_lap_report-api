@@ -714,4 +714,10 @@
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>ตัวเพิ่มอัตราต่อรอง โบนัส รวม</value>
   </data>
+  <data name="FinancialDate" xml:space="preserve">
+    <value>วันที่การเงิน</value>
+  </data>
+  <data name="SettlementTime" xml:space="preserve">
+    <value>เวลาการชำระเงิน</value>
+  </data>
 </root>

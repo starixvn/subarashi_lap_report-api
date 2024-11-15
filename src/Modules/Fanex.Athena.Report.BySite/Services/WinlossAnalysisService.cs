@@ -43,6 +43,12 @@ namespace Fanex.Athena.Report.BySite.Services
         public async Task<WinlossAnalysisAggregateDTO> GetRawDataAsync(WinlossAnalysisMetaModel param)
         {
             await AssignMoveBetDayAsync(param);
+
+            if (param.ViewInTime == ViewInTimeMode.Settlement)
+            {
+                return await _repository.GetDataBySettlementTimeCriteria(param);
+            }
+
             return IsRequestDataForAgency(param)
                 ? await _repository.GetDataByAgencyCriteria(param)
                 : await _repository.GetDataByPlayerCriteria(param);

@@ -690,4 +690,10 @@
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>Total Penambah Peluang Bonus</value>
   </data>
+  <data name="FinancialDate" xml:space="preserve">
+    <value>Tanggal Keuangan</value>
+  </data>
+  <data name="SettlementTime" xml:space="preserve">
+    <value>Waktu Penyelesaian</value>
+  </data>
 </root>

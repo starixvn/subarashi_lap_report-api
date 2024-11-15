@@ -288,7 +288,8 @@ namespace Fanex.Athena.Report.BySite.Excels
         }
 
         private string GetTitle()
-            => $"{ViewResources.WinlossAnalysis}," +
+            => $"{ViewResources.WinlossAnalysis}" +
+                $" - {(Option.ViewInTime == ViewInTimeMode.Settlement ? ViewResources.SettlementTime : ViewResources.FinancialDate)}," +
                 $" {Option.FromDate.ToString(DATE_FORMAT)} → {Option.ToDate.ToString(DATE_FORMAT)}," +
                 $" {ViewResources.Currency}: {Option.CurrencyList}," +
                 $" {ViewResources.BaseCurrency}: {Option.BaseCurrency}," +
