@@ -13,6 +13,7 @@
 		<Setting Key="Shard_Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_Audit_DailyBets" SpName="Lrf_Rpt_Audit_DailyBets" DbName="DBPLO.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_Audit_DailyBets_Total" SpName="Lrf_Rpt_Audit_DailyBets_Total" DbName="DBPLO.bodb02.wsv_lap" />
+		<Setting Key="Lrf_Rpt_Audit_DailyBets_Detail" SpName="Lrf_Rpt_Audit_DailyBets_Detail" DbName="DBPLO.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance" DbName="DBACC.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_CustomerClosingBalance" SpName="Lrf_Rpt_CustomerClosingBalance" DbName="DBACC.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_CustomerRunningTicket" SpName="Lrf_Rpt_CustomerRunningTicket" DbName="DBBOF.bodb02.wsv_lap" />
@@ -40,6 +41,10 @@
 		<Setting Key="Lrf_Rpt_AbnormalBet_IPSummary" SpName="Lrf_Rpt_AbnormalBet_IPSummary" DbName="DBWH.bodb_DWRS.wsv_lap" />
 		<Setting Key="Lrf_Rpt_AbnormalBet_Summary" SpName="Lrf_Rpt_AbnormalBet_Summary" DbName="DBWH.bodb_DWRS.wsv_lap" />
 		<Setting Key="Lrf_AbnormalBet_SubIssueSel" SpName="Lrf_AbnormalBet_SubIssueSel" DbName="DBWH.bodb_DWRS.wsv_lap" />
+
+		<Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+		<Setting Key="Lrf_Rpt_LiveMatchWeekly" SpName="Lrf_Rpt_LiveMatchWeekly" DbName="DBEXT.bodb02.wsv_lap" />
+		<Setting Key="Lrf_LicenseeProduct3rdSel" SpName="Lrf_LicenseeProduct3rdSel" DbName="DBLIC.bodb_Licensee.wsv_lap" />
 
 		<Setting Key="LAP_Rpt_WinlossAnalysis_AgencySel" SpName="LAP_Rpt_WinlossAnalysis_AgencySel" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_WinlossAnalysis_PlayerSel" SpName="LAP_Rpt_WinlossAnalysis_PlayerSel" DbName="DBEXT.bodb02.wsv_lap" />
