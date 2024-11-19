@@ -183,6 +183,10 @@ namespace Fanex.Athena.Report.BySite.Services
                     await AssignCurrencyName(item);
                     break;
 
+                case GroupByMode.Hour:
+                    AssignDateTimeAndHour(item, DATE_FORMAT);
+                    break;
+
                 default:
                     AssignGroupByField(item);
                     break;
@@ -204,6 +208,16 @@ namespace Fanex.Athena.Report.BySite.Services
         {
             var date = DateTime.ParseExact(item.GroupBy, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
             item.GroupByFieldText = date.ToString(formatDate);
+        }
+
+        private static void AssignDateTimeAndHour(WinlossAnalysisViewModel item, string formatDate)
+        {
+            var texts = item.GroupBy.Split('>');
+            var dateText = texts.Length > 0 ? texts[0].Trim() : "";
+            var hourText = texts.Length > 1 ? texts[1].Trim() : "";
+
+            var date = DateTime.ParseExact(dateText, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
+            item.GroupByFieldText = $"{date.ToString(formatDate)} > {hourText}";
         }
 
         private static void AssignGroupByField(WinlossAnalysisViewModel item)
