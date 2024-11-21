@@ -107,5 +107,7 @@
         public const string NS = "NS";
 
         public const string ON = "ON";
+
+        public const string PTRNG = "PTRNG";
     }
 }

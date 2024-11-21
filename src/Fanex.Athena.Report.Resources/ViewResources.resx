@@ -1049,6 +1049,9 @@
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="ProductPTRNG" xml:space="preserve">
+    <value>Playtech</value>
+  </data>
   <data name="FinancialDate" xml:space="preserve">
     <value>Financial Date</value>
   </data>
