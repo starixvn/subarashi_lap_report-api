@@ -10,6 +10,7 @@
         Currency = 6,
         Platform = 7,
         Player = 8,
-        Agent = 9
+        Agent = 9,
+        Hour = 10
     }
 }

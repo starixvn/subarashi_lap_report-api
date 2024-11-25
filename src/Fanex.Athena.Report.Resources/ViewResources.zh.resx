@@ -663,4 +663,10 @@
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>总特优赔率奬金</value>
   </data>
+  <data name="FinancialDate" xml:space="preserve">
+    <value>依财务日期时间搜寻</value>
+  </data>
+  <data name="SettlementTime" xml:space="preserve">
+    <value>依注单结算时间搜寻</value>
+  </data>
 </root>

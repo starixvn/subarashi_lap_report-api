@@ -17,6 +17,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public BreakdownMode BreakdownMode { get; set; }
 
+        public ViewInTimeMode ViewInTime { get; set; }
+
         public string ProductCodes { get; set; }
 
         public string SportIds { get; set; }
@@ -74,6 +76,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public int SpecialPlatform { get; set; }
 
         public int SpecialPlatformType { get; set; }
+
+        public string HourParts { get; set; }
 
         public bool IsValid => true;
     }

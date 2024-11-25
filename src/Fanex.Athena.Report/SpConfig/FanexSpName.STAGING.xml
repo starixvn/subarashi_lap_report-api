@@ -48,6 +48,7 @@
 
 		<Setting Key="LAP_Rpt_WinlossAnalysis_AgencySel" SpName="LAP_Rpt_WinlossAnalysis_AgencySel" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_WinlossAnalysis_PlayerSel" SpName="LAP_Rpt_WinlossAnalysis_PlayerSel" DbName="DBEXT.bodb02.wsv_lap" />
+		<Setting Key="LAP_Rpt_WinlossAnalysis_SettleTimeSel" SpName="LAP_Rpt_WinlossAnalysis_SettleTimeSel" DbName="DBACC.bodb02.wsv_lap" />
 	</Function>
 	<Function Name="SiteConfig">
 		<Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.wsv_lap" />

@@ -166,6 +166,7 @@
             {
                 BaseCurrency = metaModel.BaseCurrencyName,
                 BreakdownMode = metaModel.BreakdownMode,
+                ViewInTime = metaModel.ViewInTime,
                 FromDate = metaModel.FromDate,
                 ToDate = metaModel.ToDate,
                 GroupByMode = metaModel.GroupMode,

@@ -24,5 +24,7 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
         public GroupByMode GroupByMode { get; set; }
 
         public BreakdownMode BreakdownMode { get; set; }
+
+        public ViewInTimeMode ViewInTime { get; set; }
     }
 }

@@ -19,6 +19,18 @@ namespace Fanex.Athena.Report.BySite.Repositories
             _dbFactory = dbFactory;
         }
 
+        public Task<WinlossAnalysisAggregateDTO> GetDataBySettlementTimeCriteria(WinlossAnalysisMetaModel metaModel)
+        {
+            const string spName = "LAP_Rpt_WinlossAnalysis_SettleTimeSel";
+            using (var objectDb = _dbFactory.GetObjectDb(spName))
+            {
+                AddCommonParameter(objectDb, metaModel);
+                AddPlayerParameter(objectDb, metaModel);
+                objectDb.SetParameterValue("HourParts", metaModel.HourParts);
+                return ReadDataAsync(objectDb);
+            }
+        }
+
         public Task<WinlossAnalysisAggregateDTO> GetDataByAgencyCriteria(WinlossAnalysisMetaModel metaModel)
         {
             const string spName = "LAP_Rpt_WinlossAnalysis_AgencySel";
@@ -35,15 +47,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             using (var objectDb = _dbFactory.GetObjectDb(spName))
             {
                 AddCommonParameter(objectDb, metaModel);
-                objectDb.SetParameterValue("IsVIPOnly", metaModel.IsVipOnly);
-                objectDb.SetParameterValue("CustomerClass", metaModel.CustomerClass);
-                objectDb.SetParameterValue("FullCustomerClass", metaModel.FullCustomerClass);
-                objectDb.SetParameterValue("OddsGroup", metaModel.OddsGroup);
-                objectDb.SetParameterValue("SearchMode", metaModel.SearchMode);
-                if (!string.IsNullOrEmpty(metaModel.SearchUserName))
-                {
-                    objectDb.SetParameterValue("SearchUserName", metaModel.SearchUserName);
-                }
+                AddPlayerParameter(objectDb, metaModel);
                 return ReadDataAsync(objectDb);
             }
         }
@@ -69,6 +73,20 @@ namespace Fanex.Athena.Report.BySite.Repositories
             objectDb.SetParameterValue("SortKey", metaModel.SortBy);
             objectDb.SetParameterValue("SortType", metaModel.SortOrder);
             objectDb.SetParameterValue("SpecialPlatform", metaModel.SpecialPlatformType);
+        }
+
+        private static void AddPlayerParameter(IObjectDb objectDb, WinlossAnalysisMetaModel metaModel)
+        {
+            objectDb.SetParameterValue("IsVIPOnly", metaModel.IsVipOnly);
+            objectDb.SetParameterValue("CustomerClass", metaModel.CustomerClass);
+            objectDb.SetParameterValue("FullCustomerClass", metaModel.FullCustomerClass);
+            objectDb.SetParameterValue("OddsGroup", metaModel.OddsGroup);
+            objectDb.SetParameterValue("SearchMode", metaModel.SearchMode);
+
+            if (!string.IsNullOrEmpty(metaModel.SearchUserName))
+            {
+                objectDb.SetParameterValue("SearchUserName", metaModel.SearchUserName);
+            }
         }
 
         private static async Task<WinlossAnalysisAggregateDTO> ReadDataAsync(IObjectDb objectDb)
