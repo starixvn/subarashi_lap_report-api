@@ -2473,7 +2473,7 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turnover, {0} --&amp;gt; {1} - {2} {3} ({4}).
+        ///   Looks up a localized string similar to Turnover, {0} --&gt; {1} - {2} {3} ({4}).
         /// </summary>
         public static string TurnoverTitle {
             get {

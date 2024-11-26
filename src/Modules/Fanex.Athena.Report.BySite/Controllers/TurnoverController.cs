@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
@@ -115,9 +116,17 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 TotalData = turnoverService.SumTotalData(data),
                 Data = data
             };
+            AssignBaseCurrency(metaModel);
             var fileContent = excel.Export(template, excelData, metaModel, excelOption);
 
             return new FileContentResult(fileContent, "application/octet-stream");
+        }
+
+        private void AssignBaseCurrency(TurnoverMetaModel metaModel)
+        {
+            metaModel.BaseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency) 
+                ? metaModel.CurrencyName
+                : metaModel.BaseCurrency;
         }
 
         private ProductAccess GetProductAccess() =>

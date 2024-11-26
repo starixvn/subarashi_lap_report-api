@@ -1029,7 +1029,7 @@
     <value>Customer</value>
   </data>
   <data name="TurnoverTitle" xml:space="preserve">
-    <value>Turnover, {0} --&amp;gt; {1} - {2} {3} ({4})</value>
+    <value>Turnover, {0} --&gt; {1} - {2} {3} ({4})</value>
   </data>
   <data name="TurnoverTitleNoUser" xml:space="preserve">
     <value>Turnover, {0} --&gt; {1}, {2}</value>
