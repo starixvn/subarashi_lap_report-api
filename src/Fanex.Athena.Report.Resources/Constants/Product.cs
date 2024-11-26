@@ -109,5 +109,7 @@
         public const string ON = "ON";
 
         public const string PTRNG = "PTRNG";
+
+        public const string GPIRNG = "GPIRNG";
     }
 }

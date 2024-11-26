@@ -100,7 +100,8 @@ namespace Fanex.Athena.Report.Core.Helpers
                 { Product.FAC, nameof(ViewResources.ProductFAC) },
                 { Product.NS, nameof(ViewResources.ProductNS) },
                 { Product.ON, nameof(ViewResources.ProductON) },
-                { Product.PTRNG, nameof(ViewResources.ProductPTRNG) }
+                { Product.PTRNG, nameof(ViewResources.ProductPTRNG) },
+                { Product.GPIRNG, nameof(ViewResources.ProductGPIRNG) }
             };
     }
 }

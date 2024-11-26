@@ -889,11 +889,11 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grand Total.
+        ///   Looks up a localized string similar to GPI.
         /// </summary>
-        public static string GrandTotal {
+        public static string GPIRNG {
             get {
-                return ResourceManager.GetString("GrandTotal", resourceCulture);
+                return ResourceManager.GetString("GPIRNG", resourceCulture);
             }
         }
         
@@ -906,12 +906,12 @@ namespace Fanex.Athena.Report.Resources {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to GPI.
         /// </summary>
-        public static string GPIRNG {
+        ///   Looks up a localized string similar to Grand Total.
+        /// </summary>
+        public static string GrandTotal {
             get {
-                return ResourceManager.GetString("GPIRNG", resourceCulture);
+                return ResourceManager.GetString("GrandTotal", resourceCulture);
             }
         }
         
@@ -1668,6 +1668,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ProductFS {
             get {
                 return ResourceManager.GetString("ProductFS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPI.
+        /// </summary>
+        public static string ProductGPIRNG {
+            get {
+                return ResourceManager.GetString("ProductGPIRNG", resourceCulture);
             }
         }
         

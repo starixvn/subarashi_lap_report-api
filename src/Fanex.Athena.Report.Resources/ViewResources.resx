@@ -1061,6 +1061,9 @@
   <data name="GPIRNG" xml:space="preserve">
     <value>GPI</value>
   </data>
+  <data name="ProductGPIRNG" xml:space="preserve">
+    <value>GPI</value>
+  </data>
   <data name="GPILC" xml:space="preserve">
     <value>GPI Live Casino</value>
   </data>
