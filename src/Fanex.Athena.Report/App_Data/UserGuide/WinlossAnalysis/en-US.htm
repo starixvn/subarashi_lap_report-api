@@ -4,11 +4,29 @@
     </h4>
     <ul>
         <li>The report contains only won/lost/draw tickets.</li>
-        <li>This report supports up-to-date data. You can filter data up to 3 months per query.</li>
         <li>A red negative number indicates a loss for Licensee whereas the black positive indicates a win.</li>
         <li>OANDA Exchange Service will use the exchange rate of the end date of each selected month when converting the figures.</li>
         <li>Data of RNG Products, and Live Casino Products will be displayed based on detailed tickets.</li>
         <li>"Extra Payout" tickets shall be excluded from this report when viewed within the selected date range.</li>
+        <li>
+            This report provides two modes, date and time, to accommodate users' preferred viewing options.
+            <ul>
+                <li>
+                    Financial Date:
+                    <ul>
+                        <li>Data shall be calculated by Financial Date of tickets.</li>
+                        <li>This report supports up-to-date data. You can filter data up to 3 months per query.</li>
+                    </ul>
+                </li>
+                <li>
+                    Settlement Time:
+                    <ul>
+                        <li>Data shall be calculated by the Settlement Time of tickets. Avoid comparing this data with other LAP's functions as it has been calculated within a distinct time frame.</li>
+                        <li>This report supports up-to-date data. You can filter data up to 1 month per query.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>
 <div class="line">
@@ -18,6 +36,8 @@
         Search Filters
     </h4>
     <ul>
+        <li><b>Date:</b> Get the corresponding data according to the user's selection of Financial Date mode or Settlement Time mode.</li>
+        <li><b>Hour:</b> Display when Settlement Time mode is selected.</li>
         <li>
             <b>Product:</b> Select the Product type of bet tickets.
             <ul>
@@ -27,6 +47,7 @@
                 {SABA-section}
                 <li>If Sportsbook is selected: The Sport filter shall display separate Parlay and Saba Virtual Sports.</li>
                 {/SABA-section}
+                <li>If the Settlement Time mode is selected. The product list just supports Sportsbook, Virtual Sports, and Number Game.</li>
             </ul>
         </li>
         <li><b>Sport, Bet type:</b> Select the Sport type, Bet type of bet tickets.</li>
@@ -77,6 +98,7 @@
                         <li>The Effective Betting Value columns will be displayed on group by Player.</li>
                     </ul>
                 </li>
+                <li><b>Hour:</b> Convert data into a base currency and group by Hour.</li>
                 <li><b>Date:</b> Convert data into a base currency and group by Date.</li>
                 <li><b>Month:</b> Convert data into a base currency and group by Month.</li>
                 <li><b>Product:</b> Convert data into a base currency and group by Product.</li>
@@ -92,8 +114,8 @@
         <li>
             <b>Breakdown By:</b> Breakdown data under Group By in way:
             <ul>
-                <li><b>Product:</b> Enable when you choose Group By Player/ Date/ Month/Currency/ Platform.</li>
-                <li><b>Currency:</b> Enable when you choose Group By Date/ Month/ Product/ Sport/ Bet type/ Platform.</li>
+                <li><b>Product:</b> Enable when you choose Group By Player/ Hour/ Date/ Month/ Currency/ Platform.</li>
+                <li><b>Currency:</b> Enable when you choose Group By Hour/ Date/ Month/ Product/ Sport/ Bet type/ Platform.</li>
                 {12Bet-licensee-section}
                 <li><b>Player:</b> Enable when you choose Group By Agent only.</li>
                 {/12Bet-licensee-section}
@@ -117,6 +139,7 @@
                         <li><b>External ID:</b> The username registered by the ticket owner.</li>
                     </ul>
                 </li>
+                <li><b>Hour:</b> Based on your selection and its format is: MM/DD/YYYY > HH:MM - HH:MM.</li>
                 <li>
                     <b>Date and Month:</b> Based on your selection and its format is:
                     <ul>

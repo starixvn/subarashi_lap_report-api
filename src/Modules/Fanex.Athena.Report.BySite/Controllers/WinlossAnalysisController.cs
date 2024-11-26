@@ -36,6 +36,7 @@
     [AutoBindingMetaModel(bindAgent: true)]
     public class WinlossAnalysisController : ControllerBase
     {
+        private const int MAX_HOUR = 24;
         private const string FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN = "WinLossReportGroupByAndBreakdownBy";
         private const string FILE_NAME_GROUP_BY_ONLY = "WinLossReportGroupBy";
 
@@ -102,7 +103,7 @@
                 productOptions,
                 licenseeName = _contextService.SiteName,
                 isOneworksMaster = IsOneworksMaster,
-                subsidiaryViewType = IsOneworksMaster? SubsidiaryViewType.MasterManagement : _contextService.SubsidiaryViewType,
+                subsidiaryViewType = IsOneworksMaster ? SubsidiaryViewType.MasterManagement : _contextService.SubsidiaryViewType,
                 isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
                 baseCurrencyList = _baseCurrencyService.GetBaseCurrencyList().ToArray(),
                 defaultBaseCurrency = _contextService.DefaultBaseCurrency,
@@ -113,6 +114,7 @@
                 oddsGroupList = _contextService.OfferedOddsGroupsList,
                 isOfferCashOutProduct = _productService.IsOfferCashOutProduct(_contextService.LicenseeId),
                 riskLevel = await _customerClassService.GetAllRiskLevel(),
+                hourList = GetHourList().ToArray()
             });
         }
 
@@ -273,5 +275,9 @@
                 SearchUsername = metaModel.SearchUserName
             };
         }
+
+        private static IEnumerable<KeyValuePair<int, string>> GetHourList()
+            => Enumerable.Range(0, MAX_HOUR).ToDictionary(_ => _, _ => $"{_:00}:00 - {_:00}:59");
+        
     }
 }

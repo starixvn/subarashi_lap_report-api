@@ -4,10 +4,28 @@
     </h4>
     <ul>
         <li>Laporan ini hanya mencantumkan tiket yang menang/kalah/seri.</li>
-        <li>Laporan ini mendukung data terkini. Anda dapat memfilter data hingga 3 bulan per permintaan.</li>
         <li>Angka negatif berwarna merah menunjukkan kerugian bagi Penerima Lisensi, sedangkan angka positif berwarna hitam menunjukkan kemenangan.</li>
         <li>OANDA Exchange Service akan menggunakan kurs pada tanggal akhir setiap bulan yang dipilih saat mengkonversi angka-angka tersebut.</li>
         <li>Data Produk RNG dan Produk Kasino Langsung akan ditampilkan berdasarkan tiket rinci.</li>
+        <li>
+            Laporan ini menyediakan dua mode, tanggal dan waktu, untuk memenuhi opsi tampilan yang disukai pengguna.
+            <ul>
+                <li>
+                    Tanggal Keuangan:
+                    <ul>
+                        <li>Data akan dihitung berdasarkan Tanggal Keuangan tiket.</li>
+                        <li>Laporan ini mendukung data terkini. Anda dapat memfilter data hingga 3 bulan per permintaan.</li>
+                    </ul>
+                </li>
+                <li>
+                    Waktu Penyelesaian:
+                    <ul>
+                        <li>Data akan dihitung berdasarkan Waktu Penyelesaian tiket. Hindari membandingkan data ini dengan fungsi LAP lainnya karena telah dihitung dalam kerangka waktu yang berbeda.</li>
+                        <li>Laporan ini mendukung data terkini. Anda dapat menyaring data hingga 1 bulan per kueri.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
         <li>Tiket "Extra Payout" harus dikecualikan dari laporan ini saat dilihat dalam rentang tanggal yang dipilih.</li>
     </ul>
 </div>
@@ -18,6 +36,8 @@
         Filter Pencarian
     </h4>
     <ul>
+        <li><b>Tanggal:</b> Dapatkan data yang sesuai berdasarkan pilihan pengguna pada mode Tanggal Keuangan atau mode Waktu Penyelesaian.</li>
+        <li><b>Jam:</b> Tampilkan saat mode Waktu Penyelesaian dipilih.</li>
         <li>
             <b>Produk:</b> Pilih jenis tiket taruhan Produk.
             <ul>
@@ -25,6 +45,7 @@
                 <li>Jika BA dipilih: Kolom "Jumlah yang Harus Dibayar ke BA" akan ditampilkan.</li>
                 {/BA-productlist-section}
                 <li>Jika Sportsbook dipilih: Filter Olahraga harus menampilkan Parlay dan Saba Virtual Sports secara terpisah.</li>
+                <li>Jika mode Waktu Penyelesaian dipilih. Daftar produk hanya mendukung Taruhan Olahraga, Olahraga Virtual, dan Permainan Angka.</li>
             </ul>
         </li>
         <li><b>Olahraga, Jenis Taruhan:</b> Pilih jenis olahraga, jenis taruhan dari tiket taruhan.</li>
@@ -75,6 +96,7 @@
                         <li>Kolom Nilai Taruhan Efektif akan ditampilkan pada grup berdasarkan Pemain.</li>
                     </ul>
                 </li>
+                <li><b>Jam:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Jam.</li>
                 <li><b>Tanggal:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Tanggal.</li>
                 <li><b>Bulan:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Bulan.</li>
                 <li><b>Produk:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Produk.</li>
@@ -90,8 +112,8 @@
         <li>
             <b>Rincian Oleh:</b> Rincian data di bawah Grup Oleh dengan cara:
             <ul>
-                <li><b>Produk:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Pemain/ Tanggal/ Bulan/ Mata Uang/ Platform.</li>
-                <li><b>Mata Uang:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Tanggal/ Bulan/ Produk/ Olahraga/ Jenis Taruhan/ Platform.</li>
+                <li><b>Produk:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Pemain/ Jam/ Tanggal/ Bulan/ Mata Uang/ Platform.</li>
+                <li><b>Mata Uang:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Jam/ Tanggal/ Bulan/ Produk/ Olahraga/ Jenis Taruhan/ Platform.</li>
                 {12Bet-licensee-section}
                 <li><b>Pemain:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Agen saja.</li>
                 {/12Bet-licensee-section}
@@ -115,6 +137,7 @@
                         <li><b>ID Eksternal:</b> username yang terdaftar oleh pemilik tiket.</li>
                     </ul>
                 </li>
+                <li><b>Jam:</b> Berdasarkan pilihan Anda dan formatnya adalah: MM/DD/YYYY > HH:MM - HH:MM.</li>
                 <li>
                     <b>Tanggal dan Bulan:</b> Berdasarkan pilihan Anda dan formatnya adalah:
                     <ul>

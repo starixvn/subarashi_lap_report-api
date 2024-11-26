@@ -4,10 +4,28 @@
     </h4>
     <ul>
         <li>Báo cáo này chỉ bao gồm vé cược thắng, thua và hòa.</li>
-        <li>Báo cáo này hỗ trợ cập nhật dữ liệu mới nhất. Bạn có thể xem dữ liệu lên đến 3 tháng trên mỗi truy vấn.</li>
         <li>Số âm màu đỏ cho biết Nhà Cái đang lỗ, số dương màu đen cho biết Nhà Cái đang lãi.</li>
         <li>Dịch Vụ Ngoại Hối OANDA sẽ sử dụng tỷ giá hối đoái ở ngày cuối cùng của mỗi tháng đã chọn để chuyển đổi số liệu.</li>
         <li>Dữ liệu của sản phẩm RNG và Live Casino sẽ hiển thị dựa trên thông tin vé cược.</li>
+        <li>
+            Báo cáo này cung cấp hai chế độ, ngày và giờ, để hổ trợ người người dùng xem báo cáo theo từng nhu cầu.
+            <ul>
+                <li>
+                    Ngày Tài Chính:
+                    <ul>
+                        <li>Dữ liệu sẽ được tính theo Ngày Tài Chính của vé.</li>
+                        <li>Báo cáo này hỗ trợ cập nhật dữ liệu mới nhất. Bạn có thể xem dữ liệu lên đến 3 tháng trên mỗi truy vấn.</li>
+                    </ul>
+                </li>
+                <li>
+                    Thời Gian Tất Toán:
+                    <ul>
+                        <li>Dữ liệu sẽ được tính theo Thời gian Tất Toán của vé. Tránh so sánh dữ liệu này với các chức năng khác của LAP vì nó đã được tính trong một khung thời gian riêng biệt.</li>
+                        <li>Báo cáo này hỗ trợ cập nhật dữ liệu mới nhất. Bạn có thể xem dữ liệu lên đến 1 tháng trên mỗi truy vấn.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
         <li>Báo cáo theo phạm vi ngày đã chọn sẽ không bao gồm các vé cược "Trả Thưởng Thêm".</li>
     </ul>
 </div>
@@ -18,6 +36,8 @@
         Bộ Lọc Tìm Kiếm
     </h4>
     <ul>
+        <li><b>Ngày:</b> Nhận dữ liệu tương ứng theo lựa chọn của người dùng về chế độ Ngày Tài Chính hoặc chế độ Thời Gian Tất Toán.</li>
+        <li><b>Giờ:</b> Hiển thị khi chế độ Thời Gian Tất Toán được chọn.</li>
         <li>
             <b>Sản Phẩm:</b> chọn Loại Sản Phẩm của vé cược.
             <ul>
@@ -27,6 +47,7 @@
                 {SABA-section}
                 <li>Nếu chọn Sportsbook: Bộ lọc sẽ hiển thị riêng Cược Xiên Thể Thao và Thể Thao Ảo Saba.</li>
                 {/SABA-section}
+                <li>Nếu chế độ Thời Gian Tất Toán được chọn. Danh sách sản phẩm chỉ hỗ trợ Sportsbook, Virtual Sports và Number Game.</li>
             </ul>
         </li>
         <li><b>Môn Thể Thao, Loại Cược:</b> Chọn Môn Thể Thao, Loại Cược của vé cược.</li>
@@ -77,6 +98,7 @@
                         <li>Giá Trị Thắng Thua Tuyệt Đối sẽ được hiển thị theo nhóm Người Chơi.</li>
                     </ul>
                 </li>
+                <li><b>Giờ:</b> Chuyển đổi dữ liệu thành đơn vị tiền tệ cơ sở và nhóm theo Giờ.</li>
                 <li><b>Ngày:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Ngày.</li>
                 <li><b>Tháng:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Tháng.</li>
                 <li><b>Sản Phẩm:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Sản Phẩm.</li>
@@ -92,8 +114,8 @@
         <li>
             <b>Phân loại theo:</b> Phân loại dữ liệu Nhóm theo:
             <ul>
-                <li><b>Sản Phẩm:</b> chế độ này chỉ có khi chọn hiển thị theo Người Chơi/Ngày/Tháng/Tiền Tệ/Nền Tảng.</li>
-                <li><b>Tiền Tệ:</b> chế độ này chỉ có khi chọn hiển thị theo Ngày/Tháng/Sản Phẩm/Môn Thể Thao/Loại Cược/Nền Tảng.</li>
+                <li><b>Sản Phẩm:</b> chế độ này chỉ có khi chọn hiển thị theo Người Chơi/Giờ/ Ngày/Tháng/Tiền Tệ/Nền Tảng.</li>
+                <li><b>Tiền Tệ:</b> chế độ này chỉ có khi chọn hiển thị theo Giờ/Ngày/Tháng/Sản Phẩm/Môn Thể Thao/Loại Cược/Nền Tảng.</li>
                 {12Bet-licensee-section}
                 <li><b>Người Chơi:</b> Bật chế độ này khi chọn hiển thị chỉ Agent.</li>
                 {/12Bet-licensee-section}
@@ -117,6 +139,7 @@
                         <li><b>ID Ngoại Vi:</b> tên người dùng được đăng ký bởi chủ sở hữu vé cược.</li>
                     </ul>
                 </li>
+                <li><b>Giờ:</b> Theo lựa chọn của người dùng và định dạng của nó là: MM/DD/YYYY > HH:MM - HH:MM.</li>
                 <li>
                     <b>Ngày và Tháng:</b> Dựa trên lựa chọn và định dạng sau:
                     <ul>
