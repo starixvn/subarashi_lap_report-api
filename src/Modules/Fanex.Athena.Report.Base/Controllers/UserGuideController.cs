@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
@@ -28,15 +30,15 @@ namespace Fanex.Athena.Report.Base.Controllers
         };
 
         private readonly IContextService _contextService;
-
         private readonly IFileSystem _fileSystem;
-
         private readonly IWebHostEnvironment _hostEnvironment;
-
         private readonly IProductService _productService;
+        private readonly IBalanceUpService _balanceUpService;
+
 
         public UserGuideController(
             IContextService contextService,
+            IBalanceUpService balanceUpService,
             IFileSystem fileSystem,
             IWebHostEnvironment hostEnvironment, 
             IProductService productService)
@@ -45,10 +47,11 @@ namespace Fanex.Athena.Report.Base.Controllers
             _fileSystem = fileSystem;
             _hostEnvironment = hostEnvironment;
             _productService = productService;
+            _balanceUpService = balanceUpService;
         }
 
         [HttpGet]
-        public IActionResult Index(string resourceName)
+        public async Task<IActionResult> Index(string resourceName)
         {
             var content = GetFileContent(resourceName);
 
@@ -60,6 +63,7 @@ namespace Fanex.Athena.Report.Base.Controllers
             var products = _productService.GetProductList(_contextService.LicenseeId);
             content = AddSpecialProducts(content, products);
             content = AddOpenBalanceInfo(content);
+            content = await AddBalanceUpDateAsync(content);
             content = RemovePermissionSection(content, Roles.PlayerVIPManagement);
             content = RemoveSabaText(content);
             content = AddLicenseeSection(content, _contextService.SiteName);
@@ -187,6 +191,18 @@ namespace Fanex.Athena.Report.Base.Controllers
         private string AddOpenBalanceInfo(string content)
             => Replace(content, "{open-balance-section}", "{/open-balance-section}",
                 !_contextService.IsEnableSingleWallet);
+
+        private async Task<string> AddBalanceUpDateAsync(string content)
+        {
+            const string PlaceHolder = "{balance-up-date}";
+            if (content.Contains(PlaceHolder))
+            {
+                var date = (await _balanceUpService.GetBalanceUpAsync()).BalanceUpDay;
+                return content.Replace(PlaceHolder, date.ToString("MM/dd/yyyy"));
+            }
+
+            return content;
+        }
 
         private string GetFileContent(string resourceName)
         {
