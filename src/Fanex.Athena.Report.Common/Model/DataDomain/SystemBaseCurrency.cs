@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Common.Model.DataDomain
+﻿namespace Fanex.Athena.Report.Common.Model.DataDomain
 {
+    using System.Collections.Generic;
+
     public static class SystemBaseCurrency
     {
         public const string EUR = "EUR";
@@ -25,9 +25,10 @@ namespace Fanex.Athena.Report.Common.Model.DataDomain
             { BaseCurrencyType.JPY, "JPY" },
             { BaseCurrencyType.MXN, "MXN" },
             { BaseCurrencyType.NGN, "NGN" },
+            { BaseCurrencyType.BRL, "BRL" },
 
             // crypto currencies
-            { BaseCurrencyType.USDT, "USDT" },
+            { BaseCurrencyType.USDT, "USDT" }
         };
 
         public static IEnumerable<string> DefaultBaseCurrencyList { get; } = new[] { "GBP", EUR, "USD" };
