@@ -1,10 +1,12 @@
 ﻿using Fanex.Athena.Report.Base.Controllers;
+using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Core.Utility.Interfaces;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.Base.UnitTests.Controllers
@@ -19,16 +21,19 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
 
         private readonly Mock<IProductService> _productService;
 
+        private readonly Mock<IBalanceUpService> _balanceUpService;
+
         public UserGuideControllerTest()
         {
             _fileSystem = new Mock<IFileSystem>();
             _productService = new Mock<IProductService>();
             _hostEnvironment = new Mock<IWebHostEnvironment>();
             _contextService = new Mock<IContextService>();
+            _balanceUpService = new Mock<IBalanceUpService>();
         }
 
         [Fact]
-        public void Index_FileNotExist_ExecutedDefaultFilePath()
+        public async Task Index_FileNotExist_ExecutedDefaultFilePath()
         {
             // Arrange
             const string ViLanguage = "vi-VN";
@@ -40,14 +45,14 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
             var controller = BuildController();
 
             // Action
-            controller.Index(ResourceName);
+            await controller.Index(ResourceName);
 
             // Assert
             _fileSystem.Verify(x => x.ReadFile(It.Is<string>(_ => _.Contains(ResourceName) && _.Contains("en-US.htm"))));
         }
 
         [Fact]
-        public void Index_FileExist_ReturnFilePathWithLanguageSession()
+        public async Task Index_FileExist_ReturnFilePathWithLanguageSession()
         {
             // Arrange
             const string ViLanguage = "vi-VN";
@@ -59,14 +64,14 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
             var controller = BuildController();
 
             // Action
-            controller.Index(ResourceName);
+            await controller.Index(ResourceName);
 
             // Assert
             _fileSystem.Verify(x => x.ReadFile(It.Is<string>(_ => _.Contains(ResourceName) && _.Contains($"{ViLanguage}.htm"))));
         }
 
         [Fact]
-        public void Index_NotEnableSingleWallet_ReturnOpenBalanceSection()
+        public async Task Index_NotEnableSingleWallet_ReturnOpenBalanceSection()
         {
             // Arrange
             const string ResourceName = "CustomerBalance";
@@ -81,7 +86,7 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
             var controller = BuildController();
 
             // Action
-            var response = controller.Index(ResourceName) as OkObjectResult;
+            var response = await controller.Index(ResourceName) as OkObjectResult;
             var result = response?.Value as string;
 
             // Assert
@@ -89,7 +94,7 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
         }
 
         [Fact]
-        public void Index_EnableSingleWallet_RemoveOpenBalanceSection()
+        public async Task Index_EnableSingleWallet_RemoveOpenBalanceSection()
         {
             // Arrange
             const string ResourceName = "CustomerBalance";
@@ -104,7 +109,7 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
             var controller = BuildController();
 
             // Action
-            var response = controller.Index(ResourceName) as OkObjectResult;
+            var response = await controller.Index(ResourceName) as OkObjectResult;
             var result = response?.Value as string;
 
             // Assert
@@ -112,7 +117,7 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
         }
 
         private UserGuideController BuildController() =>
-            new(_contextService.Object, _fileSystem.Object, _hostEnvironment.Object,
+            new(_contextService.Object, _balanceUpService.Object, _fileSystem.Object, _hostEnvironment.Object,
                 _productService.Object);
     }
 }

@@ -60,6 +60,7 @@
             { BaseCurrencyType.JPY,"JPY" },
             { BaseCurrencyType.MXN,"MXN" },
             { BaseCurrencyType.NGN,"NGN" },
+            { BaseCurrencyType.BRL, "BRL" },
         };
 
         public static IDictionary<int, string> FlatBaseCurrencyList { get; } = new Dictionary<int, string> {
@@ -79,6 +80,7 @@
             { BaseCurrencyType.JPY,"JPY" },
             { BaseCurrencyType.MXN,"MXN" },
             { BaseCurrencyType.NGN,"NGN" },
+            { BaseCurrencyType.BRL, "BRL" },
         };
 
     }
