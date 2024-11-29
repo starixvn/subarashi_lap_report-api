@@ -107,7 +107,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
         [HttpPost]
         public async Task<IActionResult> GetDetailData([FromBody] MatchWinLossMetaModel metaModel)
         {
-            if (metaModel.IsValidDetailRequest)
+            if (!metaModel.IsValidDetailRequest)
             {
                 return BadRequest();
             }

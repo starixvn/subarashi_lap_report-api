@@ -47,7 +47,8 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             {
                 currencyList = _contextService.CurrencyList.ToArray(),
                 productOptions = await GetSportsAndProducts(productService, sportService),
-                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm
+                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
+                isAllowSLT = _contextService.OfferedSubProductList.Contains(Product.SLT),
             });
         }
 

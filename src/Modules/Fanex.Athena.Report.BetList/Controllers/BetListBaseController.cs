@@ -170,7 +170,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
             return new BetListSettingModel
             {
                 FromDate = metaModel.FromDate.ToShortDateString(),
-                BaseCurrency = metaModel.BaseCurrency,
+                BaseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency) ? metaModel.CurrencyName : metaModel.BaseCurrency,
                 IsAllowedCustomerCommission = ContextService.IsAllowedCustomerComm
             };
         }
@@ -181,7 +181,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
             {
                 FromDate = metaModel.FromDate.ToShortDateString(),
                 ToDate = metaModel.ToDate.ToShortDateString(),
-                BaseCurrency = metaModel.BaseCurrency,
+                BaseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency) ? metaModel.CurrencyName : metaModel.BaseCurrency,
                 IsAllowedCustomerCommission = ContextService.IsAllowedCustomerComm
             };
         }

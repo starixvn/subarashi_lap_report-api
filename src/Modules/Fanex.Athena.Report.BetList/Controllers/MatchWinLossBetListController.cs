@@ -32,17 +32,17 @@ namespace Fanex.Athena.Report.BetList.Controllers
         protected const string SP_BETLIST_MATCHWL = "Lrf_BetList_MatchWL";
 
         protected const string SP_BETLIST_MATCHWL_OLD = "Lrf_BetList_MatchWL_Old";
+        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
         protected static readonly int[] HiddenColumns = { BetEffectiveColumn, };
 
         private static readonly CultureInfo EnglishCulture = new CultureInfo("en-US");
-        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public MatchWinLossBetListController(IContextService contextService, ILicenseeService licenseeService,
-                                             IBetListApiClient betListApiClient, IBalanceUpService balanceUpService,
-                                             ICacheRefAdapter cacheRefAdapter) :
+            IBetListApiClient betListApiClient, IBalanceUpService balanceUpService,
+            ICacheRefAdapter cacheRefAdapter) :
             base(contextService, licenseeService, betListApiClient, balanceUpService)
         {
             _cacheRefAdapter = cacheRefAdapter;
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         [HttpGet]
         public async Task<IActionResult> MatchBetType([FromQuery] BetListMetaModel metaModel, int page, int rows,
-                                                      bool dataOnly = true)
+            bool dataOnly = true)
         {
             await AssignDefaultMetalModel(metaModel);
 
@@ -86,10 +86,9 @@ namespace Fanex.Athena.Report.BetList.Controllers
         private string GetMatchBetTypeTitle(BetListMetaModel metaModel)
         {
             var matchName = GetMatchName(metaModel);
-            var betTypeName = metaModel.BetType > 0 ?
-                " - " +
-                _cacheRefAdapter.GetBettype(metaModel.BetType) :
-                string.Empty;
+            var betTypeName = metaModel.BetType > 0
+                ? " - " + _cacheRefAdapter.GetBettype(metaModel.BetType)
+                : string.Empty;
 
             if (string.IsNullOrEmpty(matchName) && string.IsNullOrEmpty(betTypeName))
             {
@@ -101,7 +100,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         [HttpGet]
         public async Task<IActionResult> BetTypeWinLoss([FromQuery] BetListMetaModel metaModel, int page, int rows,
-                                                        bool dataOnly = true)
+            bool dataOnly = true)
         {
             await AssignDefaultMetalModel(metaModel);
 
@@ -119,7 +118,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         [HttpGet]
         public async Task<IActionResult> MixParlay([FromQuery] MixParlayMetaModel metaModel, int page, int rows,
-                                                   bool dataOnly = true)
+            bool dataOnly = true)
         {
             var apiModel = new BetListMetaModel
             {
@@ -170,11 +169,11 @@ namespace Fanex.Athena.Report.BetList.Controllers
             var currencyTitle = GetViewInCurrency(metaModel);
 
             metaModel.Title = ViewResources.BetList
-                            + string.Format(
+                              + string.Format(
                                   " - {0}{1} - {2}",
-                                  matchName + (metaModel.BetType > 0 ?
-                                      _cacheRefAdapter.GetBettype(metaModel.BetType) + " - " :
-                                      string.Empty),
+                                  matchName + (metaModel.BetType > 0
+                                      ? " - " + _cacheRefAdapter.GetBettype(metaModel.BetType) + " - "
+                                      : string.Empty),
                                   metaModel.FromDate.ToShortDateString(),
                                   currencyTitle);
 
@@ -196,23 +195,25 @@ namespace Fanex.Athena.Report.BetList.Controllers
         {
             if (metaModel.ProductCodeList == Product.NG)
             {
-                var prefix = metaModel.SportType == SportType.NumberGameHappy5 ? ViewResources.No + "." : ViewResources.NumberGameNo;
-                return prefix + " " + metaModel.MatchCode + " - ";
+                var prefix = metaModel.SportType == SportType.NumberGameHappy5
+                    ? ViewResources.No + "."
+                    : ViewResources.NumberGameNo;
+                return prefix + " " + metaModel.MatchCode;
             }
 
             if (SportHelper.IsVSSportTypes(metaModel.SportType))
             {
-                return string.Format(EnglishCulture, KickOfTimeFormat, metaModel.KickOffTime) + " - ";
+                return string.Format(EnglishCulture, KickOfTimeFormat, metaModel.KickOffTime);
             }
 
             if (SportHelper.IsVirtualBetRadarSports(metaModel.SportType))
             {
                 var id = !string.IsNullOrEmpty(metaModel.Distance) ? $" - ID {metaModel.Distance}" : string.Empty;
-                return $"{ViewResources.Event} {metaModel.VendorMatchId}{id} - ";
+                return $"{ViewResources.Event} {metaModel.VendorMatchId}{id}";
             }
 
             return metaModel.HomeId > 0 && metaModel.AwayId > 0
-                ? _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " + _cacheRefAdapter.GetTeamName(metaModel.AwayId) + " - "
+                ? $"{_cacheRefAdapter.GetTeamName(metaModel.HomeId)} vs {_cacheRefAdapter.GetTeamName(metaModel.AwayId)}"
                 : string.Empty;
         }
     }
