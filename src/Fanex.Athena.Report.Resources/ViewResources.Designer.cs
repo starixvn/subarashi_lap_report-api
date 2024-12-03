@@ -790,6 +790,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GPI Live Casino.
+        /// </summary>
+        public static string GPILC {
+            get {
+                return ResourceManager.GetString("GPILC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GPI.
         /// </summary>
         public static string GPIRNG {
