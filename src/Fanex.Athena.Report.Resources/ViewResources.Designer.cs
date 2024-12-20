@@ -889,6 +889,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GPI Live Casino.
+        /// </summary>
+        public static string GPILC {
+            get {
+                return ResourceManager.GetString("GPILC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GPI.
         /// </summary>
         public static string GPIRNG {
@@ -898,15 +907,6 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GPI Live Casino.
-        /// </summary>
-        public static string GPILC {
-            get {
-                return ResourceManager.GetString("GPILC", resourceCulture);
-            }
-        }
-        
-        /// </summary>
         ///   Looks up a localized string similar to Grand Total.
         /// </summary>
         public static string GrandTotal {
@@ -1668,6 +1668,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ProductFS {
             get {
                 return ResourceManager.GetString("ProductFS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPI Live Casino.
+        /// </summary>
+        public static string ProductGPILC {
+            get {
+                return ResourceManager.GetString("ProductGPILC", resourceCulture);
             }
         }
         

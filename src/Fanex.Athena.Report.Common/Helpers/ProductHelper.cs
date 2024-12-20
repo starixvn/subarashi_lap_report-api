@@ -101,7 +101,8 @@ namespace Fanex.Athena.Report.Common.Helpers
                 { Product.NS, nameof(ViewResources.ProductNS) },
                 { Product.ON, nameof(ViewResources.ProductON) },
                 { Product.PTRNG, nameof(ViewResources.ProductPTRNG) },
-                { Product.GPIRNG, nameof(ViewResources.ProductGPIRNG) }
+                { Product.GPIRNG, nameof(ViewResources.ProductGPIRNG) },
+                { Product.GPILC, nameof(ViewResources.ProductGPILC) }
             };
     }
 }

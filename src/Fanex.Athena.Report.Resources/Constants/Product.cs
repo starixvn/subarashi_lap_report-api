@@ -111,5 +111,7 @@
         public const string PTRNG = "PTRNG";
 
         public const string GPIRNG = "GPIRNG";
+
+        public const string GPILC = "GPILC";
     }
 }
