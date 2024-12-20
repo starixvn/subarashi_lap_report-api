@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Fanex.Athena.Report.Core.Utility.Interfaces;
+﻿using Fanex.Athena.Report.Core.Utility.Interfaces;
+using System.IO;
 
 namespace Fanex.Athena.Report.Core.Utility
 {

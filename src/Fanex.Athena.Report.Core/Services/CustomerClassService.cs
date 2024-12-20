@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Middleware;
 using Fanex.Athena.Report.Core.Models.DTOs;
@@ -13,6 +7,12 @@ using Fanex.Athena.Report.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Services
 {

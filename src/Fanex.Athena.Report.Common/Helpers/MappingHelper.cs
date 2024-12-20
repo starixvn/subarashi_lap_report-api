@@ -1,7 +1,7 @@
 ﻿using Fanex.Athena.Report.Resources.Constants;
 using System.Collections.Generic;
 
-namespace Fanex.Athena.Report.Core.Helpers
+namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class MappingHelper
     {

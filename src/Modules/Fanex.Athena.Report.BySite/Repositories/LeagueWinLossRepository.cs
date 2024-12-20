@@ -1,11 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -15,6 +9,12 @@
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class LeagueWinLossRepository : ILeagueWinLossRepository
     {

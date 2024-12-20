@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+﻿using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {

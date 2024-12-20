@@ -1,14 +1,15 @@
-﻿using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
+﻿using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
@@ -23,7 +24,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         public IActionResult Index([FromServices] IContextService contextService, [FromServices] IProductService productService)
         {
             var productAccess = productService.GetSingleWalletProductAccess(contextService.LicenseeId, FunctionNames.CustomerBalance);
-            return Ok(new 
+            return Ok(new
             {
                 isEnableSingleWallet = contextService.IsEnableSingleWallet,
                 isAllowedCustomerCommission = contextService.IsAllowedCustomerComm,
@@ -50,7 +51,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         [HttpPost]
         [RequestValidation(validateCurrency: true)]
         [AutoBindingMetaModel(bindAgent: true, bindProductOptions: true)]
-        public async Task<FileResult> ExportExcel([FromBody] CustomerBalanceMetaModel metaModel, 
+        public async Task<FileResult> ExportExcel([FromBody] CustomerBalanceMetaModel metaModel,
             [FromServices] ICustomerBalanceExcel excel,
             [FromServices] IContextService contextService,
             [FromServices] ILicenseeService licenseeService)

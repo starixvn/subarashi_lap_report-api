@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
+using Fanex.Athena.Report.Common.Constants;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Common.Extensions;
 using Fanex.Data;
+using System.Collections.Generic;
+using System.Data;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Repository
 {

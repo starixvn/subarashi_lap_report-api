@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Common.Excel
+﻿namespace Fanex.Athena.Report.Common.Excel.Interfaces
 {
     using NPOI.SS.UserModel;
 

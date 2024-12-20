@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.BySite.DTOs
 {
-    using System;
     using Newtonsoft.Json;
+    using System;
 
     public class AuditTicket
     {

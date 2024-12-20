@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Core.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class BetTypeHelper
     {

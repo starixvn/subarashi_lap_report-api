@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using Fanex.Athena.Report.Common.Model.DataDomain;
+﻿using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Core.Models;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
+using System;
+using System.Linq;
 
 namespace Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss
 {

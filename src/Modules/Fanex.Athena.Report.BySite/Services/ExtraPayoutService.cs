@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Services
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -13,6 +11,8 @@
     using Fanex.Athena.Report.Core.Models.DTOs;
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class ExtraPayoutService : IExtraPayoutService
     {
@@ -188,7 +188,7 @@
                     new()
                     { ID = ExtraPayoutMapType.PayoutSabaLoyaltyPointsExchange,
                         Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaLoyaltyPointsExchange)}", Checked = true },
-                    new() 
+                    new()
                     { ID = ExtraPayoutMapType.PayoutSabaRewardRiskFreeRebate,
                         Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaRewardRiskFreeRebate)}", Checked = true },
                     new()
@@ -239,10 +239,10 @@
                     new()
                     { ID = ExtraPayoutMapType.PayoutVgamingFreeBets,
                         Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
-                    new() 
-                    { 
+                    new()
+                    {
                         ID = ExtraPayoutMapType.PayoutVgamingPromotionPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true 
+                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
                     },
                     new()
                     { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize,

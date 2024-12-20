@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Core.Constants;
+﻿using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
+using System.Collections.Generic;
 
-namespace Fanex.Athena.Report.Core.Helpers
+namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class PlatformHelper
     {

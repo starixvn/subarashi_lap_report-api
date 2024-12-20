@@ -1,9 +1,10 @@
 ﻿namespace Fanex.Athena.Report.Common.Excel
 {
-    using System.IO;
+    using Fanex.Athena.Report.Common.Excel.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.IO;
 
     public class ExcelBuilder : IExcelBuilder
     {

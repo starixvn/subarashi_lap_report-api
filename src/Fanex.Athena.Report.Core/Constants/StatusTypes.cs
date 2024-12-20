@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Resources.Constants
+﻿namespace Fanex.Athena.Report.Core.Constants
 {
     public static class StatusTypes
     {

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.Common.Model.ViewModel
 {
-    using System.Collections.Generic;
     using Fanex.Athena.Report.Common.Extensions;
+    using System.Collections.Generic;
 
     public class SortableResultModel<T> : ResultModel<T>
     {

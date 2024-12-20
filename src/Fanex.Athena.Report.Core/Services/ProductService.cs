@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml.Linq;
-using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
@@ -13,6 +8,11 @@ using Fanex.Athena.Report.Resources.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using NPOI.SS.Formula.Functions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -118,8 +118,8 @@ namespace Fanex.Athena.Report.Core.Services
             var originalProducts = GetProductList(licenseeId);
             return originalProducts.Any(_ => _.ProductCode == Product.CO);
         }
-        
-        private static void MapProductName(IList<ProductInfo> productList) 
+
+        private static void MapProductName(IList<ProductInfo> productList)
             => productList.ToList().ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
 
     }

@@ -1,24 +1,21 @@
 ﻿
 namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
     using Fanex.Athena.Report.Core.Attributes;
     using Fanex.Athena.Report.Core.Constants;
     using Fanex.Athena.Report.Core.Models.DTOs;
     using Fanex.Athena.Report.Core.Services.Interfaces;
-    using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Athena.Report.Resources;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -35,7 +32,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             _service = service;
             _contextService = contextService;
         }
-        
+
         [HttpPost]
         [SkipRequestValidation]
         public IActionResult Index([FromServices] IBaseCurrencyService baseCurrencyService, [FromServices] IProductService productService, [FromServices] IContextService contextService)

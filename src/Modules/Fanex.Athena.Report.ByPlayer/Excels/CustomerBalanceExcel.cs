@@ -1,12 +1,5 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
     using Fanex.Athena.Report.ByPlayer.Extensions;
     using Fanex.Athena.Report.ByPlayer.MetaModels;
@@ -17,6 +10,13 @@
     using Fanex.Data;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Options;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class CustomerBalanceExcel : BaseExcel, ICustomerBalanceExcel
     {

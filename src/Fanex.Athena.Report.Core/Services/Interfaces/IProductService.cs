@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Core.Models.DTOs;
+﻿using Fanex.Athena.Report.Core.Models.DTOs;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {

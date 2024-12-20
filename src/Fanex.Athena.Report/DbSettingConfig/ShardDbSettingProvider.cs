@@ -1,7 +1,7 @@
-﻿using System.Data.SqlClient;
-using Fanex.Data;
+﻿using Fanex.Data;
+using System.Data.SqlClient;
 
-namespace Fanex.Athena.Report
+namespace Fanex.Athena.Report.DbSettingConfig
 {
     public class ShardDbSettingProvider : XmlDbSettingProvider
     {

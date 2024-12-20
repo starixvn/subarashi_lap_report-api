@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Helpers;
+﻿using Fanex.Athena.Report.Common.Helpers;
+using Fanex.Athena.Report.Common.Model.DataDomain;
+using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Core.Utils;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Fanex.Athena.Report.Common.Model.DataDomain;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {

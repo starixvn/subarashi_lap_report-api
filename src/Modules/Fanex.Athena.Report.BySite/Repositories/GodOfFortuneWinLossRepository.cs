@@ -1,19 +1,19 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Extensions;
+    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Helpers;
     using Fanex.Athena.Report.Core.Services.Interfaces;
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
 
     public class GodOfFortuneWinLossRepository : IGodOfFortuneWinLossRepository
     {

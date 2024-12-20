@@ -1,28 +1,29 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Excel;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Common.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Controllers
 {
-    [ApiController] [Route("api/[controller]/[action]")]
+    [ApiController]
+    [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.MatchWinLoss)]
     [RequestValidation(true)]
     [AutoBindingMetaModel(true)]
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 isEnableBA = _contextService.IsEnableBA
             });
         }
-#pragma warning disable S6605
+
         [HttpPost]
         public async Task<IActionResult> GetData([FromBody] MatchWinLossMetaModel metaModel)
         {
@@ -103,7 +104,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 GrandTotal = grandTotal
             });
         }
-#pragma warning disable S6605
+
         [HttpPost]
         public async Task<IActionResult> GetDetailData([FromBody] MatchWinLossMetaModel metaModel)
         {

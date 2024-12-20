@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
+﻿using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
 using Fanex.Athena.Report.BySite.MetaModels;
+using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Common.Excel;
+using Fanex.Athena.Report.Common.Excel.Interfaces;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Athena.Report.Resources;
 using Fanex.Common;
 using NPOI.SS.UserModel;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
 
 namespace Fanex.Athena.Report.BySite.Excels
 {
@@ -144,7 +144,8 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 var betType = Converter.ToInt(row["bettype"]);
                 var sport = Converter.ToInt(row["SportType"]);
-                row[NewProductIdColumnName] = ProductHelper.GetProductId(betType);
+                var productCode = row["ProductCode"].ToString();
+                row[NewProductIdColumnName] = ProductHelper.GetProductId(betType, productCode);
 
                 AssignMatchName(row, betType, sport);
                 AssignLeagueName(row, sport);
@@ -173,11 +174,11 @@ namespace Fanex.Athena.Report.BySite.Excels
                 }
                 else
                 {
-                    var homeName = _cacheRefAdapter.GetTeamName(row["homeid"]) +
+                    var homeName = _cacheRefAdapter.GetTeamName(row["homeid"], sport) +
                                (Converter.ToBool(row["isneutral"])
                                     ? " " + ViewResources.IsNeutral
                                     : string.Empty);
-                    var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
+                    var awayName = _cacheRefAdapter.GetTeamName(row["awayid"], sport);
                     row[MatchNameColumn] = homeName + "-vs-" + awayName;
                 }
             }

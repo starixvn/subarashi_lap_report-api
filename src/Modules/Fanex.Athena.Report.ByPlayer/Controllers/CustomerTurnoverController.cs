@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.Excels.Options;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Models;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Common.Settings;
@@ -19,6 +16,10 @@ using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
@@ -75,7 +76,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
 
         [HttpPost]
         [SkipRequestValidation]
-        public async Task<ActionResult> GetBettypesBySport([FromServices] IBetTypeService betTypeService, [FromBody]IList<SportProductItem> sportProducts)
+        public async Task<ActionResult> GetBettypesBySport([FromServices] IBetTypeService betTypeService, [FromBody] IList<SportProductItem> sportProducts)
         {
             if (sportProducts is null || !sportProducts.Any())
             {
@@ -88,7 +89,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetData([FromServices] ICustomerTurnoverService customerTurnoverService, [FromBody]CustomerTurnoverMetaModel metaModel)
+        public async Task<ActionResult> GetData([FromServices] ICustomerTurnoverService customerTurnoverService, [FromBody] CustomerTurnoverMetaModel metaModel)
         {
             metaModel.IsExportExcel = false;
             var result = await customerTurnoverService.GetDataList(metaModel, _contextService.CurrencyList, _contextService.Language).ConfigureAwait(false);

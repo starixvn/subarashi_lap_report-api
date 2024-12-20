@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.Exceptions;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Models.DTOs;
@@ -12,6 +7,12 @@ using Fanex.Athena.Report.Core.Utility.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Base.Controllers
 {
@@ -40,7 +41,7 @@ namespace Fanex.Athena.Report.Base.Controllers
             IContextService contextService,
             IBalanceUpService balanceUpService,
             IFileSystem fileSystem,
-            IWebHostEnvironment hostEnvironment, 
+            IWebHostEnvironment hostEnvironment,
             IProductService productService)
         {
             _contextService = contextService;

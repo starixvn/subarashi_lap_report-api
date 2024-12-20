@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Fanex.Athena.Report.Core.Helpers
+namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class SportHelper
     {
@@ -21,6 +21,10 @@ namespace Fanex.Athena.Report.Core.Helpers
         };
 
         public static bool IsVirtualBetRadarSports(int sportType) => VSBetRadarSportTypes.Contains(sportType);
+
+        public static bool IsLeague3rdSports(int sportType) => VSBetRadarSportTypes.Contains(sportType) || sportType == SportType.BetbyBasketball;
+
+        public static bool IsMatch3rdSports(int sportType) => sportType == SportType.BetbyBasketball;
 
         public static bool IsVSSportTypes(int sportType) => VSSportTypes.Contains(sportType);
     }

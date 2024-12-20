@@ -1,10 +1,10 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
+using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 
 namespace Fanex.Athena.Report.BySite.Services
 {

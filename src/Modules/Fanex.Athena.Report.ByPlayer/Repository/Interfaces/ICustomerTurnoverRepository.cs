@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.Common.Model.ViewModel;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Repository.Interfaces
 {

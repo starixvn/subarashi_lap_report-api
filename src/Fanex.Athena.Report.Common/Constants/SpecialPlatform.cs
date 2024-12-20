@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Core.Constants
+﻿namespace Fanex.Athena.Report.Common.Constants
 {
     public static class SpecialPlatform
     {

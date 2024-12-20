@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.BySite.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
 
 namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
 {

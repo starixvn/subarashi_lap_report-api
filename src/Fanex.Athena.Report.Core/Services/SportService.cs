@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Constants;
+﻿using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
@@ -11,6 +7,9 @@ using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources.Helpers;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -31,7 +30,7 @@ namespace Fanex.Athena.Report.Core.Services
             _memoryCache = memoryCache;
         }
 
-        public Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "") 
+        public Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
             => _sportRepository.GetSportsAndProducts(licenseeId, languageCode, productCodes);
 
         public async Task<IEnumerable<SportProductItem>> GetSportAndProductAndSabaSport(int licenseeId, string languageCode, bool isHideSaba, string productCodes = "")

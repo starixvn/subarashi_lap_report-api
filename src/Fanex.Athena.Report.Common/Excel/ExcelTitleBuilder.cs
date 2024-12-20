@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using System.Collections.Generic;
 using System.Linq;
-using Fanex.Athena.Report.Common.Model.DTO;
 
 namespace Fanex.Athena.Report.Common.Excel
 {

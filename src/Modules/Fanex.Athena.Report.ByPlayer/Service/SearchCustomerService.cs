@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
+﻿using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Core.Helpers;
 using Fanex.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Service
 {

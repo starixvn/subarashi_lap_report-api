@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Fanex.Athena.Report.BetList.MetaModels;
+﻿using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.Models;
 using Fanex.Athena.Report.BetList.Models.BetList;
 using Fanex.Athena.Report.Common.Services.Interfaces;
@@ -11,6 +10,7 @@ using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BetList.Controllers
 {
@@ -105,8 +105,8 @@ namespace Fanex.Athena.Report.BetList.Controllers
         private string GetMatchTitle(BetListMetaModel metaModel)
         {
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0 ?
-                _cacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " +
-                _cacheRefAdapter.GetTeamName(metaModel.AwayId) :
+                _cacheRefAdapter.GetTeamName(metaModel.HomeId, metaModel.SportType) + " vs " +
+                _cacheRefAdapter.GetTeamName(metaModel.AwayId, metaModel.SportType) :
                 string.Empty;
 
             var betTypeName = _cacheRefAdapter.GetBettype(metaModel.BetType);
@@ -342,7 +342,7 @@ namespace Fanex.Athena.Report.BetList.Controllers
 
         private string GetMatchName(LiveReportBetListMetaModel model) =>
             model.HomeId > 0 && model.AwayId > 0 ?
-                _cacheRefAdapter.GetTeamName(model.HomeId) + " vs " + _cacheRefAdapter.GetTeamName(model.AwayId) + " " :
+                _cacheRefAdapter.GetTeamName(model.HomeId, model.SportType) + " vs " + _cacheRefAdapter.GetTeamName(model.AwayId, model.SportType) + " " :
                 string.Empty;
 
         private async Task<string> GetData(LiveReportBetListMetaModel metaModel)

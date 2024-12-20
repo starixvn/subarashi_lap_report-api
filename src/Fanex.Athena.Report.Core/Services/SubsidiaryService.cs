@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Models.DTOs;
+using Fanex.Athena.Report.Core.Services.Interfaces;
+using Fanex.Athena.Report.Resources;
+using Fanex.Data;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Data;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -172,9 +172,9 @@ namespace Fanex.Athena.Report.Core.Services
     internal class SubsidiaryAgent
     {
         internal int AgentId { get; set; }
-        
+
         internal int CurrencyId { get; set; }
-        
+
         internal string OperatorId { get; set; }
 
     }

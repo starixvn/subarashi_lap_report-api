@@ -1,10 +1,5 @@
 ﻿namespace Fanex.Athena.Report
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.ByPlayer;
     using Fanex.Athena.Report.BySite;
     using Fanex.Athena.Report.Common;
@@ -15,6 +10,7 @@
     using Fanex.Athena.Report.Core.Middleware;
     using Fanex.Athena.Report.Core.ModelBinding;
     using Fanex.Athena.Report.Core.Services;
+    using Fanex.Athena.Report.DbSettingConfig;
     using Fanex.Data;
     using Fanex.Data.SqlServer;
     using Fanex.RemotingRef;
@@ -30,6 +26,11 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Hosting;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class Startup
     {
@@ -134,7 +135,7 @@
             {
                 app.UseErrorHandler();
             }
-            else 
+            else
             {
                 app.UseDeveloperExceptionPage(); //NOSONAR not used in secure context
             }

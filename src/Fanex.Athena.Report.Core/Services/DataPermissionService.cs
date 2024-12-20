@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.Attributes;
+using Fanex.Athena.Report.Core.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Services.Interfaces;
 
 namespace Fanex.Athena.Report.Core.Services
 {

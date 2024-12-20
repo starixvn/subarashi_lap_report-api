@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.Core.Constants;
+﻿using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Resources;
-using System.Collections.Generic;
-using System;
 using Fanex.Athena.Report.Resources.Constants;
+using System;
+using System.Collections.Generic;
 
-namespace Fanex.Athena.Report.Core.Helpers
+namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class ProductHelper
     {
-        public static int GetProductId(int bettype)
+        public static int GetProductId(int bettype, string productCode)
         {
             if (BetTypeHelper.IsNumberGame(bettype) ||
                 BetTypeHelper.IsNumberGameHappy5(bettype))
@@ -16,7 +16,7 @@ namespace Fanex.Athena.Report.Core.Helpers
                 return ProductTypes.NumberGame;
             }
 
-            if (BetTypeHelper.IsVirtualSports(bettype) || BetTypeHelper.IsVirtualSports2(bettype))
+            if (BetTypeHelper.IsVirtualSports(bettype) || BetTypeHelper.IsVirtualSports2(bettype) || productCode == Product.VS)
             {
                 return ProductTypes.VirtualSports;
             }

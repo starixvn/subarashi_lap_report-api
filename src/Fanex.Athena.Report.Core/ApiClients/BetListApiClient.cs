@@ -1,9 +1,9 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
+﻿using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.ApiClients
 {

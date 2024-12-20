@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -9,8 +6,11 @@ using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources;
+using Fanex.Athena.Report.Resources.Constants;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Report.BySite.Services
                     break;
 
                 default:
-                    matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId), _cacheRefAdapter.GetTeamName(data.AwayId));
+                    matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId, data.SportId), _cacheRefAdapter.GetTeamName(data.AwayId, data.SportId));
                     break;
             }
 

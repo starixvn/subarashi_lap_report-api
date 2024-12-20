@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.IO.Compression;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Fanex.Athena.Report.Core.Attributes
 {

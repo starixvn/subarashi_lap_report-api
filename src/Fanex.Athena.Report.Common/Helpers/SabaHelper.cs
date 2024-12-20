@@ -1,8 +1,8 @@
-﻿using System.Text.RegularExpressions;
-using Fanex.Athena.Report.Core.Constants;
+﻿using Fanex.Athena.Report.Common.Constants;
 using Fanex.Athena.Report.Resources;
+using System.Text.RegularExpressions;
 
-namespace Fanex.Athena.Report.Core.Helpers
+namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class SabaHelper
     {

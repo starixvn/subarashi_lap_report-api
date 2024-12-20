@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Fanex.Athena.Report.Core.Models.DTOs;
 using System.Collections.Generic;
-using Fanex.Athena.Report.Core.Models.DTOs;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {

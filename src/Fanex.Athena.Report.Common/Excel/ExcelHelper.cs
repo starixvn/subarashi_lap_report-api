@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
+﻿using Fanex.Athena.Report.Common.Excel.Interfaces;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Resources;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Fanex.Athena.Report.Common.Excel
 {

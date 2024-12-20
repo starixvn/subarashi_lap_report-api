@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.ApiClients;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Repositories;
@@ -12,6 +9,9 @@ using Fanex.Athena.Report.Core.Utility;
 using Fanex.Athena.Report.Core.Utility.Interfaces;
 using Fanex.Core.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net;
+using System.Net.Http;
 
 namespace Fanex.Athena.Report.Core
 {

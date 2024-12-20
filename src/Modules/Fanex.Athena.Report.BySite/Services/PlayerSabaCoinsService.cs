@@ -1,11 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -13,8 +7,11 @@
     using Fanex.Athena.Report.Common.Extensions;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Core.Extensions;
-    using NPOI.HSSF.Record.Chart;
-    using NPOI.SS.Formula.Functions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     public class PlayerSabaCoinsService : IPlayerSabaCoinsService
     {

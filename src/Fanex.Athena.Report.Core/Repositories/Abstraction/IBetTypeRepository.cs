@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.Core.Models.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Models.DTOs;
 
 namespace Fanex.Athena.Report.Core.Repositories.Abstraction
 {

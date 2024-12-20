@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.StatelessCore.Enum
+﻿namespace Fanex.Athena.Report.Core.Enums
 {
     public enum MediaType : byte
     {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Resources.Constants;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Resources.Constants;
 
 namespace Fanex.Athena.Report.Core.Models.DTOs
 {
@@ -24,19 +24,21 @@ namespace Fanex.Athena.Report.Core.Models.DTOs
             return ProductList
                   .Where(predicate)
                   .Select(i => new ProductOption
-                   {
-                       Code = i.ProductCode,
-                       Name = i.ProductName,
-                       Status = true
-                   })
+                  {
+                      Code = i.ProductCode,
+                      Name = i.ProductName,
+                      Status = true
+                  })
                   .ToList();
         }
 
-        public bool IsAllowNg {
+        public bool IsAllowNg
+        {
             get { return ProductList.Any(p => p.ProductCode == Product.NG); }
         }
 
-        public bool IsAllowVs {
+        public bool IsAllowVs
+        {
             get { return ProductList.Any(p => p.ProductCode == Product.VS); }
         }
 

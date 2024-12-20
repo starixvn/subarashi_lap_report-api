@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BetList.MetaModels;
+﻿using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.Models.BetList;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BetList.Controllers
 {

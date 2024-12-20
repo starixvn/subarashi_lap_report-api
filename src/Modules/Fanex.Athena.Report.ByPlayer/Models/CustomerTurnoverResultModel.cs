@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.ByPlayer.Models
 {

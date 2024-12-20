@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.Services.Interfaces;
+using Fanex.Core.Utils;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Core.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Fanex.Athena.Report.Core.Attributes
 {

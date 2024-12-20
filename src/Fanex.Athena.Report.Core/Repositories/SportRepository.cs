@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Extensions;
+﻿using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.Resources.Helpers;
 using Fanex.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Repositories
 {

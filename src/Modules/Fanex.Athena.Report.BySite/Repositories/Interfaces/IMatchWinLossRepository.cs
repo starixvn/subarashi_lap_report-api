@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.BySite.DTOs;
+using Fanex.Athena.Report.BySite.MetaModels;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
 
 namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
 {

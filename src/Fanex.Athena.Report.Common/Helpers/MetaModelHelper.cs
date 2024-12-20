@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Fanex.Athena.Report.Common.Model.DTO;
 
-namespace Fanex.Athena.Report.Core.Helpers
+namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class MetaModelHelper
     {

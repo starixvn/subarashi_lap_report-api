@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.StatelessCore.Enum;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Core.Enums;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         public bool IsSuperAdmin { get; }
 
         public int SpecialPlatformType { get; }
-        
+
         int WhiteLabelID { get; }
 
         string DefaultBaseCurrency { get; }

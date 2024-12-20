@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
@@ -14,6 +11,9 @@ using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Controllers
 {

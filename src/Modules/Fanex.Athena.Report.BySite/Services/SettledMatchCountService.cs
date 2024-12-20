@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -9,6 +6,9 @@ using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Resources.Constants;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
@@ -47,35 +47,35 @@ namespace Fanex.Athena.Report.BySite.Services
         {
             var resultList = dtoData.Where(x => x.IsToday == 0)
                                     .Select(i => new SettledMatchCountResultModel
-                                     {
-                                         SportName = _cacheRefAdapter.GetSportName(i.SportType),
-                                         YesterdayEntered = i.Entered,
-                                         YesterdayNonEntered = i.NonEntered,
-                                         TodayEntered =
+                                    {
+                                        SportName = _cacheRefAdapter.GetSportName(i.SportType),
+                                        YesterdayEntered = i.Entered,
+                                        YesterdayNonEntered = i.NonEntered,
+                                        TodayEntered =
                                              dtoData.Where(g => g.IsToday == 1 && g.SportType == i.SportType)
                                                     .Select(j => j.Entered)
                                                     .FirstOrDefault(),
-                                         TodayNonEntered =
+                                        TodayNonEntered =
                                              dtoData.Where(g => g.IsToday == 1 && g.SportType == i.SportType)
                                                     .Select(j => j.NonEntered)
                                                     .FirstOrDefault()
-                                     }).ToList();
+                                    }).ToList();
 
             var otherResultList = dtoData.Where(x => x.IsToday == 1)
                                          .Select(i => new SettledMatchCountResultModel
-                                          {
-                                              SportName = _cacheRefAdapter.GetSportName(i.SportType),
-                                              TodayEntered = i.Entered,
-                                              TodayNonEntered = i.NonEntered,
-                                              YesterdayEntered =
+                                         {
+                                             SportName = _cacheRefAdapter.GetSportName(i.SportType),
+                                             TodayEntered = i.Entered,
+                                             TodayNonEntered = i.NonEntered,
+                                             YesterdayEntered =
                                                   dtoData.Where(g => g.IsToday == 0 && g.SportType == i.SportType)
                                                          .Select(j => j.Entered)
                                                          .FirstOrDefault(),
-                                              YesterdayNonEntered =
+                                             YesterdayNonEntered =
                                                   dtoData.Where(g => g.IsToday == 0 && g.SportType == i.SportType)
                                                          .Select(j => j.NonEntered)
                                                          .FirstOrDefault()
-                                          }).ToList();
+                                         }).ToList();
 
             resultList.AddRange(otherResultList.Where(item => resultList.TrueForAll(x => x.SportName != item.SportName)));
             return resultList;

@@ -8,11 +8,11 @@ namespace Fanex.Athena.Report.Common.Services.Interfaces
 
         string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2);
 
-        string GetLeagueName(object leagueId);
+        string GetLeagueName(object leagueId, int sportId = 0, string langCode = null);
 
         string GetMatchName(object homeId, object awayId, bool IsNeutral = false);
 
-        string GetTeamName(object teamId);
+        string GetTeamName(object teamId, int sportId = 0);
 
         string GetLeagueName3rd(object leagueId);
 

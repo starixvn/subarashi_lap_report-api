@@ -1,10 +1,9 @@
-﻿using System;
-using System.Globalization;
+﻿using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Core.Models;
 using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
+using System;
+using System.Globalization;
 
 namespace Fanex.Athena.Report.BetList.MetaModels
 {
@@ -122,6 +121,8 @@ namespace Fanex.Athena.Report.BetList.MetaModels
         public bool IsNeutral { get; set; }
 
         public DateTime KickOffTime { get; set; }
+
+        public int EventType { get; set; }
 
         public bool IsValid => FromDate <= ToDate;
 

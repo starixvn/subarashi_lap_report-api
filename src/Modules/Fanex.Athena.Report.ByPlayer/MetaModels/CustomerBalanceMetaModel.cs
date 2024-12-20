@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Fanex.Athena.Report.Common.Model.DTO;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Model.MetaModels;
 using Fanex.Core.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {

@@ -26,7 +26,7 @@
 
         public const string AGC = "AGC";
 
-        public const string SBC  = "SBC";
+        public const string SBC = "SBC";
 
         public const string SPR = "SPR";
 

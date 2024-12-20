@@ -1,11 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Enums;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -13,20 +7,26 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
+    using Fanex.Athena.Report.Common.Constants;
     using Fanex.Athena.Report.Common.Excel;
+    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.MetaModels;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Core.Attributes;
     using Fanex.Athena.Report.Core.Constants;
-    using Fanex.Athena.Report.Core.Helpers;
     using Fanex.Athena.Report.Core.Models.DTOs;
     using Fanex.Athena.Report.Core.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Options;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
     [ApiController]
@@ -59,9 +59,9 @@
            IFileProvider fileProvider,
            IContextService contextService,
            ICompressService compressService,
-           IOptions<ExcelOptions> options, 
+           IOptions<ExcelOptions> options,
            ISubsidiaryService subsidiaryService,
-           IProductService productService, 
+           IProductService productService,
            IBaseCurrencyService baseCurrencyService, ICustomerClassService customerClassService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
@@ -278,6 +278,6 @@
 
         private static IEnumerable<KeyValuePair<int, string>> GetHourList()
             => Enumerable.Range(0, MAX_HOUR).ToDictionary(_ => _, _ => $"{_:00}:00 - {_:00}:59");
-        
+
     }
 }

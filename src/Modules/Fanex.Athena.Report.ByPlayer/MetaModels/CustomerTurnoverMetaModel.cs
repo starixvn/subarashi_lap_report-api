@@ -1,7 +1,7 @@
-﻿using System;
-using Fanex.Athena.Report.Core.Helpers;
+﻿using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Core.Utils;
+using System;
 
 namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
@@ -48,8 +48,10 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
 
         public int CurrencyId { get; set; }
 
-        public bool IsValid {
-            get {
+        public bool IsValid
+        {
+            get
+            {
                 /*Only suport filter by all customer for sungame1 licensee (licenseeId=8).*/
                 var isShow = ShowWin || ShowLoss || ShowDraw;
 
