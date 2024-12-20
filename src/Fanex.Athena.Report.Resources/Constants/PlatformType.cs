@@ -42,6 +42,8 @@
 
         public const int DesktopCompact = 19;
 
+        public const int QuickBetWidget = 20;
+
         public const int BetfromOthers = 88;
 
         // Jollysports

@@ -669,4 +669,7 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>依注单结算时间搜寻</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>快捷投注元件</value>
+  </data>
 </root>
