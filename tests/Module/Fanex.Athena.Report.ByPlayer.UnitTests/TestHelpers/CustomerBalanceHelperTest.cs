@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
+using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Data;
+using Moq;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Data;
-using Moq;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {

@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Resources.Constants;
+using System.Linq;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Models

@@ -1,9 +1,9 @@
-﻿using System.Data;
-using System.Data.Common;
-using Fanex.Athena.Report.Core.Models.DTOs;
+﻿using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories;
 using Fanex.Data;
 using Moq;
+using System.Data;
+using System.Data.Common;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
@@ -28,7 +28,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
                .Run();
 
             _objectDb = new Mock<IObjectDb>();
-            _reader = new Mock<IDataReader>();        
+            _reader = new Mock<IDataReader>();
 
         }
 
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 
             // Action
             var result = repository.GetProductAccessList(LicenseeId);
-            
+
 
             // Assert
             Assert.Equal(0, result[0].ProductID);

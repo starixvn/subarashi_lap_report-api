@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Base.Controllers;
+﻿using Fanex.Athena.Report.Base.Controllers;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.Base.UnitTests.Controllers
@@ -47,9 +47,9 @@ namespace Fanex.Athena.Report.Base.UnitTests.Controllers
             // arrange
             var productCode = FakeHelper.Create<string>();
             var parent = new SportProductItem
-                { ParentId = -1, Id = FakeHelper.Create<int>(), Name = FakeHelper.Create<string>(), };
+            { ParentId = -1, Id = FakeHelper.Create<int>(), Name = FakeHelper.Create<string>(), };
             var child = new SportProductItem
-                { ParentId = parent.Id, Id = FakeHelper.Create<int>(), Name = FakeHelper.Create<string>(), };
+            { ParentId = parent.Id, Id = FakeHelper.Create<int>(), Name = FakeHelper.Create<string>(), };
 
             _sportService.Setup(x => x.GetSportsAndProducts(
                 _contextService.Object.LicenseeId,

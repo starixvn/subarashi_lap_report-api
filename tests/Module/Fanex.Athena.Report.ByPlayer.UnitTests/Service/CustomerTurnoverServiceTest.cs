@@ -1,13 +1,13 @@
 ﻿using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
+using Fanex.Athena.Report.ByPlayer.Service;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.Helpers;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Service;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service

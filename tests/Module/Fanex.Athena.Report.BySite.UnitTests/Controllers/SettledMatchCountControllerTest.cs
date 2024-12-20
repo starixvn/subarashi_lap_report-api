@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.Controllers;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
@@ -10,6 +7,9 @@ using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers

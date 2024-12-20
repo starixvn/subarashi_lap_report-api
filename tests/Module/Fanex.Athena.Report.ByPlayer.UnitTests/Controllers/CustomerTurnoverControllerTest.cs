@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Controllers;
+﻿using Fanex.Athena.Report.ByPlayer.Controllers;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Athena.Report.ByPlayer.Models;
@@ -13,6 +10,9 @@ using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers

@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.ApiClients.Abstraction;
+using Fanex.Athena.Report.Core.Exceptions;
+using Fanex.Athena.Report.UnitTests.Common;
+using Microsoft.AspNetCore.Http;
+using Moq;
+using Moq.Protected;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,13 +13,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
-using Fanex.Athena.Report.Core.Exceptions;
-using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.AspNetCore.Http;
-using Moq;
-using Moq.Protected;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.ApiClients.Abstraction
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.ApiClients.Abstraction
             const string FakeContent = "ANY";
 
             using var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-                { Content = new StringContent(FakeContent), };
+            { Content = new StringContent(FakeContent), };
 
             _httpMessageHandler.Protected()
                                .Setup<Task<HttpResponseMessage>>(
@@ -72,7 +72,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.ApiClients.Abstraction
             var expectedContent = JsonConvert.SerializeObject(expected);
 
             using var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-                { Content = new StringContent(expectedContent), };
+            { Content = new StringContent(expectedContent), };
 
             _httpMessageHandler.Protected()
                                .Setup<Task<HttpResponseMessage>>(
@@ -104,7 +104,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.ApiClients.Abstraction
             const string FakeContent = "ANY";
 
             using var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-                { Content = new StringContent(FakeContent), };
+            { Content = new StringContent(FakeContent), };
 
             _httpMessageHandler.Protected()
                                .Setup<Task<HttpResponseMessage>>(

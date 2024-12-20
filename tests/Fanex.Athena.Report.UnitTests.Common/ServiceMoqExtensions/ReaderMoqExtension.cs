@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Moq;
+using System.Collections.Generic;
 using System.Data;
-using Moq;
 
 namespace Fanex.Athena.Report.UnitTests.Common.ServiceMoqExtensions
 {

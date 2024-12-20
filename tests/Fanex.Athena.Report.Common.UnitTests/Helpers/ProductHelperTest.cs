@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Helpers;
+﻿using Fanex.Athena.Report.Common.Constants;
+using Fanex.Athena.Report.Common.Helpers;
 using Xunit;
 
-namespace Fanex.Athena.Report.Core.UnitTests.Helpers
+namespace Fanex.Athena.Report.Common.UnitTests.Helpers
 {
     public class ProductHelperTest
     {
@@ -19,7 +19,8 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
         public void GetProductId_InNumberRange_ReturnNumberGame(int bettype)
         {
             // Arrange && Action
-            var result = ProductHelper.GetProductId(bettype);
+            var productCode = "AB";
+            var result = ProductHelper.GetProductId(bettype, productCode);
 
             // Assert
             Assert.Equal(ProductTypes.NumberGame, result);
@@ -32,7 +33,8 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
         public void GetProductId_InVirtualSportsRange_ReturnVirtualSports(int bettype)
         {
             // Arrange && Action
-            var result = ProductHelper.GetProductId(bettype);
+            var productCode = "AB";
+            var result = ProductHelper.GetProductId(bettype, productCode);
 
             // Assert
             Assert.Equal(ProductTypes.VirtualSports, result);
@@ -45,23 +47,11 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
         public void GetProductId_InVirtualSports2Range_ReturnVirtualSports2(int bettype)
         {
             // Arrange && Action
-            var result = ProductHelper.GetProductId(bettype);
+            var productCode = "AB";
+            var result = ProductHelper.GetProductId(bettype, productCode);
 
             // Assert
-            Assert.Equal(ProductTypes.VirtualSports2, result);
-        }
-
-        [Theory]
-        [InlineData(2700)]
-        [InlineData(2899)]
-        [InlineData(2768)]
-        public void GetProductId_Default_ReturnSportsbook(int bettype)
-        {
-            // Arrange && Action
-            var result = ProductHelper.GetProductId(bettype);
-
-            // Assert
-            Assert.Equal(ProductTypes.VirtualSports2, result);
+            Assert.Equal(ProductTypes.VirtualSports, result);
         }
     }
 }

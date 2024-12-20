@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.Controllers;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -10,6 +9,7 @@ using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers

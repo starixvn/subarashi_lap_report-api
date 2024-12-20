@@ -2,7 +2,6 @@
 using Fanex.Athena.Report.Core.Services;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.AspNetCore.Authorization;
 using Moq;
 using Xunit;
 

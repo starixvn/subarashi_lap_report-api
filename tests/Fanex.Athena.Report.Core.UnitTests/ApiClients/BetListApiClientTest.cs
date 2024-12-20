@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.ApiClients;
+using Fanex.Athena.Report.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Moq;
+using Moq.Protected;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.ApiClients;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Moq;
-using Moq.Protected;
 using Xunit;
-using static ServiceStack.Diagnostics.Events;
 using HttpClient = System.Net.Http.HttpClient;
 
 namespace Fanex.Athena.Report.Core.UnitTests.ApiClients
@@ -47,7 +46,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.ApiClients
             var expectedContent = Encoding.UTF8.GetBytes(Expected);
 
             using var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-                { Content = new ByteArrayContent(expectedContent), };
+            { Content = new ByteArrayContent(expectedContent), };
 
             _httpMessageHandler.Protected()
                                .Setup<Task<HttpResponseMessage>>(

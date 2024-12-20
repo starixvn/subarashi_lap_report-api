@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Linq;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Services
@@ -63,7 +63,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             var expectedResult = FakeHelper.CreateMany<ProductInfo>(10).ToList();
 
             _productRepository.Setup(x => x.GetProductAccessList(_licenseeId)).Returns(expectedResult);
-            _memoryCache.Set(CacheKey + _licenseeId + _languageCode, expectedResult);
+            _memoryCache.Set(CacheKey + _licenseeId, expectedResult);
 
             var service = GetService();
 

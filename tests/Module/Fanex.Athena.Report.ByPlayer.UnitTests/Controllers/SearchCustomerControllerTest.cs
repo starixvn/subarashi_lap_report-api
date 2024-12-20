@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Controllers;
+﻿using Fanex.Athena.Report.ByPlayer.Controllers;
 using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers

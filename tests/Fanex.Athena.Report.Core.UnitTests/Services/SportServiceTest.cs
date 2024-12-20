@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Services.Interfaces;
+﻿using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Services

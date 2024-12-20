@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.Controllers;
+﻿using Fanex.Athena.Report.BySite.Controllers;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
@@ -19,6 +15,10 @@ using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
@@ -274,7 +274,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Arrange
             var metaModel = FakeHelper.Create<MatchWinLossMetaModel>();
             metaModel.CurrencyId = -999;
-            _contextService.Setup(x => x.CurrencyList).Returns(new Dictionary<int, string> {{ metaModel.CurrencyId , "Any"} });
+            _contextService.Setup(x => x.CurrencyList).Returns(new Dictionary<int, string> { { metaModel.CurrencyId, "Any" } });
             _productService
                .Setup(x => x.GetSingleWalletProductAccess(It.IsAny<int>(), It.IsAny<string>()))
                .Returns(FakeHelper.Create<ProductAccess>());

@@ -1,23 +1,22 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
+﻿using Fanex.Athena.Report.BySite.DTOs;
+using Fanex.Athena.Report.BySite.MetaModels;
+using Fanex.Athena.Report.BySite.Repositories;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using System.Data.Common;
-using System.Threading;
-using Xunit;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.Resources;
-using Moq;
-using System.Data;
-using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Models.DTOs;
+using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.UnitTests.Common;
+using Fanex.Data;
+using Moq;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
@@ -168,7 +167,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
             _reader.SetupSequence(x => x.NextResult()).Returns(true);
-            
+
             _reader.Setup(x => x["SportType"]).Returns(sportType);
             _reader.Setup(x => x["Turnover"]).Returns(100);
             _reader.Setup(x => x["Winlost"]).Returns(200);
@@ -363,6 +362,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _reader.Setup(x => x["PlayerComm"]).Returns(expected.CustomerComm);
             _reader.Setup(x => x["Comm"]).Returns(expected.LicenseeComm);
             _reader.Setup(x => x["LicenseeWL"]).Returns(expected.LicenseeWinLoss);
+            _reader.Setup(x => x["EventType"]).Returns(expected.EventType);
+            _reader.Setup(x => x["VendorMatchId"]).Returns(expected.VendorMatchId);
+            _reader.Setup(x => x["Distance"]).Returns(expected.Distance);
 
             var repository = CreateRepository();
 
@@ -379,6 +381,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             Assert.Equal(expected.CustomerComm, result[0].CustomerComm);
             Assert.Equal(expected.LicenseeComm, result[0].LicenseeComm);
             Assert.Equal(expected.LicenseeWinLoss, result[0].LicenseeWinLoss);
+            Assert.Equal(expected.EventType, result[0].EventType);
+            Assert.Equal(expected.VendorMatchId, result[0].VendorMatchId);
+            Assert.Equal(expected.Distance, result[0].Distance);
         }
 
         private void AssignCommonReaderValues(LiveReport item)

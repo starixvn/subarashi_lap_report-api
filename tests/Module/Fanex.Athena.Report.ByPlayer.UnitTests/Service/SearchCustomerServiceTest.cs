@@ -1,10 +1,7 @@
-﻿using Fanex.Athena.Report.Common.Services.Interfaces;
+﻿using Fanex.Athena.Report.ByPlayer.Service;
 using Fanex.Data;
-using Microsoft.AspNetCore.Routing;
 using Moq;
-using System.Data;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Service;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
@@ -43,7 +40,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
             _objectDb.Verify(db => db.SetParameterValue("IsIncludeDormant", isIncludeDormant), Times.Once);
         }
 
-        private SearchCustomerService CreateService() {
+        private SearchCustomerService CreateService()
+        {
             SetupObjectDb();
 
             return new SearchCustomerService();

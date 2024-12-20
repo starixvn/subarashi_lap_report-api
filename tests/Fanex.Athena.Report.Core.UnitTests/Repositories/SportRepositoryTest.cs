@@ -1,12 +1,12 @@
-﻿using System.Data;
-using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Services.Interfaces;
+﻿using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Repositories;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Data;
 using Moq;
+using System.Data;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories

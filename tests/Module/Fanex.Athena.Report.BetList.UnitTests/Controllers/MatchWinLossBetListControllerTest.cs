@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BetList.Controllers;
+﻿using Fanex.Athena.Report.BetList.Controllers;
 using Fanex.Athena.Report.BetList.MetaModels;
 using Fanex.Athena.Report.BetList.MetaModels.MatchWinLoss;
 using Fanex.Athena.Report.BetList.Models.BetList;
@@ -13,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BetList.UnitTests.Controllers

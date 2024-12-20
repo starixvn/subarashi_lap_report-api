@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using NPOI.SS.UserModel;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {

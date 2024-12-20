@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.Controllers;
+﻿using Fanex.Athena.Report.BySite.Controllers;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
@@ -12,6 +9,9 @@ using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.Extensions.FileProviders;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers

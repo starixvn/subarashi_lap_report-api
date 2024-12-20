@@ -1,13 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Model.DTO;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services;
 using Fanex.Data;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Services

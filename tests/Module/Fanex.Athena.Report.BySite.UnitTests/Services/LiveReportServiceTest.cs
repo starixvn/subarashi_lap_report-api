@@ -1,20 +1,17 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
+using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.AspNetCore.Routing;
+using Moq;
 using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Moq;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Services
@@ -78,7 +75,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             Assert.Empty(result.DataBySport);
             Assert.Empty(result.DataByCurrency);
             Assert.Empty(result.DataByBetType);
-            
+
             _repository.Verify(x => x.GetDetailBySport(metaModel), Times.Never);
             _repository.Verify(x => x.GetDetailByCurrencyAndBettype(metaModel, _currencyList, products), Times.Never);
         }

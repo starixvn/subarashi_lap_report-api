@@ -1,15 +1,15 @@
 ﻿using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Repositories;
+using Fanex.Athena.Report.Resources.Constants;
+using Fanex.Athena.Report.UnitTests.Common;
 using Fanex.Data;
-using System.Threading.Tasks;
 using Moq;
-using Xunit;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using Fanex.Athena.Report.Core.Repositories;
-using Fanex.Athena.Report.UnitTests.Common;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
