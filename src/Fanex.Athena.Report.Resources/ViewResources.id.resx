@@ -918,6 +918,21 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>Waktu Penyelesaian</value>
   </data>
+  <data name="KN" xml:space="preserve">
+    <value>RNG Keno</value>
+  </data>
+  <data name="Sportsbook" xml:space="preserve">
+    <value>Sportsbook</value>
+  </data>
+  <data name="Handicap" xml:space="preserve">
+    <value>Handicap</value>
+  </data>
+  <data name="HandicapOverUnderLive" xml:space="preserve">
+    <value>Handicap/Over Under/Live</value>
+  </data>
+  <data name="OverUnder" xml:space="preserve">
+    <value>Besar/Kecil</value>
+  </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>Widget Taruhan Cepat</value>
   </data>

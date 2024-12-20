@@ -1070,6 +1070,18 @@
   <data name="ProductGPILC" xml:space="preserve">
     <value>GPI Live Casino</value>
   </data>
+  <data name="Handicap" xml:space="preserve">
+    <value>Handicap</value>
+  </data>
+  <data name="HandicapOverUnderLive" xml:space="preserve">
+    <value>Handicap/Over Under/Live</value>
+  </data>
+  <data name="OverUnder" xml:space="preserve">
+    <value>Over/Under</value>
+  </data>
+  <data name="VirtualCockFighting" xml:space="preserve">
+    <value>Virtual Cock Fighting</value>
+  </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>Quick Bet Widget</value>
   </data>

@@ -24,7 +24,7 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         [Required]
         public int SportId { get; set; }
 
-        public bool IsConvert { get; set; }
+        public bool IsConvert => SystemConstants.BaseCurrencyList.Any(x => x.Value.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase));
 
         public string AgentListXml { get; set; }
 

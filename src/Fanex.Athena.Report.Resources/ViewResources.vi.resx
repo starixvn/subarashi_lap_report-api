@@ -978,6 +978,15 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>Thời Gian Tất Toán</value>
   </data>
+  <data name="Handicap" xml:space="preserve">
+    <value>Cược chấp</value>
+  </data>
+  <data name="HandicapOverUnderLive" xml:space="preserve">
+    <value>Cược chấp/Tài Xỉu/Trực tiếp</value>
+  </data>
+  <data name="OverUnder" xml:space="preserve">
+    <value>Tài/Xỉu</value>
+  </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>Công cụ đặt cược nhanh</value>
   </data>

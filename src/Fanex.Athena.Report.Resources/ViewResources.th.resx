@@ -951,6 +951,21 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>เวลาการชำระเงิน</value>
   </data>
+  <data name="KN" xml:space="preserve">
+    <value>RNG Keno</value>
+  </data>
+  <data name="Sportsbook" xml:space="preserve">
+    <value>สปอร์ตบุ๊ค</value>
+  </data>
+  <data name="Handicap" xml:space="preserve">
+    <value>แฮนดิแคป</value>
+  </data>
+  <data name="HandicapOverUnderLive" xml:space="preserve">
+    <value>แฮนดิแคป/สูงต่ำ/แทงบอลสด</value>
+  </data>
+  <data name="OverUnder" xml:space="preserve">
+    <value>มากกว่า/น้อยกว่า</value>
+  </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>วิดเจ็ตเดิมพันด่วน</value>
   </data>

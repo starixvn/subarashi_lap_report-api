@@ -925,6 +925,24 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handicap.
+        /// </summary>
+        public static string Handicap {
+            get {
+                return ResourceManager.GetString("Handicap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handicap/Over Under/Live.
+        /// </summary>
+        public static string HandicapOverUnderLive {
+            get {
+                return ResourceManager.GetString("HandicapOverUnderLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Habanero.
         /// </summary>
         public static string HB {
@@ -1425,6 +1443,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Over {
             get {
                 return ResourceManager.GetString("Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Over/Under.
+        /// </summary>
+        public static string OverUnder {
+            get {
+                return ResourceManager.GetString("OverUnder", resourceCulture);
             }
         }
         
@@ -2622,6 +2649,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string VirtualBasketball {
             get {
                 return ResourceManager.GetString("VirtualBasketball", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Cock Fighting.
+        /// </summary>
+        public static string VirtualCockFighting {
+            get {
+                return ResourceManager.GetString("VirtualCockFighting", resourceCulture);
             }
         }
         

@@ -49,6 +49,7 @@ namespace Fanex.Athena.Report.Common.Helpers
                 { "VS184", nameof(ViewResources.VirtualMotoRacing) },
                 { "VS185", nameof(ViewResources.VirtualCycling) },
                 { "VS186", nameof(ViewResources.VirtualTennis) },
+                { "VS188", nameof(ViewResources.VirtualCockFighting) },
                 { Product.CS, nameof(ViewResources.ProductCS) },
                 { Product.KN, nameof(ViewResources.ProductKN) },
                 { Product.VB, nameof(ViewResources.ProductVB) },
