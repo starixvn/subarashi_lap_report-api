@@ -696,4 +696,7 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>Waktu Penyelesaian</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>Widget Taruhan Cepat</value>
+  </data>
 </root>

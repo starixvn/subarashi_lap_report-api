@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Report.Resources.Helpers
 {
-    using Fanex.Athena.Report.Resources.Constants;
+    using Constants;
 
     public static class DataHelper
     {
@@ -28,6 +28,7 @@
                 case PlatformType.Tablet: return ViewResources.Tablet;
                 case PlatformType.DeepLink: return ViewResources.DeepLink;
                 case PlatformType.WAP: return ViewResources.Wap;
+                case PlatformType.QuickBetWidget: return ViewResources.QuickBetWidget;
                 case PlatformType.ChatRoom: return ViewResources.ChatRoom;
                 case PlatformType.DesktopCompact: return ViewResources.DesktopCompact;
                 case PlatformType.BetfromOthers: return ViewResources.BetfromOthers;

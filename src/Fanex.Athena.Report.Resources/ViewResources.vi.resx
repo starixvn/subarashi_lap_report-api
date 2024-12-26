@@ -744,4 +744,7 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>Thời Gian Tất Toán</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>Công cụ đặt cược nhanh</value>
+  </data>
 </root>
