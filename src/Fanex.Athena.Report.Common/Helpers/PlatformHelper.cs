@@ -2,6 +2,7 @@
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fanex.Athena.Report.Common.Helpers
 {
@@ -27,6 +28,7 @@ namespace Fanex.Athena.Report.Common.Helpers
             { PlatformType.Tablet, ViewResources.Tablet },
             { PlatformType.DeepLink, ViewResources.DeepLink },
             { PlatformType.WAP, ViewResources.Wap },
+            { PlatformType.QuickBetWidget, ViewResources.QuickBetWidget },
             { PlatformType.ChatRoom, ViewResources.ChatRoom },
             { PlatformType.BetfromOthers, ViewResources.BetfromOthers }
         };
@@ -38,6 +40,7 @@ namespace Fanex.Athena.Report.Common.Helpers
             { PlatformType.Others, ViewResources.BetfromOthers }
         };
 
+
         public static IDictionary<int, string> GetPlatformList(int specialPlatform)
         {
             if (specialPlatform == SpecialPlatform.Jollysports || specialPlatform == SpecialPlatform.JollysportCV)
@@ -46,6 +49,32 @@ namespace Fanex.Athena.Report.Common.Helpers
             }
 
             return NormalPlatform;
+        }
+
+
+        public static string GetPlatformName(int type)
+        {
+            if (JollysportsPlatform.ContainsKey(type))
+            {
+                return JollysportsPlatform[type];
+            }
+
+            if (NormalPlatform.ContainsKey(type))
+            {
+                return NormalPlatform[type];
+            }
+
+            return ViewResources.All;
+        }
+
+        public static bool IsValidPlatform(string type)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                return false;
+            }
+            return type == "All" || type.Split(',').Any(x =>
+                JollysportsPlatform.ContainsKey(int.Parse(x)) || NormalPlatform.ContainsKey(int.Parse(x)) || int.Parse(x) == PlatformType.All);
         }
     }
 }
