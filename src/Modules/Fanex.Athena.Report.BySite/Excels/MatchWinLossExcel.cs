@@ -482,7 +482,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 var betTypeRow = _builder.CopyRow(sheet, templateSheet, RowBetTypeContentTemplate, currentRow);
                 var betType = Converter.ToInt(matchWinloss[BetTypeColumn]);
                 var liveIndicator = Converter.To<bool>(matchWinloss["liveindicator"]);
-                var betTypeName = "         " + _cacheRefAdapter.GetBettype(betType, liveIndicator);
+                var betTypeName = "         " + _cacheRefAdapter.GetBetTypeWithLiveIndicator(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
                 AssignRowContent(betTypeRow, matchWinloss, columnNameList, ColumnNumbericDataStartIndex);

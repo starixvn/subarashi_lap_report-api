@@ -106,6 +106,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AG Casino.
+        /// </summary>
+        public static string AGC {
+            get {
+                return ResourceManager.GetString("AGC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -349,6 +358,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exchange.
+        /// </summary>
+        public static string BX {
+            get {
+                return ResourceManager.GetString("BX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Bet Type.
         /// </summary>
         public static string ByBetType {
@@ -579,6 +597,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string DailyBets {
             get {
                 return ResourceManager.GetString("DailyBets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dangerous.
+        /// </summary>
+        public static string Dangerous {
+            get {
+                return ResourceManager.GetString("Dangerous", resourceCulture);
             }
         }
         
@@ -862,6 +889,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FT.
+        /// </summary>
+        public static string FT {
+            get {
+                return ResourceManager.GetString("FT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game Type.
         /// </summary>
         public static string GameType {
@@ -957,6 +993,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string HDP {
             get {
                 return ResourceManager.GetString("HDP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Healthy.
+        /// </summary>
+        public static string Healthy {
+            get {
+                return ResourceManager.GetString("Healthy", resourceCulture);
             }
         }
         
@@ -1141,6 +1186,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live Game.
+        /// </summary>
+        public static string LiveGame {
+            get {
+                return ResourceManager.GetString("LiveGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Live Report - {0}, {1} --&gt; {2} - {3}.
         /// </summary>
         public static string LiveReportTitle {
@@ -1303,6 +1357,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Moderate.
+        /// </summary>
+        public static string Moderate {
+            get {
+                return ResourceManager.GetString("Moderate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MaxGame.
         /// </summary>
         public static string MXG {
@@ -1326,6 +1389,24 @@ namespace Fanex.Athena.Report.Resources {
         public static string NetTurnover {
             get {
                 return ResourceManager.GetString("NetTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
             }
         }
         
@@ -1560,6 +1641,24 @@ namespace Fanex.Athena.Report.Resources {
         public static string PPC {
             get {
                 return ResourceManager.GetString("PPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre Game.
+        /// </summary>
+        public static string PreGame {
+            get {
+                return ResourceManager.GetString("PreGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Problems.
+        /// </summary>
+        public static string Problems {
+            get {
+                return ResourceManager.GetString("Problems", resourceCulture);
             }
         }
         
@@ -1834,6 +1933,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sportsbook Parlay.
+        /// </summary>
+        public static string ProductParlay {
+            get {
+                return ResourceManager.GetString("ProductParlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PG Soft.
         /// </summary>
         public static string ProductPGS {
@@ -2068,6 +2176,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playtech Casino.
+        /// </summary>
+        public static string PTCS {
+            get {
+                return ResourceManager.GetString("PTCS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PLAYSTAR.
         /// </summary>
         public static string PS {
@@ -2118,6 +2235,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string Reward_Promotion {
             get {
                 return ResourceManager.GetString("Reward_Promotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Robot.
+        /// </summary>
+        public static string Robot {
+            get {
+                return ResourceManager.GetString("Robot", resourceCulture);
             }
         }
         
@@ -2217,6 +2343,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SBPromotion {
             get {
                 return ResourceManager.GetString("SBPromotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saba Virtual Sports.
+        /// </summary>
+        public static string SBVS {
+            get {
+                return ResourceManager.GetString("SBVS", resourceCulture);
             }
         }
         
@@ -2334,6 +2469,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SummaryTotalIn {
             get {
                 return ResourceManager.GetString("SummaryTotalIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suspicious.
+        /// </summary>
+        public static string Suspicious {
+            get {
+                return ResourceManager.GetString("Suspicious", resourceCulture);
             }
         }
         
@@ -2527,6 +2671,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uncategorized.
+        /// </summary>
+        public static string Uncategorized {
+            get {
+                return ResourceManager.GetString("Uncategorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Under.
         /// </summary>
         public static string Under {
@@ -2559,6 +2712,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string VB {
             get {
                 return ResourceManager.GetString("VB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macau.
+        /// </summary>
+        public static string VG {
+            get {
+                return ResourceManager.GetString("VG", resourceCulture);
             }
         }
         
@@ -2622,6 +2784,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ViewinSummary {
             get {
                 return ResourceManager.GetString("ViewinSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIP.
+        /// </summary>
+        public static string VIP {
+            get {
+                return ResourceManager.GetString("VIP", resourceCulture);
             }
         }
         

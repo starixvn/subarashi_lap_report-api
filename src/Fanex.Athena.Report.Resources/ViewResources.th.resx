@@ -952,7 +952,7 @@
     <value>เวลาการชำระเงิน</value>
   </data>
   <data name="KN" xml:space="preserve">
-    <value>RNG Keno</value>
+    <value>RNG เกมคีโน</value>
   </data>
   <data name="Sportsbook" xml:space="preserve">
     <value>สปอร์ตบุ๊ค</value>
@@ -968,5 +968,65 @@
   </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>วิดเจ็ตเดิมพันด่วน</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>วีไอพี</value>
+  </data>
+  <data name="Healthy" xml:space="preserve">
+    <value>ดีมาก</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>ใหม่</value>
+  </data>
+  <data name="Moderate" xml:space="preserve">
+    <value>ปานกลาง</value>
+  </data>
+  <data name="Suspicious" xml:space="preserve">
+    <value>น่าสงสัย</value>
+  </data>
+  <data name="Dangerous" xml:space="preserve">
+    <value>อันตราย</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>ปัญหา</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>หุ่นยนต์</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>ไม่จัดหมวดหมู่</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>เกมแทงบอลสด</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>ก่อนแข่ง</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>ถัดไป</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>เต็มเวลา</value>
+  </data>
+  <data name="AGC" xml:space="preserve">
+    <value>AGคาสิโน</value>
+  </data>
+  <data name="BT" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
+  <data name="BX" xml:space="preserve">
+    <value>แลกเปลี่ยน</value>
+  </data>
+  <data name="L22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
+  <data name="ProductParlay" xml:space="preserve">
+    <value>สปอร์ตบุ๊ค พาร์เลย์</value>
+  </data>
+  <data name="SBVS" xml:space="preserve">
+    <value>Sabaกีฬาเสมือนจริง</value>
+  </data>
+  <data name="VG" xml:space="preserve">
+    <value>Macau</value>
   </data>
 </root>

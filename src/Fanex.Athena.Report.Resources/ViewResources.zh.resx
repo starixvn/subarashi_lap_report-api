@@ -861,4 +861,52 @@
   <data name="QuickBetWidget" xml:space="preserve">
     <value>快捷投注元件</value>
   </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP玩家</value>
+  </data>
+  <data name="Healthy" xml:space="preserve">
+    <value>健康</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>新玩家</value>
+  </data>
+  <data name="Moderate" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="Suspicious" xml:space="preserve">
+    <value>可疑</value>
+  </data>
+  <data name="Dangerous" xml:space="preserve">
+    <value>危險</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>問題</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>機械</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>未分类</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>滚球游戏</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>游戏开始前</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下个</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>全场</value>
+  </data>
+  <data name="L22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
+  <data name="ProductParlay" xml:space="preserve">
+    <value>体育串关</value>
+  </data>
+  <data name="SBVS" xml:space="preserve">
+    <value>沙巴虚拟赛事</value>
+  </data>
 </root>

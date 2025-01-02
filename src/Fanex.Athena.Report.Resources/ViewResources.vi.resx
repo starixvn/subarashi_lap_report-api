@@ -352,7 +352,7 @@
     <value>Joker</value>
   </data>
   <data name="KN" xml:space="preserve">
-    <value>RNG Game Keno</value>
+    <value>RNG Keno</value>
   </data>
   <data name="KOTime" xml:space="preserve">
     <value>Thời gian bắt đầu</value>
@@ -760,7 +760,7 @@
     <value>Tiền boa của Người chơi</value>
   </data>
   <data name="ProductL22" xml:space="preserve">
-    <value>ProductL22</value>
+    <value>Live22</value>
   </data>
   <data name="IsNeutral" xml:space="preserve">
     <value>(N)</value>
@@ -989,5 +989,62 @@
   </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>Công cụ đặt cược nhanh</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Healthy" xml:space="preserve">
+    <value>Tốt</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Mới</value>
+  </data>
+  <data name="Moderate" xml:space="preserve">
+    <value>Trung bình</value>
+  </data>
+  <data name="Suspicious" xml:space="preserve">
+    <value>Đáng ngờ</value>
+  </data>
+  <data name="Dangerous" xml:space="preserve">
+    <value>Nguy hiểm</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>Vấn đề</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>Robot</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Chưa phân loại</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>Trận đấu trực tiếp</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>Trước trận đấu</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>Toàn trận</value>
+  </data>
+  <data name="AGC" xml:space="preserve">
+    <value>AG Casino</value>
+  </data>
+  <data name="BX" xml:space="preserve">
+    <value>Exchange</value>
+  </data>
+  <data name="L22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
+  <data name="ProductParlay" xml:space="preserve">
+    <value>Cược xiên Sportsbook</value>
+  </data>
+  <data name="SBVS" xml:space="preserve">
+    <value>Thể Thao Ảo Saba</value>
+  </data>
+  <data name="VG" xml:space="preserve">
+    <value>Macau</value>
   </data>
 </root>

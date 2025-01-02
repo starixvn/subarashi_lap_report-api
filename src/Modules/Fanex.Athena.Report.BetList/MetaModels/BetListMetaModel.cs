@@ -9,7 +9,7 @@ namespace Fanex.Athena.Report.BetList.MetaModels
 {
     public class BetListMetaModel : IValidationMetaModel, IPlayerComMetaModel, IMetaModelProductCodeList,
                                     IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdMetaModel,
-                                    ICurrencyIdListMetaModel, ISpecialPlatformMetaModel
+                                    ISpecialPlatformMetaModel
     {
         public BetListMetaModel()
         {
@@ -91,8 +91,6 @@ namespace Fanex.Athena.Report.BetList.MetaModels
         public virtual bool IsConvert => !string.IsNullOrEmpty(BaseCurrency);
 
         public string AgentListXml { get; set; }
-
-        public string CurrencyIdList { get; set; }
 
         public int CurrencyId { get; set; }
 

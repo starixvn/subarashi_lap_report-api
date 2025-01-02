@@ -1085,6 +1085,63 @@
   <data name="QuickBetWidget" xml:space="preserve">
     <value>Quick Bet Widget</value>
   </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Healthy" xml:space="preserve">
+    <value>Healthy</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Moderate" xml:space="preserve">
+    <value>Moderate</value>
+  </data>
+  <data name="Suspicious" xml:space="preserve">
+    <value>Suspicious</value>
+  </data>
+  <data name="Dangerous" xml:space="preserve">
+    <value>Dangerous</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>Problems</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>Robot</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Uncategorized</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>Live Game</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>Pre Game</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>FT</value>
+  </data>
+  <data name="AGC" xml:space="preserve">
+    <value>AG Casino</value>
+  </data>
+  <data name="BX" xml:space="preserve">
+    <value>Exchange</value>
+  </data>
+  <data name="ProductParlay" xml:space="preserve">
+    <value>Sportsbook Parlay</value>
+  </data>
+  <data name="PTCS" xml:space="preserve">
+    <value>Playtech Casino</value>
+  </data>
+  <data name="SBVS" xml:space="preserve">
+    <value>Saba Virtual Sports</value>
+  </data>
+  <data name="VG" xml:space="preserve">
+    <value>Macau</value>
+  </data>
   <data name="PS" xml:space="preserve">
     <value>PLAYSTAR</value>
   </data>

@@ -193,7 +193,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     BACommission = reader.ToDecimal("CommBA"),
                     AmtDueToBA = reader.ToDecimal("AmtDueToBA"),
                     BetType = betType,
-                    BettypeName = _cacheRefAdapter.GetBettype(betType, isLive),
+                    BettypeName = _cacheRefAdapter.GetBetTypeWithLiveIndicator(betType, isLive),
                     ProductName = hasProductName ? reader.ToString("productname") : string.Empty,
                     IsLive = isLive,
                     IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]),

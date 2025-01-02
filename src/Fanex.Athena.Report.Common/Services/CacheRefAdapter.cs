@@ -1,4 +1,5 @@
 ﻿using Fanex.Athena.Report.Common.Helpers;
+using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
@@ -115,6 +116,30 @@ namespace Fanex.Athena.Report.Common.Services
             return RemotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
         }
 
+        public string GetBetTypeWithLiveIndicator(int bettypeId, bool liveIndicator)
+        {
+            const int SBMinOfMaxBettype = 120;
+            if (bettypeId == 0)
+            {
+                return string.Empty;
+            }
+
+            var betTypeName = RemotingRefService.GetBetTypeName(bettypeId.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode());
+
+            if (bettypeId == BetType.NgNumberGroup)
+            {
+                betTypeName += liveIndicator ? " (" + ViewResources.LiveGame + ")" : " (" + ViewResources.PreGame + ")";
+                return betTypeName;
+            }
+
+            if (bettypeId >= BetType.NG1StBallOU && bettypeId < SBMinOfMaxBettype)
+            {
+                return GetNumberGameBettypeName(bettypeId, liveIndicator, betTypeName);
+            }
+
+            return betTypeName;
+        }
+
         public string GetBetTypeName(object bettypeId, string languageCode, bool isHideSaba)
         {
             if (!IsValidId(bettypeId))
@@ -132,7 +157,7 @@ namespace Fanex.Athena.Report.Common.Services
 
         public string GetBettypeWithProductName(int betType, string productCode = "", bool liveIndicator = false)
         {
-            var betTypeName = GetBettype(betType, liveIndicator);
+            var betTypeName = GetBetTypeWithLiveIndicator(betType, liveIndicator);
 
             if (productCode == Product.VS)
             {
@@ -146,5 +171,21 @@ namespace Fanex.Athena.Report.Common.Services
 
         private static string GetCurrentIBCLanguageCode(string languageCode = null) =>
             string.IsNullOrEmpty(languageCode) ? CultureInfo.CurrentUICulture.Name : languageCode;
+
+        private static string GetNumberGameBettypeName(int betType, bool liveIndicator, string betTypeName)
+        {
+            if ((betType == BetType.NgOuFt || betType == BetType.NgOeFt) && liveIndicator)
+            {
+                return ViewResources.Next + " " + betTypeName;
+            }
+
+            if (betType == (int)BetType.NgOeFt)
+            {
+                return ViewResources.FT + " " + betTypeName;
+            }
+
+            return betTypeName;
+        }
+
     }
 }

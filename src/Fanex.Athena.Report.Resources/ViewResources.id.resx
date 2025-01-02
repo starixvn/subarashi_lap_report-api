@@ -919,7 +919,7 @@
     <value>Waktu Penyelesaian</value>
   </data>
   <data name="KN" xml:space="preserve">
-    <value>RNG Keno</value>
+    <value>Permainan Angka Keno</value>
   </data>
   <data name="Sportsbook" xml:space="preserve">
     <value>Sportsbook</value>
@@ -935,5 +935,65 @@
   </data>
   <data name="QuickBetWidget" xml:space="preserve">
     <value>Widget Taruhan Cepat</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Healthy" xml:space="preserve">
+    <value>Sehat</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Baru</value>
+  </data>
+  <data name="Moderate" xml:space="preserve">
+    <value>Sedang</value>
+  </data>
+  <data name="Suspicious" xml:space="preserve">
+    <value>Mencurigakan</value>
+  </data>
+  <data name="Dangerous" xml:space="preserve">
+    <value>Berbahaya</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>Masalah</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>Robot</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Belum dikategorikan</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>Pertandingan Langsung</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>Sebelum Pertandingan</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Selanjutnya</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>Waktu Penuh</value>
+  </data>
+  <data name="AGC" xml:space="preserve">
+    <value>AG Casino</value>
+  </data>
+  <data name="BT" xml:space="preserve">
+    <value>Perdagangan Taruhan</value>
+  </data>
+  <data name="BX" xml:space="preserve">
+    <value>Pertukaran</value>
+  </data>
+  <data name="L22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
+  <data name="ProductParlay" xml:space="preserve">
+    <value>Parlay Sportsbook</value>
+  </data>
+  <data name="SBVS" xml:space="preserve">
+    <value>Saba Virtual Sports</value>
+  </data>
+  <data name="VG" xml:space="preserve">
+    <value>Macau</value>
   </data>
 </root>

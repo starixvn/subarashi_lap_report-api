@@ -20,6 +20,26 @@
 
         public const int CombinationMixParlay = 29;
 
+        public const int NG1StBallOU = 81;
+
+        public const int NgLastBallOu = 82;
+
+        public const int Ng1StBallOe = 83;
+
+        public const int NgLastBallOe = 84;
+
+        public const int NgOuFt = 85;
+
+        public const int NgOeFt = 86;
+
+        public const int NgHighLow = 87;
+
+        public const int NgWarrior = 88;
+
+        public const int NgNextCombo = 89;
+
+        public const int NgNumberGroup = 90;
+
         public const int BeginHappy5LinkedGames = 3601;
 
         public const int EndHappy5LinkedGames = 3610;
