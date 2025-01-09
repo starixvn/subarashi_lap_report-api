@@ -1145,4 +1145,7 @@
   <data name="PS" xml:space="preserve">
     <value>PLAYSTAR</value>
   </data>
+  <data name="ProductPS" xml:space="preserve">
+    <value>PLAYSTAR</value>
+  </data>
 </root>
