@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
+﻿using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Common.Extensions;
 using Fanex.Data;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.BySite.Repositories
 {

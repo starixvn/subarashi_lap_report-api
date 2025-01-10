@@ -1,13 +1,13 @@
-﻿using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Data;
 using Moq;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories

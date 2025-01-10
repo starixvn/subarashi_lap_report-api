@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
@@ -13,6 +6,13 @@ using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Data;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
@@ -51,9 +51,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _cacheRefAdapter = new Mock<ICacheRefAdapter>();
             _cacheRefAdapter.Setup(c => c.GetSportName(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetBettype(It.IsAny<int>(), false)).Returns(_fixture.Create<string>());
-            _cacheRefAdapter.Setup(c => c.GetTeamName(It.IsAny<int>())).Returns(_fixture.Create<string>());
+            _cacheRefAdapter.Setup(c => c.GetTeamName(It.IsAny<int>(), It.IsAny<int>())).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetMatchName(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>())).Returns(_fixture.Create<string>());
-            _cacheRefAdapter.Setup(c => c.GetLeagueName(It.IsAny<int>())).Returns(_fixture.Create<string>());
+            _cacheRefAdapter.Setup(c => c.GetLeagueName(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetLeagueName3rd(It.IsAny<int>())).Returns(_fixture.Create<string>());
         }
 

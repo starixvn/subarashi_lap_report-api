@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Fanex.Athena.Report.Common.Excel;
+﻿using Fanex.Athena.Report.Common.Excel;
 using Moq;
 using NPOI.SS.UserModel;
+using System.Linq;
 using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Excel

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Fanex.Athena.Report.Common.Excel
+namespace Fanex.Athena.Report.Common.Excel.Interfaces
 {
     public interface IExportZipFile<TMetaModel>
     {

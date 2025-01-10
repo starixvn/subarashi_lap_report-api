@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Report.Common.Excel
+﻿namespace Fanex.Athena.Report.Common.Excel.Interfaces
 {
     using NPOI.SS.UserModel;
 
@@ -19,6 +19,8 @@
         void ClearTemplate(ISheet sheet, int startRowIndex);
 
         int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol);
+
+        int MergeRows(ISheet sheet, int firstRow, int lastRow, int colIndex);
 
         int MergeCols(ISheet sheet, int firstCol, int lastCol, int rowIndex);
 

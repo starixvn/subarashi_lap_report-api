@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Fanex.Athena.Report.Common.Excel;
+﻿using Fanex.Athena.Report.Common.Excel;
 using Moq;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Excel

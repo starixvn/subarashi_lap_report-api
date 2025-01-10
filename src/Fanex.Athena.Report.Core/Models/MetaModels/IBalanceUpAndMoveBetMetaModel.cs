@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fanex.Athena.Report.Core.Models
+namespace Fanex.Athena.Report.Core.Models.MetaModels
 {
     public interface IBalanceUpAndMoveBetMetaModel
     {

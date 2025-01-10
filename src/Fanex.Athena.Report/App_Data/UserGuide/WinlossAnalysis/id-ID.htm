@@ -1,0 +1,209 @@
+﻿<div class="rule">
+    <h4>
+        Informasi Umum
+    </h4>
+    <ul>
+        <li>Laporan ini hanya mencantumkan tiket yang menang/kalah/seri.</li>
+        <li>Angka negatif berwarna merah menunjukkan kerugian bagi Penerima Lisensi, sedangkan angka positif berwarna hitam menunjukkan kemenangan.</li>
+        <li>OANDA Exchange Service akan menggunakan kurs pada tanggal akhir setiap bulan yang dipilih saat mengkonversi angka-angka tersebut.</li>
+        <li>Data Produk RNG dan Produk Kasino Langsung akan ditampilkan berdasarkan tiket rinci.</li>
+        <li>
+            Laporan ini menyediakan dua mode, tanggal dan waktu, untuk memenuhi opsi tampilan yang disukai pengguna.
+            <ul>
+                <li>
+                    Tanggal Keuangan:
+                    <ul>
+                        <li>Data akan dihitung berdasarkan Tanggal Keuangan tiket.</li>
+                        <li>Laporan ini mendukung data terkini. Anda dapat memfilter data hingga 3 bulan per permintaan.</li>
+                    </ul>
+                </li>
+                <li>
+                    Waktu Penyelesaian:
+                    <ul>
+                        <li>Data akan dihitung berdasarkan Waktu Penyelesaian tiket. Hindari membandingkan data ini dengan fungsi LAP lainnya karena telah dihitung dalam kerangka waktu yang berbeda.</li>
+                        <li>Laporan ini mendukung data terkini. Anda dapat menyaring data hingga 1 bulan per kueri.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Tiket "Extra Payout" harus dikecualikan dari laporan ini saat dilihat dalam rentang tanggal yang dipilih.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Filter Pencarian
+    </h4>
+    <ul>
+        <li><b>Tanggal:</b> Dapatkan data yang sesuai berdasarkan pilihan pengguna pada mode Tanggal Keuangan atau mode Waktu Penyelesaian.</li>
+        <li><b>Jam:</b> Tampilkan saat mode Waktu Penyelesaian dipilih.</li>
+        <li>
+            <b>Produk:</b> Pilih jenis tiket taruhan Produk.
+            <ul>
+                {BA-productlist-section}
+                <li>Jika BA dipilih: Kolom "Jumlah yang Harus Dibayar ke BA" akan ditampilkan.</li>
+                {/BA-productlist-section}
+                <li>Jika Sportsbook dipilih: Filter Olahraga harus menampilkan Parlay dan Saba Virtual Sports secara terpisah.</li>
+                <li>Jika mode Waktu Penyelesaian dipilih. Daftar produk hanya mendukung Taruhan Olahraga, Olahraga Virtual, dan Permainan Angka.</li>
+            </ul>
+        </li>
+        <li><b>Olahraga, Jenis Taruhan:</b> Pilih jenis olahraga, jenis taruhan dari tiket taruhan.</li>
+        <li><b>Platform:</b> Platform yang digunakan oleh Pemain untuk memasang taruhan.</li>
+        <li><b>Status:</b> Pilih Status tiket taruhan.</li>
+        <li>
+            <b>Status Langsung:</b> Menggunakan filter "Langsung" untuk mengambil tiket yang Langsung atau Non-Langsung.
+            <ul>
+                <li>Harap dicatat bahwa status Mix Live & Non-Live digunakan untuk tiket Parlay.</li>
+            </ul>
+        </li>
+        <li>
+            <b>Mata Uang:</b> pilih mata uang dimana data akan diambil.
+            <ul>
+                <li><b>Semua:</b> semua mata uang yang didukung akan terdaftar.</li>
+            </ul>
+        </li>
+        <li><b>Mata Uang Dasar:</b> Ubah semua data ke mata uang dasar hanya untuk referensi.</li>
+        {PlayerSegmentation_VIPManagement-permission-section}
+        <li><b>Hanya Pemain VIP:</b> Pilih jenis pemain yang datanya akan diambil. Pilih "Tidak" untuk melihat semua pemain.</li>
+        {/PlayerSegmentation_VIPManagement-permission-section}
+        <li><b>Tingkat Risiko:</b> Pilih jenis Tingkat Risiko yang data akan diambil.</li>
+        <li><b>Kelompok Odds:</b> Pilih jenis Kelompok Odds yang data akan diambil.</li>
+        <li>
+            <b>Username:</b> Masukkan ID eksternal atau ID sistem akun yang dicari.
+            <ul>
+                <li>Perhatikan bahwa, jika Anda tidak menentukan akun Pemain mana pun, maka Laporan akan mencantumkan data semua Pemain dalam rentang tanggal yang dipilih.</li>
+            </ul>
+        </li>
+        <li><b>Pilihan Tampilkan rincian grup dalam mata uang asli dipilih:</b> Semua data rincian harus ditampilkan dalam mata uang asli. Jika tidak, data dari baris Grup By dan baris Total akan selalu dikonversi ke mata uang dasar.</li>
+        <li><b>Kecualikan Data Uji:</b> Mengkecualikan semua tiket dari akun uji.</li>
+        {CO-productlist-section}
+        <li>
+            <b>Cash Out:</b> Diaktifkan ketika Anda memilih produk Sportsbook.
+            <ul>
+                <li><b>Memasukkan CashOut ke dalam Buku Olahraga:</b> Area data harus menampilkan Buku Olahraga termasuk tiket Cash Out.</li>
+                <li><b>Kecualikan CashOut dari Buku Olahraga:</b> Area Data harus menampilkan Buku Olahraga tanpa tiket Cash Out.</li>
+                <li><b>Hanya lihat Cash Out:</b> Filter produk harus secara otomatis memilih produk Sportsbook dan tidak memilih produk lain. Data hanya mengambil tiket Cash Out.</li>
+            </ul>
+        </li>
+        {/CO-productlist-section}
+        <li>
+            <b>Kelompok Menurut:</b> Kelompokkan data dengan cara:
+            <ul>
+                <li>
+                    <b>Pemain:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Pemain.
+                    <ul>
+                        <li>Kolom Nilai Taruhan Efektif akan ditampilkan pada grup berdasarkan Pemain.</li>
+                    </ul>
+                </li>
+                <li><b>Jam:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Jam.</li>
+                <li><b>Tanggal:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Tanggal.</li>
+                <li><b>Bulan:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Bulan.</li>
+                <li><b>Produk:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Produk.</li>
+                <li><b>Olahraga:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Olahraga.</li>
+                <li><b>Jenis taruhan:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Jenis taruhan.</li>
+                <li><b>Mata Uang:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Mata Uang.</li>
+                <li><b>Platform:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Platform.</li>
+                {12Bet-licensee-section}
+                <li><b>Agen:</b> Ubah data menjadi mata uang dasar dan kelompokkan berdasarkan Agen.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li>
+            <b>Rincian Oleh:</b> Rincian data di bawah Grup Oleh dengan cara:
+            <ul>
+                <li><b>Produk:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Pemain/ Jam/ Tanggal/ Bulan/ Mata Uang/ Platform.</li>
+                <li><b>Mata Uang:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Jam/ Tanggal/ Bulan/ Produk/ Olahraga/ Jenis Taruhan/ Platform.</li>
+                {12Bet-licensee-section}
+                <li><b>Pemain:</b> Aktifkan saat Anda memilih Kelompok Berdasarkan Agen saja.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="line"></div>
+<div class="rule">
+    <h4>
+        Panduan Laporan
+    </h4>
+    <ul>
+        <li>
+            <b>Kelompok Berdasarkan:</b> Nilai kolom akan didasarkan pada pilihan Kelompok Berdasarkan Anda:
+            <ul>
+                <li>
+                    <b>Pemain:</b> Tampilkan ID Sistem dan ID Eksternal.
+                    <ul>
+                        <li><b>ID Sistem:</b> ID berurutan numerik yang dihasilkan dari sistem untuk setiap akun.</li>
+                        <li><b>ID Eksternal:</b> username yang terdaftar oleh pemilik tiket.</li>
+                    </ul>
+                </li>
+                <li><b>Jam:</b> Berdasarkan pilihan Anda dan formatnya adalah: MM/DD/YYYY > HH:MM - HH:MM.</li>
+                <li>
+                    <b>Tanggal dan Bulan:</b> Berdasarkan pilihan Anda dan formatnya adalah:
+                    <ul>
+                        <li><b>Tanggal:</b> MM/DD/YYYY</li>
+                        <li><b>Bulan:</b> MM/YYYY</li>
+                    </ul>
+                </li>
+                <li><b>Produk, Olahraga, Jenis Taruhan, Mata Uang, dan Platform:</b> akan ditampilkan berdasarkan pilihan Anda.</li>
+                {12Bet-licensee-section}
+                <li><b>Agen:</b> Tampilkan ID Sistem dari Semua Agen yang memiliki data dalam filter yang dipilih.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li>
+            <b>Rincian Oleh:</b> Tampilkan saat Anda mengklik ikon perluasan Group By, data Rincian memberikan informasi detail berdasarkan data Group By tertentu. Nilai kolom akan didasarkan pada pilihan Rincian Anda:
+            <ul>
+                <li><b>Produk:</b> akan ditampilkan berdasarkan pilihan Anda.</li>
+                <li><b>Mata uang:</b> akan ditampilkan berdasarkan pilihan Anda.</li>
+                {12Bet-licensee-section}
+                <li>
+                    <b>Pemain:</b> Tampilkan ID Sistem dan ID Eksternal.
+                    <ul>
+                        <li><b>ID Sistem:</b> ID berurutan numerik yang dihasilkan dari sistem untuk setiap akun.</li>
+                        <li><b>ID Eksternal:</b> username yang terdaftar oleh pemilik tiket.</li>
+                    </ul>
+                </li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li><b>Jumlah Taruhan:</b> Total tiket taruhan dalam filter yang dipilih.</li>
+        <li><b>Omset:</b> Total omset pemain dalam filter yang dipilih.</li>
+        <li>
+            <b>Omset Bersih:</b> Jumlah omset setelah dikurangi tiket seri.
+            <ul>
+                <li>Omset Bersih = Omset - total omset dari tiket seri.</li>
+            </ul>
+        </li>
+        <li><b>Pemain W/L:</b> Jumlah yang dimenangkan atau hilang oleh pemain berdasarkan taruhan mereka.</li>
+        <li><b>Nilai Taruhan Efektif:</b> Nilai absolut kemenangan kekalahan Pemain pada setiap tiket taruhan (0 untuk tiket seri dan dibatalkan).</li>
+        <li><b>Pemain Comm:</b> Total komisi yang dihitung pada tiket taruhan.</li>
+        <li>
+            <b>Lisensi W/L:</b> Jumlah kemenangan kerugian yang telah diselesaikan Lisensi dengan pemain.
+            <br />
+            Lisensi W/L = - (Pemain W/L)
+        </li>
+        <li>
+            <b>Komisi Penerima Lisensi:</b> Komisi yang diterima oleh penerima lisensi dari produk tertentu.
+            {BA-productlist-section}
+            <ul>
+                <li>Seperti tiket BA (termasuk tiket yang menang dan kalah).</li>
+            </ul>
+            {/BA-productlist-section}
+        </li>
+        {BA-productlist-section}
+        <li>
+            <b>Jumlah yang Dibayar ke BA:</b> Jumlah penyelesaian antara Penerima Lisensi dan layanan BA.
+            <ul>
+                <li>Perhatikan bahwa untuk Jumlah yang Harus Dibayar kepada BA, angka hitam negatif menunjukkan jumlah yang diterima dari BA dan angka hitam positif menunjukkan jumlah yang harus dibayarkan kepada BA.</li>
+            </ul>
+        </li>
+        {/BA-productlist-section}
+        <li>
+            <b>Margin:</b> Persentase dari Lisensi WL atas Omset Net.
+            <ul>
+                <li>Margin = (WL Lisensi / Omset Net) * 100%</li>
+            </ul>
+        </li>
+    </ul>
+</div>

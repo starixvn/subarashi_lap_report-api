@@ -8,11 +8,11 @@ namespace Fanex.Athena.Report.Common.Services.Interfaces
 
         string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2);
 
-        string GetLeagueName(object leagueId);
+        string GetLeagueName(object leagueId, int sportId = 0, string langCode = null);
 
         string GetMatchName(object homeId, object awayId, bool IsNeutral = false);
 
-        string GetTeamName(object teamId);
+        string GetTeamName(object teamId, int sportId = 0);
 
         string GetLeagueName3rd(object leagueId);
 
@@ -21,5 +21,13 @@ namespace Fanex.Athena.Report.Common.Services.Interfaces
         string[] GetBetBuilderSelectionNames(int[] selectionIds);
 
         string GetBettype(object bettypeId, bool isHideSaba);
+
+        string GetBettype(object bettypeId);
+
+        string GetBetTypeWithLiveIndicator(int bettypeId, bool liveIndicator);
+
+        string GetBetTypeName(object bettypeId, string languageCode, bool isHideSaba);
+
+        string GetBettypeWithProductName(int betType, string productCode = "", bool liveIndicator = false);
     }
 }

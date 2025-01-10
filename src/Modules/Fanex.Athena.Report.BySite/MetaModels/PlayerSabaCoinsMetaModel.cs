@@ -1,4 +1,4 @@
-﻿using Fanex.Athena.Report.Core.Models;
+﻿using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
 using System;
 

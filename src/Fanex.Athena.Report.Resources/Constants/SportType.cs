@@ -39,6 +39,8 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int SabaESportsPinGoal = -7;
 
+        public const int Esports = 43;
+
         public const int SabaTennis = -8;
 
         public const int SabaIceHockey = -9;
@@ -50,6 +52,28 @@ namespace Fanex.Athena.Report.Resources.Constants
         public const int VirtualSport = 180;
 
         public const int NumberGame = 161;
+
+        public const int LiveCasino = 162;
+
+        public const int VirtualHorseRacing = 198;
+
+        public const int VirtualDogRacing = 177;
+
+        public const int VirtualGreyhound = 182;
+
+        public const int VirtualSpeedway = 183;
+
+        public const int VirtualMotoRacing = 184;
+
+        public const int VirtualCycling = 185;
+
+        public const int BetbyBasketball = 134;
+
+        public const int UnknowThaiSport = 46;
+
+        public const int DuplicatedCricket = 27;
+
+        public const int AllBet = 211;
 
         private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
         {

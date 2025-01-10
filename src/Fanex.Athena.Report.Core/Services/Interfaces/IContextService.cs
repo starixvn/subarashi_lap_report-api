@@ -1,17 +1,24 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Common.Model.DTO;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Core.Enums;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
     public interface IContextService
     {
         int LicenseeId { get; }
+
         string Language { get; }
+
         string SiteName { get; }
 
         string UserName { get; }
 
         string SiteDBServer { get; }
+
+        int UserId { get; }
+
+        byte UserLevel { get; }
 
         IReadOnlyDictionary<int, int[]> AgentList { get; }
 
@@ -37,6 +44,22 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
 
         public int SpecialPlatform { get; }
 
+        public bool IsSuperAdmin { get; }
+
         public int SpecialPlatformType { get; }
+
+        int WhiteLabelID { get; }
+
+        string DefaultBaseCurrency { get; }
+
+        IEnumerable<string> OfferedOddsGroupsList { get; }
+
+        bool IsShowIpVn { get; }
+
+        bool IsShowIp { get; }
+
+        bool IsHideSaba { get; }
+
+        AppMode ApplicationMode { get; }
     }
 }

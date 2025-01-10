@@ -1,5 +1,5 @@
-﻿using System;
-using Fanex.Athena.Report.Core.Helpers;
+﻿using Fanex.Athena.Report.Common.Helpers;
+using System;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {

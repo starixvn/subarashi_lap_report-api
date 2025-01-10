@@ -19,44 +19,10 @@
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Connected Services\**" />
     <None Remove="Controllers\**" />
+    <None Remove="App_Data\UserGuide\**\*" />
+    <None Remove="ExcelTemplate\**\*" />
     <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="App_Data\UserGuide\CustomerBalance\en-US.htm" />
-    <None Remove="App_Data\UserGuide\CustomerBalance\id-ID.htm" />
-    <None Remove="App_Data\UserGuide\CustomerBalance\th-TH.htm" />
-    <None Remove="App_Data\UserGuide\CustomerBalance\vi-VN.htm" />
-    <None Remove="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
-    <None Remove="App_Data\UserGuide\SettledMatchCount\id-ID.htm" />
-    <None Remove="App_Data\UserGuide\SettledMatchCount\th-TH.htm" />
-    <None Remove="App_Data\UserGuide\WeeklyLiveMatches\id-ID.htm" />
-    <None Remove="App_Data\UserGuide\WeeklyLiveMatches\th-TH.htm" />
-    <None Remove="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx" />
-    <None Remove="ExcelTemplate\CustomerReports\CustomerRunningTicket.xlsx" />
-    <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xls" />
-    <None Remove="ExcelTemplate\CustomerReports\CustomerWinLoss.xlsx" />
-    <None Remove="ExcelTemplate\PlatformWinLossMember.xls" />
-    <None Remove="ExcelTemplate\PlatformWinLossSummary.xls" />
-    <None Remove="ExcelTemplate\GodOfFortuneWinLoss.xls" />
-	<None Remove="ExcelTemplate\LeagueWinLoss.xls" />
-	<None Remove="ExcelTemplate\ExtraPayout.xls" />
-	<None Remove="ExcelTemplate\ExtraPayoutDetail.xls" />
-	<None Remove="ExcelTemplate\NewCashOutWinLoss.xls" />
-	<None Remove="ExcelTemplate\WinLossAnalysis.xls" />
-	<None Remove="ExcelTemplate\WeeklyLiveMatch.xls" />
-	<None Remove="SpConfig\FanexSpName.AWS.xml" />
-	<None Remove="SpConfig\FanexSpName.KLDR.xml" />
-	<None Remove="SpConfig\FanexSpName.LOCAL.xml" />
-	<None Remove="SpConfig\FanexSpName.LOCAL_1.xml" />
-	<None Remove="SpConfig\FanexSpName.PROD.xml" />
-	<None Remove="SpConfig\FanexSpName.SIT.xml" />
-	<None Remove="SpConfig\FanexSpName.SIT_1.xml" />
-	<None Remove="SpConfig\FanexSpName.STAGING.xml" />
-	<None Remove="SpConfig\FanexSpName.UAT.xml" />
-	<None Remove="SpConfig\FanexSpName.UAT_1.xml" />
-	<None Remove="SpConfig\FanexSpName.UAT_2.xml" />
-    <None Remove="SpConfig\FanexSpName.xml" />
+    <None Remove="SpConfig\*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,10 +30,9 @@
     <Content Include="App_Data\UserGuide\**\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="App_Data\*.*">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-
+	  <Content Include="App_Data\*.*">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
     <Content Include="ExcelTemplate\CustomerReports\CustomerClosingBalance.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -86,25 +51,31 @@
     <Content Include="ExcelTemplate\GodOfFortuneWinLoss.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="ExcelTemplate\LeagueWinLoss.xls">
+	  <Content Include="ExcelTemplate\LeagueWinLoss.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+	  <Content Include="ExcelTemplate\ExtraPayout.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+	  <Content Include="ExcelTemplate\ExtraPayoutDetail.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+	  <Content Include="ExcelTemplate\NewCashOutWinLoss.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+	  <Content Include="ExcelTemplate\AbnormalBetDetail.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+	  <Content Include="ExcelTemplate\AbnormalBetIpSummary.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+	  <Content Include="ExcelTemplate\AbnormalBetSummary.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\Turnover.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="ExcelTemplate\ExtraPayout.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-	<Content Include="ExcelTemplate\ExtraPayoutDetail.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-	<Content Include="ExcelTemplate\NewCashOutWinLoss.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-	<Content Include="ExcelTemplate\AbnormalBetDetail.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-	<Content Include="ExcelTemplate\AbnormalBetIpSummary.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-	<Content Include="ExcelTemplate\AbnormalBetSummary.xls">
+    <Content Include="ExcelTemplate\CustomerTurnover.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 	<Content Include="ExcelTemplate\WinLossAnalysis.xls">
@@ -113,9 +84,18 @@
 	<Content Include="ExcelTemplate\DailyBets.xls">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
-	<Content Include="SpConfig\FanexSpName.STAGING.xml">
+  <Content Include="ExcelTemplate\LiveReport.xls">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
+  <Content Include="ExcelTemplate\LiveReportMatchList.xls">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+  <Content Include="SpConfig\FanexSpName.STAGING.xml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+  <Content Include="ExcelTemplate\MatchWinLoss.xls">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
 	<Content Include="SpConfig\FanexSpName.KLDR.xml">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
@@ -177,6 +157,7 @@
     <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
     <ProjectReference Include="..\Modules\Fanex.Athena.Report.Base\Fanex.Athena.Report.Base.csproj" />
+    <ProjectReference Include="..\Modules\Fanex.Athena.Report.BetList\Fanex.Athena.Report.BetList.csproj" />
     <ProjectReference Include="..\Modules\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
     <ProjectReference Include="..\Modules\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
   </ItemGroup>

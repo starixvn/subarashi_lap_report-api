@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
+﻿using Fanex.Athena.Report.ByPlayer.MetaModels;
 using Fanex.Data;
+using System.Linq;
 
 namespace Fanex.Athena.Report.ByPlayer.Extensions
 {

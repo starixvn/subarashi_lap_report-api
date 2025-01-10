@@ -1,7 +1,7 @@
-﻿using System;
-using Fanex.Athena.Report.BySite.Enums;
-using Fanex.Athena.Report.Core.Models;
+﻿using Fanex.Athena.Report.BySite.Enums;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
+using System;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {

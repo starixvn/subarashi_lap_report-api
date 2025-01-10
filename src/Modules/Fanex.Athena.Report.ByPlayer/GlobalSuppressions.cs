@@ -5,9 +5,27 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>", Scope = "member", Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerClosingBalanceExcel.ColumnTemplateCount")]
-[assembly: SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>", Scope = "member", Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerClosingBalanceExcel.TemplateNoInfoRowIndex")]
-[assembly: SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>", Scope = "member", Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerClosingBalanceExcel.TemplateDataRowIndex")]
-[assembly: SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>", Scope = "member", Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerRunningTicketExcel.ColumnTemplateCount")]
-[assembly: SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>", Scope = "member", Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerRunningTicketExcel.TemplateNoInfoRowIndex")]
-[assembly: SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>", Scope = "member", Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerRunningTicketExcel.TemplateDataRowIndex")]
+[assembly:
+    SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>",
+        Scope = "member",
+        Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerClosingBalanceExcel.ColumnTemplateCount")]
+[assembly:
+    SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>",
+        Scope = "member",
+        Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerClosingBalanceExcel.TemplateNoInfoRowIndex")]
+[assembly:
+    SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>",
+        Scope = "member",
+        Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerClosingBalanceExcel.TemplateDataRowIndex")]
+[assembly:
+    SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>",
+        Scope = "member",
+        Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerRunningTicketExcel.ColumnTemplateCount")]
+[assembly:
+    SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>",
+        Scope = "member",
+        Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerRunningTicketExcel.TemplateNoInfoRowIndex")]
+[assembly:
+    SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>",
+        Scope = "member",
+        Target = "~P:Fanex.Athena.Report.ByPlayer.Excels.CustomerRunningTicketExcel.TemplateDataRowIndex")]

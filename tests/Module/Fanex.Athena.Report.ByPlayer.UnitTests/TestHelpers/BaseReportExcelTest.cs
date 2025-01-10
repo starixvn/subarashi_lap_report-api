@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Moq;
 using OfficeOpenXml;
+using System;
+using System.IO;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {

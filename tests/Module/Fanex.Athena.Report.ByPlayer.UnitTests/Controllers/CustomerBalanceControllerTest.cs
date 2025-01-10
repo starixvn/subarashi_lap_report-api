@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.Controllers;
+﻿using Fanex.Athena.Report.ByPlayer.Controllers;
 using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
@@ -11,6 +9,8 @@ using Fanex.Athena.Report.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
+using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers

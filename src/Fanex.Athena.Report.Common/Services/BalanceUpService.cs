@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Report.Common.Services
 {
-    using System;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Data;
     using Microsoft.Extensions.Caching.Memory;
+    using System;
+    using System.Threading.Tasks;
 
     public class BalanceUpService : IBalanceUpService
     {

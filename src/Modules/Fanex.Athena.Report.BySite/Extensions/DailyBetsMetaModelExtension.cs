@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Report.BySite.Extensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.Resources;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public static class DailyBetsMetaModelExtension
     {

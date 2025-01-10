@@ -1,10 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
@@ -12,6 +7,11 @@
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Common;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class DailyBetDetailsRepository : IDailyBetDetailsRepository
     {

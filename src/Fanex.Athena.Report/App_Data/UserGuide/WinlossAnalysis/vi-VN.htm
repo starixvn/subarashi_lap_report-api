@@ -1,0 +1,211 @@
+﻿<div class="rule">
+    <h4>
+        Thông Tin Chung
+    </h4>
+    <ul>
+        <li>Báo cáo này chỉ bao gồm vé cược thắng, thua và hòa.</li>
+        <li>Số âm màu đỏ cho biết Nhà Cái đang lỗ, số dương màu đen cho biết Nhà Cái đang lãi.</li>
+        <li>Dịch Vụ Ngoại Hối OANDA sẽ sử dụng tỷ giá hối đoái ở ngày cuối cùng của mỗi tháng đã chọn để chuyển đổi số liệu.</li>
+        <li>Dữ liệu của sản phẩm RNG và Live Casino sẽ hiển thị dựa trên thông tin vé cược.</li>
+        <li>
+            Báo cáo này cung cấp hai chế độ, ngày và giờ, để hổ trợ người người dùng xem báo cáo theo từng nhu cầu.
+            <ul>
+                <li>
+                    Ngày Tài Chính:
+                    <ul>
+                        <li>Dữ liệu sẽ được tính theo Ngày Tài Chính của vé.</li>
+                        <li>Báo cáo này hỗ trợ cập nhật dữ liệu mới nhất. Bạn có thể xem dữ liệu lên đến 3 tháng trên mỗi truy vấn.</li>
+                    </ul>
+                </li>
+                <li>
+                    Thời Gian Tất Toán:
+                    <ul>
+                        <li>Dữ liệu sẽ được tính theo Thời gian Tất Toán của vé. Tránh so sánh dữ liệu này với các chức năng khác của LAP vì nó đã được tính trong một khung thời gian riêng biệt.</li>
+                        <li>Báo cáo này hỗ trợ cập nhật dữ liệu mới nhất. Bạn có thể xem dữ liệu lên đến 1 tháng trên mỗi truy vấn.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Báo cáo theo phạm vi ngày đã chọn sẽ không bao gồm các vé cược "Trả Thưởng Thêm".</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Bộ Lọc Tìm Kiếm
+    </h4>
+    <ul>
+        <li><b>Ngày:</b> Nhận dữ liệu tương ứng theo lựa chọn của người dùng về chế độ Ngày Tài Chính hoặc chế độ Thời Gian Tất Toán.</li>
+        <li><b>Giờ:</b> Hiển thị khi chế độ Thời Gian Tất Toán được chọn.</li>
+        <li>
+            <b>Sản Phẩm:</b> chọn Loại Sản Phẩm của vé cược.
+            <ul>
+                {BA-productlist-section}
+                <li>Nếu chọn BA: "Tiền BA" sẽ được hiển thị.</li>
+                {/BA-productlist-section}
+                {SABA-section}
+                <li>Nếu chọn Sportsbook: Bộ lọc sẽ hiển thị riêng Cược Xiên Thể Thao và Thể Thao Ảo Saba.</li>
+                {/SABA-section}
+                <li>Nếu chế độ Thời Gian Tất Toán được chọn. Danh sách sản phẩm chỉ hỗ trợ Sportsbook, Virtual Sports và Number Game.</li>
+            </ul>
+        </li>
+        <li><b>Môn Thể Thao, Loại Cược:</b> Chọn Môn Thể Thao, Loại Cược của vé cược.</li>
+        <li><b>Nền tảng:</b> nền tảng mà người chơi sử dụng để đặt cược.</li>
+        <li><b>Trạng thái:</b> chọn Trạng thái của vé cược.</li>
+        <li>
+            <b>Trạng thái Trực Tiếp:</b> sử dụng bộ lọc "Trực Tiếp" để truy xuất các vé cược Trực Tiếp hoặc Không Trực Tiếp.
+            <ul>
+                <li>Lưu ý rằng Trạng Thái Kết Hợp Giữa Trực Tiếp & Không Trực Tiếp được sử dụng cho vé Cược Xiên.</li>
+            </ul>
+        </li>
+        <li>
+            <b>Tiền Tệ:</b> chọn đơn vị tiền tệ cho dữ liệu cần truy xuất.
+            <ul>
+                <li><b>Tất Cả:</b> Liệt kê tất cả đơn vị tiền tệ được hỗ trợ.</li>
+            </ul>
+        </li>
+        <li><b>Tiền Tệ Cơ Sở:</b> chuyển tất cả dữ liệu sang tiền tệ cơ sở nhằm mục đích tham chiếu.</li>
+        {PlayerSegmentation_VIPManagement-permission-section}
+        <li><b>Chỉ người chơi VIP:</b> xem dữ liệu người chơi VIP. Chọn "Không" để xem toàn bộ người chơi</li>
+        {/PlayerSegmentation_VIPManagement-permission-section}
+        <li><b>Mức Độ Rủi Ro:</b> chọn mức độ rủi ro để truy xuất dữ liệu tương ứng.</li>
+        <li><b>Nhóm Tỷ Lệ Cược:</b> chọn nhóm tỷ lệ cược cho dữ liệu cần truy xuất.</li>
+        <li>
+            <b>Tên Người Dùng:</b> nhập ID ngoại vi hoặc ID hệ thống của tài khoản cần tìm kiếm.
+            <ul>
+                <li>Lưu ý: nếu bạn chưa chọn bất kỳ tài khoản khách hàng nào thì báo cáo sẽ liệt kê dữ liệu của tất cả khách hàng trong khoảng thời gian đã chọn.</li>
+            </ul>
+        </li>
+        <li><b>Nhóm theo đơn vị tiền tệ gốc:</b> Tất cả dữ liệu phân loại sẽ được hiển thị theo đơn vị tiền tệ gốc. Ngược lại, dữ liệu của các hàng "Nhóm theo" và "Tổng cộng" luôn được chuyển đổi theo đơn vị tiền tệ cơ sở.</li>
+        <li><b>Loại Trừ Dữ Liệu Kiểm Thử:</b> loại trừ tất cả vé cược từ tài khoản kiểm thử.</li>
+        {CO-productlist-section}
+        <li>
+            <b>Bán vé cược:</b> chỉ khả dụng khi chọn Sportsbook.
+            <ul>
+                <li><b>Gộp cược đã bán vào Sportsbook:</b> số liệu cược Sportsbook bao gồm cược đã bán.</li>
+                <li><b>Trừ cược đã bán khỏi Sportsbook:</b> số liệu cược Sportsbook đã trừ cược đã bán.</li>
+                <li><b>Chỉ xem vé cược đã bán:</b> Bộ lọc Sản phẩm sẽ tự động chọn Sportsbook và bỏ chọn các sản phẩm khác. Dữ liệu chỉ lấy các vé cược đã bán.</li>
+            </ul>
+        </li>
+        {/CO-productlist-section}
+        <li>
+            <b>Nhóm theo:</b> nhóm dữ liệu theo:
+            <ul>
+                <li>
+                    <b>Người Chơi:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Người Chơi.
+                    <ul>
+                        <li>Giá Trị Thắng Thua Tuyệt Đối sẽ được hiển thị theo nhóm Người Chơi.</li>
+                    </ul>
+                </li>
+                <li><b>Giờ:</b> Chuyển đổi dữ liệu thành đơn vị tiền tệ cơ sở và nhóm theo Giờ.</li>
+                <li><b>Ngày:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Ngày.</li>
+                <li><b>Tháng:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Tháng.</li>
+                <li><b>Sản Phẩm:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Sản Phẩm.</li>
+                <li><b>Môn Thể Thao:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Môn Thể Thao.</li>
+                <li><b>Loại Cược:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Loại Cược.</li>
+                <li><b>Tiền tệ:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Đơn Vị Tiền Tệ.</li>
+                <li><b>Nền Tảng:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Nền Tảng.</li>
+                {12Bet-licensee-section}
+                <li><b>Agent:</b> Chuyển đổi dữ liệu theo đơn vị tiền tệ cơ sở và nhóm theo Agent.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li>
+            <b>Phân loại theo:</b> Phân loại dữ liệu Nhóm theo:
+            <ul>
+                <li><b>Sản Phẩm:</b> chế độ này chỉ có khi chọn hiển thị theo Người Chơi/Giờ/ Ngày/Tháng/Tiền Tệ/Nền Tảng.</li>
+                <li><b>Tiền Tệ:</b> chế độ này chỉ có khi chọn hiển thị theo Giờ/Ngày/Tháng/Sản Phẩm/Môn Thể Thao/Loại Cược/Nền Tảng.</li>
+                {12Bet-licensee-section}
+                <li><b>Người Chơi:</b> Bật chế độ này khi chọn hiển thị chỉ Agent.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="line"></div>
+<div class="rule">
+    <h4>
+        Hướng Dẫn Sử Dụng Báo Cáo
+    </h4>
+    <ul>
+        <li>
+            <b>Theo nhóm:</b> Giá trị sẽ dựa trên lựa chọn Theo Nhóm:
+            <ul>
+                <li>
+                    <b>Người Chơi:</b> hiển thị ID hệ thống và ID bên ngoài.
+                    <ul>
+                        <li><b>ID Hệ Thống:</b> dãy số được tạo theo trình tự liên tiếp từ hệ thống cho mỗi tài khoản.</li>
+                        <li><b>ID Ngoại Vi:</b> tên người dùng được đăng ký bởi chủ sở hữu vé cược.</li>
+                    </ul>
+                </li>
+                <li><b>Giờ:</b> Theo lựa chọn của người dùng và định dạng của nó là: MM/DD/YYYY > HH:MM - HH:MM.</li>
+                <li>
+                    <b>Ngày và Tháng:</b> Dựa trên lựa chọn và định dạng sau:
+                    <ul>
+                        <li><b>Ngày:</b> MM/DD/YYYY</li>
+                        <li><b>Tháng:</b> MM/YYYY</li>
+                    </ul>
+                </li>
+                <li><b>Sản Phẩm, Môn Thể Thao, Loại Cược, Tiền Tệ và Nền Tảng:</b> hiển thị dựa trên lựa chọn người dùng.</li>
+                {12Bet-licensee-section}
+                <li><b>Agent:</b> Hiển thị ID hệ thống của toàn bộ Agent khớp với bộ lọc đã chọn.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li>
+            <b>Phân loại theo:</b> hiển thị khi nhấp vào biểu tượng mở rộng Nhóm Theo. Dữ liệu phân loại cung cấp thông tin chi tiết của từng nhóm cụ thể. Các giá trị của cột sẽ tuỳ thuộc vào lựa chọn "Phân loại theo" của người dùng:
+            <ul>
+                <li><b>Sản Phẩm:</b> hiển thị dựa trên lựa chọn người dùng.</li>
+                <li><b>Tiền Tệ:</b> hiển thị dựa trên lựa chọn người dùng.</li>
+                {12Bet-licensee-section}
+                <li>
+                    <b>Người Chơi:</b> hiển thị ID hệ thống và ID bên ngoài.
+                    <ul>
+                        <li><b>ID Hệ Thống:</b> dãy số được tạo theo trình tự liên tiếp từ hệ thống cho mỗi tài khoản.</li>
+                        <li><b>ID Ngoại Vi:</b> tên người dùng được đăng ký bởi chủ sở hữu vé cược.</li>
+                    </ul>
+                </li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li><b>Số Lượng Cược:</b> Tất cả vé cược khớp với bộ lọc đã chọn.</li>
+        <li><b>Doanh Thu:</b> Tổng tiền cược của Người Chơi khớp với bộ lọc đã chọn.</li>
+        <li>
+            <b>Doanh Thu Thực:</b> doanh thu sau khi trừ đi tiền vé cược hòa.
+            <ul>
+                <li>Doanh Thu Thực = Doanh Thu - Tiền Vé Cược Hòa.</li>
+            </ul>
+        </li>
+        <li><b>Thắng Thua Người chơi: </b> Tổng số tiền thắng thua khi đặt cược của người chơi.</li>
+        <li><b>Giá Trị Thắng Thua Tuyệt Đối:</b> giá trị tuyệt đối của tiền thắng thua của khách hàng trên mỗi vé cược (vé cược hòa hoặc bị hủy sẽ có giá trị 0).</li>
+        <li><b>Hoa hồng Người chơi:</b> tổng hoa hồng tính trên vé cược.</li>
+        <li>
+            <b>Thắng Thua Nhà Cái:</b> Số tiền thắng thua của Nhà Cái đã thanh toán với Người Chơi.
+            <br />
+            Thắng Thua Nhà Cái = - (Thắng Thua Người Chơi)
+        </li>
+        <li>
+            <b>Hoa Hồng Nhà Cái:</b> Hoa hồng mà Nhà Cái nhận được từ những sản phẩm cụ thể.
+            {BA-productlist-section}
+            <ul>
+                <li>Như tiền từ BA (bao gồm các vé cược thắng và thua).</li>
+            </ul>
+            {/BA-productlist-section}
+        </li>
+        {BA-productlist-section}
+        <li>
+            <b>Tiền BA:</b> khoản tiền kết toán giữa Nhà Cái và bên cung cấp dịch vụ BA.
+            <ul>
+                <li>Lưu ý: trong tiền BA, số âm màu đen là số tiền nhận được, còn số dương màu đen là tiền phải trả.</li>
+            </ul>
+        </li>
+        {/BA-productlist-section}
+        <li>
+            <b>Biên lợi nhuận:</b> Tỷ lệ phần trăm của số tiền thắng thua của Nhà Cái trên tổng doanh thu thực.
+            <ul>
+                <li>Biên lợi nhuận = (Thắng Thua Nhà Cái/Tổng Doanh Thu Thực) * 100%</li>
+            </ul>
+        </li>
+    </ul>
+</div>

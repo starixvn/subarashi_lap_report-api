@@ -1,8 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -12,6 +9,9 @@
     using Fanex.Athena.Report.Core.Constants;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [ApiController]
     [Route("api/[controller]/[action]")]

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Fanex.Core.Utils;
+﻿using Fanex.Core.Utils;
+using System.ComponentModel;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {

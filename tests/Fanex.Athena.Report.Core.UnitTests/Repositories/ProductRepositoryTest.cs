@@ -1,15 +1,17 @@
-﻿using System.Data;
-using System.Data.Common;
-using Fanex.Athena.Report.Core.Models.DTOs;
+﻿using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories;
-using Fanex.Athena.Report.UnitTests.Common.ServiceMoqExtensions;
 using Fanex.Data;
 using Moq;
+using System.Data;
+using System.Data.Common;
 using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using Fanex.Athena.Report.Resources.Helpers;
+    using Fanex.Common.Extensions;
     using Resources.Constants;
+    using System.Collections.Generic;
 
     public class ProductRepositoryTest
     {
@@ -25,15 +27,16 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
                .StartTestingSession()
                .Run();
 
-            _reader = new Mock<IDataReader>();
             _objectDb = new Mock<IObjectDb>();
+            _reader = new Mock<IDataReader>();
+
         }
 
         [Fact]
         public void GetProductAccessList_NoData_ReturnDefaultData()
         {
             // Arrange
-            _reader.Setup(x => x.Read()).Returns(false);
+            _reader.Setup(r => r.Read()).Returns(false);
             SetupObjectDb();
 
             var repository = new ProductRepository();
@@ -52,31 +55,35 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             var expectedProductAccess = GetFakeProductAccess();
 
             const int ProductIdIndex = 0;
-            _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("ProductID")))).Returns(ProductIdIndex);
-            _reader.Setup(x => x.GetInt32(ProductIdIndex)).Returns(expectedProductAccess.ProductID);
+            _reader.Setup(r => r.GetOrdinal("ProductID")).Returns(ProductIdIndex);
+            _reader.Setup(r => r.GetInt32(ProductIdIndex)).Returns(expectedProductAccess.ProductID);
+
             const int ProductPrefixIndex = 1;
-            _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("productprefix")))).Returns(ProductPrefixIndex);
-            _reader.Setup(x => x.GetString(ProductPrefixIndex)).Returns(expectedProductAccess.ProductCode);
+            _reader.Setup(r => r.GetOrdinal("productprefix")).Returns(ProductPrefixIndex);
+            _reader.Setup(r => r.GetString(ProductPrefixIndex)).Returns("NG");
+
             const int CommIndex = 2;
-            _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("comm")))).Returns(CommIndex);
-            _reader.Setup(x => x.GetBoolean(CommIndex)).Returns(expectedProductAccess.AllowCommission);
+            _reader.Setup(r => r.GetOrdinal("comm")).Returns(CommIndex);
+            _reader.Setup(r => r.GetBoolean(CommIndex)).Returns(expectedProductAccess.AllowCommission);
+
             const int WinLossIndex = 3;
-            _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("winloss")))).Returns(WinLossIndex);
-            _reader.Setup(x => x.GetBoolean(WinLossIndex)).Returns(expectedProductAccess.AllowWinloss);
+            _reader.Setup(r => r.GetOrdinal("winloss")).Returns(WinLossIndex);
+            _reader.Setup(r => r.GetBoolean(WinLossIndex)).Returns(expectedProductAccess.AllowWinloss);
+
             const int IsOfferedSingleWalletIndex = 4;
-            _reader.Setup(x => x.GetOrdinal(It.Is<string>(_ => _.Equals("IsOfferedSingleWallet"))))
+            _reader.Setup(r => r.GetOrdinal("IsOfferedSingleWallet"))
                    .Returns(IsOfferedSingleWalletIndex);
-            _reader.Setup(x => x.GetBoolean(IsOfferedSingleWalletIndex))
+            _reader.Setup(r => r.GetBoolean(IsOfferedSingleWalletIndex))
                    .Returns(expectedProductAccess.IsOfferedSingleWallet);
 
-            _reader.SetupToggleRead();
+            _reader.SetupSequence(r => r.Read()).Returns(true).Returns(false);
             SetupObjectDb();
 
             var repository = new ProductRepository();
 
             // Action
             var result = repository.GetProductAccessList(LicenseeId);
-            
+
 
             // Assert
             Assert.Equal(0, result[0].ProductID);
@@ -107,5 +114,8 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             ObjectDbFactory.SwitchToTestingMode();
             ObjectDbFactory.Mock((x, y) => _objectDb.Object);
         }
+
+        private static void MapProductName(IList<ProductInfo> productList)
+            => productList.ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
     }
 }

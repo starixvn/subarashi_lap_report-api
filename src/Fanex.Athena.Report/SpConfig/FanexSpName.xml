@@ -5,7 +5,17 @@
 		<Setting Key="Lrf_CheckBelonging_ValidateProduct" SpName="Lrf_CheckBelonging_ValidateProduct" DbName="DBLIC.bodb_Licensee.wsv_lap" />
 		<Setting Key="Lrf_GetAllIPVN" SpName="Lrf_GetAllIPVN" DbName="DBCUST.IPDB.wsv_lap" />
 		<Setting Key="Acc_GetIPInfo_Full" SpName="Acc_GetIPInfo_Full" DbName="DBCUST.IPDB.wsv_lap" />
+    <Setting Key="LAP_Rpt_WinlossAnalysis_BettypeSel" SpName="LAP_Rpt_WinlossAnalysis_BettypeSel" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="LAP_Rpt_WinlossAnalysis_SportSel" SpName="LAP_Rpt_WinlossAnalysis_SportSel" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_SelBetTypesByProduct" SpName="Lrf_SelBetTypesByProduct" DbName="DBLIC.bodb_Licensee.wsv_lap" />
+    <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail" DbName="DBLIC.bodb_Licensee.wsv_lap" />
 	</Function>
+
+  <Function Name="CustomerInformation">
+    <Setting Key="Lrf_CustomerSelUserSearch" SpName="Lrf_CustomerSelUserSearch" DbName="DBLIC.bodb_Licensee.wsv_lap" />
+  </Function>
+
 	<Function Name="Report">
 		<Setting Key="Lrf_Rpt_PlatformWinloss" SpName="Lrf_Rpt_PlatformWinloss" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_PlatformWinlossDetail" SpName="Lrf_Rpt_PlatformWinlossDetail" DbName="DBEXT.bodb02.wsv_lap" />
@@ -52,11 +62,29 @@
 
 		<Setting Key="LAP_Rpt_SabaCoins_Performance" SpName="LAP_Rpt_SabaCoins_Performance_xtest" DbName="DBACC.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_SabaCoins_Performance_ExtraInfo" SpName="LAP_Rpt_SabaCoins_Performance_ExtraInfo_xtest" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByOutrightParlay" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" DbName="DBEXT.bodb02.wsv_lap" />
+
+    <Setting Key="Lrf_Rpt_LiveReportWinlossByMatch" SpName="Lrf_Rpt_LiveReportWinlossByMatch" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportSummary" SpName="Lrf_Rpt_LiveReportSummary" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportSummaryDetail" SpName="Lrf_Rpt_LiveReportSummaryDetail" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportBySport" SpName="Lrf_Rpt_LiveReportBySport" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReport" SpName="Lrf_Rpt_LiveReport" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportDetail" SpName="Lrf_Rpt_LiveReportDetail" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_LiveReportBySportType" SpName="Lrf_Rpt_LiveReportBySportType" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+
+    <Setting Key="Lrf_Rpt_CustomerTurnOver" SpName="Lrf_Rpt_CustomerTurnOver" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+    <Setting Key="Lrf_Rpt_TurnOver" SpName="Lrf_Rpt_TurnOver" DbName="DBACC.bodb02.wsv_lap"></Setting>
 	</Function>
+
 	<Function Name="SiteConfig">
 		<Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBCUST.SiteConfig.wsv_lap" />
+    <Setting Key="Portal_Sub_GetSubsidiaryList" SpName="Portal_Sub_GetSubsidiaryList" DbName="DBCUST.SiteConfig.Dot_Admin_Portal" />
 	</Function>
-	<SiteDB>
+
+  <SiteDB>
 		<Setting Key="SiteDB_Lrf_Rpt_WinLoss" SpName="SiteDB_Lrf_Rpt_WinLoss_xtest" DbName="DBSID.bodb02.wsv_lap" />
 	</SiteDB>
 </Functions>

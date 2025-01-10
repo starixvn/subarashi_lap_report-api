@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Fanex.Athena.Report.ByPlayer.DTO;
+using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Data;
+using Moq;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Data;
-using Moq;
 
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {
@@ -36,14 +36,15 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 
         public static Mock<IObjectDb> SetUpObjectDb(Mock<IDataReader> mockIDataReader)
         {
-            var mockObjectDB = new Mock<IObjectDb>();
-            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
+            var mockObjectDb = new Mock<IObjectDb>();
+            mockObjectDb.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(mockIDataReader.Object));
 
+            DbSettingProviderManager.StartTestingSession().Run();
             ObjectDbFactory.SwitchToTestingMode();
-            ObjectDbFactory.Mock((x, y) => mockObjectDB.Object);
+            ObjectDbFactory.Mock((x, y) => mockObjectDb.Object);
 
-            return mockObjectDB;
+            return mockObjectDb;
         }
 
         public static IEnumerable<ProductOption> GetProductOptions()

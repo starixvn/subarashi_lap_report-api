@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using Fanex.Athena.Report.Core.Helpers;
+﻿using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Core.Utils;
+using System.ComponentModel;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public bool IsShowIpvn { get; set; }
 
-        public int SpecialPlatform { get ; set ; }
+        public int SpecialPlatform { get; set; }
 
         public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
     }

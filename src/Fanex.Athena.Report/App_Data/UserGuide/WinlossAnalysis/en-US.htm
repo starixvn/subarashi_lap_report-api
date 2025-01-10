@@ -1,0 +1,211 @@
+﻿<div class="rule">
+    <h4>
+        General Info
+    </h4>
+    <ul>
+        <li>The report contains only won/lost/draw tickets.</li>
+        <li>A red negative number indicates a loss for Licensee whereas the black positive indicates a win.</li>
+        <li>OANDA Exchange Service will use the exchange rate of the end date of each selected month when converting the figures.</li>
+        <li>Data of RNG Products, and Live Casino Products will be displayed based on detailed tickets.</li>
+        <li>
+            This report provides two modes, date and time, to accommodate users' preferred viewing options.
+            <ul>
+                <li>
+                    Financial Date:
+                    <ul>
+                        <li>Data shall be calculated by Financial Date of tickets.</li>
+                        <li>This report supports up-to-date data. You can filter data up to 3 months per query.</li>
+                    </ul>
+                </li>
+                <li>
+                    Settlement Time:
+                    <ul>
+                        <li>Data shall be calculated by the Settlement Time of tickets. Avoid comparing this data with other LAP's functions as it has been calculated within a distinct time frame.</li>
+                        <li>This report supports up-to-date data. You can filter data up to 1 month per query.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>"Extra Payout" tickets shall be excluded from this report when viewed within the selected date range.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Search Filters
+    </h4>
+    <ul>
+        <li><b>Date:</b> Get the corresponding data according to the user's selection of Financial Date mode or Settlement Time mode.</li>
+        <li><b>Hour:</b> Display when Settlement Time mode is selected.</li>
+        <li>
+            <b>Product:</b> Select the Product type of bet tickets.
+            <ul>
+                {BA-productlist-section}
+                <li>If BA is selected: The "Amount Due To BA" column will be displayed.</li>
+                {/BA-productlist-section}
+                {SABA-section}
+                <li>If Sportsbook is selected: The Sport filter shall display separate Parlay and Saba Virtual Sports.</li>
+                {/SABA-section}
+                <li>If the Settlement Time mode is selected. The product list just supports Sportsbook, Virtual Sports, and Number Game.</li>
+            </ul>
+        </li>
+        <li><b>Sport, Bet type:</b> Select the Sport type, Bet type of bet tickets.</li>
+        <li><b>Platform:</b> The platform that the Player used to place bets.</li>
+        <li><b>Status:</b> Select the Status of bet tickets.</li>
+        <li>
+            <b>Live status:</b> Using "Live" filter to retrieve tickets that are Live or Non-Live.
+            <ul>
+                <li>Note that Mix Live & Non-Live status is used for Parlay ticket.</li>
+            </ul>
+        </li>
+        <li>
+            <b>Currency:</b> Select the currency which data will be retrieved.
+            <ul>
+                <li><b>All:</b> All supported currencies will be listed out.</li>
+            </ul>
+        </li>
+        <li><b>Base Currency:</b> Convert all data to base currency for reference only.</li>
+        {PlayerSegmentation_VIPManagement-permission-section}
+        <li><b>VIP Player Only: </b>Select the Player type which data will be retrieved. Choose "No" to view all players.</li>
+        {/PlayerSegmentation_VIPManagement-permission-section}
+        <li><b>Risk Level: </b>Select the Risk Level type which data will be retrieved.</li>
+        <li><b>Odds Group: </b>Select the Odds Group type which data will be retrieved.</li>
+        <li>
+            <b>Username:</b> Enter the external ID or system ID of the searched account.
+            <ul>
+                <li>Note that, if you have not specified any Player account then the Report will list out data of all Players within the selected date range.</li>
+            </ul>
+        </li>
+        <li><b>Display group breakdown in original currency is selected: </b>All breakdown data shalls display on the original currency. Otherwise, data of Group By rows and Total rows will be always converted into base currency.</li>
+        <li><b>Exclude Test Data:</b> Excludes all tickets from test account.</li>
+        {CO-productlist-section}
+        <li>
+            <b>Cash Out:</b> Enable when you choose the Sportsbook product is selected.
+            <ul>
+                <li><b>Include CO into Sportsbook:</b> The Data area shall display Sportsbook including Cash Out tickets.</li>
+                <li><b>Exclude CO from Sportsbook:</b> The Data area shall display Sportsbook excluding Cash Out tickets.</li>
+                <li><b>View CO only:</b> The Product filter shall auto-select Sportsbook product and uncheck other products, Data get Cash Out tickets only.</li>
+            </ul>
+        </li>
+        {/CO-productlist-section}
+        <li>
+            <b>Group By:</b> Group data in ways:
+            <ul>
+                <li>
+                    <b>Player:</b> Convert data into a base currency and group by Player.
+                    <ul>
+                        <li>The Effective Betting Value columns will be displayed on group by Player.</li>
+                    </ul>
+                </li>
+                <li><b>Hour:</b> Convert data into a base currency and group by Hour.</li>
+                <li><b>Date:</b> Convert data into a base currency and group by Date.</li>
+                <li><b>Month:</b> Convert data into a base currency and group by Month.</li>
+                <li><b>Product:</b> Convert data into a base currency and group by Product.</li>
+                <li><b>Sport:</b> Convert data into a base currency and group by Sport.</li>
+                <li><b>Bet type:</b> Convert data into a base currency and group by Bet type.</li>
+                <li><b>Currency:</b> Convert data into a base currency and group by Currency.</li>
+                <li><b>Platform:</b> Convert data into a base currency and group by Platform.</li>
+                {12Bet-licensee-section}
+                <li><b>Agent:</b> Convert data into a base currency and group by Agent.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li>
+            <b>Breakdown By:</b> Breakdown data under Group By in way:
+            <ul>
+                <li><b>Product:</b> Enable when you choose Group By Player/ Hour/ Date/ Month/ Currency/ Platform.</li>
+                <li><b>Currency:</b> Enable when you choose Group By Hour/ Date/ Month/ Product/ Sport/ Bet type/ Platform.</li>
+                {12Bet-licensee-section}
+                <li><b>Player:</b> Enable when you choose Group By Agent only.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="line"></div>
+<div class="rule">
+    <h4>
+        Report Guidelines
+    </h4>
+    <ul>
+        <li>
+            <b>Group By:</b> Values of the column will be based on your Group By selection:
+            <ul>
+                <li>
+                    <b>Player:</b> Display System ID and External ID.
+                    <ul>
+                        <li><b>System ID:</b> The Numeric sequential ID generated from the system for each account.</li>
+                        <li><b>External ID:</b> The username registered by the ticket owner.</li>
+                    </ul>
+                </li>
+                <li><b>Hour:</b> Based on your selection and its format is: MM/DD/YYYY > HH:MM - HH:MM.</li>
+                <li>
+                    <b>Date and Month:</b> Based on your selection and its format is:
+                    <ul>
+                        <li><b>Date:</b> MM/DD/YYYY</li>
+                        <li><b>Month:</b> MM/YYYY</li>
+                    </ul>
+                </li>
+                <li><b>Product, Sports, Bettype, Currency, and Platform:</b> shall display based on your selection.</li>
+                {12Bet-licensee-section}
+                <li><b>Agent:</b> Display the System ID of All Agents that have data within selected filters.</li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li>
+            <b>Breakdown By:</b> Display when you click on the Group By expand icon, Breakdown data provides detailed information on based a specific Group By data. Values of the column will be based on your Breakdown By selection:
+            <ul>
+                <li><b>Product:</b> shall display based on your selection.</li>
+                <li><b>Currency:</b> shall display based on your selection.</li>
+                {12Bet-licensee-section}
+                <li>
+                    <b>Player:</b> Display System ID and External ID.
+                    <ul>
+                        <li><b>System ID:</b> The Numeric sequential ID generated from the system for each account.</li>
+                        <li><b>External ID:</b> The username registered by the ticket owner.</li>
+                    </ul>
+                </li>
+                {/12Bet-licensee-section}
+            </ul>
+        </li>
+        <li><b>Bet Count:</b> Total bet tickets within selected filters.</li>
+        <li><b>Turnover:</b> Total Player turnover within selected filters.</li>
+        <li>
+            <b>Net Turnover:</b> The amount of turnover after deducting draw tickets.
+            <ul>
+                <li>Net Turnover = Turnover - the total turnover of draw tickets.</li>
+            </ul>
+        </li>
+        <li><b>Player W/L:</b> The amount player won or lost based on their bets.</li>
+        <li><b>Effective Betting Value:</b> Absolute value of Player win loss on each bet ticket (0 for draw and voided tickets).</li>
+        <li><b>Player Comm:</b> total commission counted on bet tickets.</li>
+        <li>
+            <b>Licensee W/L:</b> The win loss amount Licensee has settled with Player.
+            <br />
+            Licensee W/L = – (Player W/L)
+        </li>
+        <li>
+            <b>Licensee Comm:</b> Commission that Licensee received from specific products.
+            {BA-productlist-section}
+            <ul>
+                <li>Such as BA tickets (including won and lost tickets).</li>
+            </ul>
+            {/BA-productlist-section}
+        </li>
+        {BA-productlist-section}
+        <li>
+            <b>Amount Due To BA:</b> The settlement amounts between Licensee and BA service.
+            <ul>
+                <li>Note that for Amount Due to BA, the black negative number indicates the receiving amount from BA and the black positive number indicates the paying amount to BA.</li>
+            </ul>
+        </li>
+        {/BA-productlist-section}
+        <li>
+            <b>Margin:</b> Percentage of Licensee WL over Net Turnover.
+            <ul>
+                <li>Margin = (Licensee WL/Net Turnover) * 100%</li>
+            </ul>
+        </li>
+    </ul>
+</div>

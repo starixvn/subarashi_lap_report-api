@@ -2,6 +2,50 @@
 {
     public static class BetType
     {
+        public const int Handicap = 1;
+
+        public const int OverUnder = 3;
+
+        public const int Ft1X2 = 5;
+
+        public const int FirstHalfHandicap = 7;
+
+        public const int FirstHalfOverUnder = 8;
+
+        public const int MixParlay = 9;
+
+        public const int Outright = 10;
+
+        public const int FirstHalf1X2 = 15;
+
+        public const int CombinationMixParlay = 29;
+
+        public const int NG1StBallOU = 81;
+
+        public const int NgLastBallOu = 82;
+
+        public const int Ng1StBallOe = 83;
+
+        public const int NgLastBallOe = 84;
+
+        public const int NgOuFt = 85;
+
+        public const int NgOeFt = 86;
+
+        public const int NgHighLow = 87;
+
+        public const int NgWarrior = 88;
+
+        public const int NgNextCombo = 89;
+
+        public const int NgNumberGroup = 90;
+
+        public const int BeginHappy5LinkedGames = 3601;
+
+        public const int EndHappy5LinkedGames = 3610;
+
+        public const int VirtualSports2MixParlay = 2799;
+
         public const int PPTournamentPrize = 4299;
 
         public const int PPPromotionPrize = 4300;
@@ -65,6 +109,8 @@
         public const int SabaRewardRiskFreeRebate = 17007;
 
         public const int Live22Promotion = 7698;
+
+        public const int VirtualSportCorrectScoreTennis = 1235;
 
         public const int SabaCoinsCashExchange = 17008;
 

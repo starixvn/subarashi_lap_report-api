@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Services.Interfaces;
+﻿using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Attributes
 {
@@ -46,6 +47,12 @@ namespace Fanex.Athena.Report.Core.Attributes
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            if (context.ActionDescriptor.EndpointMetadata.OfType<SkipRequestValidationAttribute>().Any())
+            {
+                await next();
+                return;
+            }
+
             var isValid = IsValid(context.ActionArguments);
             if (!isValid)
             {

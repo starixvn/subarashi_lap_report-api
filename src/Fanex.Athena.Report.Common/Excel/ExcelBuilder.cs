@@ -1,9 +1,10 @@
 ﻿namespace Fanex.Athena.Report.Common.Excel
 {
-    using System.IO;
+    using Fanex.Athena.Report.Common.Excel.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.IO;
 
     public class ExcelBuilder : IExcelBuilder
     {
@@ -111,6 +112,12 @@
         public int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
+            return sheet.AddMergedRegion(rangeAddress);
+        }
+
+        public int MergeRows(ISheet sheet, int firstRow, int lastRow, int colIndex)
+        {
+            var rangeAddress = new CellRangeAddress(firstRow, lastRow, colIndex, colIndex);
             return sheet.AddMergedRegion(rangeAddress);
         }
 

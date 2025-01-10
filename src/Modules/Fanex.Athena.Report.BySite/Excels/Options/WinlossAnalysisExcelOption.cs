@@ -1,5 +1,5 @@
-﻿using System;
-using Fanex.Athena.Report.BySite.Enums;
+﻿using Fanex.Athena.Report.BySite.Enums;
+using System;
 
 namespace Fanex.Athena.Report.BySite.Excels.Options
 {

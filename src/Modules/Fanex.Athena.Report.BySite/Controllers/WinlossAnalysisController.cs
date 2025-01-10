@@ -1,10 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Enums;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -12,15 +7,27 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Models;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
+    using Fanex.Athena.Report.Common.Constants;
     using Fanex.Athena.Report.Common.Excel;
+    using Fanex.Athena.Report.Common.Helpers;
+    using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.MetaModels;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Core.Attributes;
     using Fanex.Athena.Report.Core.Constants;
+    using Fanex.Athena.Report.Core.Models.DTOs;
     using Fanex.Athena.Report.Core.Services.Interfaces;
+    using Fanex.Athena.Report.Resources;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Options;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -29,6 +36,7 @@
     [AutoBindingMetaModel(bindAgent: true)]
     public class WinlossAnalysisController : ControllerBase
     {
+        private const int MAX_HOUR = 24;
         private const string FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN = "WinLossReportGroupByAndBreakdownBy";
         private const string FILE_NAME_GROUP_BY_ONLY = "WinLossReportGroupBy";
 
@@ -38,15 +46,24 @@
         private readonly IFileProvider _fileProvider;
         private readonly IContextService _contextService;
         private readonly ICompressService _compressService;
+        private readonly ISubsidiaryService _subsidiaryService;
+        private readonly IProductService _productService;
+        private readonly IBaseCurrencyService _baseCurrencyService;
+        private readonly ICustomerClassService _customerClassService;
         private readonly ExcelOptions _option;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public WinlossAnalysisController(IWinlossAnalysisService service,
            IWinlossAnalysisExcel excelService,
            IFileService fileService,
            IFileProvider fileProvider,
            IContextService contextService,
            ICompressService compressService,
-           IOptions<ExcelOptions> options)
+           IOptions<ExcelOptions> options,
+           ISubsidiaryService subsidiaryService,
+           IProductService productService,
+           IBaseCurrencyService baseCurrencyService, ICustomerClassService customerClassService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _service = service;
             _excelService = excelService;
@@ -54,8 +71,89 @@
             _fileProvider = fileProvider;
             _contextService = contextService;
             _compressService = compressService;
+            _subsidiaryService = subsidiaryService;
+            _productService = productService;
+            _baseCurrencyService = baseCurrencyService;
+            _customerClassService = customerClassService;
             _option = options.Value;
         }
+
+        [HttpPost]
+        [SkipRequestValidation]
+        public async Task<IActionResult> Index()
+        {
+            var productAccess = _productService.GetProductAccess(
+                _contextService.LicenseeId,
+                FunctionNames.WinLossAnalysis);
+
+            var productOptions = MoveBaProductToBelowSportBook(productAccess.ProductList).Select(i => new ProductOption
+            {
+                Code = i.ProductCode,
+                Name = i.ProductName,
+                Status = true
+            }).ToList();
+
+            var subsidiaries = await _subsidiaryService.GetWhiteLabelTree(_contextService.SiteName);
+
+            return Ok(new
+            {
+                currencyList = _contextService.CurrencyList.ToArray(),
+                liveStatusList = GetLiveStatusList().ToArray(),
+                statusList = GetStatusList(),
+                productOptions,
+                licenseeName = _contextService.SiteName,
+                isOneworksMaster = IsOneworksMaster,
+                subsidiaryViewType = IsOneworksMaster ? SubsidiaryViewType.MasterManagement : _contextService.SubsidiaryViewType,
+                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
+                baseCurrencyList = _baseCurrencyService.GetBaseCurrencyList().ToArray(),
+                defaultBaseCurrency = _contextService.DefaultBaseCurrency,
+                whitelabelList = subsidiaries,
+                subsidiaryList = subsidiaries.SelectMany(x => x.Children.Select(y => y.Value)).Distinct(),
+                platformList = PlatformHelper.GetPlatformList(_contextService.SpecialPlatform).ToArray(),
+                isHasPermissionViewVip = _contextService.IsInRoles(Roles.PlayerVIPManagement),
+                oddsGroupList = _contextService.OfferedOddsGroupsList,
+                isOfferCashOutProduct = _productService.IsOfferCashOutProduct(_contextService.LicenseeId),
+                riskLevel = await _customerClassService.GetAllRiskLevel(),
+                hourList = GetHourList().ToArray()
+            });
+        }
+
+        private static IDictionary<int, string> GetLiveStatusList()
+        {
+            return new Dictionary<int, string>
+            {
+                { LiveStatusTypes.NonLive, ViewResources.NoneLive },
+                { LiveStatusTypes.Live, ViewResources.Live },
+                { LiveStatusTypes.Mix, ViewResources.MixLiveAndNoneLive }
+            };
+        }
+
+        private static IEnumerable<CheckedItem> GetStatusList()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = StatusTypes.Won, Name = ViewResources.Won, Checked = true },
+                new() { ID = StatusTypes.Lose, Name = ViewResources.Lost, Checked = true },
+                new() { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = true }
+            };
+        }
+
+        private static IEnumerable<ProductInfo> MoveBaProductToBelowSportBook(ReadOnlyCollection<ProductInfo> productList)
+        {
+            var list = productList.ToList();
+            var baProduct = list.Find(c => c.ProductID == ProductTypes.BA);
+            var sbProduct = list.Find(c => c.ProductID == ProductTypes.Sportsbook);
+            if (baProduct != null && sbProduct != null)
+            {
+                list.Remove(baProduct);
+                list.Insert(list.IndexOf(sbProduct) + 1, baProduct);
+            }
+            return list;
+        }
+
+        private bool IsOneworksMaster =>
+            _contextService.UserLevel == UserLevelType.OneWorks
+         && _contextService.SubsidiaryViewType == SubsidiaryViewType.NormalManagement;
 
         [HttpPost]
         public async Task<IActionResult> GetData([FromBody] WinlossAnalysisMetaModel metaModel)
@@ -177,5 +275,9 @@
                 SearchUsername = metaModel.SearchUserName
             };
         }
+
+        private static IEnumerable<KeyValuePair<int, string>> GetHourList()
+            => Enumerable.Range(0, MAX_HOUR).ToDictionary(_ => _, _ => $"{_:00}:00 - {_:00}:59");
+
     }
 }

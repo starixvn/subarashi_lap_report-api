@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Core.Services.Interfaces;
+using System;
 using System.Collections.Generic;
-using Fanex.Athena.Report.Core.Services.Interfaces;
 
-namespace Fanex.Athena.Report
+namespace Fanex.Athena.Report.DbSettingConfig
 {
     public interface IShardInfoAccessor
     {

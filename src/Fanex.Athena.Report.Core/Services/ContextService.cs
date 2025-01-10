@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Common.Helpers;
+using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Core.Constants;
+using Fanex.Athena.Report.Core.Enums;
+using Fanex.Athena.Report.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -59,6 +62,8 @@ namespace Fanex.Athena.Report.Core.Services
 
         public string SiteName => GetClaimValue("SiteName");
 
+        public bool IsSuperAdmin => GetClaimValue<bool>("Administrator");
+
         public int SpecialPlatform => GetClaimValue<int>("SpecialPlatform");
 
         public int SpecialPlatformType => GetClaimValue<int>("SpecialPlatformType");
@@ -68,6 +73,31 @@ namespace Fanex.Athena.Report.Core.Services
         public bool IsFakeLicensee => GetClaimValue<bool>("IsFakeLicensee");
 
         public string SiteDBServer => GetClaimValue("SiteDBServer");
+
+        public int UserId => GetClaimValue<int>("UserSEQ");
+
+        public byte UserLevel => GetClaimValue<byte>("UserLevel");
+
+        public int WhiteLabelID => GetClaimValue("WhiteLabelID", -1);
+
+        public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
+
+        public bool IsShowIp => GetClaimValue("IsShowIP", true);
+
+        public bool IsShowIpVn => IsShowIp && IsInRoles("Administrator", Roles.BetListViewIpVn);
+
+        public string DefaultBaseCurrency => GetClaimValue("BaseCurrency", "EUR");
+
+        public AppMode ApplicationMode => GetClaimValue("Name").StartsWith("lrf") ? AppMode.Self : AppMode.Parasitic;
+
+        public IEnumerable<string> OfferedOddsGroupsList
+        {
+            get
+            {
+                var offeredOddsGroupList = GetClaimValue("OfferedOddsGroups", "");
+                return string.IsNullOrEmpty(offeredOddsGroupList) ? new string[] { } : offeredOddsGroupList.Split(',');
+            }
+        }
 
         public IEnumerable<string> OfferedSubProductList
         {
@@ -89,22 +119,11 @@ namespace Fanex.Athena.Report.Core.Services
                     return Constants.SubsidiaryViewType.NotManagement;
                 }
 
-                int? GetWhiteLabelID()
-                {
-                    var value = GetClaimValue<int>("WhiteLabelID");
-                    if (value < 0)
-                    {
-                        return null;
-                    }
-
-                    return value;
-                }
-
                 const int SubsidiaryLevel = 2;
 
                 if (GetClaimValue<bool>("IsEnabledSubsidiary") && GetClaimValue<int>("UserLevel") < SubsidiaryLevel)
                 {
-                    if (GetClaimValue<bool>("IsMasterLicensee") && !GetWhiteLabelID().HasValue)
+                    if (GetClaimValue<bool>("IsMasterLicensee") && WhiteLabelID < 0)
                     {
                         return Constants.SubsidiaryViewType.MasterManagement;
                     }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Fanex.Athena.Report.Common.Extensions;
+using Fanex.Data;
+using Moq;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Data;
-using Moq;
 using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Extensions

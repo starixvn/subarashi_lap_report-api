@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml.Linq;
-using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Settings;
+using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
@@ -12,6 +8,11 @@ using Fanex.Athena.Report.Resources.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using NPOI.SS.Formula.Functions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Fanex.Athena.Report.Core.Services
 {
@@ -102,7 +103,24 @@ namespace Fanex.Athena.Report.Core.Services
                     .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
         }
 
-        private static void MapProductName(IList<ProductInfo> productList) 
+        public string GetAllowedSubProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes)
+        {
+            if (!offeredSubProductList.IsPresent() || !(productCodes?.Split(',')).IsPresent(_ => _ == Product.SB))
+            {
+                return productCodes;
+            }
+
+            return productCodes + "," + string.Join(",", offeredSubProductList);
+        }
+
+        public bool IsOfferCashOutProduct(int licenseeId)
+        {
+            var originalProducts = GetProductList(licenseeId);
+            return originalProducts.Any(_ => _.ProductCode == Product.CO);
+        }
+
+        private static void MapProductName(IList<ProductInfo> productList)
             => productList.ToList().ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
+
     }
 }

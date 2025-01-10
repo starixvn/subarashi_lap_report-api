@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.BySite.MetaModels;
+﻿using Fanex.Athena.Report.BySite.MetaModels;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.BySite.Excels.Options
 {

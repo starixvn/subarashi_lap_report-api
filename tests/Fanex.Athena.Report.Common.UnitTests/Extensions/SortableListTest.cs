@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Common.Extensions;
+﻿using Fanex.Athena.Report.Common.Extensions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Fanex.Athena.Report.Common.UnitTests.Extensions

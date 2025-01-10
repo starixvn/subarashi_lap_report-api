@@ -7,5 +7,17 @@
         public const string SettledMatchCount = "SettledMatchCount";
 
         public const string WeeklyLiveMatch = "WeeklyLiveMatch";
+
+        public const string ExtraPayout = "ExtraPayout";
+
+        public const string LeagueWinLoss = "LeagueWinLoss";
+
+        public const string WinLossAnalysis = "WinlossAnalysis";
+
+        public const string MatchWinLoss = "MatchWinLoss";
+
+        public const string LiveReport = "LiveReport";
+
+        public const string Turnover = "Turnover";
     }
 }

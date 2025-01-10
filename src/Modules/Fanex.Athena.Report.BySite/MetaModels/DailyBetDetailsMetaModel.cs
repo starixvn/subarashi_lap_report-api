@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using Fanex.Core.Utils;
     using System;
     using System.Collections.Generic;
-    using Fanex.Core.Utils;
 
     public class DailyBetDetailsMetaModel : ICurrencyIdListMetaModel, IValidationMetaModel
     {

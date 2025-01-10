@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Excel;
+using Fanex.Athena.Report.Common.Excel.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Moq;
 using NPOI.SS.UserModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Excels

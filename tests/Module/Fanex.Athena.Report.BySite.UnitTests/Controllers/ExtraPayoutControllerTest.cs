@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.Controllers;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -15,14 +12,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Moq;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
     public class ExtraPayoutControllerTest
     {
-        private readonly Fixture _fixture = new Fixture();
         private const string PhysicalPath = "PhysicalPath";
+
+        private readonly Mock<IContextService> _contextService;
+
+        private readonly Fixture _fixture = new();
+
+        private readonly Mock<IProductService> _productService;
+
+        public ExtraPayoutControllerTest()
+        {
+            _contextService = new Mock<IContextService>();
+            _productService = new Mock<IProductService>();
+        }
 
         [Fact]
         public async Task GetData_HasData_ReturnCorrectResult()
@@ -30,11 +41,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Arrange
             var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayout>>()
-                    .With(x => x.DataList, new SortableList<ExtraPayout>() { new ExtraPayout { ProductCode = "SB", Turnover = 200 } })
-                    .Create();
-            var contextService = new Mock<IContextService>();
+                                       .With(x => x.DataList,
+                                            new SortableList<ExtraPayout>
+                                                { new() { ProductCode = "SB", Turnover = 200, }, })
+                                       .Create();
 
-            var controller = new ExtraPayoutController(contextService.Object);
+            var controller = BuildController();
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -43,11 +55,13 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
                 Data = expectedData.DataList.ToList(),
                 TotalCurrency = expectedData.TotalDataList.ToList(),
                 TotalSummary = expectedData.TotalData,
-                TotalRows = expectedData.TotalRows
+                expectedData.TotalRows
             });
 
             // Action
-            var result = JsonConvert.SerializeObject((await controller.GetData(metaModel, service.Object) as OkObjectResult).Value);
+            var result =
+                JsonConvert.SerializeObject((await controller.GetData(metaModel, service.Object) as OkObjectResult)
+                   .Value);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -60,9 +74,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayout>>().Create();
 
-            var contextService = new Mock<IContextService>();
-
-            var controller = new ExtraPayoutController(contextService.Object);
+            var controller = BuildController();
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -74,7 +86,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             });
 
             // Action
-            var result = JsonConvert.SerializeObject((await controller.GetData(metaModel, service.Object) as OkObjectResult).Value);
+            var result =
+                JsonConvert.SerializeObject((await controller.GetData(metaModel, service.Object) as OkObjectResult)
+                   .Value);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -86,12 +100,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Arrange
             var metaModel = _fixture.Create<ExtraPayoutDetailMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                    .With(x => x.DataList, new SortableList<ExtraPayoutDetail>() { new ExtraPayoutDetail { PromotionType = 99, Turnover = 200 } })
-                    .Create();
+                                       .With(x => x.DataList,
+                                            new SortableList<ExtraPayoutDetail>
+                                                { new() { PromotionType = 99, Turnover = 200, }, })
+                                       .Create();
 
-            var contextService = new Mock<IContextService>();
-
-            var controller = new ExtraPayoutController(contextService.Object);
+            var controller = BuildController();
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDetailDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -102,7 +116,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             });
 
             // Action
-            var result = JsonConvert.SerializeObject((await controller.GetDetailData(metaModel, service.Object) as OkObjectResult).Value);
+            var result =
+                JsonConvert.SerializeObject(
+                    (await controller.GetDetailData(metaModel, service.Object) as OkObjectResult).Value);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -115,9 +131,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var metaModel = _fixture.Create<ExtraPayoutDetailMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>().Create();
 
-            var contextService = new Mock<IContextService>();
-
-            var controller = new ExtraPayoutController(contextService.Object);
+            var controller = BuildController();
             var service = new Mock<IExtraPayoutService>();
             service.Setup(r => r.GetDetailDataAsync(metaModel)).Returns(Task.FromResult(expectedData));
 
@@ -128,7 +142,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             });
 
             // Action
-            var result = JsonConvert.SerializeObject((await controller.GetDetailData(metaModel, service.Object) as OkObjectResult).Value);
+            var result =
+                JsonConvert.SerializeObject(
+                    (await controller.GetDetailData(metaModel, service.Object) as OkObjectResult).Value);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -140,8 +156,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Arrange
             var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayout>>()
-                    .With(x => x.DataList, new SortableList<ExtraPayout>() { new ExtraPayout { ProductCode = "SB", Turnover = 200 } })
-                    .Create();
+                                       .With(x => x.DataList,
+                                            new SortableList<ExtraPayout>
+                                                { new() { ProductCode = "SB", Turnover = 200, }, })
+                                       .Create();
 
             var fileProvider = new Mock<IFileProvider>();
             var fileInfo = Mock.Of<IFileInfo>(x => x.PhysicalPath == PhysicalPath);
@@ -154,12 +172,11 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedFileContent = _fixture.Create<byte[]>();
             excelService.Setup(e => e.Export(PhysicalPath, expectedData, metaModel)).Returns(expectedFileContent);
 
-            var contextService = new Mock<IContextService>();
-
-            var controller = new ExtraPayoutController(contextService.Object);
+            var controller = BuildController();
 
             // Assert
-            var result = await controller.ExportExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);
+            var result =
+                await controller.ExportExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);
 
             // Assert
             Assert.Equal("application/octet-stream", result.ContentType);
@@ -172,8 +189,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Arrange
             var metaModel = _fixture.Create<ExtraPayoutDetailMetaModel>();
             var expectedData = _fixture.Build<SortableReportResultModel<ExtraPayoutDetail>>()
-                    .With(x => x.DataList, new SortableList<ExtraPayoutDetail>() { new ExtraPayoutDetail { PromotionType = 99, Turnover = 200 } })
-                    .Create();
+                                       .With(x => x.DataList,
+                                            new SortableList<ExtraPayoutDetail>
+                                                { new() { PromotionType = 99, Turnover = 200, }, })
+                                       .Create();
 
             var fileProvider = new Mock<IFileProvider>();
             var fileInfo = Mock.Of<IFileInfo>(x => x.PhysicalPath == PhysicalPath);
@@ -186,16 +205,18 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var expectedFileContent = _fixture.Create<byte[]>();
             excelService.Setup(e => e.Export(PhysicalPath, expectedData, metaModel)).Returns(expectedFileContent);
 
-            var contextService = new Mock<IContextService>();
-
-            var controller = new ExtraPayoutController(contextService.Object);
+            var controller = BuildController();
 
             // Assert
-            var result = await controller.ExportDetailExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);
+            var result =
+                await controller.ExportDetailExcel(service.Object, fileProvider.Object, excelService.Object, metaModel);
 
             // Assert
             Assert.Equal("application/octet-stream", result.ContentType);
             Assert.Equal(expectedFileContent, result.FileContents);
         }
+
+        private ExtraPayoutController BuildController() =>
+            new ExtraPayoutController(_contextService.Object, _productService.Object);
     }
 }

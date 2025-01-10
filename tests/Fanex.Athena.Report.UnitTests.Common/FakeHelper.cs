@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AutoFixture;
+using AutoFixture.Dsl;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using AutoFixture;
-using AutoFixture.Dsl;
 
 namespace Fanex.Athena.Report.UnitTests.Common
 {

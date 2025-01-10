@@ -23,13 +23,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
+    <ProjectReference Include="..\..\src\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
     <ProjectReference Include="..\..\src\Modules\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.UnitTests.Common\Fanex.Athena.Report.UnitTests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>

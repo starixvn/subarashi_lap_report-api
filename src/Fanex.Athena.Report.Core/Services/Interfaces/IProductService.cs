@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Core.Models.DTOs;
+﻿using Fanex.Athena.Report.Core.Models.DTOs;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
@@ -10,5 +10,9 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         ProductAccess GetSingleWalletProductAccess(int licenseeId, string functionConfigKey = null);
 
         IList<ProductInfo> GetProductList(int licenseeId);
+
+        string GetAllowedSubProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes);
+
+        bool IsOfferCashOutProduct(int licenseeId);
     }
 }

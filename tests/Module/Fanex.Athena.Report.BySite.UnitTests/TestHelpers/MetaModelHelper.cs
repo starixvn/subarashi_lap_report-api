@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using AutoFixture;
+﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.MetaModels;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.BySite.UnitTests.TestHelpers
 {

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Common.Model.DTO;
+﻿using Fanex.Athena.Report.Common.Model.DTO;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.Common.Model.MetaModels
 {
