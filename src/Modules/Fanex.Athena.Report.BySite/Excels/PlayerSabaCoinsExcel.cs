@@ -46,13 +46,11 @@
         {
             var workBook = GetWorkbook(template, data, metaModel);
 
-            using (var stream = new MemoryStream())
-            {
-                workBook.Write(stream);
-                workBook.Close();
+            using var stream = new MemoryStream();
+            workBook.Write(stream);
+            workBook.Close();
 
-                return stream.ToArray();
-            }
+            return stream.ToArray();
         }
 
         public IWorkbook GetWorkbook(string template, SortableReportResultModel<PlayerSabaCoins> data, PlayerSabaCoinsMetaModel metaModel)
@@ -61,8 +59,8 @@
             var sheet = _builder.CloneSheet(workBook, TemplateSheetName, SheetName);
             var templateSheet = workBook.GetSheet(TemplateSheetName);
 
-            AssignHeader(sheet, templateSheet);
             AssignTitle(sheet, templateSheet, metaModel);
+            AssignHeader(sheet, templateSheet);
 
             if (data.DataList.Any())
             {
@@ -114,22 +112,39 @@
 
         private void AssignSheetData(ISheet sheet, ISheet templateSheet, SortableReportResultModel<PlayerSabaCoins> data)
         {
-            int index = 0;
+            int rowIndex = 0;
 
-            foreach (var item in data.DataList)
+            foreach (var (item, itemIndex) in data.DataList.Select((item, index) => (item, index)))
             {
-                var row = _builder.CopyRow(sheet, templateSheet, RowContentTemplate, index + RowContentTemplate);
-                row.Cells[ColumnIndex].SetCellValue(++index);
-                AssignCellData(row, item);
+                var beginIndex = rowIndex + RowContentTemplate;
+                bool isFirstAccount = true;
+
+                foreach (var account in item.Accounts)
+                {
+                    var row = _builder.CopyRow(sheet, templateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+
+                    row.Cells[ColumnIndex].SetCellValue(itemIndex + 1);
+                    row.Cells[ColumnExternalId].SetCellValue(account.ExternalId);
+                    row.Cells[ColumnSystemId].SetCellValue(account.Username);
+
+                    if (isFirstAccount)
+                    {
+                        AssignCommonCellData(row, item);
+                        isFirstAccount = false;
+                    }
+                    rowIndex++;
+                }
+
+                MergeDataRow(sheet, beginIndex, beginIndex + item.Accounts.Count() - 1, ColumnIndex, ColumnOpeningBalance,
+                    ColumnReward_Promotion, ColumnExchangeToCash, ColumnTurnOver, ColumnPendingFunds, ColumnPlayerWL, ColumnClosingBalance);
             }
 
-            AssignGrandTotal(sheet, templateSheet, data, index + RowContentTemplate);
+            AssignGrandTotal(sheet, templateSheet, data, rowIndex + RowContentTemplate);
         }
+        
 
-        private static void AssignCellData(IRow row, PlayerSabaCoins item)
+        private static void AssignCommonCellData(IRow row, PlayerSabaCoins item)
         {
-            row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
-            row.Cells[ColumnSystemId].SetCellValue(item.Username);
             row.Cells[ColumnOpeningBalance].SetCellValue((double)item.OpeningBalance);
             row.Cells[ColumnReward_Promotion].SetCellValue((double)item.RewardPromotionAmt);
             row.Cells[ColumnExchangeToCash].SetCellValue((double)item.ExchangeAmt);
@@ -143,7 +158,7 @@
         {
             var row = _builder.CopyRow(sheet, templateSheet, RowGrantTotalTemplate, index);
 
-            AssignCellData(row, data.TotalData);
+            AssignCommonCellData(row, data.TotalData);
 
             row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
 
@@ -165,6 +180,14 @@
             sheet.CreateFreezePane(0, RowContentTemplate);
 
             _builder.ClearTemplate(sheet, RowContentTemplate);
+        }
+
+        private void MergeDataRow(ISheet sheet, int firstRow, int lastRow, params int[] colIndex)
+        {
+            foreach (int col in colIndex)
+            {
+                _builder.MergeRows(sheet, firstRow, lastRow, col);
+            }
         }
     }
 }
