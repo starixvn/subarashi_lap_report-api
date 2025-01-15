@@ -25,7 +25,7 @@
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.SabaVirtualSportsWinLoss)]
     [RequestValidation(true)]
-    [AutoBindingMetaModel(bindUserId: true)]
+    [AutoBindingMetaModel(true, bindUserId: true)]
     public class SabaVirtualSportsWinLossController : ControllerBase
     {
         private readonly IContextService _contextService;

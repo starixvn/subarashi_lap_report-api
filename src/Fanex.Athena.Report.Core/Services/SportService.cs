@@ -1,27 +1,27 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.Resources.Helpers;
-using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Constants;
+    using Common.Services.Interfaces;
+    using Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+    using Models.DTOs;
+    using Repositories.Abstraction;
+    using Resources;
+    using Resources.Constants;
+    using Resources.Helpers;
+
     public class SportService : ISportService
     {
         private const string MemoryCacheSportListForTreeView = "MemoryCache_SportList_TreeView";
 
-        private readonly ISportRepository _sportRepository;
-
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private readonly IMemoryCache _memoryCache;
+
+        private readonly ISportRepository _sportRepository;
 
         public SportService(ISportRepository sportRepository, ICacheRefAdapter cacheRefAdapter, IMemoryCache memoryCache)
         {
@@ -33,7 +33,11 @@ namespace Fanex.Athena.Report.Core.Services
         public Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
             => _sportRepository.GetSportsAndProducts(licenseeId, languageCode, productCodes);
 
-        public async Task<IEnumerable<SportProductItem>> GetSportAndProductAndSabaSport(int licenseeId, string languageCode, bool isHideSaba, string productCodes = "")
+        public async Task<IEnumerable<SportProductItem>> GetSportAndProductAndSabaSport(
+            int licenseeId,
+            string languageCode,
+            bool isHideSaba,
+            string productCodes = "")
         {
             var result = new List<SportProductItem>();
             result.AddRange(await GetSportsAndProducts(licenseeId, languageCode, productCodes));
@@ -49,7 +53,11 @@ namespace Fanex.Athena.Report.Core.Services
             return result;
         }
 
-        public async Task<IEnumerable<CheckedItem>> GetSportsForTreeView(int licenseeId, string languageCode, string productCodes = "", bool isHideSaba = false)
+        public async Task<IEnumerable<CheckedItem>> GetSportsForTreeView(
+            int licenseeId,
+            string languageCode,
+            string productCodes = "",
+            bool isHideSaba = false)
         {
             var cacheKey = MemoryCacheSportListForTreeView + licenseeId + languageCode + productCodes;
             var sportList = _memoryCache.Get<IEnumerable<CheckedItem>>(cacheKey);
@@ -62,6 +70,18 @@ namespace Fanex.Athena.Report.Core.Services
             var sportItems = await _sportRepository.GetSportsForTreeView(licenseeId, productCodes);
             return BuildSportList(sportItems, isHideSaba);
         }
+
+        public IEnumerable<SabaSport> GetSabaSports(bool isHideSaba = false)
+            => SportType.GetSabaVirtualSports().Select(t => new SabaSport
+            {
+                Id = t.Item1,
+                LeagueGroupIds = t.Item4,
+                Name = GetSabaName(t.Item2, t.Item3, isHideSaba),
+                SportTypeId = t.Item2
+            });
+
+        public SabaSport GetSabaSport(int id, bool isHideSaba = false)
+            => GetSabaSports(isHideSaba).FirstOrDefault(t => t.Id == id);
 
         private ICollection<CheckedItem> BuildSportList(IEnumerable<SportForTreeViewItem> sportItems, bool isHideSaba = false)
         {
@@ -97,10 +117,12 @@ namespace Fanex.Athena.Report.Core.Services
             {
                 return _cacheRefAdapter.GetSportName(sportType);
             }
+
             if (sportType == HardCodeSportType.Parlay)
             {
                 return ViewResources.Parlay;
             }
+
             var sportName = string.Empty;
             switch (sportType)
             {
@@ -148,27 +170,16 @@ namespace Fanex.Athena.Report.Core.Services
                     _cacheRefAdapter.GetSportName(sportType);
                     break;
             }
+
             return $"{prefixText}{sportName}";
         }
 #pragma warning restore S1541 // Methods and properties should not be too complex
-
-        public IEnumerable<SabaSport> GetSabaSports(bool isHideSaba = false)
-            => SportType.GetSabaVirtualSports().Select(t => new SabaSport
-            {
-                Id = t.Item1,
-                LeagueGroupIds = t.Item4,
-                Name = GetSabaName(t.Item2, t.Item3, isHideSaba),
-                SportTypeId = t.Item2
-            });
-
-        public SabaSport GetSabaSport(int id, bool isHideSaba = false)
-            => GetSabaSports(isHideSaba).FirstOrDefault(t => t.Id == id);
 
         private string GetSabaName(int sportId, string viewResource = "", bool isHideSaba = false)
         {
             var prefixText = isHideSaba ? ViewResources.Virtual : ViewResources.Saba;
 
-            var sabaSportName = sportId != 0
+            var sabaSportName = string.IsNullOrEmpty(viewResource)
                 ? _cacheRefAdapter.GetSportName(sportId)
                 : ViewResources.ResourceManager.GetString(viewResource);
 
