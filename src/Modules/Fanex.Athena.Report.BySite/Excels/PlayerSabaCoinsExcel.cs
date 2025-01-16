@@ -141,7 +141,6 @@
 
             AssignGrandTotal(sheet, templateSheet, data, rowIndex + RowContentTemplate);
         }
-        
 
         private static void AssignCommonCellData(IRow row, PlayerSabaCoins item)
         {
