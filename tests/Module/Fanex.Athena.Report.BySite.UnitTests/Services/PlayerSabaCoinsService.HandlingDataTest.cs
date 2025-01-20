@@ -70,22 +70,22 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
                 new PlayerSabaCoins
                 {
                     SabaId = 22,
-                    OpeningBalance = 1500,
-                    Turnover = 500,
-                    Outstanding = 900,
-                    WinLoss = 400,
-                    ClosingBalance = 1400,
+                    OpeningBalance = 900,
+                    Turnover = 300,
+                    Outstanding = 600,
+                    WinLoss = 300,
+                    ClosingBalance = 900,
                     Accounts = accounts
                 }
             };
 
             var totalData = new PlayerSabaCoins
             {
-                OpeningBalance = 1500,
-                Turnover = 500,
-                Outstanding = 900,
-                WinLoss = 400,
-                ClosingBalance = 1400
+                OpeningBalance = 900,
+                Turnover = 300,
+                Outstanding = 600,
+                WinLoss = 300,
+                ClosingBalance = 900
             };
 
             return new SortableReportResultModel<PlayerSabaCoins>

@@ -57,11 +57,11 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
                 SabaId = 22,
                 Username = "test 2",
                 ExternalId = "12BTEST2",
-                OpeningBalance = 600,
-                Turnover = 200,
-                Outstanding = 300,
-                WinLoss = 100,
-                ClosingBalance = 500
+                OpeningBalance = 900,
+                Turnover = 300,
+                Outstanding = 600,
+                WinLoss = 300,
+                ClosingBalance = 900
             };
 
             _extraInfo1 = new PlayerSabaCoinsExtraInfo
@@ -75,8 +75,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             {
                 CustId = 2,
                 SabaId = 22,
-                ExchangeAmt = 200,
-                RewardPromotionAmt = 500
+                ExchangeAmt = 300,
+                RewardPromotionAmt = 900
             };
 
             _account1 = new PlayerSabaCoinsAccount
@@ -179,26 +179,26 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
                 new PlayerSabaCoins
                 {
                     SabaId = 22,
-                    OpeningBalance = 1500,
-                    Turnover = 500,
-                    Outstanding = 900,
-                    WinLoss = 400,
-                    ClosingBalance = 1400,
-                    RewardPromotionAmt = 1400,
-                    ExchangeAmt = 500,
+                    OpeningBalance = 900,
+                    Turnover = 300,
+                    Outstanding = 600,
+                    WinLoss = 300,
+                    ClosingBalance = 900,
+                    ExchangeAmt = 300,
+                    RewardPromotionAmt = 900,
                     Accounts = accounts
                 }
             };
 
             var totalData = new PlayerSabaCoins
             {
-                OpeningBalance = 1500,
-                Turnover = 500,
-                Outstanding = 900,
-                WinLoss = 400,
-                ClosingBalance = 1400,
-                RewardPromotionAmt = 1400,
-                ExchangeAmt = 500
+                OpeningBalance = 900,
+                Turnover = 300,
+                Outstanding = 600,
+                WinLoss = 300,
+                ClosingBalance = 900,
+                ExchangeAmt = 300,
+                RewardPromotionAmt = 900
             };
 
             return new SortableReportResultModel<PlayerSabaCoins>

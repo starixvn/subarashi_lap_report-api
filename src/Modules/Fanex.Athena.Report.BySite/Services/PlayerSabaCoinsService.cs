@@ -39,7 +39,7 @@
             return new SortableReportResultModel<PlayerSabaCoins>
             {
                 DataList = sortedDataList,
-                TotalData = SumTotalData(dataList),
+                TotalData = SumTotalData(groupedDataList),
                 TotalRows = groupedDataList.Count(),
             };
         }
@@ -56,7 +56,15 @@
 
         private static IEnumerable<PlayerSabaCoinsMain> JoinData(IEnumerable<PlayerSabaCoinsMain> main, IEnumerable<PlayerSabaCoinsExtraInfo> extraInfo)
         {
-            return main.LeftOuterJoin(extraInfo, main => main.CustId, extra => extra.CustId,
+            return main.LeftOuterJoin(extraInfo, main => new
+            {
+                main.CustId,
+                main.SabaId
+            }, extra => new
+            {
+                extra.CustId,
+                extra.SabaId
+            },
                 (main, extra) => new PlayerSabaCoinsMain
                 {
                     CustId = main.CustId,
@@ -80,13 +88,13 @@
                 (key, g) => new PlayerSabaCoins
                 {
                     SabaId = key,
-                    OpeningBalance = g.Sum(_ => _.OpeningBalance),
-                    Turnover = g.Sum(_ => _.Turnover),
-                    Outstanding = g.Sum(_ => _.Outstanding),
-                    WinLoss = g.Sum(_ => _.WinLoss),
-                    ClosingBalance = g.Sum(_ => _.ClosingBalance),
-                    RewardPromotionAmt = g.Sum(_ => _.RewardPromotionAmt),
-                    ExchangeAmt = g.Sum(_ => _.ExchangeAmt),
+                    OpeningBalance = g.FirstOrDefault().OpeningBalance,
+                    Turnover = g.FirstOrDefault().Turnover,
+                    Outstanding = g.FirstOrDefault().Outstanding,
+                    WinLoss = g.FirstOrDefault().WinLoss,
+                    ClosingBalance = g.FirstOrDefault().ClosingBalance,
+                    RewardPromotionAmt = g.FirstOrDefault().RewardPromotionAmt,
+                    ExchangeAmt = g.FirstOrDefault().ExchangeAmt,
                     Accounts = g.Select(_ => new PlayerSabaCoinsAccount
                     {
                         CustId = _.CustId,
@@ -97,7 +105,7 @@
             );
         }
 
-        private static PlayerSabaCoins SumTotalData(IEnumerable<PlayerSabaCoinsMain> dataList)
+        private static PlayerSabaCoins SumTotalData(IEnumerable<PlayerSabaCoins> dataList)
         {
             if (dataList == null || !dataList.Any())
             {
