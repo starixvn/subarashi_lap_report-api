@@ -98,4 +98,10 @@
 	<ItemGroup>
 		<WCFMetadata Include="Connected Services" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="..\..\Dockerfile" Link="Dockerfile" />
+		<AdditionalFiles Include="..\..\.dockerignore" Link=".dockerignore" />
+	</ItemGroup>
+
 </Project>
