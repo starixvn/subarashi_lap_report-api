@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
     using Fanex.Athena.Report.BySite.DTOs;
+    using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
     using Fanex.Athena.Report.BySite.Enums;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.Excels.Options;
@@ -39,6 +40,7 @@
         private const int MAX_HOUR = 24;
         private const string FILE_NAME_BOTH_GROUP_BY_AND_BREAK_DOWN = "WinLossReportGroupByAndBreakdownBy";
         private const string FILE_NAME_GROUP_BY_ONLY = "WinLossReportGroupBy";
+        private const int MAX_EXCEL_PAGE_SIZE = 100000;
 
         private readonly IWinlossAnalysisService _service;
         private readonly IFileService _fileService;
@@ -62,7 +64,8 @@
            IOptions<ExcelOptions> options,
            ISubsidiaryService subsidiaryService,
            IProductService productService,
-           IBaseCurrencyService baseCurrencyService, ICustomerClassService customerClassService)
+           IBaseCurrencyService baseCurrencyService,
+           ICustomerClassService customerClassService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             _service = service;
@@ -173,47 +176,47 @@
             var data = await _service.GetDataAsync(metaModel);
             var excelOption = GenOptionFromParam(metaModel);
             var pagingDatas = PagingData(data, metaModel.ExportExcelMode, _option.MaximumRowPerFile);
-            if (pagingDatas.Count() > 1)
+            if (pagingDatas.Count() > 1 || metaModel.PageIndex > 1)
             {
                 var zipFilePath = ExportToZipFile(pagingDatas, excelOption);
                 var stream = new FileStream(zipFilePath, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
                 return File(stream, "application/zip");
             }
             return File(ExportToExcelFile(data, excelOption), contentType);
+
         }
 
         private static void AssignParamToExportExcel(WinlossAnalysisMetaModel metaModel)
         {
-            metaModel.PageSize = 0;
-            metaModel.PageIndex = 0;
+            metaModel.PageSize = metaModel.PageSize > MAX_EXCEL_PAGE_SIZE ? MAX_EXCEL_PAGE_SIZE : metaModel.PageSize;
         }
 
         private IEnumerable<WinlossAnalysisResultModel> PagingData(WinlossAnalysisResultModel resultData, WinlossAnalysisExportMode exportMode, int maxRow)
         {
-            var listPagingData = new List<WinlossAnalysisResultModel>();
+            var listPagingData = new LinkedList<WinlossAnalysisResultModel>();
             var pagingData = new WinlossAnalysisResultModel
             {
                 SumTotal = resultData.SumTotal,
                 TotalRow = resultData.TotalRow
             };
-            var mainData = new List<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>>();
+            var mainData = new LinkedList<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>>();
             pagingData.Data = mainData;
             var totalRow = 0;
             var lastItem = resultData.Data.LastOrDefault();
             foreach (var item in resultData.Data)
             {
-                mainData.Add(item);
+                mainData.AddLast(item);
                 var childernRowCount = exportMode == WinlossAnalysisExportMode.All ? item.Children.Count() : 0;
                 totalRow = totalRow + 1 + childernRowCount;
                 if (item.KeyItem == lastItem?.KeyItem || totalRow >= maxRow)
                 {
-                    listPagingData.Add(pagingData);
+                    listPagingData.AddLast(pagingData);
                     pagingData = new WinlossAnalysisResultModel
                     {
                         SumTotal = resultData.SumTotal,
                         TotalRow = resultData.TotalRow
                     };
-                    mainData = new List<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>>();
+                    mainData = new LinkedList<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>>();
                     pagingData.Data = mainData;
                     totalRow = 0;
                 }
@@ -231,10 +234,10 @@
             foreach (var item in pagingDatas)
             {
                 var excelFileInByte = ExportToExcelFile(item, excelOption);
-
                 var entry = WriteExcelFile(excelFileInByte, $"{prefixFileName}_{pageIndex}");
                 listEntry.Add(entry);
                 pageIndex++;
+
             }
             return _compressService.CompressDataToFile(listEntry, true);
         }

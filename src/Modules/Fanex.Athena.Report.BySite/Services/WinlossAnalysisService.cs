@@ -8,12 +8,14 @@ using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Helpers;
-using System;
-using System.Collections.Generic;
+using Fanex.Common.Extensions;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
+using System;
+using System.Collections.Generic;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
@@ -32,7 +34,8 @@ namespace Fanex.Athena.Report.BySite.Services
         public WinlossAnalysisService(IWinlossAnalysisRepository repository,
             INameService nameService,
             IBalanceUpService balanceUpService,
-            ICurrencyService currencyService)
+            ICurrencyService currencyService,
+            ILogger<WinlossAnalysisService> logger)
         {
             _repository = repository;
             _nameService = nameService;
@@ -57,7 +60,8 @@ namespace Fanex.Athena.Report.BySite.Services
         public async Task<WinlossAnalysisResultModel> GetDataAsync(WinlossAnalysisMetaModel param)
         {
             var data = await GetRawDataAsync(param);
-            return new WinlossAnalysisResultModel { TotalRow = data.TotalRow, Data = await BuildTreeListItem(data, param), SumTotal = GetValueForBaseCurrency(data.SumTotal) };
+            var result = new WinlossAnalysisResultModel { TotalRow = data.TotalRow, Data = await BuildTreeListItem(data, param), SumTotal = data.SumTotal };
+            return result;
         }
 
         private async Task AssignMoveBetDayAsync(WinlossAnalysisMetaModel param)
@@ -66,7 +70,7 @@ namespace Fanex.Athena.Report.BySite.Services
             param.MovebetDay = balanceUp.MoveBetsDay;
         }
 
-        private async Task<IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisMetaModel param)
+        private async Task<IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>>> BuildTreeListItem(WinlossAnalysisAggregateDTO data, WinlossAnalysisMetaModel param)
         {
             var isHideSaba = SabaHelper.IsHideSaba(param.SpecialPlatform);
             var breakDownDatas = await BuildDataListForBreakdownData(param, data.MainData);
@@ -74,9 +78,9 @@ namespace Fanex.Athena.Report.BySite.Services
             return BuildDefaultTreeListItem(groupByDatas, breakDownDatas);
         }
 
-        private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForBreakdownData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> mainData)
+        private async Task<IEnumerable<WinlossAnalysisDTO>> BuildDataListForBreakdownData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> mainData)
         {
-            var listData = new List<WinlossAnalysisViewModel>(mainData.Count());
+            var listData = new List<WinlossAnalysisDTO>(mainData.Count());
             foreach (var data in mainData)
             {
                 listData.Add(await BuildAndAssginRelevantFieldForBreakdownData(param, data));
@@ -88,9 +92,8 @@ namespace Fanex.Athena.Report.BySite.Services
             return listData;
         }
 
-        private async Task<WinlossAnalysisViewModel> BuildAndAssginRelevantFieldForBreakdownData(WinlossAnalysisMetaModel param, WinlossAnalysisDTO data)
+        private async Task<WinlossAnalysisDTO> BuildAndAssginRelevantFieldForBreakdownData(WinlossAnalysisMetaModel param, WinlossAnalysisDTO item)
         {
-            var item = param.IsShowInOrginalCurrency ? GetValueForOriginalCurrency(data) : GetValueForBaseCurrency(data);
             switch (param.BreakdownMode)
             {
                 case BreakdownMode.Product:
@@ -120,10 +123,10 @@ namespace Fanex.Athena.Report.BySite.Services
             return item;
         }
 
-        private async Task<IEnumerable<WinlossAnalysisViewModel>> BuildDataListForGroupByData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> groupSumData, bool isHideSaba)
+        private async Task<IEnumerable<WinlossAnalysisDTO>> BuildDataListForGroupByData(WinlossAnalysisMetaModel param, IEnumerable<WinlossAnalysisDTO> groupSumData, bool isHideSaba)
         {
             var groupByMode = param.GroupMode;
-            var listData = new SortedList<dynamic, WinlossAnalysisViewModel>(groupSumData.Count());
+            var listData = new SortedList<dynamic, WinlossAnalysisDTO>(groupSumData.Count());
             foreach (var data in groupSumData)
             {
                 var item = await BuildAndAssginRelevantFieldForGroupSumData(groupByMode, data, isHideSaba);
@@ -146,9 +149,8 @@ namespace Fanex.Athena.Report.BySite.Services
             return returnList;
         }
 
-        private async Task<WinlossAnalysisViewModel> BuildAndAssginRelevantFieldForGroupSumData(GroupByMode groupByMode, WinlossAnalysisDTO data, bool isHideSaba)
+        private async Task<WinlossAnalysisDTO> BuildAndAssginRelevantFieldForGroupSumData(GroupByMode groupByMode, WinlossAnalysisDTO item, bool isHideSaba)
         {
-            var item = GetValueForBaseCurrency(data);
             switch (groupByMode)
             {
                 case GroupByMode.Sport:
@@ -194,7 +196,7 @@ namespace Fanex.Athena.Report.BySite.Services
             return item;
         }
 
-        private async Task AssignCurrencyName(WinlossAnalysisViewModel item)
+        private async Task AssignCurrencyName(WinlossAnalysisDTO item)
         {
             var currencies = await _currencyService.GetCurrencyListAsync();
             var currency = currencies.FirstOrDefault(_ => _.ID == Convert.ToInt32(item.GroupBy));
@@ -204,13 +206,13 @@ namespace Fanex.Athena.Report.BySite.Services
             }
         }
 
-        private static void AssignDateTime(WinlossAnalysisViewModel item, string formatDate)
+        private static void AssignDateTime(WinlossAnalysisDTO item, string formatDate)
         {
             var date = DateTime.ParseExact(item.GroupBy, ORIGINAL_DATE_FORMAT, CultureInfo.InvariantCulture);
             item.GroupByFieldText = date.ToString(formatDate);
         }
 
-        private static void AssignDateTimeAndHour(WinlossAnalysisViewModel item, string formatDate)
+        private static void AssignDateTimeAndHour(WinlossAnalysisDTO item, string formatDate)
         {
             var texts = item.GroupBy.Split('>');
             var dateText = texts.Length > 0 ? texts[0].Trim() : "";
@@ -220,10 +222,10 @@ namespace Fanex.Athena.Report.BySite.Services
             item.GroupByFieldText = $"{date.ToString(formatDate)} > {hourText}";
         }
 
-        private static void AssignGroupByField(WinlossAnalysisViewModel item)
+        private static void AssignGroupByField(WinlossAnalysisDTO item)
             => item.GroupByFieldText = item.GroupBy;
 
-        private void AssignBetType(WinlossAnalysisViewModel item, bool isHideSaba)
+        private void AssignBetType(WinlossAnalysisDTO item, bool isHideSaba)
         {
             var spiltName = item.GroupBy.Split('#');
             var productCode = spiltName[0];
@@ -233,7 +235,7 @@ namespace Fanex.Athena.Report.BySite.Services
             item.GroupByFieldText = $"{productName} > {betTypeName}";
         }
 
-        private void AssignSportName(WinlossAnalysisViewModel item, bool isHideSaba)
+        private void AssignSportName(WinlossAnalysisDTO item, bool isHideSaba)
         {
             var spiltName = item.GroupBy.Split('#');
             var productCode = spiltName[0];
@@ -243,7 +245,7 @@ namespace Fanex.Athena.Report.BySite.Services
             item.GroupByFieldText = $"{productName} > {sportName}";
         }
 
-        private static void AssignPlayerInfo(WinlossAnalysisViewModel item)
+        private static void AssignPlayerInfo(WinlossAnalysisDTO item)
         {
             var spiltName = item.GroupBy.Split('#');
             item.SystemId = spiltName[0];
@@ -251,25 +253,30 @@ namespace Fanex.Athena.Report.BySite.Services
             item.GroupByFieldText = item.SystemId;
         }
 
-        private static void AssignPlatformName(WinlossAnalysisViewModel item)
+        private static void AssignPlatformName(WinlossAnalysisDTO item)
             => item.GroupByFieldText = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
 
-        private static void AssignProductName(WinlossAnalysisViewModel item)
+        private static void AssignProductName(WinlossAnalysisDTO item)
             => item.GroupByFieldText = DataHelper.GetProductName(item.GroupBy);
 
-        private IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>> BuildDefaultTreeListItem(
-            IEnumerable<WinlossAnalysisViewModel> groupByDatas,
-            IEnumerable<WinlossAnalysisViewModel> breakDownDatas)
+        private IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>> BuildDefaultTreeListItem(
+            IEnumerable<WinlossAnalysisDTO> groupByDatas,
+            IEnumerable<WinlossAnalysisDTO> breakDownDatas)
         {
-            var dicMainData = breakDownDatas.GroupBy(_ => _.RowIndex, _ => _).ToDictionary(_ => _.Key, _ => _);
-            return groupByDatas.Select(_ => new TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>
+            var groupByRowIndexData = breakDownDatas.GroupBy(_ => _.RowIndex, _ => _);
+            var dicMainData = new Dictionary<int, IGrouping<int , WinlossAnalysisDTO>>(groupByRowIndexData.Count());
+            groupByRowIndexData.ForEach(_ => dicMainData.Add(_.Key, _));
+            var result = new List<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>>(groupByDatas.Count());
+            groupByDatas.ForEach(_ => result.Add(new TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>
             {
                 KeyItem = _,
-                Children = dicMainData.ContainsKey(_.RowIndex) ? dicMainData[_.RowIndex] : Enumerable.Empty<WinlossAnalysisViewModel>(),
-            });
+                Children = dicMainData.ContainsKey(_.RowIndex) ? dicMainData[_.RowIndex] : Enumerable.Empty<WinlossAnalysisDTO>()
+            }));
+
+            return result;
         }
 
-        private static void ReAssignDisplayIndex(IEnumerable<WinlossAnalysisViewModel> list, int startIndex)
+        private static void ReAssignDisplayIndex(IEnumerable<WinlossAnalysisDTO> list, int startIndex)
         {
             foreach (var item in list)
             {
@@ -277,44 +284,6 @@ namespace Fanex.Athena.Report.BySite.Services
                 startIndex++;
             }
         }
-
-        private WinlossAnalysisViewModel GetValueForOriginalCurrency(WinlossAnalysisDTO data)
-            => new WinlossAnalysisViewModel
-            {
-                RowIndex = data.RowIndex,
-                DisplayRowIndex = data.RowIndex,
-                AmtDueToBA = data.AmtDueToBA,
-                BetCount = data.BetCount,
-                BetEffective = data.BetEffective,
-                BreakBy = data.BreakBy,
-                GroupBy = data.GroupBy,
-                LicComm = data.LicComm,
-                LicWinloss = data.LicWinloss,
-                Margin = data.Margin,
-                Turnover = data.Turnover,
-                NetTurnover = data.NetTurnover,
-                PlayerComm = data.MemComm,
-                PlayerWinloss = data.MemWinloss
-            };
-
-        private WinlossAnalysisViewModel GetValueForBaseCurrency(WinlossAnalysisDTO data)
-            => new WinlossAnalysisViewModel
-            {
-                RowIndex = data.RowIndex,
-                DisplayRowIndex = data.RowIndex,
-                AmtDueToBA = data.BaseAmtDueToBA,
-                BetCount = data.BetCount,
-                BetEffective = data.BaseBetEffective,
-                BreakBy = data.BreakBy,
-                GroupBy = data.GroupBy,
-                LicComm = data.BaseLicComm,
-                LicWinloss = data.BaseLicWinloss,
-                Margin = data.Margin,
-                Turnover = data.BaseTurnover,
-                NetTurnover = data.BaseNetTurnover,
-                PlayerComm = data.BaseMemComm,
-                PlayerWinloss = data.BaseMemWinloss
-            };
 
         private static bool IsRequestDataForAgency(WinlossAnalysisMetaModel param)
             => string.IsNullOrWhiteSpace(param.SearchUserName)

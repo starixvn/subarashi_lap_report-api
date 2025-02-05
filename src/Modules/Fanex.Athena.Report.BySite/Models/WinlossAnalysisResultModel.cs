@@ -1,5 +1,6 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Fanex.Athena.Report.BySite.DTOs;
+using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
 
 namespace Fanex.Athena.Report.BySite.Models
 {
@@ -7,8 +8,8 @@ namespace Fanex.Athena.Report.BySite.Models
     {
         public int TotalRow { get; set; }
 
-        public IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>> Data { get; set; }
+        public IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>> Data { get; set; }
 
-        public WinlossAnalysisViewModel SumTotal { get; set; }
+        public WinlossAnalysisDTO SumTotal { get; set; }
     }
 }

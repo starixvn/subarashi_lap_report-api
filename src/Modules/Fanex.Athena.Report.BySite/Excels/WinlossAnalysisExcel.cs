@@ -1,4 +1,5 @@
 ﻿using Fanex.Athena.Report.BySite.DTOs;
+using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
 using Fanex.Athena.Report.BySite.Enums;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
@@ -174,7 +175,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             AssginSumTotalData(templateSheet, sheet, data.SumTotal, sumTotalRowIndex);
         }
 
-        private void AssignMainData(ISheet templateSheet, ISheet sheet, IEnumerable<TreeViewItem<WinlossAnalysisViewModel, WinlossAnalysisViewModel>> datas)
+        private void AssignMainData(ISheet templateSheet, ISheet sheet, IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>> datas)
         {
             var currenRowIndex = TEMPLATE_GROUP_ROW;
             var templateGroupRowHeight = templateSheet.GetRow(TEMPLATE_GROUP_ROW).Height;
@@ -203,7 +204,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             }
         }
 
-        private void AssignDataForNormalRow(IRow row, WinlossAnalysisViewModel item, WinlossAnalysisViewModel parentData)
+        private void AssignDataForNormalRow(IRow row, WinlossAnalysisDTO item, WinlossAnalysisDTO parentData)
         {
             row.GetCell(TemplateGroupByCol).SetCellValue(parentData.GroupByFieldText);
             row.GetCell(TemplateBreakdownCol).SetCellValue(item.BreakDownFieldText);
@@ -218,7 +219,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             AssignCommonData(row, item);
         }
 
-        private void AssginSumTotalData(ISheet templateSheet, ISheet sheet, WinlossAnalysisViewModel sumTotal, int sumTotalRowIndex)
+        private void AssginSumTotalData(ISheet templateSheet, ISheet sheet, WinlossAnalysisDTO sumTotal, int sumTotalRowIndex)
         {
             _builder.MergeCells(sheet, sumTotalRowIndex, sumTotalRowIndex, TemplateRowIndexCol, TemplateBreakdownCol + 1);
             var totalRow = _builder.CopyRow(sheet, templateSheet, TEMPLATE_TOTAL_ROW, sumTotalRowIndex);
@@ -226,7 +227,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             AssignCommonData(totalRow, sumTotal);
         }
 
-        private void AssignCommonData(IRow row, WinlossAnalysisViewModel item)
+        private void AssignCommonData(IRow row, WinlossAnalysisDTO item)
         {
             row.GetCell(TemplateBetCountCol).SetCellValue(item.BetCount);
             row.GetCell(TemplateTurnoverCol).SetCellValue((double)item.Turnover);
