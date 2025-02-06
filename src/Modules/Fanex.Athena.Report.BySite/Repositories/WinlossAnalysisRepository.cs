@@ -12,6 +12,8 @@ namespace Fanex.Athena.Report.BySite.Repositories
 {
     public class WinlossAnalysisRepository : IWinlossAnalysisRepository
     {
+        private const int SPTIMEOUT = 180;
+
         private readonly IDbFactory _dbFactory;
 
         public WinlossAnalysisRepository(IDbFactory dbFactory)
@@ -22,33 +24,33 @@ namespace Fanex.Athena.Report.BySite.Repositories
         public Task<WinlossAnalysisAggregateDTO> GetDataBySettlementTimeCriteria(WinlossAnalysisMetaModel metaModel)
         {
             const string spName = "LAP_Rpt_WinlossAnalysis_SettleTimeSel";
-            using (var objectDb = _dbFactory.GetObjectDb(spName))
+            using (var objectDb = _dbFactory.GetObjectDb(spName, SPTIMEOUT))
             {
                 AddCommonParameter(objectDb, metaModel);
                 AddPlayerParameter(objectDb, metaModel);
                 objectDb.SetParameterValue("HourParts", metaModel.HourParts);
-                return ReadDataAsync(objectDb);
+                return ReadDataAsync(objectDb, metaModel);
             }
         }
 
         public Task<WinlossAnalysisAggregateDTO> GetDataByAgencyCriteria(WinlossAnalysisMetaModel metaModel)
         {
             const string spName = "LAP_Rpt_WinlossAnalysis_AgencySel";
-            using (var objectDb = _dbFactory.GetObjectDb(spName))
+            using (var objectDb = _dbFactory.GetObjectDb(spName, SPTIMEOUT))
             {
                 AddCommonParameter(objectDb, metaModel);
-                return ReadDataAsync(objectDb);
+                return ReadDataAsync(objectDb, metaModel);
             }
         }
 
         public Task<WinlossAnalysisAggregateDTO> GetDataByPlayerCriteria(WinlossAnalysisMetaModel metaModel)
         {
             const string spName = "LAP_Rpt_WinlossAnalysis_PlayerSel";
-            using (var objectDb = _dbFactory.GetObjectDb(spName))
+            using (var objectDb = _dbFactory.GetObjectDb(spName, SPTIMEOUT))
             {
                 AddCommonParameter(objectDb, metaModel);
                 AddPlayerParameter(objectDb, metaModel);
-                return ReadDataAsync(objectDb);
+                return ReadDataAsync(objectDb, metaModel);
             }
         }
 
@@ -89,12 +91,12 @@ namespace Fanex.Athena.Report.BySite.Repositories
             }
         }
 
-        private static async Task<WinlossAnalysisAggregateDTO> ReadDataAsync(IObjectDb objectDb)
+        private async Task<WinlossAnalysisAggregateDTO> ReadDataAsync(IObjectDb objectDb, WinlossAnalysisMetaModel metaModel)
         {
             var result = new WinlossAnalysisAggregateDTO();
             using (var reader = await objectDb.ExecuteReaderAsync())
             {
-                result.MainData = ReadMainDataAsync(reader);
+                result.MainData = ReadMainDataAsync(reader, metaModel);
                 reader.NextResult();
                 result.GroupSumData = ReadGroupSumDataAsync(reader);
                 reader.NextResult();
@@ -103,7 +105,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             return result;
         }
 
-        private static IEnumerable<WinlossAnalysisDTO> ReadMainDataAsync(IDataReader reader)
+        private static IEnumerable<WinlossAnalysisDTO> ReadMainDataAsync(IDataReader reader, WinlossAnalysisMetaModel metaModel)
         {
             var listMainData = new List<WinlossAnalysisDTO>();
             while (reader.Read())
@@ -114,7 +116,16 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     GroupBy = reader.ToString("GroupBy"),
                     BreakBy = reader.ToString("BreakBy"),
                 };
+                data.DisplayRowIndex = data.RowIndex;
                 ReadCommonField(reader, data);
+                if (metaModel.IsShowInOrginalCurrency)
+                {
+                    ReadOriginalField(reader, data);
+                }
+                else
+                {
+                    ReadBaseField(reader, data);
+                }
                 listMainData.Add(data);
             }
             return listMainData;
@@ -130,7 +141,9 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     RowIndex = reader.ToInt("ridx"),
                     GroupBy = reader.ToString("GroupBy"),
                 };
+                data.DisplayRowIndex = data.RowIndex;
                 ReadCommonField(reader, data);
+                ReadBaseField(reader, data);
                 listGroupSumData.Add(data);
             }
 
@@ -145,30 +158,38 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 TotalRow = reader.ToInt("TotalRow")
             };
             ReadCommonField(reader, sumData);
-
+            ReadBaseField(reader, sumData);
             return sumData;
         }
 
         private static void ReadCommonField(IDataReader reader, WinlossAnalysisDTO data)
         {
             data.BetCount = reader.ToInt("BetCount");
+            data.Margin = reader.ToFloat("Margin");
+        }
+
+        private static void ReadOriginalField(IDataReader reader, WinlossAnalysisDTO data)
+        {
             data.Turnover = reader.ToDecimal("Turnover");
             data.NetTurnover = reader.ToDecimal("NetTurnover");
-            data.MemWinloss = reader.ToDecimal("MemWinloss");
-            data.MemComm = reader.ToDecimal("MemComm");
+            data.PlayerWinloss = reader.ToDecimal("MemWinloss");
+            data.PlayerComm = reader.ToDecimal("MemComm");
             data.LicWinloss = reader.ToDecimal("LicWinloss");
             data.LicComm = reader.ToDecimal("LicComm");
             data.AmtDueToBA = reader.ToDecimal("AmtDueToBA");
             data.BetEffective = reader.ToDecimal("BetEffective");
-            data.Margin = reader.ToFloat("Margin");
-            data.BaseTurnover = reader.ToDecimal("BaseTurnover");
-            data.BaseNetTurnover = reader.ToDecimal("BaseNetTurnover");
-            data.BaseMemWinloss = reader.ToDecimal("BaseMemWinloss");
-            data.BaseMemComm = reader.ToDecimal("BaseMemComm");
-            data.BaseLicWinloss = reader.ToDecimal("BaseLicWinloss");
-            data.BaseLicComm = reader.ToDecimal("BaseLicComm");
-            data.BaseAmtDueToBA = reader.ToDecimal("BaseAmtDueToBA");
-            data.BaseBetEffective = reader.ToDecimal("BaseBetEffective");
+        }
+
+        private static void ReadBaseField(IDataReader reader, WinlossAnalysisDTO data)
+        {
+            data.Turnover = reader.ToDecimal("BaseTurnover");
+            data.NetTurnover = reader.ToDecimal("BaseNetTurnover");
+            data.PlayerWinloss = reader.ToDecimal("BaseMemWinloss");
+            data.PlayerComm = reader.ToDecimal("BaseMemComm");
+            data.LicWinloss = reader.ToDecimal("BaseLicWinloss");
+            data.LicComm = reader.ToDecimal("BaseLicComm");
+            data.AmtDueToBA = reader.ToDecimal("BaseAmtDueToBA");
+            data.BetEffective = reader.ToDecimal("BaseBetEffective");
         }
     }
 }
