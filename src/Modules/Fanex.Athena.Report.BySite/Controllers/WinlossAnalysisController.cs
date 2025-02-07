@@ -27,7 +27,6 @@
     using Microsoft.Extensions.Options;
     using Models;
     using Resources;
-    using Resources.Constants;
     using Services.Interfaces;
     using static Constants.ReportConstant;
 
@@ -178,8 +177,8 @@
         private static IEnumerable<ProductInfo> MoveBaProductToBelowSportBook(ReadOnlyCollection<ProductInfo> productList)
         {
             var list = productList.ToList();
-            var baProduct = list.Find(c => c.ProductID == ProductTypes.BA);
-            var sbProduct = list.Find(c => c.ProductID == ProductTypes.Sportsbook);
+            var baProduct = list.Find(c => c.ProductID == ProductType.BA);
+            var sbProduct = list.Find(c => c.ProductID == ProductType.Sportsbook);
             if (baProduct != null && sbProduct != null)
             {
                 list.Remove(baProduct);

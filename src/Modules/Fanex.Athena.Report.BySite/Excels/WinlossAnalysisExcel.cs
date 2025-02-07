@@ -1,19 +1,19 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-using Fanex.Athena.Report.BySite.Enums;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Resources;
-using NPOI.HSSF.Util;
-using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Fanex.Athena.Report.BySite.Excels
+﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Common.Excel.Interfaces;
+    using DTOs;
+    using DTOs.WinlossAnalysis;
+    using Enums;
+    using Interfaces;
+    using Models;
+    using NPOI.HSSF.Util;
+    using NPOI.SS.UserModel;
+    using Options;
+    using Resources;
+
     public class WinlossAnalysisExcel : IWinlossAnalysisExcel
     {
         private const string DATE_FORMAT = "MM/dd/yyyy";
@@ -26,9 +26,6 @@ namespace Fanex.Athena.Report.BySite.Excels
         private const int TEMPLATE_GROUP_ROW = 3;
         private const int TEMPLATE_DETAIL_ROW = 4;
         private const int TEMPLATE_TOTAL_ROW = 9;
-
-        private readonly IDictionary<string, ICellStyle> _negativeCellStyleDic = new Dictionary<string, ICellStyle>();
-        private readonly IDictionary<string, IFont> _negativeCellFontDic = new Dictionary<string, IFont>();
 
         private const int TemplateRowIndexCol = 0;
         private const int TemplateGroupByCol = 1;
@@ -44,7 +41,16 @@ namespace Fanex.Athena.Report.BySite.Excels
         private const int TemplateAmtDueToBACol = 13;
         private const int TemplateMarginCol = 14;
 
-        private WinlossAnalysisExcelOption Option { get; set; } = new WinlossAnalysisExcelOption();
+        private readonly IExcelBuilder _builder;
+        private readonly IDictionary<string, IFont> _negativeCellFontDic = new Dictionary<string, IFont>();
+
+        private readonly IDictionary<string, ICellStyle> _negativeCellStyleDic = new Dictionary<string, ICellStyle>();
+        private readonly IColor _redColor = new HSSFColor.Red();
+
+        public WinlossAnalysisExcel(IExcelBuilder builder)
+            => _builder = builder;
+
+        private WinlossAnalysisExcelOption Option { get; set; } = new();
 
         private bool IsHasSecondaryHeaderForGroupBy => Option.GroupByMode == GroupByMode.Player;
 
@@ -55,12 +61,6 @@ namespace Fanex.Athena.Report.BySite.Excels
         private bool IsHasBetEffectiveCol => Option.GroupByMode == GroupByMode.Player;
 
         private bool IsHasSecondaryHeader => IsHasSecondaryHeaderForGroupBy || IsHasSecondaryHeaderForBreakDown;
-
-        private readonly IExcelBuilder _builder;
-        private readonly IColor _redColor = new HSSFColor.Red();
-
-        public WinlossAnalysisExcel(IExcelBuilder builder)
-            => _builder = builder;
 
         public byte[] Export(string templatePath, WinlossAnalysisResultModel data, WinlossAnalysisExcelOption option)
         {
@@ -198,6 +198,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                         AssignDataForNormalRow(detailRow, detailData, groupData);
                         currenRowIndex++;
                     }
+
                     sheet.GroupRow(groupIndex, groupIndex + data.Children.Count());
                     sheet.SetRowGroupCollapsed(groupIndex, true);
                 }
@@ -212,10 +213,12 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 row.GetCell(TemplateGroupByCol + 1).SetCellValue(parentData.ExternalId);
             }
+
             if (IsHasSecondaryHeaderForBreakDown)
             {
                 row.GetCell(TemplateBreakdownCol + 1).SetCellValue(item.ExternalId);
             }
+
             AssignCommonData(row, item);
         }
 
@@ -244,6 +247,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 SetStyleForNegativeValue(row.GetCell(TemplateLicenseeWinlossCol));
             }
+
             if (item.Margin < 0)
             {
                 SetStyleForNegativeValue(row.GetCell(TemplateMarginCol));
@@ -264,6 +268,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 return _negativeCellStyleDic[key];
             }
+
             var newCellStyle = workbook.CreateCellStyle();
             newCellStyle.CloneStyleFrom(cellStyle);
             var font = GetNegativeValueFont(cell);
@@ -281,6 +286,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 return _negativeCellFontDic[key];
             }
+
             var newFont = workbook.CreateFont();
             newFont.CloneStyleFrom(font);
             newFont.Color = _redColor.Indexed;
@@ -290,12 +296,12 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private string GetTitle()
             => $"{ViewResources.WinlossAnalysis}" +
-                $" - {(Option.ViewInTime == ViewInTimeMode.Settlement ? ViewResources.SettlementTime : ViewResources.FinancialDate)}," +
-                $" {Option.FromDate.ToString(DATE_FORMAT)} → {Option.ToDate.ToString(DATE_FORMAT)}," +
-                $" {ViewResources.Currency}: {Option.CurrencyList}," +
-                $" {ViewResources.BaseCurrency}: {Option.BaseCurrency}," +
-                $" {ViewResources.LicenseeW_L} ({Option.ProductCodes})" +
-                (string.IsNullOrWhiteSpace(Option.SearchUsername) ? string.Empty : $", {ViewResources.Username}: {Option.SearchUsername}");
+               $" - {(Option.ViewInTime == ViewInTimeMode.Settlement ? ViewResources.SettlementTime : ViewResources.FinancialDate)}," +
+               $" {Option.FromDate.ToString(DATE_FORMAT)} → {Option.ToDate.ToString(DATE_FORMAT)}," +
+               $" {ViewResources.Currency}: {Option.CurrencyList}," +
+               $" {ViewResources.BaseCurrency}: {Option.BaseCurrency}," +
+               $" {ViewResources.LicenseeW_L} ({Option.ProductCodes})" +
+               (string.IsNullOrWhiteSpace(Option.SearchUsername) ? string.Empty : $", {ViewResources.Username}: {Option.SearchUsername}");
 
         private static void FreezeHeader(ISheet sheet)
         {
@@ -319,22 +325,27 @@ namespace Fanex.Athena.Report.BySite.Excels
                 const int secondaryRowIndex = TEMPLATE_HEADER_ROW + 1;
                 _builder.HideRow(sheet, secondaryRowIndex);
             }
+
             if (!IsHasSecondaryHeaderForGroupBy)
             {
                 _builder.HideColumn(sheet, TemplateGroupByCol + 1);
             }
+
             if (!IsHasSecondaryHeaderForBreakDown)
             {
                 _builder.HideColumn(sheet, TemplateBreakdownCol + 1);
             }
+
             if (!IsHasBACol)
             {
                 _builder.HideColumn(sheet, TemplateAmtDueToBACol);
             }
+
             if (!IsHasBetEffectiveCol)
             {
                 _builder.HideColumn(sheet, TemplateBetEffectiveCol);
             }
+
             if (Option.ExportExcelMode == WinlossAnalysisExportMode.GroupByModeOnly)
             {
                 _builder.HideColumn(sheet, TemplateBreakdownCol);

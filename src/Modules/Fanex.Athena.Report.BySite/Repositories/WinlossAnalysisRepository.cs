@@ -126,6 +126,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 {
                     ReadBaseField(reader, data);
                 }
+
                 listMainData.Add(data);
             }
             return listMainData;
