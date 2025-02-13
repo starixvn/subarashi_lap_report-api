@@ -24,7 +24,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private const int ColumnIndex = 0;
 
-        private const int ColumnAmountDue = 8;
+        private const int ColumnAmountDue = 7;
 
         private const int ColumnBetCount = 5;
 
@@ -34,13 +34,11 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private const int ColumnCustomerWl = 1;
 
-        private const int ColumnLicenseeComm = 7;
-
         private const int ColumnLicenseeWl = 6;
 
         private const int ColumnProduct = 0;
 
-        private const int ColumnTemplateCount = 9;
+        private const int ColumnTemplateCount = 8;
 
         private const int ColumnTurnover = 4;
 
@@ -159,7 +157,6 @@ namespace Fanex.Athena.Report.BySite.Excels
                 row.Cells[ColumnCustomerTotal].SetCellValue((double)liveReport.CustomerTotal);
                 row.Cells[ColumnTurnover].SetCellValue((double)liveReport.TurnOver);
                 row.Cells[ColumnBetCount].SetCellValue(liveReport.BetCount);
-                row.Cells[ColumnLicenseeComm].SetCellValue((double)liveReport.LicenseeComm);
                 row.Cells[ColumnLicenseeWl].SetCellValue((double)liveReport.LicenseeWinLoss);
                 row.Cells[ColumnAmountDue].SetCellValue((double)liveReport.AmountDue);
             }
@@ -217,11 +214,6 @@ namespace Fanex.Athena.Report.BySite.Excels
                 _builder.HideRow(sheet, DetailCustomerWlHeader);
             }
 
-            if (!_options.BaVisible)
-            {
-                _builder.HideColumn(sheet, ColumnLicenseeComm);
-            }
-
             if (!_options.HasAmountDueToColumn)
             {
                 _builder.HideColumn(sheet, ColumnAmountDue);
@@ -235,7 +227,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             row.Cells[ColumnCustomerTotal].SetCellValue((double)liveReport.CustomerTotal);
             row.Cells[ColumnTurnover].SetCellValue((double)liveReport.TurnOver);
             row.Cells[ColumnBetCount].SetCellValue(liveReport.BetCount);
-            row.Cells[ColumnLicenseeComm].SetCellValue((double)liveReport.LicenseeComm);
             row.Cells[ColumnLicenseeWl].SetCellValue((double)liveReport.LicenseeWinLoss);
             row.Cells[ColumnAmountDue].SetCellValue((double)liveReport.AmountDue);
         }
@@ -394,7 +385,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             row.Cells[ColumnTurnover].SetCellValue((double)_summaryLiveReports.Sum(a => a.TurnOver));
             row.Cells[ColumnBetCount].SetCellValue(_summaryLiveReports.Sum(a => a.BetCount));
             row.Cells[ColumnLicenseeWl].SetCellValue((double)_summaryLiveReports.Sum(a => a.LicenseeWinLoss));
-            row.Cells[ColumnLicenseeComm].SetCellValue((double)_summaryLiveReports.Sum(a => a.LicenseeComm));
             row.Cells[ColumnAmountDue].SetCellValue((double)_summaryLiveReports.Sum(a => a.AmountDue));
 
             return currentRow + 1;
@@ -408,7 +398,6 @@ namespace Fanex.Athena.Report.BySite.Excels
                 ViewResources.Turnover,
                 ViewResources.BetCount,
                 ViewResources.LicenseeW_L,
-                ViewResources.Comm,
                 ViewResources.AmountDueTo
             };
 

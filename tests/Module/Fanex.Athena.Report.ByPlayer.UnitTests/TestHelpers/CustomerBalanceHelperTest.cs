@@ -28,10 +28,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
                 && expected.PlayerComm == actual.PlayerComm
                 && (expected.WinLoss + expected.PlayerComm) == (actual.WinLoss + actual.PlayerComm)
                 && expected.AffiliateTransfer == actual.AffiliateTransfer
-                && expected.ClosingBalance == actual.ClosingBalance
-                && expected.TurnoverBA == actual.TurnoverBA
-                && expected.CommBA == actual.CommBA
-                && expected.AmountDueToBA == actual.AmountDueToBA;
+                && expected.ClosingBalance == actual.ClosingBalance;
         }
 
         public static Mock<IObjectDb> SetUpObjectDb(Mock<IDataReader> mockIDataReader)
@@ -61,18 +58,12 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
             reader.Setup(r => r["nickname"]).Returns(expected.ExternalId);
             reader.Setup(r => r["username"]).Returns(expected.SystemId);
             MapReader(expected, string.Empty, reader);
-            reader.Setup(r => r["TurnOverBA"]).Returns(expected.TurnoverBA);
-            reader.Setup(r => r["CommBA"]).Returns(expected.CommBA);
-            reader.Setup(r => r["AmountDueToBA"]).Returns(expected.AmountDueToBA);
         }
 
         public static void ConfigureReaderForTotalData(CustomerBalance expected, int expectedTotalRow, Mock<IDataReader> reader)
         {
             reader.Setup(r => r["TotalRows"]).Returns(expectedTotalRow);
             MapReader(expected, "sum", reader);
-            reader.Setup(r => r["sumturnoverba"]).Returns(expected.TurnoverBA);
-            reader.Setup(r => r["sumcommba"]).Returns(expected.CommBA);
-            reader.Setup(r => r["sumamountduetoba"]).Returns(expected.AmountDueToBA);
         }
 
         public static void MapReader(CustomerBalance expected, string prefix, Mock<IDataReader> reader)

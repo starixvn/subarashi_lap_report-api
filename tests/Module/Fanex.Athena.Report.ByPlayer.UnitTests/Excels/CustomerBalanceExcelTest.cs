@@ -37,10 +37,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 $"{ViewResources.CustomerW_L} {ViewResources.Comm}",
                 $"{ViewResources.CustomerW_L} {ViewResources.Total}",
                 ViewResources.ClosingBalance,
-                ViewResources.AffiliateTransfer,
-                $"{ViewResources.BA} {ViewResources.Turnover}",
-                ViewResources.BACommission,
-                ViewResources.AmtDueToBA
+                ViewResources.AffiliateTransfer
             };
 
         public CustomerBalanceExcelTest()
@@ -94,18 +91,17 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
         }
 
         [Theory]
-        [InlineData(true, true, true)]
-        [InlineData(false, false, false)]
-        [InlineData(false, true, false)]
-        [InlineData(true, false, true)]
-        public async Task Export_WhenCall_GenerateHeaderCorrectly(bool hasComm, bool isAllowedBA, bool isEnableSingleWallet)
+        [InlineData(true, true)]
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        public async Task Export_WhenCall_GenerateHeaderCorrectly(bool hasComm, bool isEnableSingleWallet)
         {
             // Arrange
             var mockDataReader = new Mock<IDataReader>();
             CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
             var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = hasComm;
-            metaModel.IsAllowedBA = isAllowedBA;
             metaModel.IsEnableSingleWallet = isEnableSingleWallet;
 
             using (var memoryStream = new MemoryStream())
@@ -121,7 +117,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 var header = contentLines.First();
 
                 // Assert
-                Assert.True(IsCorrectHeader(header, hasComm, isAllowedBA, isEnableSingleWallet));
+                Assert.True(IsCorrectHeader(header, hasComm, isEnableSingleWallet));
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
@@ -173,7 +169,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
             var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = hasComm;
-            metaModel.IsAllowedBA = isAllowedBA;
             metaModel.IsEnableSingleWallet = isEnableSingleWallet;
 
             using (var memoryStream = new MemoryStream())
@@ -187,7 +182,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                                 .Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
                 // Assert
-                AssertBodyData(expected, contentLines, hasComm, isAllowedBA);
+                AssertBodyData(expected, contentLines, hasComm);
 
                 streamWriter.Dispose();
                 DeleteFile(fileName);
@@ -206,7 +201,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             CustomerBalanceHelperTest.SetUpObjectDb(mockDataReader);
             var metaModel = fixture.Create<CustomerBalanceMetaModel>();
             metaModel.HasComm = true;
-            metaModel.IsAllowedBA = true;
             metaModel.IsEnableSingleWallet = false;
 
             using (var memoryStream = new MemoryStream())
@@ -227,7 +221,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             }
         }
 
-        private static void AssertBodyData(CustomerBalance expected, string[] contentLines, bool hasComm = true, bool isAllowedBA = true)
+        private static void AssertBodyData(CustomerBalance expected, string[] contentLines, bool hasComm = true)
         {
             var dataLines = contentLines.ElementAt(1).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             var externalId = "=" + expected.ExternalId;
@@ -236,11 +230,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal(externalId, dataLines[1]);
             Assert.Equal(expected.SystemId, dataLines[2]);
             AssertCommonData(expected, dataLines, hasComm);
-
-            if (isAllowedBA)
-            {
-                AssertBA(expected, dataLines);
-            }
         }
 
         private static void AssertTotalData(CustomerBalance expected, string[] contentLines, bool hasComm = true)
@@ -251,7 +240,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Empty(dataLines[1]);
             Assert.Equal(ViewResources.Total, dataLines[2]);
             AssertCommonData(expected, dataLines, hasComm);
-            AssertBA(expected, dataLines);
         }
 
         private static void AssertCommonData(CustomerBalance expected, string[] dataLines, bool hasComm)
@@ -289,25 +277,13 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal(totalWinLoss.ToString(), dataLines[15]);
         }
 
-        private static void AssertBA(CustomerBalance expected, string[] dataLines)
-        {
-            Assert.Equal(expected.TurnoverBA.ToString(), dataLines[18]);
-            Assert.Equal(expected.CommBA.ToString(), dataLines[19]);
-            Assert.Equal(expected.AmountDueToBA.ToString(), dataLines[20]);
-        }
-
-        private bool IsCorrectHeader(string header, bool hasComm, bool isAllowedBA, bool isEnableSingleWallet)
+        private bool IsCorrectHeader(string header, bool hasComm, bool isEnableSingleWallet)
         {
             IEnumerable<string> textHeader = _headerTexts;
 
             if (!hasComm)
             {
                 textHeader = textHeader.Except(new[] { $"{ViewResources.CustomerW_L} {ViewResources.Comm}", $"{ViewResources.CustomerW_L} {ViewResources.Total}" });
-            }
-
-            if (!isAllowedBA)
-            {
-                textHeader = textHeader.Except(new[] { $"{ViewResources.BA} {ViewResources.Turnover}", ViewResources.BACommission, ViewResources.AmtDueToBA });
             }
 
             if (isEnableSingleWallet)

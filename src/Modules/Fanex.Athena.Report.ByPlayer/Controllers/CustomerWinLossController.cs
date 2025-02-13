@@ -37,7 +37,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         [HttpPost]
         public async Task<IActionResult> Index([FromBodyOrDefault] CustomerWinLossMetaModel metaModel)
         {
-            await PrepareMetaModel(metaModel);
+            PrepareMetaModel(metaModel);
             var result = await _customerWinLossService.GetDataList(metaModel, true);
             return Ok(new
             {
@@ -56,16 +56,15 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
         {
             var template = file.GetFileInfo("/ExcelTemplate/CustomerReports/CustomerWinLoss.xlsx").PhysicalPath;
 
-            await PrepareMetaModel(metaModel);
+            PrepareMetaModel(metaModel);
             var data = await _customerWinLossService.GetDataList(metaModel);
             var fileName = excel.Export(template, data, metaModel);
             var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
             return File(stream, "application/octet-stream");
         }
 
-        private async Task PrepareMetaModel(CustomerWinLossMetaModel metaModel)
+        private void PrepareMetaModel(CustomerWinLossMetaModel metaModel)
         {
-            metaModel.IsAllowedBA = _contextService.IsEnableBA && (await _licenseeService.CheckProductPermission(_contextService.SiteName, ProductTypes.BA));
             metaModel.SystemIdVisible = !_contextService.IsFakeLicensee;
         }
     }

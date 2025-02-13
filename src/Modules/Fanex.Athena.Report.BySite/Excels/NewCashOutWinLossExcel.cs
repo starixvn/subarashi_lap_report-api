@@ -27,11 +27,9 @@
         private const int ColumnCustomerComm = 8;
         private const int ColumnCustomerTotal = 9;
         private const int ColumnLicenseeWL = 10;
-        private const int ColumnBaComm = 11;
-        private const int ColumnAmtDueToBA = 12;
 
         private const int RowNoInfoTemplate = 7;
-        private const int ColumnTemplateCount = 13;
+        private const int ColumnTemplateCount = 11;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -96,8 +94,6 @@
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWL].SetCellValue(ViewResources.LicenseeW_L);
-            row.Cells[ColumnBaComm].SetCellValue(ViewResources.BACommission);
-            row.Cells[ColumnAmtDueToBA].SetCellValue(ViewResources.AmtDueToBA);
 
             // row 2
             var row2 = _builder.CopyRow(sheet, templateSheet, sourceRowIndex: RowHeaderTemplate + 1, destRowIndex: RowHeaderTemplate + 1);
@@ -138,8 +134,6 @@
             row.Cells[ColumnCustomerComm].SetCellValue((double)item.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue((double)item.CustomerTotal);
             row.Cells[ColumnLicenseeWL].SetCellValue((double)item.LicenseeWL);
-            row.Cells[ColumnBaComm].SetCellValue((double)item.BAComm);
-            row.Cells[ColumnAmtDueToBA].SetCellValue((double)item.AmtDueToBA);
         }
 
         private void AssignTotalCurrency(ISheet sheet, ISheet templateSheet, SortableReportResultModel<CashOutWinLoss> data, int index)
@@ -211,12 +205,6 @@
             else
             {
                 _builder.HideColumn(sheet, ColumnDate);
-            }
-
-            if (!metaModel.IsAllowedBA)
-            {
-                _builder.HideColumn(sheet, ColumnBaComm);
-                _builder.HideColumn(sheet, ColumnAmtDueToBA);
             }
         }
     }

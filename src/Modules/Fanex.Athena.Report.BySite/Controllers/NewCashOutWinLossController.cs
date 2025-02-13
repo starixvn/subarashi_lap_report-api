@@ -50,7 +50,6 @@
             [FromServices] ILicenseeService licenseeService,
             [FromBody] NewCashOutWinLossMetaModel metaModel)
         {
-            metaModel.IsAllowedBA = contextService.IsEnableBA && (await licenseeService.CheckProductPermission(contextService.SiteName, ProductTypes.BA));
             var template = file.GetFileInfo("/ExcelTemplate/NewCashOutWinLoss.xls").PhysicalPath;
             var result = await service.GetDataAsync(metaModel);
             var fileContent = excel.Export(template, result, metaModel);

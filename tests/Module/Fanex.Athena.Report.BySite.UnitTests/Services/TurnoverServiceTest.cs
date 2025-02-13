@@ -44,9 +44,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             Assert.Equal(dataList.Sum(p => p.ClosingBalance), result.ClosingBalance);
             Assert.Equal(dataList.Sum(p => p.AffiliateTransfer), result.AffiliateTransfer);
             Assert.Equal(dataList.Sum(p => p.Transfer3rd), result.Transfer3rd);
-            Assert.Equal(dataList.Sum(p => p.TurnoverBA), result.TurnoverBA);
-            Assert.Equal(dataList.Sum(p => p.CommBA), result.CommBA);
-            Assert.Equal(dataList.Sum(p => p.AmountDueToBA), result.AmountDueToBA);
         }
     }
 }

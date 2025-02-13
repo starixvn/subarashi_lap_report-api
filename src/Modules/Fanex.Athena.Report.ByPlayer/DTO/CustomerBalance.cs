@@ -36,12 +36,6 @@
 
         public decimal AffiliateTransfer { get; set; }
 
-        public decimal TurnoverBA { get; set; }
-
-        public decimal CommBA { get; set; }
-
-        public decimal AmountDueToBA { get; set; }
-
         public decimal Promotion { get; set; }
     }
 }

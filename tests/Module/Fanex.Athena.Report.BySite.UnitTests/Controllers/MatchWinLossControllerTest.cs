@@ -99,31 +99,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
         }
 
         [Fact]
-        public async Task GetData_GetColumnCount_AllowBa_ReturnCorrectResult()
-        {
-            // Arrange
-            var metaModel = FakeHelper.Create<MatchWinLossMetaModel>();
-            var dataList = FakeHelper.CreateMany<MatchWinLoss>().ToList();
-
-            _matchWinLossService.Setup(x => x.GetDataList(metaModel)).ReturnsAsync(dataList);
-
-            var productInfos = FakeHelper.CreateMany<ProductInfo>().ToList();
-            productInfos[0].ProductCode = Product.BA;
-            _productService.Setup(x => x.GetSingleWalletProductAccess(
-                _contextService.Object.LicenseeId,
-                FunctionNames.MatchWinLoss)).Returns(new ProductAccess(productInfos));
-
-            using var controller = CreateController();
-
-            // Action
-            var response = await controller.GetData(metaModel) as OkObjectResult;
-            var result = response!.Value as MatchWinLossResultModel;
-
-            // Assert
-            Assert.Equal(8, result!.ColumnCount);
-        }
-
-        [Fact]
         public async Task GetData_GetColumnCount_NotAllowBa_ReturnCorrectResult()
         {
             // Arrange

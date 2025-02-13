@@ -4,8 +4,6 @@
     {
         public bool CustomerCommVisible { get; set; }
 
-        public bool BaVisible { get; set; }
-
         public bool IsShowCasinoTransfer { get; set; }
 
         public bool IsEnableSingleWallet { get; set; }

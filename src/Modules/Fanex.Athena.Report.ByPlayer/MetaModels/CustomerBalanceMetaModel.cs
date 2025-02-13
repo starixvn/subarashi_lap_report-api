@@ -29,8 +29,6 @@ namespace Fanex.Athena.Report.ByPlayer.MetaModels
 
         public bool IsExcludedTestData { get; set; }
 
-        public bool IsAllowedBA { get; set; }
-
         public bool IsEnableSingleWallet { get; set; }
 
         public bool IsAllowedCustomerCommission { get; set; }

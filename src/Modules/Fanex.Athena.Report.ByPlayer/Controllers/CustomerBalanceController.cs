@@ -28,8 +28,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             {
                 isEnableSingleWallet = contextService.IsEnableSingleWallet,
                 isAllowedCustomerCommission = contextService.IsAllowedCustomerComm,
-                isEnableBA = contextService.IsEnableBA,
-                productOptions = productAccess.SelectProductOptions(_ => _.ProductCode != Product.BA),
+                productOptions = productAccess.SelectProductOptions(),
                 currencies = contextService.CurrencyList.OrderBy(x => x.Value)
             });
         }
@@ -56,7 +55,6 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             [FromServices] IContextService contextService,
             [FromServices] ILicenseeService licenseeService)
         {
-            metaModel.IsAllowedBA = contextService.IsEnableBA && (await licenseeService.CheckProductPermission(contextService.SiteName, ProductTypes.BA));
             metaModel.HasComm = contextService.IsAllowedCustomerComm;
             metaModel.IsEnableSingleWallet = contextService.IsEnableSingleWallet;
             metaModel.PageIndex = 1;

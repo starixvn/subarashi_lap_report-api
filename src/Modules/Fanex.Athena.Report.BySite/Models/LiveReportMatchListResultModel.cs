@@ -10,7 +10,5 @@ namespace Fanex.Athena.Report.BySite.Models
         public bool IsAllowedCustomerCommission { get; set; }
 
         public bool HasAmountDueToColumn { get; set; }
-
-        public bool IsAllowBa { get; set; }
     }
 }

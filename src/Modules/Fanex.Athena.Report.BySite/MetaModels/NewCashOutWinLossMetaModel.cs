@@ -25,7 +25,5 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public string SubsidiaryList { get; set; }
 
         public bool SubsidiarySearch { get; set; }
-
-        public bool IsAllowedBA { get; set; }
     }
 }

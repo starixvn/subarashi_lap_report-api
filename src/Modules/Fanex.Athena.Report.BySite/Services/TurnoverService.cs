@@ -39,10 +39,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 PlayerComm = dataList.Sum(p => p.PlayerComm),
                 ClosingBalance = dataList.Sum(p => p.ClosingBalance),
                 AffiliateTransfer = dataList.Sum(p => p.AffiliateTransfer),
-                Transfer3rd = dataList.Sum(p => p.Transfer3rd),
-                TurnoverBA = dataList.Sum(p => p.TurnoverBA),
-                CommBA = dataList.Sum(p => p.CommBA),
-                AmountDueToBA = dataList.Sum(p => p.AmountDueToBA)
+                Transfer3rd = dataList.Sum(p => p.Transfer3rd)
             };
             return resultTotal;
         }

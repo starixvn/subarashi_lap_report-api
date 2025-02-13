@@ -40,11 +40,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private const int ColumnCustomerTotal = 6;
 
-        private const int ColumnBaCommission = 8;
-
-        private const int ColumnAmtDueToBa = 9;
-
-        private const int ColumnTemplateCount = 10;
+        private const int ColumnTemplateCount = 8;
 
         private const int ColumnNumbericDataStartIndex = 2;
 
@@ -85,9 +81,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             "winlost",
             "playercomm",
             "totalwl",
-            "licenseewl",
-            "commba",
-            "amtduetoba"
+            "licenseewl"
         };
 
         private readonly IExcelBuilder _builder;
@@ -240,9 +234,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
-                ViewResources.AmtDueToBA
+                ViewResources.LicenseeW_L
             };
             SetTextRowHeader(row, headerTextList);
 
@@ -368,11 +360,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 _builder.HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 _builder.HideRow(sheet, RowTableHeaderTemplate + 1);
-            }
-
-            if (!_option.BaVisible)
-            {
-                _builder.HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }
         }
 

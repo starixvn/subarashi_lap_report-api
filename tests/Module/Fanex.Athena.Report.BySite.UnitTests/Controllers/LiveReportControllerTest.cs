@@ -208,7 +208,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             // Assert
             Assert.Equal(fakeData, result.Data);
-            Assert.True(result.IsAllowBa);
             Assert.True(result.HasAmountDueToColumn);
             Assert.True(result.IsAllowedCustomerCommission);
         }

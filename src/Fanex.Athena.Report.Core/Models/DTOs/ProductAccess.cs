@@ -42,16 +42,10 @@ namespace Fanex.Athena.Report.Core.Models.DTOs
             get { return ProductList.Any(p => p.ProductCode == Product.VS); }
         }
 
-        public bool IsAllowBa
-        {
-            get { return ProductList.Any(p => p.ProductCode == Product.BA); }
-        }
-
         public bool IsAllowSb
         {
             get { return ProductList.Any(p => p.ProductCode == Product.SB); }
         }
-
 
         public bool IsAllowKn
         {

@@ -1,5 +1,4 @@
-﻿
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
+﻿using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Options;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Models;
@@ -58,7 +57,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
             _baseCurrencyService = baseCurrencyService;
         }
 
-
         [HttpGet]
         [SkipRequestValidation]
         public async Task<ActionResult> Index([FromServices] ISubsidiaryService subsidiaryService)
@@ -74,7 +72,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 IsAllowedNumberGame = productAccess.IsAllowNg,
                 BalanceUpDate = await GetBalanceUpDay(),
                 IsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                IsAllowBa = productAccess.IsAllowBa,
                 HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
                 IsFakeLicensee = _contextService.IsFakeLicensee,
                 IsOneworksMaster = IsOneworksMaster,
@@ -84,7 +81,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 SubsidiarySearch = _contextService.SubsidiaryViewType == SubsidiaryViewType.NotManagement && subsidiaryList.Any() && _contextService.ApplicationMode == AppMode.Parasitic,
             });
         }
-
 
         [HttpPost]
         public async Task<ActionResult> Summary([FromBody] LiveReportMetaModel metaModel)
@@ -142,8 +138,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             {
                 Data = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false),
                 IsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
-                IsAllowBa = productAccess.IsAllowBa,
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
             });
         }
 
@@ -163,7 +158,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             var excelOption = new LiveReportMatchListExcelOption
             {
-                BaVisible = productAccess.IsAllowBa,
                 CustomerCommVisible = _contextService.IsAllowedCustomerComm,
                 HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
                 IsConvert = metaModel.IsConvert,
@@ -193,7 +187,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var excelOption = new LiveReportExcelOption
             {
                 CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-                BaVisible = productAccess.IsAllowBa,
                 HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,

@@ -52,7 +52,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 ProductOptions = productAccess.SelectProductOptions(product => !product.ProductCode.Equals(Product.BA)),
                 IsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
                 IsAllowedCasinoTransfer = _appSettings.LicenseeAllowCasinoTransfer.Contains(_contextService.LicenseeId),
-                IsAllowBa = productAccess.IsAllowBa,
                 IsEnableSingleWallet = _contextService.IsEnableSingleWallet,
                 IsFakeLicensee = _contextService.IsFakeLicensee,
                 IsHidePlayerWl = !_contextService.IsSuperAdmin &&
@@ -101,7 +100,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var excelOption = new TurnoverExcelOption
             {
                 CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-                BaVisible = productAccess.IsAllowBa,
                 IsShowCasinoTransfer = _appSettings.LicenseeAllowCasinoTransfer.Contains(_contextService.LicenseeId),
                 IsEnableSingleWallet = _contextService.IsEnableSingleWallet,
                 IsHidePlayerWL = !_contextService.IsSuperAdmin &&

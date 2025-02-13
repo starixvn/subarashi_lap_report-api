@@ -22,8 +22,6 @@ namespace Fanex.Athena.Report.BySite.Models
 
         public bool HasAmountDueToColumn { get; set; }
 
-        public bool IsAllowBa { get; set; }
-
         public bool IsAllowedNumberGame { get; set; }
 
         public DateTime BalanceUpDate { get; set; }
