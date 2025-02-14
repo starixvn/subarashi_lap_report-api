@@ -182,19 +182,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         {
             row["leaguename"] = (int)row[NewProductIdColumnName] == ProductTypes.NumberGame ?
                 ViewResources.ProductNG :
-                GetLeagueName(row, sportType);
-        }
-
-        private string GetLeagueName(DataRow row, int sportType)
-        {
-            if (SportHelper.IsVirtualBetRadarSports(sportType))
-            {
-                return _cacheRefAdapter.GetLeagueName3rd(row["leagueid"]);
-            }
-            else
-            {
-                return _cacheRefAdapter.GetLeagueName(row["leagueid"]);
-            }
+                _cacheRefAdapter.GetLeagueName(row["leagueid"], sportType);
         }
 
         private IWorkbook GetWorkbook(string template)
@@ -367,7 +355,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         {
             for (int i = 0, j = doubleValues.Length; i < j && cellIndex < row.Cells.Count; i++)
             {
-                row.Cells[cellIndex].SetCellValue(Math.Round(doubleValues[i]));
+                row.Cells[cellIndex].SetCellValue(doubleValues[i]);
                 cellIndex++;
             }
 
