@@ -115,5 +115,7 @@
         public const string GPILC = "GPILC";
 
         public const string PS = "PS";
+
+        public const string ASK = "ASK";
     }
 }

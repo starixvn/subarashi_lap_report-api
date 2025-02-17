@@ -196,6 +196,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ASKMESLOT.
+        /// </summary>
+        public static string ASK {
+            get {
+                return ResourceManager.GetString("ASK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Away.
         /// </summary>
         public static string Away {
@@ -1704,6 +1713,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ProductAPM {
             get {
                 return ResourceManager.GetString("ProductAPM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ASKMESLOT.
+        /// </summary>
+        public static string ProductASK {
+            get {
+                return ResourceManager.GetString("ProductASK", resourceCulture);
             }
         }
         

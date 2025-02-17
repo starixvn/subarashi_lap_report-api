@@ -1148,4 +1148,10 @@
   <data name="ProductPS" xml:space="preserve">
     <value>PLAYSTAR</value>
   </data>
+  <data name="ASK" xml:space="preserve">
+    <value>ASKMESLOT</value>
+  </data>
+  <data name="ProductASK" xml:space="preserve">
+    <value>ASKMESLOT</value>
+  </data>
 </root>

@@ -60,7 +60,8 @@
             { ExtraPayoutMapType.PayoutPromotionCashPrize, BetType.PromotionCashPrize },
             { ExtraPayoutMapType.PayoutFastSpinPromotion, BetType.FastSpinPromotionPrize },
             { ExtraPayoutMapType.PayoutFACHAIPromotion, BetType.FACHAIPromotion },
-            { ExtraPayoutMapType.PayoutOddsBoostAdjustment, BetType.OddsBoostAdjustment }
+            { ExtraPayoutMapType.PayoutOddsBoostAdjustment, BetType.OddsBoostAdjustment },
+            { ExtraPayoutMapType.PayoutPromotionASKMESLOT, BetType.ASKMESLOTPromotionPrize }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {
