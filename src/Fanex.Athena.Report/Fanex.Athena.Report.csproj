@@ -157,7 +157,6 @@
     <ProjectReference Include="..\Fanex.Athena.Report.Core\Fanex.Athena.Report.Core.csproj" />
     <ProjectReference Include="..\Fanex.Athena.Report.Resources\Fanex.Athena.Report.Resources.csproj" />
     <ProjectReference Include="..\Modules\Fanex.Athena.Report.Base\Fanex.Athena.Report.Base.csproj" />
-    <ProjectReference Include="..\Modules\Fanex.Athena.Report.BetList\Fanex.Athena.Report.BetList.csproj" />
     <ProjectReference Include="..\Modules\Fanex.Athena.Report.ByPlayer\Fanex.Athena.Report.ByPlayer.csproj" />
     <ProjectReference Include="..\Modules\Fanex.Athena.Report.BySite\Fanex.Athena.Report.BySite.csproj" />
   </ItemGroup>

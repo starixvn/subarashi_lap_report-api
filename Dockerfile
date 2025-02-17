@@ -29,10 +29,6 @@ COPY src/Modules/Fanex.Athena.Report.Base/Fanex.Athena.Report.Base.csproj ./Modu
 RUN --mount=type=cache,target=/root/.nuget/packages \
  dotnet restore Modules/Fanex.Athena.Report.Base/Fanex.Athena.Report.Base.csproj -v n
 
-COPY src/Modules/Fanex.Athena.Report.BetList/Fanex.Athena.Report.BetList.csproj ./Modules/Fanex.Athena.Report.BetList/
-RUN --mount=type=cache,target=/root/.nuget/packages \
- dotnet restore Modules/Fanex.Athena.Report.BetList/Fanex.Athena.Report.BetList.csproj -v n
-
 COPY src/Fanex.Athena.Report/Fanex.Athena.Report.csproj ./Fanex.Athena.Report/
 RUN --mount=type=cache,target=/root/.nuget/packages \
  dotnet restore Fanex.Athena.Report/Fanex.Athena.Report.csproj -v n
@@ -43,7 +39,6 @@ COPY src/Fanex.Athena.Report.Core ./Fanex.Athena.Report.Core
 COPY src/Modules/Fanex.Athena.Report.ByPlayer ./Modules/Fanex.Athena.Report.ByPlayer
 COPY src/Modules/Fanex.Athena.Report.BySite ./Modules/Fanex.Athena.Report.BySite
 COPY src/Modules/Fanex.Athena.Report.Base ./Modules/Fanex.Athena.Report.Base
-COPY src/Modules/Fanex.Athena.Report.BetList ./Modules/Fanex.Athena.Report.BetList
 COPY src/Fanex.Athena.Report ./Fanex.Athena.Report
 
 
