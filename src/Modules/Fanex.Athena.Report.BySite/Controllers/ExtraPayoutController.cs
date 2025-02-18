@@ -1,22 +1,22 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Model.DTO;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Services.Interfaces;
+    using DTOs;
+    using Excels.Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Resources;
+    using Resources.Constants;
+    using Services.Interfaces;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.ExtraPayout)]
@@ -36,8 +36,9 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
         [HttpPost]
         [SkipRequestValidation]
-        public async Task<IActionResult> Index([FromServices] IBaseCurrencyService baseCurrencyService,
-                                               [FromServices] ISubsidiaryService subsidiaryService)
+        public async Task<IActionResult> Index(
+            [FromServices] IBaseCurrencyService baseCurrencyService,
+            [FromServices] ISubsidiaryService subsidiaryService)
         {
             var subsidiaryList = await subsidiaryService.GetWhiteLabelTree(_contextService.SiteName);
 
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 _contextService.LicenseeId,
                 FunctionNames.ExtraPayout).SelectProductOptions();
 
-            var hasPlayerTipsPermission = _contextService.IsInRoles(Roles.DisplayPlayerTips_ExtraPayoutReportOnly);
+            var hasPlayerTipsPermission = _contextService.IsInRoles(Roles.PortalSuperAdmin, Roles.DisplayPlayerTips_ExtraPayoutReportOnly);
 
             return Ok(new
             {
@@ -56,20 +57,8 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 defaultBaseCurrency = _contextService.DefaultBaseCurrency,
                 productOptions = hasPlayerTipsPermission ? AddPlayerTipsProduct(productOptions) : productOptions,
                 whitelabelList = subsidiaryList,
-                subsidiaryList = subsidiaryList.SelectMany(x => x.Children.Select(y => y.Value)).Distinct(),
+                subsidiaryList = subsidiaryList.SelectMany(x => x.Children.Select(y => y.Value)).Distinct()
             });
-        }
-
-        private IList<ProductOption> AddPlayerTipsProduct(IList<ProductOption> productList)
-        {
-            var originalProductList = _productService.GetProductList(_contextService.LicenseeId);
-
-            if (originalProductList.Any(_ => _.ProductCode == Product.SB))
-            {
-                productList.Add(new ProductOption { Code = Product.TIP, Name = ViewResources.ProductTIP, Status = true });
-            }
-
-            return productList;
         }
 
         [HttpGet]
@@ -151,6 +140,18 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var result = await service.GetDetailDataAsync(metaModel).ConfigureAwait(false);
             var fileContent = excel.Export(template, result, metaModel);
             return new FileContentResult(fileContent, "application/octet-stream");
+        }
+
+        private IList<ProductOption> AddPlayerTipsProduct(IList<ProductOption> productList)
+        {
+            var originalProductList = _productService.GetProductList(_contextService.LicenseeId);
+
+            if (originalProductList.Any(_ => _.ProductCode == Product.SB))
+            {
+                productList.Add(new ProductOption { Code = Product.TIP, Name = ViewResources.ProductTIP, Status = true });
+            }
+
+            return productList;
         }
 
         private static ExtraPayoutResultModel GetEmptyResult()
