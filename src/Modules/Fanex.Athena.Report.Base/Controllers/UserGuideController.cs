@@ -1,21 +1,21 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Core.Utility.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Base.Controllers
+﻿namespace Fanex.Athena.Report.Base.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+    using Common.Constants;
+    using Common.Services.Interfaces;
+    using Core.Constants;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Core.Utility.Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Resources.Constants;
+
     [Route("api/[controller]/[action]")]
     public class UserGuideController : ControllerBase
     {
@@ -30,11 +30,12 @@ namespace Fanex.Athena.Report.Base.Controllers
             FunctionNames.WeeklyLiveMatch.ToLowerInvariant()
         };
 
+        private readonly IBalanceUpService _balanceUpService;
+
         private readonly IContextService _contextService;
         private readonly IFileSystem _fileSystem;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IProductService _productService;
-        private readonly IBalanceUpService _balanceUpService;
 
 
         public UserGuideController(
@@ -88,8 +89,11 @@ namespace Fanex.Athena.Report.Base.Controllers
             return content;
         }
 
-        private static string RemoveProductSection(string content, IEnumerable<ProductInfo> products, int productId,
-                                                   string productCode)
+        private static string RemoveProductSection(
+            string content,
+            IEnumerable<ProductInfo> products,
+            int productId,
+            string productCode)
         {
             var openingTag = "{" + productCode + "-productlist-section}";
 
@@ -154,12 +158,12 @@ namespace Fanex.Athena.Report.Base.Controllers
             var customContent = content;
             var licenseeTagPattern = $"{{[\\w\\d]+-{LICENSEE_SUFFIX_SECTION}}}";
             var matchItems = new Regex(licenseeTagPattern).Matches(customContent)
-                                                          .Select(_ => _.Value);
+                .Select(_ => _.Value);
 
             foreach (var matchItem in matchItems)
             {
                 var removeLicenseeNameSection = matchItem.Replace($"-{LICENSEE_SUFFIX_SECTION}}}", string.Empty)
-                                                         .Replace("{", string.Empty);
+                    .Replace("{", string.Empty);
                 var openingTag = $"{{{removeLicenseeNameSection}-{LICENSEE_SUFFIX_SECTION}}}";
                 var closingTag = $"{{\\/{removeLicenseeNameSection}-{LICENSEE_SUFFIX_SECTION}}}";
                 var removePattern = $"{openingTag}([\\s\\S]*?){closingTag}";
@@ -175,7 +179,7 @@ namespace Fanex.Athena.Report.Base.Controllers
             var closingTag = $"{{/{permission}-permission-section}}";
             var customContent = content;
 
-            if (_contextService.IsInRoles(permission))
+            if (_contextService.IsInRoles(Roles.PortalSuperAdmin, permission))
             {
                 customContent = customContent.Replace(openingTag, string.Empty);
                 customContent = customContent.Replace(closingTag, string.Empty);
@@ -216,8 +220,11 @@ namespace Fanex.Athena.Report.Base.Controllers
             return _fileSystem.ReadFile(filePath);
         }
 
-        private static string Replace(string content, string openingSectionTag, string closingSectionTag,
-                                      bool shouldKeepSection)
+        private static string Replace(
+            string content,
+            string openingSectionTag,
+            string closingSectionTag,
+            bool shouldKeepSection)
         {
             var result = content;
 
