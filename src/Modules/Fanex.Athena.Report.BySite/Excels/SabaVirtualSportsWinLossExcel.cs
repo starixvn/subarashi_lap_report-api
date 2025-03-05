@@ -146,7 +146,7 @@
                 // Copy template
                 var row = _builder.CopyRow(sheet, templatSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryData[currency]);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
+                row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, currency.ToUpperInvariant()));
 
                 // Merge first two column
                 _builder.MergeCols(sheet, ColumnIndex, ColumnCurrency, rowIndex);

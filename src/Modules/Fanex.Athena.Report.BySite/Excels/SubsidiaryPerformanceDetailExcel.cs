@@ -159,6 +159,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             var grandTotalCell = sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnCurrency];
             grandTotalCell.Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
+            grandTotalCell.Merge = true;
 
             AssignCommonData(sheet, Data.TotalData, totalRowIndex);
         }
