@@ -40,6 +40,8 @@
 
         public const int BRL = -19;
 
+        public const int PKR = -20;
+
         // crypto currencies
         public const int USDT = -99;
     }
