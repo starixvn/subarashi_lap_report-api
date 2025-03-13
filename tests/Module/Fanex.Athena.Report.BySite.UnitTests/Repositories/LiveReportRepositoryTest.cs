@@ -31,8 +31,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             { CurrencyId, CurrencyName }, { 1, "USD" }
         };
 
-        private readonly AppSettings _appSettings;
-
         private readonly BalanceUp _balanceUp;
 
         private readonly LiveReportMetaModel _metaModel;
@@ -55,7 +53,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _metaModel.ToDate = DateTimeHelper.CreateDateTime(2017, 2, 2);
             _metaModel.LiveIndicator = 1;
 
-            _appSettings = FakeHelper.Create<AppSettings>();
             _balanceUp = new BalanceUp
             {
                 MoveBetsDay = DateTimeHelper.CreateDateTime(2017, 2, 2)
@@ -406,7 +403,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         private LiveReportRepository CreateRepository()
         {
             SetupObjectDb();
-            return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object, _appSettings);
+            return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object);
         }
 
         private void SetupObjectDb()

@@ -123,5 +123,7 @@
         public const int FACHAIPromotion = 11399;
 
         public const int OddsBoostAdjustment = 997;
+
+        public const int ASKMESLOTPromotionPrize = 15199;
     }
 }

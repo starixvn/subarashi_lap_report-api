@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.Constants;
+using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
@@ -21,17 +22,14 @@ namespace Fanex.Athena.Report.BySite.Repositories
 {
     public class LiveReportRepository : ILiveReportRepository
     {
-        private readonly AppSettings _appSettings;
-
         private readonly IBalanceUpService _balanceUpService;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public LiveReportRepository(ICacheRefAdapter cacheRefAdapter, IBalanceUpService balanceUpService, AppSettings appSettings)
+        public LiveReportRepository(ICacheRefAdapter cacheRefAdapter, IBalanceUpService balanceUpService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _balanceUpService = balanceUpService;
-            _appSettings = appSettings;
         }
 
         public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel)
@@ -90,7 +88,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                         };
 
                         var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
-                        item.IsLive = !_appSettings.LiveReportNoDetailLinkSports.Contains(sportId);
+                        item.IsLive = !ReportConstant.LiveReportNoDetailLinkSports.Contains(sportId);
 
                         ReadCommonColumns(reader, item);
                         list.Add(item);

@@ -69,5 +69,7 @@
         public const int PayoutFACHAIPromotion = 8901;
 
         public const int PayoutOddsBoostAdjustment = 101;
+
+        public const int PayoutPromotionASKMESLOT = 10301;
     }
 }
