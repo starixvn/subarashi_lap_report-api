@@ -33,10 +33,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private const int ColumnTurnover = 6;
         private const int ColumnCustomerWl = 7;
         private const int ColumnLicenseeWl = 8;
-        private const int ColumnBAComm = 9;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 10;
+        private const int ColumnTemplateCount = 9;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -92,8 +91,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 ViewResources.BetCount,
                 ViewResources.Turnover,
                 ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
+                ViewResources.LicenseeW_L
             };
 
             var data = _fixture.Build<SortableReportResultModel<LeagueWinLoss>>()
@@ -264,7 +262,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             Mock.Get(row.Object.Cells[ColumnTurnover]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.TurnOver)), Times.Once);
             Mock.Get(row.Object.Cells[ColumnCustomerWl]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.CustomerWL)), Times.Once);
             Mock.Get(row.Object.Cells[ColumnLicenseeWl]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.LicenseeWL)), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnBAComm]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.BAComm)), Times.Once);
         }
     }
 }

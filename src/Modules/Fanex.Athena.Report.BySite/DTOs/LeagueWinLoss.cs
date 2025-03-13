@@ -6,6 +6,8 @@
     {
         public int Index { get; set; }
 
+        public string ProductGroup { get; set; }
+
         public int SportType { get; set; }
 
         public int LeagueId { get; set; }
@@ -17,8 +19,6 @@
         public decimal TurnOver { get; set; }
 
         public decimal CustomerWL { get; set; }
-
-        public decimal BAComm { get; set; }
 
         public decimal LicenseeWL { get; set; }
 

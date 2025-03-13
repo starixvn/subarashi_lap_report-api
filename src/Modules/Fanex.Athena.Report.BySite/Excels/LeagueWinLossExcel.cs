@@ -16,7 +16,6 @@
     {
         private const string TemplateSheetName = "Template";
         private const string SheetName = "Data";
-        private const int Parlay = 0;
 
         private const int ColumnIndex = 0;
         private const int ColumnSport = 1;
@@ -27,10 +26,9 @@
         private const int ColumnTurnover = 6;
         private const int ColumnCustomerWl = 7;
         private const int ColumnLicenseeWl = 8;
-        private const int ColumnBAComm = 9;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 10;
+        private const int ColumnTemplateCount = 9;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -68,7 +66,6 @@
 
             if (data.DataList.Any())
             {
-                SortMemberData(data, metaModel);
                 AssignSheetData(sheet, templateSheet, data);
             }
             else
@@ -80,20 +77,6 @@
             _builder.RemoveSheet(workBook, TemplateSheetName);
 
             return workBook;
-        }
-
-        private static void SortMemberData(SortableReportResultModel<LeagueWinLoss> data, LeagueWinLossMetaModel metaModel)
-        {
-            if (metaModel.DrillDownLevel == (int)LeagueWinLossReportLevel.League)
-            {
-                var parlayData = data.DataList.Find(_ => _.SportType == Parlay);
-
-                if (parlayData != null)
-                {
-                    data.DataList.Remove(parlayData);
-                    data.DataList.Add(parlayData);
-                }
-            }
         }
 
         protected void AssignHeader(ISheet sheet, ISheet templateSheet)
@@ -110,8 +93,7 @@
                 ViewResources.BetCount,
                 ViewResources.Turnover,
                 ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
+                ViewResources.LicenseeW_L
             };
 
             SetTextRowHeader(row, headerTextList);
@@ -162,7 +144,6 @@
             row.Cells[ColumnTurnover].SetCellValue((double)item.TurnOver);
             row.Cells[ColumnCustomerWl].SetCellValue((double)item.CustomerWL);
             row.Cells[ColumnLicenseeWl].SetCellValue((double)item.LicenseeWL);
-            row.Cells[ColumnBAComm].SetCellValue((double)item.BAComm);
         }
 
         private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, SortableReportResultModel<LeagueWinLoss> data, int index)
@@ -222,11 +203,6 @@
 
         private void HideColumns(ISheet sheet, LeagueWinLossMetaModel metaModel)
         {
-            if (!metaModel.ShowBA)
-            {
-                _builder.HideColumn(sheet, ColumnBAComm);
-            }
-
             switch (metaModel.DrillDownLevel)
             {
                 case (int)LeagueWinLossReportLevel.League:

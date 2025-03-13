@@ -3,9 +3,11 @@ using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Common.Services;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Data;
 using Moq;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,6 +25,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
         private readonly Mock<IBalanceUpService> _balanceUpService;
         private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+        private readonly Mock<INameService> _nameService;
 
         private readonly BalanceUp _balance = new BalanceUp
         {
@@ -35,8 +38,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             { "winlost", 100 },
             { "betcount", 50 },
             { "LicenseeWL", 200 },
-            { "turnover", 150 },
-            { "BAComm", 200 }
+            { "turnover", 150 }
         };
 
         public LeagueWinLossRepositoryTest()
@@ -49,17 +51,19 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _balanceUpService.Setup(b => b.GetBalanceUpAsync()).Returns(Task.FromResult(_balance));
 
             _cacheRefAdapter = new Mock<ICacheRefAdapter>();
+            _nameService = new Mock<INameService>();
             _cacheRefAdapter.Setup(c => c.GetSportName(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetBettype(It.IsAny<int>(), false)).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetTeamName(It.IsAny<int>(), It.IsAny<int>())).Returns(_fixture.Create<string>());
-            _cacheRefAdapter.Setup(c => c.GetMatchName(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>())).Returns(_fixture.Create<string>());
+            _cacheRefAdapter.Setup(c => c.GetMatchName(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<int>())).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetLeagueName(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
             _cacheRefAdapter.Setup(c => c.GetLeagueName3rd(It.IsAny<int>())).Returns(_fixture.Create<string>());
+            _nameService.Setup(n => n.GetSportName(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
         }
 
         public LeagueWinLossRepository CreateRepository()
         {
-            return new LeagueWinLossRepository(_balanceUpService.Object, _cacheRefAdapter.Object);
+            return new LeagueWinLossRepository(_balanceUpService.Object, _cacheRefAdapter.Object, _nameService.Object);
         }
 
         [Theory]
@@ -71,7 +75,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var expectedLeagueData = new Dictionary<string, object>
             {
                 { "LeagueId", 20156 },
-                { "SportType", sportType }
+                { "SportType", sportType },
+                { "GroupProductCode", "SB" },
+                { "IsBreakdown", breakdown }
             };
             var metaModel = _fixture.Create<LeagueWinLossMetaModel>();
             var reader = new Mock<IDataReader>();
@@ -125,7 +131,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
                 { "HomeId", 2451 },
                 { "AwayId", 5542 },
                 { "IsNeutral", true },
-                { "EventType", 1 }
+                { "EventType", 1 },
+                { "VendorMatchId", "123" },
+                { "Distance", "456" },
+                { "KickOffTime", new DateTime(2025, 3, 13) }
             };
             var metaModel = _fixture.Create<LeagueWinLossMetaModel>();
             var reader = new Mock<IDataReader>();
@@ -384,7 +393,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             Assert.Equal(50, data.BetCount);
             Assert.Equal(200, data.LicenseeWL);
             Assert.Equal(150, data.TurnOver);
-            Assert.Equal(200, data.BAComm);
         }
     }
 }

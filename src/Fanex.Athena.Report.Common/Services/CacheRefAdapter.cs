@@ -73,8 +73,8 @@ namespace Fanex.Athena.Report.Common.Services
         public string[] GetBetBuilderSelectionNames(int[] selectionIds) =>
             RemotingRefService.GetBetBuilderSelectionNames(selectionIds, GetCurrentIBCLanguageCode());
 
-        public string GetMatchName(object homeId, object awayId, bool IsNeutral = false) => GetTeamName(homeId) +
-            (IsNeutral ? " (N)" : string.Empty) + " - vs - " + GetTeamName(awayId);
+        public string GetMatchName(object homeId, object awayId, bool IsNeutral = false, int sportId = 0) => GetTeamName(homeId, sportId) +
+            (IsNeutral ? " (N)" : string.Empty) + " - vs - " + GetTeamName(awayId, sportId);
 
         public string GetTeamName(object teamId, int sportId = 0)
         {
@@ -186,6 +186,5 @@ namespace Fanex.Athena.Report.Common.Services
 
             return betTypeName;
         }
-
     }
 }

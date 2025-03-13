@@ -1,5 +1,4 @@
-﻿
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
@@ -21,7 +20,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.LeagueWinLoss)]
     [RequestValidation(validateCurrencyList: true)]
-    [AutoBindingMetaModel(bindAgent: true, bindProductCodeList: true)]
+    [AutoBindingMetaModel(bindAgent: true)]
     public class LeagueWinLossController : ControllerBase
     {
         private readonly ILeagueWinLossService _service;

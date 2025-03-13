@@ -16,13 +16,13 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public int EventType { get; set; }
 
+        public int SportType { get; set; }
+
         public string MatchName { get; set; } = string.Empty;
 
         public string ProductCodeList { get; set; }
 
         public string OriginalProductCodeList { get; set; }
-
-        public bool ShowBA { get; set; }
 
         public int DrillDownLevel { get; set; }
 
