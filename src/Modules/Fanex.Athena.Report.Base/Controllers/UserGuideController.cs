@@ -14,6 +14,7 @@
     using Core.Utility.Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Resources.Constants;
 
     [Route("api/[controller]/[action]")]
     public class UserGuideController : ControllerBase

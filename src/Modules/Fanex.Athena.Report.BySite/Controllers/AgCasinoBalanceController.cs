@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Core.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Helpers;
+    using Core.Services.Interfaces;
+    using DTOs;
+    using Excels.Interfaces;
+    using Excels.Options;
+    using Fanex.Core.Utils;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Services.Interfaces;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.AGCasinoBalance)]
@@ -62,9 +62,10 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ExportExcel([FromServices] IFileProvider file,
-                                                     [FromServices] IAgCasinoBalanceExcel excel,
-                                                     [FromBody] ThirdPartyWinLossMetaModel metaModel)
+        public async Task<IActionResult> ExportExcel(
+            [FromServices] IFileProvider file,
+            [FromServices] IAgCasinoBalanceExcel excel,
+            [FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = SystemConstants.MaxDataTotalRow;
@@ -74,7 +75,8 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var option = new ThirdPartyWinLossExcelOption
             {
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
+                CurrencyName = metaModel.CurrencyName,
+                IsConvert = metaModel.CurrencyId < 0
             };
 
             var template = file.GetFileInfo("/ExcelTemplate/AgCasinoBalance.xls").PhysicalPath;
