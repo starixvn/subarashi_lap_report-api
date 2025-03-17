@@ -4,6 +4,7 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Extensions;
+    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
@@ -20,22 +21,28 @@
     {
         private readonly IBalanceUpService _balanceUpService;
         private readonly ICacheRefAdapter _cacheRefAdapter;
-        private const int Parlay = 0;
+        private readonly INameService _nameService;
+
+        private const int ParlaySport = 0;
         private const int Outright = 2;
-        private const int SportsLottery = -63;
-        private const int BitCoin = -69;
+        private const int ParlaySB = -9;
+        private const int ParlayVS = -5;
         private const string BetTypeListColumn = "betTypeList";
         private const string BalanceUpDayColumn = "balanceupday";
         private const string MatchIdColumn = "matchId";
         private const string EventTypeColumn = "eventType";
+        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
+        private static readonly CultureInfo EnglishCulture = new("en-US");
 
-        public static readonly IEnumerable<int> ProductDirectToCurrency = new[] { SportsLottery, BitCoin };
+        private static readonly List<string> ProductsGroupOrder = new() { Product.SB, Product.VS };
+        private static readonly List<int> SportsDirectToCurrencyOrder = new() { ParlaySport, SportType.SportsLottery, SportType.BitCoin };
 
         public LeagueWinLossRepository(
-            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter)
+            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, INameService nameService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
+            _nameService = nameService;
         }
 
         public async Task<SortableReportResultModel<LeagueWinLoss>> GetLeagueWinlossDetail(
@@ -44,19 +51,16 @@
             const string UspName = "Lrf_Rpt_WinLossByLeague_League";
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue("sportTypeList", metaModel.SportIdList);
-                db.SetParameterValue("leagueName", metaModel.LeagueName);
-                db.SetParameterValue("searchLanguage", CultureInfo.CurrentUICulture.Name);
-                db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("sportTypeList", metaModel.SportIdList);
+            db.SetParameterValue("leagueName", metaModel.LeagueName);
+            db.SetParameterValue("searchLanguage", CultureInfo.CurrentUICulture.Name);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            db.SetParameterValue("BalanceUpDay", balanceUpInfo.BalanceUpDay);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetLeagueData(reader, metaModel.IsHideSaba);
-                }
-            }
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetLeagueData(reader, metaModel.IsHideSaba);
         }
 
         private static void ReadCommonData(IDataReader reader, LeagueWinLoss data)
@@ -65,7 +69,6 @@
             data.BetCount = reader.GetVal<int>("betcount");
             data.LicenseeWL = reader.GetVal<decimal>("LicenseeWL");
             data.TurnOver = reader.GetVal<decimal>("turnover");
-            data.BAComm = reader.GetVal<decimal>("BAComm");
         }
 
         private static LeagueWinLoss GetSumData(IEnumerable<LeagueWinLoss> detailData)
@@ -76,76 +79,103 @@
                 TurnOver = detailData.Sum(_ => _.TurnOver),
                 CustomerWL = detailData.Sum(_ => _.CustomerWL),
                 LicenseeWL = detailData.Sum(_ => _.LicenseeWL),
-                BAComm = detailData.Sum(_ => _.BAComm),
                 IsBreakdown = true
             };
 
             return sumData;
         }
 
+        private static List<(int SportType, string ProductGroup, int LeagueId)> SortSportList(
+            IEnumerable<(int SportType, string ProductGroup, int LeagueId)> data)
+        {
+            const int LowestPriority = int.MaxValue;
+            const int DefaultLeaguePriority = 1000;
+
+            return data
+                .Distinct()
+                .OrderBy(_ => ProductsGroupOrder.IndexOf(_.ProductGroup))
+                .ThenBy(_ => GetSportTypePriority(_.SportType))
+                .ThenBy(_ => Math.Abs(_.SportType))
+                .ThenBy(_ =>
+                {
+                    if (_.SportType == 0)
+                    {
+                        return (_.LeagueId == ParlaySB || _.LeagueId == ParlayVS) ? LowestPriority : DefaultLeaguePriority;
+                    }
+                    return 0;
+                })
+                .ToList();
+        }
+
+        private static int GetSportTypePriority(int sportType)
+        {
+            const int PositiveSportPriority = 1;
+            const int LotteryPriority = 2;
+            const int BitCoinPriority = 3;
+            const int NegativeSportPriority = 4;
+            const int ZeroSportPriority = 5;
+
+            return sportType switch
+            {
+                SportType.SportsLottery => LotteryPriority,
+                SportType.BitCoin => BitCoinPriority,
+                > 0 => PositiveSportPriority,
+                < 0 => NegativeSportPriority,
+                _ => ZeroSportPriority
+            };
+        }
+
         private void BuildSportTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, bool isHideSaba)
         {
-            var sportList = data.Where(_ => _.SportType >= 0).Select(_ => _.SportType).Distinct().OrderBy(_ => _).ToList();
-            sportList.AddRange(data.Where(_ => ProductDirectToCurrency.Contains(_.SportType)).OrderBy(_ => _.SportType).Select(_ => _.SportType).Distinct().ToList());
-            sportList.AddRange(data.Where(_ => _.SportType < 0 && !ProductDirectToCurrency.Contains(_.SportType)).OrderByDescending(_ => _.SportType).Select(_ => _.SportType).Distinct().ToList());
+            var sportList = SortSportList(data.Select(_ => (_.SportType, _.ProductGroup, SportsDirectToCurrencyOrder.Contains(_.SportType) ? _.LeagueId : 0)));
+
             var index = 1;
 
             foreach (var sport in sportList)
             {
-                var sportDetail = data.Where(_ => _.SportType == sport);
-                var sportData = GetSumData(sportDetail);
-                var leagueId = sportDetail.FirstOrDefault()?.LeagueId;
+                var sportDetail = data.Where(
+                    _ => _.SportType == sport.SportType
+                    && _.ProductGroup == sport.ProductGroup
+                    && (sport.LeagueId == 0 || _.LeagueId == sport.LeagueId));
 
-                sportData.SportType = sport;
-                sportData.SportName = GetSportName(sport, isHideSaba);
+                var sportData = GetSumData(sportDetail);
+                var sportName = GetSportName(sport.SportType, sport.LeagueId, isHideSaba);
+                var productName = ProductHelper.GetProductName(sport.ProductGroup);
+
+                sportData.ProductGroup = sport.ProductGroup;
+                sportData.SportType = sport.SportType;
+                sportData.SportName = String.IsNullOrEmpty(sportName) ? productName : $"{productName} > {sportName}";
                 sportData.Index = index++;
                 sportData.Detail = sportDetail;
-                if (sport == Parlay || ProductDirectToCurrency.Contains(sport))
+
+                if (SportsDirectToCurrencyOrder.Contains(sport.SportType))
                 {
                     sportData.IsDirectToCurrency = true;
                     sportData.IsBreakdown = false;
-                    sportData.LeagueId = leagueId ?? default;
+                    sportData.LeagueId = sport.LeagueId;
                 }
+
                 dataList.Add(sportData);
             }
         }
 
-        private string GetSportName(int sport, bool isHideSaba)
+        private string GetSportName(int sport, int leagueId, bool isHideSaba)
         {
-            if (sport == Parlay)
+            if (sport == ParlaySport)
             {
-                return ViewResources.Parlay;
+                return GetProductName(leagueId);
             }
-            else if (ProductDirectToCurrency.Contains(sport))
-            {
-                return GetProductName(sport);
-            }
-            else if (sport > 0)
-            {
-                return _cacheRefAdapter.GetSportName(sport);
-            }
-            else
-            {
-                var sabaSport = SportType.GetSabaVirtualSports().Find(_ => _.Item1 == sport);
 
-                var sabaSportName = sabaSport.Item2 != 0
-                    ? _cacheRefAdapter.GetSportName(sabaSport.Item2)
-                    : ViewResources.ResourceManager.GetString(sabaSport.Item3);
-
-                var prefix = isHideSaba ? ViewResources.Virtual : ViewResources.Saba;
-                return prefix + sabaSportName;
-            }
+            return _nameService.GetSportName(sport, isHideSaba);
         }
 
-        private static string GetProductName(int product)
+        private static string GetProductName(int leagueId)
         {
-            switch (product)
+            switch (leagueId)
             {
-                case BitCoin:
-                    return ViewResources.BTC;
-
-                case SportsLottery:
-                    return ViewResources.SLT;
+                case ParlaySB:
+                case ParlayVS:
+                    return ViewResources.Parlay;
 
                 default:
                     return string.Empty;
@@ -159,7 +189,6 @@
             db.SetParameterValue("fromdate", metaModel.FromDate.Date);
             db.SetParameterValue("todate", metaModel.ToDate.Date);
             db.SetParameterValue("productList", metaModel.ProductCodeList);
-            db.SetParameterValue("showBA", metaModel.ShowBA ? 1 : 0);
             db.SetParameterValue("statusIdList", metaModel.StatusIdList);
             db.SetParameterValue("movebetsday", moveBetsDay);
             db.SetParameterValue("BaseCurrency", !metaModel.IsGroupInOriginalCurrency || applyBaseCurrency ? metaModel.BaseCurrency.ToUpperInvariant() : string.Empty);
@@ -167,7 +196,7 @@
 
         private string GetLeagueName(int leagueId, bool isHideSaba, int sportType = 0)
         {
-            var leagueName = sportType == SportType.BitCoin ? _cacheRefAdapter.GetLeagueName3rd(leagueId) : _cacheRefAdapter.GetLeagueName(leagueId);
+            var leagueName = sportType == SportType.BitCoin ? _cacheRefAdapter.GetLeagueName3rd(leagueId) : _cacheRefAdapter.GetLeagueName(leagueId, sportType);
             if (isHideSaba)
             {
                 leagueName = System.Text.RegularExpressions.Regex.Replace(
@@ -189,12 +218,16 @@
             {
                 var leagueId = reader.GetVal<int>("LeagueId");
                 var sportType = reader.GetVal<int>("SportType");
+                var productCode = reader.GetVal<string>("GroupProductCode");
+                var leagueName = GetLeagueName(leagueId, isHideSaba, sportType);
+                var productName = productCode;
 
                 var item = new LeagueWinLoss
                 {
-                    SportType = ProductDirectToCurrency.Contains(leagueId) ? leagueId : sportType,
+                    ProductGroup = productName,
+                    SportType = sportType,
                     LeagueId = leagueId,
-                    LeagueName = GetLeagueName(leagueId, isHideSaba, sportType)
+                    LeagueName = leagueName
                 };
                 ReadCommonData(reader, item);
 
@@ -237,22 +270,19 @@
             const string UspName = "Lrf_Rpt_WinLossByLeague_Match";
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue("leagueId", metaModel.LeagueId);
-                db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-                db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("leagueId", metaModel.LeagueId);
+            db.SetParameterValue("SportType", metaModel.SportType);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetMatchData(reader, metaModel.LeagueId, metaModel.IsHideSaba);
-                }
-            }
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetMatchData(reader, metaModel.LeagueId, metaModel.SportType, metaModel.IsHideSaba);
         }
 
         private SortableReportResultModel<LeagueWinLoss> GetMatchData(
-            IDataReader reader, int leagueId, bool isHideSaba)
+            IDataReader reader, int leagueId, int sportType, bool isHideSaba)
         {
             var dataList = new SortableList<LeagueWinLoss>();
             var data = new List<LeagueWinLoss>();
@@ -260,26 +290,36 @@
             while (reader.Read())
             {
                 var matchId = reader.GetVal<int>("MatchId");
-                var homeId = reader.GetVal<int>("HomeId");
-                var awayId = reader.GetVal<int>("AwayId");
-                var isNeutral = reader.GetVal<bool>("IsNeutral");
                 var eventType = reader.GetVal<int>("EventType");
-                string matchName = eventType == Outright ? _cacheRefAdapter.GetTeamName(homeId) : _cacheRefAdapter.GetMatchName(homeId, awayId, isNeutral);
+
+                var matchInfo = new MatchInfo
+                {
+                    HomeId = reader.GetVal<int>("HomeId"),
+                    AwayId = reader.GetVal<int>("AwayId"),
+                    IsNeutral = reader.GetVal<bool>("IsNeutral"),
+                    VendorMatchId = reader.GetVal<string>("VendorMatchId"),
+                    Distance = reader.GetVal<string>("Distance"),
+                    KickOffTime = reader.GetVal<DateTime>("KickOffTime")
+                };
+
+                string matchName = eventType == Outright
+                    ? _cacheRefAdapter.GetTeamName(matchInfo.HomeId)
+                    : GetMatchName(matchInfo, sportType);
 
                 var item = new LeagueWinLoss
                 {
                     MatchId = matchId,
                     MatchName = matchName,
                     EventType = eventType,
-                    HomeId = homeId,
-                    AwayId = awayId
+                    HomeId = matchInfo.HomeId,
+                    AwayId = matchInfo.AwayId,
                 };
                 ReadCommonData(reader, item);
 
                 data.Add(item);
             }
 
-            BuildLeagueTotalData(data, dataList, leagueId, isHideSaba);
+            BuildLeagueTotalData(data, dataList, leagueId, sportType, isHideSaba);
 
             return new SortableReportResultModel<LeagueWinLoss>
             {
@@ -288,11 +328,27 @@
             };
         }
 
-        private void BuildLeagueTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, int leagueId, bool isHideSaba)
+        private string GetMatchName(MatchInfo matchInfo, int sportType)
+        {
+            if (SportHelper.IsVSSportTypes(sportType))
+            {
+                return string.Format(EnglishCulture, KickOfTimeFormat, matchInfo.KickOffTime);
+            }
+
+            if (SportHelper.IsVirtualBetRadarSports(sportType))
+            {
+                var id = !string.IsNullOrEmpty(matchInfo.Distance) ? $" - ID {matchInfo.Distance}" : string.Empty;
+                return $"{ViewResources.Event} {matchInfo.VendorMatchId}{id}";
+            }
+
+            return _cacheRefAdapter.GetMatchName(matchInfo.HomeId, matchInfo.AwayId, matchInfo.IsNeutral, sportType);
+        }
+
+        private void BuildLeagueTotalData(List<LeagueWinLoss> data, SortableList<LeagueWinLoss> dataList, int leagueId, int sportType, bool isHideSaba)
         {
             var leagueData = GetSumData(data);
             leagueData.Detail = data.OrderBy(_ => _.EventType).ThenBy(_ => _.MatchId);
-            leagueData.LeagueName = GetLeagueName(leagueId, isHideSaba);
+            leagueData.LeagueName = GetLeagueName(leagueId, isHideSaba, sportType);
             dataList.Add(leagueData);
         }
 
@@ -301,19 +357,15 @@
             const string UspName = "Lrf_Rpt_WinLossByLeague_BetType";
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
-                db.SetParameterValue(EventTypeColumn, metaModel.EventType);
-                db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-                db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
+            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetBetTypeData(reader, metaModel);
-                }
-            }
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetBetTypeData(reader, metaModel);
         }
 
         private SortableReportResultModel<LeagueWinLoss> GetBetTypeData(
@@ -360,17 +412,13 @@
             const string UspName = "Lrf_Rpt_WinLossByLeague_League_Currency";
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue("leagueId", metaModel.LeagueId);
-                db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("leagueId", metaModel.LeagueId);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetCurrencyData(reader);
-                }
-            }
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetCurrencyData(reader);
         }
 
         public async Task<SortableReportResultModel<LeagueWinLoss>> GetMatchWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
@@ -378,19 +426,15 @@
             const string UspName = "Lrf_Rpt_WinLossByLeague_Match_Currency";
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
-                db.SetParameterValue(EventTypeColumn, metaModel.EventType);
-                db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-                db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
+            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetCurrencyData(reader);
-                }
-            }
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetCurrencyData(reader);
         }
 
         public async Task<SortableReportResultModel<LeagueWinLoss>> GetBettypeWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
@@ -398,19 +442,15 @@
             const string UspName = "Lrf_Rpt_WinLossByLeague_BetType_Currency";
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
 
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
-                db.SetParameterValue(EventTypeColumn, metaModel.EventType);
-                db.SetParameterValue("betType", metaModel.BettypeId);
-                db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
+            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
+            db.SetParameterValue("betType", metaModel.BettypeId);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetCurrencyData(reader);
-                }
-            }
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetCurrencyData(reader);
         }
     }
 }

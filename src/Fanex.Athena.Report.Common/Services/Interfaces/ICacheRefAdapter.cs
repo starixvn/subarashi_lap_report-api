@@ -10,7 +10,7 @@ namespace Fanex.Athena.Report.Common.Services.Interfaces
 
         string GetLeagueName(object leagueId, int sportId = 0, string langCode = null);
 
-        string GetMatchName(object homeId, object awayId, bool IsNeutral = false);
+        string GetMatchName(object homeId, object awayId, bool IsNeutral = false, int sportId = 0);
 
         string GetTeamName(object teamId, int sportId = 0);
 
