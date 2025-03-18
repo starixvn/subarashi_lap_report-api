@@ -38,12 +38,6 @@ namespace Fanex.Athena.Report.BySite.DTOs
 
         public decimal Transfer3rd { get; set; }
 
-        public decimal TurnoverBA { get; set; }
-
-        public decimal CommBA { get; set; }
-
-        public decimal AmountDueToBA { get; set; }
-
         [DataPermission(Permission = Roles.HidePlayerWL_WL_Comm_Total)]
         public decimal PlayerComm { get; set; }
 

@@ -37,7 +37,6 @@
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IProductService _productService;
 
-
         public UserGuideController(
             IContextService contextService,
             IBalanceUpService balanceUpService,
@@ -84,7 +83,6 @@
 
         private static string AddSpecialProducts(string content, IEnumerable<ProductInfo> products)
         {
-            content = RemoveProductSection(content, products, ProductTypes.BA, Product.BA);
             content = RemoveProductSection(content, products, ProductTypes.CashOut, Product.CO);
             return content;
         }

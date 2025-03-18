@@ -108,9 +108,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             Assert.Equal(expected.ClosingBalance, result[0].ClosingBalance);
             Assert.Equal(expected.Transfer3rd, result[0].Transfer3rd);
             Assert.Equal(expected.DrawGame, result[0].DrawGame);
-            Assert.Equal(expected.TurnoverBA, result[0].TurnoverBA);
-            Assert.Equal(expected.CommBA, result[0].CommBA);
-            Assert.Equal(expected.AmountDueToBA, result[0].AmountDueToBA);
             Assert.Equal(expected.PlayerComm, result[0].PlayerComm);
             Assert.Equal(expectedNetTurnover, netTurnover);
         }

@@ -73,10 +73,7 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                 PlayerComm = reader.GetVal<decimal>("playercomm"),
                 TotalWL = reader.GetVal<decimal>("winloss") + reader.GetVal<decimal>("playercomm"),
                 AffiliateTransfer = reader.GetVal<decimal>("affiliatetransfer"),
-                ClosingBalance = reader.GetVal<decimal>("closingbalance"),
-                TurnoverBA = reader.GetVal<decimal>("TurnOverBA"),
-                CommBA = reader.GetVal<decimal>("CommBA"),
-                AmountDueToBA = reader.GetVal<decimal>("AmountDueToBA")
+                ClosingBalance = reader.GetVal<decimal>("closingbalance")
             };
         }
 
@@ -97,9 +94,6 @@ namespace Fanex.Athena.Report.ByPlayer.Service
                 WinLoss = reader.GetVal<decimal>("sumwinloss"),
                 AffiliateTransfer = reader.GetVal<decimal>("sumaffiliatetransfer"),
                 ClosingBalance = reader.GetVal<decimal>("sumclosingbalance"),
-                TurnoverBA = reader.GetVal<decimal>("sumturnoverba"),
-                CommBA = reader.GetVal<decimal>("sumcommba"),
-                AmountDueToBA = reader.GetVal<decimal>("sumamountduetoba"),
                 PlayerComm = reader.GetVal<decimal>("sumplayercomm"),
                 TotalWL = reader.GetVal<decimal>("sumwinloss") + reader.GetVal<decimal>("sumplayercomm")
             };

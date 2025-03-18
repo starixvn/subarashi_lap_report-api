@@ -28,8 +28,6 @@
 
         public decimal LicComm { get; set; }
 
-        public decimal AmtDueToBA { get; set; }
-
         public decimal BetEffective { get; set; }
 
         public float Margin { get; set; }

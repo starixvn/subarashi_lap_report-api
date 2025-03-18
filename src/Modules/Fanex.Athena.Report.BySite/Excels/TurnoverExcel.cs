@@ -43,10 +43,7 @@ namespace Fanex.Athena.Report.BySite.Excels
         private const int ColumnClosingBalance = 15;
         private const int ColumnAffiliateTransfer = 16;
         private const int ColumnCasinoTransfer = 17;
-        private const int ColumnTurnoverBa = 18;
-        private const int ColumnCommBa = 19;
-        private const int ColumnAmountDueToBa = 20;
-        private const int ColumnTemplateCount = 21;
+        private const int ColumnTemplateCount = 18;
 
         public const int RowTitleTemplate = 0;
         private const int RowHeaderTemplate = 1;
@@ -142,8 +139,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 ViewResources.CustomerW_L,
                 ViewResources.ClosingBalance,
                 ViewResources.AffiliateTransfer,
-                ViewResources.CasinoTransfer,
-                ViewResources.ProductBA
+                ViewResources.CasinoTransfer
             };
 
             ExcelHelper.SetTextRowHeader(row, headerTextList);
@@ -151,10 +147,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
-
-            row2.Cells[ColumnTurnoverBa].SetCellValue(ViewResources.Turnover);
-            row2.Cells[ColumnCommBa].SetCellValue(ViewResources.Comm);
-            row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmountDueTo);
         }
 
         protected void AssignNoInfoRow(ISheet sheet, ISheet templateSheet)
@@ -232,12 +224,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 sheet.GetRow(RowTableHeaderTemplate).GetCell(ColumnCustomerWinLoss).SetCellValue(ViewResources.CustomerW_L);
             }
 
-            if (!_options.BaVisible)
-            {
-                _builder.HideColumn(sheet, ColumnTurnoverBa, ColumnCommBa, ColumnAmountDueToBa);
-            }
-
-            if (!_options.CustomerCommVisible && !_options.BaVisible)
+            if (!_options.CustomerCommVisible)
             {
                 _builder.HideColumn(sheet, RowTableHeaderTemplate + 1);
             }
@@ -277,9 +264,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             row.Cells[ColumnCustomerTotal].SetCellValue((double)(turnover.WinLoss + turnover.PlayerComm));
             row.Cells[ColumnAffiliateTransfer].SetCellValue((double)turnover.AffiliateTransfer);
             row.Cells[ColumnCasinoTransfer].SetCellValue((double)turnover.Transfer3rd);
-            row.Cells[ColumnTurnoverBa].SetCellValue((double)turnover.TurnoverBA);
-            row.Cells[ColumnCommBa].SetCellValue((double)turnover.CommBA);
-            row.Cells[ColumnAmountDueToBa].SetCellValue((double)turnover.AmountDueToBA);
         }
 
         protected void AssignTotalCellData(ISheet sheet, ISheet templateSheet, int currentRow)

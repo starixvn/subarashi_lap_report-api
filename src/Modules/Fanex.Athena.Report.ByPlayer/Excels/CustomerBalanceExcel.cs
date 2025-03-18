@@ -36,8 +36,7 @@
             "winloss",
             "winlosscommtotal",
             "closingbalance",
-            "affiliatetransfer",
-            "ba"
+            "affiliatetransfer"
         };
 
         private readonly IEnumerable<string> _headerTexts = new[] {
@@ -58,10 +57,7 @@
                 $"{ViewResources.CustomerW_L} {ViewResources.Comm}",
                 $"{ViewResources.CustomerW_L} {ViewResources.Total}",
                 ViewResources.ClosingBalance,
-                ViewResources.AffiliateTransfer,
-                $"{ViewResources.BA} {ViewResources.Turnover}",
-                ViewResources.BACommission,
-                ViewResources.AmtDueToBA
+                ViewResources.AffiliateTransfer
             };
 
         public CustomerBalanceExcel(
@@ -108,11 +104,6 @@
             if (!metaModel.HasComm)
             {
                 validHeaderTexts = validHeaderTexts.Except(new[] { $"{ViewResources.CustomerW_L} {ViewResources.Comm}", $"{ViewResources.CustomerW_L} {ViewResources.Total}" });
-            }
-
-            if (!metaModel.IsAllowedBA)
-            {
-                validHeaderTexts = validHeaderTexts.Except(new[] { $"{ViewResources.BA} {ViewResources.Turnover}", ViewResources.BACommission, ViewResources.AmtDueToBA });
             }
 
             if (metaModel.IsEnableSingleWallet)
@@ -175,16 +166,6 @@
                             break;
                         }
 
-                    case "ba":
-                        {
-                            if (metaModel.IsAllowedBA)
-                            {
-                                BuildBAColumn(reader, prefixName == "sum", rowBuilder);
-                            }
-
-                            break;
-                        }
-
                     default:
                         {
                             BuildItemWithTextDelimiter(rowBuilder, decimal.Round(reader.GetVal<decimal>(prefixName + item), DecimalDigit));
@@ -214,23 +195,6 @@
                     await stream.WriteLineAsync(rowBuilder.ToString()).ConfigureAwait(false);
                     rowBuilder.Clear();
                 }
-            }
-        }
-
-        private void BuildBAColumn(
-            IDataReader reader,
-            bool isSum,
-            StringBuilder rowBuilder)
-        {
-            var columnNameList = new[] {
-                isSum ? "sumturnoverba" : "TurnOverBA",
-                isSum ? "sumcommba" : "CommBA",
-                isSum ? "sumamountduetoba" : "AmountDueToBA"
-            };
-
-            foreach (var columnName in columnNameList)
-            {
-                BuildItemWithTextDelimiter(rowBuilder, decimal.Round(reader.GetVal<decimal>(columnName), DecimalDigit));
             }
         }
     }

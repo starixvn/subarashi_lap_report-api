@@ -53,8 +53,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 
         private const int ColumnBetEffective = 9;
         private const int ColumnLicenseeWl = 10;
-        private const int ColumnBaCommission = 11;
-        private const int ColumnAmtDueToBa = 12;
 
         [Fact]
         public void Export_WhenCall_RenderTitleCorrectly()
@@ -85,7 +83,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerWinLossMetaModel>();
             metaModel.SystemIdVisible = true;
             metaModel.HasPlayerCom = true;
-            metaModel.IsAllowedBA = true;
 
             // Action
             var fileName = DoExport(metaModel);
@@ -124,7 +121,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerWinLossMetaModel>();
             metaModel.SystemIdVisible = false;
             metaModel.HasPlayerCom = false;
-            metaModel.IsAllowedBA = false;
 
             // Action
             var fileName = DoExport(metaModel);
@@ -137,8 +133,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
                 Assert.True(worksheet.Column(ColumnSystemId).Hidden);
                 Assert.True(worksheet.Column(ColumnCustomerTotal).Hidden);
                 Assert.True(worksheet.Column(ColumnCustomerComm).Hidden);
-                Assert.True(worksheet.Column(ColumnBaCommission).Hidden);
-                Assert.True(worksheet.Column(ColumnAmtDueToBa).Hidden);
 
                 Assert.True(worksheet.Row(EndHeaderRowIndex).Hidden);
             }
@@ -153,7 +147,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerWinLossMetaModel>();
             metaModel.SystemIdVisible = true;
             metaModel.HasPlayerCom = true;
-            metaModel.IsAllowedBA = true;
 
             var dataItem = fixture.Create<CustomerWinLoss>();
             var resultData = new ResultModel<CustomerWinLoss>
@@ -187,7 +180,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             var metaModel = fixture.Create<CustomerWinLossMetaModel>();
             metaModel.SystemIdVisible = true;
             metaModel.HasPlayerCom = true;
-            metaModel.IsAllowedBA = true;
 
             var dataItem = fixture.Create<CustomerWinLoss>();
             var resultData = new ResultModel<CustomerWinLoss>
@@ -285,8 +277,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
             Assert.Equal(customerTotal, worksheet.GetValue<decimal>(ContentRowIndex, ColumnCustomerTotal));
             Assert.Equal(dataItem.BetEffective, worksheet.GetValue<decimal>(ContentRowIndex, ColumnBetEffective));
             Assert.Equal(dataItem.LicenseeWL, worksheet.GetValue<decimal>(ContentRowIndex, ColumnLicenseeWl));
-            Assert.Equal(dataItem.BAComm, worksheet.GetValue<decimal>(ContentRowIndex, ColumnBaCommission));
-            Assert.Equal(dataItem.AmtDueToBA, worksheet.GetValue<decimal>(ContentRowIndex, ColumnAmtDueToBa));
         }
     }
 }

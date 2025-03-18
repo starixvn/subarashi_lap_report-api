@@ -8,8 +8,6 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
 
         public bool CustomerCommVisible { get; set; }
 
-        public bool BaVisible { get; set; }
-
         public bool IsConvert { get; set; } = true;
 
         public string BaseCurrency { get; set; } = @"EUR";

@@ -55,9 +55,5 @@ namespace Fanex.Athena.Report.BySite.DTOs
         public decimal CustomerComm { get; set; }
 
         public decimal LicenseeWL { get; set; }
-
-        public decimal BACommission { get; set; }
-
-        public decimal AmtDueToBA { get; set; }
     }
 }

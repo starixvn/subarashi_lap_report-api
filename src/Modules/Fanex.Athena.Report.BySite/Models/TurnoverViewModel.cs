@@ -17,8 +17,6 @@ namespace Fanex.Athena.Report.BySite.Models
 
         public bool IsAllowedCasinoTransfer { get; set; }
 
-        public bool IsAllowBa { get; set; }
-
         public bool IsEnableSingleWallet { get; set; }
 
         public bool IsFakeLicensee { get; set; }

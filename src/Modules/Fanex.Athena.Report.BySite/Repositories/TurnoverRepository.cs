@@ -21,14 +21,12 @@ namespace Fanex.Athena.Report.BySite.Repositories
             {
                 AddParams(db, metaModel);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+                var index = 1;
+                while (reader.Read())
                 {
-                    var index = 1;
-                    while (reader.Read())
-                    {
-                        var item = ReadDataItem(reader, index++);
-                        result.Add(item);
-                    }
+                    var item = ReadDataItem(reader, index++);
+                    result.Add(item);
                 }
             }
 
@@ -54,9 +52,6 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 ClosingBalance = reader.ToDecimal("ClosingBalance"),
                 Transfer3rd = reader.ToDecimal("Transfer3rd"),
                 DrawGame = reader.ToDecimal("DrawGame"),
-                TurnoverBA = reader.ToDecimal("TurnoverBA"),
-                CommBA = reader.ToDecimal("CommBA"),
-                AmountDueToBA = reader.ToDecimal("AmountDueToBA"),
                 NetTurnover = reader.ToDecimal("Turnover") - reader.ToDecimal("DrawGame"),
                 PlayerComm = reader.ToDecimal("PlayerComm"),
             };

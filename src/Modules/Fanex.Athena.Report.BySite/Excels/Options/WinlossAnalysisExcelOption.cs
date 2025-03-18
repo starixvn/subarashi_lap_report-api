@@ -19,8 +19,6 @@ namespace Fanex.Athena.Report.BySite.Excels.Options
 
         public WinlossAnalysisExportMode ExportExcelMode { get; set; }
 
-        public bool IsHasBAProduct { get; set; }
-
         public GroupByMode GroupByMode { get; set; }
 
         public BreakdownMode BreakdownMode { get; set; }

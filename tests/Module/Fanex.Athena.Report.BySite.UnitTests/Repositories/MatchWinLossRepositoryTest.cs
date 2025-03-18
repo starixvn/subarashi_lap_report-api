@@ -34,8 +34,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             ProductOptions = new List<ProductOption>
             {
                 new() { Code = "SB", Status = true, },
-                new() { Code = "NG", Status = false, },
-                new() { Code = "BA", Status = true, }
+                new() { Code = "NG", Status = false, }
             },
             AgentListXml = "<xml>",
             Date = DateTimeHelper.CreateDateTime(2017, 1, 1),
@@ -285,7 +284,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _objectDb.Verify(x => x.SetParameterValue("AgentList", _metaModel.AgentListXml), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("Date", _metaModel.Date), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("MoveBetsDay", _balance.MoveBetsDay), Times.Once);
-            _objectDb.Verify(x => x.SetParameterValue("ShowBA", true), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("ProductList", "SB"), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("BaseCurrency", _metaModel.BaseCurrency), Times.Once);
         }

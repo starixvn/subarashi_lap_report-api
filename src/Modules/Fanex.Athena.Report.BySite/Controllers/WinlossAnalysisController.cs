@@ -1,12 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Common.Constants;
     using Common.Excel;
     using Common.Helpers;
     using Common.Model.DTO;
@@ -27,8 +20,12 @@
     using Microsoft.Extensions.Options;
     using Models;
     using Resources;
-    using Resources.Constants;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using static Constants.ReportConstant;
 
     [ApiController]
@@ -56,6 +53,7 @@
         private readonly ISubsidiaryService _subsidiaryService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public WinlossAnalysisController(
             IWinlossAnalysisService service,
             IWinlossAnalysisExcel excelService,
@@ -95,7 +93,7 @@
                 _contextService.LicenseeId,
                 FunctionNames.WinLossAnalysis);
 
-            var productOptions = MoveBaProductToBelowSportBook(productAccess.ProductList).Select(i => new ProductOption
+            var productOptions = productAccess.ProductList.Select(i => new ProductOption
             {
                 Code = i.ProductCode,
                 Name = i.ProductName,
@@ -175,20 +173,6 @@
             };
         }
 
-        private static IEnumerable<ProductInfo> MoveBaProductToBelowSportBook(ReadOnlyCollection<ProductInfo> productList)
-        {
-            var list = productList.ToList();
-            var baProduct = list.Find(c => c.ProductID == ProductTypes.BA);
-            var sbProduct = list.Find(c => c.ProductID == ProductTypes.Sportsbook);
-            if (baProduct != null && sbProduct != null)
-            {
-                list.Remove(baProduct);
-                list.Insert(list.IndexOf(sbProduct) + 1, baProduct);
-            }
-
-            return list;
-        }
-
         private static void AssignParamToExportExcel(WinlossAnalysisMetaModel metaModel)
         {
             metaModel.PageSize = metaModel.PageSize > MAX_EXCEL_PAGE_SIZE ? MAX_EXCEL_PAGE_SIZE : metaModel.PageSize;
@@ -266,7 +250,6 @@
 
         private WinlossAnalysisExcelOption GenOptionFromParam(WinlossAnalysisMetaModel metaModel)
         {
-            var isHasBAProduct = metaModel.ProductCodes.Split(',').Contains(Product.BA);
             return new WinlossAnalysisExcelOption
             {
                 BaseCurrency = metaModel.BaseCurrencyName,
@@ -275,7 +258,6 @@
                 FromDate = metaModel.FromDate,
                 ToDate = metaModel.ToDate,
                 GroupByMode = metaModel.GroupMode,
-                IsHasBAProduct = isHasBAProduct,
                 CurrencyList = metaModel.CurrencyCodes,
                 ProductCodes = metaModel.ProductCodes,
                 ExportExcelMode = metaModel.ExportExcelMode,

@@ -146,8 +146,17 @@
             {
                 promotionTypeList.AddRange(new List<CheckedItem>
                 {
-                    new CheckedItem { ID = ExtraPayoutMapType.PayoutOddsBoostAdjustment,
+                    new() { ID = ExtraPayoutMapType.PayoutOddsBoostAdjustment,
                         Name = $"{ViewResources.ProductSB} - {ViewResources.OddsBoostBonus}", Checked = true }
+                });
+            }
+
+            if (productCodeList.IsPresent(_ => _ == Product.ASK))
+            {
+                promotionTypeList.AddRange(new List<CheckedItem>
+                {
+                    new() { ID = ExtraPayoutMapType.PayoutPromotionASKMESLOT,
+                        Name = $"{ViewResources.ProductASK} - {_cacheRefAdapter.GetBettype(BetType.ASKMESLOTPromotionPrize)}", Checked = true }
                 });
             }
 
@@ -274,5 +283,4 @@
             }
         }
     }
-
 }

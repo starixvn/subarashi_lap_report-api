@@ -31,8 +31,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             { CurrencyId, CurrencyName }, { 1, "USD" }
         };
 
-        private readonly AppSettings _appSettings;
-
         private readonly BalanceUp _balanceUp;
 
         private readonly LiveReportMetaModel _metaModel;
@@ -55,7 +53,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _metaModel.ToDate = DateTimeHelper.CreateDateTime(2017, 2, 2);
             _metaModel.LiveIndicator = 1;
 
-            _appSettings = FakeHelper.Create<AppSettings>();
             _balanceUp = new BalanceUp
             {
                 MoveBetsDay = DateTimeHelper.CreateDateTime(2017, 2, 2)
@@ -204,8 +201,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _cacheRefAdapter.Verify(x => x.GetBettype(BetType.MixParlay), Times.Once);
         }
 
-
-
         [Fact]
         public async Task GetDetailByCurrencyAndBettype_WhenCall_ParametersPassedCorrectly()
         {
@@ -282,7 +277,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _reader.Setup(x => x["bettype"]).Returns(betType);
             _reader.Setup(x => x["ProductCode"]).Returns("VS2");
 
-
             var repository = CreateRepository();
 
             // Action
@@ -300,7 +294,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             {
                 new() { ProductCode = "SB", ProductName = "SuperBoy" }
             };
-
 
             _reader.SetupSequence(x => x.Read()).Returns(false);
             _reader.SetupSequence(x => x.NextResult()).Returns(true);
@@ -321,7 +314,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             // Arrange
             var metaModel = new LiveReportMatchListMetalModel
             {
-                ProductCodeList = "BA,SB,NG",
+                ProductCodeList = "SB,NG",
                 AgentListXml = "3",
                 FromDate = DateTimeHelper.CreateDateTime(2017, 1, 1),
                 ToDate = DateTimeHelper.CreateDateTime(2017, 2, 2),
@@ -342,7 +335,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             _objectDb.Verify(x => x.SetParameterValue("movebetsday", _balanceUp.MoveBetsDay), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("sportid", metaModel.SportId), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("BaseCurrency", metaModel.BaseCurrency), Times.Once);
-            _objectDb.Verify(x => x.SetParameterValue("ShowBA", true), Times.Once);
             _objectDb.Verify(x => x.SetParameterValue("ProductList", "SB,NG"), Times.Once);
         }
 
@@ -411,7 +403,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
         private LiveReportRepository CreateRepository()
         {
             SetupObjectDb();
-            return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object, _appSettings);
+            return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object);
         }
 
         private void SetupObjectDb()

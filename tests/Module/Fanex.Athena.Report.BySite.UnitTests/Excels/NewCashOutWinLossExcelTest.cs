@@ -35,11 +35,9 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private const int ColumnCustomerComm = 8;
         private const int ColumnCustomerTotal = 9;
         private const int ColumnLicenseeWL = 10;
-        private const int ColumnBaComm = 11;
-        private const int ColumnAmtDueToBA = 12;
 
         private const int RowNoInfoTemplate = 7;
-        private const int ColumnTemplateCount = 13;
+        private const int ColumnTemplateCount = 11;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -104,8 +102,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             Mock.Get(firstHeaderRow.Object.Cells[ColumnTotalTransaction]).Verify(c => c.SetCellValue(ViewResources.TotalTransaction), Times.Once);
             Mock.Get(firstHeaderRow.Object.Cells[ColumnCustomerWinLoss]).Verify(c => c.SetCellValue(ViewResources.CustomerW_L), Times.Once);
             Mock.Get(firstHeaderRow.Object.Cells[ColumnLicenseeWL]).Verify(c => c.SetCellValue(ViewResources.LicenseeW_L), Times.Once);
-            Mock.Get(firstHeaderRow.Object.Cells[ColumnBaComm]).Verify(c => c.SetCellValue(ViewResources.BACommission), Times.Once);
-            Mock.Get(firstHeaderRow.Object.Cells[ColumnAmtDueToBA]).Verify(c => c.SetCellValue(ViewResources.AmtDueToBA), Times.Once);
 
             Mock.Get(secondHeaderRow.Object.Cells[ColumnCustomerWinLoss]).Verify(c => c.SetCellValue(ViewResources.WinLoss), Times.Once);
             Mock.Get(secondHeaderRow.Object.Cells[ColumnCustomerComm]).Verify(c => c.SetCellValue(ViewResources.Comm), Times.Once);
@@ -306,8 +302,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             Mock.Get(row.Object.Cells[ColumnCustomerComm]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.CustomerComm)), Times.Once);
             Mock.Get(row.Object.Cells[ColumnCustomerTotal]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.CustomerTotal)), Times.Once);
             Mock.Get(row.Object.Cells[ColumnLicenseeWL]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.LicenseeWL)), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnBaComm]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.BAComm)), Times.Once);
-            Mock.Get(row.Object.Cells[ColumnAmtDueToBA]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.AmtDueToBA)), Times.Once);
         }
     }
 }

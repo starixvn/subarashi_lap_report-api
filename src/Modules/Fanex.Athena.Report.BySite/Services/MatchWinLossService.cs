@@ -85,9 +85,7 @@ namespace Fanex.Athena.Report.BySite.Services
                                      TotalTransaction = g.Sum(r => r.TotalTransaction),
                                      CustomerWL = g.Sum(r => r.CustomerWL),
                                      CustomerComm = g.Sum(r => r.CustomerComm),
-                                     LicenseeWL = g.Sum(r => r.LicenseeWL),
-                                     BACommission = g.Sum(r => r.BACommission),
-                                     AmtDueToBA = g.Sum(r => r.AmtDueToBA)
+                                     LicenseeWL = g.Sum(r => r.LicenseeWL)
                                  })
                                  .OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName).ToList();
             result.AddRange(
@@ -116,7 +114,6 @@ namespace Fanex.Athena.Report.BySite.Services
 
         private string GetLeagueName(MatchWinLoss matchWinLoss)
             => _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId, matchWinLoss.SportType);
-
 
         private string GetMatchName(MatchWinLoss matchWinLoss)
         {

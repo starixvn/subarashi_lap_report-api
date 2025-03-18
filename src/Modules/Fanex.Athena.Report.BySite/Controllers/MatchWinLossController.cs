@@ -67,8 +67,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 baseCurrencies = _baseCurrencyService.GetBaseCurrencyList().ToArray(),
                 currencies = _contextService.CurrencyList.ToArray(),
                 productOptions = productAccess.SelectProductOptions(),
-                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                isEnableBA = _contextService.IsEnableBA
+                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm
             });
         }
 
@@ -99,7 +98,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 Data = reportData,
                 LeagueList = CreateLeagueList(reportData, _contextService.IsHideSaba),
                 SpecialBetTypeResult = reportDataOutrightParlay,
-                ColumnCount = GetColumnCount(productAccess, _contextService.IsAllowedCustomerComm),
+                ColumnCount = GetColumnCount(_contextService.IsAllowedCustomerComm),
                 Total = total,
                 GrandTotal = grandTotal
             });
@@ -140,7 +139,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
             {
                 CustomerCommVisible = _contextService.IsAllowedCustomerComm,
                 IsHideSaba = _contextService.IsHideSaba,
-                BaVisible = productAccess.IsAllowBa,
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName
@@ -176,9 +174,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 TotalTransaction = dataList.Sum(item => item.TotalTransaction),
                 CustomerWL = dataList.Sum(item => item.CustomerWL),
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
-                LicenseeWL = dataList.Sum(item => item.LicenseeWL),
-                BACommission = dataList.Sum(item => item.BACommission),
-                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA)
+                LicenseeWL = dataList.Sum(item => item.LicenseeWL)
             };
 
             return totalMatchWinLoss;
@@ -192,21 +188,14 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 TotalTransaction = dataListOutright.Sum(item => item.TotalTransaction) + total.TotalTransaction,
                 CustomerWL = dataListOutright.Sum(item => item.CustomerWL) + total.CustomerWL,
                 CustomerComm = dataListOutright.Sum(item => item.CustomerComm) + total.CustomerComm,
-                LicenseeWL = dataListOutright.Sum(item => item.LicenseeWL) + total.LicenseeWL,
-                BACommission = dataListOutright.Sum(item => item.BACommission) + total.BACommission,
-                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) + total.AmtDueToBA
+                LicenseeWL = dataListOutright.Sum(item => item.LicenseeWL) + total.LicenseeWL
             };
         }
 
-        private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
+        private static int GetColumnCount(bool isAllowedCustomerComm)
         {
             const int AdditionColumns = 2;
             var columnCount = 6;
-
-            if (productAccess.IsAllowBa)
-            {
-                columnCount += AdditionColumns;
-            }
 
             if (isAllowedCustomerComm)
             {

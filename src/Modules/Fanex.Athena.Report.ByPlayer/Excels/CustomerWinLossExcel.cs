@@ -233,12 +233,6 @@ namespace Fanex.Athena.Report.ByPlayer.Excels
                 customerWLCell.Merge = false;
                 sheet.Row(EndTemplateHeaderRowIndex).Hidden = true;
             }
-
-            if (!metaModel.IsAllowedBA)
-            {
-                sheet.Column(ColumnBaCommission).Hidden = true;
-                sheet.Column(ColumnAmtDueToBa).Hidden = true;
-            }
         }
     }
 }
