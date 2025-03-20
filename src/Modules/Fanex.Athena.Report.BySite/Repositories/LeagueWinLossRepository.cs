@@ -196,7 +196,7 @@
 
         private string GetLeagueName(int leagueId, bool isHideSaba, int sportType = 0)
         {
-            var leagueName = sportType == SportType.BitCoin ? _cacheRefAdapter.GetLeagueName3rd(leagueId) : _cacheRefAdapter.GetLeagueName(leagueId, sportType);
+            var leagueName = _cacheRefAdapter.GetLeagueName(leagueId, sportType);
             if (isHideSaba)
             {
                 leagueName = System.Text.RegularExpressions.Regex.Replace(

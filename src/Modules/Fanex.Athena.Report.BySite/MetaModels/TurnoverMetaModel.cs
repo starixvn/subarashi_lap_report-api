@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    public class TurnoverMetaModel : IValidationMetaModel, ICurrencyIdMetaModel, IProductOptionsMetaModel, IAgentMetaModel
+    public class TurnoverMetaModel : IValidationMetaModel, ICurrencyIdMetaModel, IProductOptionsMetaModel, IAgentMetaModel, IDataTestableMetaModel
     {
         public TurnoverMetaModel()
         {
@@ -34,6 +34,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
         public IEnumerable<ProductOption> ProductOptions { get; set; }
 
         public IEnumerable<ProductOption> OriginalProductOptions { get; set; }
+
+        public bool IsExcludedTestData { get; set; }
 
         public bool IsValid => ProductOptions.Any() && FromDate <= ToDate;
     }
