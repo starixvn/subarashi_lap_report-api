@@ -1050,4 +1050,19 @@
   <data name="ProductSPR" xml:space="preserve">
     <value>Saba Khuyến mãi</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>Thắng Thua Theo Múi Giờ</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>Hoa hồng Khách hàng</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>Thắng Thua Nhà Cái</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>Thắng Thua Thực của Nhà Cái</value>
+  </data>
 </root>

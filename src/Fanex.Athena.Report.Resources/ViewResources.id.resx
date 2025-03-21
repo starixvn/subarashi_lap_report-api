@@ -924,6 +924,21 @@
   <data name="KN" xml:space="preserve">
     <value>Permainan Angka Keno</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>Kemenangan/Kerugian berdasarkan Zona Waktu</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Bulan</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>Komisi Pelanggan</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>Pemegang Lisensi WL</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>Pemegang Lisensi Net WL</value>
+  </data>
   <data name="Sportsbook" xml:space="preserve">
     <value>Sportsbook</value>
   </data>
