@@ -125,5 +125,7 @@
         public const int OddsBoostAdjustment = 997;
 
         public const int ASKMESLOTPromotionPrize = 15199;
+
+        public const int NumberGameLuckyDrawPromotion = 17031;
     }
 }

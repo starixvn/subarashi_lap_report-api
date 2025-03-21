@@ -1029,4 +1029,7 @@
   <data name="VG" xml:space="preserve">
     <value>Macau</value>
   </data>
+  <data name="NGPromotion" xml:space="preserve">
+    <value>โปรโมชั่นเกมตัวเลข</value>
+  </data>
 </root>

@@ -1160,4 +1160,7 @@
   <data name="FG" xml:space="preserve">
     <value>Funky Games</value>
   </data>
+  <data name="NGPromotion" xml:space="preserve">
+    <value>Number Game Promotion</value>
+  </data>
 </root>
