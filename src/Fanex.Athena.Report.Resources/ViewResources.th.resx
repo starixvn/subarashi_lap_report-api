@@ -1050,4 +1050,22 @@
   <data name="ProductSPR" xml:space="preserve">
     <value>Saba โปรโมชั่น</value>
   </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>บริษัทย่อย แพ้ชนะ</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>บริษัทย่อย</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>ผลการดำเนินงานของบริษัทย่อย</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>หลัก</value>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>สปอร์ตบุ๊ค</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>ป้ายขาว</value>
+  </data>
 </root>

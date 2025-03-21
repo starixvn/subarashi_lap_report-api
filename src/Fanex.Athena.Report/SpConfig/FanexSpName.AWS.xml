@@ -52,6 +52,9 @@
 		<Setting Key="Lrf_Rpt_AbnormalBet_Summary" SpName="Lrf_Rpt_AbnormalBet_Summary" DbName="DBWH.bodb_DWRS.wsv_lap" />
 		<Setting Key="Lrf_AbnormalBet_SubIssueSel" SpName="Lrf_AbnormalBet_SubIssueSel" DbName="DBWH.bodb_DWRS.wsv_lap" />
 
+    <Setting Key="Lrf_Rpt_SubsidiaryWinloss" SpName="Lrf_Rpt_SubsidiaryWinloss" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_SubsidiaryWinlossDetail" SpName="Lrf_Rpt_SubsidiaryWinlossDetail" DbName="DBEXT.bodb02.wsv_lap" />
+
 		<Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.wsv_lap"></Setting>
 		<Setting Key="Lrf_Rpt_LiveMatchWeekly" SpName="Lrf_Rpt_LiveMatchWeekly" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_LicenseeProduct3rdSel" SpName="Lrf_LicenseeProduct3rdSel" DbName="DBLIC.bodb_Licensee.wsv_lap" />
