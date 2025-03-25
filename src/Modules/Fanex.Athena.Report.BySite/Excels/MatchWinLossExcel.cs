@@ -403,7 +403,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             foreach (var columnName in columnNameList)
             {
-                cellIndex = AssignDoubleData(row, cellIndex, Convert.ToDouble(_totalTable.Rows[0][columnName]));
+                cellIndex = AssignDoubleData(row, cellIndex, Converter.To<double>(_totalTable.Rows[0][columnName]));
             }
 
             _builder.MergeCols(sheet, ColumnIndex, 1, currentRow);
@@ -507,7 +507,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             foreach (var columnName in columnNameList)
             {
                 var sumData = sumTable.Compute("Sum(" + columnName + ")", string.Empty);
-                cellIndex = AssignDoubleData(row, cellIndex, Convert.ToDouble(sumData));
+                cellIndex = AssignDoubleData(row, cellIndex, Converter.To<double>(sumData));
             }
 
             _builder.MergeCols(sheet, ColumnIndex, 1, currentRow);
@@ -536,7 +536,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             {
                 if (tableColumns.Contains(columnName))
                 {
-                    row.Cells[columnStart].SetCellValue(Convert.ToDouble(data[columnName]));
+                    row.Cells[columnStart].SetCellValue(Converter.To<double>(data[columnName]));
                 }
 
                 columnStart++;
