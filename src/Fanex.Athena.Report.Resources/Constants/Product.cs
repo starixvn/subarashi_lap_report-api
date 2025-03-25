@@ -117,5 +117,7 @@
         public const string PS = "PS";
 
         public const string ASK = "ASK";
+
+        public const string FG = "FG";
     }
 }

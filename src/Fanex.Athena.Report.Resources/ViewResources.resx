@@ -1154,4 +1154,10 @@
   <data name="ProductASK" xml:space="preserve">
     <value>ASKMESLOT</value>
   </data>
+  <data name="ProductFG" xml:space="preserve">
+    <value>Funky Games</value>
+  </data>
+  <data name="FG" xml:space="preserve">
+    <value>Funky Games</value>
+  </data>
 </root>

@@ -853,6 +853,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Funky Games.
+        /// </summary>
+        public static string FG {
+            get {
+                return ResourceManager.GetString("FG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FGG.
         /// </summary>
         public static string FGGL {
@@ -1794,6 +1803,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ProductFAC {
             get {
                 return ResourceManager.GetString("ProductFAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Funky Games.
+        /// </summary>
+        public static string ProductFG {
+            get {
+                return ResourceManager.GetString("ProductFG", resourceCulture);
             }
         }
         
