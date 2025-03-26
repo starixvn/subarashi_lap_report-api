@@ -5,8 +5,7 @@
     using Fanex.Core.Utils;
     using MetaModelHelper = Common.Helpers.MetaModelHelper;
 
-    public class WinLossByTimeZoneMetaModel : IValidationMetaModel, ICurrencyIdMetaModel, IMetaModelProductCodeList,
-        IAgentMetaModel
+    public class WinLossByTimeZoneMetaModel : IValidationMetaModel, ICurrencyIdMetaModel, IMetaModelProductCodeList, IAgentMetaModel, IDataTestableMetaModel
     {
         public DateTime FromDate { get; set; }
 
@@ -27,6 +26,7 @@
         public int TimeZone { get; set; }
 
         public string CurrencyName { get; set; }
+
         public string AgentListXml { get; set; }
 
         public int CurrencyId { get; set; }

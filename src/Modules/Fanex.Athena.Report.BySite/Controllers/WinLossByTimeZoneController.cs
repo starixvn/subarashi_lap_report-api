@@ -17,7 +17,7 @@
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.WinLossByTimeZone)]
     [RequestValidation(true)]
-    [AutoBindingMetaModel(true, bindProductCodeList: true)]
+    [AutoBindingMetaModel(bindAgent: true, bindProductCodeList: true)]
     public class WinLossByTimeZoneController : ControllerBase
     {
         private readonly IContextService _contextService;
