@@ -1029,9 +1029,6 @@
   <data name="Based" xml:space="preserve">
     <value>Berdasarkan</value>
   </data>
-  <data name="ProductSB" xml:space="preserve">
-    <value>Sportsbook</value>
-  </data>
   <data name="WhiteLabel" xml:space="preserve">
     <value>Whitelabel</value>
   </data>

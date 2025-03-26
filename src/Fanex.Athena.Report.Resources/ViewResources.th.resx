@@ -1062,9 +1062,6 @@
   <data name="Based" xml:space="preserve">
     <value>หลัก</value>
   </data>
-  <data name="ProductSB" xml:space="preserve">
-    <value>สปอร์ตบุ๊ค</value>
-  </data>
   <data name="WhiteLabel" xml:space="preserve">
     <value>ป้ายขาว</value>
   </data>
