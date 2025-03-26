@@ -18,7 +18,6 @@
         private readonly IExtraPayoutRepository _repository;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly Dictionary<string, List<CheckedItem>> ProductToPromotionTypeMap;
-        private const string ProductResource = "Product";
 
         public ExtraPayoutService(IExtraPayoutRepository repository, ICacheRefAdapter cacheRefAdapter)
         {
@@ -86,20 +85,20 @@
             {
                 new ()
                 { ID = ExtraPayoutMapType.PayoutPPTournamentPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPTournamentPrize)}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPTournamentPrize)}", Checked = true },
                 new ()
                 { ID = ExtraPayoutMapType.PayoutPPPromotionPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPPromotionPrize)}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPPromotionPrize)}", Checked = true },
                 new()
                 {
                     ID = ExtraPayoutMapType.PayoutPPJackpotPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotPrize)}",
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotPrize)}",
                     Checked = true
                 },
                 new()
                 {
                     ID = ExtraPayoutMapType.PayoutPPJackpotContribution,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotContribution)}",
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotContribution)}",
                     Checked = true
                 }
             };
@@ -151,13 +150,13 @@
             {
                 new()
                 { ID = ExtraPayoutMapType.PayoutSCBFreeBets,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SBC)} - {ViewResources.FreeBets}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.SBC)} - {ViewResources.FreeBets}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotPrize)}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotPrize)}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotContribution,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotContribution)}",
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotContribution)}",
                     Checked = true }
             };
         }
@@ -168,18 +167,18 @@
             {
                 new()
                 { ID = ExtraPayoutMapType.PayoutVgamingFreeBets,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
                 new()
                 {
                     ID = ExtraPayoutMapType.PayoutVgamingPromotionPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
                 },
                 new()
                 { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotContribution)}",
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotContribution)}",
                     Checked = true }
             };
         }
@@ -198,7 +197,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutFACHAIPromotion,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
             };
         }
 
@@ -252,7 +251,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutMGRNGPromotion,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.MGRNG)} - {_cacheRefAdapter.GetBettype(BetType.MGRNGPromotion)}", Checked = true }
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.MGRNG)} - {_cacheRefAdapter.GetBettype(BetType.MGRNGPromotion)}", Checked = true }
             };
         }
 
@@ -261,7 +260,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.Live22Promotion,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.L22)} - {_cacheRefAdapter.GetBettype(BetType.Live22Promotion)}", Checked = true }
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.L22)} - {_cacheRefAdapter.GetBettype(BetType.Live22Promotion)}", Checked = true }
             };
         }
 
@@ -270,7 +269,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutFastSpinPromotion,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
             };
         }
 
@@ -279,11 +278,11 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutSGJackpotPrize,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotPrize)}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotPrize)}", Checked = true },
                 new() { ID = ExtraPayoutMapType.PayoutSGJackpotContribution,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotContribution)}", Checked = true },
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotContribution)}", Checked = true },
                 new() { ID = ExtraPayoutMapType.PayoutSGPromotion,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGPromotion)}", Checked = true }
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGPromotion)}", Checked = true }
             };
         }
 
@@ -292,7 +291,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutAllbetPromotion,
-                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.AB)} - {_cacheRefAdapter.GetBettype(BetType.AllbetPromotion)}", Checked = true }
+                    Name = $"{ViewResources.ResourceManager.GetString(Product.AB)} - {_cacheRefAdapter.GetBettype(BetType.AllbetPromotion)}", Checked = true }
             };
         }
     }

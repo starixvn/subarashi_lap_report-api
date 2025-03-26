@@ -103,7 +103,7 @@ namespace Fanex.Athena.Report.Core.Services
                 {
                     Checked = true,
                     Children = items,
-                    Name = DataHelper.GetProductName(key),
+                    Name = ProductHelper.GetProductName(key),
                     Value = key
                 });
             return result;

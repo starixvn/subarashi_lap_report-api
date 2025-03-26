@@ -4,6 +4,7 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Extensions;
+    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
@@ -117,7 +118,7 @@
                 PlatformType = id,
                 IsLeaf = isLeaf,
                 Level = level,
-                Name = DataHelper.GetProductName(productCode),
+                Name = ProductHelper.GetProductName(productCode),
                 TotalTransactions = Convert.ToInt32(reader["Betcount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
                 CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]),

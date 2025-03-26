@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.Common.Settings;
+﻿using Fanex.Athena.Report.Common.Helpers;
+using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.Resources.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using NPOI.SS.Formula.Functions;
@@ -120,7 +120,6 @@ namespace Fanex.Athena.Report.Core.Services
         }
 
         private static void MapProductName(IList<ProductInfo> productList)
-            => productList.ToList().ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
-
+            => productList.ToList().ForEach(p => p.ProductName = ProductHelper.GetProductName(p.ProductCode));
     }
 }

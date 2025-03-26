@@ -1,11 +1,11 @@
 ﻿using Fanex.Athena.Report.Common.Constants;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.Resources.Helpers;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +72,7 @@ namespace Fanex.Athena.Report.Core.Services
                     ID = key.ProductId,
                     Checked = true,
                     Children = elems,
-                    Name = DataHelper.GetProductName(key.ProductCode),
+                    Name = ProductHelper.GetProductName(key.ProductCode),
                     Value = key.ProductCode
                 }).ToList();
 
@@ -88,7 +88,9 @@ namespace Fanex.Athena.Report.Core.Services
                 Name = GetSportNameForTreeView(sport.SportType, isHideSaba),
                 Value = sport.SportType.ToString()
             };
+
 #pragma warning disable S1541 // Methods and properties should not be too complex
+
         private string GetSportNameForTreeView(int sportType, bool isHideSaba = false)
         {
             var prefixText = isHideSaba ? ViewResources.Virtual : ViewResources.Saba;
@@ -150,6 +152,7 @@ namespace Fanex.Athena.Report.Core.Services
             }
             return $"{prefixText}{sportName}";
         }
+
 #pragma warning restore S1541 // Methods and properties should not be too complex
 
         public IEnumerable<SabaSport> GetSabaSports(bool isHideSaba = false)

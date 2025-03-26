@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Resources.Helpers;
     using Fanex.Common.Extensions;
     using Resources.Constants;
@@ -29,7 +30,6 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 
             _objectDb = new Mock<IObjectDb>();
             _reader = new Mock<IDataReader>();
-
         }
 
         [Fact]
@@ -84,7 +84,6 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             // Action
             var result = repository.GetProductAccessList(LicenseeId);
 
-
             // Assert
             Assert.Equal(0, result[0].ProductID);
             Assert.Equal("SB", result[0].ProductCode);
@@ -114,8 +113,5 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             ObjectDbFactory.SwitchToTestingMode();
             ObjectDbFactory.Mock((x, y) => _objectDb.Object);
         }
-
-        private static void MapProductName(IList<ProductInfo> productList)
-            => productList.ForEach(p => p.ProductName = DataHelper.GetProductName(p.ProductCode));
     }
 }
