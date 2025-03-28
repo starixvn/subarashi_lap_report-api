@@ -1047,4 +1047,7 @@
   <data name="VG" xml:space="preserve">
     <value>Macau</value>
   </data>
+  <data name="ProductSPR" xml:space="preserve">
+    <value>Saba Khuyến mãi</value>
+  </data>
 </root>

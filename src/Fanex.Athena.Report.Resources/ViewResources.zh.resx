@@ -313,6 +313,10 @@
     <value>沙巴促销活动</value>
     <comment>124612</comment>
   </data>
+  <data name="ProductSPR" xml:space="preserve">
+    <value>沙巴促销活动</value>
+    <comment>124612</comment>
+  </data>
   <data name="BetfromOthers" xml:space="preserve">
     <value>其他</value>
     <comment>125553</comment>

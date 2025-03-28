@@ -49,7 +49,7 @@
         {
             if (string.IsNullOrEmpty(productCode))
             {
-                return productCode;
+                return string.Empty;
             }
 
             if (!ProductNameMap.TryGetValue(productCode, out var resourceKey))

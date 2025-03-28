@@ -1032,4 +1032,7 @@
   <data name="NGPromotion" xml:space="preserve">
     <value>โปรโมชั่นเกมตัวเลข</value>
   </data>
+  <data name="ProductSPR" xml:space="preserve">
+    <value>Saba โปรโมชั่น</value>
+  </data>
 </root>

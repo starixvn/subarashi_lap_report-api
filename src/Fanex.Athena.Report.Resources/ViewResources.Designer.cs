@@ -1870,6 +1870,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HOTDOG.
+        /// </summary>
+        public static string ProductHOT {
+            get {
+                return ResourceManager.GetString("ProductHOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Togel 4D.
         /// </summary>
         public static string ProductI4D {

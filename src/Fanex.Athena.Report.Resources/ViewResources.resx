@@ -303,6 +303,10 @@
     <value>Saba Promotion</value>
     <comment>124612</comment>
   </data>
+  <data name="ProductSPR" xml:space="preserve">
+    <value>Saba Promotion</value>
+    <comment>124612</comment>
+  </data>
   <data name="DrawGame" xml:space="preserve">
     <value>Draw Game</value>
   </data>
@@ -1162,5 +1166,8 @@
   </data>
   <data name="NGPromotion" xml:space="preserve">
     <value>Number Game Promotion</value>
+  </data>
+  <data name="ProductHOT" xml:space="preserve">
+    <value>HOTDOG</value>
   </data>
 </root>

@@ -129,6 +129,8 @@
         public const int NumberGameLuckyDrawPromotion = 17031;
 
         public const int NBAPlayoffsLotteryPromotion = 17011;
+        
+        public const int HOTDOGPromotionPrize = 11999;
 
         public const int NBABalanceAdjustment = 17012;
     }
