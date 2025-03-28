@@ -7,7 +7,6 @@
     using Fanex.Athena.Report.Common.Model.DataDomain;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Extensions;
     using Fanex.Athena.Report.Core.Models.DTOs;
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
@@ -18,11 +17,32 @@
     {
         private readonly IExtraPayoutRepository _repository;
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly Dictionary<string, List<CheckedItem>> ProductToPromotionTypeMap;
+        private const string ProductResource = "Product";
 
         public ExtraPayoutService(IExtraPayoutRepository repository, ICacheRefAdapter cacheRefAdapter)
         {
             _repository = repository;
             _cacheRefAdapter = cacheRefAdapter;
+            ProductToPromotionTypeMap = new Dictionary<string, List<CheckedItem>>
+            {
+                { Product.SB, AddPromotionTypesForProductSb() },
+                { Product.AB, AddPromotionTypesForProductAb() },
+                { Product.SAG, AddPromotionTypesForProductSag() },
+                { Product.SXG, AddPromotionTypesForProductSxg() },
+                { Product.CC, AddPromotionTypesForProductCc() },
+                { Product.TIP, AddPromotionTypesForProductTip() },
+                { Product.MGRNG, AddPromotionTypesForProductMgrng() },
+                { Product.L22, AddPromotionTypesForProductL22() },
+                { Product.FS, AddPromotionTypesForProductFs() },
+                { Product.FAC, AddPromotionTypesForProductFac() },
+                { Product.ASK, AddPromotionTypesForProductAsk() },
+                { Product.PP, AddPromotionTypesForProductPp() },
+                { Product.SPR, AddPromotionTypesForProductSpr() },
+                { Product.SBC, AddPromotionTypesForProductSbc() },
+                { Product.VGA, AddPromotionTypesForProductVga() },
+                { Product.SG, AddPromotionTypesForProductSg() }
+            };
         }
 
         public async Task<SortableReportResultModel<ExtraPayout>> GetDataAsync(ExtraPayoutMetaModel metaModel)
@@ -40,247 +60,234 @@
             return await _repository.GetExtraPayoutDetailData(metaModel).ConfigureAwait(false);
         }
 
-        public IEnumerable<CheckedItem> BuildPromotionTypeList(string productCode)
+        public IEnumerable<CheckedItem> BuildPromotionTypeList(string productCodeList)
         {
             var promotionTypeList = new List<CheckedItem>();
 
-            if (string.IsNullOrEmpty(productCode))
+            if (string.IsNullOrEmpty(productCodeList))
             {
                 return promotionTypeList;
             }
-            const string ProductResource = "Product";
-            var productCodeList = productCode.Split(',');
 
-            AddPromotionTypesForProductPp(promotionTypeList, productCodeList, ProductResource);
-            AddPromotionTypesForProductSpr(promotionTypeList, productCodeList);
-
-            if (productCodeList.IsPresent(_ => _ == Product.SAG))
+            foreach (var productCode in productCodeList.Split(','))
             {
-                promotionTypeList.AddRange(new List<CheckedItem>
+                if (ProductToPromotionTypeMap.TryGetValue(productCode, out List<CheckedItem> checkedItems))
                 {
-                    new() { ID = ExtraPayoutMapType.PayoutSAGamingTip, Name = _cacheRefAdapter.GetBettype(BetType.SAGamingTip), Checked = true }
-                });
-            }
-
-            AddPromotionTypesForProductSbc(promotionTypeList, productCodeList, ProductResource);
-
-            if (productCodeList.IsPresent(_ => _ == Product.SXG))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new() { ID = ExtraPayoutMapType.PayoutEASexyLuckyDraw, Name = _cacheRefAdapter.GetBettype(BetType.EASexyLuckyDraw), Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.CC))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new() { ID = ExtraPayoutMapType.PayoutArcadiaGamingBonus, Name = _cacheRefAdapter.GetBettype(BetType.ArcadiaGamingBonus), Checked = true }
-                });
-            }
-
-            AddPromotionTypesForProductVga(promotionTypeList, productCodeList, ProductResource);
-            AddPromotionTypesForProductSg(promotionTypeList, productCodeList, ProductResource);
-
-            if (productCodeList.IsPresent(_ => _ == Product.AB))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutAllbetPromotion,
-                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.AB)} - {_cacheRefAdapter.GetBettype(BetType.AllbetPromotion)}", Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.TIP))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutStreamerTips,
-                        Name = _cacheRefAdapter.GetBettype(BetType.TIPStreamerTips), Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.MGRNG))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutMGRNGPromotion,
-                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.MGRNG)} - {_cacheRefAdapter.GetBettype(BetType.MGRNGPromotion)}", Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.L22))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.Live22Promotion,
-                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.L22)} - {_cacheRefAdapter.GetBettype(BetType.Live22Promotion)}", Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.FS))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutFastSpinPromotion,
-                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.FAC))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new() { ID = ExtraPayoutMapType.PayoutFACHAIPromotion,
-                        Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.SB))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new() { ID = ExtraPayoutMapType.PayoutOddsBoostAdjustment,
-                        Name = $"{ViewResources.ProductSB} - {ViewResources.OddsBoostBonus}", Checked = true }
-                });
-            }
-
-            if (productCodeList.IsPresent(_ => _ == Product.ASK))
-            {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new() { ID = ExtraPayoutMapType.PayoutPromotionASKMESLOT,
-                        Name = $"{ViewResources.ProductASK} - {_cacheRefAdapter.GetBettype(BetType.ASKMESLOTPromotionPrize)}", Checked = true }
-                });
+                    promotionTypeList.AddRange(checkedItems);
+                }
             }
 
             return promotionTypeList;
         }
 
-        private void AddPromotionTypesForProductPp(List<CheckedItem> promotionTypeList, IEnumerable<string> productCodeList, string productResource)
+        private List<CheckedItem> AddPromotionTypesForProductPp()
         {
-            if (productCodeList.IsPresent(_ => _ == Product.PP))
+            return new List<CheckedItem>
             {
-                promotionTypeList.AddRange(new List<CheckedItem>
+                new ()
+                { ID = ExtraPayoutMapType.PayoutPPTournamentPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPTournamentPrize)}", Checked = true },
+                new ()
+                { ID = ExtraPayoutMapType.PayoutPPPromotionPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPPromotionPrize)}", Checked = true },
+                new()
                 {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutPPTournamentPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPTournamentPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutPPPromotionPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPPromotionPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutPPJackpotPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutPPJackpotContribution,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotContribution)}", Checked = true }
-                });
-            }
+                    ID = ExtraPayoutMapType.PayoutPPJackpotPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotPrize)}",
+                    Checked = true
+                },
+                new()
+                {
+                    ID = ExtraPayoutMapType.PayoutPPJackpotContribution,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotContribution)}",
+                    Checked = true
+                }
+            };
         }
 
-        private void AddPromotionTypesForProductSpr(List<CheckedItem> promotionTypeList, IEnumerable<string> productCodeList)
+        private List<CheckedItem> AddPromotionTypesForProductSpr()
         {
-            if (productCodeList.IsPresent(_ => _ == Product.SPR))
+            return new List<CheckedItem>
             {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSabaLuckySpin,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaLuckySpin)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSabaLoyaltyPointsExchange,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaLoyaltyPointsExchange)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSabaRewardRiskFreeRebate,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaRewardRiskFreeRebate)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSabaRedEnvelope,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaRedEnvelope)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSabaCoinsCashExchange,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaCoinsCashExchange)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutPromotionJackpotPrize,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.PromotionJackpotPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutPromotionCashPrize,
-                        Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.PromotionCashPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSabaCasinoRoyaleTournamentPrize,
-                        Name = $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaCasinoRoyaleTournamentPrize)}", Checked = true }
-                });
-            }
+                new()
+                { ID = ExtraPayoutMapType.PayoutSabaLuckySpin,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaLuckySpin)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSabaLoyaltyPointsExchange,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaLoyaltyPointsExchange)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSabaRewardRiskFreeRebate,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaRewardRiskFreeRebate)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSabaRedEnvelope,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaRedEnvelope)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSabaCoinsCashExchange,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaCoinsCashExchange)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutPromotionJackpotPrize,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.PromotionJackpotPrize)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutPromotionCashPrize,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.PromotionCashPrize)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSabaCasinoRoyaleTournamentPrize,
+                    Name = $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(BetType.SabaCasinoRoyaleTournamentPrize)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion,
+                    Name = $"{ViewResources.NGPromotion} - {_cacheRefAdapter.GetBettype(BetType.NumberGameLuckyDrawPromotion)}", Checked = true }
+            };
         }
 
-        private void AddPromotionTypesForProductSbc(List<CheckedItem> promotionTypeList, IEnumerable<string> productCodeList, string productResource)
+        private List<CheckedItem> AddPromotionTypesForProductSbc()
         {
-            if (productCodeList.IsPresent(_ => _ == Product.SBC))
+            return new List<CheckedItem>
             {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSCBFreeBets,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.SBC)} - {ViewResources.FreeBets}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotContribution,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotContribution)}",
-                        Checked = true }
-                });
-            }
+                new()
+                { ID = ExtraPayoutMapType.PayoutSCBFreeBets,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SBC)} - {ViewResources.FreeBets}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotPrize)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotContribution,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotContribution)}",
+                    Checked = true }
+            };
         }
 
-        private void AddPromotionTypesForProductVga(List<CheckedItem> promotionTypeList, IEnumerable<string> productCodeList, string productResource)
+        private List<CheckedItem> AddPromotionTypesForProductVga()
         {
-            if (productCodeList.IsPresent(_ => _ == Product.VGA))
+            return new List<CheckedItem>
             {
-                promotionTypeList.AddRange(new List<CheckedItem>
+                new()
+                { ID = ExtraPayoutMapType.PayoutVgamingFreeBets,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
+                new()
                 {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutVgamingFreeBets,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
-                    new()
-                    {
-                        ID = ExtraPayoutMapType.PayoutVgamingPromotionPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
-                    },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotContribution)}",
-                        Checked = true }
-                });
-            }
+                    ID = ExtraPayoutMapType.PayoutVgamingPromotionPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
+                },
+                new()
+                { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotContribution)}",
+                    Checked = true }
+            };
         }
 
-        private void AddPromotionTypesForProductSg(List<CheckedItem> promotionTypeList, IEnumerable<string> productCodeList, string productResource)
+        private List<CheckedItem> AddPromotionTypesForProductSb()
         {
-            if (productCodeList.IsPresent(_ => _ == Product.SG))
+            return new List<CheckedItem>
             {
-                promotionTypeList.AddRange(new List<CheckedItem>
-                {
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSGJackpotPrize,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotPrize)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSGJackpotContribution,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotContribution)}", Checked = true },
-                    new()
-                    { ID = ExtraPayoutMapType.PayoutSGPromotion,
-                        Name = $"{ViewResources.ResourceManager.GetString(productResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGPromotion)}", Checked = true }
-                });
-            }
+                new() { ID = ExtraPayoutMapType.PayoutOddsBoostAdjustment,
+                    Name = $"{ViewResources.ProductSB} - {ViewResources.OddsBoostBonus}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductFac()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutFACHAIPromotion,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductAsk()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutPromotionASKMESLOT,
+                    Name = $"{ViewResources.ProductASK} - {_cacheRefAdapter.GetBettype(BetType.ASKMESLOTPromotionPrize)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductSag()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutSAGamingTip,
+                    Name = _cacheRefAdapter.GetBettype(BetType.SAGamingTip), Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductSxg()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutEASexyLuckyDraw,
+                    Name = _cacheRefAdapter.GetBettype(BetType.EASexyLuckyDraw), Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductCc()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutArcadiaGamingBonus,
+                    Name = _cacheRefAdapter.GetBettype(BetType.ArcadiaGamingBonus), Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductTip()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutStreamerTips,
+                    Name = _cacheRefAdapter.GetBettype(BetType.TIPStreamerTips), Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductMgrng()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutMGRNGPromotion,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.MGRNG)} - {_cacheRefAdapter.GetBettype(BetType.MGRNGPromotion)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductL22()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.Live22Promotion,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.L22)} - {_cacheRefAdapter.GetBettype(BetType.Live22Promotion)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductFs()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutFastSpinPromotion,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductSg()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutSGJackpotPrize,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotPrize)}", Checked = true },
+                new() { ID = ExtraPayoutMapType.PayoutSGJackpotContribution,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotContribution)}", Checked = true },
+                new() { ID = ExtraPayoutMapType.PayoutSGPromotion,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGPromotion)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductAb()
+        {
+            return new List<CheckedItem>
+            {
+                new() { ID = ExtraPayoutMapType.PayoutAllbetPromotion,
+                    Name = $"{ViewResources.ResourceManager.GetString(ProductResource + Product.AB)} - {_cacheRefAdapter.GetBettype(BetType.AllbetPromotion)}", Checked = true }
+            };
         }
     }
 }

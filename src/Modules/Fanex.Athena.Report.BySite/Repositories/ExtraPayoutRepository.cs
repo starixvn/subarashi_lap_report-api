@@ -61,7 +61,8 @@
             { ExtraPayoutMapType.PayoutFastSpinPromotion, BetType.FastSpinPromotionPrize },
             { ExtraPayoutMapType.PayoutFACHAIPromotion, BetType.FACHAIPromotion },
             { ExtraPayoutMapType.PayoutOddsBoostAdjustment, BetType.OddsBoostAdjustment },
-            { ExtraPayoutMapType.PayoutPromotionASKMESLOT, BetType.ASKMESLOTPromotionPrize }
+            { ExtraPayoutMapType.PayoutPromotionASKMESLOT, BetType.ASKMESLOTPromotionPrize },
+            { ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion, BetType.NumberGameLuckyDrawPromotion }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {
@@ -78,6 +79,10 @@
 
         private static readonly int[] CasinoPromotionBettypes = new[] {
             BetType.SabaCasinoRoyaleTournamentPrize
+        };
+
+        private static readonly int[] NumberGamePromotionBettypes = new[] {
+            BetType.NumberGameLuckyDrawPromotion
         };
 
         public ExtraPayoutRepository(
@@ -482,6 +487,11 @@
             if (CasinoPromotionBettypes.Contains(promotionType))
             {
                 return $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
+            }
+
+            if (NumberGamePromotionBettypes.Contains(promotionType))
+            {
+                return $"{ViewResources.NGPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
             }
 
             if (promotionType == BetType.OddsBoostAdjustment)

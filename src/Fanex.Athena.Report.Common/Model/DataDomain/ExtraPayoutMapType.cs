@@ -71,5 +71,7 @@
         public const int PayoutOddsBoostAdjustment = 101;
 
         public const int PayoutPromotionASKMESLOT = 10301;
+
+        public const int PayoutNumberGameLuckyDrawPromotion = 3711;
     }
 }

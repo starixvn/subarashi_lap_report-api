@@ -996,4 +996,7 @@
   <data name="VG" xml:space="preserve">
     <value>Macau</value>
   </data>
+  <data name="NGPromotion" xml:space="preserve">
+    <value>Promosi Permainan Angka</value>
+  </data>
 </root>

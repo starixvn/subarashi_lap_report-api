@@ -909,4 +909,7 @@
   <data name="SBVS" xml:space="preserve">
     <value>沙巴虚拟赛事</value>
   </data>
+  <data name="NGPromotion" xml:space="preserve">
+    <value>数字游戏活动</value>
+  </data>
 </root>
