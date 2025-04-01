@@ -4,6 +4,7 @@ using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.BySite.Services.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Resources;
@@ -92,14 +93,16 @@ namespace Fanex.Athena.Report.BySite.Services
                     matchName = string.Format("{0} {1} {2} ", _cacheRefAdapter.GetSportName(model.SportId), _cacheRefAdapter.GetBettype(data.BetType), data.ShowTime);
                     break;
 
-                case SportType.VirtualDogRacing:
-                case SportType.VirtualHorseRacing:
-                    var id = !string.IsNullOrEmpty(data.Distance) ? $" - ID {data.Distance}" : string.Empty;
-                    matchName = $"{ViewResources.Event} {data.VendorMatchId}{id}";
-                    break;
-
                 default:
-                    matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId, data.SportId), _cacheRefAdapter.GetTeamName(data.AwayId, data.SportId));
+                    if (SportHelper.IsVSNewRacingSportTypes(model.SportId))
+                    {
+                        var id = !string.IsNullOrEmpty(data.Distance) ? $" - ID {data.Distance}" : string.Empty;
+                        matchName = $"{ViewResources.Event} {data.VendorMatchId}{id}";
+                    }
+                    else
+                    {
+                        matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId, data.SportId), _cacheRefAdapter.GetTeamName(data.AwayId, data.SportId));
+                    }
                     break;
             }
 

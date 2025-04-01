@@ -335,7 +335,7 @@
                 return string.Format(EnglishCulture, KickOfTimeFormat, matchInfo.KickOffTime);
             }
 
-            if (SportHelper.IsVirtualBetRadarSports(sportType))
+            if (SportHelper.IsVSNewRacingSportTypes(sportType))
             {
                 var id = !string.IsNullOrEmpty(matchInfo.Distance) ? $" - ID {matchInfo.Distance}" : string.Empty;
                 return $"{ViewResources.Event} {matchInfo.VendorMatchId}{id}";

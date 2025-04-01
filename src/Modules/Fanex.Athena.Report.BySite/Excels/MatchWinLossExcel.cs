@@ -159,7 +159,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             }
             else
             {
-                if (SportHelper.IsVirtualBetRadarSports(sport))
+                if (SportHelper.IsVSNewRacingSportTypes(sport))
                 {
                     var distance = row["Distance"].ToString();
                     var vendorMatchId = row["VendorMatchId"].ToString();
