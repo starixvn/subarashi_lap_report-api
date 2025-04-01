@@ -99,7 +99,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             var destinationCell = sheet.Cells[TemplateTitleRowIndex, FirstColumn, TemplateTitleRowIndex, Headers.Length];
             destinationCell.Merge = true;
 
-            var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} → {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
+            var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
 
             sheet.SetValue(TemplateTitleRowIndex, FirstColumn, title);
         }
@@ -158,6 +158,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             var grandTotalCell = sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnCurrency];
             grandTotalCell.Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
+            grandTotalCell.Merge = true;
 
             AssignCommonData(sheet, Data.TotalData, totalRowIndex);
         }

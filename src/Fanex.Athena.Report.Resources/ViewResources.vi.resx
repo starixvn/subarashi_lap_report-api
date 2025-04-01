@@ -601,7 +601,7 @@
     <value>Tổng</value>
   </data>
   <data name="Totalin" xml:space="preserve">
-    <value>Tổng số trên {0}</value>
+    <value>Tổng cộng {0}</value>
   </data>
   <data name="TotalTransaction" xml:space="preserve">
     <value>Tổng giao dịch</value>
@@ -1079,5 +1079,8 @@
   </data>
   <data name="WhiteLabel" xml:space="preserve">
     <value>Nhóm Chi Nhánh</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>Thể Thao Ảo Saba</value>
   </data>
 </root>

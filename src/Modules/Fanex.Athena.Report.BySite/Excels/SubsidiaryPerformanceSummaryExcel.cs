@@ -61,11 +61,16 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected SubsidiaryPerformanceExcelOption Option;
 
-        public SubsidiaryPerformanceSummaryExcel(IFileService fileService, IOptions<ExcelOptions> excelOptionsAccessor,
-                                                 IWebHostEnvironment environment) : base(environment, fileService,
-            excelOptionsAccessor) { }
+        public SubsidiaryPerformanceSummaryExcel(
+            IFileService fileService,
+            IOptions<ExcelOptions> excelOptionsAccessor,
+            IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor) { }
 
-        public string Export(string template, SubsidiaryPerformanceResultModel data, SubsidiaryPerformanceMetaModel metaModel, SubsidiaryPerformanceExcelOption option)
+        public string Export(
+            string template,
+            SubsidiaryPerformanceResultModel data,
+            SubsidiaryPerformanceMetaModel metaModel,
+            SubsidiaryPerformanceExcelOption option)
         {
             MetaModel = metaModel;
             Data = data;
@@ -107,7 +112,7 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void AssignTitle(ExcelWorksheet sheet)
         {
-            var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} → {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
+            var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
 
             sheet.SetValue(TemplateTitleRowIndex, ColumnWhiteLabel, title);
         }
@@ -122,12 +127,10 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void AssignSheetData(ExcelWorksheet sheet)
         {
-            if (Data.Data.Sum(x => x.TotalItem) > 1)
+            int totalItem = Data.Data.Sum(x => x.TotalItem);
+            if (totalItem > 1)
             {
-                foreach (var group in Data.Data)
-                {
-                    sheet.InsertRow(TemplateDataRowIndex + 1, group.TotalItem - 1, TemplateDataRowIndex);
-                }
+                sheet.InsertRow(TemplateDataRowIndex + 1, totalItem - 1, TemplateDataRowIndex);
             }
 
             var rowIndex = TemplateDataRowIndex;
@@ -188,10 +191,11 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             var grandTotalCellRange = sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary];
             grandTotalCellRange.Value = ViewResources.Total;
+            grandTotalCellRange.Merge = true;
 
-            var grandTotalBaseCurrencyCellRange =
-                sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct];
+            var grandTotalBaseCurrencyCellRange = sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct];
             grandTotalBaseCurrencyCellRange.Value = $"{ViewResources.Based} {Data.GrandTotal.CurrencyName}";
+            grandTotalBaseCurrencyCellRange.Merge = true;
 
             AssignCommonData(sheet, Data.GrandTotal, totalRowIndex);
         }

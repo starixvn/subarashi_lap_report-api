@@ -1065,4 +1065,7 @@
   <data name="WhiteLabel" xml:space="preserve">
     <value>ป้ายขาว</value>
   </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>Sabaกีฬาเสมือนจริง</value>
+  </data>
 </root>

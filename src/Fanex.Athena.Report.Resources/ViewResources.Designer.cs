@@ -2104,6 +2104,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saba Virtual Sports.
+        /// </summary>
+        public static string ProductSBVS {
+            get {
+                return ResourceManager.GetString("ProductSBVS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEAL Entertainment.
         /// </summary>
         public static string ProductSEA {

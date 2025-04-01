@@ -590,7 +590,7 @@
     <value>BA金额</value>
   </data>
   <data name="Margin" xml:space="preserve">
-    <value>杀数</value>
+    <value>殺數</value>
   </data>
   <data name="GroupBy" xml:space="preserve">
     <value>分组方式</value>
@@ -945,5 +945,8 @@
   </data>
   <data name="WhiteLabel" xml:space="preserve">
     <value>包网商</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>沙巴虚拟赛事</value>
   </data>
 </root>

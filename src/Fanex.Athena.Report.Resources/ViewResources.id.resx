@@ -1032,4 +1032,7 @@
   <data name="WhiteLabel" xml:space="preserve">
     <value>Whitelabel</value>
   </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>Saba Virtual Sports</value>
+  </data>
 </root>
