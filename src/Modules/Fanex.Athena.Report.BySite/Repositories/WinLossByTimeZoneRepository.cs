@@ -48,10 +48,10 @@
 
                         if (!metaModel.IsConvertAll)
                         {
-                            item.Turnover = reader.ToDecimal("Turnover");
-                            item.CustomerComm = reader.ToDecimal("PlayerComm");
-                            item.LicenseeWinLoss = reader.ToDecimal("LicenseeWL");
-                            item.LicenseeComm = reader.ToDecimal("LicenseeComm");
+                            item.Turnover = Convert.ToDecimal(reader["Turnover"]);
+                            item.CustomerComm = Convert.ToDecimal(reader["PlayerComm"]);
+                            item.LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWL"]);
+                            item.LicenseeComm = Convert.ToDecimal(reader["LicenseeComm"]);
                         }
 
                         dataList.Add(item);
@@ -78,11 +78,11 @@
             var item = new WinLossByTimeZone
             {
                 GroupBy = reader["GroupBy"].ToString(),
-                BetCount = reader.ToInt("BetCount"),
-                Turnover = reader.ToDecimal("TurnoverBase"),
-                CustomerComm = reader.ToDecimal("PlayerCommBase"),
-                LicenseeWinLoss = reader.ToDecimal("LicenseeWLBase"),
-                LicenseeComm = reader.ToDecimal("LicenseeCommBase")
+                BetCount = Convert.ToInt32(reader["BetCount"]),
+                Turnover = Convert.ToDecimal(reader["TurnoverBase"]),
+                CustomerComm = Convert.ToDecimal(reader["PlayerCommBase"]),
+                LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"]),
+                LicenseeComm = Convert.ToDecimal(reader["LicenseeCommBase"])
             };
 
             if (metaModel.ReportBy != ReportBySummary)
