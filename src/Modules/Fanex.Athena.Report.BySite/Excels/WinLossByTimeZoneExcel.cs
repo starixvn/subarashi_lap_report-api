@@ -172,9 +172,8 @@
         {
             AssignCommonData(sheet, _totalData, totalRow);
 
-            var mergedCellRange = sheet.Cells[totalRow, ColumnIndex, totalRow, ColumnGroupBy];
-            mergedCellRange.Value = string.Format(ViewResources.Totalin, _metaModel.BaseCurrency);
-            mergedCellRange.Merge = true;
+            sheet.Cells[totalRow, ColumnIndex, totalRow, ColumnGroupBy].Merge = true;
+            sheet.Cells[totalRow, ColumnIndex].Value = string.Format(ViewResources.Totalin, _metaModel.BaseCurrency);
         }
 
         protected void ProcessUi(ExcelWorksheet sheet)

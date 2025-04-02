@@ -96,11 +96,9 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void AssignTitle(ExcelWorksheet sheet)
         {
-            var destinationCell = sheet.Cells[TemplateTitleRowIndex, FirstColumn, TemplateTitleRowIndex, Headers.Length];
-            destinationCell.Merge = true;
-
             var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
 
+            sheet.Cells[TemplateTitleRowIndex, FirstColumn, TemplateTitleRowIndex, Headers.Length].Merge = true;
             sheet.SetValue(TemplateTitleRowIndex, FirstColumn, title);
         }
 
@@ -145,9 +143,8 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             foreach (var totalData in Data.SummaryTotal)
             {
-                var totalCell = sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnSystemId];
-                totalCell.Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
-                totalCell.Merge = true;
+                sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnSystemId].Merge = true;
+                sheet.Cells[totalRowIndex, ColumnIndex].Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
 
                 sheet.SetValue(totalRowIndex, ColumnCurrency, totalData.Value.CurrencyName);
 
@@ -156,15 +153,13 @@ namespace Fanex.Athena.Report.BySite.Excels
                 totalRowIndex++;
             }
 
-            var grandTotalCell = sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnCurrency];
-            grandTotalCell.Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
-            grandTotalCell.Merge = true;
+            sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnCurrency].Merge = true;
+            sheet.Cells[totalRowIndex, ColumnIndex].Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
 
             AssignCommonData(sheet, Data.TotalData, totalRowIndex);
         }
 
-        private static void AssignCommonData(ExcelWorksheet sheet, SubsidiaryPerformanceBase data,
-                                             int rowIndex)
+        private static void AssignCommonData(ExcelWorksheet sheet, SubsidiaryPerformanceBase data, int rowIndex)
         {
             sheet.SetValue(rowIndex, ColumnBetCount, data.BetCount);
             sheet.SetValue(rowIndex, ColumnTurnover, data.Turnover);

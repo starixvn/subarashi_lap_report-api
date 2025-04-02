@@ -137,22 +137,18 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             foreach (var bodyData in Data.Data)
             {
-                var groupWhiteLabelCell = sheet.Cells[rowIndex, ColumnWhiteLabel, rowIndex + bodyData.TotalItem - 1, ColumnWhiteLabel];
-                groupWhiteLabelCell.Value = Option.isMasterViewType ? bodyData.WhiteLabel : "";
-                groupWhiteLabelCell.Merge = true;
+                sheet.Cells[rowIndex, ColumnWhiteLabel, rowIndex + bodyData.TotalItem - 1, ColumnWhiteLabel].Merge = true;
+                sheet.Cells[rowIndex, ColumnWhiteLabel].Value = Option.isMasterViewType ? bodyData.WhiteLabel : "";
 
                 foreach (var groupData in bodyData.Details)
                 {
-                    var groupSubsidiaryCell = sheet.Cells[rowIndex, ColumnSubsidiary, rowIndex + groupData.TotalItem - 1, ColumnSubsidiary];
-                    groupSubsidiaryCell.Value = groupData.Subsidiary;
-                    groupSubsidiaryCell.Merge = true;
+                    sheet.Cells[rowIndex, ColumnSubsidiary, rowIndex + groupData.TotalItem - 1, ColumnSubsidiary].Merge = true;
+                    sheet.Cells[rowIndex, ColumnSubsidiary].Value = groupData.Subsidiary;
 
                     foreach (var groupRow in groupData.Details)
                     {
-                        var groupCurrencyCell = sheet.Cells[rowIndex, ColumnCurrency,
-                            rowIndex + groupRow.Value.Count() - 1, ColumnCurrency];
-                        groupCurrencyCell.Value = groupRow.Key;
-                        groupCurrencyCell.Merge = true;
+                        sheet.Cells[rowIndex, ColumnCurrency, rowIndex + groupRow.Value.Count() - 1, ColumnCurrency].Merge = true;
+                        sheet.Cells[rowIndex, ColumnCurrency].Value = groupRow.Key;
 
                         foreach (var row in groupRow.Value)
                         {
@@ -176,26 +172,22 @@ namespace Fanex.Athena.Report.BySite.Excels
 
             foreach (var totalData in Data.Total)
             {
-                var totalCellRange = sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary];
-                totalCellRange.Value = $"{ViewResources.Total} {totalData.Key}";
-                totalCellRange.Merge = true;
+                sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary].Merge = true;
+                sheet.Cells[totalRowIndex, ColumnWhiteLabel].Value = $"{ViewResources.Total} {totalData.Key}";
 
-                var baseCurrencyCellRange = sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct];
-                baseCurrencyCellRange.Value = $"{ViewResources.Based} {totalData.Value.CurrencyName}";
-                baseCurrencyCellRange.Merge = true;
+                sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct].Merge = true;
+                sheet.Cells[totalRowIndex, ColumnCurrency].Value = $"{ViewResources.Based} {totalData.Value.CurrencyName}";
 
                 AssignCommonData(sheet, totalData.Value, totalRowIndex);
 
                 totalRowIndex++;
             }
 
-            var grandTotalCellRange = sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary];
-            grandTotalCellRange.Value = ViewResources.Total;
-            grandTotalCellRange.Merge = true;
+            sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary].Merge = true;
+            sheet.Cells[totalRowIndex, ColumnWhiteLabel].Value = ViewResources.Total;
 
-            var grandTotalBaseCurrencyCellRange = sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct];
-            grandTotalBaseCurrencyCellRange.Value = $"{ViewResources.Based} {Data.GrandTotal.CurrencyName}";
-            grandTotalBaseCurrencyCellRange.Merge = true;
+            sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct].Merge = true;
+            sheet.Cells[totalRowIndex, ColumnCurrency].Value = $"{ViewResources.Based} {Data.GrandTotal.CurrencyName}";
 
             AssignCommonData(sheet, Data.GrandTotal, totalRowIndex);
         }
