@@ -6,6 +6,7 @@
     using Common.Model.ViewModel;
     using Core.Attributes;
     using Core.Constants;
+    using Core.Extensions;
     using Core.Helpers;
     using Core.Services.Interfaces;
     using DTOs.SubsidiaryPerformance;
@@ -107,6 +108,11 @@
             await AssignDataAgentList(metaModel);
 
             var data = await _subsidiaryPerformanceService.GetData(metaModel, _contextService.CurrencyList).ConfigureAwait(false);
+            if (!data.Data.IsPresent())
+            {
+                return NoContent();
+            }
+
             var excelOption = new SubsidiaryPerformanceExcelOption
             {
                 isMasterViewType = _contextService.SubsidiaryViewType == SubsidiaryViewType.MasterManagement
@@ -129,6 +135,10 @@
             await AssignDetailAgentList(metaModel);
 
             var detailData = await _subsidiaryPerformanceService.GetDetailData(metaModel, _contextService.CurrencyList);
+            if (!detailData.DataList.IsPresent())
+            {
+                return NoContent();
+            }
 
             var template = file.GetFileInfo("/ExcelTemplate/SubsidiaryPerformance/SubsidiaryPerformanceDetail.xlsx").PhysicalPath;
             var fileDetailContent = excelService.Export(template, detailData, metaModel);
