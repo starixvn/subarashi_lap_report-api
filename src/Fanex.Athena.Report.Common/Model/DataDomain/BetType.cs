@@ -122,6 +122,8 @@
 
         public const int FACHAIPromotion = 11399;
 
+        public const int MicrogamingLivePromotion = 13995;
+
         public const int OddsBoostAdjustment = 997;
 
         public const int ASKMESLOTPromotionPrize = 15199;

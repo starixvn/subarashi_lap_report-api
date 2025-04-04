@@ -121,5 +121,7 @@
         public const string FG = "FG";
 
         public const string HOT = "HOT";
+        
+        public const string MGLC = "MGLC";
     }
 }

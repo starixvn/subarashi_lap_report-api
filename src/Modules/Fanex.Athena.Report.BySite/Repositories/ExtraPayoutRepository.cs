@@ -60,6 +60,7 @@
             { ExtraPayoutMapType.PayoutPromotionCashPrize, BetType.PromotionCashPrize },
             { ExtraPayoutMapType.PayoutFastSpinPromotion, BetType.FastSpinPromotionPrize },
             { ExtraPayoutMapType.PayoutFACHAIPromotion, BetType.FACHAIPromotion },
+            { ExtraPayoutMapType.PayoutMicrogamingLivePromotion, BetType.MicrogamingLivePromotion },
             { ExtraPayoutMapType.PayoutOddsBoostAdjustment, BetType.OddsBoostAdjustment },
             { ExtraPayoutMapType.PayoutPromotionASKMESLOT, BetType.ASKMESLOTPromotionPrize },
             { ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion, BetType.NumberGameLuckyDrawPromotion },
