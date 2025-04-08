@@ -949,4 +949,13 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>沙巴虚拟赛事</value>
   </data>
+  <data name="BetCounts" xml:space="preserve">
+    <value>票数</value>
+  </data>
+  <data name="CustomerPedingFundsTitle" xml:space="preserve">
+    <value>会员待定资金 - {0}</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>进行中</value>
+  </data>
 </root>

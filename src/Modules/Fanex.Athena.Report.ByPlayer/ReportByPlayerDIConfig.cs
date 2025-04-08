@@ -22,6 +22,8 @@ namespace Fanex.Athena.Report.ByPlayer
             services.AddTransient<ICustomerTurnoverExcel, CustomerTurnoverExcel>();
             services.AddTransient<ICustomerTurnoverService, CustomerTurnoverService>();
             services.AddTransient<ICustomerTurnoverRepository, CustomerTurnoverRepository>();
+            services.AddTransient<ICustomerPendingFundsService, CustomerPendingFundsService>();
+            services.AddTransient<ICustomerPendingFundsExcel, CustomerPendingFundsExcel>();
             return services;
         }
     }

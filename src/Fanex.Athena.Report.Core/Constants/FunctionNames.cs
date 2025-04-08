@@ -23,5 +23,7 @@
         public const string WinLossByTimeZone = "WinLossByTimeZone";
 
         public const string SubsidiaryPerformance = "SubsidiaryPerformance";
+
+        public const string CustomerPendingFunds = "CustomerPendingFunds";
     }
 }
