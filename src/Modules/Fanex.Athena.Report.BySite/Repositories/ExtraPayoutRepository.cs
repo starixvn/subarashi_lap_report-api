@@ -62,7 +62,9 @@
             { ExtraPayoutMapType.PayoutFACHAIPromotion, BetType.FACHAIPromotion },
             { ExtraPayoutMapType.PayoutOddsBoostAdjustment, BetType.OddsBoostAdjustment },
             { ExtraPayoutMapType.PayoutPromotionASKMESLOT, BetType.ASKMESLOTPromotionPrize },
-            { ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion, BetType.NumberGameLuckyDrawPromotion }
+            { ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion, BetType.NumberGameLuckyDrawPromotion },
+            { ExtraPayoutMapType.PayoutNBAPlayoffsLotteryPromotion, BetType.NBAPlayoffsLotteryPromotion },
+            { ExtraPayoutMapType.PayoutNBABalanceAdjustment, BetType.NBABalanceAdjustment }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {
@@ -74,7 +76,9 @@
             BetType.SabaRewardRiskFreeRebate,
             BetType.SabaCoinsCashExchange,
             BetType.PromotionJackpotPrize,
-            BetType.PromotionCashPrize
+            BetType.PromotionCashPrize,
+            BetType.NBAPlayoffsLotteryPromotion,
+            BetType.NBABalanceAdjustment
         };
 
         private static readonly int[] CasinoPromotionBettypes = new[] {
