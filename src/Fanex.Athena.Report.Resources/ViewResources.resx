@@ -1215,4 +1215,31 @@
   <data name="Running" xml:space="preserve">
     <value>Running</value>
   </data>
+  <data name="CustomerBetList" xml:space="preserve">
+    <value>Customer Bet List</value>
+  </data>
+  <data name="Basketball" xml:space="preserve">
+    <value>Basketball</value>
+  </data>
+  <data name="Cricket" xml:space="preserve">
+    <value>Cricket</value>
+  </data>
+  <data name="Kabaddi" xml:space="preserve">
+    <value>Kabaddi</value>
+  </data>
+  <data name="Soccer" xml:space="preserve">
+    <value>Soccer</value>
+  </data>
+  <data name="Tennis" xml:space="preserve">
+    <value>Tennis</value>
+  </data>
+  <data name="IceHockey" xml:space="preserve">
+    <value>Ice Hockey</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>Cash Out Commission</value>
+  </data>
+  <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
+    <value>Saba Virtual Sports Win Loss</value>
+  </data>
 </root>

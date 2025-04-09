@@ -2,6 +2,7 @@
 using Fanex.Athena.Report.Common.Model.MetaModels;
 using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Core.Models.MetaModels;
+using Fanex.Athena.Report.Core.Models.MetaModels;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,12 @@ namespace Fanex.Athena.Report.Core.Attributes
             bool bindAgent = false,
             bool bindPlayerCom = false,
             bool bindProductOptions = false,
-            bool bindProductCodeList = false
+            bool bindProductCodeList = false,
+            bool bindUserId = false
             )
             : base(typeof(AutoBindingMetaModelImplAttribute))
         {
-            Arguments = new object[] { bindAgent, bindPlayerCom, bindProductOptions, bindProductCodeList };
+            Arguments = new object[] { bindAgent, bindPlayerCom, bindProductOptions, bindProductCodeList, bindUserId };
         }
     }
 
@@ -37,6 +39,7 @@ namespace Fanex.Athena.Report.Core.Attributes
 
         private readonly bool _bindAgent;
         private readonly bool _bindProductOptions;
+        private readonly bool _bindUserId;
         private readonly bool _bindPlayerCom;
         private readonly bool _bindProductCodeList;
 
@@ -49,7 +52,8 @@ namespace Fanex.Athena.Report.Core.Attributes
             bool bindAgent,
             bool bindPlayerCom,
             bool bindProductOptions,
-            bool bindProductCodeList
+            bool bindProductCodeList,
+            bool bindUserId
          )
         {
             _bindingService = bindingService;
@@ -60,6 +64,7 @@ namespace Fanex.Athena.Report.Core.Attributes
             _bindProductOptions = bindProductOptions;
             _bindPlayerCom = bindPlayerCom;
             _bindProductCodeList = bindProductCodeList;
+            _bindUserId = bindUserId;
         }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -82,6 +87,11 @@ namespace Fanex.Athena.Report.Core.Attributes
             if (_bindProductCodeList)
             {
                 BindProductCodeList(context.ActionArguments, _contextService.OfferedSubProductList);
+            }
+
+            if (_bindUserId)
+            {
+                BindUserId(context.ActionArguments, _contextService.UserId);
             }
 
             await next();
@@ -126,6 +136,14 @@ namespace Fanex.Athena.Report.Core.Attributes
         {
             metaModel.OriginalProductCodeList = metaModel.ProductCodeList;
             metaModel.ProductCodeList = GetAllowedProductCodeList(offeredSubProducts, metaModel.ProductCodeList);
+        }
+
+        public static void BindUserId(IDictionary<string, object> actionArguments, int userId)
+        {
+            if (MetaModelHelper.IsMetaModel(actionArguments, out IMetaModelUserId metaModel))
+            {
+                metaModel.UserId = userId;
+            }
         }
 
         private static IEnumerable<ProductOption> GetAllowedSubProductOptions(IEnumerable<string> offeredSubProductList, IEnumerable<ProductOption> productOptions)

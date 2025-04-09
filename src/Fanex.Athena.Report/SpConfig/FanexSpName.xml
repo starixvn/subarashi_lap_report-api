@@ -10,6 +10,7 @@
 		<Setting Key="Lrf_SelBetTypesByProduct" SpName="Lrf_SelBetTypesByProduct" DbName="DBLIC.bodb_Licensee.wsv_lap" />
 		<Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail" DbName="DBLIC.bodb_Licensee.wsv_lap" />
+		<Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport" DbName="DBLIC.bodb_Licensee.wsv_lap" />
 	</Function>
 
 	<Function Name="CustomerInformation">
@@ -65,6 +66,11 @@
 
 		<Setting Key="LAP_Rpt_SabaCoins_Performance" SpName="LAP_Rpt_SabaCoins_Performance_xtest" DbName="DBACC.bodb02.wsv_lap" />
 		<Setting Key="LAP_Rpt_SabaCoins_Performance_ExtraInfo" SpName="LAP_Rpt_SabaCoins_Performance_ExtraInfo_xtest" DbName="DBEXT.bodb02.wsv_lap" />
+
+    <Setting Key="Lrf_Rpt_SabaVirtualSportsWinLoss" SpName="Lrf_Rpt_SabaVirtualSportsWinLoss" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_SabaVirtualSportsWinLoss_Mem" SpName="Lrf_Rpt_SabaVirtualSportsWinLoss_Mem" DbName="DBEXT.bodb02.wsv_lap" />
+    <Setting Key="Lrf_Rpt_SabaVirtualSportsWinLoss_Ag" SpName="Lrf_Rpt_SabaVirtualSportsWinLoss_Ag" DbName="DBEXT.bodb02.wsv_lap" />
+
 		<Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss" DbName="DBEXT.bodb02.wsv_lap" />
 		<Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype" DbName="DBEXT.bodb02.wsv_lap" />

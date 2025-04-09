@@ -77,21 +77,21 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int AllBet = 211;
 
-        private static readonly List<Tuple<int, int, string>> SabaVirtualSports = new List<Tuple<int, int, string>>
+        private static readonly List<Tuple<int, int, string, int[]>> SabaVirtualSports = new List<Tuple<int, int, string, int[]>>
         {
-            Tuple.Create(SabaSoccer, Soccer, ""),
-            Tuple.Create(SabaSoccerPingoal, 0, "SoccerPinGoal"),
-            Tuple.Create(SabaBasketball, BasketBall, ""),
-            Tuple.Create(SabaBasketballPinGoal, 0, "BasketballPinGoal"),
-            Tuple.Create(SabaCricket, Cricket, ""),
-            Tuple.Create(SabaFutsal, Futsal, ""),
-            Tuple.Create(SabaTennis, Tennis, ""),
-            Tuple.Create(SabaIceHockey, IceHockey, ""),
-            Tuple.Create(SabaKabaddi, Kabaddi, ""),
-            Tuple.Create(SabaESportsPinGoal, 0, "ESportsPinGoal")
+            Tuple.Create(SabaSoccer, Soccer, "", new[] { 42, 74 }),
+            Tuple.Create(SabaBasketball, BasketBall, "", new [] { 42 }),
+            Tuple.Create(SabaCricket, Cricket, "", new [] { 42 }),
+            Tuple.Create(SabaFutsal, Futsal, "", new [] { 108 }),
+            Tuple.Create(SabaTennis, Tennis, "", new[] { 42 }),
+            Tuple.Create(SabaIceHockey, IceHockey, "", new[] { 42 }),
+            Tuple.Create(SabaKabaddi, Kabaddi, "", new[] { 42 }),
+            Tuple.Create(SabaSoccerPingoal, 0, "SoccerPinGoal", new []{ 113 }),
+            Tuple.Create(SabaBasketballPinGoal, 0, "BasketballPinGoal", new[] { 122 }),
+            Tuple.Create(SabaESportsPinGoal, 0, "ESportsPinGoal", new[] { 151 })
         };
 
-        public static List<Tuple<int, int, string>> GetSabaVirtualSports()
+        public static List<Tuple<int, int, string, int[]>> GetSabaVirtualSports()
         {
             return SabaVirtualSports;
         }

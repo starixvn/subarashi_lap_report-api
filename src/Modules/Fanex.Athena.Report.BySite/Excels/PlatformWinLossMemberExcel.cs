@@ -1,5 +1,10 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
     using Fanex.Athena.Report.BySite.DTOs;
     using Fanex.Athena.Report.BySite.Excels.Interfaces;
     using Fanex.Athena.Report.BySite.MetaModels;
@@ -11,11 +16,6 @@
     using Fanex.Athena.Report.Resources.Constants;
     using Fanex.Athena.Report.Resources.Helpers;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
 
     public class PlatformWinLossMemberExcel : IPlatformWinLossMemberExcel
     {
@@ -204,9 +204,7 @@
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
-                ViewResources.AmtDueToBA
+                ViewResources.LicenseeW_L
             };
 
             SetTextRowHeader(row, headerTextList);

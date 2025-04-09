@@ -1044,4 +1044,28 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Saba Virtual Sports</value>
   </data>
+  <data name="CustomerBetList" xml:space="preserve">
+    <value>Daftar Taruhan Pelanggan</value>
+  </data>
+  <data name="Soccer" xml:space="preserve">
+    <value>Sepak Bola</value>
+  </data>
+  <data name="Basketball" xml:space="preserve">
+    <value>Bola basket</value>
+  </data>
+  <data name="Cricket" xml:space="preserve">
+    <value>Kriket</value>
+  </data>
+  <data name="Tennis" xml:space="preserve">
+    <value>Tenis</value>
+  </data>
+  <data name="IceHockey" xml:space="preserve">
+    <value>Hoki Es</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>Komisi Penarikan Tunai</value>
+  </data>
+  <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
+    <value>Saba Virtual Sports Win Loss</value>
+  </data>
 </root>

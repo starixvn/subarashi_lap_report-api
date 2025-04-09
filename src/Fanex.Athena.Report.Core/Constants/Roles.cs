@@ -36,5 +36,6 @@
         public const string Turnover = "Turnover39";
         public const string CustomerTurnover = "CustomerTurnover51";
         public const string SubsidiaryPerformance = "SubsidiaryPerformance73";
+        public const string SabaVirtualSportsWinLoss = "SabaVirtualSportsWinLoss";
     }
 }

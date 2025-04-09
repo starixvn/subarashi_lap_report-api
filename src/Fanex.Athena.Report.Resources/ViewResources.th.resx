@@ -1077,4 +1077,28 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Sabaกีฬาเสมือนจริง</value>
   </data>
+  <data name="SabaVirtualSportsWinLoss" xml:space="preserve">
+    <value>Sabaกีฬาเสมือนจริง แพ้ชนะ</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>จ่ายค่าคอมมิชชั่น</value>
+  </data>
+  <data name="CustomerBetList" xml:space="preserve">
+    <value>รายการเดิมพันของลูกค้า</value>
+  </data>
+  <data name="Soccer" xml:space="preserve">
+    <value>ฟุตบอล</value>
+  </data>
+  <data name="Basketball" xml:space="preserve">
+    <value>บาสเกตบอล</value>
+  </data>
+  <data name="Cricket" xml:space="preserve">
+    <value>คริกเก็ต</value>
+  </data>
+  <data name="Tennis" xml:space="preserve">
+    <value>เทนนิส</value>
+  </data>
+  <data name="IceHockey" xml:space="preserve">
+    <value>ฮ๊อกกี้น้ำแข็ง</value>
+  </data>
 </root>

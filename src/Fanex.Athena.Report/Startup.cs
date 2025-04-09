@@ -48,7 +48,7 @@
         {
             var settings = Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
             services.AddHttpClient();
-            services.AddBetListApiClient(settings);
+            services.AddApiClient(settings);
 
             services.AddControllers(options =>
             {

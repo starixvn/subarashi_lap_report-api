@@ -159,9 +159,13 @@ namespace Fanex.Athena.Report.Core.Services
             => SportType.GetSabaVirtualSports().Select(t => new SabaSport
             {
                 Id = t.Item1,
+                LeagueGroupIds = t.Item4,
                 Name = GetSabaName(t.Item2, t.Item3, isHideSaba),
                 SportTypeId = t.Item2
             });
+
+        public SabaSport GetSabaSport(int id, bool isHideSaba = false)
+            => GetSabaSports(isHideSaba).FirstOrDefault(t => t.Id == id);
 
         private string GetSabaName(int sportId, string viewResource = "", bool isHideSaba = false)
         {

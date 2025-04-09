@@ -5,6 +5,7 @@
 	</Group>
 
 	<Group Name="Report">
+		<Function Name="SabaVirtualSportsWinLoss" Product="SB,CO"></Function>
 		<Function Name="CustomerBalance" Product="SB,NG,VS,CS,KN,BT,AGC,VB,AB,CO,LT,SG,PP,CC,VRG,TG,I4D,SXG,SBC,SAG,PGS,JK,HB,WM,BGG,VGA,CG,AP,APM,FGGL,MXG,JIG,YB,MGRNG,SEA,WE,L22,UUSL,FS,FAC,NS,ON,PTRNG,GPIRNG,GPILC,PS,ASK,FG,HOT,MGLC"></Function>
 		<Function Name="ExtraPayout" Product="PP,SPR,SAG,SBC,VGA,SXG,CC,SG,AB,MGRNG,L22,FS,FAC,SB,ASK,HOT,MGLC"></Function>
 		<Function Name="SubsidiaryPerformance" Product="SB,NG,VS,CS,KN,AGC,VB,AB,LT,TG,I4D,VRG,PP,CC,SG,SBC,SXG,JK,HB,WM,BGG,VGA,CG,AP,APM,FGGL,MXG,JIG,YB,MGRNG,SEA,WE,L22,UUSL,FS,FAC,NS,ON,PTRNG,GPIRNG,GPILC,PS,ASK,FG,HOT,MGLC"></Function>
