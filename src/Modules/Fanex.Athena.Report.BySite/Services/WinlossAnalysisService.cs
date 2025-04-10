@@ -97,7 +97,7 @@ namespace Fanex.Athena.Report.BySite.Services
             switch (param.BreakdownMode)
             {
                 case BreakdownMode.Product:
-                    item.BreakDownFieldText = DataHelper.GetProductName(item.BreakBy);
+                    item.BreakDownFieldText = ProductHelper.GetProductName(item.BreakBy);
                     break;
 
                 case BreakdownMode.Currency:
@@ -230,7 +230,7 @@ namespace Fanex.Athena.Report.BySite.Services
             var spiltName = item.GroupBy.Split('#');
             var productCode = spiltName[0];
             var betType = spiltName[1];
-            var productName = DataHelper.GetProductName(productCode);
+            var productName = ProductHelper.GetProductName(productCode);
             var betTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType), isHideSaba);
             item.GroupByFieldText = $"{productName} > {betTypeName}";
         }
@@ -240,7 +240,7 @@ namespace Fanex.Athena.Report.BySite.Services
             var spiltName = item.GroupBy.Split('#');
             var productCode = spiltName[0];
             var sportType = spiltName[1];
-            var productName = DataHelper.GetProductName(productCode);
+            var productName = ProductHelper.GetProductName(productCode);
             var sportName = _nameService.GetSportName(Convert.ToInt32(sportType), isHideSaba);
             item.GroupByFieldText = $"{productName} > {sportName}";
         }
@@ -257,14 +257,14 @@ namespace Fanex.Athena.Report.BySite.Services
             => item.GroupByFieldText = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
 
         private static void AssignProductName(WinlossAnalysisDTO item)
-            => item.GroupByFieldText = DataHelper.GetProductName(item.GroupBy);
+            => item.GroupByFieldText = ProductHelper.GetProductName(item.GroupBy);
 
         private IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>> BuildDefaultTreeListItem(
             IEnumerable<WinlossAnalysisDTO> groupByDatas,
             IEnumerable<WinlossAnalysisDTO> breakDownDatas)
         {
             var groupByRowIndexData = breakDownDatas.GroupBy(_ => _.RowIndex, _ => _);
-            var dicMainData = new Dictionary<int, IGrouping<int , WinlossAnalysisDTO>>(groupByRowIndexData.Count());
+            var dicMainData = new Dictionary<int, IGrouping<int, WinlossAnalysisDTO>>(groupByRowIndexData.Count());
             groupByRowIndexData.ForEach(_ => dicMainData.Add(_.Key, _));
             var result = new List<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>>(groupByDatas.Count());
             groupByDatas.ForEach(_ => result.Add(new TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>

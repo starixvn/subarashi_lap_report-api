@@ -1,9 +1,9 @@
 ﻿using Fanex.Athena.Report.Common.Extensions;
+using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.Resources.Helpers;
 using Fanex.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Report.Core.Repositories
                         }
 
                         var name = parentId == ProductType ?
-                            DataHelper.GetProductName(reader.GetVal<string>("Name")) :
+                            ProductHelper.GetProductName(reader.GetVal<string>("Name")) :
                             _cacheRefAdapter.GetSportName(id, languageCode);
 
                         result.Add(new SportProductItem

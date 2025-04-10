@@ -64,7 +64,8 @@
             { ExtraPayoutMapType.PayoutPromotionASKMESLOT, BetType.ASKMESLOTPromotionPrize },
             { ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion, BetType.NumberGameLuckyDrawPromotion },
             { ExtraPayoutMapType.PayoutNBAPlayoffsLotteryPromotion, BetType.NBAPlayoffsLotteryPromotion },
-            { ExtraPayoutMapType.PayoutNBABalanceAdjustment, BetType.NBABalanceAdjustment }
+            { ExtraPayoutMapType.PayoutNBABalanceAdjustment, BetType.NBABalanceAdjustment },
+            { ExtraPayoutMapType.PayoutHOTDOGPromotionPrize, BetType.HOTDOGPromotionPrize }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {
@@ -125,7 +126,7 @@
 
             data.BetCount = reader.GetVal<int>("betcount");
             data.ProductCode = productCode;
-            data.ProductName = !string.IsNullOrEmpty(productCode) ? DataHelper.GetProductName(productCode) : string.Empty;
+            data.ProductName = ProductHelper.GetProductName(productCode);
             data.BasedTurnover = reader.GetVal<decimal>("BasedTurnover");
             data.BasedAmount = reader.GetVal<decimal>("BasedAmount");
             data.BasedSharingAmount = productCode == Product.TIP ? 0 : basedSharingAmount;
@@ -361,7 +362,7 @@
                     Date = date,
                     DateString = dateString,
                     ProductCode = productCode,
-                    ProductName = DataHelper.GetProductName(productCode),
+                    ProductName = ProductHelper.GetProductName(productCode),
                     PromotionType = promotionType,
                     PromotionName = GetPromotionName(promotionType, metaModel.IsHideSaba),
                     BasedTurnover = reader.GetVal<decimal>("BasedTurnover"),

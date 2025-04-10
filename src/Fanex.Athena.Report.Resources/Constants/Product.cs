@@ -119,5 +119,7 @@
         public const string ASK = "ASK";
 
         public const string FG = "FG";
+
+        public const string HOT = "HOT";
     }
 }

@@ -534,6 +534,9 @@
   <data name="SPR" xml:space="preserve">
     <value>Promosi Saba</value>
   </data>
+  <data name="ProductSPR" xml:space="preserve">
+    <value>Promosi Saba</value>
+  </data>
   <data name="Stake" xml:space="preserve">
     <value>Taruhan</value>
   </data>

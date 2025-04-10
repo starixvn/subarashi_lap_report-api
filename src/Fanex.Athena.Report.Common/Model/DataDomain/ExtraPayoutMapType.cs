@@ -75,6 +75,8 @@
         public const int PayoutNumberGameLuckyDrawPromotion = 3711;
 
         public const int PayoutNBAPlayoffsLotteryPromotion = 3712;
+        
+        public const int PayoutHOTDOGPromotionPrize = 9501;
 
         public const int PayoutNBABalanceAdjustment = 3713;
     }
