@@ -924,6 +924,21 @@
   <data name="KN" xml:space="preserve">
     <value>Permainan Angka Keno</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>Kemenangan/Kerugian berdasarkan Zona Waktu</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Bulan</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>Komisi Pelanggan</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>Pemegang Lisensi WL</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>Pemegang Lisensi Net WL</value>
+  </data>
   <data name="Sportsbook" xml:space="preserve">
     <value>Sportsbook</value>
   </data>
@@ -1001,5 +1016,23 @@
   </data>
   <data name="NGPromotion" xml:space="preserve">
     <value>Promosi Permainan Angka</value>
+  </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>Kemenangan/Kerugian Anak Perusahaan</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>Cabang</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>Performa Cabang</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>Berdasarkan</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Whitelabel</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>Saba Virtual Sports</value>
   </data>
 </root>

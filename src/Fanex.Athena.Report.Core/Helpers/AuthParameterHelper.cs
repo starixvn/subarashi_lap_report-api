@@ -7,15 +7,27 @@ namespace Fanex.Athena.Report.Core.Helpers
 {
     public static class AuthParameterHelper
     {
-        public static string GenerateAgentListXml(IReadOnlyDictionary<int, int[]> currencyAgentList, int currencyId = 0,
-                                                  bool isExcludeTestData = false)
+        public static string GenerateAgentListXml(IReadOnlyDictionary<int, string> currencyList, IDictionary<int, IEnumerable<int>> currencyAgentList)
         {
-            return GenerateAgentListXml(currencyAgentList, new[] { currencyId < 0 ? 0 : currencyId, },
-                isExcludeTestData);
+            var result = new StringBuilder("<ROOT>");
+            foreach (var item in currencyAgentList)
+            {
+                if (currencyList.ContainsKey(item.Key))
+                {
+                    result.Append(GenerateAgentXmlBody(item.Key, item.Value));
+                }
+            }
+
+            result.Append("</ROOT>");
+            return result.ToString();
         }
 
-        public static string GenerateAgentListXml(IReadOnlyDictionary<int, int[]> currencyAgentList,
-                                                  IEnumerable<int> currencyIdList, bool isExcludeTestData = false)
+        public static string GenerateAgentListXml(IReadOnlyDictionary<int, int[]> currencyAgentList, int currencyId = 0, bool isExcludeTestData = false)
+        {
+            return GenerateAgentListXml(currencyAgentList, new[] { currencyId < 0 ? 0 : currencyId, }, isExcludeTestData);
+        }
+
+        public static string GenerateAgentListXml(IReadOnlyDictionary<int, int[]> currencyAgentList, IEnumerable<int> currencyIdList, bool isExcludeTestData = false)
         {
             const int AllCurrencyId = 0;
             var result = new StringBuilder("<ROOT>");
@@ -46,6 +58,8 @@ namespace Fanex.Athena.Report.Core.Helpers
             result.Append("</ROOT>");
             return result.ToString();
         }
+
+
 
         private static StringBuilder GenerateAgentXmlBody(int currencyId, IEnumerable<int> agentList)
         {

@@ -88,6 +88,8 @@ namespace Fanex.Athena.Report.Core.Services
 
         public string DefaultBaseCurrency => GetClaimValue("BaseCurrency", "EUR");
 
+        public string OperatorId => GetClaimValue("OperatorID");
+
         public AppMode ApplicationMode => GetClaimValue("Name").StartsWith("lrf") ? AppMode.Self : AppMode.Parasitic;
 
         public IEnumerable<string> OfferedOddsGroupsList

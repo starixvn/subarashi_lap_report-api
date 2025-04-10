@@ -954,6 +954,21 @@
   <data name="KN" xml:space="preserve">
     <value>RNG เกมคีโน</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>แพ้ชนะตามเขตเวลา</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>เดือน</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>ค่าคอมมิชชั่นลูกค้า</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>ผู้ได้รับอนุญาต แพ้ชนะ</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>ผู้ได้รับอนุญาต แพ้ชนะสุทธิ</value>
+  </data>
   <data name="Sportsbook" xml:space="preserve">
     <value>สปอร์ตบุ๊ค</value>
   </data>
@@ -1034,5 +1049,23 @@
   </data>
   <data name="ProductSPR" xml:space="preserve">
     <value>Saba โปรโมชั่น</value>
+  </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>บริษัทย่อย แพ้ชนะ</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>บริษัทย่อย</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>ผลการดำเนินงานของบริษัทย่อย</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>หลัก</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>ป้ายขาว</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>Sabaกีฬาเสมือนจริง</value>
   </data>
 </root>

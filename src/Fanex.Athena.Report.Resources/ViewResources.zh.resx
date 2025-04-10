@@ -590,7 +590,7 @@
     <value>BA金额</value>
   </data>
   <data name="Margin" xml:space="preserve">
-    <value>杀数</value>
+    <value>殺數</value>
   </data>
   <data name="GroupBy" xml:space="preserve">
     <value>分组方式</value>
@@ -850,6 +850,21 @@
   <data name="FinancialDate" xml:space="preserve">
     <value>依财务日期时间搜寻</value>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>投注时区输赢</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月份</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>会员佣金</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>承租公司輸贏</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>承租公司净输赢</value>
+  </data>
   <data name="SettlementTime" xml:space="preserve">
     <value>依注单结算时间搜寻</value>
   </data>
@@ -915,5 +930,23 @@
   </data>
   <data name="NGPromotion" xml:space="preserve">
     <value>数字游戏活动</value>
+  </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>子网站输赢</value>
+  </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>子网站</value>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>子网站综合报表</value>
+  </data>
+  <data name="Based" xml:space="preserve">
+    <value>基于</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>包网商</value>
+  </data>
+  <data name="ProductSBVS" xml:space="preserve">
+    <value>沙巴虚拟赛事</value>
   </data>
 </root>

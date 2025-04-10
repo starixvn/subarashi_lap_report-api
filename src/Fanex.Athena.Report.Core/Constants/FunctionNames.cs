@@ -19,5 +19,9 @@
         public const string LiveReport = "LiveReport";
 
         public const string Turnover = "Turnover";
+
+        public const string WinLossByTimeZone = "WinLossByTimeZone";
+
+        public const string SubsidiaryPerformance = "SubsidiaryPerformance";
     }
 }

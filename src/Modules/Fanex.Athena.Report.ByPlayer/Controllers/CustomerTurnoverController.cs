@@ -1,4 +1,8 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.ByPlayer.DTO;
 using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
 using Fanex.Athena.Report.ByPlayer.Excels.Options;
 using Fanex.Athena.Report.ByPlayer.MetaModels;
@@ -16,10 +20,6 @@ using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
@@ -48,8 +48,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
             {
                 currencyList = _contextService.CurrencyList.ToArray(),
                 productOptions = await GetSportsAndProducts(productService, sportService),
-                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                isAllowSLT = _contextService.OfferedSubProductList.Contains(Product.SLT),
+                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm
             });
         }
 

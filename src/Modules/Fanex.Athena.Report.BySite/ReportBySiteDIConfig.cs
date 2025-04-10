@@ -70,6 +70,13 @@
             services.AddTransient<ITurnoverRepository, TurnoverRepository>();
             services.AddTransient<ITurnoverService, TurnoverService>();
             services.AddTransient<ITurnoverExcel, TurnoverExcel>();
+            services.AddTransient<IWinLossByTimeZoneRepository, WinLossByTimeZoneRepository>();
+            services.AddTransient<IWinLossByTimeZoneService, WinLossByTimeZoneService>();
+            services.AddTransient<IWinLossByTimeZoneExcel, WinLossByTimeZoneExcel>();
+            services.AddTransient<ISubsidiaryPerformanceRepository, SubsidiaryPerformanceRepository>();
+            services.AddTransient<ISubsidiaryPerformanceService, SubsidiaryPerformanceService>();
+            services.AddTransient<ISubsidiaryPerformanceSummaryExcel, SubsidiaryPerformanceSummaryExcel>();
+            services.AddTransient<ISubsidiaryPerformanceDetailExcel, SubsidiaryPerformanceDetailExcel>();
 
             return services;
         }
