@@ -1203,4 +1203,7 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Saba Virtual Sports</value>
   </data>
+  <data name="ProductMGLC" xml:space="preserve">
+    <value>Microgaming Live</value>
+  </data>
 </root>
