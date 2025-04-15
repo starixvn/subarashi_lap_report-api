@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Service
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -42,7 +43,7 @@
                         result.TotalData = new CustPendingFunds
                         {
                             BetCounts = reader.ToInt("SumBetCounts"),
-                            PendingFunds = reader.ToDecimal("SumOutstanding")
+                            PendingFunds = Convert.ToDecimal(reader["SumOutstanding"])
                         };
                         result.TotalRows = reader.ToInt("TotalRows");
                     }
@@ -89,7 +90,7 @@
                 ExternalId = reader.ToString("nickname"),
                 SystemId = reader.ToString("username"),
                 BetCounts = reader.ToInt("BetCounts"),
-                PendingFunds = reader.ToDecimal("Outstanding")
+                PendingFunds = Convert.ToDecimal(reader["Outstanding"])
             };
         }
     }
