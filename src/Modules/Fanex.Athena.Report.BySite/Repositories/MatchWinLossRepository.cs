@@ -41,7 +41,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             db.SetParameterValue(STR_PRODUCTLIST, string.Join(",", metaModel.ProductOptions.Where(_ => _.Status).Select(_ => _.Code)));
 
             using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return SetToList(reader);
+            return SetToList(reader, metaModel);
         }
 
         public async Task<DataSet> GetDetailDataSet(MatchWinLossMetaModel metaModel)
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             db.SetParameterValue(STR_PRODUCTLIST, metaModel.ProductCodeList);
 
             using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return SetToList(reader);
+            return SetToList(reader, metaModel);
         }
 
         public async Task<IList<MatchWinLoss>> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
@@ -108,7 +108,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             return dataList;
         }
 
-        private IList<MatchWinLoss> SetToList(IDataReader reader)
+        private IList<MatchWinLoss> SetToList(IDataReader reader, MatchWinLossMetaModel metaModel)
         {
             var hasBetType = reader.HasColumn("bettype");
             var hasProductName = reader.HasColumn("productname");
@@ -137,7 +137,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     LicenseeWL = reader.ToDecimal("LicenseeWL"),
                     BetType = betType,
                     BettypeName = _cacheRefAdapter.GetBetTypeWithLiveIndicator(betType, isLive),
-                    ProductName = hasProductName ? reader.ToString("productname") : string.Empty,
+                    ProductName = hasProductName ? reader.ToString("productname") : metaModel.ProductCode,
                     IsLive = isLive,
                     IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]),
                     SportType = reader.ToShort("sporttype"),
