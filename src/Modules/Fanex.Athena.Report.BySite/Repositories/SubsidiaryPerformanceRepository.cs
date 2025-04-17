@@ -1,18 +1,17 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using System;
-using System.Linq;
-using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Utility;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs.SubsidiaryPerformance;
+    using Interfaces;
+    using MetaModels;
+
     public class SubsidiaryPerformanceRepository : ISubsidiaryPerformanceRepository
     {
         private readonly IBalanceUpService _balanceUpService;
@@ -46,7 +45,9 @@ namespace Fanex.Athena.Report.BySite.Repositories
             return dataList;
         }
 
-        public async Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IReadOnlyDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(
+            SubsidiaryPerformanceMetaModel metaModel,
+            IReadOnlyDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
             var dataList = new List<SubsidiaryPerformanceDetail>();
@@ -63,8 +64,8 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     while (reader.Read())
                     {
                         var data = MapDetailData(reader, currencyList, baseColumnSuffix);
-                        data.SystemId = reader["username"].ToString();
-                        data.ExternalId = reader["nickname"].ToString();
+                        data.SystemId = reader.GetVal<string>("username");
+                        data.ExternalId = reader.GetVal<string>("nickname");
                         dataList.Add(data);
 
                         if (metaModel.ConvertAll)
@@ -89,19 +90,19 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
         private SubsidiaryPerformance MapData(IDataReader reader, IReadOnlyDictionary<int, string> currencyList, bool isConvert)
         {
-            var currencyId = Convert.ToInt32(reader["Currency"]);
+            var currencyId = reader.GetVal<int>("Currency");
             var result = new SubsidiaryPerformance
             {
-                ProductCode = reader["ProductCode"].ToString(),
-                SubsidiaryId = Convert.ToInt32(reader["recommend"]),
+                ProductCode = reader.GetVal<string>("ProductCode"),
+                SubsidiaryId = reader.GetVal<int>("recommend"),
                 CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                 CurrencyId = currencyId,
                 BaseCurrencyData = new SubsidiaryPerformanceBase
                 {
-                    BetCount = Convert.ToInt32(reader["BetCount"]),
-                    Turnover = Convert.ToDecimal(reader["TurnoverBase"]),
-                    CustomerWinLoss = Convert.ToDecimal(reader["WinlostBase"]),
-                    SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"])
+                    BetCount = reader.GetVal<int>("BetCount"),
+                    Turnover = reader.GetVal<decimal>("TurnoverBase"),
+                    CustomerWinLoss = reader.GetVal<decimal>("WinlostBase"),
+                    SubsidiaryWinLoss = reader.GetVal<decimal>("LicenseeWLBase")
                 }
             };
             result.BetCount = result.BaseCurrencyData.BetCount;
@@ -114,9 +115,9 @@ namespace Fanex.Athena.Report.BySite.Repositories
             }
             else
             {
-                result.Turnover = Convert.ToDecimal(reader["Turnover"]);
-                result.CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]);
-                result.SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL"]);
+                result.Turnover = reader.GetVal<decimal>("Turnover");
+                result.CustomerWinLoss = reader.GetVal<decimal>("Winlost");
+                result.SubsidiaryWinLoss = reader.GetVal<decimal>("LicenseeWL");
             }
 
             return result;
@@ -124,17 +125,17 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
         private SubsidiaryPerformanceDetail MapDetailData(IDataReader reader, IReadOnlyDictionary<int, string> currencyList, string baseColumnSuffix = "Base")
         {
-            var currencyId = Convert.ToInt32(reader["Currency"]);
+            var currencyId = reader.GetVal<int>("Currency");
             var result = new SubsidiaryPerformanceDetail
             {
-                SystemId = reader["username"].ToString(),
-                ExternalId = reader["nickname"].ToString(),
+                SystemId = reader.GetVal<string>("username"),
+                ExternalId = reader.GetVal<string>("nickname"),
                 CurrencyId = currencyId,
                 CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
-                BetCount = Convert.ToInt32(reader["BetCount"]),
-                Turnover = Convert.ToDecimal(reader["Turnover" + baseColumnSuffix]),
-                CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + baseColumnSuffix]),
-                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseColumnSuffix])
+                BetCount = reader.GetVal<int>("BetCount"),
+                Turnover = reader.GetVal<decimal>("Turnover" + baseColumnSuffix),
+                CustomerWinLoss = reader.GetVal<decimal>("Winlost" + baseColumnSuffix),
+                SubsidiaryWinLoss = reader.GetVal<decimal>("LicenseeWL" + baseColumnSuffix)
             };
 
             return result;
@@ -149,10 +150,10 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
             var total = totalList[currencyName];
 
-            total.BetCount += Convert.ToInt32(reader["BetCount"]);
-            total.Turnover += Convert.ToDecimal(reader["TurnoverBase"]);
-            total.CustomerWinLoss += Convert.ToDecimal(reader["WinlostBase"]);
-            total.SubsidiaryWinLoss += Convert.ToDecimal(reader["LicenseeWLBase"]);
+            total.BetCount += reader.GetVal<int>("BetCount");
+            total.Turnover += reader.GetVal<decimal>("TurnoverBase");
+            total.CustomerWinLoss += reader.GetVal<decimal>("WinlostBase");
+            total.SubsidiaryWinLoss += reader.GetVal<decimal>("LicenseeWLBase");
         }
 
         private void CalculateDetailTotal(SubsidiaryPerformanceDetail detail, IDictionary<string, SubsidiaryPerformanceDetail> totalList)

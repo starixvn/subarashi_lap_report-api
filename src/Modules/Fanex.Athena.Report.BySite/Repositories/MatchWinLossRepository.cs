@@ -1,19 +1,18 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Common;
-using Fanex.Common.Extensions;
-using Fanex.Core.Utils.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Fanex.Common.Extensions;
+    using Fanex.Core.Utils.Extensions;
+    using Interfaces;
+    using MetaModels;
+
     public class MatchWinLossRepository : IMatchWinLossRepository
     {
         private const string STR_PRODUCTLIST = "ProductList";
@@ -110,23 +109,17 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
         private IList<MatchWinLoss> SetToList(IDataReader reader)
         {
-            var hasBetType = reader.HasColumn("bettype");
-            var hasProductName = reader.HasColumn("productname");
-            var hasLeagueGroupId = reader.HasColumn("LeagueGroupId");
-            var hasLiveIndicator = reader.HasColumn("liveindicator");
-            var hasIsNeutral = reader.HasColumn("isneutral");
-            var hasKickOffTime = reader.HasColumn("KickoffTime");
             var dataList = new List<MatchWinLoss>();
 
             while (reader.Read())
             {
-                var betType = hasBetType ? reader.ToInt("bettype") : 0;
-                var isLive = hasLiveIndicator && Converter.ToBool(reader["liveindicator"]);
+                var betType = reader.GetVal<int>("bettype");
+                var isLive = reader.GetVal<bool>("liveindicator");
                 dataList.Add(new MatchWinLoss
                 {
-                    LeagueId = reader.ToInt("leagueid"),
-                    LeagueGroupId = hasLeagueGroupId ? reader.ToInt("LeagueGroupId") : 0,
-                    MatchId = reader.ToInt("matchid"),
+                    LeagueId = reader.GetVal<int>("leagueid"),
+                    LeagueGroupId = reader.GetVal<int>("LeagueGroupId"),
+                    MatchId = reader.GetVal<int>("matchid"),
                     MatchCode = reader.ToString("matchcode"),
                     HomeId = reader.ToInt("homeid"),
                     AwayId = reader.ToInt("awayid"),
@@ -137,11 +130,11 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     LicenseeWL = reader.ToDecimal("LicenseeWL"),
                     BetType = betType,
                     BettypeName = _cacheRefAdapter.GetBetTypeWithLiveIndicator(betType, isLive),
-                    ProductName = hasProductName ? reader.ToString("productname") : string.Empty,
+                    ProductName = reader.GetVal<string>("productname"),
                     IsLive = isLive,
-                    IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]),
+                    IsNeutral = reader.GetVal<bool>("isNeutral"),
                     SportType = reader.ToShort("sporttype"),
-                    KickOffTime = hasKickOffTime ? reader.ToDateTime("KickoffTime") : DateTimeHelper.MinValue,
+                    KickOffTime = reader.GetVal<DateTime>("KickoffTime"),
                     VendorMatchId = reader.ToString("VendorMatchId"),
                     Distance = reader.ToString("Distance"),
                     EventType = reader.ToInt("EventType")

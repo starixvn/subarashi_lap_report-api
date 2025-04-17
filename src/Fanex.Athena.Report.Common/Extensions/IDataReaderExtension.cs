@@ -1,9 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlTypes;
-
-namespace Fanex.Athena.Report.Common.Extensions
+﻿namespace Fanex.Athena.Report.Common.Extensions
 {
+    using System;
+    using System.Data;
+    using System.Data.SqlTypes;
+
     public static class IDataReaderExtension
     {
         public static bool HasColumn(this IDataRecord reader, string columnName)
@@ -22,27 +22,32 @@ namespace Fanex.Athena.Report.Common.Extensions
             return false;
         }
 
-        public static T GetVal<T>(this IDataReader dataReader, string columnName, T defauleValue = default(T))
+        public static T GetVal<T>(this IDataReader dataReader, string columnName, T defaultValue = default)
         {
+            if (!dataReader.HasColumn(columnName))
+            {
+                return defaultValue;
+            }
+
             var dbValue = dataReader[columnName];
             if (dbValue == DBNull.Value)
             {
-                return defauleValue;
+                return defaultValue;
             }
 
-            return Cast<T>(dbValue, defauleValue);
+            return Cast(dbValue, defaultValue);
         }
 
-        private static T Cast<T>(object dbValue, T defauleValue = default(T))
+        private static T Cast<T>(object dbValue, T defaultValue = default)
         {
             if (dbValue is T result)
             {
                 return result;
             }
 
-            if (dbValue is INullable temp && temp.IsNull)
+            if (dbValue is INullable { IsNull: true })
             {
-                return defauleValue;
+                return defaultValue;
             }
 
             return (T)Convert.ChangeType(dbValue, typeof(T));

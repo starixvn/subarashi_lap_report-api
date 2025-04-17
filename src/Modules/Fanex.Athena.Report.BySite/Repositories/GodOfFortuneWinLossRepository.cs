@@ -1,19 +1,19 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Constants;
 
     public class GodOfFortuneWinLossRepository : IGodOfFortuneWinLossRepository
     {
@@ -98,8 +98,8 @@
             var baseCurrency = !string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.BaseCurrency : metaModel.CurrencyName;
 
             var data = hasData
-                          ? ReadSummaryTotal(reader)
-                          : new GodOfFortuneWinLoss();
+                ? ReadSummaryTotal(reader)
+                : new GodOfFortuneWinLoss();
 
             summaryTotal.Add(baseCurrency.ToUpperInvariant(), data);
 
@@ -126,7 +126,7 @@
 
                 var item = new GodOfFortuneWinLoss
                 {
-                    CurrencyName = currencyName,
+                    CurrencyName = currencyName
                 };
                 ReadCommonData(reader, item);
 
@@ -152,12 +152,7 @@
             GodOfFortuneWinLossMetaModel metaModel,
             bool drilldown)
         {
-            const string CustomerColumn = "CustId";
-
             var dataList = new SortableList<GodOfFortuneWinLoss>();
-            var hasSystemId = reader.HasColumn("username");
-            var hasExternalId = reader.HasColumn("nickname");
-            var hasCustomerId = reader.HasColumn(CustomerColumn);
             var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
 
             var index = 0;
@@ -168,12 +163,12 @@
                 var item = new GodOfFortuneWinLoss
                 {
                     Index = index,
-                    SystemId = hasSystemId ? reader.GetVal<string>("username") : string.Empty,
-                    ExternalId = hasExternalId ? reader.GetVal<string>("nickname") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.GetVal<int>(CustomerColumn) : 0,
+                    SystemId = reader.GetVal<string>("username"),
+                    ExternalId = reader.GetVal<string>("nickname"),
+                    CustomerId = reader.GetVal<int>("CustId"),
                     CurrencyId = currencyId,
                     CurrencyName = _contextService.CurrencyList.GetValueOrDefault(currencyId, currencyId.ToString()),
-                    Date = drilldown ? metaModel.DrillDownFromDate : ConvertHelper.ToDateTime(reader.GetVal<string>("reporttype"), isMonthly),
+                    Date = drilldown ? metaModel.DrillDownFromDate : ConvertHelper.ToDateTime(reader.GetVal<string>("reporttype"), isMonthly)
                 };
                 ReadCommonData(reader, item);
 

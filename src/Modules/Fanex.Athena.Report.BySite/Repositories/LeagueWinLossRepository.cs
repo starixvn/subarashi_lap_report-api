@@ -1,28 +1,25 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Resources;
+    using Resources.Constants;
 
     public class LeagueWinLossRepository : ILeagueWinLossRepository
     {
-        private readonly IBalanceUpService _balanceUpService;
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-        private readonly INameService _nameService;
-
         private const int ParlaySport = 0;
         private const int Outright = 2;
         private const int ParlaySB = -9;
@@ -36,9 +33,14 @@
 
         private static readonly List<string> ProductsGroupOrder = new() { Product.SB, Product.VS };
         private static readonly List<int> SportsDirectToCurrencyOrder = new() { ParlaySport, SportType.SportsLottery, SportType.BitCoin };
+        private readonly IBalanceUpService _balanceUpService;
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly INameService _nameService;
 
         public LeagueWinLossRepository(
-            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, INameService nameService)
+            IBalanceUpService balanceUpService,
+            ICacheRefAdapter cacheRefAdapter,
+            INameService nameService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
@@ -61,6 +63,84 @@
 
             using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
             return GetLeagueData(reader, metaModel.IsHideSaba);
+        }
+
+        public async Task<SortableReportResultModel<LeagueWinLoss>> GetMatchWinlossDetail(LeagueWinLossMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByLeague_Match";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("leagueId", metaModel.LeagueId);
+            db.SetParameterValue("SportType", metaModel.SportType);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetMatchData(reader, metaModel.LeagueId, metaModel.SportType, metaModel.IsHideSaba);
+        }
+
+        public async Task<SortableReportResultModel<LeagueWinLoss>> GetBettypeWinlossDetail(LeagueWinLossMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByLeague_BetType";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
+            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetBetTypeData(reader, metaModel);
+        }
+
+        public async Task<SortableReportResultModel<LeagueWinLoss>> GetLeagueWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByLeague_League_Currency";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("leagueId", metaModel.LeagueId);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetCurrencyData(reader);
+        }
+
+        public async Task<SortableReportResultModel<LeagueWinLoss>> GetMatchWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByLeague_Match_Currency";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
+            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
+            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetCurrencyData(reader);
+        }
+
+        public async Task<SortableReportResultModel<LeagueWinLoss>> GetBettypeWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByLeague_BetType_Currency";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
+            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
+            db.SetParameterValue("betType", metaModel.BettypeId);
+            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
+            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return GetCurrencyData(reader);
         }
 
         private static void ReadCommonData(IDataReader reader, LeagueWinLoss data)
@@ -100,8 +180,9 @@
                 {
                     if (_.SportType == 0)
                     {
-                        return (_.LeagueId == ParlaySB || _.LeagueId == ParlayVS) ? LowestPriority : DefaultLeaguePriority;
+                        return _.LeagueId == ParlaySB || _.LeagueId == ParlayVS ? LowestPriority : DefaultLeaguePriority;
                     }
+
                     return 0;
                 })
                 .ToList();
@@ -135,8 +216,8 @@
             {
                 var sportDetail = data.Where(
                     _ => _.SportType == sport.SportType
-                    && _.ProductGroup == sport.ProductGroup
-                    && (sport.LeagueId == 0 || _.LeagueId == sport.LeagueId));
+                         && _.ProductGroup == sport.ProductGroup
+                         && (sport.LeagueId == 0 || _.LeagueId == sport.LeagueId));
 
                 var sportData = GetSumData(sportDetail);
                 var sportName = GetSportName(sport.SportType, sport.LeagueId, isHideSaba);
@@ -144,7 +225,7 @@
 
                 sportData.ProductGroup = sport.ProductGroup;
                 sportData.SportType = sport.SportType;
-                sportData.SportName = String.IsNullOrEmpty(sportName) ? productName : $"{productName} > {sportName}";
+                sportData.SportName = string.IsNullOrEmpty(sportName) ? productName : $"{productName} > {sportName}";
                 sportData.Index = index++;
                 sportData.Detail = sportDetail;
 
@@ -191,7 +272,8 @@
             db.SetParameterValue("productList", metaModel.ProductCodeList);
             db.SetParameterValue("statusIdList", metaModel.StatusIdList);
             db.SetParameterValue("movebetsday", moveBetsDay);
-            db.SetParameterValue("BaseCurrency", !metaModel.IsGroupInOriginalCurrency || applyBaseCurrency ? metaModel.BaseCurrency.ToUpperInvariant() : string.Empty);
+            db.SetParameterValue("BaseCurrency",
+                !metaModel.IsGroupInOriginalCurrency || applyBaseCurrency ? metaModel.BaseCurrency.ToUpperInvariant() : string.Empty);
         }
 
         private string GetLeagueName(int leagueId, bool isHideSaba, int sportType = 0)
@@ -199,11 +281,12 @@
             var leagueName = _cacheRefAdapter.GetLeagueName(leagueId, sportType);
             if (isHideSaba)
             {
-                leagueName = System.Text.RegularExpressions.Regex.Replace(
-                        leagueName, ViewResources.Saba
-                        , string.Empty
-                        , System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                leagueName = Regex.Replace(
+                    leagueName, ViewResources.Saba
+                    , string.Empty
+                    , RegexOptions.IgnoreCase);
             }
+
             return leagueName;
         }
 
@@ -265,24 +348,11 @@
             };
         }
 
-        public async Task<SortableReportResultModel<LeagueWinLoss>> GetMatchWinlossDetail(LeagueWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByLeague_Match";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue("leagueId", metaModel.LeagueId);
-            db.SetParameterValue("SportType", metaModel.SportType);
-            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return GetMatchData(reader, metaModel.LeagueId, metaModel.SportType, metaModel.IsHideSaba);
-        }
-
         private SortableReportResultModel<LeagueWinLoss> GetMatchData(
-            IDataReader reader, int leagueId, int sportType, bool isHideSaba)
+            IDataReader reader,
+            int leagueId,
+            int sportType,
+            bool isHideSaba)
         {
             var dataList = new SortableList<LeagueWinLoss>();
             var data = new List<LeagueWinLoss>();
@@ -312,7 +382,7 @@
                     MatchName = matchName,
                     EventType = eventType,
                     HomeId = matchInfo.HomeId,
-                    AwayId = matchInfo.AwayId,
+                    AwayId = matchInfo.AwayId
                 };
                 ReadCommonData(reader, item);
 
@@ -352,24 +422,9 @@
             dataList.Add(leagueData);
         }
 
-        public async Task<SortableReportResultModel<LeagueWinLoss>> GetBettypeWinlossDetail(LeagueWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByLeague_BetType";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
-            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
-            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay, true);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return GetBetTypeData(reader, metaModel);
-        }
-
         private SortableReportResultModel<LeagueWinLoss> GetBetTypeData(
-            IDataReader reader, LeagueWinLossMetaModel metaModel)
+            IDataReader reader,
+            LeagueWinLossMetaModel metaModel)
         {
             var dataList = new SortableList<LeagueWinLoss>();
             var data = new List<LeagueWinLoss>();
@@ -405,52 +460,6 @@
             matchData.Detail = data;
             matchData.MatchName = metaModel.MatchName;
             dataList.Add(matchData);
-        }
-
-        public async Task<SortableReportResultModel<LeagueWinLoss>> GetLeagueWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByLeague_League_Currency";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue("leagueId", metaModel.LeagueId);
-            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return GetCurrencyData(reader);
-        }
-
-        public async Task<SortableReportResultModel<LeagueWinLoss>> GetMatchWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByLeague_Match_Currency";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
-            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
-            db.SetParameterValue(BetTypeListColumn, metaModel.BetTypeIdList);
-            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return GetCurrencyData(reader);
-        }
-
-        public async Task<SortableReportResultModel<LeagueWinLoss>> GetBettypeWinlossCurrencyDetail(LeagueWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByLeague_BetType_Currency";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue(MatchIdColumn, metaModel.MatchId);
-            db.SetParameterValue(EventTypeColumn, metaModel.EventType);
-            db.SetParameterValue("betType", metaModel.BettypeId);
-            db.SetParameterValue(BalanceUpDayColumn, balanceUpInfo.BalanceUpDay);
-            UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return GetCurrencyData(reader);
         }
     }
 }

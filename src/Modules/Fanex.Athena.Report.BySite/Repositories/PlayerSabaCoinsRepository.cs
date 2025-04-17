@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Data;
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
 
     public class PlayerSabaCoinsRepository : IPlayerSabaCoinsRepository
     {
@@ -33,31 +33,6 @@
             return ReadMainData(reader);
         }
 
-        private static IEnumerable<PlayerSabaCoins> ReadMainData(
-            IDataReader reader)
-        {
-            var dataList = new List<PlayerSabaCoins>();
-
-            while (reader.Read())
-            {
-                var item = new PlayerSabaCoins
-                {
-                    CustId = reader["custId"].ToString(),
-                    Username = reader["username"].ToString(),
-                    ExternalId = reader["nickname"].ToString(),
-                    OpeningBalance = Convert.ToDecimal(reader["OpeningBalance"]),
-                    Turnover = Convert.ToDecimal(reader["Turnover"]),
-                    Outstanding = Convert.ToDecimal(reader["Outstanding"]),
-                    WinLoss = Convert.ToDecimal(reader["WinLoss"]),
-                    ClosingBalance = Convert.ToDecimal(reader["ClosingBalance"])
-                };
-
-                dataList.Add(item);
-            }
-
-            return dataList;
-        }
-
         public async Task<IEnumerable<PlayerSabaCoins>> GetExtraInfoData(
             PlayerSabaCoinsMetaModel metaModel)
         {
@@ -75,6 +50,31 @@
             return ReadExtraInfoData(reader);
         }
 
+        private static IEnumerable<PlayerSabaCoins> ReadMainData(
+            IDataReader reader)
+        {
+            var dataList = new List<PlayerSabaCoins>();
+
+            while (reader.Read())
+            {
+                var item = new PlayerSabaCoins
+                {
+                    CustId = reader.GetVal<string>("custId"),
+                    Username = reader.GetVal<string>("username"),
+                    ExternalId = reader.GetVal<string>("nickname"),
+                    OpeningBalance = reader.GetVal<decimal>("OpeningBalance"),
+                    Turnover = reader.GetVal<decimal>("Turnover"),
+                    Outstanding = reader.GetVal<decimal>("Outstanding"),
+                    WinLoss = reader.GetVal<decimal>("WinLoss"),
+                    ClosingBalance = reader.GetVal<decimal>("ClosingBalance")
+                };
+
+                dataList.Add(item);
+            }
+
+            return dataList;
+        }
+
         private static IEnumerable<PlayerSabaCoins> ReadExtraInfoData(
             IDataReader reader)
         {
@@ -84,9 +84,9 @@
             {
                 var item = new PlayerSabaCoins
                 {
-                    CustId = reader["custId"].ToString(),
-                    RewardPromotionAmt = Convert.ToDecimal(reader["RewardPromotionAmt"]),
-                    ExchangeAmt = Convert.ToDecimal(reader["ExchangeAmt"])
+                    CustId = reader.GetVal<string>("custId"),
+                    RewardPromotionAmt = reader.GetVal<decimal>("RewardPromotionAmt"),
+                    ExchangeAmt = reader.GetVal<decimal>("ExchangeAmt")
                 };
 
                 dataList.Add(item);

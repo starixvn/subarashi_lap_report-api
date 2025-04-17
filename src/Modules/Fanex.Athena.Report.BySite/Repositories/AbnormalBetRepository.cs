@@ -1,29 +1,30 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Core.Utils.Service.Interfaces;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Fanex.Core.Utils.Service.Interfaces;
+    using Interfaces;
+    using MetaModels;
+    using Resources;
+    using Resources.Constants;
+    using static Constants.ReportConstant;
 
     public class AbnormalBetRepository : IAbnormalBetRepository
     {
+        private const int ParlayBettype = 29;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IIpService _ipService;
-        private const int ParlayBettype = 29;
 
         private readonly Dictionary<int, string> LiveStatus = new()
         {
@@ -38,20 +39,6 @@
             _ipService = ipService;
         }
 
-        private static void UpdateSpCommonParamsAsync(IObjectDb db, AbnormalBetMetaModel metaModel)
-        {
-            db.SetParameterValue("fromdate", metaModel.FromDate.Date);
-            db.SetParameterValue("todate", metaModel.ToDate.Date);
-            db.SetParameterValue("sportTypeList", metaModel.SportIdList);
-            db.SetParameterValue("leagueName", metaModel.LeagueName);
-            db.SetParameterValue("betTypeList", metaModel.BetTypeIdList);
-            db.SetParameterValue("liveIndicator", metaModel.StatusIdList);
-            db.SetParameterValue("reasonList", metaModel.ReasonIdList);
-            db.SetParameterValue("pageSize", metaModel.PageSize);
-            db.SetParameterValue("pageIndex", metaModel.PageIndex);
-            db.SetParameterValue("SearchLanguage", CultureInfo.CurrentUICulture.Name);
-        }
-
         public async Task<SortableReportResultModel<AbnormalBetSummary>> GetSummaryData(AbnormalBetMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AbnormalBet_Summary";
@@ -61,6 +48,53 @@
 
             using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
             return ReadSummaryData(reader, metaModel.IsHideSaba);
+        }
+
+        public async Task<SortableReportResultModel<AbnormalBetIpSummary>> GetIpSummaryData(AbnormalBetMetaModel metaModel)
+        {
+            if (ShouldReturnEmptyResult(metaModel))
+            {
+                return new SortableReportResultModel<AbnormalBetIpSummary>
+                {
+                    DataList = new SortableList<AbnormalBetIpSummary>()
+                };
+            }
+
+            const string UspName = "Lrf_Rpt_AbnormalBet_IPSummary";
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("Username", metaModel.UserName);
+            db.SetParameterValue("IP", metaModel.Ip);
+            UpdateSpCommonParamsAsync(db, metaModel);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return ReadIpSummaryData(reader, metaModel.IsShowIpvn);
+        }
+
+        public async Task<SortableReportResultModel<AbnormalBetDetail>> GetDetailData(AbnormalBetMetaModel metaModel)
+        {
+            if (ShouldReturnEmptyResult(metaModel))
+            {
+                return new SortableReportResultModel<AbnormalBetDetail>
+                {
+                    DataList = new SortableList<AbnormalBetDetail>()
+                };
+            }
+
+            const string UspName = "Lrf_Rpt_AbnormalBet_Detail";
+
+            using var db = ObjectDbFactory.CreateInstance(UspName);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("Username", metaModel.UserName);
+            db.SetParameterValue("IP", metaModel.Ip);
+            db.SetParameterValue("Refno", metaModel.RefNo);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue("ConvertToBaseCur", metaModel.IsConvertAllToBaseCurrency);
+            UpdateSpCommonParamsAsync(db, metaModel);
+
+            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+            return ReadDetaiData(reader, metaModel);
         }
 
         public SortableReportResultModel<AbnormalBetSummary> ReadSummaryData(IDataReader reader, bool isHideSaba)
@@ -90,7 +124,7 @@
                     TotalTransaction = reader.GetVal<int>("TotalTransaction"),
                     BetType = _cacheRefAdapter.GetBettype(betType, isHideSaba),
                     Choice = betType == ParlayBettype ? string.Empty : GetChoiceName(betType, reader.GetVal<string>("choice")),
-                    FinalScore = string.Equals(finalScore, "-") || betType == ParlayBettype ? string.Empty : finalScore,
+                    FinalScore = string.Equals(finalScore, "-") || betType == ParlayBettype ? string.Empty : finalScore
                 };
 
                 dataList.Add(item);
@@ -102,28 +136,6 @@
             };
         }
 
-        public async Task<SortableReportResultModel<AbnormalBetIpSummary>> GetIpSummaryData(AbnormalBetMetaModel metaModel)
-        {
-            if (ShouldReturnEmptyResult(metaModel))
-            {
-                return new SortableReportResultModel<AbnormalBetIpSummary>
-                {
-                    DataList = new SortableList<AbnormalBetIpSummary>()
-                };
-            }
-
-            const string UspName = "Lrf_Rpt_AbnormalBet_IPSummary";
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("Username", metaModel.UserName);
-            db.SetParameterValue("IP", metaModel.Ip);
-            UpdateSpCommonParamsAsync(db, metaModel);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return ReadIpSummaryData(reader, metaModel.IsShowIpvn);
-        }
-
         public SortableReportResultModel<AbnormalBetIpSummary> ReadIpSummaryData(IDataReader reader, bool isShowIpvn)
         {
             var dataList = new SortableList<AbnormalBetIpSummary>();
@@ -132,8 +144,10 @@
             {
                 var ipLogin = reader.GetVal<string>("iplogin");
                 var ticketIP = reader.GetVal<string>("ticketIPs");
-                var ticketIpList = string.Join(", ", ticketIP.Split(',').Select(_ => _ipService.GetIpAddress(_, isShowIpvn)).Where(_ => !string.IsNullOrEmpty(_)));
-                var ticketLocationList = string.Join(", ", ticketIP.Split(',').Select(_ => _ipService.GetIpLocation(_, isShowIpvn).CountryName).Where(_ => !string.IsNullOrEmpty(_)).Distinct());
+                var ticketIpList = string.Join(", ",
+                    ticketIP.Split(',').Select(_ => _ipService.GetIpAddress(_, isShowIpvn)).Where(_ => !string.IsNullOrEmpty(_)));
+                var ticketLocationList = string.Join(", ",
+                    ticketIP.Split(',').Select(_ => _ipService.GetIpLocation(_, isShowIpvn).CountryName).Where(_ => !string.IsNullOrEmpty(_)).Distinct());
 
                 var item = new AbnormalBetIpSummary
                 {
@@ -142,7 +156,7 @@
                     LastLoginIP = _ipService.GetIpAddress(ipLogin, isShowIpvn),
                     LastLoginLocation = _ipService.GetIpLocation(ipLogin, isShowIpvn).CountryName,
                     TicketIP = ticketIpList,
-                    TicketLocation = ticketLocationList,
+                    TicketLocation = ticketLocationList
                 };
 
                 dataList.Add(item);
@@ -152,31 +166,6 @@
             {
                 DataList = dataList
             };
-        }
-
-        public async Task<SortableReportResultModel<AbnormalBetDetail>> GetDetailData(AbnormalBetMetaModel metaModel)
-        {
-            if (ShouldReturnEmptyResult(metaModel))
-            {
-                return new SortableReportResultModel<AbnormalBetDetail>
-                {
-                    DataList = new SortableList<AbnormalBetDetail>()
-                };
-            }
-
-            const string UspName = "Lrf_Rpt_AbnormalBet_Detail";
-
-            using var db = ObjectDbFactory.CreateInstance(UspName);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("Username", metaModel.UserName);
-            db.SetParameterValue("IP", metaModel.Ip);
-            db.SetParameterValue("Refno", metaModel.RefNo);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-            db.SetParameterValue("ConvertToBaseCur", metaModel.IsConvertAllToBaseCurrency);
-            UpdateSpCommonParamsAsync(db, metaModel);
-
-            using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
-            return ReadDetaiData(reader, metaModel);
         }
 
         public SortableReportResultModel<AbnormalBetDetail> ReadDetaiData(IDataReader reader, AbnormalBetMetaModel metaModel)
@@ -232,44 +221,60 @@
             };
         }
 
+        private static void UpdateSpCommonParamsAsync(IObjectDb db, AbnormalBetMetaModel metaModel)
+        {
+            db.SetParameterValue("fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("todate", metaModel.ToDate.Date);
+            db.SetParameterValue("sportTypeList", metaModel.SportIdList);
+            db.SetParameterValue("leagueName", metaModel.LeagueName);
+            db.SetParameterValue("betTypeList", metaModel.BetTypeIdList);
+            db.SetParameterValue("liveIndicator", metaModel.StatusIdList);
+            db.SetParameterValue("reasonList", metaModel.ReasonIdList);
+            db.SetParameterValue("pageSize", metaModel.PageSize);
+            db.SetParameterValue("pageIndex", metaModel.PageIndex);
+            db.SetParameterValue("SearchLanguage", CultureInfo.CurrentUICulture.Name);
+        }
+
         private string GetLeagueName(int leagueId, int sportType = 0, bool isHideSaba = false)
         {
             var leagueName = _cacheRefAdapter.GetLeagueName(leagueId, sportType);
             if (isHideSaba)
             {
-                leagueName = System.Text.RegularExpressions.Regex.Replace(
-                        leagueName, ViewResources.Saba
-                        , string.Empty
-                        , System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                leagueName = Regex.Replace(
+                    leagueName, ViewResources.Saba
+                    , string.Empty
+                    , RegexOptions.IgnoreCase);
             }
+
             return leagueName;
         }
 
         private static string GetChoiceName(int betType, string choice)
         {
-            int[] HandicapBetTypeList = new[] { 1, 7 };
-            int[] OverUnderBetTypeList = new[] { 3, 8 };
+            int[] HandicapBetTypeList = { 1, 7 };
+            int[] OverUnderBetTypeList = { 3, 8 };
 
             if (HandicapBetTypeList.Contains(betType) && string.Equals(choice, "h", StringComparison.OrdinalIgnoreCase))
             {
                 return ViewResources.Home;
             }
-            else if (HandicapBetTypeList.Contains(betType) && string.Equals(choice, "a", StringComparison.OrdinalIgnoreCase))
+
+            if (HandicapBetTypeList.Contains(betType) && string.Equals(choice, "a", StringComparison.OrdinalIgnoreCase))
             {
                 return ViewResources.Away;
             }
-            else if (OverUnderBetTypeList.Contains(betType) && string.Equals(choice, "h", StringComparison.OrdinalIgnoreCase))
+
+            if (OverUnderBetTypeList.Contains(betType) && string.Equals(choice, "h", StringComparison.OrdinalIgnoreCase))
             {
                 return ViewResources.Over;
             }
-            else if (OverUnderBetTypeList.Contains(betType) && string.Equals(choice, "a", StringComparison.OrdinalIgnoreCase))
+
+            if (OverUnderBetTypeList.Contains(betType) && string.Equals(choice, "a", StringComparison.OrdinalIgnoreCase))
             {
                 return ViewResources.Under;
             }
-            else
-            {
-                return choice;
-            }
+
+            return choice;
         }
 
         private static void SortDetailData(SortableList<AbnormalBetDetail> dataList, string sortBy, string sortOrder = "asc")
@@ -296,20 +301,18 @@
             {
                 return _cacheRefAdapter.GetSportName(sport);
             }
-            else
-            {
-                var sabaVirtualSports = SportType.GetSabaVirtualSports();
-                var sabaSport = sabaVirtualSports.Find(_ => _.Item1 == sport);
 
-                var sabaSportName = sabaSport.Item2 != 0
-                    ? _cacheRefAdapter.GetSportName(sabaSport.Item2)
-                    : ViewResources.ResourceManager.GetString(sabaSport.Item3);
+            var sabaVirtualSports = SportType.GetSabaVirtualSports();
+            var sabaSport = sabaVirtualSports.Find(_ => _.Item1 == sport);
 
-                return (isHideSaba ? ViewResources.Virtual : ViewResources.Saba) + (sabaSportName);
-            }
+            var sabaSportName = sabaSport.Item2 != 0
+                ? _cacheRefAdapter.GetSportName(sabaSport.Item2)
+                : ViewResources.ResourceManager.GetString(sabaSport.Item3);
+
+            return (isHideSaba ? ViewResources.Virtual : ViewResources.Saba) + sabaSportName;
         }
 
         private bool ShouldReturnEmptyResult(AbnormalBetMetaModel metaModel)
-           => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
+            => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
     }
 }

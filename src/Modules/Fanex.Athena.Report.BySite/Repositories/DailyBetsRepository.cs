@@ -1,12 +1,13 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.Extensions;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Data;
     using System;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Data;
+    using DTOs;
+    using Extensions;
+    using Interfaces;
+    using MetaModels;
 
     public class DailyBetsRepository : IDailyBetsRepository
     {
@@ -20,14 +21,16 @@
                 {
                     if (reader.Read())
                     {
-                        var totalRows = Convert.ToInt32(reader["TotalRows"]);
+                        var totalRows = reader.GetVal<int>("TotalRows");
 
-                        var totalData = totalRows == 0 ? new AuditTicket() : new AuditTicket
-                        {
-                            TurnoverBased = Convert.ToDecimal(reader["TotalTurnover"]),
-                            WinLossBased = Convert.ToDecimal(reader["TotalWinLoss"]),
-                            PayoutBased = Convert.ToDecimal(reader["TotalPayout"]),
-                        };
+                        var totalData = totalRows == 0
+                            ? new AuditTicket()
+                            : new AuditTicket
+                            {
+                                TurnoverBased = reader.GetVal<decimal>("TotalTurnover"),
+                                WinLossBased = reader.GetVal<decimal>("TotalWinLoss"),
+                                PayoutBased = reader.GetVal<decimal>("TotalPayout")
+                            };
 
                         return (totalRows, totalData);
                     }

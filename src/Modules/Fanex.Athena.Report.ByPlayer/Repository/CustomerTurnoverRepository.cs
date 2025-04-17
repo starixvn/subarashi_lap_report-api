@@ -1,23 +1,24 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Repository
+﻿namespace Fanex.Athena.Report.ByPlayer.Repository
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Common.Constants;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Helpers;
+    using Data;
+    using DTO;
+    using Interfaces;
+    using MetaModels;
+    using Resources;
+    using Resources.Constants;
+
     public class CustomerTurnoverRepository : ICustomerTurnoverRepository
     {
         private readonly IBalanceUpService _balanceUpService;
@@ -30,7 +31,10 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public async Task<ReportResultModel<CustTurnover>> GetDataList(CustomerTurnoverMetaModel metaModel, IReadOnlyDictionary<int, string> currencyList, string languageCode)
+        public async Task<ReportResultModel<CustTurnover>> GetDataList(
+            CustomerTurnoverMetaModel metaModel,
+            IReadOnlyDictionary<int, string> currencyList,
+            string languageCode)
         {
             const int ProductPrefixPosition = 1;
             const int BettypePosition = 2;
@@ -43,32 +47,33 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
                     var result = new List<CustTurnover>();
                     while (reader.Read())
                     {
-                        var turnover = reader.ToDecimal("Turnover");
-                        var sportId = reader.ToInt("sporttype");
-                        var currencyid = reader.ToInt("currencyid");
-                        var bettype = reader.ToString("Bettype");
+                        var turnover = reader.GetVal<decimal>("Turnover");
+                        var sportId = reader.GetVal<int>("sporttype");
+                        var currencyid = reader.GetVal<int>("currencyid");
+                        var bettype = reader.GetVal<string>("Bettype");
                         var bettypeMatch = Regex.Match(bettype, @"(^[^-\n]*) - ([^-\n]*$)");
                         if (bettypeMatch.Success)
                         {
-                            bettype = $"{ProductHelper.GetProductName(bettypeMatch.Groups[ProductPrefixPosition].Value)} - {bettypeMatch.Groups[BettypePosition].Value}";
+                            bettype =
+                                $"{ProductHelper.GetProductName(bettypeMatch.Groups[ProductPrefixPosition].Value)} - {bettypeMatch.Groups[BettypePosition].Value}";
                         }
 
                         result.Add(new CustTurnover
                         {
-                            Index = reader.ToInt("RowNo"),
-                            ReportBy = ConvertHelper.ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
-                            ExternalId = reader.ToString("nickname"),
-                            SystemId = reader.ToString("username"),
+                            Index = reader.GetVal<int>("RowNo"),
+                            ReportBy = ConvertHelper.ToDateTime(reader.GetVal<string>("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
+                            ExternalId = reader.GetVal<string>("nickname"),
+                            SystemId = reader.GetVal<string>("username"),
                             Currency = currencyList?.GetValueOrDefault(currencyid, currencyid.ToString()),
                             SportId = sportId,
                             SportType = GetSportName(sportId, languageCode),
-                            TotalTransactions = reader.ToInt("BetCount"),
+                            TotalTransactions = reader.GetVal<int>("BetCount"),
                             Bettype = bettype,
                             Turnover = turnover,
                             TotalTurnover = turnover,
-                            CustomerWinLoss = reader.ToDecimal("Winlost"),
-                            EffectiveBettingValue = reader.ToDecimal("BetEffective"),
-                            CustomerComm = reader.ToDecimal("PlayerComm"),
+                            CustomerWinLoss = reader.GetVal<decimal>("Winlost"),
+                            EffectiveBettingValue = reader.GetVal<decimal>("BetEffective"),
+                            CustomerComm = reader.GetVal<decimal>("PlayerComm")
                         });
                     }
 
@@ -77,7 +82,7 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
                     if (reader.NextResult() && reader.Read())
                     {
                         totalData = ReadTotalData(reader);
-                        totalRows = reader.ToInt("TotalRows");
+                        totalRows = reader.GetVal<int>("TotalRows");
                     }
 
                     return new ReportResultModel<CustTurnover>
@@ -92,7 +97,7 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
 
         private string GetSportName(int sportId, string languageCode)
         {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(languageCode);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
             if (sportId == ProductTypes.Parlay)
             {
                 return ViewResources.Parlay;
@@ -105,12 +110,12 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
         {
             return new CustTurnover
             {
-                TotalTransactions = reader.ToInt("SumBetCount"),
-                Turnover = reader.ToDecimal("SumTurnover"),
-                TotalTurnover = reader.ToDecimal("SumTurnover"),
-                CustomerWinLoss = reader.ToDecimal("SumWinlost"),
-                CustomerComm = reader.ToDecimal("SumComm"),
-                EffectiveBettingValue = reader.ToDecimal("SumBetEffective")
+                TotalTransactions = reader.GetVal<int>("SumBetCount"),
+                Turnover = reader.GetVal<decimal>("SumTurnover"),
+                TotalTurnover = reader.GetVal<decimal>("SumTurnover"),
+                CustomerWinLoss = reader.GetVal<decimal>("SumWinlost"),
+                CustomerComm = reader.GetVal<decimal>("SumComm"),
+                EffectiveBettingValue = reader.GetVal<decimal>("SumBetEffective")
             };
         }
 

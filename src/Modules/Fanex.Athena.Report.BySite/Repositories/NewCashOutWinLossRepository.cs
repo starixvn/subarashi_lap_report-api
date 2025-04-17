@@ -1,21 +1,21 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Constants;
 
     public class NewCashOutWinLossRepository : INewCashOutWinLossRepository
     {
@@ -44,6 +44,23 @@
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetMainData(reader, metaModel);
+                }
+            }
+        }
+
+        public async Task<SortableReportResultModel<CashOutWinLoss>> GetNewCashOutWinLossMemberData(
+            NewCashOutWinLossMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_CashOut_Mem";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetMemberData(reader, metaModel);
                 }
             }
         }
@@ -163,23 +180,6 @@
                 TotalData = GetSumTotalData(dataList, metaModel.BaseCurrency.ToUpperInvariant()),
                 TotalRows = dataList.Count()
             };
-        }
-
-        public async Task<SortableReportResultModel<CashOutWinLoss>> GetNewCashOutWinLossMemberData(
-            NewCashOutWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_CashOut_Mem";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetMemberData(reader, metaModel);
-                }
-            }
         }
 
         private SortableReportResultModel<CashOutWinLoss> GetMemberData(

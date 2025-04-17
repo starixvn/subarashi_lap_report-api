@@ -83,8 +83,8 @@
 
         private static void ReadData(IDataReader reader, SabaVirtualSportsWinLossDetail data, string suffixColumn = "")
         {
-            data.CustomerWinLoss = reader.ToDecimal("winlost" + suffixColumn);
-            data.CustomerComm = reader.ToDecimal("playercomm" + suffixColumn);
+            data.CustomerWinLoss = reader.GetVal<decimal>("winlost" + suffixColumn);
+            data.CustomerComm = reader.GetVal<decimal>("playercomm" + suffixColumn);
             data.TotalTransaction = reader.ToInt("betcount");
             data.CashOutCommission = reader.ToDecimal("cashoutcomm" + suffixColumn);
         }
@@ -201,9 +201,6 @@
             var licenseeWLColumns = GetLicenseeWLColumn(reader, metaModel.ProductOptions);
             var turnoverColumns = GetTurnoverColumn(reader, metaModel.ProductOptions);
 
-            var hasSystemId = reader.HasColumn("username");
-            var hasExternalId = reader.HasColumn("nickname");
-            var hasCustomerId = reader.HasColumn(customerColumn);
             var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
 
             var index = 0;
@@ -214,9 +211,9 @@
                 var item = new SabaVirtualSportsWinLossDetail
                 {
                     Index = index,
-                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.ToInt(customerColumn) : 0,
+                    SystemId = reader.GetVal<string>("username"),
+                    ExternalId = reader.GetVal<string>("nickname"),
+                    CustomerId = reader.GetVal<int>(customerColumn),
                     CurrencyId = currencyId,
                     CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     Date = metaModel.DrillDownLevel > 0 ? metaModel.FromDate : ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly),

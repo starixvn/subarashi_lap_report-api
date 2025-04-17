@@ -1,20 +1,20 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Common.Model.DTO;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Resources.Helpers;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Helpers;
 
     public class PlatformWinLossRepository : IPlatformWinLossRepository
     {
@@ -73,7 +73,7 @@
             var childId = -1;
             while (reader.Read())
             {
-                var platformType = Convert.ToInt32(reader["PlatformType"]);
+                var platformType = reader.GetVal<int>("PlatformType");
 
                 PlatformWinLossSummary parent;
                 if (!parentRows.ContainsKey(platformType))
@@ -110,7 +110,7 @@
 
         private static PlatformWinLossSummary ReadSummaryItem(IDataReader reader, int id, string parent, byte level = 1, bool isLeaf = true)
         {
-            var productCode = reader["productprefix"].ToString().ToUpperInvariant();
+            var productCode = reader.GetVal<string>("productprefix").ToUpperInvariant();
 
             return new PlatformWinLossSummary
             {
@@ -119,11 +119,11 @@
                 IsLeaf = isLeaf,
                 Level = level,
                 Name = ProductHelper.GetProductName(productCode),
-                TotalTransactions = Convert.ToInt32(reader["Betcount"]),
-                Turnover = Convert.ToDecimal(reader["Turnover"]),
-                CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]),
-                CustomerComm = Convert.ToDecimal(reader["PlayerComm"]),
-                LicenseeWL = Convert.ToDecimal(reader["LicenseeWL"]),
+                TotalTransactions = reader.GetVal<int>("Betcount"),
+                Turnover = reader.GetVal<decimal>("Turnover"),
+                CustomerWinLoss = reader.GetVal<decimal>("Winlost"),
+                CustomerComm = reader.GetVal<decimal>("PlayerComm"),
+                LicenseeWL = reader.GetVal<decimal>("LicenseeWL"),
                 ProductCode = productCode
             };
         }
@@ -136,22 +136,22 @@
             var index = 1;
             while (reader.Read())
             {
-                var currencyId = Convert.ToInt32(reader["Currency"]);
+                var currencyId = reader.GetVal<int>("Currency");
                 var item = new PlatformWinLossMember
                 {
                     Index = index,
                     CurrencyName = currencyList.FirstOrDefault(x => x.ID == currencyId)?.Name ?? currencyId.ToString(),
-                    TotalTransactions = Convert.ToInt32(reader["Betcount"]),
-                    Turnover = Convert.ToDecimal(reader["Turnover"]),
-                    CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]),
-                    CustomerComm = Convert.ToDecimal(reader["PlayerComm"]),
-                    LicenseeWL = Convert.ToDecimal(reader["LicenseeWL"]),
-                    BACommission = Convert.ToDecimal(reader["CommBA"]),
-                    AmtDueToBA = Convert.ToDecimal(reader["AmtDueToBA"]),
-                    CurrencyId = Convert.ToInt32(reader["Currency"]),
-                    SystemId = reader["username"].ToString(),
-                    CustomerId = Convert.ToInt32(reader["custid"]),
-                    ExternalId = reader["nickname"].ToString()
+                    TotalTransactions = reader.GetVal<int>("Betcount"),
+                    Turnover = reader.GetVal<decimal>("Turnover"),
+                    CustomerWinLoss = reader.GetVal<decimal>("Winlost"),
+                    CustomerComm = reader.GetVal<decimal>("PlayerComm"),
+                    LicenseeWL = reader.GetVal<decimal>("LicenseeWL"),
+                    BACommission = reader.GetVal<decimal>("CommBA"),
+                    AmtDueToBA = reader.GetVal<decimal>("AmtDueToBA"),
+                    CurrencyId = currencyId,
+                    SystemId = reader.GetVal<string>("username"),
+                    CustomerId = reader.GetVal<int>("custid"),
+                    ExternalId = reader.GetVal<string>("nickname")
                 };
 
                 dataList.Add(item);
@@ -174,7 +174,7 @@
             {
                 foreach (var item in dataList)
                 {
-                    item.TurnoverPercent = (item.Turnover / totalData.Turnover) * OneHunderPercent;
+                    item.TurnoverPercent = item.Turnover / totalData.Turnover * OneHunderPercent;
                 }
             }
         }

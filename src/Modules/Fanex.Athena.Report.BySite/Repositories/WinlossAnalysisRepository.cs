@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Core.Repositories.Abstraction;
+    using Data;
+    using DTOs.WinlossAnalysis;
+    using Interfaces;
+    using MetaModels;
+
     public class WinlossAnalysisRepository : IWinlossAnalysisRepository
     {
         private const int SPTIMEOUT = 180;
@@ -115,9 +115,9 @@ namespace Fanex.Athena.Report.BySite.Repositories
             {
                 var data = new WinlossAnalysisDTO
                 {
-                    RowIndex = reader.ToInt("ridx"),
-                    GroupBy = reader.ToString("GroupBy"),
-                    BreakBy = reader.ToString("BreakBy"),
+                    RowIndex = reader.GetVal<int>("ridx"),
+                    GroupBy = reader.GetVal<string>("GroupBy"),
+                    BreakBy = reader.GetVal<string>("BreakBy")
                 };
                 data.DisplayRowIndex = data.RowIndex;
                 ReadCommonField(reader, data);
@@ -129,6 +129,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 {
                     ReadBaseField(reader, data);
                 }
+
                 listMainData.Add(data);
             }
 
@@ -143,8 +144,8 @@ namespace Fanex.Athena.Report.BySite.Repositories
             {
                 var data = new WinlossAnalysisDTO
                 {
-                    RowIndex = reader.ToInt("ridx"),
-                    GroupBy = reader.ToString("GroupBy"),
+                    RowIndex = reader.GetVal<int>("ridx"),
+                    GroupBy = reader.GetVal<string>("GroupBy")
                 };
                 data.DisplayRowIndex = data.RowIndex;
                 ReadCommonField(reader, data);
@@ -160,7 +161,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             reader.Read();
             var sumData = new SumTotalWinlossAnalysisDTO
             {
-                TotalRow = reader.ToInt("TotalRow")
+                TotalRow = reader.GetVal<int>("TotalRow")
             };
             ReadCommonField(reader, sumData);
             ReadBaseField(reader, sumData);
@@ -170,30 +171,30 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
         private static void ReadCommonField(IDataReader reader, WinlossAnalysisDTO data)
         {
-            data.BetCount = reader.ToInt("BetCount");
-            data.Margin = reader.ToFloat("Margin");
+            data.BetCount = reader.GetVal<int>("BetCount");
+            data.Margin = reader.GetVal<float>("Margin");
         }
 
         private static void ReadOriginalField(IDataReader reader, WinlossAnalysisDTO data)
         {
-            data.Turnover = reader.ToDecimal("Turnover");
-            data.NetTurnover = reader.ToDecimal("NetTurnover");
-            data.PlayerWinloss = reader.ToDecimal("MemWinloss");
-            data.PlayerComm = reader.ToDecimal("MemComm");
-            data.LicWinloss = reader.ToDecimal("LicWinloss");
-            data.LicComm = reader.ToDecimal("LicComm");
-            data.BetEffective = reader.ToDecimal("BetEffective");
+            data.Turnover = reader.GetVal<decimal>("Turnover");
+            data.NetTurnover = reader.GetVal<decimal>("NetTurnover");
+            data.PlayerWinloss = reader.GetVal<decimal>("MemWinloss");
+            data.PlayerComm = reader.GetVal<decimal>("MemComm");
+            data.LicWinloss = reader.GetVal<decimal>("LicWinloss");
+            data.LicComm = reader.GetVal<decimal>("LicComm");
+            data.BetEffective = reader.GetVal<decimal>("BetEffective");
         }
 
         private static void ReadBaseField(IDataReader reader, WinlossAnalysisDTO data)
         {
-            data.Turnover = reader.ToDecimal("BaseTurnover");
-            data.NetTurnover = reader.ToDecimal("BaseNetTurnover");
-            data.PlayerWinloss = reader.ToDecimal("BaseMemWinloss");
-            data.PlayerComm = reader.ToDecimal("BaseMemComm");
-            data.LicWinloss = reader.ToDecimal("BaseLicWinloss");
-            data.LicComm = reader.ToDecimal("BaseLicComm");
-            data.BetEffective = reader.ToDecimal("BaseBetEffective");
+            data.Turnover = reader.GetVal<decimal>("BaseTurnover");
+            data.NetTurnover = reader.GetVal<decimal>("BaseNetTurnover");
+            data.PlayerWinloss = reader.GetVal<decimal>("BaseMemWinloss");
+            data.PlayerComm = reader.GetVal<decimal>("BaseMemComm");
+            data.LicWinloss = reader.GetVal<decimal>("BaseLicWinloss");
+            data.LicComm = reader.GetVal<decimal>("BaseLicComm");
+            data.BetEffective = reader.GetVal<decimal>("BaseBetEffective");
         }
     }
 }

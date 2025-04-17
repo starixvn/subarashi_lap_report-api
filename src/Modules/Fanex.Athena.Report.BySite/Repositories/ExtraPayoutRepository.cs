@@ -1,30 +1,25 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Common.Model.DataDomain;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Athena.Report.Resources.Helpers;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.DataDomain;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Resources;
+    using Resources.Constants;
 
     public class ExtraPayoutRepository : IExtraPayoutRepository
     {
-        private readonly IBalanceUpService _balanceUpService;
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-        private readonly IContextService _contextService;
-
         private static readonly IDictionary<int, int> _extraPayoutMapType = new Dictionary<int, int>
         {
             { ExtraPayoutMapType.PayoutPPTournamentPrize, BetType.PPTournamentPrize },
@@ -69,7 +64,8 @@
             { ExtraPayoutMapType.PayoutHOTDOGPromotionPrize, BetType.HOTDOGPromotionPrize }
         };
 
-        private static readonly int[] SBPromotionBettypes = new[] {
+        private static readonly int[] SBPromotionBettypes =
+        {
             BetType.SabaLuckySpin,
             BetType.SabaLuckySpot,
             BetType.SabaNonCashPrize,
@@ -83,16 +79,24 @@
             BetType.NBABalanceAdjustment
         };
 
-        private static readonly int[] CasinoPromotionBettypes = new[] {
+        private static readonly int[] CasinoPromotionBettypes =
+        {
             BetType.SabaCasinoRoyaleTournamentPrize
         };
 
-        private static readonly int[] NumberGamePromotionBettypes = new[] {
+        private static readonly int[] NumberGamePromotionBettypes =
+        {
             BetType.NumberGameLuckyDrawPromotion
         };
 
+        private readonly IBalanceUpService _balanceUpService;
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IContextService _contextService;
+
         public ExtraPayoutRepository(
-            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, IContextService contextService)
+            IBalanceUpService balanceUpService,
+            ICacheRefAdapter cacheRefAdapter,
+            IContextService contextService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
@@ -116,6 +120,70 @@
                     return GetMainData(reader, metaModel);
                 }
             }
+        }
+
+        public async Task<SortableReportResultModel<ExtraPayout>> GetExtraPayoutMemberData(
+            ExtraPayoutMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_ExtraPayout_Mem";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                db.SetParameterValue("Username", metaModel.Username);
+                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetMemberData(reader, metaModel);
+                }
+            }
+        }
+
+        public async Task<SortableReportResultModel<ExtraPayoutDetail>> GetExtraPayoutDetailData(
+            ExtraPayoutDetailMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_ExtraPayout_Mem_Detail";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                db.SetParameterValue("CustId", metaModel.CustId);
+                db.SetParameterValue("BalanceUpDay", balanceUpInfo.BalanceUpDay);
+                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetDetailData(reader, metaModel);
+                }
+            }
+        }
+
+        public string GetPromotionName(int promotionType, bool isHideSaba)
+        {
+            promotionType = _extraPayoutMapType.TryGetValue(promotionType, out int mapExtraPayoutType) ? mapExtraPayoutType : promotionType;
+
+            if (SBPromotionBettypes.Contains(promotionType))
+            {
+                return $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
+            }
+
+            if (CasinoPromotionBettypes.Contains(promotionType))
+            {
+                return $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
+            }
+
+            if (NumberGamePromotionBettypes.Contains(promotionType))
+            {
+                return $"{ViewResources.NGPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
+            }
+
+            if (promotionType == BetType.OddsBoostAdjustment)
+            {
+                return $"{ViewResources.SB} - {ViewResources.OddsBoostBonus}";
+            }
+
+            return IsSportType(promotionType) ? _cacheRefAdapter.GetSportName(promotionType) : _cacheRefAdapter.GetBettype(promotionType, isHideSaba);
         }
 
         private void ReadCommonData(IDataReader reader, BaseExtraPayout data, ExtraPayoutMetaModel metaModel)
@@ -226,24 +294,6 @@
             };
         }
 
-        public async Task<SortableReportResultModel<ExtraPayout>> GetExtraPayoutMemberData(
-            ExtraPayoutMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_ExtraPayout_Mem";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue("Username", metaModel.Username);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetMemberData(reader, metaModel);
-                }
-            }
-        }
-
         private SortableReportResultModel<ExtraPayout> GetMemberData(
             IDataReader reader,
             ExtraPayoutMetaModel metaModel)
@@ -312,39 +362,17 @@
 
         private static string GetUserNameValue(IDataReader reader, int promotionType)
         {
-            return promotionType == ExtraPayoutMapType.PayoutOddsBoostAdjustment ?
-                ViewResources.TotalOddsBootsBonus :
-                reader.GetVal<string>("username");
+            return promotionType == ExtraPayoutMapType.PayoutOddsBoostAdjustment ? ViewResources.TotalOddsBootsBonus : reader.GetVal<string>("username");
         }
 
         private static string GetNicknameValue(IDataReader reader, int promotionType)
         {
-            return promotionType == ExtraPayoutMapType.PayoutOddsBoostAdjustment ?
-                string.Empty :
-                reader.GetVal<string>("Nickname");
-        }
-
-        public async Task<SortableReportResultModel<ExtraPayoutDetail>> GetExtraPayoutDetailData(
-            ExtraPayoutDetailMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_ExtraPayout_Mem_Detail";
-            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
-
-            using (var db = ObjectDbFactory.CreateInstance(UspName))
-            {
-                db.SetParameterValue("CustId", metaModel.CustId);
-                db.SetParameterValue("BalanceUpDay", balanceUpInfo.BalanceUpDay);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return GetDetailData(reader, metaModel);
-                }
-            }
+            return promotionType == ExtraPayoutMapType.PayoutOddsBoostAdjustment ? string.Empty : reader.GetVal<string>("Nickname");
         }
 
         private SortableReportResultModel<ExtraPayoutDetail> GetDetailData(
-            IDataReader reader, ExtraPayoutDetailMetaModel metaModel)
+            IDataReader reader,
+            ExtraPayoutDetailMetaModel metaModel)
         {
             var dataList = new SortableList<ExtraPayoutDetail>();
 
@@ -479,33 +507,6 @@
         private static bool IsSportType(int betType)
         {
             return betType == BetType.VgamingFreeBets || betType == BetType.SCBFreeBets;
-        }
-
-        public string GetPromotionName(int promotionType, bool isHideSaba)
-        {
-            promotionType = _extraPayoutMapType.TryGetValue(promotionType, out int mapExtraPayoutType) ? mapExtraPayoutType : promotionType;
-
-            if (SBPromotionBettypes.Contains(promotionType))
-            {
-                return $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
-            }
-
-            if (CasinoPromotionBettypes.Contains(promotionType))
-            {
-                return $"{ViewResources.CasinoPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
-            }
-
-            if (NumberGamePromotionBettypes.Contains(promotionType))
-            {
-                return $"{ViewResources.NGPromotion} - {_cacheRefAdapter.GetBettype(promotionType, isHideSaba)}";
-            }
-
-            if (promotionType == BetType.OddsBoostAdjustment)
-            {
-                return $"{ViewResources.SB} - {ViewResources.OddsBoostBonus}";
-            }
-
-            return IsSportType(promotionType) ? _cacheRefAdapter.GetSportName(promotionType) : _cacheRefAdapter.GetBettype(promotionType, isHideSaba);
         }
     }
 }

@@ -1,25 +1,24 @@
-﻿using Fanex.Athena.Report.BySite.Constants;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Utility;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.DataDomain;
+    using Common.Services.Interfaces;
+    using Constants;
+    using Core.Models.DTOs;
+    using Core.Utility;
+    using Data;
+    using DTOs;
+    using Fanex.Common.Extensions;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Constants;
+
     public class LiveReportRepository : ILiveReportRepository
     {
         private readonly IBalanceUpService _balanceUpService;
@@ -84,7 +83,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                         var item = new LiveReportBySport
                         {
                             ProductName = GetProductNameBySport(sportType),
-                            ProductCode = sportType,
+                            ProductCode = sportType
                         };
 
                         var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
@@ -116,9 +115,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                 {
                     var resultByCurrency = ReadDetailByCurrency(reader, currencyList);
 
-                    var resultByBettype = reader.NextResult() ?
-                        ReadDetailByBettype(reader, products) :
-                        new List<LiveReportByBetType>();
+                    var resultByBettype = reader.NextResult() ? ReadDetailByBettype(reader, products) : new List<LiveReportByBetType>();
 
                     return new Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(resultByCurrency, resultByBettype);
                 }
@@ -151,16 +148,16 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     {
                         data.Add(new LiveReportWinLossByMatch
                         {
-                            MatchId = reader.ToLong("matchid"),
-                            HomeId = reader.ToInt("homeid"),
-                            AwayId = reader.ToInt("awayid"),
-                            BetCount = reader.ToInt("Betcount"),
-                            TurnOver = reader.ToDecimal("Turnover"),
-                            CustomerWinLoss = reader.ToDecimal("Winlost"),
-                            CustomerComm = reader.ToDecimal("PlayerComm"),
-                            LicenseeComm = reader.ToDecimal("Comm"),
-                            LicenseeWinLoss = reader.ToDecimal("LicenseeWL"),
-                            EventType = reader.ToInt("EventType"),
+                            MatchId = reader.GetVal<long>("matchid"),
+                            HomeId = reader.GetVal<int>("homeid"),
+                            AwayId = reader.GetVal<int>("awayid"),
+                            BetCount = reader.GetVal<int>("Betcount"),
+                            TurnOver = reader.GetVal<decimal>("Turnover"),
+                            CustomerWinLoss = reader.GetVal<decimal>("Winlost"),
+                            CustomerComm = reader.GetVal<decimal>("PlayerComm"),
+                            LicenseeComm = reader.GetVal<decimal>("Comm"),
+                            LicenseeWinLoss = reader.GetVal<decimal>("LicenseeWL"),
+                            EventType = reader.GetVal<int>("EventType"),
                             VendorMatchId = reader.ToString("VendorMatchId"),
                             Distance = reader.ToString("Distance"),
                             SportId = metaModel.SportId
@@ -170,28 +167,6 @@ namespace Fanex.Athena.Report.BySite.Repositories
                     return data;
                 }
             }
-        }
-
-        private static void AddParameters(IObjectDb db, LiveReportMetaModel metaModel, DateTime moveBetsDate)
-        {
-            db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("fromdate", metaModel.FromDate);
-            db.SetParameterValue("todate", metaModel.ToDate);
-            db.SetParameterValue("movebetsday", moveBetsDate);
-            db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-        }
-
-        private static void ReadCommonColumns(IDataReader reader, LiveReport item)
-        {
-            item.TurnOver = reader.ToDecimal("Turnover");
-            item.CustomerWinLoss = reader.ToDecimal("Winlost");
-            item.CustomerComm = reader.ToDecimal("PlayerComm");
-            item.LicenseeComm = reader.ToDecimal("Comm");
-            item.LicenseeWinLoss = reader.ToDecimal("LicenseeWL");
-            item.AmountDue = reader.ToDecimal("AmtDueto3rd");
-            item.BetCount = reader.ToInt("Betcount");
         }
 
         protected internal virtual string GetProductNameBySport(string sportType)
@@ -221,13 +196,35 @@ namespace Fanex.Athena.Report.BySite.Repositories
             }
         }
 
+        private static void AddParameters(IObjectDb db, LiveReportMetaModel metaModel, DateTime moveBetsDate)
+        {
+            db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("movebetsday", moveBetsDate);
+            db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+        }
+
+        private static void ReadCommonColumns(IDataReader reader, LiveReport item)
+        {
+            item.TurnOver = reader.GetVal<decimal>("Turnover");
+            item.CustomerWinLoss = reader.GetVal<decimal>("Winlost");
+            item.CustomerComm = reader.GetVal<decimal>("PlayerComm");
+            item.LicenseeComm = reader.GetVal<decimal>("Comm");
+            item.LicenseeWinLoss = reader.GetVal<decimal>("LicenseeWL");
+            item.AmountDue = reader.GetVal<decimal>("AmtDueto3rd");
+            item.BetCount = reader.GetVal<int>("Betcount");
+        }
+
         private IList<LiveReport> ReadDetailByCurrency(IDataReader reader, IDictionary<int, string> currencyList)
         {
             var list = new List<LiveReport>();
 
             while (reader.Read())
             {
-                var currencyId = reader.ToInt("Currency");
+                var currencyId = reader.GetVal<int>("Currency");
                 var currencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString());
                 var item = new LiveReport
                 {
@@ -248,11 +245,10 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
             while (reader.Read())
             {
-                var bettype = reader.ToString("bettype");
                 var item = new LiveReport
                 {
-                    ProductName = GetBetTypeName(Convert.ToInt32(bettype)),
-                    ProductCode = reader.ToString("ProductCode")
+                    ProductName = GetBetTypeName(reader.GetVal<int>("bettype")),
+                    ProductCode = reader.GetVal<string>("ProductCode")
                 };
                 ReadCommonColumns(reader, item);
 
@@ -264,17 +260,17 @@ namespace Fanex.Athena.Report.BySite.Repositories
             if (dataList.Any())
             {
                 result = products.Join(
-                                      dataList,
-                                      p => p.ProductCode,
-                                      d => d.ProductCode,
-                                      (p, d) => new { p.ProductName, LiveReports = d, })
-                                 .GroupBy(
-                                      x => x.ProductName,
-                                      (key, g) => new LiveReportByBetType
-                                      {
-                                          ProductName = key,
-                                          LiveReports = g.Select(x => x.LiveReports).ToList()
-                                      }).ToList();
+                        dataList,
+                        p => p.ProductCode,
+                        d => d.ProductCode,
+                        (p, d) => new { p.ProductName, LiveReports = d })
+                    .GroupBy(
+                        x => x.ProductName,
+                        (key, g) => new LiveReportByBetType
+                        {
+                            ProductName = key,
+                            LiveReports = g.Select(x => x.LiveReports).ToList()
+                        }).ToList();
             }
 
             return result;
@@ -283,7 +279,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
         private string GetBetTypeName(int betType)
         {
             var suffix = GetBettypeNameSuffix(betType);
-            return _cacheRefAdapter.GetBettype(Convert.ToInt32(betType)) + suffix;
+            return _cacheRefAdapter.GetBettype(betType) + suffix;
         }
 
         private string GetBettypeNameSuffix(int betType)

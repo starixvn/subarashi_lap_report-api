@@ -1,17 +1,18 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Model.DTO;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Common;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using Data;
+    using DTOs;
+    using Fanex.Common;
+    using Interfaces;
+    using MetaModels;
 
     public class DailyBetDetailsRepository : IDailyBetDetailsRepository
     {
@@ -44,20 +45,21 @@
 
         private static DailyBetDetails ReadMainDataItem(IDataReader reader, IEnumerable<AuditCurrency> auditCurrencyList)
         {
-            var currencyName = reader["CurrencyCode"].ToString();
-            var hardCodeCurrency = auditCurrencyList.FirstOrDefault(_ => String.Equals(_.Name, currencyName, StringComparison.InvariantCultureIgnoreCase))?.HardCodeName;
+            var currencyName = reader.GetVal<string>("CurrencyCode");
+            var hardCodeCurrency = auditCurrencyList.FirstOrDefault(_ => string.Equals(_.Name, currencyName, StringComparison.InvariantCultureIgnoreCase))
+                ?.HardCodeName;
 
             return new DailyBetDetails
             {
                 CurrencyName = !string.IsNullOrEmpty(hardCodeCurrency) ? hardCodeCurrency : currencyName,
-                RefNo = reader["RefNo"].ToString(),
-                SettlementDate = Convert.ToDateTime(reader["SettlementDate"]),
-                BrandUrl = reader["BrandUrl"].ToString(),
-                GameType = reader["GameType"].ToString(),
-                DebitAmount = Convert.ToDecimal(reader["DebitAmount"]),
-                BetAmount = Convert.ToDecimal(reader["Turnover"]),
-                NetAmount = -Convert.ToDecimal(reader["WinLoss"]),
-                RIdx = reader["rIdx"].ToString()
+                RefNo = reader.GetVal<string>("RefNo"),
+                SettlementDate = reader.GetVal<DateTime>("SettlementDate"),
+                BrandUrl = reader.GetVal<string>("BrandUrl"),
+                GameType = reader.GetVal<string>("GameType"),
+                DebitAmount = reader.GetVal<decimal>("DebitAmount"),
+                BetAmount = reader.GetVal<decimal>("Turnover"),
+                NetAmount = -reader.GetVal<decimal>("WinLoss"),
+                RIdx = reader.GetVal<string>("rIdx")
             };
         }
 

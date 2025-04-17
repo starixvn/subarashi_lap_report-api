@@ -1,16 +1,18 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Data;
+    using DTOs;
+    using Fanex.Common.Extensions;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Constants;
+
     public class TurnoverRepository : ITurnoverRepository
     {
         public async Task<IList<TurnoverDto>> GetDataList(TurnoverMetaModel metaModel)
@@ -38,22 +40,22 @@ namespace Fanex.Athena.Report.BySite.Repositories
             return new TurnoverDto
             {
                 Index = index,
-                Date = reader.ToDateTime("winlostdate").ToString("MM/dd/yyyy"),
-                OpeningBalance = reader.ToDecimal("OpeningBalance"),
-                Deposit = reader.ToDecimal("Deposit"),
-                Withdrawal = reader.ToDecimal("Withdrawal"),
-                AffiliateTransfer = reader.ToDecimal("AffiliateTransfer"),
-                Bonus = reader.ToDecimal("Bonus"),
-                Adjustment = reader.ToDecimal("Adjustment"),
-                Promotion = reader.ToDecimal("Promotion"),
-                Turnover = reader.ToDecimal("Turnover"),
-                PendingFunds = reader.ToDecimal("PendingFund"),
-                WinLoss = reader.ToDecimal("WinLoss"),
-                ClosingBalance = reader.ToDecimal("ClosingBalance"),
-                Transfer3rd = reader.ToDecimal("Transfer3rd"),
-                DrawGame = reader.ToDecimal("DrawGame"),
-                NetTurnover = reader.ToDecimal("Turnover") - reader.ToDecimal("DrawGame"),
-                PlayerComm = reader.ToDecimal("PlayerComm"),
+                Date = reader.GetVal<DateTime>("winlostdate").ToString("MM/dd/yyyy"),
+                OpeningBalance = reader.GetVal<decimal>("OpeningBalance"),
+                Deposit = reader.GetVal<decimal>("Deposit"),
+                Withdrawal = reader.GetVal<decimal>("Withdrawal"),
+                AffiliateTransfer = reader.GetVal<decimal>("AffiliateTransfer"),
+                Bonus = reader.GetVal<decimal>("Bonus"),
+                Adjustment = reader.GetVal<decimal>("Adjustment"),
+                Promotion = reader.GetVal<decimal>("Promotion"),
+                Turnover = reader.GetVal<decimal>("Turnover"),
+                PendingFunds = reader.GetVal<decimal>("PendingFund"),
+                WinLoss = reader.GetVal<decimal>("WinLoss"),
+                ClosingBalance = reader.GetVal<decimal>("ClosingBalance"),
+                Transfer3rd = reader.GetVal<decimal>("Transfer3rd"),
+                DrawGame = reader.GetVal<decimal>("DrawGame"),
+                NetTurnover = reader.GetVal<decimal>("Turnover") - reader.GetVal<decimal>("DrawGame"),
+                PlayerComm = reader.GetVal<decimal>("PlayerComm")
             };
         }
 

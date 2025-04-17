@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
@@ -10,7 +9,6 @@
     using Common.Services.Interfaces;
     using Data;
     using DTOs;
-    using Fanex.Common.Extensions;
     using Interfaces;
     using MetaModels;
 
@@ -48,10 +46,10 @@
 
                         if (!metaModel.IsConvertAll)
                         {
-                            item.Turnover = Convert.ToDecimal(reader["Turnover"]);
-                            item.CustomerComm = Convert.ToDecimal(reader["PlayerComm"]);
-                            item.LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWL"]);
-                            item.LicenseeComm = Convert.ToDecimal(reader["LicenseeComm"]);
+                            item.Turnover = reader.GetVal<decimal>("Turnover");
+                            item.CustomerComm = reader.GetVal<decimal>("PlayerComm");
+                            item.LicenseeWinLoss = reader.GetVal<decimal>("LicenseeWL");
+                            item.LicenseeComm = reader.GetVal<decimal>("LicenseeComm");
                         }
 
                         dataList.Add(item);
@@ -77,23 +75,23 @@
 
             var item = new WinLossByTimeZone
             {
-                GroupBy = reader["GroupBy"].ToString(),
-                BetCount = Convert.ToInt32(reader["BetCount"]),
-                Turnover = Convert.ToDecimal(reader["TurnoverBase"]),
-                CustomerComm = Convert.ToDecimal(reader["PlayerCommBase"]),
-                LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"]),
-                LicenseeComm = Convert.ToDecimal(reader["LicenseeCommBase"])
+                GroupBy = reader.GetVal<string>("GroupBy"),
+                BetCount = reader.GetVal<int>("BetCount"),
+                Turnover = reader.GetVal<decimal>("TurnoverBase"),
+                CustomerComm = reader.GetVal<decimal>("PlayerCommBase"),
+                LicenseeWinLoss = reader.GetVal<decimal>("LicenseeWLBase"),
+                LicenseeComm = reader.GetVal<decimal>("LicenseeCommBase")
             };
 
             if (metaModel.ReportBy != ReportBySummary)
             {
                 item.ReportBy =
-                    ConvertHelper.ToDateTime(reader.ToString("reportby"), metaModel.ReportBy == ReportByMonthly);
+                    ConvertHelper.ToDateTime(reader.GetVal<string>("reportby"), metaModel.ReportBy == ReportByMonthly);
             }
 
             item.GroupBy = metaModel.GroupBy == GroupByProduct
                 ? ProductHelper.GetProductName(item.GroupBy)
-                : currencyList?.GetValueOrDefault(Convert.ToInt32(item.GroupBy), item.GroupBy);
+                : currencyList?.GetValueOrDefault(reader.GetVal<int>("GroupBy"), item.GroupBy);
 
             return item;
         }
