@@ -7,8 +7,6 @@ namespace Fanex.Athena.Report.DbSettingConfig
     public interface IShardInfoAccessor
     {
         bool TryUseShardDB(string key, out string dbServer);
-
-        string GetShardSPKey(string key);
     }
 
     public class ShardInfoAccessor : IShardInfoAccessor
@@ -24,7 +22,6 @@ namespace Fanex.Athena.Report.DbSettingConfig
         public ShardInfoAccessor(IContextService contextService, string prefixSharding = PrefixShardingDefault)
         {
             _contextService = contextService;
-
             _prefixSharding = prefixSharding;
         }
 
@@ -38,8 +35,6 @@ namespace Fanex.Athena.Report.DbSettingConfig
             dbServer = null;
             return false;
         }
-
-        public string GetShardSPKey(string key) => $"SiteDB_{key.Substring(_prefixSharding.Length)}";
 
         private bool IsSharding(string key) => key.StartsWith(_prefixSharding, StringComparison.OrdinalIgnoreCase);
 

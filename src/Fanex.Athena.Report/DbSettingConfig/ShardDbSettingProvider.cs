@@ -1,35 +1,27 @@
 ﻿using Fanex.Data;
-using System.Data.SqlClient;
+using Fanex.Data.SqlServer;
 
 namespace Fanex.Athena.Report.DbSettingConfig
 {
-    public class ShardDbSettingProvider : XmlDbSettingProvider
+    public class ShardDbSettingProvider
     {
         private readonly IShardInfoAccessor _shardInfoAccessor;
 
-        public ShardDbSettingProvider(IShardInfoAccessor shardInfoAccessor, string resourcePath)
-            : base(resourcePath)
+        public ShardDbSettingProvider(IShardInfoAccessor shardInfoAccessor)
         {
             _shardInfoAccessor = shardInfoAccessor;
         }
 
-        public override IDbSetting GetSetting(string key)
+        public static string ProviderName => nameof(ShardDbSettingProvider);
+
+        public IObjectDb CreateObjectDbFunc(string settingKey, int? commandTimeout, string serverIp)
         {
-            if (_shardInfoAccessor.TryUseShardDB(key, out string dbServer))
+            if (_shardInfoAccessor.TryUseShardDB(settingKey, out var dbServer))
             {
-                var shardSPKey = _shardInfoAccessor.GetShardSPKey(key);
-                var originalShardSetting = base.GetSetting(shardSPKey);
-
-                var connectionStr = new SqlConnectionStringBuilder(originalShardSetting.ConnectionString)
-                {
-                    DataSource = dbServer
-                };
-
-                var dbSetting = new DbSetting(shardSPKey, originalShardSetting.DbName, connectionStr.ToString(), originalShardSetting.SpName,
-                    originalShardSetting.CommandTimeout, originalShardSetting.ColumnMaps, originalShardSetting.FirmParameters);
-                return dbSetting;
+                serverIp = dbServer;
             }
-            return base.GetSetting(key);
+
+            return new SqlObjectDb(settingKey, commandTimeout, serverIp);
         }
     }
 }
