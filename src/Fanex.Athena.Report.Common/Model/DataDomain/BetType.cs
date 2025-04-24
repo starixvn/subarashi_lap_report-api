@@ -124,6 +124,8 @@
 
         public const int MicrogamingLivePromotion = 13995;
 
+        public const int RichGamingPromotion = 15899;
+
         public const int OddsBoostAdjustment = 997;
 
         public const int ASKMESLOTPromotionPrize = 15199;
@@ -131,7 +133,7 @@
         public const int NumberGameLuckyDrawPromotion = 17031;
 
         public const int NBAPlayoffsLotteryPromotion = 17011;
-        
+
         public const int HOTDOGPromotionPrize = 11999;
 
         public const int NBABalanceAdjustment = 17012;
