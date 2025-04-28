@@ -158,7 +158,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
                      .Returns(Task.FromResult(_reader.Object));
 
             ObjectDbFactory.SwitchToTestingMode();
-            ObjectDbFactory.Mock((x, y) => _objectDb.Object);
+            ObjectDbFactory.Mock((x, y, z) => _objectDb.Object);
 
             _repository = new WeeklyLiveMatchRepository(_cacheRefAdapter.Object);
         }

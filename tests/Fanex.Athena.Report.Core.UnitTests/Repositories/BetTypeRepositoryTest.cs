@@ -1,180 +1,180 @@
-﻿using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Repositories;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.UnitTests.Common;
-using Fanex.Data;
-using Moq;
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Repositories;
+
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Services.Interfaces;
+using Core.Repositories;
+using Data;
+using Moq;
+using Report.UnitTests.Common;
+using Resources.Constants;
 using Xunit;
 
-namespace Fanex.Athena.Report.Core.UnitTests.Repositories
+public class BetTypeRepositoryTest
 {
-    public class BetTypeRepositoryTest
+    private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+
+    private readonly Mock<IObjectDb> _objectDb;
+
+    private readonly Mock<IDataReader> _reader;
+
+    public BetTypeRepositoryTest()
     {
-        private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+        _cacheRefAdapter = new Mock<ICacheRefAdapter>();
+        _objectDb = new Mock<IObjectDb>();
+        _reader = new Mock<IDataReader>();
 
-        private readonly Mock<IObjectDb> _objectDb;
+        DbSettingProviderManager
+            .StartTestingSession()
+            .Run();
+    }
 
-        private readonly Mock<IDataReader> _reader;
-        public BetTypeRepositoryTest()
-        {
-            _cacheRefAdapter = new Mock<ICacheRefAdapter>();
-            _objectDb = new Mock<IObjectDb>();
-            _reader = new Mock<IDataReader>();
+    [Fact]
+    public async Task GetBetTypesByProduct_WhenCall_ReturnCorrectResult()
+    {
+        // Arrange
+        var productCodes = $"{Product.SB}";
+        var licenseeId = FakeHelper.Create<int>();
+        var languageCode = FakeHelper.Create<string>();
+        var isHideSaba = FakeHelper.Create<bool>();
 
-            DbSettingProviderManager
-               .StartTestingSession()
-               .Run();
-        }
+        var expectedBetTypeIds = new List<int> { 1 };
+        _objectDb.Setup(x => x.QueryAsync<int>(It.IsAny<object>(), null, default)).ReturnsAsync(expectedBetTypeIds);
 
-        [Fact]
-        public async Task GetBetTypesByProduct_WhenCall_ReturnCorrectResult()
-        {
-            // Arrange
-            var productCodes = $"{Product.SB}";
-            var licenseeId = FakeHelper.Create<int>();
-            var languageCode = FakeHelper.Create<string>();
-            var isHideSaba = FakeHelper.Create<bool>();
+        var repository = GetRepository();
 
-            var expectedBetTypeIds = new List<int> { 1 };
-            _objectDb.Setup(x => x.QueryAsync<int>(It.IsAny<object>(), null, default)).ReturnsAsync(expectedBetTypeIds);
+        // Action
+        var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
 
-            var repository = GetRepository();
+        // Assert
+        Assert.Equal(result[0].ID, expectedBetTypeIds[0]);
+    }
 
-            // Action
-            var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
+    [Fact]
+    public async Task GetBetTypesByProduct_BetTypeSportResult_ReturnResultWithSuffixName()
+    {
+        // Arrange
+        var productCodes = $"{Product.SB}";
+        var licenseeId = FakeHelper.Create<int>();
+        var languageCode = FakeHelper.Create<string>();
+        var isHideSaba = FakeHelper.Create<bool>();
 
-            // Assert
-            Assert.Equal(result[0].ID, expectedBetTypeIds[0]);
-        }
+        var expectedBetTypeIds = new List<int> { 1235 };
+        _objectDb.Setup(x => x.QueryAsync<int>(It.IsAny<object>(), null, default)).ReturnsAsync(expectedBetTypeIds);
 
-        [Fact]
-        public async Task GetBetTypesByProduct_BetTypeSportResult_ReturnResultWithSuffixName()
-        {
-            // Arrange
-            var productCodes = $"{Product.SB}";
-            var licenseeId = FakeHelper.Create<int>();
-            var languageCode = FakeHelper.Create<string>();
-            var isHideSaba = FakeHelper.Create<bool>();
+        var suffix = "Any";
+        var expectedSuffix = $" ({suffix})";
+        _cacheRefAdapter.Setup(x => x.GetSportName(It.IsAny<object>(), languageCode)).Returns(suffix);
 
-            var expectedBetTypeIds = new List<int> { 1235 };
-            _objectDb.Setup(x => x.QueryAsync<int>(It.IsAny<object>(), null, default)).ReturnsAsync(expectedBetTypeIds);
+        var repository = GetRepository();
 
-            var suffix = "Any";
-            var expectedSuffix = $" ({suffix})";
-            _cacheRefAdapter.Setup(x => x.GetSportName(It.IsAny<object>(), languageCode)).Returns(suffix);
+        // Action
+        var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
 
-            var repository = GetRepository();
+        // Assert
+        Assert.Equal(result[0].ID, expectedBetTypeIds[0]);
+        Assert.Contains(expectedSuffix, result[0].Name);
+    }
 
-            // Action
-            var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
+    [Fact]
+    public async Task GetBetTypesByProduct_PresentProductCO_AssignNewCoBetType()
+    {
+        // Arrange
+        var productCodes = $"{Product.SB},{Product.CO}";
+        var licenseeId = FakeHelper.Create<int>();
+        var languageCode = FakeHelper.Create<string>();
+        var isHideSaba = FakeHelper.Create<bool>();
 
-            // Assert
-            Assert.Equal(result[0].ID, expectedBetTypeIds[0]);
-            Assert.Contains(expectedSuffix, result[0].Name);
-        }
+        var expectedBetTypeIds = new List<int>();
+        _objectDb.Setup(x => x.QueryAsync<int>(It.IsAny<object>(), null, default)).ReturnsAsync(expectedBetTypeIds);
 
-        [Fact]
-        public async Task GetBetTypesByProduct_PresentProductCO_AssignNewCoBetType()
-        {
-            // Arrange
-            var productCodes = $"{Product.SB},{Product.CO}";
-            var licenseeId = FakeHelper.Create<int>();
-            var languageCode = FakeHelper.Create<string>();
-            var isHideSaba = FakeHelper.Create<bool>();
+        var repository = GetRepository();
 
-            var expectedBetTypeIds = new List<int>();
-            _objectDb.Setup(x => x.QueryAsync<int>(It.IsAny<object>(), null, default)).ReturnsAsync(expectedBetTypeIds);
+        // Action
+        var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
 
-            var repository = GetRepository();
+        // Assert
+        Assert.Equal(6, result.Count);
+        _cacheRefAdapter.Verify(x => x.GetBettype(It.IsAny<int>()), Times.Exactly(6));
+    }
 
-            // Action
-            var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
+    [Fact]
+    public async Task GetBetTypesByProduct_EmptyProductCode_ReturnEmpty()
+    {
+        // Arrange
+        var productCodes = FakeHelper.Create<string>();
+        var licenseeId = FakeHelper.Create<int>();
+        var languageCode = FakeHelper.Create<string>();
+        var isHideSaba = FakeHelper.Create<bool>();
 
-            // Assert
-            Assert.Equal(6, result.Count);
-            _cacheRefAdapter.Verify(x => x.GetBettype(It.IsAny<int>()), Times.Exactly(6));
-        }
+        var repository = GetRepository();
 
-        [Fact]
-        public async Task GetBetTypesByProduct_EmptyProductCode_ReturnEmpty()
-        {
-            // Arrange
-            var productCodes = FakeHelper.Create<string>();
-            var licenseeId = FakeHelper.Create<int>();
-            var languageCode = FakeHelper.Create<string>();
-            var isHideSaba = FakeHelper.Create<bool>();
+        // Action
+        var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
 
-            var repository = GetRepository();
+        // Assert
+        Assert.Empty(result);
+    }
 
-            // Action
-            var result = (await repository.GetBetTypesByProduct(licenseeId, productCodes, languageCode, isHideSaba)).ToList();
+    [Fact]
+    public async Task GetBetTypeForProductsAsync_WhenCall_ReturnCorrectResult()
+    {
+        // Arrange
+        var productCodes = FakeHelper.Create<string>();
+        var licenseeId = FakeHelper.Create<int>();
 
-            // Assert
-            Assert.Empty(result);
-        }
+        var expectedProductCodes = FakeHelper.Create<string>();
+        var expectedLicenseeId = FakeHelper.Create<int>();
 
-        [Fact]
-        public async Task GetBetTypeForProductsAsync_WhenCall_ReturnCorrectResult()
-        {
-            // Arrange
-            var productCodes = FakeHelper.Create<string>();
-            var licenseeId = FakeHelper.Create<int>();
+        _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
+        _reader.Setup(x => x["ProductCode"]).Returns(expectedProductCodes);
+        _reader.Setup(x => x["Bettype"]).Returns(expectedLicenseeId);
+        var repository = GetRepository();
 
-            var expectedProductCodes = FakeHelper.Create<string>();
-            var expectedLicenseeId = FakeHelper.Create<int>();
+        // Action
+        var result = (await repository.GetBetTypeForProductsAsync(licenseeId, productCodes)).ToList();
 
-            _reader.SetupSequence(x => x.Read()).Returns(true).Returns(false);
-            _reader.Setup(x => x["ProductCode"]).Returns(expectedProductCodes);
-            _reader.Setup(x => x["Bettype"]).Returns(expectedLicenseeId);
-            var repository = GetRepository();
+        // Assert
+        _objectDb.Verify(x => x.SetParameterValue("licenseeid", licenseeId));
+        _objectDb.Verify(x => x.SetParameterValue("productCodes", productCodes));
 
-            // Action
-            var result = (await repository.GetBetTypeForProductsAsync(licenseeId, productCodes)).ToList();
+        Assert.Single(result);
+        Assert.Equal(expectedLicenseeId, result[0].BetType);
+        Assert.Equal(expectedProductCodes, result[0].ProductCode);
+    }
 
-            // Assert
-            _objectDb.Verify(x => x.SetParameterValue("licenseeid", licenseeId));
-            _objectDb.Verify(x => x.SetParameterValue("productCodes", productCodes));
+    [Fact]
+    public async Task GetBetTypeForProductsAsync_EmptyProductCode_ReturnEmpty()
+    {
+        // Arrange
+        var productCodes = "";
+        var licenseeId = FakeHelper.Create<int>();
 
-            Assert.Single(result);
-            Assert.Equal(expectedLicenseeId, result[0].BetType);
-            Assert.Equal(expectedProductCodes, result[0].ProductCode);
-        }
+        var repository = GetRepository();
 
-        [Fact]
-        public async Task GetBetTypeForProductsAsync_EmptyProductCode_ReturnEmpty()
-        {
-            // Arrange
-            var productCodes = "";
-            var licenseeId = FakeHelper.Create<int>();
+        // Action
+        var result = (await repository.GetBetTypeForProductsAsync(licenseeId, productCodes)).ToList();
 
-            var repository = GetRepository();
-
-            // Action
-            var result = (await repository.GetBetTypeForProductsAsync(licenseeId, productCodes)).ToList();
-
-            // Assert
-            Assert.Empty(result);
-        }
+        // Assert
+        Assert.Empty(result);
+    }
 
 
-        private BetTypeRepository GetRepository()
-        {
-            SetupObjectDb();
-            return new BetTypeRepository(_cacheRefAdapter.Object);
-        }
+    private BetTypeRepository GetRepository()
+    {
+        SetupObjectDb();
+        return new BetTypeRepository(_cacheRefAdapter.Object);
+    }
 
-        private void SetupObjectDb()
-        {
-            _objectDb.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), default))
-                     .ReturnsAsync(_reader.Object);
+    private void SetupObjectDb()
+    {
+        _objectDb.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), default))
+            .ReturnsAsync(_reader.Object);
 
-            ObjectDbFactory.SwitchToTestingMode();
-            ObjectDbFactory.Mock((x, y) => _objectDb.Object);
-        }
+        ObjectDbFactory.SwitchToTestingMode();
+        ObjectDbFactory.Mock((x, y, z) => _objectDb.Object);
     }
 }
