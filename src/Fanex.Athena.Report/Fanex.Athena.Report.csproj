@@ -41,10 +41,6 @@
 		</Content>
 	</ItemGroup>
 
-	<ItemGroup>
-    <None Include="ExcelTemplate\LicenseeWinLossByTimeZone.xls" />
-  </ItemGroup>
-
   <ItemGroup>
 		<SonarQubeSetting Include="sonar.coverage.exclusions">
 			<Value>**/Startup.cs</Value>
