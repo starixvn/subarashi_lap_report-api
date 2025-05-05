@@ -6,10 +6,13 @@ namespace Fanex.Athena.Report.Common.Helpers
 {
     public static class SportHelper
     {
-        private static readonly IEnumerable<int> VSBetRadarSportTypes = new List<int>
+        private static readonly IEnumerable<int> VSNewRacingSportTypes = new List<int>
         {
             SportType.VirtualHorseRacing,
-            SportType.VirtualDogRacing
+            SportType.VirtualDogRacing,
+            SportType.VirtualSteepleChase,
+            SportType.VirtualHarnessRacing,
+            SportType.VirtualMotorRacing
         };
 
         private static readonly IEnumerable<int> VSSportTypes = new List<int>
@@ -23,7 +26,10 @@ namespace Fanex.Athena.Report.Common.Helpers
         private static readonly IEnumerable<int> Match3rdSportTypes = new List<int>
         {
             SportType.BetbyBasketball,
-            SportType.VirtuallySports
+            SportType.VirtuallySports,
+            SportType.VirtualSteepleChase,
+            SportType.VirtualHarnessRacing,
+            SportType.VirtualMotorRacing
         };
 
         private static readonly IEnumerable<int> League3rdSportsTypes = new List<int>
@@ -32,10 +38,13 @@ namespace Fanex.Athena.Report.Common.Helpers
             SportType.VirtualHorseRacing,
             SportType.VirtualDogRacing,
             SportType.BetbyBasketball,
-            SportType.VirtuallySports
+            SportType.VirtuallySports,
+            SportType.VirtualSteepleChase,
+            SportType.VirtualHarnessRacing,
+            SportType.VirtualMotorRacing
         };
 
-        public static bool IsVirtualBetRadarSports(int sportType) => VSBetRadarSportTypes.Contains(sportType);
+        public static bool IsVSNewRacingSportTypes(int sportType) => VSNewRacingSportTypes.Contains(sportType);
 
         public static bool IsLeague3rdSports(int sportType) => League3rdSportsTypes.Contains(sportType);
 

@@ -130,7 +130,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 return string.Format(EnglishCulture, KickOffTimeFormat, matchWinLoss.KickOffTime);
             }
 
-            if (SportHelper.IsVirtualBetRadarSports(matchWinLoss.SportType))
+            if (SportHelper.IsVSNewRacingSportTypes(matchWinLoss.SportType))
             {
                 var id = !string.IsNullOrEmpty(matchWinLoss.Distance) ? $" - ID {matchWinLoss.Distance}" : string.Empty;
                 return $"{ViewResources.Event} {matchWinLoss.VendorMatchId}{id}";
