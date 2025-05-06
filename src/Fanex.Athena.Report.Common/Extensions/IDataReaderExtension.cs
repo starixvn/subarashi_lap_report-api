@@ -22,18 +22,18 @@ namespace Fanex.Athena.Report.Common.Extensions
             return false;
         }
 
-        public static T GetVal<T>(this IDataReader dataReader, string columnName, T defauleValue = default(T))
+        public static T GetVal<T>(this IDataReader dataReader, string columnName, T defaultValue = default(T))
         {
             var dbValue = dataReader[columnName];
             if (dbValue == DBNull.Value)
             {
-                return defauleValue;
+                return defaultValue;
             }
 
-            return Cast<T>(dbValue, defauleValue);
+            return Cast<T>(dbValue, defaultValue);
         }
 
-        private static T Cast<T>(object dbValue, T defauleValue = default(T))
+        private static T Cast<T>(object dbValue, T defaultValue = default(T))
         {
             if (dbValue is T result)
             {
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Report.Common.Extensions
 
             if (dbValue is INullable temp && temp.IsNull)
             {
-                return defauleValue;
+                return defaultValue;
             }
 
             return (T)Convert.ChangeType(dbValue, typeof(T));

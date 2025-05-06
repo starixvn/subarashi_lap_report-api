@@ -66,7 +66,8 @@
             { ExtraPayoutMapType.PayoutNumberGameLuckyDrawPromotion, BetType.NumberGameLuckyDrawPromotion },
             { ExtraPayoutMapType.PayoutNBAPlayoffsLotteryPromotion, BetType.NBAPlayoffsLotteryPromotion },
             { ExtraPayoutMapType.PayoutNBABalanceAdjustment, BetType.NBABalanceAdjustment },
-            { ExtraPayoutMapType.PayoutHOTDOGPromotionPrize, BetType.HOTDOGPromotionPrize }
+            { ExtraPayoutMapType.PayoutHOTDOGPromotionPrize, BetType.HOTDOGPromotionPrize },
+            { ExtraPayoutMapType.PayoutRichGamingPromotion, BetType.RichGamingPromotion }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {

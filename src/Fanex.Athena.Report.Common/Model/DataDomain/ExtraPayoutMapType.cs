@@ -70,6 +70,8 @@
 
         public const int PayoutMicrogamingLivePromotion = 10701;
 
+        public const int PayoutRichGamingPromotion = 10801;
+
         public const int PayoutOddsBoostAdjustment = 101;
 
         public const int PayoutPromotionASKMESLOT = 10301;
@@ -77,7 +79,7 @@
         public const int PayoutNumberGameLuckyDrawPromotion = 3711;
 
         public const int PayoutNBAPlayoffsLotteryPromotion = 3712;
-        
+
         public const int PayoutHOTDOGPromotionPrize = 9501;
 
         public const int PayoutNBABalanceAdjustment = 3713;

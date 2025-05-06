@@ -1,121 +1,120 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.Extensions;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
-using Fanex.Data;
-using Moq;
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Repositories;
+
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoFixture;
+using BySite.Repositories;
+using Data;
+using Extensions;
+using Moq;
+using TestHelpers;
 using Xunit;
 
-namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
+public class DailyBetsRepositoryTest
 {
-    public class DailyBetsRepositoryTest
+    private readonly IFixture _fixture = new Fixture();
+
+    public DailyBetsRepositoryTest()
     {
-        private readonly IFixture _fixture = new Fixture();
+        DbSettingProviderManager
+            .StartTestingSession()
+            .Run();
+    }
 
-        public DailyBetsRepositoryTest()
+    [Fact]
+    public async Task GetTotalDataAsync_WhenCall_ReturnCorrectData()
+    {
+        // Arrange
+        var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
+        var reader = new Mock<IDataReader>();
+        reader.SetupSequence(r => r.Read())
+            .Returns(true)
+            .Returns(false);
+        SetUpData(reader);
+
+        CreateObjectDb(reader);
+
+        var repository = new DailyBetsRepository();
+
+        // Action
+        var result = await repository.GetTotalDataAsync(metaModel);
+
+        // Assert
+        Assert.Equal(1, result.totalRows);
+        Assert.Equal(100m, result.totalData.TurnoverBased);
+        Assert.Equal(200m, result.totalData.WinLossBased);
+    }
+
+    [Fact]
+    public async Task GetTotalDataAsync_NoData_ReturnEmptyResult()
+    {
+        // Arrange
+        var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
+        var reader = new Mock<IDataReader>();
+        reader.Setup(r => r.Read()).Returns(false);
+        SetUpData(reader);
+
+        CreateObjectDb(reader);
+
+        var repository = new DailyBetsRepository();
+
+        // Action
+        var result = await repository.GetTotalDataAsync(metaModel);
+
+        // Assert
+        Assert.Equal(0, result.totalRows);
+    }
+
+    [Fact]
+    public async Task GetTotalDataAsync_WhenCall_SetParameterCorrectly()
+    {
+        // Arrange
+        var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
+        var reader = new Mock<IDataReader>();
+        reader.Setup(r => r.Read()).Returns(false);
+        SetUpData(reader);
+
+        var objectDb = CreateObjectDb(reader);
+
+        var repository = new DailyBetsRepository();
+
+        // Action
+        await repository.GetTotalDataAsync(metaModel);
+
+        // Assert
+        objectDb.Verify(db => db.SetParameterValue("SiteName", metaModel.SiteName), Times.Once);
+        objectDb.Verify(db => db.SetParameterValue("Date", metaModel.Date), Times.Once);
+        objectDb.Verify(db => db.SetParameterValue("ProductCodes", metaModel.ProductCodeList), Times.Once);
+        objectDb.Verify(db => db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml()), Times.Once);
+        objectDb.Verify(db => db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency), Times.Once);
+    }
+
+    private static void SetUpData(Mock<IDataReader> reader)
+    {
+        var expectedData = new Dictionary<string, object>
         {
-            DbSettingProviderManager
-             .StartTestingSession()
-             .Run();
-        }
-
-        [Fact]
-        public async Task GetTotalDataAsync_WhenCall_ReturnCorrectData()
+            { "TotalRows", 1 },
+            { "TotalTurnover", 100m },
+            { "TotalWinLoss", 200m }
+        };
+        foreach (var item in expectedData)
         {
-            // Arrange
-            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
-            var reader = new Mock<IDataReader>();
-            reader.SetupSequence(r => r.Read())
-                .Returns(true)
-                .Returns(false);
-            SetUpData(reader);
-
-            CreateObjectDb(reader);
-
-            var repository = new DailyBetsRepository();
-
-            // Action
-            var result = await repository.GetTotalDataAsync(metaModel);
-
-            // Assert
-            Assert.Equal(1, result.totalRows);
-            Assert.Equal(100m, result.totalData.TurnoverBased);
-            Assert.Equal(200m, result.totalData.WinLossBased);
+            reader.Setup(r => r[item.Key]).Returns(item.Value);
         }
+    }
 
-        [Fact]
-        public async Task GetTotalDataAsync_NoData_ReturnEmptyResult()
-        {
-            // Arrange
-            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
-            var reader = new Mock<IDataReader>();
-            reader.Setup(r => r.Read()).Returns(false);
-            SetUpData(reader);
+    private static Mock<IObjectDb> CreateObjectDb(Mock<IDataReader> mockDataReader)
+    {
+        var mockObjectDB = new Mock<IObjectDb>();
+        mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.FromResult(mockDataReader.Object));
 
-            CreateObjectDb(reader);
+        ObjectDbFactory.SwitchToTestingMode();
+        ObjectDbFactory.Mock((x, y, z) => mockObjectDB.Object);
 
-            var repository = new DailyBetsRepository();
-
-            // Action
-            var result = await repository.GetTotalDataAsync(metaModel);
-
-            // Assert
-            Assert.Equal(0, result.totalRows);
-        }
-
-        [Fact]
-        public async Task GetTotalDataAsync_WhenCall_SetParameterCorrectly()
-        {
-            // Arrange
-            var metaModel = MetaModelHelper.CreateDailyBetsMetaModel();
-            var reader = new Mock<IDataReader>();
-            reader.Setup(r => r.Read()).Returns(false);
-            SetUpData(reader);
-
-            var objectDb = CreateObjectDb(reader);
-
-            var repository = new DailyBetsRepository();
-
-            // Action
-            await repository.GetTotalDataAsync(metaModel);
-
-            // Assert
-            objectDb.Verify(db => db.SetParameterValue("SiteName", metaModel.SiteName), Times.Once);
-            objectDb.Verify(db => db.SetParameterValue("Date", metaModel.Date), Times.Once);
-            objectDb.Verify(db => db.SetParameterValue("ProductCodes", metaModel.ProductCodeList), Times.Once);
-            objectDb.Verify(db => db.SetParameterValue("CurrencyList", metaModel.CurrencyListToXml()), Times.Once);
-            objectDb.Verify(db => db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency), Times.Once);
-        }
-
-        private static void SetUpData(Mock<IDataReader> reader)
-        {
-            var expectedData = new Dictionary<string, object>
-            {
-                { "TotalRows", 1 },
-                { "TotalTurnover", 100m },
-                { "TotalWinLoss", 200m }
-            };
-            foreach (var item in expectedData)
-            {
-                reader.Setup(r => r[item.Key]).Returns(item.Value);
-            }
-        }
-
-        private static Mock<IObjectDb> CreateObjectDb(Mock<IDataReader> mockDataReader)
-        {
-            var mockObjectDB = new Mock<IObjectDb>();
-            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(mockDataReader.Object));
-
-            ObjectDbFactory.SwitchToTestingMode();
-            ObjectDbFactory.Mock((x, y) => mockObjectDB.Object);
-
-            return mockObjectDB;
-        }
+        return mockObjectDB;
     }
 }

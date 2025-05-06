@@ -1,110 +1,109 @@
-﻿using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Data;
-using Moq;
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Extensions;
+
 using System;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
+using Common.Extensions;
+using Data;
+using Moq;
 using Xunit;
 
-namespace Fanex.Athena.Report.Common.UnitTests.Extensions
+public class DataReaderExtensionTest
 {
-    public class DataReaderExtensionTest
+    private const string ColumnName = "ColName";
+
+    public DataReaderExtensionTest()
     {
-        private const string ColumnName = "ColName";
+        DbSettingProviderManager
+            .StartTestingSession()
+            .Run();
+    }
 
-        public DataReaderExtensionTest()
-        {
-            DbSettingProviderManager
-             .StartTestingSession()
-             .Run();
-        }
+    [Theory]
+    [InlineData(1)]
+    [InlineData("string value")]
+    [InlineData(double.Epsilon)]
+    public async Task GetVal_WhenCall_ReturnCorrectValue<T>(T value)
+    {
+        // Action
+        var result = await GetValue(value);
 
-        [Theory]
-        [InlineData(1)]
-        [InlineData("string value")]
-        [InlineData(double.Epsilon)]
-        public async Task GetVal_WhenCall_ReturnCorrectValue<T>(T value)
+        // Assert
+        Assert.Equal(value, result);
+    }
+
+    [Fact]
+    public async Task GetVal_ValueIsNull_ReturnDefaultValue()
+    {
+        // Arrange
+        decimal expected = 0;
+
+        using (var reader = await GetDataReader())
         {
+            var mockReader = Mock.Get(reader);
+            mockReader.Setup(r => r[ColumnName]).Returns(DBNull.Value);
+
             // Action
-            var result = await GetValue<T>(value);
+            var result = reader.GetVal<decimal>(ColumnName);
 
             // Assert
-            Assert.Equal(value, result);
+            Assert.Equal(expected, result);
         }
+    }
 
-        [Fact]
-        public async Task GetVal_ValueIsNull_ReturnDefaultValue()
+    [Fact]
+    public async Task GetVal_ConvertFromDoubleToDecimal_ReturnCorrectValue()
+    {
+        // Arrange
+        const double inputValue = 0.68;
+        const decimal expected = 0.68m;
+
+        using (var reader = await GetDataReader())
         {
-            // Arrange
-            decimal expected = 0;
+            var mockReader = Mock.Get(reader);
+            mockReader.Setup(r => r[ColumnName]).Returns(inputValue);
 
-            using (var reader = await GetDataReader())
-            {
-                var mockReader = Mock.Get(reader);
-                mockReader.Setup(r => r[ColumnName]).Returns(DBNull.Value);
+            // Action
+            var result = reader.GetVal<decimal>(ColumnName);
 
-                // Action
-                var result = reader.GetVal<decimal>(ColumnName);
-
-                // Assert
-                Assert.Equal(expected, result);
-            }
+            // Assert
+            Assert.Equal(expected, result);
         }
+    }
 
-        [Fact]
-        public async Task GetVal_ConvertFromDoubleToDecimal_ReturnCorrectValue()
+    private async Task<T> GetValue<T>(T value)
+    {
+        using (var reader = await GetDataReader())
         {
-            // Arrange
-            const double inputValue = 0.68;
-            const decimal expected = 0.68m;
+            var mockIDataReader = Mock.Get(reader);
+            mockIDataReader.Setup(r => r[ColumnName]).Returns(value);
 
-            using (var reader = await GetDataReader())
-            {
-                var mockReader = Mock.Get(reader);
-                mockReader.Setup(r => r[ColumnName]).Returns(inputValue);
-
-                // Action
-                var result = reader.GetVal<decimal>(ColumnName);
-
-                // Assert
-                Assert.Equal(expected, result);
-            }
+            return reader.GetVal<T>(ColumnName);
         }
+    }
 
-        private async Task<T> GetValue<T>(T value)
+    private async Task<IDataReader> GetDataReader()
+    {
+        var mockIDataReader = new Mock<IDataReader>();
+        var mockObjectDB = CreateObjectDb(mockIDataReader);
+
+        using (var objectDb = mockObjectDB.Object)
         {
-            using (var reader = await GetDataReader())
-            {
-                var mockIDataReader = Mock.Get(reader);
-                mockIDataReader.Setup(r => r[ColumnName]).Returns(value);
-
-                return reader.GetVal<T>(ColumnName);
-            }
+            return await objectDb.ExecuteReaderAsync();
         }
+    }
 
-        private async Task<IDataReader> GetDataReader()
-        {
-            var mockIDataReader = new Mock<IDataReader>();
-            var mockObjectDB = CreateObjectDb(mockIDataReader);
+    private static Mock<IObjectDb> CreateObjectDb(Mock<IDataReader> mockIDataReader)
+    {
+        var mockObjectDB = new Mock<IObjectDb>();
+        mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.FromResult(mockIDataReader.Object));
 
-            using (var objectDb = mockObjectDB.Object)
-            {
-                return await objectDb.ExecuteReaderAsync();
-            }
-        }
+        ObjectDbFactory.SwitchToTestingMode();
+        ObjectDbFactory.Mock((x, y, z) => mockObjectDB.Object);
 
-        private static Mock<IObjectDb> CreateObjectDb(Mock<IDataReader> mockIDataReader)
-        {
-            var mockObjectDB = new Mock<IObjectDb>();
-            mockObjectDB.Setup(x => x.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(mockIDataReader.Object));
-
-            ObjectDbFactory.SwitchToTestingMode();
-            ObjectDbFactory.Mock((x, y) => mockObjectDB.Object);
-
-            return mockObjectDB;
-        }
+        return mockObjectDB;
     }
 }

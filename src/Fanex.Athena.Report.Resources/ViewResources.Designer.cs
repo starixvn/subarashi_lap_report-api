@@ -2077,11 +2077,29 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playtech Live.
+        /// </summary>
+        public static string ProductPTLC {
+            get {
+                return ResourceManager.GetString("ProductPTLC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playtech.
         /// </summary>
         public static string ProductPTRNG {
             get {
                 return ResourceManager.GetString("ProductPTRNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RichGaming.
+        /// </summary>
+        public static string ProductRGRNG {
+            get {
+                return ResourceManager.GetString("ProductRGRNG", resourceCulture);
             }
         }
         
@@ -2145,6 +2163,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string ProductSLT {
             get {
                 return ResourceManager.GetString("ProductSLT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saba Promotion.
+        /// </summary>
+        public static string ProductSPR {
+            get {
+                return ResourceManager.GetString("ProductSPR", resourceCulture);
             }
         }
         

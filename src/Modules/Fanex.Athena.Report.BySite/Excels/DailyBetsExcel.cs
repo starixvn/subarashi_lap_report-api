@@ -83,10 +83,6 @@
             metaModel.PageSize = ExcelOptions.MaximumRowPerFile;
 
             var (totalRows, totalData) = await _repository.GetTotalDataAsync(metaModel).ConfigureAwait(false);
-            if (totalRows == 0)
-            {
-                return null;
-            }
 
             _totalRows = totalRows;
             _totalData = totalData;
