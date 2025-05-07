@@ -23,5 +23,7 @@
         public const int SabaIceHockey = -10;
 
         public const int SabaKabaddi = -11;
+
+        public const int SabaSoccerMarble = -12;
     }
 }
