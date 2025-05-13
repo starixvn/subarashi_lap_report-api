@@ -127,5 +127,7 @@
         public const string PTLC = "PTLC";
 
         public const string RGRNG = "RGRNG";
+
+        public const string WLC = "WLC";
     }
 }

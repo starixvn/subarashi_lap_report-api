@@ -1215,4 +1215,7 @@
   <data name="SoccerMarble" xml:space="preserve">
     <value>Soccer Marble</value>
   </data>
+  <data name="ProductWLC" xml:space="preserve">
+    <value>W Casino</value>
+  </data>
 </root>
