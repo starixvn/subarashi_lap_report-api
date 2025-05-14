@@ -41,6 +41,7 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var template = file.GetFileInfo("/ExcelTemplate/PlayerSabaCoins.xls").PhysicalPath;
             var result = await service.GetDataAsync(metaModel).ConfigureAwait(false);
             var fileContent = excel.Export(template, result, metaModel);
+
             return new FileContentResult(fileContent, "application/octet-stream");
         }
     }

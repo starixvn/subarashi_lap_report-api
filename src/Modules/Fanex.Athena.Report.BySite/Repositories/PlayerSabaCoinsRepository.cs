@@ -19,7 +19,7 @@
             _balanceUpService = balanceUpService;
         }
 
-        public async Task<IEnumerable<PlayerSabaCoins>> GetMainData(
+        public async Task<IEnumerable<PlayerSabaCoinsMain>> GetMainData(
             PlayerSabaCoinsMetaModel metaModel)
         {
             const string UspName = "LAP_Rpt_SabaCoins_Performance";
@@ -33,16 +33,17 @@
             return ReadMainData(reader);
         }
 
-        private static IEnumerable<PlayerSabaCoins> ReadMainData(
+        private static IEnumerable<PlayerSabaCoinsMain> ReadMainData(
             IDataReader reader)
         {
-            var dataList = new List<PlayerSabaCoins>();
+            var dataList = new List<PlayerSabaCoinsMain>();
 
             while (reader.Read())
             {
-                var item = new PlayerSabaCoins
+                var item = new PlayerSabaCoinsMain
                 {
-                    CustId = reader["custId"].ToString(),
+                    CustId = Convert.ToInt32(reader["custId"]),
+                    SabaId = Convert.ToInt64(reader["sabaId"]),
                     Username = reader["username"].ToString(),
                     ExternalId = reader["nickname"].ToString(),
                     OpeningBalance = Convert.ToDecimal(reader["OpeningBalance"]),
@@ -58,7 +59,7 @@
             return dataList;
         }
 
-        public async Task<IEnumerable<PlayerSabaCoins>> GetExtraInfoData(
+        public async Task<IEnumerable<PlayerSabaCoinsExtraInfo>> GetExtraInfoData(
             PlayerSabaCoinsMetaModel metaModel)
         {
             var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync();
@@ -75,16 +76,17 @@
             return ReadExtraInfoData(reader);
         }
 
-        private static IEnumerable<PlayerSabaCoins> ReadExtraInfoData(
+        private static IEnumerable<PlayerSabaCoinsExtraInfo> ReadExtraInfoData(
             IDataReader reader)
         {
-            var dataList = new List<PlayerSabaCoins>();
+            var dataList = new List<PlayerSabaCoinsExtraInfo>();
 
             while (reader.Read())
             {
-                var item = new PlayerSabaCoins
+                var item = new PlayerSabaCoinsExtraInfo
                 {
-                    CustId = reader["custId"].ToString(),
+                    CustId = Convert.ToInt32(reader["custId"]),
+                    SabaId = Convert.ToInt64(reader["sabaId"]),
                     RewardPromotionAmt = Convert.ToDecimal(reader["RewardPromotionAmt"]),
                     ExchangeAmt = Convert.ToDecimal(reader["ExchangeAmt"])
                 };

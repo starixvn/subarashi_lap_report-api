@@ -7,10 +7,10 @@
 
     public interface IPlayerSabaCoinsRepository
     {
-        Task<IEnumerable<PlayerSabaCoins>> GetMainData(
+        Task<IEnumerable<PlayerSabaCoinsMain>> GetMainData(
             PlayerSabaCoinsMetaModel metaModel);
 
-        Task<IEnumerable<PlayerSabaCoins>> GetExtraInfoData(
+        Task<IEnumerable<PlayerSabaCoinsExtraInfo>> GetExtraInfoData(
             PlayerSabaCoinsMetaModel metaModel);
     }
 }
