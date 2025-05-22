@@ -1,0 +1,85 @@
+﻿<div class="rule">
+    <h4>General Info</h4>
+    <ul>
+        <li>The Match Monitoring Center helps you quickly identify and get alerts for matches that could lead to significant financial losses.</li>
+        <li>This feature currently supports matches with the "Money Line Full Time" bet type only.</li>
+        <li>All times displayed in this function are GMT+8.</li>
+        <li>This report only shows matches that you have specifically added to your monitoring list.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>Search Filters</h4>
+    <ul>
+        <li><b>League:</b> Use this filter to retrieve monitored matches based on league names.</li>
+        <li><b>Match:</b> Select the monitored matches that have been added to the monitoring list.</li>
+        <li><b>Triggered Alert:</b> Use this filter to retrieve monitored matches based on whether any alert rules have been triggered.</li>
+        <li><b>Currency:</b> Selects the currency which data will be retrieved.</li>
+        <ul>
+            <li><b>All:</b> All supported currencies will be listed out.</li>
+        </ul>
+        <li><b>Base Currency:</b> Convert all data to base currency for reference only.</li>
+        <li><b>Match Status:</b> Using this filter to retrieve monitored matches that have Live or Non-Live tickets.</li>
+        <li><b>Refresh Timer:</b> Use to control how frequently the page refreshes data automatically.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>Report Guidelines</h4>
+    <ul>
+        <li><b>Kick Off Time:</b> The match's kickoff time.</li>
+        <li><b>Match Status:</b> Displays "Live" (with score shown in red) if the match has live bet tickets; otherwise, it shows "Non-Live".</li>
+        <li>
+            <b>Triggered Alert:</b> Indicates whether a match has ever breached any alert rule, regardless of its current status.
+            <ul>
+                <li>A green shield icon means the match has never breached any alert rule since being added to the monitoring list.</li>
+                <li>A blinking red alert icon means the match has previously triggered at least one alert rule at any point in time. Clicking the icon opens the alert rule history popup, which provides details of the triggered rules, including detection time, negative forecast amount, stake ratio, and matched rule configuration.</li>
+            </ul>
+        </li>
+        <li><b>Alert Rules:</b> Shows the configured alert rules for the match, or a "-" if none are set.</li>
+        <li><b>Event:</b> Displays the Home team vs. Away team.</li>
+        <li><b>Stake %:</b> A pie chart showing the percentage of total stake on the Home (blue) and Away (red) teams. Hovering over a section will show the total stake for that team.
+            <ul>
+                <li><b>Calculations:</b>
+                    <ul>
+                        <li>Stake % Home = [TotalHomeStake / (TotalHomeStake + TotalAwayStake)] * 100</li>
+                        <li>Stake % Away = [TotalAwayStake / (TotalHomeStake + TotalAwayStake)] * 100</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><b>Total Home:</b> Total bets on home team.
+            <br />
+            Total Home = Home stake * odds
+        </li>
+        <li><b>Total Away:</b> Total bets on away team.
+            <br />
+            Total Away = Away stake * odds
+        </li>
+        <li><b>Forecast Home:</b> The amount that Licensee might win/lose if home team/members win.
+            <br />
+            Forecast Home = Home stake * odds – away stake
+            <ul>
+                <li><b>A negative number (e.g. -10)</b> indicates Licensee will win if home team wins.</li>
+                <li><b></b>A positive number (e.g. 10)</b> indicates Licensee will lose if home team wins.</li>
+            </ul>
+        </li>
+        <li><b>Forecast Away:</b> The amount that Licensee might win/lose if away team/members win.
+            <br />
+            Forecast Away = Away stake * odds – home stake
+            <ul>
+                <li><b>A negative number (e.g. -10)</b> indicates Licensee will win if away team wins.</li>
+                <li><b></b>A positive number (e.g. 10)</b> indicates Licensee will lose if away team wins.</li>
+            </ul>
+        </li>
+        <li><b>Operation:</b>
+            <ul>
+                <li><b>Setting:</b> A "Setting" link is shown for running matches if you have permissions for Alert Rules or Logs.</li>
+                <li><b>Remove:</b> Allows you to remove an event from the monitoring list.</li>
+            </ul>
+        </li>
+        <li><b>Gray Rows:</b> These indicate matches that were previously monitored but have now settled. They are for historical review only.</li>
+    </ul>
+</div>

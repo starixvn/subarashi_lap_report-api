@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Kestrel.Fanex.Athena.Report": {
+    "Kestrel": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

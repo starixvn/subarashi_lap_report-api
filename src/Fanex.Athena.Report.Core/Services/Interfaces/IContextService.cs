@@ -63,5 +63,7 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         AppMode ApplicationMode { get; }
 
         string OperatorId { get; }
+
+        string ClientIP { get; }
     }
 }

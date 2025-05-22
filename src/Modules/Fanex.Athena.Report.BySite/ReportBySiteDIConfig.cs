@@ -77,6 +77,8 @@ public static class ReportBySiteDIConfig
         services.AddTransient<ISubsidiaryPerformanceService, SubsidiaryPerformanceService>();
         services.AddTransient<ISubsidiaryPerformanceSummaryExcel, SubsidiaryPerformanceSummaryExcel>();
         services.AddTransient<ISubsidiaryPerformanceDetailExcel, SubsidiaryPerformanceDetailExcel>();
+        services.AddTransient<IMatchMonitoringCenterRepository, MatchMonitoringCenterRepository>();
+        services.AddTransient<IMatchMonitoringCenterService, MatchMonitoringCenterService>();
 
         return services;
     }

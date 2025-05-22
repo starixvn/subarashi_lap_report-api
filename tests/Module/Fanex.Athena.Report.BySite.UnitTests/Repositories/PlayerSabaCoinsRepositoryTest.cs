@@ -202,7 +202,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
                 .Returns(Task.FromResult(mockDataReader.Object));
 
             ObjectDbFactory.SwitchToTestingMode();
-            ObjectDbFactory.Mock((x, y) => mockObjectDB.Object);
+            ObjectDbFactory.Mock((x, y, z) => mockObjectDB.Object);
 
             return mockObjectDB;
         }
