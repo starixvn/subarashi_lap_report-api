@@ -23,29 +23,31 @@ namespace Fanex.Athena.Report.Resources.Constants
 
         public const int VirtualBasketball = 193;
 
-        public const int SabaSoccer = -1;
+        public const int SabaSoccer = -2;
 
-        public const int SabaBasketball = -2;
+        public const int SabaFutsal = -3;
 
-        public const int SabaCricket = -3;
+        public const int SabaSoccerPingoal = -4;
 
-        public const int Futsal = 49;
-
-        public const int SabaFutsal = -4;
-
-        public const int SabaSoccerPingoal = -5;
+        public const int SabaBasketball = -5;
 
         public const int SabaBasketballPinGoal = -6;
 
         public const int SabaESportsPinGoal = -7;
 
+        public const int SabaCricket = -8;
+
+        public const int SabaTennis = -9;
+
+        public const int SabaIceHockey = -10;
+
+        public const int SabaKabaddi = -11;
+
+        public const int SabaSoccerMarble = -12;
+
+        public const int Futsal = 49;
+
         public const int Esports = 43;
-
-        public const int SabaTennis = -8;
-
-        public const int SabaIceHockey = -9;
-
-        public const int SabaKabaddi = -10;
 
         public const int Kabaddi = 47;
 
@@ -94,7 +96,8 @@ namespace Fanex.Athena.Report.Resources.Constants
             Tuple.Create(SabaTennis, Tennis, ""),
             Tuple.Create(SabaIceHockey, IceHockey, ""),
             Tuple.Create(SabaKabaddi, Kabaddi, ""),
-            Tuple.Create(SabaESportsPinGoal, 0, "ESportsPinGoal")
+            Tuple.Create(SabaESportsPinGoal, 0, "ESportsPinGoal"),
+            Tuple.Create(SabaSoccerMarble, 0, "SoccerMarble")
         };
 
         public static List<Tuple<int, int, string>> GetSabaVirtualSports()

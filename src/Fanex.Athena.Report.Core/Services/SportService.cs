@@ -146,6 +146,10 @@ namespace Fanex.Athena.Report.Core.Services
                     sportName = _cacheRefAdapter.GetSportName(SportType.Kabaddi);
                     break;
 
+                case HardCodeSportType.SabaSoccerMarble:
+                    sportName = ViewResources.SoccerMarble;
+                    break;
+
                 default:
                     _cacheRefAdapter.GetSportName(sportType);
                     break;
