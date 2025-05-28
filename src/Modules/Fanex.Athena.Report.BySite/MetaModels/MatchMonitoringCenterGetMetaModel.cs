@@ -14,7 +14,11 @@ public class MatchMonitoringCenterGetMetaModel : ICurrencyIdMetaModel, IAgentMet
 
     public int CurrencyId { get; set; }
 
+    public string CurrencyName { get; set; }
+
     public string BaseCurrency { get; set; }
+
+    public string BaseCurrencyName { get; set; }
 
     public string AgentListXml { get; set; }
 }

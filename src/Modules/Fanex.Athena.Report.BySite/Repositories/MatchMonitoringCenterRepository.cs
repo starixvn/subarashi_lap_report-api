@@ -170,4 +170,91 @@ public class MatchMonitoringCenterRepository(
 
         return db.GetResult();
     }
+
+    public async Task<IEnumerable<LicenseeMatchMonitoringSetting>> GetAlertRule(int monitoringID)
+    {
+        const string uspName = "Lrf_LicenseeMatchMonitoringSetting_Sel";
+        using var db = ObjectDbFactory.CreateInstance(uspName);
+
+        db.SetParameterValue("MonitoringID", monitoringID);
+
+        var results = new List<LicenseeMatchMonitoringSetting>();
+
+        using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+        {
+            while (reader.Read())
+            {
+                results.Add(new LicenseeMatchMonitoringSetting
+                {
+                    SettingID = reader.GetInt32(reader.GetOrdinal("SettingID")),
+                    SettingName = reader.GetString(reader.GetOrdinal("SettingName")),
+                    ConditionTypeName = reader.GetString(reader.GetOrdinal("ConditionTypeName")).ToLowerInvariant(),
+                    BaseCurrency = reader.GetString(reader.GetOrdinal("BaseCurrency")),
+                    NotificationInterval = reader.GetInt16(reader.GetOrdinal("NotificationInterval")),
+                    Rules = reader.GetString(reader.GetOrdinal("Rules"))
+                });
+            }
+        }
+
+        return results;
+    }
+
+    public async Task<ResultInfo> InsertAlertRule(AlertRuleMetaModel model)
+    {
+        const string uspName = "Lrf_LicenseeMatchMonitoringSetting_Ins";
+        using var db = ObjectDbFactory.CreateInstance(uspName);
+
+        db.SetParameterValue("MonitoringID", model.MonitoringID);
+        db.SetParameterValue("SettingId", model.SettingId);
+        db.SetParameterValue("SettingName", model.SettingName);
+        db.SetParameterValue("ConditionType", model.ConditionType);
+        db.SetParameterValue("BaseCurrency", model.BaseCurrency);
+        db.SetParameterValue("NotificationInterval", model.NotificationInterval);
+        db.SetParameterValue("RulesJson", model.RulesJson);
+        db.SetParameterValue("UserId", model.UserId);
+        db.SetParameterValue("IP", model.IP);
+
+        db.AddResultParam();
+
+        await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+        return db.GetResult();
+    }
+
+    public async Task<ResultInfo> UpdateAlertRule(AlertRuleMetaModel model)
+    {
+        const string uspName = "Lrf_LicenseeMatchMonitoringSetting_Upd";
+        using var db = ObjectDbFactory.CreateInstance(uspName);
+
+        db.SetParameterValue("SettingId", model.SettingId);
+        db.SetParameterValue("SettingName", model.SettingName);
+        db.SetParameterValue("ConditionType", model.ConditionType);
+        db.SetParameterValue("BaseCurrency", model.BaseCurrency);
+        db.SetParameterValue("NotificationInterval", model.NotificationInterval);
+        db.SetParameterValue("RulesJson", model.RulesJson);
+        db.SetParameterValue("UserId", model.UserId);
+        db.SetParameterValue("IP", model.IP);
+
+        db.AddResultParam();
+
+        await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+        return db.GetResult();
+    }
+
+    public async Task<ResultInfo> DeleteAlertRule(int settingId, int userId, string ip)
+    {
+        const string uspName = "Lrf_LicenseeMatchMonitoringSetting_Del";
+        using var db = ObjectDbFactory.CreateInstance(uspName);
+
+        db.SetParameterValue("SettingId", settingId);
+        db.SetParameterValue("UserId", userId);
+        db.SetParameterValue("IP", ip);
+
+        db.AddResultParam();
+
+        await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+        return db.GetResult();
+    }
 }

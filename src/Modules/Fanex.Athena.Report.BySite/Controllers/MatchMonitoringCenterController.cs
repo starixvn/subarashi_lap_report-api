@@ -103,4 +103,49 @@ public class MatchMonitoringCenterController(
     {
         metaModel.LicenseeId = contextService.LicenseeId;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAlertRule(int monitoringId)
+    {
+        var result = await matchMonitoringCenterService.GetAlertRule(monitoringId);
+        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToArray();
+
+        return Ok(new
+        {
+            DataList = result,
+            BaseCurrencyList = baseCurrencyList,
+            contextService.DefaultBaseCurrency
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> InsertAlertRule([FromBody] AlertRuleMetaModel model)
+    {
+        model.UserId = contextService.UserId;
+        model.IP = contextService.ClientIP;
+
+        var result = await matchMonitoringCenterService.InsertAlertRule(model);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateAlertRule([FromBody] AlertRuleMetaModel model)
+    {
+        model.UserId = contextService.UserId;
+        model.IP = contextService.ClientIP;
+
+        var result = await matchMonitoringCenterService.UpdateAlertRule(model);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteAlertRule([FromBody] DeleteAlertRuleMetaModel model)
+    {
+        model.UserId = contextService.UserId;
+        model.IP = contextService.ClientIP;
+
+        var result = await matchMonitoringCenterService.DeleteAlertRule(model);
+        return Ok(result);
+    }
+
 }
