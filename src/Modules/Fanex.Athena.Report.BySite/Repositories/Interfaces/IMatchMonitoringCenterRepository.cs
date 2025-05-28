@@ -19,11 +19,13 @@ public interface IMatchMonitoringCenterRepository
 
     Task<ResultInfo> DeleteMonitoring(MatchMonitoringCenterUpdMetaModel metaModel);
 
-    Task<IEnumerable<LicenseeMatchMonitoringSetting>> GetAlertRule(int monitoringID);
+    Task<IEnumerable<MatchMonitoringSetting>> GetAlertRule(int monitoringID);
 
     Task<ResultInfo> InsertAlertRule(AlertRuleMetaModel model);
 
     Task<ResultInfo> UpdateAlertRule(AlertRuleMetaModel model);
 
     Task<ResultInfo> DeleteAlertRule(int settingId, int userId, string ip);
+
+    Task<IEnumerable<TriggeredAlertHistory>> GetTriggeredAlertHistory(int monitoringID);
 }

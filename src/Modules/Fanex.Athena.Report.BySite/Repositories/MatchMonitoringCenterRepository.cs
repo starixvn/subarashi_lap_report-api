@@ -171,20 +171,20 @@ public class MatchMonitoringCenterRepository(
         return db.GetResult();
     }
 
-    public async Task<IEnumerable<LicenseeMatchMonitoringSetting>> GetAlertRule(int monitoringID)
+    public async Task<IEnumerable<MatchMonitoringSetting>> GetAlertRule(int monitoringID)
     {
         const string uspName = "Lrf_LicenseeMatchMonitoringSetting_Sel";
         using var db = ObjectDbFactory.CreateInstance(uspName);
 
         db.SetParameterValue("MonitoringID", monitoringID);
 
-        var results = new List<LicenseeMatchMonitoringSetting>();
+        var results = new List<MatchMonitoringSetting>();
 
         using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
         {
             while (reader.Read())
             {
-                results.Add(new LicenseeMatchMonitoringSetting
+                results.Add(new MatchMonitoringSetting
                 {
                     SettingID = reader.GetInt32(reader.GetOrdinal("SettingID")),
                     SettingName = reader.GetString(reader.GetOrdinal("SettingName")),
@@ -256,5 +256,29 @@ public class MatchMonitoringCenterRepository(
         await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
         return db.GetResult();
+    }
+
+    public async Task<IEnumerable<TriggeredAlertHistory>> GetTriggeredAlertHistory(int monitoringID)
+    {
+        const string uspName = "Lrf_MatchMonitoring_SelTriggeredAlert";
+        using var db = ObjectDbFactory.CreateInstance(uspName);
+
+        db.SetParameterValue("MonitoringID", monitoringID);
+
+        var result = new List<TriggeredAlertHistory>();
+        using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
+        while (reader.Read())
+        {
+            string alertRules = reader.ToString("AlertRule");
+            string detectedInfos = reader.ToString("DetectedInfo");
+
+            result.Add(new TriggeredAlertHistory
+            {
+                Time = reader.ToDateTime("LogDate"),
+                AlertRules = string.IsNullOrEmpty(alertRules) ? [] : JsonConvert.DeserializeObject<List<string>>(alertRules),
+                DetectedInfos = string.IsNullOrEmpty(detectedInfos) ? [] : JsonConvert.DeserializeObject<List<string>>(detectedInfos)
+            });
+        }
+        return result;
     }
 }

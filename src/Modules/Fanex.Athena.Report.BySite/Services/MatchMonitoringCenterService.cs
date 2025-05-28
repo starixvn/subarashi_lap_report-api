@@ -41,7 +41,7 @@ public class MatchMonitoringCenterService(
         return await matchMonitoringCenterRepository.DeleteMonitoring(metaModel);
     }
 
-    public async Task<IEnumerable<LicenseeMatchMonitoringSetting>> GetAlertRule(int monitoringID)
+    public async Task<IEnumerable<MatchMonitoringSetting>> GetAlertRule(int monitoringID)
     {
         var results = await matchMonitoringCenterRepository.GetAlertRule(monitoringID);
 
@@ -73,6 +73,11 @@ public class MatchMonitoringCenterService(
     public async Task<ResultInfo> DeleteAlertRule(DeleteAlertRuleMetaModel model)
     {
         return await matchMonitoringCenterRepository.DeleteAlertRule(model.SettingId, model.UserId, model.IP);
+    }
+
+    public async Task<IEnumerable<TriggeredAlertHistory>> GetTriggeredAlertHistory(int monitoringID)
+    {
+        return await matchMonitoringCenterRepository.GetTriggeredAlertHistory(monitoringID);
     }
 
     private AlertRuleMetaModel CreateRepositoryModel(AlertRuleMetaModel model, string rulesJson)

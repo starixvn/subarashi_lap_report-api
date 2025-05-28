@@ -105,6 +105,13 @@ public class MatchMonitoringCenterController(
     }
 
     [HttpGet]
+    public async Task<IActionResult> GetTriggeredAlertHistory(int monitoringId)
+    {
+        var result = await matchMonitoringCenterService.GetTriggeredAlertHistory(monitoringId);
+        return Ok(result);
+    }
+
+    [HttpGet]
     public async Task<IActionResult> GetAlertRule(int monitoringId)
     {
         var result = await matchMonitoringCenterService.GetAlertRule(monitoringId);
