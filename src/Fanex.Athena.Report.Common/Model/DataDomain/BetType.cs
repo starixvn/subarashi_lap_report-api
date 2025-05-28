@@ -137,5 +137,7 @@
         public const int HOTDOGPromotionPrize = 11999;
 
         public const int NBABalanceAdjustment = 17012;
+
+        public const int FIFACWCScoreChallenge = 17013;
     }
 }

@@ -83,5 +83,7 @@
         public const int PayoutHOTDOGPromotionPrize = 9501;
 
         public const int PayoutNBABalanceAdjustment = 3713;
+
+        public const int PayoutFIFACWCScoreChallenge = 3714;
     }
 }

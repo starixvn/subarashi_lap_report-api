@@ -144,7 +144,10 @@
                     Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.NBAPlayoffsLotteryPromotion)}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutNBABalanceAdjustment,
-                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.NBABalanceAdjustment)}", Checked = true }
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.NBABalanceAdjustment)}", Checked = true },
+                new()
+                { ID = ExtraPayoutMapType.PayoutFIFACWCScoreChallenge,
+                    Name = $"{ViewResources.SBPromotion} - {_cacheRefAdapter.GetBettype(BetType.FIFACWCScoreChallenge)}", Checked = true }
             };
         }
 
