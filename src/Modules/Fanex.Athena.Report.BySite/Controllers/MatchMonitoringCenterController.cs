@@ -65,19 +65,18 @@ public class MatchMonitoringCenterController(
     [RequestValidation(validateCurrency: true)]
     public async Task<ActionResult> ExportExcel([FromBody] MatchMonitoringCenterGetMetaModel metaModel)
     {
-        return NoContent();
-        // UpdateMetaModel(metaModel);
-        // var template = file.GetFileInfo("/ExcelTemplate/MatchMonitoringCenter.xls").PhysicalPath;
-        // var data = await matchMonitoringCenterService.GetData(metaModel);
-        // if (!data.Running.IsPresent() && !data.Settled.IsPresent())
-        // {
-        //     return NoContent();
-        // }
+        UpdateMetaModel(metaModel);
+        var template = file.GetFileInfo("/ExcelTemplate/MatchMonitoringCenter.xls").PhysicalPath;
+        var data = await matchMonitoringCenterService.GetData(metaModel);
+        if (!data.Running.IsPresent() && !data.Settled.IsPresent())
+        {
+            return NoContent();
+        }
 
-        // var fileContent = excel.Export(template, data, metaModel);
+        var fileContent = excel.Export(template, data, metaModel);
 
-        // var stream = new FileStream(fileContent, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
-        // return File(stream, "application/octet-stream");
+        var stream = new FileStream(fileContent, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
+        return File(stream, "application/octet-stream");
     }
 
     [HttpPost]

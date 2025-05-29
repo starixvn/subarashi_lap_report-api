@@ -1218,4 +1218,31 @@
   <data name="ProductWLC" xml:space="preserve">
     <value>W Casino</value>
   </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>Kick Off Time</value>
+  </data>
+  <data name="MatchStatus" xml:space="preserve">
+    <value>Match Status</value>
+  </data>
+  <data name="TriggeredAlert" xml:space="preserve">
+    <value>Triggered Alert</value>
+  </data>
+  <data name="AlertRules" xml:space="preserve">
+    <value>Alert Rules</value>
+  </data>
+  <data name="TotalHome" xml:space="preserve">
+    <value>Total Home</value>
+  </data>
+  <data name="TotalAway" xml:space="preserve">
+    <value>Total Away</value>
+  </data>
+  <data name="ForecastHome" xml:space="preserve">
+    <value>Forecast Home</value>
+  </data>
+  <data name="ForecastAway" xml:space="preserve">
+    <value>Forecast Away</value>
+  </data>
+  <data name="MatchMonitoringCenter" xml:space="preserve">
+    <value>Match Monitoring Center</value>
+  </data>
 </root>

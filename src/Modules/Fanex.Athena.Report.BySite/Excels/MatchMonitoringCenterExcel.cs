@@ -9,10 +9,12 @@ using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 public class MatchMonitoringCenterExcel(
     IFileService fileService,
@@ -20,153 +22,265 @@ public class MatchMonitoringCenterExcel(
     IWebHostEnvironment environment
 ) : BaseExcel(environment, fileService, excelOptionsAccessor), IMatchMonitoringCenterExcel
 {
-    // private readonly string[] _headerTextList = [
-    //     ViewResources.KickOffTime,
-    //     ViewResources.MatchStatus,
-    //     ViewResources.TriggeredAlert,
-    //     ViewResources.AlertRules,
-    //     ViewResources.Event,
-    //     $"{ViewResources.Stake} %",
-    //     ViewResources.TotalHome,
-    //     ViewResources.TotalAway,
-    //     ViewResources.ForecastHome,
-    //     ViewResources.ForecastAway
-    // ];
+    private readonly string[] _headerTextList = [
+        ViewResources.KickOffTime,
+        ViewResources.MatchStatus,
+        ViewResources.TriggeredAlert,
+        ViewResources.AlertRules,
+        ViewResources.Event,
+        $"{ViewResources.Stake} %",
+        ViewResources.TotalHome,
+        ViewResources.TotalAway,
+        ViewResources.ForecastHome,
+        ViewResources.ForecastAway
+    ];
 
     private MatchMonitoringCenter _data;
-
     private MatchMonitoringCenterGetMetaModel _metaModel;
 
-    // #region Constants
-    // private const string SheetName = "MatchMonitoringCenter";
-    // private const int TemplateSheetIndex = 0;
-    // private const int TemplateTitleRowIndex = 1;
-    // private const int TemplateHeaderRowIndex = 2;
-    // private const int TemplateDataRowIndex = 3;
-    // private const int ColumnIndex = 1;
+    #region Constants
+    private const string SheetName = "MatchMonitoringCenter";
+    private const int TemplateSheetIndex = 0;
+    private const int TemplateTitleRowIndex = 1;
+    private const int TemplateHeaderRowIndex = 2;
+    private const int TemplateRunningLeagueRowIndex = 3;
+    private const int TemplateRunningDataRowIndex = 4;
+    private const int TemplateSettledLeagueRowIndex = 5;
+    private const int TemplateSettledDataRowIndex = 6;
+    private const int TemplateDataRowIndex = 7;
 
-    // #endregion
+    private const int ColumnKickOffTime = 1;
+    private const int ColumnMatchStatus = 2;
+    private const int ColumnTriggeredAlert = 3;
+    private const int ColumnAlertRules = 4;
+    private const int ColumnEvent = 5;
+    private const int ColumnStake = 6;
+    private const int ColumnTotalHome = 7;
+    private const int ColumnTotalAway = 8;
+    private const int ColumnForecastHome = 9;
+    private const int ColumnForecastAway = 10;
+
+    #endregion
 
     public string Export(string template, MatchMonitoringCenter data, MatchMonitoringCenterGetMetaModel metaModel)
     {
-        // _metaModel = metaModel;
-        // _data = data;
+        _metaModel = metaModel;
+        _data = data;
 
-        // return CreateFileStream(template);
-        return string.Empty;
+        return CreateFileStream(template);
     }
 
-    // private string CreateFileStream(string template)
-    // {
-    //     var fileInfo = new FileInfo(template);
-    //     using var package = new ExcelPackage(fileInfo, false);
+    private string CreateFileStream(string template)
+    {
+        var fileInfo = new FileInfo(template);
+        using var package = new ExcelPackage(fileInfo, false);
 
-    //     var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
-    //     var currentSheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
+        var templateSheet = package.Workbook.Worksheets[TemplateSheetIndex];
+        var currentSheet = package.Workbook.Worksheets.Add(SheetName, templateSheet);
 
-    //     AssignTitle(currentSheet);
-    //     AssignHeader(currentSheet);
-    //     AssignSheetData(currentSheet);
+        AssignTitle(currentSheet);
+        AssignHeader(currentSheet);
+        AssignSheetData(currentSheet);
 
-    //     package.Workbook.Worksheets.Delete(TemplateSheetIndex);
-    //     var fileName = Path.Combine(EnsureFolderPath(), $"{Guid.NewGuid()}.eplus");
+        package.Workbook.Worksheets.Delete(TemplateSheetIndex);
+        var fileName = Path.Combine(EnsureFolderPath(), $"{Guid.NewGuid()}.eplus");
 
-    //     using var stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
-    //     package.SaveAs(stream);
+        using var stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
+        package.SaveAs(stream);
 
-    //     return fileName;
-    // }
+        return fileName;
+    }
 
-    // private void AssignTitle(ExcelWorksheet sheet)
-    // {
-    //     var destinationCell = sheet.Cells[TemplateTitleRowIndex, ColumnIndex, TemplateTitleRowIndex, _headerTextList.Length];
-    //     destinationCell.Merge = true;
+    private void AssignTitle(ExcelWorksheet sheet)
+    {
+        var destinationCell = sheet.Cells[TemplateTitleRowIndex, ColumnKickOffTime, TemplateTitleRowIndex, _headerTextList.Length];
+        destinationCell.Merge = true;
 
-    //     string title = string.Format(
-    //         "{0}, {1}: {2}, {3}: {4}",
-    //         ViewResources.MatchMonitoringCenter,
-    //         ViewResources.Currency,
-    //         _metaModel.CurrencyName,
-    //         ViewResources.BaseCurrency,
-    //         _metaModel.BaseCurrencyName);
+        string title = string.Format(
+            "{0} - {1}: {2}, {3}: {4}",
+            ViewResources.MatchMonitoringCenter,
+            ViewResources.Currency,
+            _metaModel.CurrencyName,
+            ViewResources.BaseCurrency,
+            _metaModel.BaseCurrencyName);
 
-    //     sheet.SetValue(TemplateTitleRowIndex, ColumnIndex, title);
-    // }
+        sheet.SetValue(TemplateTitleRowIndex, ColumnKickOffTime, title);
+    }
 
-    // private void AssignHeader(ExcelWorksheet sheet)
-    // {
-    //     for (var i = 1; i <= _headerTextList.Length; i++)
-    //     {
-    //         sheet.SetValue(TemplateHeaderRowIndex, i, _headerTextList[i - 1]);
-    //     }
+    private void AssignHeader(ExcelWorksheet sheet)
+    {
+        for (var i = 1; i <= _headerTextList.Length; i++)
+        {
+            sheet.SetValue(TemplateHeaderRowIndex, i, _headerTextList[i - 1]);
+        }
 
-    //     sheet.View.FreezePanes(TemplateDataRowIndex, ColumnIndex);
-    // }
+        sheet.View.FreezePanes(TemplateRunningLeagueRowIndex, ColumnKickOffTime);
+    }
 
-    // private void AssignSheetData(ExcelWorksheet sheet)
-    // {
-    //     var rowIndex = 0;
-    //     AssignRunningData(sheet, ref rowIndex);
-    //     AssignSettledData(sheet, ref rowIndex);
-    // }
+    private void AssignSheetData(ExcelWorksheet sheet)
+    {
+        int currentRow = TemplateDataRowIndex;
+        AssignRunningData(sheet, ref currentRow);
+        AssignSettledData(sheet, ref currentRow);
 
-    // private void AssignRunningData(ExcelWorksheet sheet, ref int rowIndex)
-    // {
-    //     if (_data.Running.Count() > 1)
-    //     {
-    //         sheet.InsertRow(TemplateDataRowIndex + 1, _data.Running.Count() - 1, TemplateDataRowIndex);
-    //     }
-    //     foreach (var rowData in _data.Running)
-    //     {
-    //         var realIndex = rowIndex + TemplateDataRowIndex;
-    //         sheet.SetValue(realIndex, ColumnIndex, rowIndex + 1);
+        sheet.DeleteRow(TemplateRunningLeagueRowIndex, TemplateDataRowIndex - TemplateRunningLeagueRowIndex);
+    }
 
-    //         AssignCommonData(sheet, rowData, realIndex);
+    private void AssignRunningData(ExcelWorksheet sheet, ref int currentRow)
+    {
+        if (!_data.Running.IsPresent())
+        {
+            return;
+        }
 
-    //         rowIndex++;
-    //     }
-    // }
+        var runningDataByLeague = _data.Running.GroupBy(item => item.LeagueId)
+            .Select(group => new
+            {
+                LeagueId = group.Key,
+                LeagueName = group.First().LeagueName,
+                Items = group.ToList()
+            })
+            .ToList();
 
-    // private void AssignSettledData(ExcelWorksheet sheet, ref int rowIndex)
-    // {
-    //     if (_data.Settled.Count() > 1)
-    //     {
-    //         sheet.InsertRow(TemplateDataRowIndex + 1, _data.Settled.Count() - 1, TemplateDataRowIndex);
-    //     }
+        foreach (var league in runningDataByLeague)
+        {
+            sheet.InsertRow(currentRow, 1, TemplateRunningLeagueRowIndex);
+            sheet.SetValue(currentRow, ColumnKickOffTime, league.LeagueName);
 
-    //     foreach (var rowData in _data.Settled)
-    //     {
-    //         var realIndex = rowIndex + TemplateDataRowIndex;
-    //         sheet.SetValue(realIndex, ColumnIndex, rowIndex + 1);
+            var leagueCell = sheet.Cells[currentRow, ColumnKickOffTime, currentRow, ColumnForecastAway];
+            leagueCell.Merge = true;
+            leagueCell.Style.Font.Bold = true;
 
-    //         AssignCommonData(sheet, rowData, realIndex);
+            currentRow++;
 
-    //         rowIndex++;
-    //     }
-    // }
+            foreach (var rowData in league.Items)
+            {
+                sheet.InsertRow(currentRow, 1, TemplateRunningDataRowIndex);
+                AssignCommonData(sheet, rowData, currentRow, false);
 
-    // private void AssignCommonData(ExcelWorksheet sheet, MatchMonitoringItem rowData, int rowIndex)
-    // {
-    //     sheet.SetValue(rowIndex, ColumnReportBy,
-    //         rowData.ReportBy.ToString(_metaModel.ReportBy == ReportDaily ? "MM/dd/yyyy" : "MM/yyyy"));
-    //     sheet.SetValue(rowIndex, ColumnGroupBy, rowData.GroupBy);
-    //     sheet.SetValue(rowIndex, ColumnBetCount, rowData.BetCount);
-    //     sheet.SetValue(rowIndex, ColumnTurnOver, rowData.Turnover);
-    //     sheet.SetValue(rowIndex, ColumnCustomerComm, rowData.CustomerComm);
-    //     sheet.SetValue(rowIndex, ColumnLicenseeWl, rowData.LicenseeWinLoss);
-    //     sheet.SetValue(rowIndex, ColumnLicenseeComm, rowData.LicenseeComm);
-    //     sheet.SetValue(rowIndex, ColumnLicenseeNetWl, rowData.LicenseeNetWinLoss);
-    //     sheet.SetValue(rowIndex, ColumnMargin, rowData.Margin / Percentage);
+                currentRow++;
+            }
+        }
+    }
 
-    //     if (rowData.ForecastAway > 0)
-    //     {
-    //         sheet.Cells[rowIndex, ColumnLicenseeWl].Style.Font.Color.SetColor(Color.Red);
-    //     }
+    private void AssignSettledData(ExcelWorksheet sheet, ref int currentRow)
+    {
+        if (!_data.Settled.IsPresent())
+        {
+            return;
+        }
 
-    //     if (rowData.ForecastHome > 0)
-    //     {
-    //         sheet.Cells[rowIndex, ColumnLicenseeNetWl].Style.Font.Color.SetColor(Color.Red);
-    //     }
-    // }
+        var settledDataByLeague = _data.Settled.GroupBy(item => item.LeagueId)
+            .Select(group => new
+            {
+                LeagueId = group.Key,
+                LeagueName = group.First().LeagueName,
+                Items = group.ToList()
+            })
+            .ToList();
+
+        foreach (var league in settledDataByLeague)
+        {
+            sheet.InsertRow(currentRow, 1, TemplateSettledLeagueRowIndex);
+            sheet.SetValue(currentRow, ColumnKickOffTime, league.LeagueName);
+
+            var leagueCell = sheet.Cells[currentRow, ColumnKickOffTime, currentRow, ColumnForecastAway];
+            leagueCell.Merge = true;
+            leagueCell.Style.Font.Bold = true;
+
+            currentRow++;
+
+            foreach (var rowData in league.Items)
+            {
+                sheet.InsertRow(currentRow, 1, TemplateSettledDataRowIndex);
+                AssignCommonData(sheet, rowData, currentRow, true);
+
+                currentRow++;
+            }
+        }
+    }
+
+    private void AssignCommonData(ExcelWorksheet sheet, MatchMonitoringItem rowData, int rowIndex, bool isSettled)
+    {
+        sheet.SetValue(rowIndex, ColumnKickOffTime, rowData.KickOffTimeString);
+        AssignMatchStatus(sheet, rowData, rowIndex);
+        sheet.SetValue(rowIndex, ColumnTriggeredAlert, rowData.IsAlerted ? ViewResources.Yes : ViewResources.No);
+        sheet.SetValue(rowIndex, ColumnAlertRules, rowData.AlertRules);
+        sheet.SetValue(rowIndex, ColumnEvent, rowData.MatchName);
+
+        if (isSettled)
+        {
+            sheet.SetValue(rowIndex, ColumnStake, "-");
+            sheet.SetValue(rowIndex, ColumnTotalHome, "-");
+            sheet.SetValue(rowIndex, ColumnTotalAway, "-");
+            sheet.SetValue(rowIndex, ColumnForecastHome, "-");
+            sheet.SetValue(rowIndex, ColumnForecastAway, "-");
+        }
+        else
+        {
+            AssignStake(sheet, rowData, rowIndex);
+            sheet.SetValue(rowIndex, ColumnTotalHome, rowData.TotalHome);
+            sheet.SetValue(rowIndex, ColumnTotalAway, rowData.TotalAway);
+            sheet.SetValue(rowIndex, ColumnForecastHome, rowData.ForecastHome);
+            sheet.SetValue(rowIndex, ColumnForecastAway, rowData.ForecastAway);
+
+            if (rowData.ForecastHome > 0)
+            {
+                sheet.Cells[rowIndex, ColumnForecastHome].Style.Font.Color.SetColor(Color.Red);
+            }
+
+            if (rowData.ForecastAway > 0)
+            {
+                sheet.Cells[rowIndex, ColumnForecastAway].Style.Font.Color.SetColor(Color.Red);
+            }
+        }
+    }
+
+    private void AssignMatchStatus(ExcelWorksheet sheet, MatchMonitoringItem rowData, int rowIndex)
+    {
+        if (rowData.LiveIndicator)
+        {
+            string liveText = ViewResources.Live;
+            string scoreText = $"{rowData.LiveHomeScore} - {rowData.LiveAwayScore}";
+
+            var cell = sheet.Cells[rowIndex, ColumnMatchStatus];
+            cell.Style.WrapText = true;
+
+            var richText = cell.RichText;
+            richText.Clear();
+
+            richText.Add(liveText);
+            var score = richText.Add("\n" + scoreText);
+            score.Color = Color.Red;
+        }
+        else
+        {
+            sheet.SetValue(rowIndex, ColumnMatchStatus, ViewResources.NoneLive);
+        }
+    }
+
+    private void AssignStake(ExcelWorksheet sheet, MatchMonitoringItem rowData, int rowIndex)
+    {
+        decimal totalStake = rowData.HomeStake + rowData.AwayStake;
+        decimal homeStakePercent = totalStake > 0 ? (rowData.HomeStake / totalStake) * 100 : 0;
+        decimal awayStakePercent = 100 - homeStakePercent;
+
+        var cell = sheet.Cells[rowIndex, ColumnStake];
+        cell.Style.WrapText = true;
+
+        var richText = cell.RichText;
+        richText.Clear();
+
+        string homeText = $"Home: {rowData.HomeStake:F2} ({homeStakePercent:F2}%)";
+        string awayText = $"Away: {rowData.AwayStake:F2} ({awayStakePercent:F2}%)";
+
+        var homeLine = richText.Add(homeText);
+        homeLine.Color = Color.Blue;
+        homeLine.Bold = true;
+
+        var awayLine = richText.Add("\n" + awayText);
+        awayLine.Color = Color.Red;
+        awayLine.Bold = true;
+    }
 }
 

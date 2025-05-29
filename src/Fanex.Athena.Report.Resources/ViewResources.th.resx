@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -120,110 +120,26 @@
   <data name="AB" xml:space="preserve">
     <value>เดิมพันทั้งหมด</value>
   </data>
-  <data name="AbnormalBet" xml:space="preserve">
-    <value>การเดิมพันที่ผิดปกติ</value>
-  </data>
-  <data name="ActualStake" xml:space="preserve">
-    <value>เงินเดิมพันจริง</value>
-  </data>
-  <data name="Adjustment" xml:space="preserve">
-    <value>การปรับ</value>
-  </data>
-  <data name="AffiliateTransfer" xml:space="preserve">
-    <value>โอนให้พันธมิตร</value>
-  </data>
   <data name="All" xml:space="preserve">
     <value>ทั้งหมด</value>
   </data>
   <data name="AllCurrencies" xml:space="preserve">
     <value>สกุลเงินทั้งหมด</value>
   </data>
-  <data name="Amount" xml:space="preserve">
-    <value>จำนวน</value>
-  </data>
-  <data name="AmountDueToBA" xml:space="preserve">
-    <value>จำนวนเงินจาก BA</value>
-  </data>
-  <data name="AmtDueToBA" xml:space="preserve">
-    <value>จำนวนเงินจาก BA</value>
-  </data>
-  <data name="AP" xml:space="preserve">
-    <value>AdvantPlay</value>
-  </data>
-  <data name="APM" xml:space="preserve">
-    <value>AdvantPlay มินิ</value>
-  </data>
   <data name="Asia" xml:space="preserve">
     <value>เอเชีย</value>
-  </data>
-  <data name="Away" xml:space="preserve">
-    <value>ทีมเยือน</value>
   </data>
   <data name="BA" xml:space="preserve">
     <value>BA</value>
   </data>
-  <data name="BACommission" xml:space="preserve">
-    <value>ค่าคอมมิชชั่นBA</value>
-  </data>
-  <data name="Balance" xml:space="preserve">
-    <value>ยอดคงเหลือ</value>
-  </data>
-  <data name="BaseCurrency" xml:space="preserve">
-    <value>สกุลเงินหลัก</value>
-  </data>
-  <data name="BasketballPinGoal" xml:space="preserve">
-    <value>บาสเกตบอล PinGoal</value>
-  </data>
-  <data name="BetCount" xml:space="preserve">
-    <value>จำนวนเดิมพัน</value>
-  </data>
-  <data name="BetfromOthers" xml:space="preserve">
-    <value>อื่นๆ</value>
-  </data>
-  <data name="BetType" xml:space="preserve">
-    <value>ประเภทการเดิมพัน</value>
-  </data>
-  <data name="BGG" xml:space="preserve">
-    <value>BG</value>
-  </data>
-  <data name="Bonus" xml:space="preserve">
-    <value>โบนัส</value>
-  </data>
-  <data name="BreakdownBy" xml:space="preserve">
-    <value>แบ่งตาม</value>
-  </data>
-  <data name="BTC" xml:space="preserve">
-    <value>Bitcoin</value>
-  </data>
-  <data name="CashOutWinLoss" xml:space="preserve">
-    <value>เงินออก แพ้ชนะ</value>
-  </data>
   <data name="CC" xml:space="preserve">
     <value>Arcadia Gaming</value>
   </data>
-  <data name="CCB" xml:space="preserve">
-    <value>โบนัสการเล่นเกมArcadia</value>
-  </data>
-  <data name="CG" xml:space="preserve">
-    <value>CG</value>
-  </data>
-  <data name="ChatRoom" xml:space="preserve">
-    <value>ห้องแชท</value>
-  </data>
-  <data name="Choice" xml:space="preserve">
-    <value>การเลือก</value>
-  </data>
-  <data name="ClosingBalance" xml:space="preserve">
-    <value>ยอดปิดบัญชี</value>
-  </data>
-  <data name="CO" xml:space="preserve">
-    <value>เงินออก</value>
+  <data name="DesktopChina" xml:space="preserve">
+    <value>เดสก์ทอปจีน</value>
   </data>
   <data name="Comm" xml:space="preserve">
     <value>ค่าคอมมิชชั่น</value>
-  </data>
-  <data name="ContributionAmount" xml:space="preserve">
-    <value>จำนวนเงินสมทบ</value>
   </data>
   <data name="CS" xml:space="preserve">
     <value>Saba Casino</value>
@@ -231,62 +147,212 @@
   <data name="Currency" xml:space="preserve">
     <value>สกุลเงิน</value>
   </data>
-  <data name="CustomerAmount" xml:space="preserve">
-    <value>จำนวนลูกค้า</value>
-  </data>
-  <data name="CustomerBalance" xml:space="preserve">
-    <value>ยอดคงเหลือลูกค้า</value>
-  </data>
-  <data name="CustomerClosingBalance" xml:space="preserve">
-    <value>ยอดปิดของลูกค้า</value>
-  </data>
-  <data name="CustomerWinLossTitle" xml:space="preserve">
-    <value>ลูกค้าแพ้ชนะ, {0} --&gt; {1} - {2}</value>
-  </data>
   <data name="CustomerW_L" xml:space="preserve">
     <value>ลูกค้าแพ้ชนะ</value>
-  </data>
-  <data name="DailyBets" xml:space="preserve">
-    <value>เดิมพันรายวัน</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>วันที่</value>
   </data>
   <data name="DeepLink" xml:space="preserve">
     <value>Deep Link</value>
   </data>
-  <data name="Deposit" xml:space="preserve">
-    <value>ฝากเงิน</value>
+  <data name="Euro" xml:space="preserve">
+    <value>ยูโร</value>
   </data>
-  <data name="Desktop" xml:space="preserve">
-    <value>คอมพิวเตอร์ตั้งโต๊ะ</value>
+  <data name="KN" xml:space="preserve">
+    <value>RNG เกมคีโน</value>
   </data>
-  <data name="DesktopChina" xml:space="preserve">
-    <value>เดสก์ทอปจีน</value>
+  <data name="LicenseeW_L" xml:space="preserve">
+    <value>ผู้ได้รับอนุญาต แพ้ชนะ</value>
   </data>
-  <data name="DesktopGalaxy" xml:space="preserve">
-    <value>เดสก์ท็อปแกแล็กซี่</value>
+  <data name="LT" xml:space="preserve">
+    <value>ลอตเตอรี่</value>
+  </data>
+  <data name="MobileStandard" xml:space="preserve">
+    <value>มาตรฐานมือถือ</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>แอพมือถือ</value>
+  </data>
+  <data name="MobileCompact" xml:space="preserve">
+    <value>มือถือเคลื่อนที่</value>
   </data>
   <data name="DesktopNewAsia" xml:space="preserve">
     <value>เดสก์ท็อป นิวเอเชีย</value>
   </data>
-  <data name="DesktopOthers" xml:space="preserve">
-    <value>เดสก์ท็อปอื่นๆ</value>
+  <data name="NG" xml:space="preserve">
+    <value>เกมตัวเลข</value>
   </data>
-  <data name="Detail" xml:space="preserve">
-    <value>รายละเอียด</value>
+  <data name="NoInfo" xml:space="preserve">
+    <value>ไม่มีข้อมูล</value>
   </data>
-  <data name="DiscountValue" xml:space="preserve">
-    <value>มูลค่าส่วนลด</value>
+  <data name="Others" xml:space="preserve">
+    <value>อื่นๆ</value>
+  </data>
+  <data name="Platform" xml:space="preserve">
+    <value>แพลตฟอร์ม</value>
+  </data>
+  <data name="PlatformWinLossTitle" xml:space="preserve">
+    <value>แพลตฟอร์ม แพ้ชนะ - {0} --&gt; {1} - {2} - {3} - {4}</value>
+  </data>
+  <data name="PP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>ผลิตภัณฑ์</value>
+  </data>
+  <data name="SB" xml:space="preserve">
+    <value>สปอร์ตบุ๊ค</value>
+  </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>แท็บแล็ต</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>ทั้งหมด</value>
+  </data>
+  <data name="TotalTransaction" xml:space="preserve">
+    <value>ธุรกรรมทั้งหมด</value>
+  </data>
+  <data name="Turnover" xml:space="preserve">
+    <value>เทิร์นโอเวอร์</value>
+  </data>
+  <data name="TurnoverPercent" xml:space="preserve">
+    <value>%เทิร์นโอเวอร์</value>
+  </data>
+  <data name="VB" xml:space="preserve">
+    <value>Macau Games</value>
+  </data>
+  <data name="VS" xml:space="preserve">
+    <value>กีฬาเสมือนจริง</value>
+  </data>
+  <data name="VS2" xml:space="preserve">
+    <value>กีฬาเสมือนจริง 2</value>
+  </data>
+  <data name="WinLoss" xml:space="preserve">
+    <value>แพ้ชนะ</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>ดูใน {0}</value>
+  </data>
+  <data name="AmtDueToBA" xml:space="preserve">
+    <value>จำนวนเงินจาก BA</value>
+  </data>
+  <data name="BACommission" xml:space="preserve">
+    <value>ค่าคอมมิชชั่นBA</value>
+  </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>รหัสภายนอก</value>
+  </data>
+  <data name="SystemId" xml:space="preserve">
+    <value>รหัสระบบ</value>
+  </data>
+  <data name="EffectiveBettingValue" xml:space="preserve">
+    <value>มูลค่าการเดิมพันที่มีประสิทธิภาพ</value>
+  </data>
+  <data name="CustomerWinLossTitle" xml:space="preserve">
+    <value>ลูกค้าแพ้ชนะ, {0} --&gt; {1} - {2}</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
+  </data>
+  <data name="LC" xml:space="preserve">
+    <value>คาสิโนแทงบอลสด</value>
   </data>
   <data name="Draw" xml:space="preserve">
     <value>เสมอ</value>
   </data>
+  <data name="Lost" xml:space="preserve">
+    <value>เสีย</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>ชนะ</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>ประเภทการเดิมพัน</value>
+  </data>
+  <data name="PlayerName" xml:space="preserve">
+    <value>ชื่อผู้เล่น</value>
+  </data>
+  <data name="RefNo" xml:space="preserve">
+    <value>หมายเลขอ้างอิง</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="TransTime" xml:space="preserve">
+    <value>เวลาส่ง</value>
+  </data>
+  <data name="Totalin" xml:space="preserve">
+    <value>รวมใน {0}</value>
+  </data>
+  <data name="Win" xml:space="preserve">
+    <value>ชนะ</value>
+  </data>
+  <data name="Loss" xml:space="preserve">
+    <value>แพ้</value>
+  </data>
+  <data name="AffiliateTransfer" xml:space="preserve">
+    <value>โอนให้พันธมิตร</value>
+  </data>
+  <data name="ClosingBalance" xml:space="preserve">
+    <value>ยอดปิดบัญชี</value>
+  </data>
+  <data name="SPR" xml:space="preserve">
+    <value>Saba โปรโมชั่น</value>
+  </data>
+  <data name="ProductSPR" xml:space="preserve">
+    <value>Saba โปรโมชั่น</value>
+  </data>
   <data name="DrawGame" xml:space="preserve">
     <value>เกมเสมอ</value>
   </data>
-  <data name="EffectiveBettingValue" xml:space="preserve">
-    <value>มูลค่าการเดิมพันที่มีประสิทธิภาพ</value>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>เทิร์นโอเวอร์สุทธิ</value>
+  </data>
+  <data name="PendingFunds" xml:space="preserve">
+    <value>เงินรอดำเนินการ</value>
+  </data>
+  <data name="Adjustment" xml:space="preserve">
+    <value>การปรับ</value>
+  </data>
+  <data name="Bonus" xml:space="preserve">
+    <value>โบนัส</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>ฝากเงิน</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>ยอดคงเหลือตอนเปิดบัญชี</value>
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>ถอนเงิน</value>
+  </data>
+  <data name="SummaryTotalIn" xml:space="preserve">
+    <value>ทั้งหมด {0} ใน {1}</value>
+  </data>
+  <data name="BetfromOthers" xml:space="preserve">
+    <value>อื่นๆ</value>
+  </data>
+  <data name="NativeApp" xml:space="preserve">
+    <value>Native APP</value>
+  </data>
+  <data name="CustomerBalance" xml:space="preserve">
+    <value>ยอดคงเหลือลูกค้า</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>จำนวน</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>รางวัลโปรโมชั่น</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>โปรโมชั่น</value>
+  </data>
+  <data name="PromotionType" xml:space="preserve">
+    <value>ประเภทโปรโมชั่น</value>
+  </data>
+  <data name="VRG" xml:space="preserve">
+    <value>เกมเสมือนจริง</value>
   </data>
   <data name="ESportsApp" xml:space="preserve">
     <value>APP อี-สปอร์ต</value>
@@ -297,293 +363,44 @@
   <data name="ESportsMobile" xml:space="preserve">
     <value>อี-สปอร์ต มือถือ</value>
   </data>
-  <data name="ESportsPinGoal" xml:space="preserve">
-    <value>อี-สปอร์ต PinGoal</value>
-  </data>
-  <data name="Euro" xml:space="preserve">
-    <value>ยูโร</value>
-  </data>
-  <data name="ExternalId" xml:space="preserve">
-    <value>รหัสภายนอก</value>
-  </data>
-  <data name="ExtraPayout" xml:space="preserve">
-    <value>การจ่ายเงินพิเศษ</value>
-  </data>
-  <data name="FGGL" xml:space="preserve">
-    <value>FGG</value>
-  </data>
-  <data name="FinalScore" xml:space="preserve">
-    <value>ผลคะแนนสุดท้าย</value>
-  </data>
-  <data name="FreeBets" xml:space="preserve">
-    <value>เดิมพันฟรี</value>
-  </data>
-  <data name="GameType" xml:space="preserve">
-    <value>ประเภทเกม</value>
-  </data>
-  <data name="GodOfFortuneWinLoss" xml:space="preserve">
-    <value>God ของ Fortune แพ้ชนะ</value>
-  </data>
-  <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
-    <value>God ของ Fortune แพ้ชนะ , {0} --&gt; {1} , {2}</value>
-  </data>
-  <data name="GroupBy" xml:space="preserve">
-    <value>จัดกลุ่มตาม</value>
-  </data>
-  <data name="HB" xml:space="preserve">
-    <value>Habanero</value>
-  </data>
-  <data name="HDP" xml:space="preserve">
-    <value>HDP</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>เจ้าบ้าน</value>
+  <data name="TG" xml:space="preserve">
+    <value>เกมกระดาน</value>
   </data>
   <data name="I4D" xml:space="preserve">
     <value>Togel 4D</value>
   </data>
-  <data name="IP" xml:space="preserve">
-    <value>IP</value>
-  </data>
-  <data name="IpSummary" xml:space="preserve">
-    <value>สรุปIP</value>
-  </data>
-  <data name="JIG" xml:space="preserve">
-    <value>Jili</value>
-  </data>
-  <data name="JK" xml:space="preserve">
-    <value>Joker</value>
-  </data>
-  <data name="KOTime" xml:space="preserve">
-    <value>เวลา K.O</value>
-  </data>
-  <data name="LastLogin" xml:space="preserve">
-    <value>เข้าสู่ระบบล่าสุด</value>
-  </data>
-  <data name="LC" xml:space="preserve">
-    <value>คาสิโนแทงบอลสด</value>
-  </data>
-  <data name="League" xml:space="preserve">
-    <value>ลีก</value>
-  </data>
-  <data name="LeagueWinLossTitle" xml:space="preserve">
-    <value>ชนะแพ้ตามลีก , {0} --&gt; {1} , {2}, {3}</value>
-  </data>
-  <data name="LG" xml:space="preserve">
-    <value>กีฬาเสมือนจริง 3</value>
-  </data>
-  <data name="LicenseeComm" xml:space="preserve">
-    <value>ผู้รับอนุญาตสื่อสาร</value>
-  </data>
-  <data name="LicenseeW_L" xml:space="preserve">
-    <value>ผู้ได้รับอนุญาต แพ้ชนะ</value>
-  </data>
-  <data name="LicSharingAmount" xml:space="preserve">
-    <value>จำนวนเงินที่แบ่งปันของผู้ได้รับอนุญาต</value>
-  </data>
-  <data name="Live" xml:space="preserve">
-    <value>แทงบอลสด</value>
-  </data>
-  <data name="Location" xml:space="preserve">
-    <value>ที่ตั้ง</value>
-  </data>
-  <data name="Lost" xml:space="preserve">
-    <value>เสีย</value>
-  </data>
-  <data name="Loss" xml:space="preserve">
-    <value>แพ้</value>
-  </data>
-  <data name="LT" xml:space="preserve">
-    <value>ลอตเตอรี่</value>
-  </data>
-  <data name="Margin" xml:space="preserve">
-    <value>Margin</value>
-  </data>
-  <data name="Match" xml:space="preserve">
-    <value>การแข่งขัน</value>
-  </data>
-  <data name="MixLiveAndNoneLive" xml:space="preserve">
-    <value>Mix แทงบอลสด &amp; ไม่แทงบอลสด</value>
-  </data>
-  <data name="Mobile" xml:space="preserve">
-    <value>โทรศัพท์มือถือ</value>
-  </data>
-  <data name="MobileApp" xml:space="preserve">
-    <value>แอพมือถือ</value>
-  </data>
-  <data name="MobileCompact" xml:space="preserve">
-    <value>มือถือเคลื่อนที่</value>
-  </data>
-  <data name="MobileEuro" xml:space="preserve">
-    <value>มือถือยูโร</value>
-  </data>
-  <data name="MobileGalaxy" xml:space="preserve">
-    <value>โมบายล์แกแล็กซี่</value>
-  </data>
-  <data name="MobileOthers" xml:space="preserve">
-    <value>มือถืออื่นๆ</value>
-  </data>
-  <data name="MobileStandard" xml:space="preserve">
-    <value>มาตรฐานมือถือ</value>
-  </data>
-  <data name="MXG" xml:space="preserve">
-    <value>MaxGame</value>
-  </data>
-  <data name="NativeApp" xml:space="preserve">
-    <value>Native APP</value>
-  </data>
-  <data name="NetTurnover" xml:space="preserve">
-    <value>เทิร์นโอเวอร์สุทธิ</value>
-  </data>
-  <data name="NG" xml:space="preserve">
-    <value>เกมตัวเลข</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>เลขที่</value>
-  </data>
-  <data name="NoInfo" xml:space="preserve">
-    <value>ไม่มีข้อมูล</value>
-  </data>
-  <data name="NoneLive" xml:space="preserve">
-    <value>ไม่แทงบอลสด</value>
-  </data>
-  <data name="Odds" xml:space="preserve">
-    <value>อัตราต่อรอง</value>
-  </data>
-  <data name="OpeningBalance" xml:space="preserve">
-    <value>ยอดคงเหลือตอนเปิดบัญชี</value>
-  </data>
-  <data name="Others" xml:space="preserve">
-    <value>อื่นๆ</value>
-  </data>
-  <data name="Over" xml:space="preserve">
-    <value>มากกว่า</value>
-  </data>
-  <data name="Parlay" xml:space="preserve">
-    <value>พาร์เลย์</value>
-  </data>
-  <data name="PendingFunds" xml:space="preserve">
-    <value>เงินรอดำเนินการ</value>
-  </data>
-  <data name="PGS" xml:space="preserve">
-    <value>PG Soft</value>
-  </data>
-  <data name="Platform" xml:space="preserve">
-    <value>แพลตฟอร์ม</value>
-  </data>
-  <data name="PlatformWinLossTitle" xml:space="preserve">
-    <value>แพลตฟอร์ม แพ้ชนะ - {0} --&gt; {1} - {2} - {3} - {4}</value>
-  </data>
-  <data name="PlayerComm" xml:space="preserve">
-    <value>ค่าคอมมิชชั่นผู้เล่น</value>
-  </data>
-  <data name="PlayerName" xml:space="preserve">
-    <value>ชื่อผู้เล่น</value>
-  </data>
-  <data name="PlayerW_L" xml:space="preserve">
-    <value>ผู้เล่น ชนะ/แพ้</value>
-  </data>
-  <data name="PP" xml:space="preserve">
-    <value>PP</value>
-  </data>
-  <data name="PPC" xml:space="preserve">
-    <value>PP เงินแจ็คพอตสมทบ</value>
-  </data>
-  <data name="Product" xml:space="preserve">
-    <value>ผลิตภัณฑ์</value>
-  </data>
-  <data name="Promotion" xml:space="preserve">
-    <value>โปรโมชั่น</value>
-  </data>
-  <data name="PromotionDetails" xml:space="preserve">
-    <value>รายละเอียดโปรโมชั่น</value>
-  </data>
-  <data name="PromotionPrize" xml:space="preserve">
-    <value>รางวัลโปรโมชั่น</value>
-  </data>
-  <data name="PromotionType" xml:space="preserve">
-    <value>ประเภทโปรโมชั่น</value>
-  </data>
-  <data name="Reason" xml:space="preserve">
-    <value>Reason</value>
-  </data>
-  <data name="RefNo" xml:space="preserve">
-    <value>หมายเลขอ้างอิง</value>
-  </data>
-  <data name="RunningTicketClosingBalance" xml:space="preserve">
-    <value>ยอดปิดตั๋วแข่งขัน</value>
-  </data>
-  <data name="RunningTicketList" xml:space="preserve">
-    <value>รายการตั๋วแข่งขัน</value>
-  </data>
-  <data name="Saba" xml:space="preserve">
-    <value>Saba</value>
-  </data>
-  <data name="SabaPromotionPrizes" xml:space="preserve">
-    <value>รางวัลโปรโมชั่น Saba</value>
-  </data>
-  <data name="SAG" xml:space="preserve">
-    <value>SA Gaming</value>
-  </data>
-  <data name="SB" xml:space="preserve">
-    <value>สปอร์ตบุ๊ค</value>
+  <data name="SXG" xml:space="preserve">
+    <value>AE Sexy</value>
   </data>
   <data name="SBC" xml:space="preserve">
     <value>Saba.club</value>
   </data>
-  <data name="SBCC" xml:space="preserve">
-    <value>Saba.club เงินแจ็คพอตสมทบ</value>
+  <data name="ExtraPayout" xml:space="preserve">
+    <value>การจ่ายเงินพิเศษ</value>
   </data>
-  <data name="SBCFB" xml:space="preserve">
-    <value>Saba.club เดิมพันฟรี</value>
+  <data name="PPC" xml:space="preserve">
+    <value>PP เงินแจ็คพอตสมทบ</value>
   </data>
-  <data name="SB_BA" xml:space="preserve">
-    <value>Sportsbook &amp; BA</value>
+  <data name="ContributionAmount" xml:space="preserve">
+    <value>จำนวนเงินสมทบ</value>
   </data>
-  <data name="Score" xml:space="preserve">
-    <value>คะแนน</value>
+  <data name="SabaPromotionPrizes" xml:space="preserve">
+    <value>รางวัลโปรโมชั่น Saba</value>
   </data>
-  <data name="SLT" xml:space="preserve">
-    <value>ลอตเตอรีกีฬา</value>
+  <data name="No" xml:space="preserve">
+    <value>เลขที่</value>
   </data>
-  <data name="SoccerPinGoal" xml:space="preserve">
-    <value>ฟุตบอล PinGoal</value>
+  <data name="PGS" xml:space="preserve">
+    <value>PG Soft</value>
   </data>
-  <data name="Sport" xml:space="preserve">
-    <value>กีฬา</value>
+  <data name="VIPPlayerOnly" xml:space="preserve">
+    <value>ผู้เล่นวีไอพีเท่านั้น</value>
   </data>
-  <data name="SPR" xml:space="preserve">
-    <value>Saba โปรโมชั่น</value>
+  <data name="Yes" xml:space="preserve">
+    <value>ใช่</value>
   </data>
-  <data name="Stake" xml:space="preserve">
-    <value>เงินเดิมพัน</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>สถานะ</value>
-  </data>
-  <data name="Summary" xml:space="preserve">
-    <value>สรุป</value>
-  </data>
-  <data name="SummaryTotalIn" xml:space="preserve">
-    <value>ทั้งหมด {0} ใน {1}</value>
-  </data>
-  <data name="SXG" xml:space="preserve">
-    <value>AE Sexy</value>
-  </data>
-  <data name="SystemId" xml:space="preserve">
-    <value>รหัสระบบ</value>
-  </data>
-  <data name="Tablet" xml:space="preserve">
-    <value>แท็บแล็ต</value>
-  </data>
-  <data name="TG" xml:space="preserve">
-    <value>เกมกระดาน</value>
-  </data>
-  <data name="Ticket" xml:space="preserve">
-    <value>ตั๋ว</value>
-  </data>
-  <data name="TIP" xml:space="preserve">
-    <value>ผู้เล่น Tips</value>
+  <data name="SAG" xml:space="preserve">
+    <value>SA Gaming</value>
   </data>
   <data name="TipAmount" xml:space="preserve">
     <value>จำนวนทิป</value>
@@ -594,38 +411,50 @@
   <data name="TipSharing" xml:space="preserve">
     <value>การแบ่งปันทิป</value>
   </data>
-  <data name="Total" xml:space="preserve">
-    <value>ทั้งหมด</value>
+  <data name="CCB" xml:space="preserve">
+    <value>โบนัสการเล่นเกมArcadia</value>
   </data>
-  <data name="Totalin" xml:space="preserve">
-    <value>รวมใน {0}</value>
+  <data name="GameType" xml:space="preserve">
+    <value>ประเภทเกม</value>
   </data>
-  <data name="TotalTickets" xml:space="preserve">
-    <value>ตั๋วทั้งหมด</value>
+  <data name="JK" xml:space="preserve">
+    <value>Joker</value>
   </data>
-  <data name="TotalTransaction" xml:space="preserve">
-    <value>ธุรกรรมทั้งหมด</value>
+  <data name="SBCFB" xml:space="preserve">
+    <value>Saba.club เดิมพันฟรี</value>
   </data>
-  <data name="TransId" xml:space="preserve">
-    <value>รหัสธุรกรรม</value>
+  <data name="SBCC" xml:space="preserve">
+    <value>Saba.club เงินแจ็คพอตสมทบ</value>
   </data>
-  <data name="TransTime" xml:space="preserve">
-    <value>เวลาส่ง</value>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>มือถือยูโร</value>
   </data>
-  <data name="Turnover" xml:space="preserve">
-    <value>เทิร์นโอเวอร์</value>
+  <data name="SLT" xml:space="preserve">
+    <value>ลอตเตอรีกีฬา</value>
   </data>
-  <data name="TurnoverPercent" xml:space="preserve">
-    <value>%เทิร์นโอเวอร์</value>
+  <data name="DesktopOthers" xml:space="preserve">
+    <value>เดสก์ท็อปอื่นๆ</value>
   </data>
-  <data name="Under" xml:space="preserve">
-    <value>ใต้</value>
+  <data name="MobileOthers" xml:space="preserve">
+    <value>มือถืออื่นๆ</value>
   </data>
-  <data name="Username" xml:space="preserve">
-    <value>ชื่อผู้ใช้</value>
+  <data name="HB" xml:space="preserve">
+    <value>Habanero</value>
   </data>
-  <data name="VB" xml:space="preserve">
-    <value>Macau Games</value>
+  <data name="DiscountValue" xml:space="preserve">
+    <value>มูลค่าส่วนลด</value>
+  </data>
+  <data name="WM" xml:space="preserve">
+    <value>WM</value>
+  </data>
+  <data name="GodOfFortuneWinLoss" xml:space="preserve">
+    <value>God ของ Fortune แพ้ชนะ</value>
+  </data>
+  <data name="GodOfFortuneWinLossTitle" xml:space="preserve">
+    <value>God ของ Fortune แพ้ชนะ , {0} --&gt; {1} , {2}</value>
+  </data>
+  <data name="BGG" xml:space="preserve">
+    <value>BG</value>
   </data>
   <data name="VGA" xml:space="preserve">
     <value>Vgaming</value>
@@ -636,8 +465,167 @@
   <data name="VGAFB" xml:space="preserve">
     <value>Vgaming เดิมพันฟรี</value>
   </data>
-  <data name="Viewin" xml:space="preserve">
-    <value>ดูใน {0}</value>
+  <data name="CG" xml:space="preserve">
+    <value>CG</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>จำนวนเดิมพัน</value>
+  </data>
+  <data name="BTC" xml:space="preserve">
+    <value>Bitcoin</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>ลีก</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>การแข่งขัน</value>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>สกุลเงินหลัก</value>
+  </data>
+  <data name="LeagueWinLossTitle" xml:space="preserve">
+    <value>ชนะแพ้ตามลีก , {0} --&gt; {1} , {2}, {3}</value>
+  </data>
+  <data name="Parlay" xml:space="preserve">
+    <value>พาร์เลย์</value>
+  </data>
+  <data name="Saba" xml:space="preserve">
+    <value>Saba</value>
+  </data>
+  <data name="SoccerPinGoal" xml:space="preserve">
+    <value>ฟุตบอล PinGoal</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>กีฬา</value>
+  </data>
+  <data name="AP" xml:space="preserve">
+    <value>AdvantPlay</value>
+  </data>
+  <data name="APM" xml:space="preserve">
+    <value>AdvantPlay มินิ</value>
+  </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>เงินเดิมพันจริง</value>
+  </data>
+  <data name="CustomerClosingBalance" xml:space="preserve">
+    <value>ยอดปิดของลูกค้า</value>
+  </data>
+  <data name="RunningTicketClosingBalance" xml:space="preserve">
+    <value>ยอดปิดตั๋วแข่งขัน</value>
+  </data>
+  <data name="RunningTicketList" xml:space="preserve">
+    <value>รายการตั๋วแข่งขัน</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>เงินเดิมพัน</value>
+  </data>
+  <data name="TransId" xml:space="preserve">
+    <value>รหัสธุรกรรม</value>
+  </data>
+  <data name="WinLostDate" xml:space="preserve">
+    <value>วันที่แพ้ชนะ</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>ยอดคงเหลือ</value>
+  </data>
+  <data name="CustomerAmount" xml:space="preserve">
+    <value>จำนวนลูกค้า</value>
+  </data>
+  <data name="LicSharingAmount" xml:space="preserve">
+    <value>จำนวนเงินที่แบ่งปันของผู้ได้รับอนุญาต</value>
+  </data>
+  <data name="PromotionDetails" xml:space="preserve">
+    <value>รายละเอียดโปรโมชั่น</value>
+  </data>
+  <data name="FreeBets" xml:space="preserve">
+    <value>เดิมพันฟรี</value>
+  </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>เงินออก แพ้ชนะ</value>
+  </data>
+  <data name="BasketballPinGoal" xml:space="preserve">
+    <value>บาสเกตบอล PinGoal</value>
+  </data>
+  <data name="VS3" xml:space="preserve">
+    <value>กีฬาเสมือนจริง 3 (old)</value>
+  </data>
+  <data name="FGGL" xml:space="preserve">
+    <value>FGG</value>
+  </data>
+  <data name="MXG" xml:space="preserve">
+    <value>MaxGame</value>
+  </data>
+  <data name="TIP" xml:space="preserve">
+    <value>ผู้เล่น Tips</value>
+  </data>
+  <data name="ESportsPinGoal" xml:space="preserve">
+    <value>อี-สปอร์ต PinGoal</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>แทงบอลสด</value>
+  </data>
+  <data name="MixLiveAndNoneLive" xml:space="preserve">
+    <value>Mix แทงบอลสด &amp; ไม่แทงบอลสด</value>
+  </data>
+  <data name="NoneLive" xml:space="preserve">
+    <value>ไม่แทงบอลสด</value>
+  </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>การเดิมพันที่ผิดปกติ</value>
+  </data>
+  <data name="Away" xml:space="preserve">
+    <value>ทีมเยือน</value>
+  </data>
+  <data name="Choice" xml:space="preserve">
+    <value>การเลือก</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>รายละเอียด</value>
+  </data>
+  <data name="FinalScore" xml:space="preserve">
+    <value>ผลคะแนนสุดท้าย</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>เจ้าบ้าน</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IpSummary" xml:space="preserve">
+    <value>สรุปIP</value>
+  </data>
+  <data name="KOTime" xml:space="preserve">
+    <value>เวลา K.O</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>เข้าสู่ระบบล่าสุด</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>ที่ตั้ง</value>
+  </data>
+  <data name="Over" xml:space="preserve">
+    <value>มากกว่า</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>สรุป</value>
+  </data>
+  <data name="Ticket" xml:space="preserve">
+    <value>ตั๋ว</value>
+  </data>
+  <data name="Under" xml:space="preserve">
+    <value>ใต้</value>
+  </data>
+  <data name="HDP" xml:space="preserve">
+    <value>HDP</value>
+  </data>
+  <data name="Odds" xml:space="preserve">
+    <value>อัตราต่อรอง</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>คะแนน</value>
   </data>
   <data name="ViewinDetail" xml:space="preserve">
     <value>ดูในรายละเอียด</value>
@@ -648,53 +636,80 @@
   <data name="ViewinSummary" xml:space="preserve">
     <value>ดูในบทสรุป</value>
   </data>
-  <data name="VIPPlayerOnly" xml:space="preserve">
-    <value>ผู้เล่นวีไอพีเท่านั้น</value>
+  <data name="JIG" xml:space="preserve">
+    <value>Jili</value>
   </data>
-  <data name="VRG" xml:space="preserve">
-    <value>เกมเสมือนจริง</value>
+  <data name="SB_BA" xml:space="preserve">
+    <value>Sportsbook &amp; BA</value>
   </data>
-  <data name="VS" xml:space="preserve">
-    <value>กีฬาเสมือนจริง</value>
-  </data>
-  <data name="VS2" xml:space="preserve">
-    <value>กีฬาเสมือนจริง 2</value>
-  </data>
-  <data name="Win" xml:space="preserve">
-    <value>ชนะ</value>
-  </data>
-  <data name="WinLoss" xml:space="preserve">
-    <value>แพ้ชนะ</value>
+  <data name="CO" xml:space="preserve">
+    <value>เงินออก</value>
   </data>
   <data name="WinlossAnalysis" xml:space="preserve">
     <value>วิเคราะห์ผลแพ้ชนะ</value>
   </data>
-  <data name="WinLostDate" xml:space="preserve">
-    <value>วันที่แพ้ชนะ</value>
+  <data name="PlayerW_L" xml:space="preserve">
+    <value>ผู้เล่น ชนะ/แพ้</value>
   </data>
-  <data name="Withdrawal" xml:space="preserve">
-    <value>ถอนเงิน</value>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>ค่าคอมมิชชั่นผู้เล่น</value>
   </data>
-  <data name="WM" xml:space="preserve">
-    <value>WM</value>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>ผู้รับอนุญาตสื่อสาร</value>
   </data>
-  <data name="Won" xml:space="preserve">
-    <value>ชนะ</value>
+  <data name="AmountDueToBA" xml:space="preserve">
+    <value>จำนวนเงินจาก BA</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>ใช่</value>
+  <data name="Margin" xml:space="preserve">
+    <value>Margin</value>
   </data>
-  <data name="SBPromotion" xml:space="preserve">
-    <value>โปรโมชั่น Saba Sportsbook</value>
+  <data name="GroupBy" xml:space="preserve">
+    <value>จัดกลุ่มตาม</value>
+  </data>
+  <data name="BreakdownBy" xml:space="preserve">
+    <value>แบ่งตาม</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>ห้องแชท</value>
+  </data>
+  <data name="DesktopGalaxy" xml:space="preserve">
+    <value>เดสก์ท็อปแกแล็กซี่</value>
+  </data>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>โมบายล์แกแล็กซี่</value>
+  </data>
+  <data name="LG" xml:space="preserve">
+    <value>กีฬาเสมือนจริง 3</value>
+  </data>
+  <data name="DailyBets" xml:space="preserve">
+    <value>เดิมพันรายวัน</value>
+  </data>
+  <data name="TotalTickets" xml:space="preserve">
+    <value>ตั๋วทั้งหมด</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>โทรศัพท์มือถือ</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>คอมพิวเตอร์ตั้งโต๊ะ</value>
   </data>
   <data name="CasinoPromotion" xml:space="preserve">
     <value>โปรโมชั่นคาสิโน</value>
   </data>
-  <data name="VS3" xml:space="preserve">
-    <value>กีฬาเสมือนจริง 3 (old)</value>
+  <data name="SBPromotion" xml:space="preserve">
+    <value>โปรโมชั่น Saba Sportsbook</value>
   </data>
-  <data name="BetId" xml:space="preserve">
+  <data name="BetID" xml:space="preserve">
     <value>รหัสเดิมพัน</value>
+  </data>
+  <data name="L22" xml:space="preserve">
+    <value>Live22</value>
+  </data>
+  <data name="Sportsbook" xml:space="preserve">
+    <value>สปอร์ตบุ๊ค</value>
+  </data>
+  <data name="BT" xml:space="preserve">
+    <value>Bet Trade</value>
   </data>
   <data name="ExchangeToCash" xml:space="preserve">
     <value>แลกเป็นเงินสด</value>
@@ -708,14 +723,17 @@
   <data name="DesktopCompact" xml:space="preserve">
     <value>เดสก์ท็อปคอมแพค</value>
   </data>
-  <data name="OddsBoostBonus" xml:space="preserve">
-    <value>ตัวเพิ่มอัตราต่อรอง โบนัส </value>
-  </data>
   <data name="TotalOddsBootsBonus" xml:space="preserve">
     <value>ตัวเพิ่มอัตราต่อรอง โบนัส รวม</value>
   </data>
+  <data name="OddsBoostBonus" xml:space="preserve">
+    <value>ตัวเพิ่มอัตราต่อรอง โบนัส </value>
+  </data>
   <data name="ProductAB" xml:space="preserve">
     <value>เดิมพันทั้งหมด</value>
+  </data>
+  <data name="ProductTIP" xml:space="preserve">
+    <value>ผู้เล่น Tips</value>
   </data>
   <data name="ProductMGRNG" xml:space="preserve">
     <value>MG-RNG</value>
@@ -731,9 +749,6 @@
   </data>
   <data name="ProductVGA" xml:space="preserve">
     <value>Vgaming</value>
-  </data>
-  <data name="ProductTIP" xml:space="preserve">
-    <value>ผู้เล่น Tips</value>
   </data>
   <data name="ProductL22" xml:space="preserve">
     <value>Live22</value>
@@ -762,41 +777,119 @@
   <data name="Outright" xml:space="preserve">
     <value>แทงบอลทายผลชนะเลิศ</value>
   </data>
+  <data name="ProductAGC" xml:space="preserve">
+    <value>AGคาสิโน</value>
+  </data>
+  <data name="ProductAP" xml:space="preserve">
+    <value>AdvantPlay</value>
+  </data>
   <data name="ProductBA" xml:space="preserve">
     <value>BA</value>
   </data>
-  <data name="VirtualSoccer" xml:space="preserve">
-    <value>ฟุตบอลเสมือนจริง</value>
+  <data name="ProductBGG" xml:space="preserve">
+    <value>BG</value>
   </data>
-  <data name="VirtualHorseRacing" xml:space="preserve">
-    <value>การแข่งม้าเสมือนจริง</value>
+  <data name="ProductBX" xml:space="preserve">
+    <value>แลกเปลี่ยน</value>
   </data>
-  <data name="VirtualGreyhounds" xml:space="preserve">
-    <value>Greyhounds เสมือนจริง</value>
+  <data name="ProductCC" xml:space="preserve">
+    <value>Arcadia Gaming</value>
   </data>
-  <data name="VirtualSpeedway" xml:space="preserve">
-    <value>สนามแข่งรถเสมือนจริง</value>
+  <data name="ProductCG" xml:space="preserve">
+    <value>CG</value>
   </data>
-  <data name="VirtualMotoRacing" xml:space="preserve">
-    <value>การแข่งรถเสมือนจริง</value>
-  </data>
-  <data name="VirtualCycling" xml:space="preserve">
-    <value>ปั่นจักรยานเสมือนจริง</value>
-  </data>
-  <data name="VirtualTennis" xml:space="preserve">
-    <value>เทนนิสเสมือนจริง</value>
+  <data name="ProductCO" xml:space="preserve">
+    <value>เงินออก</value>
   </data>
   <data name="ProductCS" xml:space="preserve">
     <value>Saba Casino</value>
   </data>
+  <data name="ProductFGGL" xml:space="preserve">
+    <value>FGG</value>
+  </data>
+  <data name="ProductHB" xml:space="preserve">
+    <value>Habanero</value>
+  </data>
+  <data name="ProductI4D" xml:space="preserve">
+    <value>Togel 4D</value>
+  </data>
+  <data name="ProductJIG" xml:space="preserve">
+    <value>Jili</value>
+  </data>
+  <data name="ProductJK" xml:space="preserve">
+    <value>Joker</value>
+  </data>
   <data name="ProductKN" xml:space="preserve">
     <value>RNG เกมคีโน</value>
+  </data>
+  <data name="ProductLG" xml:space="preserve">
+    <value>กีฬาเสมือนจริง 3</value>
+  </data>
+  <data name="ProductLT" xml:space="preserve">
+    <value>ลอตเตอรี่</value>
+  </data>
+  <data name="ProductMXG" xml:space="preserve">
+    <value>MaxGame</value>
+  </data>
+  <data name="ProductPGS" xml:space="preserve">
+    <value>PG Soft</value>
+  </data>
+  <data name="ProductSAG" xml:space="preserve">
+    <value>SA Gaming</value>
+  </data>
+  <data name="ProductSLT" xml:space="preserve">
+    <value>ลอตเตอรีกีฬา</value>
+  </data>
+  <data name="ProductSXG" xml:space="preserve">
+    <value>AE Sexy</value>
+  </data>
+  <data name="ProductTG" xml:space="preserve">
+    <value>เกมกระดาน</value>
   </data>
   <data name="ProductVB" xml:space="preserve">
     <value>Macau Games</value>
   </data>
+  <data name="ProductVRG" xml:space="preserve">
+    <value>เกมเสมือนจริง</value>
+  </data>
   <data name="ProductVS2" xml:space="preserve">
     <value>กีฬาเสมือนจริง 2</value>
+  </data>
+  <data name="ProductVS3" xml:space="preserve">
+    <value>กีฬาเสมือนจริง 3 (old)</value>
+  </data>
+  <data name="ProductWM" xml:space="preserve">
+    <value>WM</value>
+  </data>
+  <data name="VirtualBasketball" xml:space="preserve">
+    <value>บาสเก็ตบอลเสมือนจริง</value>
+  </data>
+  <data name="VirtualCycling" xml:space="preserve">
+    <value>ปั่นจักรยานเสมือนจริง</value>
+  </data>
+  <data name="VirtualGreyhounds" xml:space="preserve">
+    <value>Greyhounds เสมือนจริง</value>
+  </data>
+  <data name="VirtualHorseRacing" xml:space="preserve">
+    <value>การแข่งม้าเสมือนจริง</value>
+  </data>
+  <data name="VirtualMotoRacing" xml:space="preserve">
+    <value>การแข่งรถเสมือนจริง</value>
+  </data>
+  <data name="VirtualSoccer" xml:space="preserve">
+    <value>ฟุตบอลเสมือนจริง</value>
+  </data>
+  <data name="VirtualSoccerAsianCup" xml:space="preserve">
+    <value>ฟุตบอลเสมือนจริงเอเชียนคัพ</value>
+  </data>
+  <data name="VirtualSoccerChampionsCup" xml:space="preserve">
+    <value>ถ้วยแชมป์ฟุตบอลเสมือนจริง</value>
+  </data>
+  <data name="VirtualSoccerEnglishPremier" xml:space="preserve">
+    <value>ฟุตบอลเสมือนจริงพรีเมียร์อังกฤษ</value>
+  </data>
+  <data name="VirtualSoccerEuroCup" xml:space="preserve">
+    <value>ฟุตบอลเสมือนจริงยูโรคัพ</value>
   </data>
   <data name="VirtualSoccerLeague" xml:space="preserve">
     <value>ลีกฟุตบอลเสมือนจริง</value>
@@ -807,89 +900,11 @@
   <data name="VirtualSoccerWorldCup" xml:space="preserve">
     <value>ฟุตบอลโลกเสมือนจริง</value>
   </data>
-  <data name="VirtualBasketball" xml:space="preserve">
-    <value>บาสเก็ตบอลเสมือนจริง</value>
+  <data name="VirtualSpeedway" xml:space="preserve">
+    <value>สนามแข่งรถเสมือนจริง</value>
   </data>
-  <data name="VirtualSoccerAsianCup" xml:space="preserve">
-    <value>ฟุตบอลเสมือนจริงเอเชียนคัพ</value>
-  </data>
-  <data name="VirtualSoccerEnglishPremier" xml:space="preserve">
-    <value>ฟุตบอลเสมือนจริงพรีเมียร์อังกฤษ</value>
-  </data>
-  <data name="VirtualSoccerChampionsCup" xml:space="preserve">
-    <value>ถ้วยแชมป์ฟุตบอลเสมือนจริง</value>
-  </data>
-  <data name="VirtualSoccerEuroCup" xml:space="preserve">
-    <value>ฟุตบอลเสมือนจริงยูโรคัพ</value>
-  </data>
-  <data name="ProductLT" xml:space="preserve">
-    <value>ลอตเตอรี่</value>
-  </data>
-  <data name="ProductCC" xml:space="preserve">
-    <value>Arcadia Gaming</value>
-  </data>
-  <data name="ProductAGC" xml:space="preserve">
-    <value>AGคาสิโน</value>
-  </data>
-  <data name="ProductVRG" xml:space="preserve">
-    <value>เกมเสมือนจริง</value>
-  </data>
-  <data name="ProductTG" xml:space="preserve">
-    <value>เกมกระดาน</value>
-  </data>
-  <data name="ProductI4D" xml:space="preserve">
-    <value>Togel 4D</value>
-  </data>
-  <data name="ProductSXG" xml:space="preserve">
-    <value>AE Sexy</value>
-  </data>
-  <data name="ProductSAG" xml:space="preserve">
-    <value>SA Gaming</value>
-  </data>
-  <data name="ProductPGS" xml:space="preserve">
-    <value>PG Soft</value>
-  </data>
-  <data name="ProductJK" xml:space="preserve">
-    <value>Joker</value>
-  </data>
-  <data name="ProductSLT" xml:space="preserve">
-    <value>ลอตเตอรีกีฬา</value>
-  </data>
-  <data name="ProductHB" xml:space="preserve">
-    <value>Habanero</value>
-  </data>
-  <data name="ProductWM" xml:space="preserve">
-    <value>WM</value>
-  </data>
-  <data name="ProductBGG" xml:space="preserve">
-    <value>BG</value>
-  </data>
-  <data name="ProductCG" xml:space="preserve">
-    <value>CG</value>
-  </data>
-  <data name="ProductCO" xml:space="preserve">
-    <value>เงินออก</value>
-  </data>
-  <data name="ProductBX" xml:space="preserve">
-    <value>แลกเปลี่ยน</value>
-  </data>
-  <data name="ProductAP" xml:space="preserve">
-    <value>AdvantPlay</value>
-  </data>
-  <data name="ProductVS3" xml:space="preserve">
-    <value>กีฬาเสมือนจริง 3 (old)</value>
-  </data>
-  <data name="ProductFGGL" xml:space="preserve">
-    <value>FGG</value>
-  </data>
-  <data name="ProductMXG" xml:space="preserve">
-    <value>MaxGame</value>
-  </data>
-  <data name="ProductJIG" xml:space="preserve">
-    <value>Jili</value>
-  </data>
-  <data name="ProductLG" xml:space="preserve">
-    <value>กีฬาเสมือนจริง 3</value>
+  <data name="VirtualTennis" xml:space="preserve">
+    <value>เทนนิสเสมือนจริง</value>
   </data>
   <data name="ProductAPM" xml:space="preserve">
     <value>AdvantPlay มินิ</value>
@@ -951,27 +966,6 @@
   <data name="SettlementTime" xml:space="preserve">
     <value>เวลาการชำระเงิน</value>
   </data>
-  <data name="KN" xml:space="preserve">
-    <value>RNG เกมคีโน</value>
-  </data>
-  <data name="WinLossByTimeZone" xml:space="preserve">
-    <value>แพ้ชนะตามเขตเวลา</value>
-  </data>
-  <data name="Month" xml:space="preserve">
-    <value>เดือน</value>
-  </data>
-  <data name="CustomerComm" xml:space="preserve">
-    <value>ค่าคอมมิชชั่นลูกค้า</value>
-  </data>
-  <data name="LicenseeWL" xml:space="preserve">
-    <value>ผู้ได้รับอนุญาต แพ้ชนะ</value>
-  </data>
-  <data name="LicenseeNetWL" xml:space="preserve">
-    <value>ผู้ได้รับอนุญาต แพ้ชนะสุทธิ</value>
-  </data>
-  <data name="Sportsbook" xml:space="preserve">
-    <value>สปอร์ตบุ๊ค</value>
-  </data>
   <data name="Handicap" xml:space="preserve">
     <value>แฮนดิแคป</value>
   </data>
@@ -1026,14 +1020,8 @@
   <data name="AGC" xml:space="preserve">
     <value>AGคาสิโน</value>
   </data>
-  <data name="BT" xml:space="preserve">
-    <value>Bet Trade</value>
-  </data>
   <data name="BX" xml:space="preserve">
     <value>แลกเปลี่ยน</value>
-  </data>
-  <data name="L22" xml:space="preserve">
-    <value>Live22</value>
   </data>
   <data name="ProductParlay" xml:space="preserve">
     <value>สปอร์ตบุ๊ค พาร์เลย์</value>
@@ -1047,8 +1035,20 @@
   <data name="NGPromotion" xml:space="preserve">
     <value>โปรโมชั่นเกมตัวเลข</value>
   </data>
-  <data name="ProductSPR" xml:space="preserve">
-    <value>Saba โปรโมชั่น</value>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>แพ้ชนะตามเขตเวลา</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>เดือน</value>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>ค่าคอมมิชชั่นลูกค้า</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>ผู้ได้รับอนุญาต แพ้ชนะ</value>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>ผู้ได้รับอนุญาต แพ้ชนะสุทธิ</value>
   </data>
   <data name="SubsidiaryWL" xml:space="preserve">
     <value>บริษัทย่อย แพ้ชนะ</value>
@@ -1067,5 +1067,29 @@
   </data>
   <data name="ProductSBVS" xml:space="preserve">
     <value>Sabaกีฬาเสมือนจริง</value>
+  </data>
+  <data name="MatchStatus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TriggeredAlert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AlertRules" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TotalHome" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TotalAway" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ForecastHome" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ForecastAway" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MatchMonitoringCenter" xml:space="preserve">
+    <value />
   </data>
 </root>
