@@ -1083,14 +1083,17 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Thể Thao Ảo Saba</value>
   </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>Thời Gian Bắt Đầu</value>
+  </data>
   <data name="MatchStatus" xml:space="preserve">
-    <value />
+    <value>Trạng Thái Trận Đấu</value>
   </data>
   <data name="TriggeredAlert" xml:space="preserve">
-    <value />
+    <value>Cảnh Báo Đã Kích Hoạt</value>
   </data>
   <data name="AlertRules" xml:space="preserve">
-    <value />
+    <value>Quy Tắc Cảnh Báo</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
     <value />
@@ -1105,6 +1108,6 @@
     <value />
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
-    <value />
+    <value>Trung Tâm Theo Dõi Trận Đấu</value>
   </data>
 </root>

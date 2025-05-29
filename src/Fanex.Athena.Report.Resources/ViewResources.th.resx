@@ -1068,14 +1068,17 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Sabaกีฬาเสมือนจริง</value>
   </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>เวลาเริ่มแข่งขัน</value>
+  </data>
   <data name="MatchStatus" xml:space="preserve">
-    <value />
+    <value>สถานะการแข่งขัน</value>
   </data>
   <data name="TriggeredAlert" xml:space="preserve">
-    <value />
+    <value>การแจ้งเตือนที่ถูกกระตุ้น</value>
   </data>
   <data name="AlertRules" xml:space="preserve">
-    <value />
+    <value>กฎการแจ้งเตือน</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
     <value />
@@ -1090,6 +1093,6 @@
     <value />
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
-    <value />
+    <value>ศูนย์เฝ้าระวังการแข่งขัน</value>
   </data>
 </root>

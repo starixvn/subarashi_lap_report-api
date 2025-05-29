@@ -33,6 +33,7 @@ public class MatchMonitoringCenterRepository(
         db.SetParameterValue("LiveAwayScore", metaModel.LiveAwayScore);
         db.SetParameterValue("UserId", metaModel.UserId);
         db.SetParameterValue("IP", metaModel.IP);
+        db.SetParameterValue("Langkey", metaModel.Language);
         db.AddResultParam();
         await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 

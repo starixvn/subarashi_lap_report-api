@@ -1,85 +1,85 @@
 ﻿<div class="rule">
-    <h4>General Info</h4>
+    <h4>一般信息</h4>
     <ul>
-        <li>The Match Monitoring Center helps you quickly identify and get alerts for matches that could lead to significant financial losses.</li>
-        <li>This feature currently supports matches with the "Money Line Full Time" bet type only.</li>
-        <li>All times displayed in this function are GMT+8.</li>
-        <li>This report only shows matches that you have specifically added to your monitoring list.</li>
+        <li>比赛监控中心可帮助您快速识别并接收可能导致重大财务亏损的比赛警报。</li>
+        <li>此功能目前仅支持"独赢盘全场"类型的比赛。</li>
+        <li>本功能中显示的所有时间均为 GMT+8。</li>
+        <li>本报告仅显示您已特别添加至监控列表的比赛。</li>
     </ul>
 </div>
 <div class="line">
 </div>
 <div class="rule">
-    <h4>Search Filters</h4>
+    <h4>搜索过滤器</h4>
     <ul>
-        <li><b>League:</b> Use this filter to retrieve monitored matches based on league names.</li>
-        <li><b>Match:</b> Select the monitored matches that have been added to the monitoring list.</li>
-        <li><b>Triggered Alert:</b> Use this filter to retrieve monitored matches based on whether any alert rules have been triggered.</li>
-        <li><b>Currency:</b> Selects the currency which data will be retrieved.</li>
+        <li><b>联赛：</b>使用此筛选器可根据联赛名称筛选已监控的比赛。</li>
+        <li><b>赛事：</b>选择已添加至监控列表的比赛。</li>
+        <li><b>触发警报：</b>使用此筛选器可根据是否触发警报规则筛选已监控的比赛。</li>
+        <li><b>货币：</b>以货币來选择所会列出的数据。</li>
         <ul>
-            <li><b>All:</b> All supported currencies will be listed out.</li>
+            <li><b>全部：</b>列出所有支持的货币。</li>
         </ul>
-        <li><b>Base Currency:</b> Convert all data to base currency for reference only.</li>
-        <li><b>Match Status:</b> Using this filter to retrieve monitored matches that have Live or Non-Live tickets.</li>
-        <li><b>Refresh Timer:</b> Use to control how frequently the page refreshes data automatically.</li>
+        <li><b>基础货币：</b>将所有资料转换为基础货币但仅供参考。</li>
+        <li><b>赛事状态：</b>使用此筛选器可筛选拥有直播票或非直播票的已监控比赛。</li>
+        <li><b>刷新计时器：</b>用于控制页面自动刷新数据的频率。</li>
     </ul>
 </div>
 <div class="line">
 </div>
 <div class="rule">
-    <h4>Report Guidelines</h4>
+    <h4>报告指南</h4>
     <ul>
-        <li><b>Kick Off Time:</b> The match's kickoff time.</li>
-        <li><b>Match Status:</b> Displays "Live" (with score shown in red) if the match has live bet tickets; otherwise, it shows "Non-Live".</li>
+        <li><b>开赛时间：</b>显示比赛的开赛时间。</li>
+        <li><b>比赛状态：</b>若该比赛拥有直播投注票，则显示"直播"（比分以红色显示）；否则显示为"非直播"。</li>
         <li>
-            <b>Triggered Alert:</b> Indicates whether a match has ever breached any alert rule, regardless of its current status.
+            <b>触发警报：</b>表示该比赛自被添加至监控列表以来是否曾违反任何警报规则，不论当前状态为何。
             <ul>
-                <li>A green shield icon means the match has never breached any alert rule since being added to the monitoring list.</li>
-                <li>A blinking red alert icon means the match has previously triggered at least one alert rule at any point in time. Clicking the icon opens the alert rule history popup, which provides details of the triggered rules, including detection time, negative forecast amount, stake ratio, and matched rule configuration.</li>
+                <li>绿色盾牌图标表示该比赛从未触发任何警报规则。</li>
+                <li>闪烁的红色警报图标表示该比赛曾在某个时间点触发过至少一条警报规则。点击该图标将打开警报规则历史弹窗，显示被触发规则的详细信息，包括侦测时间、负利润预测金额、投注占比以及对应的规则设定。</li>
             </ul>
         </li>
-        <li><b>Alert Rules:</b> Shows the configured alert rules for the match, or a "-" if none are set.</li>
-        <li><b>Event:</b> Displays the Home team vs. Away team.</li>
-        <li><b>Stake %:</b> A pie chart showing the percentage of total stake on the Home (blue) and Away (red) teams. Hovering over a section will show the total stake for that team.
+        <li><b>警报规则：</b>显示该比赛已设定的警报规则，若未设定则显示"-"。</li>
+        <li><b>赛事：</b>显示主队 vs 客队。</li>
+        <li><b>投注占比：</b>以饼图形式显示投注在主队（蓝色）与客队（红色）上的占比。将鼠标悬停在图表上可查看各队的总投注金额。
             <ul>
-                <li><b>Calculations:</b>
+                <li><b>计算方式：</b>
                     <ul>
-                        <li>Stake % Home = [TotalHomeStake / (TotalHomeStake + TotalAwayStake)] * 100</li>
-                        <li>Stake % Away = [TotalAwayStake / (TotalHomeStake + TotalAwayStake)] * 100</li>
+                        <li>主队投注占比 (%) = [主队总投注 / (主队总投注 + 客队总投注)] × 100</li>
+                        <li>客队投注占比 (%) = [客队总投注 / (主队总投注 + 客队总投注)] × 100</li>
                     </ul>
                 </li>
             </ul>
         </li>
-        <li><b>Total Home:</b> Total bets on home team.
+        <li><b>主队总计：</b>投注主队的总注单。
             <br />
-            Total Home = Home stake * odds
+            主队总计 = 主队投注额 * 赔率
         </li>
-        <li><b>Total Away:</b> Total bets on away team.
+        <li><b>客队总计：</b>投注客队的总注单。
             <br />
-            Total Away = Away stake * odds
+            客队总计 = 客队投注额 * 赔率
         </li>
-        <li><b>Forecast Home:</b> The amount that Licensee might win/lose if home team/members win.
+        <li><b>主队预测：</b>预测若是主队获胜，承租公司的输赢金额。
             <br />
-            Forecast Home = Home stake * odds – away stake
+            主队预测 = 主队投注额 * 赔率 - 客队投注额
             <ul>
-                <li><b>A negative number (e.g. -10)</b> indicates Licensee will win if home team wins.</li>
-                <li><b></b>A positive number (e.g. 10)</b> indicates Licensee will lose if home team wins.</li>
+                <li><b>负数金额</b> 表示若是主队获胜，承租公司将会获胜。</li>
+                <li><b>正数金额</b> 表示若是主队获胜，承租公司将不会获胜。</li>
             </ul>
         </li>
-        <li><b>Forecast Away:</b> The amount that Licensee might win/lose if away team/members win.
+        <li><b>客队预测：</b>预测若是客队获胜，承租公司的输赢金额。
             <br />
-            Forecast Away = Away stake * odds – home stake
+            客队预测 = 客队投注额 * 赔率 - 主队投注额
             <ul>
-                <li><b>A negative number (e.g. -10)</b> indicates Licensee will win if away team wins.</li>
-                <li><b></b>A positive number (e.g. 10)</b> indicates Licensee will lose if away team wins.</li>
+                <li><b>负数金额</b> 表示若是客队获胜，承租公司将会获胜。</li>
+                <li><b>正数金额</b> 表示若是客队获胜，承租公司将不会获胜。</li>
             </ul>
         </li>
-        <li><b>Operation:</b>
+        <li><b>操作：</b>
             <ul>
-                <li><b>Setting:</b> A "Setting" link is shown for running matches if you have permissions for Alert Rules or Logs.</li>
-                <li><b>Remove:</b> Allows you to remove an event from the monitoring list.</li>
+                <li><b>设定：</b>若您拥有警报规则或日志的权限，并且比赛仍在进行中，则会显示"设定"链接。</li>
+                <li><b>移除：</b>可将赛事从监控列表中移除。</li>
             </ul>
         </li>
-        <li><b>Gray Rows:</b> These indicate matches that were previously monitored but have now settled. They are for historical review only.</li>
+        <li><b>灰色行：</b>表示这些比赛已结算，曾经被监控，仅供历史记录查看使用。</li>
     </ul>
 </div>

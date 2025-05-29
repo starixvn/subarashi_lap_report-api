@@ -1,6 +1,7 @@
 namespace Fanex.Athena.Report.BySite.Excels;
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -205,7 +206,11 @@ public class MatchMonitoringCenterExcel(
         sheet.SetValue(rowIndex, ColumnKickOffTime, rowData.KickOffTimeString);
         AssignMatchStatus(sheet, rowData, rowIndex);
         sheet.SetValue(rowIndex, ColumnTriggeredAlert, rowData.IsAlerted ? ViewResources.Yes : ViewResources.No);
-        sheet.SetValue(rowIndex, ColumnAlertRules, rowData.AlertRules);
+        if (rowData.IsAlerted)
+        {
+            sheet.Cells[rowIndex, ColumnTriggeredAlert].Style.Font.Color.SetColor(Color.Red);
+        }
+        sheet.SetValue(rowIndex, ColumnAlertRules, FormatAlertRules(rowData.AlertRules));
         sheet.SetValue(rowIndex, ColumnEvent, rowData.MatchName);
 
         if (isSettled)
@@ -281,6 +286,16 @@ public class MatchMonitoringCenterExcel(
         var awayLine = richText.Add("\n" + awayText);
         awayLine.Color = Color.Red;
         awayLine.Bold = true;
+    }
+
+    private string FormatAlertRules(List<string> alertRules)
+    {
+        if (alertRules == null || alertRules.Count == 0)
+        {
+            return "-";
+        }
+
+        return string.Join(Environment.NewLine, alertRules.Select(rule => "- " + rule));
     }
 }
 

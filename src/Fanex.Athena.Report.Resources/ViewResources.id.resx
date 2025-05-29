@@ -1035,14 +1035,17 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Saba Virtual Sports</value>
   </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>Waktu Kick Off</value>
+  </data>
   <data name="MatchStatus" xml:space="preserve">
-    <value />
+    <value>Status Pertandingan</value>
   </data>
   <data name="TriggeredAlert" xml:space="preserve">
-    <value />
+    <value>Peringatan Aktif</value>
   </data>
   <data name="AlertRules" xml:space="preserve">
-    <value />
+    <value>Aturan Peringatan</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
     <value />
@@ -1057,6 +1060,6 @@
     <value />
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
-    <value />
+    <value>Pusat Pemantauan Pertandingan</value>
   </data>
 </root>

@@ -949,14 +949,17 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>沙巴虚拟赛事</value>
   </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>开赛时间</value>
+  </data>
   <data name="MatchStatus" xml:space="preserve">
-    <value />
+    <value>比赛状态</value>
   </data>
   <data name="TriggeredAlert" xml:space="preserve">
-    <value />
+    <value>触发警报</value>
   </data>
   <data name="AlertRules" xml:space="preserve">
-    <value />
+    <value>警报规则</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
     <value />
@@ -971,6 +974,6 @@
     <value />
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
-    <value />
+    <value>比赛监控中心</value>
   </data>
 </root>

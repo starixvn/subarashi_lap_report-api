@@ -85,6 +85,7 @@ public class MatchMonitoringCenterController(
         metaModel.UserId = contextService.UserId;
         metaModel.LicenseeId = contextService.LicenseeId;
         metaModel.IP = contextService.ClientIP;
+        metaModel.Language = contextService.Language;
         var result = await matchMonitoringCenterService.AddMonitoring(metaModel);
         return Ok(result);
     }
