@@ -1062,4 +1062,7 @@
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>Pusat Pemantauan Pertandingan</value>
   </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>Permintaan tidak valid</value>
+  </data>
 </root>

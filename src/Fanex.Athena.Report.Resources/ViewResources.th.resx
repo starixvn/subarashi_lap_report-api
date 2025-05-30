@@ -1095,4 +1095,7 @@
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>ศูนย์เฝ้าระวังการแข่งขัน</value>
   </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>คำขอไม่ถูกต้อง</value>
+  </data>
 </root>

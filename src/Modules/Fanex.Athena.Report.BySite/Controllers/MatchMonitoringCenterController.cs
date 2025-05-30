@@ -13,6 +13,8 @@ using Microsoft.Extensions.FileProviders;
 using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using System.IO;
+using System;
+using Fanex.Athena.Report.Resources;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -131,6 +133,11 @@ public class MatchMonitoringCenterController(
         model.UserId = contextService.UserId;
         model.IP = contextService.ClientIP;
 
+        if (!ValidateAlertRuleModel(model))
+        {
+            return BadRequest(ViewResources.InvalidRequestMsg);
+        }
+
         var result = await matchMonitoringCenterService.InsertAlertRule(model);
         return Ok(result);
     }
@@ -140,6 +147,11 @@ public class MatchMonitoringCenterController(
     {
         model.UserId = contextService.UserId;
         model.IP = contextService.ClientIP;
+
+        if (!ValidateAlertRuleModel(model))
+        {
+            return BadRequest(ViewResources.InvalidRequestMsg);
+        }
 
         var result = await matchMonitoringCenterService.UpdateAlertRule(model);
         return Ok(result);
@@ -155,4 +167,57 @@ public class MatchMonitoringCenterController(
         return Ok(result);
     }
 
+    private bool ValidateAlertRuleModel(AlertRuleMetaModel model)
+    {
+        string[] validConditionTypes = { "or", "and" };
+        short[] validIntervals = { 60, 120, 180, 300, 600 };
+
+        if (string.IsNullOrWhiteSpace(model.SettingName))
+        {
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(model.ConditionTypeName) ||
+            !validConditionTypes.Any(ct => string.Equals(ct, model.ConditionTypeName, StringComparison.OrdinalIgnoreCase)))
+        {
+            return false;
+        }
+
+        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList();
+        if (string.IsNullOrEmpty(model.BaseCurrency) ||
+            !baseCurrencyList.Any(bc => string.Equals(bc.Value, model.BaseCurrency, StringComparison.OrdinalIgnoreCase)))
+        {
+            return false;
+        }
+
+        if (!validIntervals.Contains(model.NotificationInterval))
+        {
+            return false;
+        }
+
+        if (model.AlertRule != null && !ValidateAlertRuleProperties(model.AlertRule))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static bool ValidateAlertRuleProperties(DTOs.AlertRule alertRule)
+    {
+        const int MaxBetRatio = 100;
+        const decimal MaxSqlMoney = 922337203685477;
+
+        if (alertRule.NegativeProfit < 0 || alertRule.NegativeProfit > MaxSqlMoney)
+        {
+            return false;
+        }
+
+        if (alertRule.BetRatio < 0 || alertRule.BetRatio > MaxBetRatio)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

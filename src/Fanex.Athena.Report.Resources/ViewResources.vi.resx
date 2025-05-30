@@ -1110,4 +1110,7 @@
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>Trung Tâm Theo Dõi Trận Đấu</value>
   </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>Yêu cầu không hợp lệ</value>
+  </data>
 </root>

@@ -976,4 +976,7 @@
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>比赛监控中心</value>
   </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>请求无效</value>
+  </data>
 </root>

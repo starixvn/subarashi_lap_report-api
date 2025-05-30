@@ -1087,6 +1087,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request is not valid.
+        /// </summary>
+        public static string InvalidRequestMsg {
+            get {
+                return ResourceManager.GetString("InvalidRequestMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP.
         /// </summary>
         public static string IP {
