@@ -1,20 +1,22 @@
 namespace Fanex.Athena.Report.BySite.Controllers;
 
+using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using BySite.MetaModels;
+using BySite.Services.Interfaces;
+using Common.Services.Interfaces;
 using Core.Attributes;
 using Core.Constants;
 using Core.Services.Interfaces;
-using BySite.Services.Interfaces;
-using Models;
-using System.Linq;
-using Microsoft.Extensions.FileProviders;
-using Fanex.Athena.Report.Core.Extensions;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using System.IO;
-using System;
+using Fanex.Athena.Report.Core.Extensions;
+using Fanex.Athena.Report.Core.Services;
 using Fanex.Athena.Report.Resources;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
+using Models;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -25,6 +27,7 @@ public partial class MatchMonitoringCenterController(
     IMatchMonitoringCenterLogService matchMonitoringCenterLogService,
     IContextService contextService,
     IMatchMonitoringCenterExcel excel,
+    IBalanceUpService balanceUpService,
     IFileProvider file) : ControllerBase
 {
     [HttpGet]
@@ -35,6 +38,7 @@ public partial class MatchMonitoringCenterController(
 
         var matchList = await matchMonitoringCenterService.GetMatchList(contextService.LicenseeId, leagueIds);
         matchIds = string.IsNullOrEmpty(matchIds) ? string.Join(",", matchList.Select(m => m.Id)) : matchIds;
+        var balanceUp = await balanceUpService.GetBalanceUpAsync();
 
         return Ok(new MatchMonitoringCenterViewModel
         {
@@ -44,7 +48,9 @@ public partial class MatchMonitoringCenterController(
             BaseCurrencies = baseCurrencyService.GetBaseCurrencyList().ToArray(),
             Currencies = contextService.CurrencyList.ToArray(),
             LeagueIds = leagueIds,
-            MatchIds = matchIds
+            MatchIds = matchIds,
+            HasSettingPermission = contextService.IsInRoles(Roles.PortalSuperAdmin, Roles.MatchMonitoringSetting),
+            MoveBetsDay = balanceUp.MoveBetsDay.AddDays(1),
         });
     }
 

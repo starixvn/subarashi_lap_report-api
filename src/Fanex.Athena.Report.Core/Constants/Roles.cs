@@ -36,5 +36,8 @@
         public const string CustomerTurnover = "CustomerTurnover51";
         public const string SubsidiaryPerformance = "SubsidiaryPerformance73";
         public const string MatchMonitoringCenter = "MatchMonitoringCenter";
+        public const string MatchMonitoringSetting = "MatchMonitoringSetting";
+        public const string MatchMonitoringSettingAlertRules = "MatchMonitoringSetting_AlertRules";
+        public const string MatchMonitoringSettingLogs = "MatchMonitoringSetting_Logs";
     }
 }

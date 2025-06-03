@@ -1,7 +1,8 @@
+namespace Fanex.Athena.Report.BySite.Models;
+
+using System;
 using System.Collections.Generic;
 using Fanex.Athena.Report.Common.Model.DTO;
-
-namespace Fanex.Athena.Report.BySite.Models;
 
 public class MatchMonitoringCenterViewModel
 {
@@ -22,4 +23,10 @@ public class MatchMonitoringCenterViewModel
     public string LeagueIds { get; set; }
 
     public string MatchIds { get; set; }
+
+    public bool HasSettingPermission { get; set; }
+
+    public DateTime MoveBetsDay { get; set; }
+
+    public string MoveBetsDayString => MoveBetsDay.ToString("MM/dd/yyyy");
 }
