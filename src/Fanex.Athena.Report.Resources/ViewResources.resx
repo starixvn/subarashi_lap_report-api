@@ -1257,4 +1257,13 @@
   <data name="SystemConfirmedRuleReached" xml:space="preserve">
     <value>System confirmed a rule was reached</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>or</value>
+  </data>
 </root>

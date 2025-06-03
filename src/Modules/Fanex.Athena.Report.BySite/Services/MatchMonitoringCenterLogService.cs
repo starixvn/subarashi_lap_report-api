@@ -205,17 +205,29 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
                 }
             }
 
+            var conditionTypeName = ConvertConditionTypeToName(Convert.ToInt32(root.Attribute("ConditionType")?.Value ?? "0"));
+
             return formattedRules.Count switch
             {
-                > 1 => $"Name:[{settingName}] | {formattedRules[0]} | {baseCurrency} | and | {formattedRules[1]}",
-                1 => $"Name:[{settingName}] | {formattedRules[0]} | {baseCurrency}",
-                _ => $"Name:[{settingName}]"
+                > 1 => $"{ViewResources.Name}:[{settingName}] | {formattedRules[0]} | {baseCurrency} | {conditionTypeName} | {formattedRules[1]}",
+                1 => $"{ViewResources.Name}:[{settingName}] | {formattedRules[0]} | {baseCurrency}",
+                _ => $"{ViewResources.Name}:[{settingName}]"
             };
         }
         catch
         {
             return xmlData;
         }
+    }
+
+    private static string ConvertConditionTypeToName(int conditionType)
+    {
+        return conditionType switch
+        {
+            0 => ViewResources.or,
+            1 => ViewResources.and,
+            _ => ViewResources.or
+        };
     }
 
     private async Task<IEnumerable<LogAction>> GetLogActionsAsync()
