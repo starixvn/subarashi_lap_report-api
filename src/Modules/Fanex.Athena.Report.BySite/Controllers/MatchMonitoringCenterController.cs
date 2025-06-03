@@ -31,7 +31,11 @@ public partial class MatchMonitoringCenterController(
     IFileProvider file) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult> Index([FromQuery] string leagueIds = null, [FromQuery] string matchIds = null)
+    public async Task<ActionResult> Index(
+        [FromQuery] string leagueIds = null, 
+        [FromQuery] string matchIds = null, 
+        [FromQuery] int currencyId = 0,
+        [FromQuery] string baseCurrency = null)
     {
         var leagueList = await matchMonitoringCenterService.GetLeagueList(contextService.LicenseeId);
         leagueIds = string.IsNullOrEmpty(leagueIds) ? string.Join(",", leagueList.Select(l => l.Id)) : leagueIds;
@@ -44,9 +48,10 @@ public partial class MatchMonitoringCenterController(
         {
             LeagueList = leagueList,
             MatchList = matchList,
-            BaseCurrency = contextService.DefaultBaseCurrency,
+            BaseCurrency = string.IsNullOrEmpty(baseCurrency) ? contextService.DefaultBaseCurrency : baseCurrency.ToUpper(),
             BaseCurrencies = baseCurrencyService.GetBaseCurrencyList().ToArray(),
             Currencies = contextService.CurrencyList.ToArray(),
+            CurrencyId = currencyId,
             LeagueIds = leagueIds,
             MatchIds = matchIds,
             HasSettingPermission = contextService.IsInRoles(Roles.PortalSuperAdmin, Roles.MatchMonitoringSetting),
