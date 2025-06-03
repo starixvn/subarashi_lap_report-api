@@ -1,7 +1,5 @@
 namespace Fanex.Athena.Report.BySite.DTOs
 {
-    using System.Collections.Generic;
-
     public class MatchMonitoringSetting
     {
         public int SettingID { get; set; }

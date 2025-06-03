@@ -19,9 +19,10 @@ using Fanex.Athena.Report.Resources;
 [ApiController]
 [Route("api/[controller]/[action]")]
 [BearerAuthorize(Roles.PortalSuperAdmin, Roles.MatchMonitoringCenter)]
-public class MatchMonitoringCenterController(
+public partial class MatchMonitoringCenterController(
     IMatchMonitoringCenterService matchMonitoringCenterService,
     IBaseCurrencyService baseCurrencyService,
+    IMatchMonitoringCenterLogService matchMonitoringCenterLogService,
     IContextService contextService,
     IMatchMonitoringCenterExcel excel,
     IFileProvider file) : ControllerBase

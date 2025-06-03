@@ -1,0 +1,234 @@
+namespace Fanex.Athena.Report.BySite.Services;
+
+using Fanex.Athena.Report.BySite.DTOs;
+using Fanex.Athena.Report.BySite.Models;
+using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+using Fanex.Athena.Report.BySite.Services.Interfaces;
+using Fanex.Athena.Report.Common.Constants;
+using Fanex.Athena.Report.Common.Model.DTO;
+using Fanex.Athena.Report.Resources;
+using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
+{
+    private const int CacheTimeoutMinutes = 30;
+    private const string LogActionsCacheKey = "MATCH_MONITORING_LOG_ACTIONS";
+    private const string ActionsWithFilterCacheKeyPrefix = "MATCH_MONITORING_LOG_ACTIONS_FILTER_";
+    private const string LogTypesCacheKey = "MATCH_MONITORING_LOG_TYPES";
+
+    private readonly IMatchMonitoringCenterLogRepository _matchMonitoringCenterLogRepository;
+    private readonly IMemoryCache _cache;
+
+    public MatchMonitoringCenterLogService(
+        IMatchMonitoringCenterLogRepository matchMonitoringCenterLogRepository,
+        IMemoryCache memoryCache)
+    {
+        _matchMonitoringCenterLogRepository = matchMonitoringCenterLogRepository;
+        _cache = memoryCache;
+    }
+
+    public async Task<IEnumerable<SelectItem>> GetActions(string logTypes = "")
+    {
+        string cacheKey = string.IsNullOrEmpty(logTypes)
+            ? $"{ActionsWithFilterCacheKeyPrefix}ALL"
+            : $"{ActionsWithFilterCacheKeyPrefix}{logTypes}";
+
+        if (_cache.TryGetValue(cacheKey, out IEnumerable<SelectItem> cachedActions))
+        {
+            return cachedActions;
+        }
+
+        var logActions = await GetLogActionsAsync();
+
+        if (!string.IsNullOrEmpty(logTypes))
+        {
+            var logTypeIds = logTypes.Split(',')
+                .Where(id => !string.IsNullOrWhiteSpace(id))
+                .Select(id => int.TryParse(id.Trim(), out int typeId) ? typeId : 0)
+                .Where(id => id > 0)
+                .ToList();
+
+            if (logTypeIds.Any())
+            {
+                logActions = logActions.Where(action => logTypeIds.Contains(action.ActionTypeID));
+            }
+        }
+
+        var actions = logActions
+            .GroupBy(action => action.ActionID)
+            .Select(group => new SelectItem
+            {
+                Key = group.Key.ToString(),
+                Value = group.First().ActionName
+            })
+            .OrderBy(item => item.Value)
+            .ToList();
+
+        _cache.Set(cacheKey, actions, TimeSpan.FromMinutes(CacheTimeoutMinutes));
+
+        return actions;
+    }
+
+    public async Task<IEnumerable<SelectItem>> GetLogTypes()
+    {
+        if (_cache.TryGetValue(LogTypesCacheKey, out IEnumerable<SelectItem> cachedLogTypes))
+        {
+            return cachedLogTypes;
+        }
+
+        var logActions = await GetLogActionsAsync();
+
+        var logTypes = logActions
+            .GroupBy(action => action.ActionTypeID)
+            .Select(group => new SelectItem
+            {
+                Key = group.Key.ToString(),
+                Value = group.First().ActionTypeName
+            })
+            .OrderBy(item => item.Value)
+            .ToList();
+
+        _cache.Set(LogTypesCacheKey, logTypes, TimeSpan.FromMinutes(CacheTimeoutMinutes));
+
+        return logTypes;
+    }
+
+    public async Task<IEnumerable<MatchMonitoringCenterLogItem>> GetLogData(MatchMonitoringCenterGetLogMetaModel model)
+    {
+        var logData = await _matchMonitoringCenterLogRepository.GetLogData(model);
+        var logActions = await GetLogActionsAsync();
+
+        return logData.Select(item => MapToLogItem(item, logActions));
+    }
+
+    private MatchMonitoringCenterLogItem MapToLogItem(MatchMonitoringCenterLogRawItem logData, IEnumerable<LogAction> logActions)
+    {
+        var action = logActions.FirstOrDefault(a => a.ActionID == logData.ActionID);
+
+        return new MatchMonitoringCenterLogItem
+        {
+            TimeStamp = logData.LogDate.ToString("yyyy-MM-dd HH:mm:ss"),
+            Type = action?.ActionTypeName ?? string.Empty,
+            Action = action?.ActionName ?? string.Empty,
+            Operator = logData.Operator,
+            Detail = GetDetail(logData)
+        };
+    }
+
+    private string GetDetail(MatchMonitoringCenterLogRawItem logData)
+    {
+        return logData.ActionID switch
+        {
+            MatchMonitoringCenterLogAction.CreateAlertRule => ProcessSingleXmlData(logData.Data),
+            MatchMonitoringCenterLogAction.RemoveAlertRule => ProcessSingleXmlData(logData.Data),
+            MatchMonitoringCenterLogAction.UpdateAlertRule => ProcessXmlData4004(logData.OldData, logData.Data),
+            MatchMonitoringCenterLogAction.AddMonitoringMatch => ViewResources.AddMonitoringMatch,
+            MatchMonitoringCenterLogAction.RemoveMonitoringMatch => ViewResources.RemoveMonitoringMatch,
+            MatchMonitoringCenterLogAction.SystemConfirmedRuleReached => ViewResources.SystemConfirmedRuleReached,
+            _ => $"Data: {logData.Data}, Old Data: {logData.OldData}"
+        };
+    }
+
+    private string ProcessSingleXmlData(string xmlData)
+    {
+        if (string.IsNullOrEmpty(xmlData))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            return FormatXmlDataForSetting(xmlData);
+        }
+        catch
+        {
+            return xmlData;
+        }
+    }
+
+    private string ProcessXmlData4004(string oldXmlData, string newXmlData)
+    {
+        string oldFormatted = ProcessSingleXmlData(oldXmlData);
+        string newFormatted = ProcessSingleXmlData(newXmlData);
+
+        if (!string.IsNullOrEmpty(oldFormatted))
+        {
+            return $"{oldFormatted} -> {newFormatted}";
+        }
+
+        return newFormatted;
+    }
+
+#pragma warning disable S1541 // Methods and properties should not be too complex
+
+    private static string FormatXmlDataForSetting(string xmlData)
+#pragma warning restore S1541 // Methods and properties should not be too complex
+    {
+        if (string.IsNullOrEmpty(xmlData))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            var doc = XDocument.Parse(xmlData);
+            var root = doc.Element("Root")?.Elements("r").FirstOrDefault();
+
+            if (root == null)
+            {
+                return xmlData;
+            }
+
+            var settingName = root.Attribute("SettingName")?.Value ?? string.Empty;
+            var baseCurrency = root.Attribute("BaseCurrency")?.Value ?? string.Empty;
+
+            var rules = root.Elements("Rules").ToList();
+            if (!rules.Any())
+            {
+                return $"Name:[{settingName}]";
+            }
+
+            var formattedRules = new List<string>();
+            foreach (var rule in rules)
+            {
+                var thresholdStr = rule.Attribute("Threshold")?.Value;
+                if (decimal.TryParse(thresholdStr, out decimal threshold))
+                {
+                    var roundedThreshold = decimal.Round(threshold, 2);
+
+                    formattedRules.Add(rule.Attribute("RuleId")?.Value == "2" ? $"{roundedThreshold.ToString("N2")}%" : $"{roundedThreshold.ToString("N2")}");
+                }
+            }
+
+            return formattedRules.Count switch
+            {
+                > 1 => $"Name:[{settingName}] | {formattedRules[0]} | {baseCurrency} | and | {formattedRules[1]}",
+                1 => $"Name:[{settingName}] | {formattedRules[0]} | {baseCurrency}",
+                _ => $"Name:[{settingName}]"
+            };
+        }
+        catch
+        {
+            return xmlData;
+        }
+    }
+
+    private async Task<IEnumerable<LogAction>> GetLogActionsAsync()
+    {
+        if (_cache.TryGetValue(LogActionsCacheKey, out IEnumerable<LogAction> cachedLogActions))
+        {
+            return cachedLogActions;
+        }
+
+        var logActions = await _matchMonitoringCenterLogRepository.GetLogActions();
+
+        _cache.Set(LogActionsCacheKey, logActions, TimeSpan.FromMinutes(CacheTimeoutMinutes));
+
+        return logActions;
+    }
+}

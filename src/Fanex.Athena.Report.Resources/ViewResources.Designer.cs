@@ -88,6 +88,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Added to monitoring list.
+        /// </summary>
+        public static string AddMonitoringMatch {
+            get {
+                return ResourceManager.GetString("AddMonitoringMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adjustment.
         /// </summary>
         public static string Adjustment {
@@ -2455,6 +2464,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removed from monitoring list.
+        /// </summary>
+        public static string RemoveMonitoringMatch {
+            get {
+                return ResourceManager.GetString("RemoveMonitoringMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reward/ Promotion.
         /// </summary>
         public static string Reward_Promotion {
@@ -2748,6 +2766,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SXG {
             get {
                 return ResourceManager.GetString("SXG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System confirmed a rule was reached.
+        /// </summary>
+        public static string SystemConfirmedRuleReached {
+            get {
+                return ResourceManager.GetString("SystemConfirmedRuleReached", resourceCulture);
             }
         }
         

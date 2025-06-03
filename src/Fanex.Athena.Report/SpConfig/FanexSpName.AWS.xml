@@ -93,6 +93,8 @@
 		<Setting Key="Lrf_LicenseeMatchMonitoringSetting_Upd" SpName="Lrf_LicenseeMatchMonitoringSetting_Upd" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
 		<Setting Key="Lrf_LicenseeMatchMonitoringSetting_Del" SpName="Lrf_LicenseeMatchMonitoringSetting_Del" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
 		<Setting Key="Lrf_MatchMonitoring_SelTriggeredAlert" SpName="Lrf_MatchMonitoring_SelTriggeredAlert" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+		<Setting Key="Lrf_LogAction_LicSel" SpName="Lrf_LogAction_LicSel" DbName="DBLOG.bodb_CustomerLog.wsv_lap"></Setting>
+		<Setting Key="Lrf_UserLog_LicenseeSetting_Sel" SpName="Lrf_UserLog_LicenseeSetting_Sel" DbName="DBLOG.bodb_CustomerLog.wsv_lap"></Setting>
 
   </Function>
 
