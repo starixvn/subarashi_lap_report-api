@@ -1048,16 +1048,16 @@
     <value>Aturan Peringatan</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
-    <value />
+    <value>Total Tuan Rumah</value>
   </data>
   <data name="TotalAway" xml:space="preserve">
-    <value />
+    <value>Total Tandang</value>
   </data>
   <data name="ForecastHome" xml:space="preserve">
-    <value />
+    <value>Prediksi Tuan Rumah</value>
   </data>
   <data name="ForecastAway" xml:space="preserve">
-    <value />
+    <value>Prediksi Tandang</value>
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>Pusat Pemantauan Pertandingan</value>

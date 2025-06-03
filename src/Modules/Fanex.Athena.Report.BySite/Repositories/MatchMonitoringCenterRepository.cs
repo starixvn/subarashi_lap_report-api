@@ -213,6 +213,7 @@ public class MatchMonitoringCenterRepository(
         db.SetParameterValue("NotificationInterval", model.NotificationInterval);
         db.SetParameterValue("RulesJson", model.RulesJson);
         db.SetParameterValue("UserId", model.UserId);
+        db.SetParameterValue("Langkey", model.Language);
         db.SetParameterValue("IP", model.IP);
 
         db.AddResultParam();

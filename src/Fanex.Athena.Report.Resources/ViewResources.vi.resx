@@ -1096,16 +1096,16 @@
     <value>Quy Tắc Cảnh Báo</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
-    <value />
+    <value>Tổng Đội Nhà</value>
   </data>
   <data name="TotalAway" xml:space="preserve">
-    <value />
+    <value>Tổng Đội Khách</value>
   </data>
   <data name="ForecastHome" xml:space="preserve">
-    <value />
+    <value>Dự đoán Đội Nhà</value>
   </data>
   <data name="ForecastAway" xml:space="preserve">
-    <value />
+    <value>Dự đoán Đội Khách</value>
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>Trung Tâm Theo Dõi Trận Đấu</value>

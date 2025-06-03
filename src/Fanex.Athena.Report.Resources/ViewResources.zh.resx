@@ -962,16 +962,16 @@
     <value>警报规则</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
-    <value />
+    <value>主队总计</value>
   </data>
   <data name="TotalAway" xml:space="preserve">
-    <value />
+    <value>客队总计</value>
   </data>
   <data name="ForecastHome" xml:space="preserve">
-    <value />
+    <value>主队预测</value>
   </data>
   <data name="ForecastAway" xml:space="preserve">
-    <value />
+    <value>客队预测</value>
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>比赛监控中心</value>

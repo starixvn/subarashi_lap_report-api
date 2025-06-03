@@ -132,6 +132,7 @@ public class MatchMonitoringCenterController(
     {
         model.UserId = contextService.UserId;
         model.IP = contextService.ClientIP;
+        model.Language = contextService.Language;
 
         if (!ValidateAlertRuleModel(model))
         {

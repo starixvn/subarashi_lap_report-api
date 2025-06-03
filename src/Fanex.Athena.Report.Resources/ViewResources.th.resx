@@ -1081,16 +1081,16 @@
     <value>กฎการแจ้งเตือน</value>
   </data>
   <data name="TotalHome" xml:space="preserve">
-    <value />
+    <value>เจ้าบ้านทั้งหมด</value>
   </data>
   <data name="TotalAway" xml:space="preserve">
-    <value />
+    <value>ทีมเยือนทั้งหมด</value>
   </data>
   <data name="ForecastHome" xml:space="preserve">
-    <value />
+    <value>ทายเจ้าบ้าน</value>
   </data>
   <data name="ForecastAway" xml:space="preserve">
-    <value />
+    <value>ทายทีมเยือน</value>
   </data>
   <data name="MatchMonitoringCenter" xml:space="preserve">
     <value>ศูนย์เฝ้าระวังการแข่งขัน</value>

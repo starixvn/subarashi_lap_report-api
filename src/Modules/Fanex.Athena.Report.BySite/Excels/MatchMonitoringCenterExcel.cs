@@ -15,7 +15,6 @@ using Fanex.Athena.Report.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
-using OfficeOpenXml.Style;
 
 public class MatchMonitoringCenterExcel(
     IFileService fileService,
@@ -23,7 +22,7 @@ public class MatchMonitoringCenterExcel(
     IWebHostEnvironment environment
 ) : BaseExcel(environment, fileService, excelOptionsAccessor), IMatchMonitoringCenterExcel
 {
-    private readonly string[] _headerTextList = [
+    private string[] HeaderTextList => [
         ViewResources.KickOffTime,
         ViewResources.MatchStatus,
         ViewResources.TriggeredAlert,
@@ -94,7 +93,7 @@ public class MatchMonitoringCenterExcel(
 
     private void AssignTitle(ExcelWorksheet sheet)
     {
-        var destinationCell = sheet.Cells[TemplateTitleRowIndex, ColumnKickOffTime, TemplateTitleRowIndex, _headerTextList.Length];
+        var destinationCell = sheet.Cells[TemplateTitleRowIndex, ColumnKickOffTime, TemplateTitleRowIndex, HeaderTextList.Length];
         destinationCell.Merge = true;
 
         string title = string.Format(
@@ -110,9 +109,9 @@ public class MatchMonitoringCenterExcel(
 
     private void AssignHeader(ExcelWorksheet sheet)
     {
-        for (var i = 1; i <= _headerTextList.Length; i++)
+        for (var i = 1; i <= HeaderTextList.Length; i++)
         {
-            sheet.SetValue(TemplateHeaderRowIndex, i, _headerTextList[i - 1]);
+            sheet.SetValue(TemplateHeaderRowIndex, i, HeaderTextList[i - 1]);
         }
 
         sheet.View.FreezePanes(TemplateRunningLeagueRowIndex, ColumnKickOffTime);

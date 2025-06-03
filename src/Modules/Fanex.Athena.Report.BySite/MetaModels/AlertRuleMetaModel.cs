@@ -24,6 +24,8 @@ namespace Fanex.Athena.Report.BySite.MetaModels
 
         public int UserId { get; set; }
 
+        public string Language { get; set; }
+
         public string IP { get; set; }
     }
 }
