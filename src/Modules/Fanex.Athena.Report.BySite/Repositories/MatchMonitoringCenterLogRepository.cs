@@ -34,12 +34,13 @@ public class MatchMonitoringCenterLogRepository : IMatchMonitoringCenterLogRepos
 
     public async Task<IEnumerable<MatchMonitoringCenterLogRawItem>> GetLogData(MatchMonitoringCenterGetLogMetaModel model)
     {
-        const string uspName = "Lrf_UserLog_LicenseeSetting_Sel";
+        const string uspName = "Lrf_LicenseeMatchMonitoringLog_Sel";
         using var db = ObjectDbFactory.CreateInstance(uspName);
 
         db.SetParameterValue("LicenseeId", model.LicenseeId);
         db.SetParameterValue("LicenseeName", model.LicenseeName);
         db.SetParameterValue("ActionIDs", model.Actions);
+        db.SetParameterValue("MonitoringID", model.MonitoringID);
 
         var result = new List<MatchMonitoringCenterLogRawItem>();
         using var reader = await db.ExecuteReaderAsync().ConfigureAwait(false);
