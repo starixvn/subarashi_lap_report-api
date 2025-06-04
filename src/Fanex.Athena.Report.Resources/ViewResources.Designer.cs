@@ -133,6 +133,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert Triggered: {0} – warning notification sent.
+        /// </summary>
+        public static string AlertTriggeredMsg {
+            get {
+                return ResourceManager.GetString("AlertTriggeredMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -2793,15 +2802,6 @@ namespace Fanex.Athena.Report.Resources {
         public static string SXG {
             get {
                 return ResourceManager.GetString("SXG", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System confirmed a rule was reached.
-        /// </summary>
-        public static string SystemConfirmedRuleReached {
-            get {
-                return ResourceManager.GetString("SystemConfirmedRuleReached", resourceCulture);
             }
         }
         

@@ -129,7 +129,7 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
             MatchMonitoringCenterLogAction.UpdateAlertRule => ProcessXmlData4004(logData.OldData, logData.Data),
             MatchMonitoringCenterLogAction.AddMonitoringMatch => ViewResources.AddMonitoringMatch,
             MatchMonitoringCenterLogAction.RemoveMonitoringMatch => ViewResources.RemoveMonitoringMatch,
-            MatchMonitoringCenterLogAction.SystemConfirmedRuleReached => ViewResources.SystemConfirmedRuleReached,
+            MatchMonitoringCenterLogAction.AlertTriggered => string.Format(ViewResources.AlertTriggeredMsg, FormatXmlDataForAlertTriggered(logData.Data)),
             _ => $"Data: {logData.Data}, Old Data: {logData.OldData}"
         };
     }
@@ -164,10 +164,10 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
         return newFormatted;
     }
 
-#pragma warning disable S1541 // Methods and properties should not be too complex
+#pragma warning disable S1541
 
     private static string FormatXmlDataForSetting(string xmlData)
-#pragma warning restore S1541 // Methods and properties should not be too complex
+#pragma warning restore S1541
     {
         if (string.IsNullOrEmpty(xmlData))
         {
@@ -184,8 +184,8 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
                 return xmlData;
             }
 
-            var settingName = root.Attribute("SettingName")?.Value ?? string.Empty;
-            var baseCurrency = root.Attribute("BaseCurrency")?.Value ?? string.Empty;
+            var settingName = GetStringAttributeValue(root, "SettingName");
+            var baseCurrency = GetStringAttributeValue(root, "BaseCurrency");
 
             var rules = root.Elements("Rules").ToList();
             if (!rules.Any())
@@ -196,16 +196,17 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
             var formattedRules = new List<string>();
             foreach (var rule in rules)
             {
-                var thresholdStr = rule.Attribute("Threshold")?.Value;
-                if (decimal.TryParse(thresholdStr, out decimal threshold))
-                {
-                    var roundedThreshold = decimal.Round(threshold, 2);
+                var threshold = GetDecimalAttributeValue(rule, "Threshold");
+                var ruleId = GetStringAttributeValue(rule, "RuleID");
 
-                    formattedRules.Add(rule.Attribute("RuleId")?.Value == "2" ? $"{roundedThreshold.ToString("N2")}%" : $"{roundedThreshold.ToString("N2")}");
+                if (!string.IsNullOrEmpty(threshold))
+                {
+                    formattedRules.Add(ruleId == "2" ? $"{threshold}%" : threshold);
                 }
             }
 
-            var conditionTypeName = ConvertConditionTypeToName(Convert.ToInt32(root.Attribute("ConditionType")?.Value ?? "0"));
+            var conditionTypeValue = GetIntAttributeValue(root, "ConditionType");
+            var conditionTypeName = ConvertConditionTypeToName(conditionTypeValue);
 
             return formattedRules.Count switch
             {
@@ -228,6 +229,76 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
             1 => ViewResources.and,
             _ => ViewResources.or
         };
+    }
+
+    private static string FormatXmlDataForAlertTriggered(string xmlData)
+    {
+        if (string.IsNullOrEmpty(xmlData))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            var doc = XDocument.Parse(xmlData);
+            var root = doc.Element("Root")?.Elements("r").FirstOrDefault();
+
+            if (root == null)
+            {
+                return xmlData;
+            }
+
+            var settingName = GetStringAttributeValue(root, "SettingName");
+            var baseCurrency = GetStringAttributeValue(root, "BaseCurrency");
+
+            var negativeProfit = GetDecimalAttributeValue(root, "NegativeProfit");
+            var forecastLoss = GetDecimalAttributeValue(root, "ForecastLoss");
+            var betRatio = GetDecimalAttributeValue(root, "BetRatio");
+            var homeStakePercentage = GetDecimalAttributeValue(root, "HomeStakePercentage");
+            var awayStakePercentage = GetDecimalAttributeValue(root, "AwayStakePercentage");
+
+            var conditionTypeValue = GetIntAttributeValue(root, "ConditionType");
+            var conditionTypeName = ConvertConditionTypeToName(conditionTypeValue);
+
+            return $"[{settingName}] | {forecastLoss} ({negativeProfit}) | {baseCurrency} | {conditionTypeName} | {betRatio}% ({homeStakePercentage}%:{awayStakePercentage}%)";
+        }
+        catch
+        {
+            return xmlData;
+        }
+    }
+
+    private static string GetDecimalAttributeValue(XElement element, string attributeName)
+    {
+        var attr = element.Attributes()
+            .FirstOrDefault(a => string.Equals(a.Name.LocalName, attributeName, StringComparison.OrdinalIgnoreCase));
+
+        if (attr != null && decimal.TryParse(attr.Value, out decimal value))
+        {
+            var roundedValue = decimal.Round(value, 2);
+            return roundedValue.ToString("N2");
+        }
+        return "0.00";
+    }
+
+    private static string GetStringAttributeValue(XElement element, string attributeName, string defaultValue = "")
+    {
+        var attr = element.Attributes()
+            .FirstOrDefault(a => string.Equals(a.Name.LocalName, attributeName, StringComparison.OrdinalIgnoreCase));
+
+        return attr?.Value ?? defaultValue;
+    }
+
+    private static int GetIntAttributeValue(XElement element, string attributeName, int defaultValue = 0)
+    {
+        var attr = element.Attributes()
+            .FirstOrDefault(a => string.Equals(a.Name.LocalName, attributeName, StringComparison.OrdinalIgnoreCase));
+
+        if (attr != null && int.TryParse(attr.Value, out int value))
+        {
+            return value;
+        }
+        return defaultValue;
     }
 
     private async Task<IEnumerable<LogAction>> GetLogActionsAsync()

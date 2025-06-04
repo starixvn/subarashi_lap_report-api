@@ -1254,9 +1254,6 @@
   <data name="RemoveMonitoringMatch" xml:space="preserve">
     <value>Removed from monitoring list</value>
   </data>
-  <data name="SystemConfirmedRuleReached" xml:space="preserve">
-    <value>System confirmed a rule was reached</value>
-  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -1265,5 +1262,8 @@
   </data>
   <data name="or" xml:space="preserve">
     <value>or</value>
+  </data>
+  <data name="AlertTriggeredMsg" xml:space="preserve">
+    <value>Alert Triggered: {0} – warning notification sent</value>
   </data>
 </root>

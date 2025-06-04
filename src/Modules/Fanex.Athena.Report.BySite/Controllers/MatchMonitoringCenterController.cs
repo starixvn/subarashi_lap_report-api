@@ -1,9 +1,5 @@
 namespace Fanex.Athena.Report.BySite.Controllers;
 
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using BySite.MetaModels;
 using BySite.Services.Interfaces;
 using Common.Services.Interfaces;
@@ -12,12 +8,13 @@ using Core.Constants;
 using Core.Services.Interfaces;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
 using Fanex.Athena.Report.Core.Extensions;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Athena.Report.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Models;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]/[action]")]

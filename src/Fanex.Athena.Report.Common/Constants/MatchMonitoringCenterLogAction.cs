@@ -7,5 +7,5 @@ public static class MatchMonitoringCenterLogAction
     public const int CreateAlertRule = 4003;
     public const int UpdateAlertRule = 4004;
     public const int RemoveAlertRule = 4005;
-    public const int SystemConfirmedRuleReached = 4006;
+    public const int AlertTriggered = 4006;
 }
