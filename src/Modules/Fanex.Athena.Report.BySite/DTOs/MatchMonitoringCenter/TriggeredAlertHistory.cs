@@ -7,7 +7,7 @@ public class TriggeredAlertHistory
 {
     public DateTime Time { get; set; }
 
-    public string TimeString => Time.ToString("yyyy-MM-dd HH:mm");
+    public string TimeString => Time.ToString("yyyy-MM-dd HH:mm:ss");
 
     public List<string> DetectedInfos { get; set; }
 
