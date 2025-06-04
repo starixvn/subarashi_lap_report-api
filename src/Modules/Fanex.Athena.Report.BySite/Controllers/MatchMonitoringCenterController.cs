@@ -84,7 +84,7 @@ public partial class MatchMonitoringCenterController(
     public async Task<ActionResult> ExportExcel([FromBody] MatchMonitoringCenterGetMetaModel metaModel)
     {
         UpdateMetaModel(metaModel);
-        var template = file.GetFileInfo("/ExcelTemplate/MatchMonitoringCenter.xls").PhysicalPath;
+        var template = file.GetFileInfo("/ExcelTemplate/MatchMonitoringCenter.xlsx").PhysicalPath;
         var data = await matchMonitoringCenterService.GetData(metaModel);
         if (!data.Running.IsPresent() && !data.Settled.IsPresent())
         {
