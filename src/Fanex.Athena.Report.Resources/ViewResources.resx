@@ -1266,4 +1266,10 @@
   <data name="AlertTriggeredMsg" xml:space="preserve">
     <value>Alert Triggered: {0} – warning notification sent</value>
   </data>
+  <data name="ProductAIG" xml:space="preserve">
+    <value>AI Gaming</value>
+  </data>
+  <data name="ProductCPRNG" xml:space="preserve">
+    <value>ClotPlay</value>
+  </data>
 </root>
