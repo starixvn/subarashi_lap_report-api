@@ -12,6 +12,8 @@ public class MatchMonitoringCenterViewModel
 
     public string BaseCurrency { get; set; }
 
+    public string DefaultBaseCurrency { get; set; }
+
     public KeyValuePair<int, string>[] Currencies { get; set; }
 
     public KeyValuePair<int, string>[] BaseCurrencies { get; set; }

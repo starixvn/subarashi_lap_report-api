@@ -52,6 +52,7 @@ public partial class MatchMonitoringCenterController(
         {
             LeagueList = leagueList,
             MatchList = matchList,
+            DefaultBaseCurrency = contextService.DefaultBaseCurrency,
             BaseCurrency = string.IsNullOrEmpty(baseCurrency) ? contextService.DefaultBaseCurrency : baseCurrency.ToUpper(),
             BaseCurrencies = baseCurrencyService.GetBaseCurrencyList().ToArray(),
             Currencies = contextService.CurrencyList.ToArray(),
