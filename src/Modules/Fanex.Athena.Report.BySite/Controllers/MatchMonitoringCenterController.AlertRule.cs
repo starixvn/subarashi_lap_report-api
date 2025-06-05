@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public partial class MatchMonitoringCenterController
 {
@@ -13,7 +14,16 @@ public partial class MatchMonitoringCenterController
     public async Task<IActionResult> GetAlertRule(int monitoringId)
     {
         var result = await matchMonitoringCenterService.GetAlertRule(monitoringId);
-        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToArray();
+        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToList();
+
+        if (string.Equals(contextService.SiteName, "TGXI", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(contextService.SiteName, "Athena000", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(contextService.SiteName, "TGXISW", StringComparison.OrdinalIgnoreCase))
+        {
+            var baseCurrencyDict = baseCurrencyList.ToDictionary(x => x.Key, x => x.Value);
+            baseCurrencyDict.Add(-999, "UUS");
+            baseCurrencyList = baseCurrencyDict.ToList();
+        }
 
         return Ok(new
         {
@@ -81,8 +91,10 @@ public partial class MatchMonitoringCenterController
         }
 
         var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList();
+
         if (string.IsNullOrEmpty(model.BaseCurrency) ||
-            !baseCurrencyList.Any(bc => string.Equals(bc.Value, model.BaseCurrency, StringComparison.OrdinalIgnoreCase)))
+            (!string.Equals("UUS", model.BaseCurrency, StringComparison.OrdinalIgnoreCase)
+            && !baseCurrencyList.Any(bc => string.Equals(bc.Value, model.BaseCurrency, StringComparison.OrdinalIgnoreCase))))
         {
             return false;
         }
