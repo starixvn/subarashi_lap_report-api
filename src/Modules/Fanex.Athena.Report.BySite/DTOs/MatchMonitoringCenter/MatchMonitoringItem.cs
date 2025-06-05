@@ -27,7 +27,7 @@ public class MatchMonitoringItem
 
     public DateTime KickOffTime { get; set; }
 
-    public string KickOffTimeString => KickOffTime.ToString("yyyy-MM-dd HH:mm:ss");
+    public string KickOffTimeString => KickOffTime.ToString("yyyy-MM-dd HH:mm");
 
     public bool LiveIndicator { get; set; }
 
