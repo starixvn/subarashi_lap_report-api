@@ -52,8 +52,8 @@
 		<Setting Key="Lrf_Rpt_AbnormalBet_Summary" SpName="Lrf_Rpt_AbnormalBet_Summary_xpre" DbName="DBWH.bodb_DWRS.wsv_lap" />
 		<Setting Key="Lrf_AbnormalBet_SubIssueSel" SpName="Lrf_AbnormalBet_SubIssueSel_xpre" DbName="DBWH.bodb_DWRS.wsv_lap" />
 
-    <Setting Key="Lrf_Rpt_SubsidiaryWinloss" SpName="Lrf_Rpt_SubsidiaryWinloss" DbName="DBEXT.bodb02.wsv_lap" />
-    <Setting Key="Lrf_Rpt_SubsidiaryWinlossDetail" SpName="Lrf_Rpt_SubsidiaryWinlossDetail" DbName="DBEXT.bodb02.wsv_lap" />
+		<Setting Key="Lrf_Rpt_SubsidiaryWinloss" SpName="Lrf_Rpt_SubsidiaryWinloss" DbName="DBEXT.bodb02.wsv_lap" />
+		<Setting Key="Lrf_Rpt_SubsidiaryWinlossDetail" SpName="Lrf_Rpt_SubsidiaryWinlossDetail" DbName="DBEXT.bodb02.wsv_lap" />
 
 		<Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.wsv_lap"></Setting>
 		<Setting Key="Lrf_Rpt_LiveMatchWeekly" SpName="Lrf_Rpt_LiveMatchWeekly" DbName="DBEXT.bodb02.wsv_lap" />
@@ -78,10 +78,23 @@
 		<Setting Key="Lrf_Rpt_LiveReportDetail" SpName="Lrf_Rpt_LiveReportDetail" DbName="DBEXT.bodb02.wsv_lap"></Setting>
 		<Setting Key="Lrf_Rpt_LiveReportBySportType" SpName="Lrf_Rpt_LiveReportBySportType" DbName="DBEXT.bodb02.wsv_lap"></Setting>
 
-    <Setting Key="Lrf_Rpt_LicWinlossByTimeZone" SpName="Lrf_Rpt_LicWinlossByTimeZone" DbName="DBEXT.bodb02.wsv_lap" />
+		<Setting Key="Lrf_Rpt_LicWinlossByTimeZone" SpName="Lrf_Rpt_LicWinlossByTimeZone" DbName="DBEXT.bodb02.wsv_lap" />
 
 		<Setting Key="Lrf_Rpt_CustomerTurnOver" SpName="Lrf_Rpt_CustomerTurnOver" DbName="DBEXT.bodb02.wsv_lap"></Setting>
 		<Setting Key="Lrf_Rpt_TurnOver" SpName="Lrf_Rpt_TurnOver" DbName="DBACC.bodb02.wsv_lap"></Setting>
+
+		<Setting Key="Lrf_LicenseeMatchMonitoring_Ins" SpName="Lrf_LicenseeMatchMonitoring_Ins" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
+		<Setting Key="Lrf_LicenseeMatchMonitoring_Upd" SpName="Lrf_LicenseeMatchMonitoring_Upd" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
+		<Setting Key="Lrf_Rpt_MatchMonitoringCenter" SpName="Lrf_Rpt_MatchMonitoringCenter" DbName="DBBOF.bodb02.wsv_lap"></Setting>
+		<Setting Key="Lrf_MatchMonitoring_SelLeague" SpName="Lrf_MatchMonitoring_SelLeague" DbName="DBBOF.bodb02.wsv_lap"></Setting>
+		<Setting Key="Lrf_MatchMonitoring_SelMatchByLeague" SpName="Lrf_MatchMonitoring_SelMatchByLeague" DbName="DBBOF.bodb02.wsv_lap"></Setting>
+		<Setting Key="Lrf_LicenseeMatchMonitoringSetting_Sel" SpName="Lrf_LicenseeMatchMonitoringSetting_Sel" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
+		<Setting Key="Lrf_LicenseeMatchMonitoringSetting_Ins" SpName="Lrf_LicenseeMatchMonitoringSetting_Ins" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
+		<Setting Key="Lrf_LicenseeMatchMonitoringSetting_Upd" SpName="Lrf_LicenseeMatchMonitoringSetting_Upd" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
+		<Setting Key="Lrf_LicenseeMatchMonitoringSetting_Del" SpName="Lrf_LicenseeMatchMonitoringSetting_Del" DbName="DBCUST.bodb_Licensee.wsv_lap"></Setting>
+		<Setting Key="Lrf_MatchMonitoring_SelTriggeredAlert" SpName="Lrf_MatchMonitoring_SelTriggeredAlert" DbName="DBEXT.bodb02.wsv_lap"></Setting>
+		<Setting Key="Lrf_LogAction_LicSel" SpName="Lrf_LogAction_LicSel" DbName="DBLOG.bodb_CustomerLog.wsv_lap"></Setting>
+		<Setting Key="Lrf_LicenseeMatchMonitoringLog_Sel" SpName="Lrf_LicenseeMatchMonitoringLog_Sel" DbName="DBLOG.bodb_CustomerLog.wsv_lap"></Setting>
 	</Function>
 
 	<Function Name="SiteConfig">
@@ -90,6 +103,6 @@
 	</Function>
 
 	<SiteDB>
-		<Setting Key="SiteDB_Lrf_Rpt_WinLoss" SpName="SiteDB_Lrf_Rpt_WinLoss_xtest" DbName="Shard_DBSID.bodb02.wsv_lap" />
+		<Setting Key="SiteDB_Lrf_Rpt_WinLoss" SpName="SiteDB_Lrf_Rpt_WinLoss" DbName="Shard_DBSID.bodb02.wsv_lap" />
 	</SiteDB>
 </Functions>

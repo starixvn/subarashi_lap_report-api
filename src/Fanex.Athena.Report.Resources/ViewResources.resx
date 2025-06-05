@@ -1218,4 +1218,52 @@
   <data name="ProductWLC" xml:space="preserve">
     <value>W Casino</value>
   </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>Kick Off Time</value>
+  </data>
+  <data name="MatchStatus" xml:space="preserve">
+    <value>Match Status</value>
+  </data>
+  <data name="TriggeredAlert" xml:space="preserve">
+    <value>Triggered Alert</value>
+  </data>
+  <data name="AlertRules" xml:space="preserve">
+    <value>Alert Rules</value>
+  </data>
+  <data name="TotalHome" xml:space="preserve">
+    <value>Total Home</value>
+  </data>
+  <data name="TotalAway" xml:space="preserve">
+    <value>Total Away</value>
+  </data>
+  <data name="ForecastHome" xml:space="preserve">
+    <value>Forecast Home</value>
+  </data>
+  <data name="ForecastAway" xml:space="preserve">
+    <value>Forecast Away</value>
+  </data>
+  <data name="MatchMonitoringCenter" xml:space="preserve">
+    <value>Match Monitoring Center</value>
+  </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>Request is not valid</value>
+  </data>
+  <data name="AddMonitoringMatch" xml:space="preserve">
+    <value>Added to monitoring list</value>
+  </data>
+  <data name="RemoveMonitoringMatch" xml:space="preserve">
+    <value>Removed from monitoring list</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="AlertTriggeredMsg" xml:space="preserve">
+    <value>Alert Triggered: {0} – warning notification sent</value>
+  </data>
 </root>
