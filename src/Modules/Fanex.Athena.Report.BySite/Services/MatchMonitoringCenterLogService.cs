@@ -260,7 +260,7 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
             var conditionTypeValue = GetIntAttributeValue(root, "ConditionType");
             var conditionTypeName = ConvertConditionTypeToName(conditionTypeValue);
 
-            return $"[{settingName}] | {forecastLoss} ({negativeProfit}) | {baseCurrency} | {conditionTypeName} | {betRatio}% ({homeStakePercentage}%:{awayStakePercentage}%)";
+            return $"[{settingName}] | {negativeProfit} ({forecastLoss}) | {baseCurrency} | {conditionTypeName} | {betRatio}% ({homeStakePercentage}%:{awayStakePercentage}%)";
         }
         catch
         {
