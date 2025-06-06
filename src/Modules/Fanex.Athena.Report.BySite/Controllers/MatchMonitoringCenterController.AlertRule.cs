@@ -6,14 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public partial class MatchMonitoringCenterController
 {
+    private readonly string[] AllowUUSSites = { "TGXI", "Athena000", "TGXISW" };
+    private const int UUSBaseCurrencyId = -999;
+
     [HttpGet]
     public async Task<IActionResult> GetAlertRule(int monitoringId)
     {
         var result = await matchMonitoringCenterService.GetAlertRule(monitoringId);
-        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToArray();
+        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToList();
+
+        if (AllowUUSSites.Any(site => string.Equals(contextService.SiteName, site, StringComparison.OrdinalIgnoreCase)))
+        {
+            var baseCurrencyDict = baseCurrencyList.ToDictionary(x => x.Key, x => x.Value);
+            baseCurrencyDict.Add(UUSBaseCurrencyId, "UUS");
+            baseCurrencyList = baseCurrencyDict.ToList();
+        }
 
         return Ok(new
         {
@@ -80,9 +91,7 @@ public partial class MatchMonitoringCenterController
             return false;
         }
 
-        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList();
-        if (string.IsNullOrEmpty(model.BaseCurrency) ||
-            !baseCurrencyList.Any(bc => string.Equals(bc.Value, model.BaseCurrency, StringComparison.OrdinalIgnoreCase)))
+        if (!IsValidBaseCurrency(model.BaseCurrency))
         {
             return false;
         }
@@ -98,6 +107,25 @@ public partial class MatchMonitoringCenterController
         }
 
         return true;
+    }
+
+    private bool IsValidBaseCurrency(string baseCurrency)
+    {
+        var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList();
+        bool isUUSAllowed = AllowUUSSites.Any(site => string.Equals(contextService.SiteName, site, StringComparison.OrdinalIgnoreCase));
+
+        if (string.IsNullOrEmpty(baseCurrency))
+        {
+            return false;
+        }
+
+        if (string.Equals("UUS", baseCurrency, StringComparison.OrdinalIgnoreCase))
+        {
+            return isUUSAllowed;
+        }
+
+        return baseCurrencyList.Any(bc =>
+            string.Equals(bc.Value, baseCurrency, StringComparison.OrdinalIgnoreCase));
     }
 
     private static bool ValidateAlertRuleProperties(DTOs.AlertRule alertRule)
