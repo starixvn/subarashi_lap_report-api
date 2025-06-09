@@ -38,6 +38,8 @@ RUN dotnet publish "Fanex.Athena.Report/Fanex.Athena.Report.csproj" -c Release -
 
 FROM hub.nexdev.net/base/dotnet/core/aspnet:8.0-alpine-25h1 AS final
 
+RUN apk add --no-cache nano
+
 ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
 ENV ASPNETCORE_HTTP_PORTS=5000
 EXPOSE 5000
