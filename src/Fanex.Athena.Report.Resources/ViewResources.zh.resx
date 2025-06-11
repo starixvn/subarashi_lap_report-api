@@ -979,4 +979,34 @@
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>请求无效</value>
   </data>
+  <data name="ActionType_10" xml:space="preserve">
+    <value>监控变更</value>
+  </data>
+  <data name="ActionType_11" xml:space="preserve">
+    <value>配置变更</value>
+  </data>
+  <data name="ActionType_12" xml:space="preserve">
+    <value>警报触发</value>
+  </data>
+  <data name="Action_4001" xml:space="preserve">
+    <value>添加监控赛事</value>
+  </data>
+  <data name="Action_4002" xml:space="preserve">
+    <value>警报触发</value>
+  </data>
+  <data name="Action_4003" xml:space="preserve">
+    <value>创建警报规则</value>
+  </data>
+  <data name="Action_4004" xml:space="preserve">
+    <value>更新警报规则</value>
+  </data>
+  <data name="Action_4005" xml:space="preserve">
+    <value>删除警报规则</value>
+  </data>
+  <data name="Action_4006" xml:space="preserve">
+    <value>警报触发</value>
+  </data>
+  <data name="NoneLive2" xml:space="preserve">
+    <value>非滚球</value>
+  </data>
 </root>

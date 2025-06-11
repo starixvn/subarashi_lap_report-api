@@ -3,8 +3,10 @@ namespace Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.Models;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
+using Fanex.Athena.Report.Resources;
 using Fanex.Common.Extensions;
 using Fanex.Data;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,12 +22,17 @@ public class MatchMonitoringCenterLogRepository : IMatchMonitoringCenterLogRepos
 
         while (reader.Read())
         {
+            var actionTypeID = reader.ToInt("ActionTypeID");
+            var actionID = reader.ToInt("ActionID");
+            var actionTypeName = ViewResources.ResourceManager.GetString($"ActionType_{actionTypeID}") ?? reader.ToString("ActionTypeName");
+            var actionName = ViewResources.ResourceManager.GetString($"Action_{actionID}") ?? reader.ToString("ActionName");
+
             result.Add(new LogAction
             {
-                ActionTypeID = reader.ToInt("ActionTypeID"),
-                ActionTypeName = reader.ToString("ActionTypeName"),
-                ActionID = reader.ToInt("ActionID"),
-                ActionName = reader.ToString("ActionName")
+                ActionTypeID = actionTypeID,
+                ActionTypeName = actionTypeName,
+                ActionID = actionID,
+                ActionName = actionName
             });
         }
 

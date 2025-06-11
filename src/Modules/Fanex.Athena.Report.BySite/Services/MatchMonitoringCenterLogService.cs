@@ -10,6 +10,7 @@ using Fanex.Athena.Report.Resources;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -35,8 +36,8 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
     public async Task<IEnumerable<SelectItem>> GetActions(string logTypes = "")
     {
         string cacheKey = string.IsNullOrEmpty(logTypes)
-            ? $"{ActionsWithFilterCacheKeyPrefix}ALL"
-            : $"{ActionsWithFilterCacheKeyPrefix}{logTypes}";
+            ? $"{ActionsWithFilterCacheKeyPrefix}{CultureInfo.CurrentUICulture.Name}ALL"
+            : $"{ActionsWithFilterCacheKeyPrefix}{CultureInfo.CurrentUICulture.Name}{logTypes}";
 
         if (_cache.TryGetValue(cacheKey, out IEnumerable<SelectItem> cachedActions))
         {
@@ -61,12 +62,12 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 
         var actions = logActions
             .GroupBy(action => action.ActionID)
+            .OrderBy(action => action.Key)
             .Select(group => new SelectItem
             {
                 Key = group.Key.ToString(),
                 Value = group.First().ActionName
             })
-            .OrderBy(item => item.Value)
             .ToList();
 
         _cache.Set(cacheKey, actions, TimeSpan.FromMinutes(CacheTimeoutMinutes));
@@ -76,7 +77,7 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 
     public async Task<IEnumerable<SelectItem>> GetLogTypes()
     {
-        if (_cache.TryGetValue(LogTypesCacheKey, out IEnumerable<SelectItem> cachedLogTypes))
+        if (_cache.TryGetValue($"{LogTypesCacheKey}{CultureInfo.CurrentUICulture.Name}", out IEnumerable<SelectItem> cachedLogTypes))
         {
             return cachedLogTypes;
         }
@@ -85,15 +86,15 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 
         var logTypes = logActions
             .GroupBy(action => action.ActionTypeID)
+            .OrderBy(logType => logType.Key)
             .Select(group => new SelectItem
             {
                 Key = group.Key.ToString(),
                 Value = group.First().ActionTypeName
             })
-            .OrderBy(item => item.Value)
             .ToList();
 
-        _cache.Set(LogTypesCacheKey, logTypes, TimeSpan.FromMinutes(CacheTimeoutMinutes));
+        _cache.Set($"{LogTypesCacheKey}{CultureInfo.CurrentUICulture.Name}", logTypes, TimeSpan.FromMinutes(CacheTimeoutMinutes));
 
         return logTypes;
     }
@@ -303,14 +304,14 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 
     private async Task<IEnumerable<LogAction>> GetLogActionsAsync()
     {
-        if (_cache.TryGetValue(LogActionsCacheKey, out IEnumerable<LogAction> cachedLogActions))
+        if (_cache.TryGetValue($"{LogActionsCacheKey}{CultureInfo.CurrentUICulture.Name}", out IEnumerable<LogAction> cachedLogActions))
         {
             return cachedLogActions;
         }
 
         var logActions = await _matchMonitoringCenterLogRepository.GetLogActions();
 
-        _cache.Set(LogActionsCacheKey, logActions, TimeSpan.FromMinutes(CacheTimeoutMinutes));
+        _cache.Set($"{LogActionsCacheKey}{CultureInfo.CurrentUICulture.Name}", logActions, TimeSpan.FromMinutes(CacheTimeoutMinutes));
 
         return logActions;
     }

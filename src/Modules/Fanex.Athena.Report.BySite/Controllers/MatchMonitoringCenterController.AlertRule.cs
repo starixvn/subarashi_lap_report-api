@@ -78,7 +78,7 @@ public partial class MatchMonitoringCenterController
     private bool ValidateAlertRuleModel(AlertRuleMetaModel model)
     {
         string[] validConditionTypes = { "or", "and" };
-        short[] validIntervals = { 60, 120, 180, 300, 600 };
+        short[] validIntervals = { 180, 300, 600 };
 
         if (string.IsNullOrWhiteSpace(model.SettingName))
         {

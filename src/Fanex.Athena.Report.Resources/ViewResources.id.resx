@@ -1065,4 +1065,34 @@
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>Permintaan tidak valid</value>
   </data>
+  <data name="ActionType_10" xml:space="preserve">
+    <value>PERUBAHAN_PEMANTAUAN</value>
+  </data>
+  <data name="ActionType_11" xml:space="preserve">
+    <value>PERUBAHAN_KONFIGURASI</value>
+  </data>
+  <data name="ActionType_12" xml:space="preserve">
+    <value>PERINGATAN_DIPICU</value>
+  </data>
+  <data name="Action_4001" xml:space="preserve">
+    <value>Tambah Pertandingan Monitor</value>
+  </data>
+  <data name="Action_4002" xml:space="preserve">
+    <value>Peringatan Dihidupkan</value>
+  </data>
+  <data name="Action_4003" xml:space="preserve">
+    <value>Buat Aturan Peringatan</value>
+  </data>
+  <data name="Action_4004" xml:space="preserve">
+    <value>Perbarui Aturan Peringatan</value>
+  </data>
+  <data name="Action_4005" xml:space="preserve">
+    <value>Hapus Aturan Peringatan</value>
+  </data>
+  <data name="Action_4006" xml:space="preserve">
+    <value>Peringatan Dihidupkan</value>
+  </data>
+  <data name="NoneLive2" xml:space="preserve">
+    <value>Non-Live</value>
+  </data>
 </root>

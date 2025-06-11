@@ -1098,4 +1098,34 @@
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>คำขอไม่ถูกต้อง</value>
   </data>
+  <data name="ActionType_10" xml:space="preserve">
+    <value>เปลี่ยนแปลงการติดตาม</value>
+  </data>
+  <data name="ActionType_11" xml:space="preserve">
+    <value>เปลี่ยนแปลงการตั้งค่า</value>
+  </data>
+  <data name="ActionType_12" xml:space="preserve">
+    <value>แจ้งเตือนถูกเรียกใช้งาน</value>
+  </data>
+  <data name="Action_4001" xml:space="preserve">
+    <value>เพิ่มแมตช์ที่ต้องการติดตาม</value>
+  </data>
+  <data name="Action_4002" xml:space="preserve">
+    <value>แจ้งเตือนถูกเรียกใช้งาน</value>
+  </data>
+  <data name="Action_4003" xml:space="preserve">
+    <value>สร้างกฎแจ้งเตือน</value>
+  </data>
+  <data name="Action_4004" xml:space="preserve">
+    <value>อัปเดตกฎแจ้งเตือน</value>
+  </data>
+  <data name="Action_4005" xml:space="preserve">
+    <value>ลบกฎแจ้งเตือน</value>
+  </data>
+  <data name="Action_4006" xml:space="preserve">
+    <value>แจ้งเตือนถูกเรียกใช้งาน</value>
+  </data>
+  <data name="NoneLive2" xml:space="preserve">
+    <value>ไม่แทงบอลสด</value>
+  </data>
 </root>

@@ -1272,4 +1272,34 @@
   <data name="ProductCPRNG" xml:space="preserve">
     <value>ClotPlay</value>
   </data>
+  <data name="ActionType_10" xml:space="preserve">
+    <value>MONITORING_CHANGE</value>
+  </data>
+  <data name="ActionType_11" xml:space="preserve">
+    <value>CONFIG_CHANGE</value>
+  </data>
+  <data name="ActionType_12" xml:space="preserve">
+    <value>ALERT_TRIGGERED</value>
+  </data>
+  <data name="Action_4001" xml:space="preserve">
+    <value>Add Monitoring Match</value>
+  </data>
+  <data name="Action_4002" xml:space="preserve">
+    <value>Alert Fired</value>
+  </data>
+  <data name="Action_4003" xml:space="preserve">
+    <value>Create Alert Rule</value>
+  </data>
+  <data name="Action_4004" xml:space="preserve">
+    <value>Update Alert Rule</value>
+  </data>
+  <data name="Action_4005" xml:space="preserve">
+    <value>Remove Alert Rule</value>
+  </data>
+  <data name="Action_4006" xml:space="preserve">
+    <value>Alert Fired</value>
+  </data>
+  <data name="NoneLive2" xml:space="preserve">
+    <value>Non-Live</value>
+  </data>
 </root>

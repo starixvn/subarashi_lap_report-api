@@ -1113,4 +1113,34 @@
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>Yêu cầu không hợp lệ</value>
   </data>
+  <data name="ActionType_10" xml:space="preserve">
+    <value>THAY_ĐỔI_THEO_DÕI</value>
+  </data>
+  <data name="ActionType_11" xml:space="preserve">
+    <value>THAY_ĐỔI_CÀI_ĐẶT</value>
+  </data>
+  <data name="ActionType_12" xml:space="preserve">
+    <value>CẢNH_BÁO_KÍCH_HOẠT</value>
+  </data>
+  <data name="Action_4001" xml:space="preserve">
+    <value>Thêm Trận Đấu Cần Theo Dõi</value>
+  </data>
+  <data name="Action_4002" xml:space="preserve">
+    <value>Cảnh Báo Đã Kích Hoạt</value>
+  </data>
+  <data name="Action_4003" xml:space="preserve">
+    <value>Tạo Quy Tắc Cảnh Báo</value>
+  </data>
+  <data name="Action_4004" xml:space="preserve">
+    <value>Cập Nhật Quy Tắc Cảnh Báo</value>
+  </data>
+  <data name="Action_4005" xml:space="preserve">
+    <value>Xóa Quy Tắc Cảnh Báo</value>
+  </data>
+  <data name="Action_4006" xml:space="preserve">
+    <value>Cảnh Báo Đã Kích Hoạt</value>
+  </data>
+  <data name="NoneLive2" xml:space="preserve">
+    <value>Không Trực tiếp</value>
+  </data>
 </root>
