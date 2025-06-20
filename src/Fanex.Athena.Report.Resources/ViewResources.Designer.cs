@@ -79,6 +79,87 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Monitoring Match.
+        /// </summary>
+        public static string Action_4001 {
+            get {
+                return ResourceManager.GetString("Action_4001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alert Fired.
+        /// </summary>
+        public static string Action_4002 {
+            get {
+                return ResourceManager.GetString("Action_4002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Alert Rule.
+        /// </summary>
+        public static string Action_4003 {
+            get {
+                return ResourceManager.GetString("Action_4003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Alert Rule.
+        /// </summary>
+        public static string Action_4004 {
+            get {
+                return ResourceManager.GetString("Action_4004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Alert Rule.
+        /// </summary>
+        public static string Action_4005 {
+            get {
+                return ResourceManager.GetString("Action_4005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alert Fired.
+        /// </summary>
+        public static string Action_4006 {
+            get {
+                return ResourceManager.GetString("Action_4006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MONITORING_CHANGE.
+        /// </summary>
+        public static string ActionType_10 {
+            get {
+                return ResourceManager.GetString("ActionType_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CONFIG_CHANGE.
+        /// </summary>
+        public static string ActionType_11 {
+            get {
+                return ResourceManager.GetString("ActionType_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ALERT_TRIGGERED.
+        /// </summary>
+        public static string ActionType_12 {
+            get {
+                return ResourceManager.GetString("ActionType_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actual Stake.
         /// </summary>
         public static string ActualStake {
@@ -1614,6 +1695,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string NoneLive {
             get {
                 return ResourceManager.GetString("NoneLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-Live.
+        /// </summary>
+        public static string NoneLive2 {
+            get {
+                return ResourceManager.GetString("NoneLive2", resourceCulture);
             }
         }
         

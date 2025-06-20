@@ -39,6 +39,7 @@ public class MatchMonitoringCenterExcel(
     private MatchMonitoringCenterGetMetaModel _metaModel;
 
     #region Constants
+
     private const string SheetName = "MatchMonitoringCenter";
     private const int TemplateSheetIndex = 0;
     private const int TemplateTitleRowIndex = 1;
@@ -60,7 +61,7 @@ public class MatchMonitoringCenterExcel(
     private const int ColumnForecastHome = 9;
     private const int ColumnForecastAway = 10;
 
-    #endregion
+    #endregion Constants
 
     public string Export(string template, MatchMonitoringCenter data, MatchMonitoringCenterGetMetaModel metaModel)
     {
@@ -259,7 +260,7 @@ public class MatchMonitoringCenterExcel(
         }
         else
         {
-            sheet.SetValue(rowIndex, ColumnMatchStatus, ViewResources.NoneLive);
+            sheet.SetValue(rowIndex, ColumnMatchStatus, ViewResources.NoneLive2);
         }
     }
 
@@ -297,4 +298,3 @@ public class MatchMonitoringCenterExcel(
         return string.Join(Environment.NewLine, alertRules.Select(rule => "- " + rule));
     }
 }
-
