@@ -15,19 +15,24 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 
 namespace Fanex.Athena.Report.ByPlayer.Repository
 {
     public class CustomerTurnoverRepository : ICustomerTurnoverRepository
     {
         private readonly IBalanceUpService _balanceUpService;
-
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IProductService _productService;
 
-        public CustomerTurnoverRepository(IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter)
+        public CustomerTurnoverRepository(
+            IBalanceUpService balanceUpService,
+            ICacheRefAdapter cacheRefAdapter,
+            IProductService productService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
+            _productService = productService;
         }
 
         public async Task<ReportResultModel<CustTurnover>> GetDataList(CustomerTurnoverMetaModel metaModel, IReadOnlyDictionary<int, string> currencyList, string languageCode)
@@ -50,7 +55,7 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
                         var bettypeMatch = Regex.Match(bettype, @"(^[^-\n]*) - ([^-\n]*$)");
                         if (bettypeMatch.Success)
                         {
-                            bettype = $"{ProductHelper.GetProductName(bettypeMatch.Groups[ProductPrefixPosition].Value)} - {bettypeMatch.Groups[BettypePosition].Value}";
+                            bettype = $"{_productService.GetProductName(bettypeMatch.Groups[ProductPrefixPosition].Value)} - {bettypeMatch.Groups[BettypePosition].Value}";
                         }
 
                         result.Add(new CustTurnover

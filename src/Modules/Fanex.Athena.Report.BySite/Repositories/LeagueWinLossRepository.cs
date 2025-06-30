@@ -16,12 +16,14 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
 
     public class LeagueWinLossRepository : ILeagueWinLossRepository
     {
         private readonly IBalanceUpService _balanceUpService;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly INameService _nameService;
+        private readonly IProductService _productService;
 
         private const int ParlaySport = 0;
         private const int Outright = 2;
@@ -38,11 +40,12 @@
         private static readonly List<int> SportsDirectToCurrencyOrder = new() { ParlaySport, SportType.SportsLottery, SportType.BitCoin };
 
         public LeagueWinLossRepository(
-            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, INameService nameService)
+            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, INameService nameService, IProductService productService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
             _nameService = nameService;
+            _productService = productService;
         }
 
         public async Task<SortableReportResultModel<LeagueWinLoss>> GetLeagueWinlossDetail(
@@ -140,7 +143,7 @@
 
                 var sportData = GetSumData(sportDetail);
                 var sportName = GetSportName(sport.SportType, sport.LeagueId, isHideSaba);
-                var productName = ProductHelper.GetProductName(sport.ProductGroup);
+                var productName = _productService.GetProductName(sport.ProductGroup);
 
                 sportData.ProductGroup = sport.ProductGroup;
                 sportData.SportType = sport.SportType;

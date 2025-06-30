@@ -16,6 +16,8 @@ public class AppSettings
 
     public List<string> CryptoLicenseesSupportBaseEur { get; set; }
 
+        public string CommonApiHostUrl { get; set; }
+
     public bool HasAmountDueToColumn { get; set; }
 
     public int MaxRowPerExcelFile { get; set; }

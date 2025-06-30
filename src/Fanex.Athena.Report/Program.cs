@@ -73,6 +73,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.AddDistributedMemoryCache();
     services.AddHttpContextAccessor();
     services.AddHttpClient();
+    services.AddCommonApiClient(settings);
 
     services.AddControllers(options =>
     {

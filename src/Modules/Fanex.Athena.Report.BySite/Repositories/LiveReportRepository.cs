@@ -17,19 +17,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 
 namespace Fanex.Athena.Report.BySite.Repositories
 {
     public class LiveReportRepository : ILiveReportRepository
     {
         private readonly IBalanceUpService _balanceUpService;
-
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IProductService _productService;
 
-        public LiveReportRepository(ICacheRefAdapter cacheRefAdapter, IBalanceUpService balanceUpService)
+        public LiveReportRepository(
+            ICacheRefAdapter cacheRefAdapter,
+            IBalanceUpService balanceUpService,
+            IProductService productService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _balanceUpService = balanceUpService;
+            _productService = productService;
         }
 
         public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel)
@@ -52,7 +57,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
                         var item = new LiveReport
                         {
-                            ProductName = ProductHelper.GetProductName(productCode),
+                            ProductName = _productService.GetProductName(productCode),
                             ProductCode = productCode
                         };
                         ReadCommonColumns(reader, item);

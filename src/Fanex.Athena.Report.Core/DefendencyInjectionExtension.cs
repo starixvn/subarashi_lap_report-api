@@ -31,4 +31,14 @@ public static class DefendencyInjectionExtension
         services.AddTransient<IDataPermissionService, DataPermissionService>();
         return services;
     }
+
+        public static IServiceCollection AddCommonApiClient(this IServiceCollection services, AppSettings settings)
+        {
+            services.AddHttpClient<ICommonApiClient, CommonApiClient>(client =>
+            {
+                client.BaseAddress = new Uri(settings.CommonApiHostUrl);
+            });
+
+            return services;
+        }
 }

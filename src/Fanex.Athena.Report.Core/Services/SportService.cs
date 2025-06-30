@@ -23,11 +23,14 @@ namespace Fanex.Athena.Report.Core.Services
 
         private readonly IMemoryCache _memoryCache;
 
-        public SportService(ISportRepository sportRepository, ICacheRefAdapter cacheRefAdapter, IMemoryCache memoryCache)
+        private readonly IProductService _productService;
+
+        public SportService(ISportRepository sportRepository, ICacheRefAdapter cacheRefAdapter, IMemoryCache memoryCache, IProductService productService)
         {
             _sportRepository = sportRepository;
             _cacheRefAdapter = cacheRefAdapter;
             _memoryCache = memoryCache;
+            _productService = productService;
         }
 
         public Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
@@ -72,7 +75,7 @@ namespace Fanex.Athena.Report.Core.Services
                     ID = key.ProductId,
                     Checked = true,
                     Children = elems,
-                    Name = ProductHelper.GetProductName(key.ProductCode),
+                    Name = _productService.GetProductName(key.ProductCode),
                     Value = key.ProductCode
                 }).ToList();
 

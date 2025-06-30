@@ -13,14 +13,19 @@
     using Fanex.Common.Extensions;
     using Interfaces;
     using MetaModels;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
 
     public class WinLossByTimeZoneRepository : IWinLossByTimeZoneRepository
     {
         private readonly IBalanceUpService _balanceUpService;
+        private readonly IProductService _productService;
 
-        public WinLossByTimeZoneRepository(IBalanceUpService balanceUpService)
+        public WinLossByTimeZoneRepository(
+            IBalanceUpService balanceUpService,
+            IProductService productService)
         {
             _balanceUpService = balanceUpService;
+            _productService = productService;
         }
 
         public async Task<ReportResultModel<WinLossByTimeZone>> GetData(
@@ -66,7 +71,7 @@
             };
         }
 
-        private static WinLossByTimeZone ReadDataInBaseCurrency(
+        private WinLossByTimeZone ReadDataInBaseCurrency(
             IDataReader reader,
             IReadOnlyDictionary<int, string> currencyList,
             WinLossByTimeZoneMetaModel metaModel)
@@ -92,7 +97,7 @@
             }
 
             item.GroupBy = metaModel.GroupBy == GroupByProduct
-                ? ProductHelper.GetProductName(item.GroupBy)
+                ? _productService.GetProductName(item.GroupBy)
                 : currencyList?.GetValueOrDefault(Convert.ToInt32(item.GroupBy), item.GroupBy);
 
             return item;

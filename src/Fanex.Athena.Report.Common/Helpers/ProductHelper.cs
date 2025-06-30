@@ -44,20 +44,5 @@
 
             return ProductTypes.Sportsbook;
         }
-
-        public static string GetProductName(string productCode)
-        {
-            if (string.IsNullOrEmpty(productCode))
-            {
-                return string.Empty;
-            }
-
-            if (!ProductNameMap.TryGetValue(productCode, out var resourceKey))
-            {
-                resourceKey = "Product" + productCode;
-            }
-
-            return ViewResources.ResourceManager.GetString(resourceKey) ?? productCode;
-        }
     }
 }
