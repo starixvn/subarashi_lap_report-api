@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Fanex.Athena.Report.Core.Services
@@ -22,6 +23,7 @@ namespace Fanex.Athena.Report.Core.Services
         private readonly ICommonApiClient _commonApiClient;
         private const string ProductAccessUrl = "api/productaccess";
         private const string ProductResourceUrl = "api/productresource";
+        private const string ProductSettingUrl = "api/productSetting";
 
         public ProductService(ICommonApiClient commonApiClient)
         {
@@ -45,6 +47,10 @@ namespace Fanex.Athena.Report.Core.Services
             _commonApiClient.GetAsync<string>(
                 ProductResourceUrl,
                 new { productCode }).ConfigureAwait(false).GetAwaiter().GetResult();
+
+        public async Task<ProductSetting> GetProductSetting() =>
+            await _commonApiClient.GetAsync<ProductSetting>(
+                ProductSettingUrl).ConfigureAwait(false);
 
         public ProductAccess GetProductAccess(int licenseeId, string functionConfigKey = null)
         {

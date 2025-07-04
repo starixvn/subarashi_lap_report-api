@@ -35,7 +35,9 @@ namespace Fanex.Athena.Report.BySite.Services
         public async Task<LiveReportDetailResultModel> GetLiveReportSummaryDetail(
             LiveReportMetaModel model,
             IDictionary<int, string> currencyList,
-            IEnumerable<ProductInfo> products)
+            IEnumerable<ProductInfo> products,
+            int[] liveReportNoDetailLinkSports
+            )
         {
             if (!model.IsValid)
             {
@@ -47,7 +49,7 @@ namespace Fanex.Athena.Report.BySite.Services
                 };
             }
 
-            var detailBySport = await _liveReportRepository.GetDetailBySport(model).ConfigureAwait(false);
+            var detailBySport = await _liveReportRepository.GetDetailBySport(model, liveReportNoDetailLinkSports).ConfigureAwait(false);
 
             var tupleCurrencyAndBettype = await _liveReportRepository
                                                .GetDetailByCurrencyAndBettype(model, currencyList, products)

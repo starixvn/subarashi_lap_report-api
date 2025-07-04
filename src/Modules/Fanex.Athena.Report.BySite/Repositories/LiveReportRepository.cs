@@ -69,7 +69,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             }
         }
 
-        public async Task<IList<LiveReportBySport>> GetDetailBySport(LiveReportMetaModel metaModel)
+        public async Task<IList<LiveReportBySport>> GetDetailBySport(LiveReportMetaModel metaModel, int[] liveReportNoDetailLinkSports)
         {
             var uspName = IsSubsidiarySearch(metaModel) ? "Lrf_Rpt_LiveReportBySportType" : "Lrf_Rpt_LiveReportBySport";
             var balanceUp = await _balanceUpService.GetBalanceUpAsync();
@@ -93,7 +93,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                         };
 
                         var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
-                        item.IsLive = !ReportConstant.LiveReportNoDetailLinkSports.Contains(sportId);
+                        item.IsLive = !liveReportNoDetailLinkSports.Contains(sportId);
 
                         ReadCommonColumns(reader, item);
                         list.Add(item);

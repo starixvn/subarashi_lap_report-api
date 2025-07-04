@@ -1,5 +1,6 @@
 ﻿using Fanex.Athena.Report.Core.Models.DTOs;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
@@ -12,6 +13,8 @@ namespace Fanex.Athena.Report.Core.Services.Interfaces
         ProductAccess GetSingleWalletProductAccess(int licenseeId, string functionConfigKey = null);
 
         IList<ProductInfo> GetProductList(int licenseeId, string functionConfigKey = null);
+
+        Task<ProductSetting> GetProductSetting();
 
         string GetAllowedSubProductCodeList(IEnumerable<string> offeredSubProductList, string productCodes);
 

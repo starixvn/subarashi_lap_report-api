@@ -12,7 +12,7 @@ namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
     {
         Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel);
 
-        Task<IList<LiveReportBySport>> GetDetailBySport(LiveReportMetaModel metaModel);
+        Task<IList<LiveReportBySport>> GetDetailBySport(LiveReportMetaModel metaModel, int[] liveReportNoDetailLinkSports);
 
         Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,

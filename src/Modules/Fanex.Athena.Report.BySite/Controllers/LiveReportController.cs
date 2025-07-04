@@ -125,8 +125,12 @@ namespace Fanex.Athena.Report.BySite.Controllers
             }
 
             metaModel.ProductCodeList = _productService.GetAllowedSubProductCodeList(_contextService.OfferedSubProductList, metaModel.OriginalProductCodeList);
+
+            var productSetting = await _productService.GetProductSetting().ConfigureAwait(false);
+            var liveReportNoDetailLinkSports = productSetting.LiveReportNoDetailLinkSports;
+
             return await _liveReportService.GetLiveReportSummaryDetail(metaModel,
-                _contextService.CurrencyList.ToDictionary(x => x.Key, x => x.Value), productList).ConfigureAwait(false);
+                _contextService.CurrencyList.ToDictionary(x => x.Key, x => x.Value), productList, liveReportNoDetailLinkSports).ConfigureAwait(false);
         }
 
         [HttpGet]
