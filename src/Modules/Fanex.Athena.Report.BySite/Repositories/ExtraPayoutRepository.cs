@@ -71,7 +71,9 @@
             { ExtraPayoutMapType.PayoutFIFACWCScoreChallenge, BetType.FIFACWCScoreChallenge },
             { ExtraPayoutMapType.PayoutPTRNGJackpotContribution, BetType.PTRNGJackpotContribution },
             { ExtraPayoutMapType.PayoutPTRNGJackpotPrize, BetType.PTRNGJackpotPrize },
-            { ExtraPayoutMapType.PayoutVSTournament, BetType.VSTournament }
+            { ExtraPayoutMapType.PayoutVSTournament, BetType.VSTournament },
+            { ExtraPayoutMapType.PayoutPlaytechLiveJackpotContribution, BetType.PlaytechLiveJackpotContribution },
+            { ExtraPayoutMapType.PayoutPlaytechLiveJackpotPrize, BetType.PlaytechLiveJackpotPrize }
         };
 
         private static readonly int[] SBPromotionBettypes = new[] {

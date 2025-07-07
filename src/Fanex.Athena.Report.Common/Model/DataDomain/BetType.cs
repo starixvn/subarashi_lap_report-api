@@ -145,5 +145,9 @@
         public const int PTRNGJackpotPrize = 12999;
 
         public const int VSTournament = 2798;
+        
+        public const int PlaytechLiveJackpotContribution = 15798;
+
+        public const int PlaytechLiveJackpotPrize = 15799;
     }
 }

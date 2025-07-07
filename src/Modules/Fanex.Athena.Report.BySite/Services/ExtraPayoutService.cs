@@ -48,7 +48,8 @@
                 { Product.MGLC, AddPromotionTypesForProductMglc() },
                 { Product.RGRNG, AddPromotionTypesForProductRgrng() },
                 { Product.PTRNG, AddPromotionTypesForProductPtrng() },
-                { Product.VS, AddPromotionTypesForProductVs() }
+                { Product.VS, AddPromotionTypesForProductVs() },
+                { Product.PTLC, AddPromotionTypesForProductPtlc() }
             };
         }
 
@@ -360,6 +361,25 @@
                 {
                     ID = ExtraPayoutMapType.PayoutVSTournament,
                     Name = $"{_productService.GetProductName(Product.VS)} - {_cacheRefAdapter.GetBettype(BetType.VSTournament)}",
+                    Checked = true
+                }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductPtlc()
+        {
+            return new List<CheckedItem>
+            {
+                new()
+                {
+                    ID = ExtraPayoutMapType.PayoutPlaytechLiveJackpotContribution,
+                    Name = $"{_productService.GetProductName(Product.PTLC)} - {_cacheRefAdapter.GetBettype(BetType.PlaytechLiveJackpotContribution)}",
+                    Checked = true
+                },
+                new()
+                {
+                    ID = ExtraPayoutMapType.PayoutPlaytechLiveJackpotPrize,
+                    Name = $"{_productService.GetProductName(Product.PTLC)} - {_cacheRefAdapter.GetBettype(BetType.PlaytechLiveJackpotPrize)}",
                     Checked = true
                 }
             };

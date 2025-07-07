@@ -91,5 +91,9 @@
         public const int PayoutPTRNGJackpotPrize = 10002;
 
         public const int PayoutVSTournament = 2701;
+        
+        public const int PayoutPlaytechLiveJackpotContribution = 10101;
+
+        public const int PayoutPlaytechLiveJackpotPrize = 10102;
     }
 }
