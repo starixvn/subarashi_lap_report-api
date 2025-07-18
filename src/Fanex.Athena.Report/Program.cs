@@ -1,4 +1,8 @@
-﻿using Fanex.Athena.Report.ByPlayer;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
+using Fanex.Athena.Report.ByPlayer;
 using Fanex.Athena.Report.BySite;
 using Fanex.Athena.Report.Common;
 using Fanex.Athena.Report.Common.Excel;
@@ -28,10 +32,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureLogging(builder);
@@ -73,13 +73,12 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.AddDistributedMemoryCache();
     services.AddHttpContextAccessor();
     services.AddHttpClient();
-    services.AddBetListApiClient(settings);
 
     services.AddControllers(options =>
     {
         var policy = new AuthorizationPolicyBuilder()
-                      .RequireAuthenticatedUser()
-                      .Build();
+            .RequireAuthenticatedUser()
+            .Build();
         options.Filters.Add(new AuthorizeFilter(policy));
         options.ModelBinderProviders.AddBodyOrDefaultBinding();
     }).AddNewtonsoftJson();
@@ -89,8 +88,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     ConfigureFanexData(services, configuration);
 
     RefDataTypeContainer
-       .ConnectTo(new Uri(configuration["Fanex.RemotingRef.Service.Url"]))
-       .FromApplication("Fanex.LAP.ReportAPI");
+        .ConnectTo(new Uri(configuration["Fanex.RemotingRef.Service.Url"]))
+        .FromApplication("Fanex.LAP.ReportAPI");
     services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
     services.AddSingleton<IFileProvider>(x =>
@@ -150,7 +149,7 @@ void ConfigureLocalization(IServiceCollection services)
             new CultureInfo("zh-TW"),
             new CultureInfo("vi-VN"),
             new CultureInfo("th-TH"),
-            new CultureInfo("id-ID"),
+            new CultureInfo("id-ID")
         ];
 
         var languageCodeMappers = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -161,7 +160,7 @@ void ConfigureLocalization(IServiceCollection services)
             { "ch", "zh-TW" },
             { "vn", "vi-VN" },
             { "id", "id-ID" },
-            { "th", "th-TH" },
+            { "th", "th-TH" }
         };
 
         options.RequestCultureProviders =
@@ -169,7 +168,7 @@ void ConfigureLocalization(IServiceCollection services)
             new CustomRequestCultureProvider(context =>
             {
                 var langCode = context.User.FindFirst("Language")?.Value ?? "en";
-                var culture = languageCodeMappers.GetValueOrDefault(langCode,"en-US");
+                var culture = languageCodeMappers.GetValueOrDefault(langCode, "en-US");
                 return Task.FromResult(new ProviderCultureResult(culture: EnCultureName, uiCulture: culture));
             })
         ];
@@ -183,7 +182,7 @@ void ConfigureFanexData(IServiceCollection services, IConfiguration configuratio
         .WithSqlServer(configuration)
         .Register(ShardDbSettingProvider.ProviderName,
             new ShardDbSettingProvider(new ShardInfoAccessor(new ContextService(services.BuildServiceProvider().GetRequiredService<IHttpContextAccessor>())))
-            .CreateObjectDbFunc)
+                .CreateObjectDbFunc)
         .UseDefaultDbSettingProvider("~/SpConfig/FanexSpName.xml", true)
         .Run();
     services.TryAddSingleton<VaultDbAliasService, VaultDbAliasServiceImp>();
@@ -201,6 +200,7 @@ void ConfigureMiddleware(WebApplication app)
     {
         app.UseDeveloperExceptionPage();
     }
+
     app.UseStaticFiles();
     app.UseWhoAmICheck();
     app.UseRouting();
