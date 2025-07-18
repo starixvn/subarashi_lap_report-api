@@ -72,6 +72,7 @@
             data.BetCount = reader.GetVal<int>("betcount");
             data.LicenseeWL = reader.GetVal<decimal>("LicenseeWL");
             data.TurnOver = reader.GetVal<decimal>("turnover");
+            data.PlayerCount = reader.GetVal<int>("PlayerCount");
         }
 
         private static LeagueWinLoss GetSumData(IEnumerable<LeagueWinLoss> detailData)
@@ -79,6 +80,7 @@
             var sumData = new LeagueWinLoss
             {
                 BetCount = detailData.Sum(_ => _.BetCount),
+                PlayerCount = detailData.Sum(_ => _.PlayerCount),
                 TurnOver = detailData.Sum(_ => _.TurnOver),
                 CustomerWL = detailData.Sum(_ => _.CustomerWL),
                 LicenseeWL = detailData.Sum(_ => _.LicenseeWL),

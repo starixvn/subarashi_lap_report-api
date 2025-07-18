@@ -22,13 +22,14 @@
         private const int ColumnLeague = 2;
         private const int ColumnMatch = 3;
         private const int ColumnBetType = 4;
-        private const int ColumnBetCount = 5;
-        private const int ColumnTurnover = 6;
-        private const int ColumnCustomerWl = 7;
-        private const int ColumnLicenseeWl = 8;
+        private const int ColumnPlayerCount = 5;
+        private const int ColumnBetCount = 6;
+        private const int ColumnTurnover = 7;
+        private const int ColumnCustomerWl = 8;
+        private const int ColumnLicenseeWl = 9;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 9;
+        private const int ColumnTemplateCount = 10;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -90,6 +91,7 @@
                 ViewResources.League,
                 ViewResources.Match,
                 ViewResources.BetType,
+                ViewResources.PlayerCount,
                 ViewResources.BetCount,
                 ViewResources.Turnover,
                 ViewResources.CustomerW_L,
@@ -140,6 +142,7 @@
             row.Cells[ColumnLeague].SetCellValue(item.LeagueName);
             row.Cells[ColumnMatch].SetCellValue(item.MatchName);
             row.Cells[ColumnBetType].SetCellValue(item.BetTypeName);
+            row.Cells[ColumnPlayerCount].SetCellValue(item.PlayerCount);
             row.Cells[ColumnBetCount].SetCellValue(item.BetCount);
             row.Cells[ColumnTurnover].SetCellValue((double)item.TurnOver);
             row.Cells[ColumnCustomerWl].SetCellValue((double)item.CustomerWL);
@@ -148,7 +151,7 @@
 
         private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, SortableReportResultModel<LeagueWinLoss> data, int index)
         {
-            const int mergedColumn = 4;
+            const int mergedColumn = 5;
             var row = _builder.CopyRow(sheet, templateSheet, RowGrantTotalTemplate, index);
 
             AssignCellData(row, data.TotalData);

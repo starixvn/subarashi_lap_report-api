@@ -1302,4 +1302,7 @@
   <data name="NoneLive2" xml:space="preserve">
     <value>Non-Live</value>
   </data>
+  <data name="PlayerCount" xml:space="preserve">
+    <value>Player Count</value>
+  </data>
 </root>

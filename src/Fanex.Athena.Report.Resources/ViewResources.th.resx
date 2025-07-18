@@ -1128,4 +1128,7 @@
   <data name="NoneLive2" xml:space="preserve">
     <value>ไม่แทงบอลสด</value>
   </data>
+  <data name="PlayerCount" xml:space="preserve">
+    <value>จำนวนผู้เล่น</value>
+  </data>
 </root>
