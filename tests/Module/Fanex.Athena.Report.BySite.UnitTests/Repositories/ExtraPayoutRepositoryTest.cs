@@ -27,6 +27,7 @@ public class ExtraPayoutRepositoryTest
 
     private readonly Mock<IBalanceUpService> _balanceUpService;
     private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+    private readonly Mock<IProductService> _productService;
     private readonly Mock<IContextService> _contextService;
 
     private readonly Dictionary<string, object> _expectedDetailData = new()
@@ -82,11 +83,13 @@ public class ExtraPayoutRepositoryTest
 
         _contextService = new Mock<IContextService>();
         _contextService.Setup(c => c.CurrencyList).Returns(_fixture.CreateMany<KeyValuePair<int, string>>(10).ToDictionary(x => x.Key, x => x.Value));
+
+        _productService = new Mock<IProductService>();
     }
 
     public ExtraPayoutRepository CreateRepository()
     {
-        return new ExtraPayoutRepository(_balanceUpService.Object, _cacheRefAdapter.Object, _contextService.Object);
+        return new ExtraPayoutRepository(_balanceUpService.Object, _cacheRefAdapter.Object, _contextService.Object, _productService.Object);
     }
 
     [Fact]

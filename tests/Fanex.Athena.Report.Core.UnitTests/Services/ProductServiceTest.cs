@@ -1,4 +1,5 @@
 ﻿using Fanex.Athena.Report.Common.Settings;
+using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services;
@@ -25,9 +26,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
 
         private readonly MemoryCache _memoryCache;
 
-        private readonly Mock<IProductRepository> _productRepository;
-
-        private readonly Mock<IWebHostEnvironment> _webHostEnvironment;
+        private readonly Mock<ICommonApiClient> _commonApiClient;
 
         public ProductServiceTest()
         {
@@ -35,9 +34,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             cacheMock.Setup(x => x.Value).Returns(new MemoryCacheOptions { Clock = new SystemClock(), });
             _memoryCache = new MemoryCache(cacheMock.Object);
 
-            _webHostEnvironment = new Mock<IWebHostEnvironment>();
-            _appSetting = new AppSettings();
-            _productRepository = new Mock<IProductRepository>();
+            _commonApiClient = new Mock<ICommonApiClient>();
         }
 
         [Fact]
@@ -75,7 +72,6 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             _productRepository.Verify(x => x.GetProductAccessList(_licenseeId), Times.Never);
         }
 
-        private ProductService GetService() => new(_memoryCache, _productRepository.Object, _appSetting,
-            _webHostEnvironment.Object);
+        private ProductService GetService() => new(_commonApiClient.Object);
     }
 }

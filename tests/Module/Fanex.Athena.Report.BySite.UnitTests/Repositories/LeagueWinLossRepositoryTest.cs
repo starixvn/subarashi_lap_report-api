@@ -13,6 +13,7 @@ using Common.Model.DTO;
 using Common.Services.Interfaces;
 using Data;
 using DTOs;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using MetaModels;
 using Moq;
 using Xunit;
@@ -27,6 +28,7 @@ public class LeagueWinLossRepositoryTest
 
     private readonly Mock<IBalanceUpService> _balanceUpService;
     private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+    private readonly Mock<IProductService> _productService;
 
     private readonly Dictionary<string, object> _expectedCommonData = new()
     {
@@ -57,11 +59,13 @@ public class LeagueWinLossRepositoryTest
         _cacheRefAdapter.Setup(c => c.GetLeagueName(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
         _cacheRefAdapter.Setup(c => c.GetLeagueName3rd(It.IsAny<int>())).Returns(_fixture.Create<string>());
         _nameService.Setup(n => n.GetSportName(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>())).Returns(_fixture.Create<string>());
+
+        _productService = new Mock<IProductService>();
     }
 
     public LeagueWinLossRepository CreateRepository()
     {
-        return new LeagueWinLossRepository(_balanceUpService.Object, _cacheRefAdapter.Object, _nameService.Object);
+        return new LeagueWinLossRepository(_balanceUpService.Object, _cacheRefAdapter.Object, _nameService.Object, _productService.Object);
     }
 
     [Theory]

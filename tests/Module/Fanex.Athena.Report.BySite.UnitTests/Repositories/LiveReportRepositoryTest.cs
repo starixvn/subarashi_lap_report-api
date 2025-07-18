@@ -13,6 +13,7 @@ using Common.Services.Interfaces;
 using Core.Models.DTOs;
 using Data;
 using DTOs;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using MetaModels;
 using Moq;
 using Report.UnitTests.Common;
@@ -30,6 +31,8 @@ public class LiveReportRepositoryTest
     private readonly Mock<IBalanceUpService> _balanceUpService;
 
     private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+
+    private readonly Mock<IProductService> _productService;
 
     private readonly LiveReportMetaModel _metaModel;
 
@@ -63,6 +66,7 @@ public class LiveReportRepositoryTest
 
         _reader = new Mock<IDataReader>();
         _objectDb = new Mock<IObjectDb>();
+        _productService = new Mock<IProductService>();
     }
 
     [Fact]
@@ -402,7 +406,7 @@ public class LiveReportRepositoryTest
     private LiveReportRepository CreateRepository()
     {
         SetupObjectDb();
-        return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object);
+        return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object, _productService.Object);
     }
 
     private void SetupObjectDb()

@@ -4,6 +4,7 @@ using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories;
 using Fanex.Athena.Report.Common.Model.DTO;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Data;
@@ -31,6 +32,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
         private readonly Mock<IBalanceUpService> _balanceUpService;
         private readonly Mock<ICurrencyService> _currencyService;
+        private readonly Mock<IProductService> _productService;
 
         public PlatformWinLossRepositoryTest()
         {
@@ -43,6 +45,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             _currencyService = new Mock<ICurrencyService>();
             _currencyService.Setup(c => c.GetCurrencyListAsync()).Returns(Task.FromResult(_fixture.CreateMany<Currency>()));
+
+            _productService = new Mock<IProductService>();
         }
 
         [Fact]
@@ -68,7 +72,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             CreateObjectDb(reader);
 
-            var repository = new PlatformWinLossRepository(_balanceUpService.Object, _currencyService.Object);
+            var repository = new PlatformWinLossRepository(_balanceUpService.Object, _currencyService.Object, _productService.Object);
 
             // Action
             var result = await repository.GetSummaryDataAsync(metaModel);
@@ -97,7 +101,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             var objectDb = CreateObjectDb(reader);
 
-            var repository = new PlatformWinLossRepository(_balanceUpService.Object, _currencyService.Object);
+            var repository = new PlatformWinLossRepository(_balanceUpService.Object, _currencyService.Object, _productService.Object);
 
             // Action
             await repository.GetSummaryDataAsync(metaModel);
@@ -140,7 +144,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 
             CreateObjectDb(reader);
 
-            var repository = new PlatformWinLossRepository(_balanceUpService.Object, _currencyService.Object);
+            var repository = new PlatformWinLossRepository(_balanceUpService.Object, _currencyService.Object, _productService.Object);
 
             // Action
             var result = await repository.GetMemberDataAsync(metaModel).ConfigureAwait(false);

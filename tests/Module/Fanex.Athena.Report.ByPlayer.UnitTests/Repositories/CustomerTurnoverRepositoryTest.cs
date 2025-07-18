@@ -9,6 +9,7 @@ using Common.Helpers;
 using Common.Model.DTO;
 using Common.Services.Interfaces;
 using Data;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using MetaModels;
 using Moq;
 using Repository;
@@ -22,6 +23,8 @@ public class CustomerTurnoverRepositoryTest
     private readonly Mock<IBalanceUpService> _balanceUpService;
 
     private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
+
+    private readonly Mock<IProductService> _productService;
 
     private readonly Dictionary<int, string> _currencyList = new() { { 1, "UUS" } };
 
@@ -38,6 +41,7 @@ public class CustomerTurnoverRepositoryTest
     {
         _balanceUpService = new Mock<IBalanceUpService>();
         _cacheRefAdapter = new Mock<ICacheRefAdapter>();
+        _productService = new Mock<IProductService>();
         _reader = new Mock<IDataReader>();
         _objectDb = new Mock<IObjectDb>();
 
@@ -66,7 +70,7 @@ public class CustomerTurnoverRepositoryTest
     private CustomerTurnoverRepository CreateRepository()
     {
         SetupObjectDb();
-        return new CustomerTurnoverRepository(_balanceUpService.Object, _cacheRefAdapter.Object);
+        return new CustomerTurnoverRepository(_balanceUpService.Object, _cacheRefAdapter.Object, _productService.Object);
     }
 
     private void SetupObjectDb()
