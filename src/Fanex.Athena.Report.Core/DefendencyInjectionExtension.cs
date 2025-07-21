@@ -1,11 +1,15 @@
 ﻿namespace Fanex.Athena.Report.Core;
 
+using Fanex.Athena.Report.Common.Settings;
+using Fanex.Athena.Report.Core.ApiClients;
+using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Core.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Repositories;
 using Repositories.Abstraction;
 using Services;
 using Services.Interfaces;
+using System;
 using Utility;
 using Utility.Interfaces;
 
@@ -32,13 +36,13 @@ public static class DefendencyInjectionExtension
         return services;
     }
 
-        public static IServiceCollection AddCommonApiClient(this IServiceCollection services, AppSettings settings)
+    public static IServiceCollection AddCommonApiClient(this IServiceCollection services, AppSettings settings)
+    {
+        services.AddHttpClient<ICommonApiClient, CommonApiClient>(client =>
         {
-            services.AddHttpClient<ICommonApiClient, CommonApiClient>(client =>
-            {
-                client.BaseAddress = new Uri(settings.CommonApiHostUrl);
-            });
+            client.BaseAddress = new Uri(settings.CommonApiHostUrl);
+        });
 
-            return services;
-        }
+        return services;
+    }
 }
