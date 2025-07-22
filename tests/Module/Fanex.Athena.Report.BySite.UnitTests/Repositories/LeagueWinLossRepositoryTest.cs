@@ -33,6 +33,7 @@ public class LeagueWinLossRepositoryTest
     private readonly Dictionary<string, object> _expectedCommonData = new()
     {
         { "winlost", 100 },
+        { "PlayerCount", 10 },
         { "betcount", 50 },
         { "LicenseeWL", 200 },
         { "turnover", 150 }
@@ -374,6 +375,7 @@ public class LeagueWinLossRepositoryTest
     public static void AssertCommonData(LeagueWinLoss data)
     {
         Assert.Equal(100, data.CustomerWL);
+        Assert.Equal(10, data.PlayerCount);
         Assert.Equal(50, data.BetCount);
         Assert.Equal(200, data.LicenseeWL);
         Assert.Equal(150, data.TurnOver);

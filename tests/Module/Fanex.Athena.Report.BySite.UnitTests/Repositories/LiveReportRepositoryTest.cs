@@ -45,6 +45,8 @@ public class LiveReportRepositoryTest
         { CurrencyId, CurrencyName }, { 1, "USD" }
     };
 
+    private readonly int[] _liveReportNoDetailLinkSports = { 1, 2, 3 };
+
     public LiveReportRepositoryTest()
     {
         DbSettingProviderManager.StartTestingSession().Run();
@@ -98,6 +100,7 @@ public class LiveReportRepositoryTest
         _reader.Setup(x => x["LicenseeWL"]).Returns(500);
         _reader.Setup(x => x["AmtDueto3rd"]).Returns(600);
         _reader.Setup(x => x["Betcount"]).Returns(700);
+        _productService.Setup(_productService => _productService.GetProductName("SB")).Returns(ViewResources.Sportsbook);
 
         var repository = CreateRepository();
 
@@ -126,7 +129,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        await repository.GetDetailBySport(_metaModel);
+        await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         AssertCommonSetParameterValues();
@@ -148,7 +151,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        var result = await repository.GetDetailBySport(_metaModel);
+        var result = await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         Assert.Equal(1, result.Count);
@@ -176,7 +179,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        await repository.GetDetailBySport(_metaModel);
+        await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         _cacheRefAdapter.Verify(x => x.GetBettype(bettype), Times.Once);
@@ -198,7 +201,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        await repository.GetDetailBySport(_metaModel);
+        await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         _cacheRefAdapter.Verify(x => x.GetBettype(BetType.MixParlay), Times.Once);

@@ -10,7 +10,6 @@ using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Constants;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;

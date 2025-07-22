@@ -56,6 +56,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var metaModel = _fixture.Create<PlatformWinLossMetaModel>();
             var reader = new Mock<IDataReader>();
             reader.Setup(r => r.Read()).Returns(new Queue<bool>(new[] { true, true, false }).Dequeue);
+            _productService.Setup(_productService => _productService.GetProductName("SB")).Returns(ViewResources.Sportsbook);
 
             var expectedDataItem = _fixture.Create<PlatformWinLossSummary>();
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)

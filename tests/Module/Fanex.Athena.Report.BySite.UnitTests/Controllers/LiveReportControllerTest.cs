@@ -27,6 +27,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
         private const int CurrencyId = 999;
 
+        private readonly int[] _liveReportNoDetailLinkSports = { 1, 2, 3 };
+
         private static readonly DateTime BalanceUpDate = DateTimeHelper.CreateDateTime(2017, 3, 4);
 
         private readonly AppSettings _appSettings;
@@ -109,10 +111,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             _productService.Setup(x => x.GetProductAccess(
                 _contextService.Object.LicenseeId,
                 FunctionNames.LiveReport)).Returns(productAccess);
+            _productService.Setup(x => x.GetProductSetting())
+                .ReturnsAsync(new ProductSetting { LiveReportNoDetailLinkSports = _liveReportNoDetailLinkSports });
 
             var fakeResut = FakeHelper.Create<LiveReportDetailResultModel>();
             _liveReportService.Setup(x => x.GetLiveReportSummaryDetail(metaModel, It.IsAny<IDictionary<int, string>>(),
-                It.IsAny<IEnumerable<ProductInfo>>())).ReturnsAsync(fakeResut);
+                It.IsAny<IEnumerable<ProductInfo>>(), _liveReportNoDetailLinkSports)).ReturnsAsync(fakeResut);
 
             _contextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
             _contextService.Setup(x => x.CurrencyList).Returns(FakeHelper.Create<IReadOnlyDictionary<int, string>>());
@@ -153,10 +157,12 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             _productService.Setup(x => x.GetProductAccess(
                 _contextService.Object.LicenseeId,
                 FunctionNames.LiveReport)).Returns(productAccess);
+            _productService.Setup(x => x.GetProductSetting())
+                .ReturnsAsync(new ProductSetting { LiveReportNoDetailLinkSports = _liveReportNoDetailLinkSports });
 
             var fakeResut = FakeHelper.Create<LiveReportDetailResultModel>();
             _liveReportService.Setup(x => x.GetLiveReportSummaryDetail(metaModel, It.IsAny<IDictionary<int, string>>(),
-                It.IsAny<IEnumerable<ProductInfo>>())).ReturnsAsync(fakeResut);
+                It.IsAny<IEnumerable<ProductInfo>>(), _liveReportNoDetailLinkSports)).ReturnsAsync(fakeResut);
 
             _contextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
             _contextService.Setup(x => x.CurrencyList).Returns(FakeHelper.Create<IReadOnlyDictionary<int, string>>());

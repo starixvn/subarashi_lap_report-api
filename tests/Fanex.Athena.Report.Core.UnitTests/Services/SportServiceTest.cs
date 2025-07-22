@@ -1,5 +1,4 @@
 ﻿using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services;

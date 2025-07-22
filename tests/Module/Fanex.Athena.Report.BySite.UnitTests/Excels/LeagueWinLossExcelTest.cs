@@ -29,13 +29,14 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
         private const int ColumnLeague = 2;
         private const int ColumnMatch = 3;
         private const int ColumnBetType = 4;
-        private const int ColumnBetCount = 5;
-        private const int ColumnTurnover = 6;
-        private const int ColumnCustomerWl = 7;
-        private const int ColumnLicenseeWl = 8;
+        private const int ColumnPlayerCount = 5;
+        private const int ColumnBetCount = 6;
+        private const int ColumnTurnover = 7;
+        private const int ColumnCustomerWl = 8;
+        private const int ColumnLicenseeWl = 9;
 
         private const int RowNoInfoTemplate = 6;
-        private const int ColumnTemplateCount = 9;
+        private const int ColumnTemplateCount = 10;
 
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
@@ -88,6 +89,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
                 ViewResources.League,
                 ViewResources.Match,
                 ViewResources.BetType,
+                ViewResources.PlayerCount,
                 ViewResources.BetCount,
                 ViewResources.Turnover,
                 ViewResources.CustomerW_L,
@@ -176,7 +178,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var totalRowIndex = RowContentTemplate + 1;
 
             // Assert
-            _excelBuilder.Verify(x => x.MergeCells(_sheet.Object, totalRowIndex, totalRowIndex, ColumnIndex, 4), Times.Once);
+            _excelBuilder.Verify(x => x.MergeCells(_sheet.Object, totalRowIndex, totalRowIndex, ColumnIndex, 5), Times.Once);
             Mock.Get(grandTotalRow.Object.Cells[ColumnIndex]).Verify(c => c.SetCellValue(ViewResources.Total), Times.Once);
             AssertCommonCellData(grandTotalRow, data.TotalData);
         }
@@ -258,6 +260,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             Mock.Get(row.Object.Cells[ColumnLeague]).Verify(c => c.SetCellValue(dataItem.LeagueName), Times.Once);
             Mock.Get(row.Object.Cells[ColumnMatch]).Verify(c => c.SetCellValue(dataItem.MatchName), Times.Once);
             Mock.Get(row.Object.Cells[ColumnBetType]).Verify(c => c.SetCellValue(dataItem.BetTypeName), Times.Once);
+            Mock.Get(row.Object.Cells[ColumnPlayerCount]).Verify(c => c.SetCellValue(dataItem.PlayerCount), Times.Once);
             Mock.Get(row.Object.Cells[ColumnBetCount]).Verify(c => c.SetCellValue(dataItem.BetCount), Times.Once);
             Mock.Get(row.Object.Cells[ColumnTurnover]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.TurnOver)), Times.Once);
             Mock.Get(row.Object.Cells[ColumnCustomerWl]).Verify(c => c.SetCellValue(Convert.ToDouble(dataItem.CustomerWL)), Times.Once);

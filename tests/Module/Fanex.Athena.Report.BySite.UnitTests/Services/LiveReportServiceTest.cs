@@ -19,6 +19,8 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
     public class LiveReportServiceTest
     {
         private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
+        private readonly int[] _liveReportNoDetailLinkSports = { 1, 2, 3 };
+
         private Mock<ILiveReportRepository> _repository;
         private Mock<ICacheRefAdapter> _cacheRefAdapter;
 
@@ -69,14 +71,14 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             var service = CreateService();
 
             // Action
-            var result = await service.GetLiveReportSummaryDetail(metaModel, _currencyList, products);
+            var result = await service.GetLiveReportSummaryDetail(metaModel, _currencyList, products, _liveReportNoDetailLinkSports);
 
             // Assert
             Assert.Empty(result.DataBySport);
             Assert.Empty(result.DataByCurrency);
             Assert.Empty(result.DataByBetType);
 
-            _repository.Verify(x => x.GetDetailBySport(metaModel), Times.Never);
+            _repository.Verify(x => x.GetDetailBySport(metaModel, _liveReportNoDetailLinkSports), Times.Never);
             _repository.Verify(x => x.GetDetailByCurrencyAndBettype(metaModel, _currencyList, products), Times.Never);
         }
 
@@ -91,14 +93,14 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             var detailByCurrencyData = new List<LiveReport>();
             var detailByBettypeData = new List<LiveReportByBetType>();
 
-            _repository.Setup(x => x.GetDetailBySport(metaModel)).ReturnsAsync(detailBySportData);
+            _repository.Setup(x => x.GetDetailBySport(metaModel, _liveReportNoDetailLinkSports)).ReturnsAsync(detailBySportData);
             _repository.Setup(x => x.GetDetailByCurrencyAndBettype(metaModel, _currencyList, products))
                        .ReturnsAsync(new Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(detailByCurrencyData, detailByBettypeData));
 
             var service = CreateService();
 
             // Action
-            var result = await service.GetLiveReportSummaryDetail(metaModel, _currencyList, products);
+            var result = await service.GetLiveReportSummaryDetail(metaModel, _currencyList, products, _liveReportNoDetailLinkSports);
 
             // Assert
             Assert.Equal(detailBySportData, result.DataBySport);
