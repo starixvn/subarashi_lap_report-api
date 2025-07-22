@@ -1,12 +1,9 @@
-﻿using Fanex.Athena.Report.BySite.Constants;
-using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Utility;
 using Fanex.Athena.Report.Resources.Constants;

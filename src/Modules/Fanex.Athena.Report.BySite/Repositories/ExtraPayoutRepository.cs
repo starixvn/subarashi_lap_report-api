@@ -11,7 +11,6 @@
     using Fanex.Athena.Report.Core.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Athena.Report.Resources.Helpers;
     using Fanex.Data;
     using System;
     using System.Collections.Generic;

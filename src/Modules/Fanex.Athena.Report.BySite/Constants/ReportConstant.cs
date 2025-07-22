@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.Constants
+﻿namespace Fanex.Athena.Report.BySite.Constants
 {
     public static class ReportConstant
     {

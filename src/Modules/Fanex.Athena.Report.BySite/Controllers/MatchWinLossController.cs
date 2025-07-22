@@ -10,7 +10,6 @@ using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Attributes;
 using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Common.Extensions;
@@ -88,10 +87,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             var total = GetTotal(reportData);
             var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
-
-            var productAccess = _productService.GetSingleWalletProductAccess(
-                _contextService.LicenseeId,
-                FunctionNames.MatchWinLoss);
 
             return Ok(new MatchWinLossResultModel
             {

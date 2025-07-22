@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Fanex.Athena.Report.Core.Exceptions;
+﻿using Fanex.Athena.Report.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
@@ -9,7 +8,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static ServiceStack.Diagnostics.Events;
 
 namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
 {
