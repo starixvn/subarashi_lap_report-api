@@ -6,6 +6,7 @@ using Fanex.Athena.Report.BySite.Services;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Model.ViewModel;
 using Fanex.Athena.Report.Common.Services.Interfaces;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Moq;
 using System.Linq;
@@ -22,10 +23,13 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
 
         private readonly Mock<IExtraPayoutRepository> _repository;
 
+        private readonly Mock<IProductService> _productService;
+
         public ExtraPayoutServiceTest()
         {
             _repository = new Mock<IExtraPayoutRepository>();
             _cacheRefAdapter = new Mock<ICacheRefAdapter>();
+            _productService = new Mock<IProductService>();
         }
 
         [Fact]
@@ -265,6 +269,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
         }
 
         private ExtraPayoutService CreateService() =>
-            new ExtraPayoutService(_repository.Object, _cacheRefAdapter.Object);
+            new ExtraPayoutService(_repository.Object, _cacheRefAdapter.Object, _productService.Object);
     }
 }

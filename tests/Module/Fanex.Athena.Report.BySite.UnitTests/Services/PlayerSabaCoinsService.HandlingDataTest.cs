@@ -1,11 +1,8 @@
 ﻿using AutoFixture;
 using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
 using Fanex.Athena.Report.Common.Extensions;
 using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Core.Utils.Repository;
 using Moq;
 using System.Collections.Generic;
 using System.Text.Json;

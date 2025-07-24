@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
 using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.Common.Excel;
 using Fanex.Athena.Report.Common.Model.ViewModel;

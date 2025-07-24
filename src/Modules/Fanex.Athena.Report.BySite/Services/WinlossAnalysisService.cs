@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 using System;
 using System.Collections.Generic;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
@@ -30,17 +31,20 @@ namespace Fanex.Athena.Report.BySite.Services
         private readonly INameService _nameService;
         private readonly IBalanceUpService _balanceUpService;
         private readonly ICurrencyService _currencyService;
+        private readonly IProductService _productService;
 
         public WinlossAnalysisService(IWinlossAnalysisRepository repository,
             INameService nameService,
             IBalanceUpService balanceUpService,
             ICurrencyService currencyService,
+            IProductService productService,
             ILogger<WinlossAnalysisService> logger)
         {
             _repository = repository;
             _nameService = nameService;
             _balanceUpService = balanceUpService;
             _currencyService = currencyService;
+            _productService = productService;
         }
 
         public async Task<WinlossAnalysisAggregateDTO> GetRawDataAsync(WinlossAnalysisMetaModel param)
@@ -97,7 +101,7 @@ namespace Fanex.Athena.Report.BySite.Services
             switch (param.BreakdownMode)
             {
                 case BreakdownMode.Product:
-                    item.BreakDownFieldText = ProductHelper.GetProductName(item.BreakBy);
+                    item.BreakDownFieldText = _productService.GetProductName(item.BreakBy);
                     break;
 
                 case BreakdownMode.Currency:
@@ -230,7 +234,7 @@ namespace Fanex.Athena.Report.BySite.Services
             var spiltName = item.GroupBy.Split('#');
             var productCode = spiltName[0];
             var betType = spiltName[1];
-            var productName = ProductHelper.GetProductName(productCode);
+            var productName = _productService.GetProductName(productCode);
             var betTypeName = _nameService.GetBetTypeName(Convert.ToInt32(betType), isHideSaba);
             item.GroupByFieldText = $"{productName} > {betTypeName}";
         }
@@ -240,7 +244,7 @@ namespace Fanex.Athena.Report.BySite.Services
             var spiltName = item.GroupBy.Split('#');
             var productCode = spiltName[0];
             var sportType = spiltName[1];
-            var productName = ProductHelper.GetProductName(productCode);
+            var productName = _productService.GetProductName(productCode);
             var sportName = _nameService.GetSportName(Convert.ToInt32(sportType), isHideSaba);
             item.GroupByFieldText = $"{productName} > {sportName}";
         }
@@ -256,8 +260,8 @@ namespace Fanex.Athena.Report.BySite.Services
         private static void AssignPlatformName(WinlossAnalysisDTO item)
             => item.GroupByFieldText = DataHelper.GetPlatformName(int.Parse(item.GroupBy));
 
-        private static void AssignProductName(WinlossAnalysisDTO item)
-            => item.GroupByFieldText = ProductHelper.GetProductName(item.GroupBy);
+        private void AssignProductName(WinlossAnalysisDTO item)
+            => item.GroupByFieldText = _productService.GetProductName(item.GroupBy);
 
         private IEnumerable<TreeViewItem<WinlossAnalysisDTO, WinlossAnalysisDTO>> BuildDefaultTreeListItem(
             IEnumerable<WinlossAnalysisDTO> groupByDatas,

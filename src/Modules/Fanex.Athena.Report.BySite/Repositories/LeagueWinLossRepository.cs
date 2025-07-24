@@ -16,12 +16,14 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
 
     public class LeagueWinLossRepository : ILeagueWinLossRepository
     {
         private readonly IBalanceUpService _balanceUpService;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly INameService _nameService;
+        private readonly IProductService _productService;
 
         private const int ParlaySport = 0;
         private const int Outright = 2;
@@ -38,11 +40,12 @@
         private static readonly List<int> SportsDirectToCurrencyOrder = new() { ParlaySport, SportType.SportsLottery, SportType.BitCoin };
 
         public LeagueWinLossRepository(
-            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, INameService nameService)
+            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, INameService nameService, IProductService productService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
             _nameService = nameService;
+            _productService = productService;
         }
 
         public async Task<SortableReportResultModel<LeagueWinLoss>> GetLeagueWinlossDetail(
@@ -69,6 +72,7 @@
             data.BetCount = reader.GetVal<int>("betcount");
             data.LicenseeWL = reader.GetVal<decimal>("LicenseeWL");
             data.TurnOver = reader.GetVal<decimal>("turnover");
+            data.PlayerCount = reader.GetVal<int>("PlayerCount");
         }
 
         private static LeagueWinLoss GetSumData(IEnumerable<LeagueWinLoss> detailData)
@@ -76,6 +80,7 @@
             var sumData = new LeagueWinLoss
             {
                 BetCount = detailData.Sum(_ => _.BetCount),
+                PlayerCount = detailData.Sum(_ => _.PlayerCount),
                 TurnOver = detailData.Sum(_ => _.TurnOver),
                 CustomerWL = detailData.Sum(_ => _.CustomerWL),
                 LicenseeWL = detailData.Sum(_ => _.LicenseeWL),
@@ -140,7 +145,7 @@
 
                 var sportData = GetSumData(sportDetail);
                 var sportName = GetSportName(sport.SportType, sport.LeagueId, isHideSaba);
-                var productName = ProductHelper.GetProductName(sport.ProductGroup);
+                var productName = _productService.GetProductName(sport.ProductGroup);
 
                 sportData.ProductGroup = sport.ProductGroup;
                 sportData.SportType = sport.SportType;

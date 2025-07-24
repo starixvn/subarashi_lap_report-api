@@ -1,12 +1,9 @@
-﻿using Fanex.Athena.Report.BySite.Constants;
-using Fanex.Athena.Report.BySite.DTOs;
+﻿using Fanex.Athena.Report.BySite.DTOs;
 using Fanex.Athena.Report.BySite.MetaModels;
 using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Model.DataDomain;
 using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Utility;
 using Fanex.Athena.Report.Resources.Constants;
@@ -17,19 +14,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 
 namespace Fanex.Athena.Report.BySite.Repositories
 {
     public class LiveReportRepository : ILiveReportRepository
     {
         private readonly IBalanceUpService _balanceUpService;
-
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IProductService _productService;
 
-        public LiveReportRepository(ICacheRefAdapter cacheRefAdapter, IBalanceUpService balanceUpService)
+        public LiveReportRepository(
+            ICacheRefAdapter cacheRefAdapter,
+            IBalanceUpService balanceUpService,
+            IProductService productService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _balanceUpService = balanceUpService;
+            _productService = productService;
         }
 
         public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel)
@@ -52,7 +54,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
 
                         var item = new LiveReport
                         {
-                            ProductName = ProductHelper.GetProductName(productCode),
+                            ProductName = _productService.GetProductName(productCode),
                             ProductCode = productCode
                         };
                         ReadCommonColumns(reader, item);
@@ -64,7 +66,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
             }
         }
 
-        public async Task<IList<LiveReportBySport>> GetDetailBySport(LiveReportMetaModel metaModel)
+        public async Task<IList<LiveReportBySport>> GetDetailBySport(LiveReportMetaModel metaModel, int[] liveReportNoDetailLinkSports)
         {
             var uspName = IsSubsidiarySearch(metaModel) ? "Lrf_Rpt_LiveReportBySportType" : "Lrf_Rpt_LiveReportBySport";
             var balanceUp = await _balanceUpService.GetBalanceUpAsync();
@@ -88,7 +90,7 @@ namespace Fanex.Athena.Report.BySite.Repositories
                         };
 
                         var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
-                        item.IsLive = !ReportConstant.LiveReportNoDetailLinkSports.Contains(sportId);
+                        item.IsLive = !liveReportNoDetailLinkSports.Contains(sportId);
 
                         ReadCommonColumns(reader, item);
                         list.Add(item);

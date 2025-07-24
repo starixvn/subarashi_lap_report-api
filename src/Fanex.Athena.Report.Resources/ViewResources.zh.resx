@@ -1009,4 +1009,7 @@
   <data name="NoneLive2" xml:space="preserve">
     <value>非滚球</value>
   </data>
+  <data name="PlayerCount" xml:space="preserve">
+    <value>玩家数量</value>
+  </data>
 </root>

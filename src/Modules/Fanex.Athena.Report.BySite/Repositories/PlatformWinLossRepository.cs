@@ -4,7 +4,6 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Common.Model.DTO;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
@@ -15,19 +14,24 @@
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
 
     public class PlatformWinLossRepository : IPlatformWinLossRepository
     {
         private const int OneHunderPercent = 100;
 
         private readonly IBalanceUpService _balanceUpService;
-
         private readonly ICurrencyService _currencyService;
+        private readonly IProductService _productService;
 
-        public PlatformWinLossRepository(IBalanceUpService balanceUpService, ICurrencyService currencyService)
+        public PlatformWinLossRepository(
+            IBalanceUpService balanceUpService,
+            ICurrencyService currencyService,
+            IProductService productService)
         {
             _balanceUpService = balanceUpService;
             _currencyService = currencyService;
+            _productService = productService;
         }
 
         public async Task<ResultModel<PlatformWinLossSummary>> GetSummaryDataAsync(PlatformWinLossMetaModel metaModel)
@@ -64,7 +68,7 @@
             }
         }
 
-        private static ResultModel<PlatformWinLossSummary> ReadSummaryList(IDataReader reader)
+        private ResultModel<PlatformWinLossSummary> ReadSummaryList(IDataReader reader)
         {
             var dataList = new List<PlatformWinLossSummary>();
             var totalData = new PlatformWinLossSummary();
@@ -108,7 +112,7 @@
             };
         }
 
-        private static PlatformWinLossSummary ReadSummaryItem(IDataReader reader, int id, string parent, byte level = 1, bool isLeaf = true)
+        private PlatformWinLossSummary ReadSummaryItem(IDataReader reader, int id, string parent, byte level = 1, bool isLeaf = true)
         {
             var productCode = reader["productprefix"].ToString().ToUpperInvariant();
 
@@ -118,7 +122,7 @@
                 PlatformType = id,
                 IsLeaf = isLeaf,
                 Level = level,
-                Name = ProductHelper.GetProductName(productCode),
+                Name = _productService.GetProductName(productCode),
                 TotalTransactions = Convert.ToInt32(reader["Betcount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover"]),
                 CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]),

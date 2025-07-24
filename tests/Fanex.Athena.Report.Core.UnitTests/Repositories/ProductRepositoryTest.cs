@@ -8,11 +8,7 @@ using Xunit;
 
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Resources.Helpers;
-    using Fanex.Common.Extensions;
     using Resources.Constants;
-    using System.Collections.Generic;
 
     public class ProductRepositoryTest
     {

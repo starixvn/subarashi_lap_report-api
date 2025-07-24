@@ -6,7 +6,6 @@ using Fanex.Athena.Report.BySite.Repositories.Interfaces;
 using Fanex.Athena.Report.Resources;
 using Fanex.Common.Extensions;
 using Fanex.Data;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

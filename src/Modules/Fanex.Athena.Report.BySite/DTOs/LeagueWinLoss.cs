@@ -36,6 +36,8 @@
 
         public bool IsDirectToCurrency { get; set; }
 
+        public int PlayerCount { get; set; }
+
         public IEnumerable<LeagueWinLoss> Detail { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using Common.Services.Interfaces;
 using Core.Models.DTOs;
 using Data;
 using DTOs;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using MetaModels;
 using Moq;
 using Report.UnitTests.Common;
@@ -31,6 +32,8 @@ public class LiveReportRepositoryTest
 
     private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;
 
+    private readonly Mock<IProductService> _productService;
+
     private readonly LiveReportMetaModel _metaModel;
 
     private readonly Mock<IObjectDb> _objectDb;
@@ -41,6 +44,8 @@ public class LiveReportRepositoryTest
     {
         { CurrencyId, CurrencyName }, { 1, "USD" }
     };
+
+    private readonly int[] _liveReportNoDetailLinkSports = { 1, 2, 3 };
 
     public LiveReportRepositoryTest()
     {
@@ -63,6 +68,7 @@ public class LiveReportRepositoryTest
 
         _reader = new Mock<IDataReader>();
         _objectDb = new Mock<IObjectDb>();
+        _productService = new Mock<IProductService>();
     }
 
     [Fact]
@@ -94,6 +100,7 @@ public class LiveReportRepositoryTest
         _reader.Setup(x => x["LicenseeWL"]).Returns(500);
         _reader.Setup(x => x["AmtDueto3rd"]).Returns(600);
         _reader.Setup(x => x["Betcount"]).Returns(700);
+        _productService.Setup(_productService => _productService.GetProductName("SB")).Returns(ViewResources.Sportsbook);
 
         var repository = CreateRepository();
 
@@ -122,7 +129,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        await repository.GetDetailBySport(_metaModel);
+        await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         AssertCommonSetParameterValues();
@@ -144,7 +151,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        var result = await repository.GetDetailBySport(_metaModel);
+        var result = await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         Assert.Equal(1, result.Count);
@@ -172,7 +179,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        await repository.GetDetailBySport(_metaModel);
+        await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         _cacheRefAdapter.Verify(x => x.GetBettype(bettype), Times.Once);
@@ -194,7 +201,7 @@ public class LiveReportRepositoryTest
         var repository = CreateRepository();
 
         // Action
-        await repository.GetDetailBySport(_metaModel);
+        await repository.GetDetailBySport(_metaModel, _liveReportNoDetailLinkSports);
 
         // Assert
         _cacheRefAdapter.Verify(x => x.GetBettype(BetType.MixParlay), Times.Once);
@@ -402,7 +409,7 @@ public class LiveReportRepositoryTest
     private LiveReportRepository CreateRepository()
     {
         SetupObjectDb();
-        return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object);
+        return new LiveReportRepository(_cacheRefAdapter.Object, _balanceUpService.Object, _productService.Object);
     }
 
     private void SetupObjectDb()

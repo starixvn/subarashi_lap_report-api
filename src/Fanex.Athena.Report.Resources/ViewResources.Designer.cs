@@ -1870,6 +1870,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player Count.
+        /// </summary>
+        public static string PlayerCount {
+            get {
+                return ResourceManager.GetString("PlayerCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Player Name.
         /// </summary>
         public static string PlayerName {

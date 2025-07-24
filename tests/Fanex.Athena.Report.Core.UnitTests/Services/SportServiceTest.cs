@@ -2,6 +2,7 @@
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.UnitTests.Common;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
@@ -19,11 +20,14 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
 
         private readonly Mock<ISportRepository> _sportRepository;
 
+        private readonly Mock<IProductService> _productService;
+
         public SportServiceTest()
         {
             _sportRepository = new Mock<ISportRepository>();
             _cacheRefAdapter = new Mock<ICacheRefAdapter>();
             _memoryCache = new Mock<IMemoryCache>();
+            _productService = new Mock<IProductService>();
         }
 
         [Fact]
@@ -72,6 +76,6 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             Assert.Contains(stringSportsAndProducts, stringResult);
         }
 
-        private SportService CreateService() => new(_sportRepository.Object, _cacheRefAdapter.Object, _memoryCache.Object);
+        private SportService CreateService() => new(_sportRepository.Object, _cacheRefAdapter.Object, _memoryCache.Object, _productService.Object);
     }
 }

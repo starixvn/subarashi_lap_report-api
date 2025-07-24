@@ -1,5 +1,6 @@
 ﻿using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Repositories;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
 using Fanex.Data;
 using Moq;
@@ -19,11 +20,14 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 
         private readonly Mock<IDataReader> _reader;
 
+        private readonly Mock<IProductService> _productService;
+
         public SportRepositoryTest()
         {
             _cacheRefAdapter = new Mock<ICacheRefAdapter>();
             _objectDb = new Mock<IObjectDb>();
             _reader = new Mock<IDataReader>();
+            _productService = new Mock<IProductService>();
 
             DbSettingProviderManager
                .StartTestingSession()
@@ -94,7 +98,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Repositories
             ObjectDbFactory.SwitchToTestingMode();
             ObjectDbFactory.Mock((x, y, z) => _objectDb.Object);
 
-            return new SportRepository(_cacheRefAdapter.Object);
+            return new SportRepository(_cacheRefAdapter.Object, _productService.Object);
         }
     }
 }

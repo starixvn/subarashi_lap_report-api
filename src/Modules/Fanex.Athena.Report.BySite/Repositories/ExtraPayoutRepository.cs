@@ -11,7 +11,6 @@
     using Fanex.Athena.Report.Core.Services.Interfaces;
     using Fanex.Athena.Report.Resources;
     using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Athena.Report.Resources.Helpers;
     using Fanex.Data;
     using System;
     using System.Collections.Generic;
@@ -24,6 +23,7 @@
         private readonly IBalanceUpService _balanceUpService;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IContextService _contextService;
+        private readonly IProductService _productService;
 
         private static readonly IDictionary<int, int> _extraPayoutMapType = new Dictionary<int, int>
         {
@@ -95,11 +95,12 @@
         };
 
         public ExtraPayoutRepository(
-            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, IContextService contextService)
+            IBalanceUpService balanceUpService, ICacheRefAdapter cacheRefAdapter, IContextService contextService, IProductService productService)
         {
             _balanceUpService = balanceUpService;
             _cacheRefAdapter = cacheRefAdapter;
             _contextService = contextService;
+            _productService = productService;
         }
 
         public async Task<SortableReportResultModel<ExtraPayout>> GetExtraPayoutMainData(
@@ -130,7 +131,7 @@
 
             data.BetCount = reader.GetVal<int>("betcount");
             data.ProductCode = productCode;
-            data.ProductName = ProductHelper.GetProductName(productCode);
+            data.ProductName = _productService.GetProductName(productCode);
             data.BasedTurnover = reader.GetVal<decimal>("BasedTurnover");
             data.BasedAmount = reader.GetVal<decimal>("BasedAmount");
             data.BasedSharingAmount = productCode == Product.TIP ? 0 : basedSharingAmount;
@@ -366,7 +367,7 @@
                     Date = date,
                     DateString = dateString,
                     ProductCode = productCode,
-                    ProductName = ProductHelper.GetProductName(productCode),
+                    ProductName = _productService.GetProductName(productCode),
                     PromotionType = promotionType,
                     PromotionName = GetPromotionName(promotionType, metaModel.IsHideSaba),
                     BasedTurnover = reader.GetVal<decimal>("BasedTurnover"),

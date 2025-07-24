@@ -1,5 +1,4 @@
 ﻿using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
@@ -8,6 +7,7 @@ using Fanex.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fanex.Athena.Report.Core.Services.Interfaces;
 
 namespace Fanex.Athena.Report.Core.Repositories
 {
@@ -20,10 +20,14 @@ namespace Fanex.Athena.Report.Core.Repositories
         };
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IProductService _productService;
 
-        public SportRepository(ICacheRefAdapter cacheRefAdapter)
+        public SportRepository(
+            ICacheRefAdapter cacheRefAdapter,
+            IProductService productService)
         {
             _cacheRefAdapter = cacheRefAdapter;
+            _productService = productService;
         }
 
         public async Task<IEnumerable<SportProductItem>> GetSportsAndProducts(
@@ -52,7 +56,7 @@ namespace Fanex.Athena.Report.Core.Repositories
                         }
 
                         var name = parentId == ProductType ?
-                            ProductHelper.GetProductName(reader.GetVal<string>("Name")) :
+                            _productService.GetProductName(reader.GetVal<string>("Name")) :
                             _cacheRefAdapter.GetSportName(id, languageCode);
 
                         result.Add(new SportProductItem

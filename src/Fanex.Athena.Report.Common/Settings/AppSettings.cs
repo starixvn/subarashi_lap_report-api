@@ -10,11 +10,11 @@ public class AppSettings
 
     public bool IsShowAllDataForSettleMatchCountReport { get; set; }
 
-    public string FunctionAllowedProductFilePath { get; set; }
-
     public List<string> OfferCryptoCurrencyLicensees { get; set; }
 
     public List<string> CryptoLicenseesSupportBaseEur { get; set; }
+
+    public string CommonApiHostUrl { get; set; }
 
     public bool HasAmountDueToColumn { get; set; }
 

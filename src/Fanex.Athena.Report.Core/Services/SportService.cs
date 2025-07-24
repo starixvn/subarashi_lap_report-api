@@ -1,5 +1,4 @@
 ﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Helpers;
 using Fanex.Athena.Report.Common.Services.Interfaces;
 using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
@@ -23,11 +22,14 @@ namespace Fanex.Athena.Report.Core.Services
 
         private readonly IMemoryCache _memoryCache;
 
-        public SportService(ISportRepository sportRepository, ICacheRefAdapter cacheRefAdapter, IMemoryCache memoryCache)
+        private readonly IProductService _productService;
+
+        public SportService(ISportRepository sportRepository, ICacheRefAdapter cacheRefAdapter, IMemoryCache memoryCache, IProductService productService)
         {
             _sportRepository = sportRepository;
             _cacheRefAdapter = cacheRefAdapter;
             _memoryCache = memoryCache;
+            _productService = productService;
         }
 
         public Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
@@ -72,7 +74,7 @@ namespace Fanex.Athena.Report.Core.Services
                     ID = key.ProductId,
                     Checked = true,
                     Children = elems,
-                    Name = ProductHelper.GetProductName(key.ProductCode),
+                    Name = _productService.GetProductName(key.ProductCode),
                     Value = key.ProductCode
                 }).ToList();
 

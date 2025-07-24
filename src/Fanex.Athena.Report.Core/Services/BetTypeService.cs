@@ -5,7 +5,6 @@ using Fanex.Athena.Report.Core.Models.DTOs;
 using Fanex.Athena.Report.Core.Repositories.Abstraction;
 using Fanex.Athena.Report.Core.Services.Interfaces;
 using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.Resources.Helpers;
 using Fanex.Common.Extensions;
 using System;
 using System.Collections.Generic;
@@ -20,11 +19,13 @@ namespace Fanex.Athena.Report.Core.Services
         private readonly IBetTypeRepository _betTypeRepository;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IProductService _productService;
 
-        public BetTypeService(IBetTypeRepository betTypeRepository, ICacheRefAdapter cacheRefAdapter)
+        public BetTypeService(IBetTypeRepository betTypeRepository, ICacheRefAdapter cacheRefAdapter, IProductService productService)
         {
             _betTypeRepository = betTypeRepository;
             _cacheRefAdapter = cacheRefAdapter;
+            _productService = productService;
         }
 
         public async Task<IList<BettypeProductItem>> GetBettypes(IEnumerable<SportProductItem> sports, string languageCode, bool isHideSaba)
@@ -103,7 +104,7 @@ namespace Fanex.Athena.Report.Core.Services
                 {
                     Checked = true,
                     Children = items,
-                    Name = ProductHelper.GetProductName(key),
+                    Name = _productService.GetProductName(key),
                     Value = key
                 });
             return result;

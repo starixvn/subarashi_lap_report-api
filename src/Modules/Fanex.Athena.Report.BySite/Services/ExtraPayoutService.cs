@@ -4,7 +4,6 @@
     using Fanex.Athena.Report.BySite.MetaModels;
     using Fanex.Athena.Report.BySite.Repositories.Interfaces;
     using Fanex.Athena.Report.BySite.Services.Interfaces;
-    using Fanex.Athena.Report.Common.Helpers;
     using Fanex.Athena.Report.Common.Model.DataDomain;
     using Fanex.Athena.Report.Common.Model.ViewModel;
     using Fanex.Athena.Report.Common.Services.Interfaces;
@@ -13,17 +12,20 @@
     using Fanex.Athena.Report.Resources.Constants;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Fanex.Athena.Report.Core.Services.Interfaces;
 
     public class ExtraPayoutService : IExtraPayoutService
     {
         private readonly IExtraPayoutRepository _repository;
         private readonly ICacheRefAdapter _cacheRefAdapter;
+        private readonly IProductService _productService;
         private readonly Dictionary<string, List<CheckedItem>> ProductToPromotionTypeMap;
 
-        public ExtraPayoutService(IExtraPayoutRepository repository, ICacheRefAdapter cacheRefAdapter)
+        public ExtraPayoutService(IExtraPayoutRepository repository, ICacheRefAdapter cacheRefAdapter, IProductService productService)
         {
             _repository = repository;
             _cacheRefAdapter = cacheRefAdapter;
+            _productService = productService;
             ProductToPromotionTypeMap = new Dictionary<string, List<CheckedItem>>
             {
                 { Product.SB, AddPromotionTypesForProductSb() },
@@ -89,20 +91,20 @@
             {
                 new ()
                 { ID = ExtraPayoutMapType.PayoutPPTournamentPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPTournamentPrize)}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPTournamentPrize)}", Checked = true },
                 new ()
                 { ID = ExtraPayoutMapType.PayoutPPPromotionPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPPromotionPrize)}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPPromotionPrize)}", Checked = true },
                 new()
                 {
                     ID = ExtraPayoutMapType.PayoutPPJackpotPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotPrize)}",
+                    Name = $"{_productService.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotPrize)}",
                     Checked = true
                 },
                 new()
                 {
                     ID = ExtraPayoutMapType.PayoutPPJackpotContribution,
-                    Name = $"{ProductHelper.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotContribution)}",
+                    Name = $"{_productService.GetProductName(Product.PP)} - {_cacheRefAdapter.GetBettype(BetType.PPJackpotContribution)}",
                     Checked = true
                 }
             };
@@ -157,13 +159,13 @@
             {
                 new()
                 { ID = ExtraPayoutMapType.PayoutSCBFreeBets,
-                    Name = $"{ProductHelper.GetProductName(Product.SBC)} - {ViewResources.FreeBets}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.SBC)} - {ViewResources.FreeBets}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotPrize)}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotPrize)}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutSCBFreeBetsJackpotContribution,
-                    Name = $"{ProductHelper.GetProductName(Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotContribution)}",
+                    Name = $"{_productService.GetProductName(Product.SBC)} - {_cacheRefAdapter.GetBettype(BetType.SCBFreeBetsJackpotContribution)}",
                     Checked = true }
             };
         }
@@ -174,18 +176,18 @@
             {
                 new()
                 { ID = ExtraPayoutMapType.PayoutVgamingFreeBets,
-                    Name = $"{ProductHelper.GetProductName(Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.VGA)} - {ViewResources.FreeBets}", Checked = true },
                 new()
                 {
                     ID = ExtraPayoutMapType.PayoutVgamingPromotionPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
+                    Name = $"{_productService.GetProductName(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingPromotionPrize)}", Checked = true
                 },
                 new()
                 { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotPrize)}", Checked = true },
                 new()
                 { ID = ExtraPayoutMapType.PayoutVgamingFreeBetsJackpotContribution,
-                    Name = $"{ProductHelper.GetProductName(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotContribution)}",
+                    Name = $"{_productService.GetProductName(Product.VGA)} - {_cacheRefAdapter.GetBettype(BetType.VgamingFreeBetsJackpotContribution)}",
                     Checked = true }
             };
         }
@@ -204,7 +206,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutFACHAIPromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.FAC)} - {_cacheRefAdapter.GetBettype(BetType.FACHAIPromotion)}", Checked = true }
             };
         }
 
@@ -231,7 +233,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutMicrogamingLivePromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.MGLC)} - {_cacheRefAdapter.GetBettype(BetType.MicrogamingLivePromotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.MGLC)} - {_cacheRefAdapter.GetBettype(BetType.MicrogamingLivePromotion)}", Checked = true }
             };
         }
 
@@ -267,7 +269,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutMGRNGPromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.MGRNG)} - {_cacheRefAdapter.GetBettype(BetType.MGRNGPromotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.MGRNG)} - {_cacheRefAdapter.GetBettype(BetType.MGRNGPromotion)}", Checked = true }
             };
         }
 
@@ -276,7 +278,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.Live22Promotion,
-                    Name = $"{ProductHelper.GetProductName(Product.L22)} - {_cacheRefAdapter.GetBettype(BetType.Live22Promotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.L22)} - {_cacheRefAdapter.GetBettype(BetType.Live22Promotion)}", Checked = true }
             };
         }
 
@@ -285,7 +287,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutFastSpinPromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.FS)} - {_cacheRefAdapter.GetBettype(BetType.FastSpinPromotionPrize)}", Checked = true }
             };
         }
 
@@ -294,7 +296,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutHOTDOGPromotionPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.HOT)} - {_cacheRefAdapter.GetBettype(BetType.HOTDOGPromotionPrize)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.HOT)} - {_cacheRefAdapter.GetBettype(BetType.HOTDOGPromotionPrize)}", Checked = true }
             };
         }
 
@@ -303,11 +305,11 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutSGJackpotPrize,
-                    Name = $"{ProductHelper.GetProductName(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotPrize)}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotPrize)}", Checked = true },
                 new() { ID = ExtraPayoutMapType.PayoutSGJackpotContribution,
-                    Name = $"{ProductHelper.GetProductName(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotContribution)}", Checked = true },
+                    Name = $"{_productService.GetProductName(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGJackpotContribution)}", Checked = true },
                 new() { ID = ExtraPayoutMapType.PayoutSGPromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGPromotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.SG)} - {_cacheRefAdapter.GetBettype(BetType.SGPromotion)}", Checked = true }
             };
         }
 
@@ -316,7 +318,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutAllbetPromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.AB)} - {_cacheRefAdapter.GetBettype(BetType.AllbetPromotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.AB)} - {_cacheRefAdapter.GetBettype(BetType.AllbetPromotion)}", Checked = true }
             };
         }
 
@@ -325,7 +327,7 @@
             return new List<CheckedItem>
             {
                 new() { ID = ExtraPayoutMapType.PayoutRichGamingPromotion,
-                    Name = $"{ProductHelper.GetProductName(Product.RGRNG)} - {_cacheRefAdapter.GetBettype(BetType.RichGamingPromotion)}", Checked = true }
+                    Name = $"{_productService.GetProductName(Product.RGRNG)} - {_cacheRefAdapter.GetBettype(BetType.RichGamingPromotion)}", Checked = true }
             };
         }
     }
