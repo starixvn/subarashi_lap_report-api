@@ -54,7 +54,7 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
 
         private async Task<List<SportProductItem>> GetSportsAndProducts(IProductService productService, ISportService sportService)
         {
-            var productCode = productService.GetAllowedSubProductCodeList(_contextService.OfferedSubProductList, $"{Product.SB},{Product.NG},{Product.VS}");
+            var productCode = productService.GetAllowedSubProductCodeList(_contextService.OfferedSubProductList, $"{Product.SB}");
 
             var data = await sportService
                             .GetSportsAndProducts(_contextService.LicenseeId, _contextService.Language, productCode)
