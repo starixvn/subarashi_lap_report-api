@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
@@ -14,6 +13,7 @@
     using Interfaces;
     using MetaModels;
     using Fanex.Athena.Report.Core.Services.Interfaces;
+    using Fanex.Common;
 
     public class WinLossByTimeZoneRepository : IWinLossByTimeZoneRepository
     {
@@ -53,10 +53,10 @@
 
                         if (!metaModel.IsConvertAll)
                         {
-                            item.Turnover = Convert.ToDecimal(reader["Turnover"]);
-                            item.CustomerComm = Convert.ToDecimal(reader["PlayerComm"]);
-                            item.LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWL"]);
-                            item.LicenseeComm = Convert.ToDecimal(reader["LicenseeComm"]);
+                            item.Turnover = Converter.To<decimal>(reader["Turnover"]);
+                            item.CustomerComm = Converter.To<decimal>(reader["PlayerComm"]);
+                            item.LicenseeWinLoss = Converter.To<decimal>(reader["LicenseeWL"]);
+                            item.LicenseeComm = Converter.To<decimal>(reader["LicenseeComm"]);
                         }
 
                         dataList.Add(item);
@@ -83,11 +83,11 @@
             var item = new WinLossByTimeZone
             {
                 GroupBy = reader["GroupBy"].ToString(),
-                BetCount = Convert.ToInt32(reader["BetCount"]),
-                Turnover = Convert.ToDecimal(reader["TurnoverBase"]),
-                CustomerComm = Convert.ToDecimal(reader["PlayerCommBase"]),
-                LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"]),
-                LicenseeComm = Convert.ToDecimal(reader["LicenseeCommBase"])
+                BetCount = Converter.To<int>(reader["BetCount"]),
+                Turnover = Converter.To<decimal>(reader["TurnoverBase"]),
+                CustomerComm = Converter.To<decimal>(reader["PlayerCommBase"]),
+                LicenseeWinLoss = Converter.To<decimal>(reader["LicenseeWLBase"]),
+                LicenseeComm = Converter.To<decimal>(reader["LicenseeCommBase"])
             };
 
             if (metaModel.ReportBy != ReportBySummary)
@@ -98,7 +98,7 @@
 
             item.GroupBy = metaModel.GroupBy == GroupByProduct
                 ? _productService.GetProductName(item.GroupBy)
-                : currencyList?.GetValueOrDefault(Convert.ToInt32(item.GroupBy), item.GroupBy);
+                : currencyList?.GetValueOrDefault(Converter.To<int>(item.GroupBy), item.GroupBy);
 
             return item;
         }
