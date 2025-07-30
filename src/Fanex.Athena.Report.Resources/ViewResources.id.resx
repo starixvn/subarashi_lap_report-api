@@ -1098,4 +1098,10 @@
   <data name="PlayerCount" xml:space="preserve">
     <value>Jumlah Pemain</value>
   </data>
+  <data name="OnlyOnce" xml:space="preserve">
+    <value>Hanya sekali</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>detik</value>
+  </data>
 </root>

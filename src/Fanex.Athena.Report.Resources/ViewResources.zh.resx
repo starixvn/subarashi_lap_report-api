@@ -1012,4 +1012,10 @@
   <data name="PlayerCount" xml:space="preserve">
     <value>玩家数量</value>
   </data>
+  <data name="OnlyOnce" xml:space="preserve">
+    <value>仅一次</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
 </root>

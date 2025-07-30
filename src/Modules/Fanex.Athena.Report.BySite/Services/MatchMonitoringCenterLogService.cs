@@ -187,6 +187,7 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 
             var settingName = GetStringAttributeValue(root, "SettingName");
             var baseCurrency = GetStringAttributeValue(root, "BaseCurrency");
+            var notificationInterval = GetIntAttributeValue(root, "NotificationInterval");
 
             var rules = root.Elements("Rules").ToList();
             if (!rules.Any())
@@ -208,12 +209,13 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 
             var conditionTypeValue = GetIntAttributeValue(root, "ConditionType");
             var conditionTypeName = ConvertConditionTypeToName(conditionTypeValue);
+            var notificationIntervalValue = ConvertNotificationIntervalToValue(notificationInterval);
 
             return formattedRules.Count switch
             {
-                > 1 => $"{ViewResources.Name}:[{settingName}] | {formattedRules[0]} | {baseCurrency} | {conditionTypeName} | {formattedRules[1]}",
-                1 => $"{ViewResources.Name}:[{settingName}] | {formattedRules[0]} | {baseCurrency}",
-                _ => $"{ViewResources.Name}:[{settingName}]"
+                > 1 => $"{ViewResources.Name}:[{settingName}] | {formattedRules[0]} | {baseCurrency} | {conditionTypeName} | {formattedRules[1]} | {notificationIntervalValue}",
+                1 => $"{ViewResources.Name}:[{settingName}] | {formattedRules[0]} | {baseCurrency} | {conditionTypeName} | {notificationIntervalValue}",
+                _ => $"{ViewResources.Name}:[{settingName}] | {baseCurrency} | {conditionTypeName} | {notificationIntervalValue}"
             };
         }
         catch
@@ -230,6 +232,16 @@ public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
             1 => ViewResources.and,
             _ => ViewResources.or
         };
+    }
+
+    private static string ConvertNotificationIntervalToValue(int notificationInterval)
+    {
+        if (notificationInterval < 0)
+        {
+            return ViewResources.OnlyOnce;
+        }
+
+        return $"{notificationInterval} {ViewResources.seconds}";
     }
 
     private static string FormatXmlDataForAlertTriggered(string xmlData)
