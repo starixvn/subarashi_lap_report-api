@@ -46,7 +46,8 @@
                 { Product.SG, AddPromotionTypesForProductSg() },
                 { Product.HOT, AddPromotionTypesForProductHot() },
                 { Product.MGLC, AddPromotionTypesForProductMglc() },
-                { Product.RGRNG, AddPromotionTypesForProductRgrng() }
+                { Product.RGRNG, AddPromotionTypesForProductRgrng() },
+                { Product.PTRNG, AddPromotionTypesForProductPtrng() }
             };
         }
 
@@ -328,6 +329,25 @@
             {
                 new() { ID = ExtraPayoutMapType.PayoutRichGamingPromotion,
                     Name = $"{_productService.GetProductName(Product.RGRNG)} - {_cacheRefAdapter.GetBettype(BetType.RichGamingPromotion)}", Checked = true }
+            };
+        }
+
+        private List<CheckedItem> AddPromotionTypesForProductPtrng()
+        {
+            return new List<CheckedItem>
+            {
+                new()
+                {
+                    ID = ExtraPayoutMapType.PayoutPTRNGJackpotPrize,
+                    Name = $"{_productService.GetProductName(Product.PTRNG)} - {_cacheRefAdapter.GetBettype(BetType.PTRNGJackpotPrize)}",
+                    Checked = true
+                },
+                new()
+                {
+                    ID = ExtraPayoutMapType.PayoutPTRNGJackpotContribution,
+                    Name = $"{_productService.GetProductName(Product.PTRNG)} - {_cacheRefAdapter.GetBettype(BetType.PTRNGJackpotContribution)}",
+                    Checked = true
+                }
             };
         }
     }
