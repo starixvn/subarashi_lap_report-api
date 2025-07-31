@@ -1753,6 +1753,15 @@ namespace Fanex.Athena.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only once.
+        /// </summary>
+        public static string OnlyOnce {
+            get {
+                return ResourceManager.GetString("OnlyOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening Balance.
         /// </summary>
         public static string OpeningBalance {
@@ -2766,6 +2775,15 @@ namespace Fanex.Athena.Report.Resources {
         public static string SEA {
             get {
                 return ResourceManager.GetString("SEA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to seconds.
+        /// </summary>
+        public static string seconds {
+            get {
+                return ResourceManager.GetString("seconds", resourceCulture);
             }
         }
         

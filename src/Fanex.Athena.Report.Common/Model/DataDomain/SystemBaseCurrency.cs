@@ -27,6 +27,7 @@
             { BaseCurrencyType.NGN, "NGN" },
             { BaseCurrencyType.BRL, "BRL" },
             { BaseCurrencyType.PKR, "PKR" },
+            { BaseCurrencyType.ZAR, "ZAR" },
 
             // crypto currencies
             { BaseCurrencyType.USDT, "USDT" }
@@ -65,7 +66,8 @@
             { BaseCurrencyType.MXN, "MXN" },
             { BaseCurrencyType.NGN, "NGN" },
             { BaseCurrencyType.BRL, "BRL" },
-            { BaseCurrencyType.PKR, "PKR" }
+            { BaseCurrencyType.PKR, "PKR" },
+            { BaseCurrencyType.ZAR, "ZAR" }
         };
 
         public static IDictionary<int, string> FlatBaseCurrencyList { get; } = new Dictionary<int, string>
@@ -87,7 +89,8 @@
             { BaseCurrencyType.MXN, "MXN" },
             { BaseCurrencyType.NGN, "NGN" },
             { BaseCurrencyType.BRL, "BRL" },
-            { BaseCurrencyType.PKR, "PKR" }
+            { BaseCurrencyType.PKR, "PKR" },
+            { BaseCurrencyType.ZAR, "ZAR" }
         };
     }
 }

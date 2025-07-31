@@ -1131,4 +1131,10 @@
   <data name="PlayerCount" xml:space="preserve">
     <value>จำนวนผู้เล่น</value>
   </data>
+  <data name="OnlyOnce" xml:space="preserve">
+    <value>เพียงครั้งเดียว</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>วินาที</value>
+  </data>
 </root>

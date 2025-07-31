@@ -1305,4 +1305,10 @@
   <data name="PlayerCount" xml:space="preserve">
     <value>Player Count</value>
   </data>
+  <data name="OnlyOnce" xml:space="preserve">
+    <value>Only once</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
 </root>

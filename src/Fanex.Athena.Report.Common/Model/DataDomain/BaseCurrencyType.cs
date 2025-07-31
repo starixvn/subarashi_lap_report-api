@@ -42,6 +42,8 @@
 
         public const int PKR = -20;
 
+        public const int ZAR = -21;
+
         // crypto currencies
         public const int USDT = -99;
     }
