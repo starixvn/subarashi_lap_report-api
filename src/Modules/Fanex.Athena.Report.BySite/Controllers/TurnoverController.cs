@@ -1,22 +1,22 @@
-﻿using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Settings;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Excels.Interfaces;
+    using Excels.Options;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Resources;
+    using Resources.Constants;
+    using Services.Interfaces;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.Turnover)]
@@ -30,8 +30,10 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
         private readonly IProductService _productService;
 
-        public TurnoverController(IContextService contextService, AppSettings appSettings,
-                                  IProductService productService)
+        public TurnoverController(
+            IContextService contextService,
+            AppSettings appSettings,
+            IProductService productService)
         {
             _contextService = contextService;
             _appSettings = appSettings;
@@ -60,18 +62,15 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetData([FromServices] ITurnoverService turnoverService,
-                                                [FromServices] IDataPermissionService dataPermissionService,
-                                                [FromBody] TurnoverMetaModel metaModel)
+        public async Task<ActionResult> GetData(
+            [FromServices] ITurnoverService turnoverService,
+            [FromServices] IDataPermissionService dataPermissionService,
+            [FromBody] TurnoverMetaModel metaModel)
         {
-            var placeholderUsername = _contextService.IsFakeLicensee ?
-                ViewResources.ExternalId :
-                ViewResources.ExternalIdOrSystemId;
+            var placeholderUsername = _contextService.IsFakeLicensee ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
 
             metaModel.Username =
-                string.IsNullOrWhiteSpace(metaModel.Username) || metaModel.Username.Trim() == placeholderUsername ?
-                    null :
-                    metaModel.Username;
+                string.IsNullOrWhiteSpace(metaModel.Username) || metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
             var dataList = await turnoverService.GetDataList(metaModel);
             dataList.ToList().ForEach(_ => dataPermissionService.ClearDataByLimitPermission(_));
 
@@ -83,20 +82,16 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ExportExcel([FromServices] IFileProvider file,
-                                                    [FromServices] ITurnoverExcel excel,
-                                                    [FromServices] ITurnoverService turnoverService,
-                                                    [FromBody] TurnoverMetaModel metaModel)
+        public async Task<ActionResult> ExportExcel(
+            [FromServices] IFileProvider file,
+            [FromServices] ITurnoverExcel excel,
+            [FromServices] ITurnoverService turnoverService,
+            [FromBody] TurnoverMetaModel metaModel)
         {
-            var placeholderUsername = _contextService.IsFakeLicensee ?
-                ViewResources.ExternalId :
-                ViewResources.ExternalIdOrSystemId;
+            var placeholderUsername = _contextService.IsFakeLicensee ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             metaModel.Username =
-                string.IsNullOrWhiteSpace(metaModel.Username) || metaModel.Username.Trim() == placeholderUsername ?
-                    null :
-                    metaModel.Username;
+                string.IsNullOrWhiteSpace(metaModel.Username) || metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
 
-            var productAccess = GetProductAccess();
             var excelOption = new TurnoverExcelOption
             {
                 CustomerCommVisible = _contextService.IsAllowedCustomerComm,

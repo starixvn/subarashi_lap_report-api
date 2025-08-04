@@ -1,20 +1,20 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Services
+﻿namespace Fanex.Athena.Report.BySite.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Models;
+    using Repositories.Interfaces;
+    using Resources;
+    using Resources.Constants;
+
     public class LiveReportService : ILiveReportService
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -28,16 +28,14 @@ namespace Fanex.Athena.Report.BySite.Services
         }
 
         public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel model) =>
-            model.IsValid ?
-                await _liveReportRepository.GetLiveReportSummary(model).ConfigureAwait(false) :
-                new List<LiveReport>();
+            model.IsValid ? await _liveReportRepository.GetLiveReportSummary(model).ConfigureAwait(false) : new List<LiveReport>();
 
         public async Task<LiveReportDetailResultModel> GetLiveReportSummaryDetail(
             LiveReportMetaModel model,
             IDictionary<int, string> currencyList,
             IEnumerable<ProductInfo> products,
             int[] liveReportNoDetailLinkSports
-            )
+        )
         {
             if (!model.IsValid)
             {
@@ -52,8 +50,8 @@ namespace Fanex.Athena.Report.BySite.Services
             var detailBySport = await _liveReportRepository.GetDetailBySport(model, liveReportNoDetailLinkSports).ConfigureAwait(false);
 
             var tupleCurrencyAndBettype = await _liveReportRepository
-                                               .GetDetailByCurrencyAndBettype(model, currencyList, products)
-                                               .ConfigureAwait(false);
+                .GetDetailByCurrencyAndBettype(model, currencyList, products)
+                .ConfigureAwait(false);
             return new LiveReportDetailResultModel
             {
                 DataBySport = detailBySport,
@@ -89,23 +87,23 @@ namespace Fanex.Athena.Report.BySite.Services
         {
             string matchName;
 
-            switch (model.SportId)
+            if (model.SportId == SportType.LiveCasino)
             {
-                case SportType.LiveCasino:
-                    matchName = string.Format("{0} {1} {2} ", _cacheRefAdapter.GetSportName(model.SportId), _cacheRefAdapter.GetBettype(data.BetType), data.ShowTime);
-                    break;
-
-                default:
-                    if (SportHelper.IsVSNewRacingSportTypes(model.SportId))
-                    {
-                        var id = !string.IsNullOrEmpty(data.Distance) ? $" - ID {data.Distance}" : string.Empty;
-                        matchName = $"{ViewResources.Event} {data.VendorMatchId}{id}";
-                    }
-                    else
-                    {
-                        matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId, data.SportId), _cacheRefAdapter.GetTeamName(data.AwayId, data.SportId));
-                    }
-                    break;
+                matchName = string.Format("{0} {1} {2} ", _cacheRefAdapter.GetSportName(model.SportId), _cacheRefAdapter.GetBettype(data.BetType),
+                    data.ShowTime);
+            }
+            else
+            {
+                if (SportHelper.IsVSNewRacingSportTypes(model.SportId))
+                {
+                    var id = !string.IsNullOrEmpty(data.Distance) ? $" - ID {data.Distance}" : string.Empty;
+                    matchName = $"{ViewResources.Event} {data.VendorMatchId}{id}";
+                }
+                else
+                {
+                    matchName = string.Format("{0} vs {1}", _cacheRefAdapter.GetTeamName(data.HomeId, data.SportId),
+                        _cacheRefAdapter.GetTeamName(data.AwayId, data.SportId));
+                }
             }
 
             return matchName;

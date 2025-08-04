@@ -1,26 +1,26 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Excel;
+    using Common.Helpers;
+    using Common.Model.DataDomain;
+    using Common.Services.Interfaces;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Services.Interfaces;
+    using DTOs;
+    using Excels.Interfaces;
+    using Excels.Options;
+    using Fanex.Common.Extensions;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Resources.Constants;
+    using Services.Interfaces;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.MatchWinLoss)]
@@ -76,9 +76,9 @@ namespace Fanex.Athena.Report.BySite.Controllers
             var reportData = await _matchWinLossService.GetDataList(metaModel).ConfigureAwait(false);
             IList<MatchWinLoss> reportDataOutrightParlay = new List<MatchWinLoss>();
 
-            var outrightParlayProducts = new List<string> { Product.BA, Product.SB, Product.NG, Product.VS, };
+            var outrightParlayProducts = new List<string> { Product.BA, Product.SB, Product.NG, Product.VS };
 
-            if (metaModel.ProductOptions.Any(i => i.Status && outrightParlayProducts.Any(s => i.Code == s)))
+            if (metaModel.ProductOptions.Any(i => i.Status && outrightParlayProducts.Exists(s => i.Code == s)))
             {
                 reportDataOutrightParlay = await _matchWinLossService.GetOutrightParlayList(metaModel).ConfigureAwait(false);
                 reportDataOutrightParlay.ForEach(report =>
@@ -113,9 +113,10 @@ namespace Fanex.Athena.Report.BySite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ExportExcel([FromServices] IFileProvider file,
-                                                     [FromServices] IMatchWinLossExcel excel,
-                                                     [FromBody] MatchWinLossMetaModel metaModel)
+        public async Task<IActionResult> ExportExcel(
+            [FromServices] IFileProvider file,
+            [FromServices] IMatchWinLossExcel excel,
+            [FromBody] MatchWinLossMetaModel metaModel)
         {
             if (metaModel.CurrencyId != BaseCurrencyType.All &&
                 !_contextService.CurrencyList.ContainsKey(metaModel.CurrencyId))
@@ -125,10 +126,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
             const int PageSize = 63000;
             metaModel.PageSize = PageSize;
-
-            var productAccess = _productService.GetSingleWalletProductAccess(
-                _contextService.LicenseeId,
-                FunctionNames.MatchWinLoss);
 
             var option = new MatchWinLossExcelOption
             {

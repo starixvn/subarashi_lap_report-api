@@ -1,19 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using OfficeOpenXml;
-
-namespace Fanex.Athena.Report.BySite.Excels
+﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using Common.Excel;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using DTOs.SubsidiaryPerformance;
+    using Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+    using OfficeOpenXml;
+    using Resources;
+
     public class SubsidiaryPerformanceDetailExcel : BaseExcel, ISubsidiaryPerformanceDetailExcel
     {
         private const int FirstColumn = 1;
@@ -58,8 +58,12 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected SubsidiaryPerformanceMetaModel MetaModel;
 
-        public SubsidiaryPerformanceDetailExcel(IFileService fileService, IOptions<ExcelOptions> excelOptionsAccessor,
-                                                IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor) { }
+        public SubsidiaryPerformanceDetailExcel(
+            IFileService fileService,
+            IOptions<ExcelOptions> excelOptionsAccessor,
+            IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor)
+        {
+        }
 
         protected ReportResultModel<SubsidiaryPerformanceDetail> Data { get; set; }
 
@@ -95,7 +99,8 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void AssignTitle(ExcelWorksheet sheet)
         {
-            var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
+            var title =
+                $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
 
             sheet.Cells[TemplateTitleRowIndex, FirstColumn, TemplateTitleRowIndex, Headers.Length].Merge = true;
             sheet.SetValue(TemplateTitleRowIndex, FirstColumn, title);
@@ -140,14 +145,14 @@ namespace Fanex.Athena.Report.BySite.Excels
                 sheet.InsertRow(totalRowIndex + 1, Data.SummaryTotal.Count - 1, totalRowIndex);
             }
 
-            foreach (var totalData in Data.SummaryTotal)
+            foreach (var totalData in Data.SummaryTotal.Select(e => e.Value))
             {
                 sheet.Cells[totalRowIndex, ColumnIndex, totalRowIndex, ColumnSystemId].Merge = true;
                 sheet.Cells[totalRowIndex, ColumnIndex].Value = string.Format(ViewResources.Totalin, MetaModel.BaseCurrency);
 
-                sheet.SetValue(totalRowIndex, ColumnCurrency, totalData.Value.CurrencyName);
+                sheet.SetValue(totalRowIndex, ColumnCurrency, totalData.CurrencyName);
 
-                AssignCommonData(sheet, totalData.Value, totalRowIndex);
+                AssignCommonData(sheet, totalData, totalRowIndex);
 
                 totalRowIndex++;
             }

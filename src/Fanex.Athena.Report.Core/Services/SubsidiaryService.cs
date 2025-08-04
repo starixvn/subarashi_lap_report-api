@@ -47,7 +47,7 @@
                 return new Dictionary<int, IEnumerable<int>>();
             }
 
-            var subsidiaryNameList = subsidiaryNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var subsidiaryNameList = subsidiaryNames.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
             var subsidiaryData = (await GetUserSubsidiaries(_contextService.AgentList, licenseeName)).ToList();
             var isFilterByCurrencyId = currencyId != CurrencyAll;
@@ -56,7 +56,7 @@
             {
                 var item1 = item;
 
-                if (!subsidiaryNameList.Any(x => x.Equals(item1.OperatorId, StringComparison.OrdinalIgnoreCase)))
+                if (!Array.Exists(subsidiaryNameList, x => x.Equals(item1.OperatorId, StringComparison.OrdinalIgnoreCase)))
                 {
                     continue;
                 }
@@ -110,7 +110,7 @@
             var allGroups = await GetAllGroupSubsidiaries(licenseeName);
 
             return allGroups
-                .Where(x => selectedSubsidiaries.Any(s => s.Equals(x.OperatorId, StringComparison.OrdinalIgnoreCase)) &&
+                .Where(x => Array.Exists(selectedSubsidiaries, s => s.Equals(x.OperatorId, StringComparison.OrdinalIgnoreCase)) &&
                             selectedWhiteLabels.Contains(x.WhiteLabelID))
                 .ToList();
         }
@@ -126,7 +126,7 @@
             }
 
             var selectedSubsidiaries = subsidiaryList.Split(',');
-            return allSubsidiaries.Where(x => selectedSubsidiaries.Any(s => s.Equals(x.OperatorId, StringComparison.OrdinalIgnoreCase)))
+            return allSubsidiaries.Where(x => Array.Exists(selectedSubsidiaries, s => s.Equals(x.OperatorId, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
         }
 
@@ -205,7 +205,7 @@
             var groupSub = await GetAllGroupSubsidiaries(licenseeName);
 
             return groupSub
-                .GroupBy(x => x.OperatorId, (key, group) => new CheckedItem { Value = key, Name = key, Checked = true },
+                .GroupBy(x => x.OperatorId, (key, _) => new CheckedItem { Value = key, Name = key, Checked = true },
                     StringComparer.OrdinalIgnoreCase)
                 .ToList();
         }

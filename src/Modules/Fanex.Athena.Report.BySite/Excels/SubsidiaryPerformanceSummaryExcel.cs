@@ -1,20 +1,20 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using OfficeOpenXml;
-
-namespace Fanex.Athena.Report.BySite.Excels
+﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using Common.Excel;
+    using Common.Services.Interfaces;
+    using DTOs.SubsidiaryPerformance;
+    using Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+    using Models;
+    using OfficeOpenXml;
+    using Options;
+    using Resources;
+
     public class SubsidiaryPerformanceSummaryExcel : BaseExcel, ISubsidiaryPerformanceSummaryExcel
     {
         protected const string SheetName = "SubsidiaryPerformance";
@@ -43,6 +43,8 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         protected const int ColumnSubsidiaryWinLoss = 8;
 
+        protected SubsidiaryPerformanceResultModel Data;
+
         protected string[] Headers =
         {
             ViewResources.WhiteLabel,
@@ -55,8 +57,6 @@ namespace Fanex.Athena.Report.BySite.Excels
             ViewResources.SubsidiaryWL
         };
 
-        protected SubsidiaryPerformanceResultModel Data;
-
         protected SubsidiaryPerformanceMetaModel MetaModel;
 
         protected SubsidiaryPerformanceExcelOption Option;
@@ -64,7 +64,9 @@ namespace Fanex.Athena.Report.BySite.Excels
         public SubsidiaryPerformanceSummaryExcel(
             IFileService fileService,
             IOptions<ExcelOptions> excelOptionsAccessor,
-            IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor) { }
+            IWebHostEnvironment environment) : base(environment, fileService, excelOptionsAccessor)
+        {
+        }
 
         public string Export(
             string template,
@@ -77,6 +79,37 @@ namespace Fanex.Athena.Report.BySite.Excels
             Option = option;
 
             return CreateFileStream(template);
+        }
+
+        protected virtual void AssignTotalRow(ExcelWorksheet sheet)
+        {
+            var totalRowIndex = Data.Data.Sum(x => x.TotalItem) + TemplateDataRowIndex;
+
+            if (Data.Total.Count > 1)
+            {
+                sheet.InsertRow(totalRowIndex + 1, Data.Total.Count - 1, totalRowIndex);
+            }
+
+            foreach (var totalData in Data.Total)
+            {
+                sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary].Merge = true;
+                sheet.Cells[totalRowIndex, ColumnWhiteLabel].Value = $"{ViewResources.Total} {totalData.Key}";
+
+                sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct].Merge = true;
+                sheet.Cells[totalRowIndex, ColumnCurrency].Value = $"{ViewResources.Based} {totalData.Value.CurrencyName}";
+
+                AssignCommonData(sheet, totalData.Value, totalRowIndex);
+
+                totalRowIndex++;
+            }
+
+            sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary].Merge = true;
+            sheet.Cells[totalRowIndex, ColumnWhiteLabel].Value = ViewResources.Total;
+
+            sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct].Merge = true;
+            sheet.Cells[totalRowIndex, ColumnCurrency].Value = $"{ViewResources.Based} {Data.GrandTotal.CurrencyName}";
+
+            AssignCommonData(sheet, Data.GrandTotal, totalRowIndex);
         }
 
         private string CreateFileStream(string template)
@@ -112,7 +145,8 @@ namespace Fanex.Athena.Report.BySite.Excels
 
         private void AssignTitle(ExcelWorksheet sheet)
         {
-            var title = $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
+            var title =
+                $"{ViewResources.SubsidiaryPerformance}, {MetaModel.FromDate:MM/dd/yyyy} - {MetaModel.ToDate:MM/dd/yyyy}, {ViewResources.BaseCurrency}: {MetaModel.BaseCurrency}";
 
             sheet.SetValue(TemplateTitleRowIndex, ColumnWhiteLabel, title);
         }
@@ -125,6 +159,7 @@ namespace Fanex.Athena.Report.BySite.Excels
             }
         }
 
+#pragma warning disable S134
         private void AssignSheetData(ExcelWorksheet sheet)
         {
             int totalItem = Data.Data.Sum(x => x.TotalItem);
@@ -160,37 +195,7 @@ namespace Fanex.Athena.Report.BySite.Excels
                 }
             }
         }
-
-        protected virtual void AssignTotalRow(ExcelWorksheet sheet)
-        {
-            var totalRowIndex = Data.Data.Sum(x => x.TotalItem) + TemplateDataRowIndex;
-
-            if (Data.Total.Count > 1)
-            {
-                sheet.InsertRow(totalRowIndex + 1, Data.Total.Count - 1, totalRowIndex);
-            }
-
-            foreach (var totalData in Data.Total)
-            {
-                sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary].Merge = true;
-                sheet.Cells[totalRowIndex, ColumnWhiteLabel].Value = $"{ViewResources.Total} {totalData.Key}";
-
-                sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct].Merge = true;
-                sheet.Cells[totalRowIndex, ColumnCurrency].Value = $"{ViewResources.Based} {totalData.Value.CurrencyName}";
-
-                AssignCommonData(sheet, totalData.Value, totalRowIndex);
-
-                totalRowIndex++;
-            }
-
-            sheet.Cells[totalRowIndex, ColumnWhiteLabel, totalRowIndex, ColumnSubsidiary].Merge = true;
-            sheet.Cells[totalRowIndex, ColumnWhiteLabel].Value = ViewResources.Total;
-
-            sheet.Cells[totalRowIndex, ColumnCurrency, totalRowIndex, ColumnProduct].Merge = true;
-            sheet.Cells[totalRowIndex, ColumnCurrency].Value = $"{ViewResources.Based} {Data.GrandTotal.CurrencyName}";
-
-            AssignCommonData(sheet, Data.GrandTotal, totalRowIndex);
-        }
+#pragma warning restore S134
 
         private static void AssignCommonData(ExcelWorksheet sheet, SubsidiaryPerformanceBase data, int rowIndex)
         {

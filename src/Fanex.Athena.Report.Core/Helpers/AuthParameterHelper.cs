@@ -10,12 +10,10 @@ namespace Fanex.Athena.Report.Core.Helpers
         public static string GenerateAgentListXml(IReadOnlyDictionary<int, string> currencyList, IDictionary<int, IEnumerable<int>> currencyAgentList)
         {
             var result = new StringBuilder("<ROOT>");
-            foreach (var item in currencyAgentList)
+            var offeredCurrency = currencyAgentList.Where(e => currencyList.ContainsKey(e.Key));
+            foreach (var item in offeredCurrency)
             {
-                if (currencyList.ContainsKey(item.Key))
-                {
-                    result.Append(GenerateAgentXmlBody(item.Key, item.Value));
-                }
+                result.Append(GenerateAgentXmlBody(item.Key, item.Value));
             }
 
             result.Append("</ROOT>");

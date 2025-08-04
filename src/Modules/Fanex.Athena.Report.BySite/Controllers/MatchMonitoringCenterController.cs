@@ -1,20 +1,21 @@
 namespace Fanex.Athena.Report.BySite.Controllers;
 
-using BySite.MetaModels;
-using BySite.Services.Interfaces;
-using Common.Services.Interfaces;
-using Core.Attributes;
-using Core.Constants;
-using Core.Services.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.Core.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Models;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Services.Interfaces;
+using Core.Attributes;
+using Core.Constants;
+using Core.Extensions;
+using Core.Services.Interfaces;
+using Excels.Interfaces;
+using MetaModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
+using Models;
+using Services.Interfaces;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -28,7 +29,7 @@ public partial class MatchMonitoringCenterController(
     IBalanceUpService balanceUpService,
     IFileProvider file) : ControllerBase
 {
-    private readonly Dictionary<string, string> settingTabDictionary = new Dictionary<string, string>
+    private readonly Dictionary<string, string> settingTabDictionary = new()
     {
         { Roles.MatchMonitoringSettingAlertRules, "AlertRules" },
         { Roles.MatchMonitoringSettingLogs, "Logs" }
@@ -53,14 +54,14 @@ public partial class MatchMonitoringCenterController(
             LeagueList = leagueList,
             MatchList = matchList,
             DefaultBaseCurrency = contextService.DefaultBaseCurrency,
-            BaseCurrency = string.IsNullOrEmpty(baseCurrency) ? contextService.DefaultBaseCurrency : baseCurrency.ToUpper(),
+            BaseCurrency = string.IsNullOrEmpty(baseCurrency) ? contextService.DefaultBaseCurrency : baseCurrency.ToUpper(CultureInfo.InvariantCulture),
             BaseCurrencies = baseCurrencyService.GetBaseCurrencyList().ToArray(),
             Currencies = contextService.CurrencyList.ToArray(),
             CurrencyId = currencyId,
             LeagueIds = leagueIds,
             MatchIds = matchIds,
             HasSettingPermission = contextService.IsInRoles(Roles.PortalSuperAdmin, Roles.MatchMonitoringSetting),
-            MoveBetsDay = balanceUp.MoveBetsDay.AddDays(1),
+            MoveBetsDay = balanceUp.MoveBetsDay.AddDays(1)
         });
     }
 
@@ -118,11 +119,6 @@ public partial class MatchMonitoringCenterController(
         return Ok(result);
     }
 
-    private void UpdateMetaModel(MatchMonitoringCenterGetMetaModel metaModel)
-    {
-        metaModel.LicenseeId = contextService.LicenseeId;
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetTriggeredAlertHistory(int monitoringId)
     {
@@ -149,5 +145,10 @@ public partial class MatchMonitoringCenterController(
         {
             tabKeys
         });
+    }
+
+    private void UpdateMetaModel(MatchMonitoringCenterGetMetaModel metaModel)
+    {
+        metaModel.LicenseeId = contextService.LicenseeId;
     }
 }

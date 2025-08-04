@@ -179,7 +179,7 @@ namespace Fanex.Athena.Report.Common.Services
                 return ViewResources.Next + " " + betTypeName;
             }
 
-            if (betType == (int)BetType.NgOeFt)
+            if (betType == BetType.NgOeFt)
             {
                 return ViewResources.FT + " " + betTypeName;
             }

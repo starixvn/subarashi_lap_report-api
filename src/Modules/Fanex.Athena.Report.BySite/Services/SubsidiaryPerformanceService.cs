@@ -98,11 +98,11 @@
                 var total = new SubsidiaryPerformanceBase { CurrencyName = grandTotal.CurrencyName };
                 var currencyData = subsidiary.Details.OrderBy(x => x.CurrencyId);
 
-                foreach (var currency in currencyData)
+                foreach (var currencyDetail in currencyData.Select(e => e.Details))
                 {
-                    var products = GetProducts(currency.Details, total, metaModel.IsHideSaba);
+                    var products = GetProducts(currencyDetail, total, metaModel.IsHideSaba);
 
-                    main.Details.Add(currency.Details.First().CurrencyName, products);
+                    main.Details.Add(currencyDetail.First().CurrencyName, products);
                     main.TotalItem += products.Count;
                 }
 

@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.ModelBinding;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
+    using System.IO;
+    using System.Threading.Tasks;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.ModelBinding;
+    using Core.Services.Interfaces;
+    using Excels.Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Service.Interfaces;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.CustomerWinLoss, Roles.AccountInfo)]
@@ -19,18 +19,15 @@ namespace Fanex.Athena.Report.ByPlayer.Controllers
     [AutoBindingMetaModel(bindAgent: true, bindPlayerCom: true, bindProductOptions: true)]
     public class CustomerWinLossController : ControllerBase
     {
-        private readonly ICustomerWinLossService _customerWinLossService;
         private readonly IContextService _contextService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ICustomerWinLossService _customerWinLossService;
 
         public CustomerWinLossController(
             ICustomerWinLossService customerWinLossService,
-            IContextService contextService,
-            ILicenseeService licenseeService)
+            IContextService contextService)
         {
             _customerWinLossService = customerWinLossService;
             _contextService = contextService;
-            _licenseeService = licenseeService;
         }
 
         [HttpPost]
