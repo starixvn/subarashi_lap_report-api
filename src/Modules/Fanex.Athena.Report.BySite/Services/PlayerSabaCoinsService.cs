@@ -1,17 +1,17 @@
 ﻿namespace Fanex.Athena.Report.BySite.Services
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.BySite.Services.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Core.Extensions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Core.Extensions;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Repositories.Interfaces;
 
     public class PlayerSabaCoinsService : IPlayerSabaCoinsService
     {
@@ -39,7 +39,7 @@
             {
                 DataList = sortedDataList,
                 TotalData = SumTotalData(groupedDataList),
-                TotalRows = groupedDataList.Count(),
+                TotalRows = groupedDataList.Count()
             };
         }
 
@@ -56,14 +56,14 @@
         private static IEnumerable<PlayerSabaCoinsMain> JoinData(IEnumerable<PlayerSabaCoinsMain> main, IEnumerable<PlayerSabaCoinsExtraInfo> extraInfo)
         {
             return main.LeftOuterJoin(extraInfo, main => new
-            {
-                main.CustId,
-                main.SabaId
-            }, extra => new
-            {
-                extra.CustId,
-                extra.SabaId
-            },
+                {
+                    main.CustId,
+                    main.SabaId
+                }, extra => new
+                {
+                    extra.CustId,
+                    extra.SabaId
+                },
                 (main, extra) => new PlayerSabaCoinsMain
                 {
                     CustId = main.CustId,
@@ -84,24 +84,29 @@
         private static IEnumerable<PlayerSabaCoins> GroupData(IEnumerable<PlayerSabaCoinsMain> dataList)
         {
             return dataList.GroupBy(_ => _.SabaId,
-                (key, g) => new PlayerSabaCoins
+                (key, g) =>
                 {
-                    SabaId = key,
-                    OpeningBalance = g.FirstOrDefault().OpeningBalance,
-                    Turnover = g.FirstOrDefault().Turnover,
-                    Outstanding = g.FirstOrDefault().Outstanding,
-                    WinLoss = g.FirstOrDefault().WinLoss,
-                    ClosingBalance = g.FirstOrDefault().ClosingBalance,
-                    RewardPromotionAmt = g.FirstOrDefault().RewardPromotionAmt,
-                    ExchangeAmt = g.FirstOrDefault().ExchangeAmt,
-                    Accounts = g.Select(_ => new PlayerSabaCoinsAccount
+                    var data = g.FirstOrDefault();
+                    ArgumentNullException.ThrowIfNull(data);
+
+                    return new PlayerSabaCoins
                     {
-                        CustId = _.CustId,
-                        ExternalId = _.ExternalId,
-                        Username = _.Username
-                    })
-                }
-            );
+                        SabaId = key,
+                        OpeningBalance = data.OpeningBalance,
+                        Turnover = data.Turnover,
+                        Outstanding = data.Outstanding,
+                        WinLoss = data.WinLoss,
+                        ClosingBalance = data.ClosingBalance,
+                        RewardPromotionAmt = data.RewardPromotionAmt,
+                        ExchangeAmt = data.ExchangeAmt,
+                        Accounts = g.Select(_ => new PlayerSabaCoinsAccount
+                        {
+                            CustId = _.CustId,
+                            ExternalId = _.ExternalId,
+                            Username = _.Username
+                        })
+                    };
+                });
         }
 
         private static PlayerSabaCoins SumTotalData(IEnumerable<PlayerSabaCoins> dataList)
@@ -126,7 +131,8 @@
         private static SortableList<PlayerSabaCoins> PaginateAndSortData(SortableList<PlayerSabaCoins> dataList, PlayerSabaCoinsMetaModel metaModel)
         {
             var paginateDataList = metaModel.PageIndex == 0 && metaModel.PageSize == 0
-                ? dataList : PaginateData(dataList, metaModel.PageIndex, metaModel.PageSize);
+                ? dataList
+                : PaginateData(dataList, metaModel.PageIndex, metaModel.PageSize);
 
             return SortData(paginateDataList, metaModel.SortBy, metaModel.SortOrder);
         }
