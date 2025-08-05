@@ -1,4 +1,6 @@
-﻿namespace Fanex.Athena.Report.BySite.UnitTests.Repositories;
+﻿using Fanex.Athena.Report.BySite.MetaModels;
+
+namespace Fanex.Athena.Report.BySite.UnitTests.Repositories;
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,6 @@ using Common.Model.DTO;
 using Common.Services.Interfaces;
 using Core.Services.Interfaces;
 using Data;
-using MetaModels;
 using Moq;
 using Xunit;
 
