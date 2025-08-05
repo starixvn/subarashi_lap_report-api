@@ -139,5 +139,9 @@
         public const int NBABalanceAdjustment = 17012;
 
         public const int FIFACWCScoreChallenge = 17013;
+
+        public const int PTRNGJackpotContribution = 12998;
+
+        public const int PTRNGJackpotPrize = 12999;
     }
 }

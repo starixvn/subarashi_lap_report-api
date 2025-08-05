@@ -85,5 +85,9 @@
         public const int PayoutNBABalanceAdjustment = 3713;
 
         public const int PayoutFIFACWCScoreChallenge = 3714;
+
+        public const int PayoutPTRNGJackpotContribution = 10001;
+
+        public const int PayoutPTRNGJackpotPrize = 10002;
     }
 }
