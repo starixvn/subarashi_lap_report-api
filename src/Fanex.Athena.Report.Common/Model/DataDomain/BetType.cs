@@ -143,5 +143,7 @@
         public const int PTRNGJackpotContribution = 12998;
 
         public const int PTRNGJackpotPrize = 12999;
+
+        public const int VSTournament = 2798;
     }
 }
