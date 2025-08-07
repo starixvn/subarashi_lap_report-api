@@ -165,13 +165,13 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
         public void GetBaseCurrencyList_WhenSupportOnceCurrencyAndOneCurrencyNotBase_AddsNegativeCurrency()
         {
             // Arrange
-            var licenseName = _fixture.Create<string>();
-            var specialPlatform = _fixture.Create<int>();
+            var licenseName = "TestLicense"; // Use a specific name that won't match special licensee lists
+            var specialPlatform = 0; // Use 0 to avoid matching SpecialPlatform.Jollysports
             var userName = _fixture.Create<string>();
-            var currencyList = new Dictionary<int, string> { { 123, "KRW" } };
+            var currencyList = new Dictionary<int, string> { { 123, "XYZ" } }; // XYZ is not in any base currency list
 
-            _appSettings.OfferCryptoCurrencyLicensees = new List<string>();
-            _appSettings.CryptoLicenseesSupportBaseEur = new List<string>();
+            _appSettings.OfferCryptoCurrencyLicensees = new List<string>(); // Ensure this doesn't contain "TestLicense"
+            _appSettings.CryptoLicenseesSupportBaseEur = new List<string>(); // Ensure this doesn't contain "TestLicense"
             _contextService.Setup(x => x.SiteName).Returns(licenseName);
             _contextService.Setup(x => x.SpecialPlatform).Returns(specialPlatform);
             _contextService.Setup(x => x.UserName).Returns(userName);
@@ -185,9 +185,9 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             // Act
             var result = service.GetBaseCurrencyList(true);
 
-            // Assert
+            // Assert - Should add negative currency ID when currency is not in base list
             Assert.Contains(-123, result.Keys);
-            Assert.Equal("KRW", result[-123]);
+            Assert.Equal("XYZ", result[-123]);
         }
 
         private BaseCurrencyService CreateService()
