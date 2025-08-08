@@ -44,6 +44,8 @@
 
         public const int ZAR = -21;
 
+        public const int KRW = -22;
+
         // crypto currencies
         public const int USDT = -99;
     }
