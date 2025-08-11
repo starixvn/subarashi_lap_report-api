@@ -1,10 +1,10 @@
-﻿using Fanex.Core.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.Athena.Report.Core.Helpers
+﻿namespace Fanex.Athena.Report.Core.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Fanex.Core.Utils;
+
     public static class AuthParameterHelper
     {
         public static string GenerateAgentListXml(IReadOnlyDictionary<int, string> currencyList, IDictionary<int, IEnumerable<int>> currencyAgentList)

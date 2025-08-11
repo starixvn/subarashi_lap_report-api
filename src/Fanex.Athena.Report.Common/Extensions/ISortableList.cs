@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Common.Extensions
+﻿namespace Fanex.Athena.Report.Common.Extensions
 {
+    using System.Collections.Generic;
+
     public interface ISortableList<out T> : IEnumerable<T>
     {
         void SortByDictionary(object key, string propertyName, bool ascending);

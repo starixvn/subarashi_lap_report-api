@@ -1,19 +1,19 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.MetaModels;
+    using BySite.Services.Interfaces;
+    using Common.Settings;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Moq;
+    using Xunit;
+
     public class SettledMatchCountControllerTest
     {
         private readonly Mock<AppSettings> _appSettings;

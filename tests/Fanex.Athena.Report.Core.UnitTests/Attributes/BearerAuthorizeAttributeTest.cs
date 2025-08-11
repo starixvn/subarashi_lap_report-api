@@ -1,8 +1,9 @@
-using Fanex.Athena.Report.Core.Attributes;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Attributes
 {
+    using System;
+    using Core.Attributes;
+    using Xunit;
+
     public class BearerAuthorizeAttributeTest
     {
         [Fact]
@@ -107,13 +108,13 @@ namespace Fanex.Athena.Report.Core.UnitTests.Attributes
             var attributeType = typeof(BearerAuthorizeAttribute);
 
             // Act
-            var attributes = attributeType.GetCustomAttributes(typeof(System.AttributeUsageAttribute), false);
-            var attributeUsage = attributes[0] as System.AttributeUsageAttribute;
+            var attributes = attributeType.GetCustomAttributes(typeof(AttributeUsageAttribute), false);
+            var attributeUsage = attributes[0] as AttributeUsageAttribute;
 
             // Assert
             Assert.NotNull(attributeUsage);
-            Assert.True(attributeUsage.ValidOn.HasFlag(System.AttributeTargets.Class));
-            Assert.True(attributeUsage.ValidOn.HasFlag(System.AttributeTargets.Method));
+            Assert.True(attributeUsage.ValidOn.HasFlag(AttributeTargets.Class));
+            Assert.True(attributeUsage.ValidOn.HasFlag(AttributeTargets.Method));
             Assert.True(attributeUsage.AllowMultiple);
             Assert.True(attributeUsage.Inherited);
         }

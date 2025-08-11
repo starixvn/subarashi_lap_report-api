@@ -1,20 +1,21 @@
-using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.DTOs;
+    using BySite.Excels.Interfaces;
+    using BySite.MetaModels;
+    using BySite.Services.Interfaces;
+    using Common.Model.ViewModel;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Moq;
+    using Newtonsoft.Json;
+    using Xunit;
+
     public class AbnormalBetControllerTest
     {
         private readonly Fixture _fixture = new Fixture();
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             // Assert
             Assert.IsType<JsonResult>(result);
-            var jsonResult = result as JsonResult;
+            var jsonResult = result;
             var resultValue = JsonConvert.SerializeObject(jsonResult.Value);
             var expectedValue = JsonConvert.SerializeObject(new { data = expectedData.DataList });
             
@@ -175,7 +176,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
         {
             // Arrange
             var metaModel = _fixture.Create<AbnormalBetMetaModel>();
-            var expectedException = new System.Exception("Service error");
+            var expectedException = new Exception("Service error");
 
             _abnormalBetService.Setup(x => x.GetDataAsync(It.IsAny<AbnormalBetMetaModel>()))
                 .ThrowsAsync(expectedException);
@@ -183,7 +184,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var controller = CreateController();
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<System.Exception>(() => controller.GetData(metaModel));
+            var exception = await Assert.ThrowsAsync<Exception>(() => controller.GetData(metaModel));
             Assert.Equal("Service error", exception.Message);
         }
 

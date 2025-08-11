@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Data;
-
-namespace Fanex.Athena.Report.Core.Repositories
+﻿namespace Fanex.Athena.Report.Core.Repositories
 {
+    using Abstraction;
+    using Data;
+
     public class DbFactory : IDbFactory
     {
         public IObjectDb GetObjectDb(string spName, int timeout = 120)

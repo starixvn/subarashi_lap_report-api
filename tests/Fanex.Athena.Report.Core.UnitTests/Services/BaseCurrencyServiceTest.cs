@@ -1,16 +1,16 @@
-using AutoFixture;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoFixture;
+    using Common.Constants;
+    using Common.Settings;
+    using Core.Services;
+    using Core.Services.Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+    using Moq;
+    using Xunit;
+
     public class BaseCurrencyServiceTest
     {
         private readonly Fixture _fixture = new Fixture();

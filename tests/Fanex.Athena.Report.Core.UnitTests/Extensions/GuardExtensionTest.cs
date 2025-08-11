@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Fanex.Athena.Report.Core.Extensions;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using Core.Extensions;
+    using Xunit;
+
     public class GuardExtensionTest
     {
         [Fact]

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Report.Common.Excel
 {
-    using Fanex.Athena.Report.Common.Excel.Interfaces;
+    using System.IO;
+    using Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.IO;
 
     public class ExcelBuilder : IExcelBuilder
     {
@@ -63,9 +63,9 @@
            int columnCount,
            string value)
         {
-            var row = this.CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
+            var row = CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
 
-            this.MergeCells(sheet, firstRow: destRowIndex, lastRow: destRowIndex, firstCol: 0, lastCol: columnCount - 1);
+            MergeCells(sheet, firstRow: destRowIndex, lastRow: destRowIndex, firstCol: 0, lastCol: columnCount - 1);
             row.Cells[0].SetCellValue(value);
         }
 

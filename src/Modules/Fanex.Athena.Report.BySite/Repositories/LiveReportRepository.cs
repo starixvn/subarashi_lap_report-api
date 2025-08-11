@@ -1,23 +1,23 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Utility;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Model.DataDomain;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Core.Utility;
+    using Data;
+    using DTOs;
+    using Fanex.Common.Extensions;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Constants;
+
     public class LiveReportRepository : ILiveReportRepository
     {
         private readonly IBalanceUpService _balanceUpService;

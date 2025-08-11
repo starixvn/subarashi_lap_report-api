@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.Excels.Interfaces
+﻿namespace Fanex.Athena.Report.BySite.Excels.Interfaces
 {
+    using System.Collections.Generic;
+    using DTOs;
+    using MetaModels;
+    using Models;
+    using Options;
+
     public interface ILiveReportExcel
     {
         byte[] Export(string template, IList<LiveReport> summaryLiveReports, LiveReportDetailResultModel data, LiveReportMetaModel metaModel,

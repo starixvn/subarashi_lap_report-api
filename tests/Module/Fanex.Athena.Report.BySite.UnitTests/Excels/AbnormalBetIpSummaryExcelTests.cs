@@ -1,17 +1,17 @@
-using System.Collections.Generic;
-using System.IO;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Extensions;
-using Moq;
-using NPOI.SS.UserModel;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using BySite.DTOs;
+    using BySite.Excels;
+    using BySite.MetaModels;
+    using Common.Excel.Interfaces;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Moq;
+    using NPOI.SS.UserModel;
+    using Xunit;
+
     public class AbnormalBetIpSummaryExcelTests
     {
         private readonly Mock<IExcelBuilder> _mockExcelBuilder;

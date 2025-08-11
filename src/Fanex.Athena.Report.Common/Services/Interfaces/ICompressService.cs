@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-
-namespace Fanex.Athena.Report.Common.Services.Interfaces
+﻿namespace Fanex.Athena.Report.Common.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Model.MetaModels;
+
     public interface ICompressService
     {
         string EnsureFolderPath();

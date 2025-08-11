@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance
+﻿namespace Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance
 {
+    using System.Collections.Generic;
+
     public class SubsidiaryPerformanceGroup
     {
         public string WhiteLabel { get; set; }

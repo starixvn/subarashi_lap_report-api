@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Resources.Constants;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Core.Models.DTOs
+﻿namespace Fanex.Athena.Report.Core.Models.DTOs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using Common.Model.DTO;
+    using Resources.Constants;
+
     [Serializable]
     public class ProductAccess
     {

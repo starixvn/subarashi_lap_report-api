@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Models.DTOs
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.Models.DTOs;
+    using Xunit;
+
     public class RiskLevelTest
     {
         [Fact]

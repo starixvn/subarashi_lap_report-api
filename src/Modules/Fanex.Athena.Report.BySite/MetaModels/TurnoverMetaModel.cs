@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Common.Helpers;
+    using Common.Model.DTO;
+    using Common.Model.MetaModels;
+    using Fanex.Core.Utils;
+
     public class TurnoverMetaModel : IValidationMetaModel, ICurrencyIdMetaModel, IProductOptionsMetaModel, IAgentMetaModel, IDataTestableMetaModel
     {
         public TurnoverMetaModel()

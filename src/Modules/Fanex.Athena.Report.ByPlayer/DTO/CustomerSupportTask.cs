@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.ByPlayer.DTO
+﻿namespace Fanex.Athena.Report.ByPlayer.DTO
 {
+    using System;
+
     public class CustomerSupportTask
     {
         protected CustomerSupportTask()

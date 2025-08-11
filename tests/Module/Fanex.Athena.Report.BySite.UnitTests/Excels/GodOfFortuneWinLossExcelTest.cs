@@ -1,21 +1,21 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Moq;
-using NPOI.SS.UserModel;
-using System;
-using System.Collections.Generic;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Excels
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.Excels;
+    using BySite.MetaModels;
+    using Common.Excel.Interfaces;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Moq;
+    using NPOI.SS.UserModel;
+    using Resources;
+    using Resources.Constants;
+    using TestHelpers;
+    using Xunit;
+
     public class GodOfFortuneWinLossExcelTest
     {
         private readonly IFixture _fixture = new Fixture();
@@ -59,7 +59,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             CreateRows();
 
             var data = _fixture.Build<SortableReportResultModel<GodOfFortuneWinLoss>>()
-              .With(x => x.DataList, new SortableList<GodOfFortuneWinLoss>() { new GodOfFortuneWinLoss { LicenseeWinLoss = 100, CustomerWinLoss = 200 } })
+              .With(x => x.DataList, new SortableList<GodOfFortuneWinLoss> { new GodOfFortuneWinLoss { LicenseeWinLoss = 100, CustomerWinLoss = 200 } })
               .Create();
             var metaModel = _fixture.Build<GodOfFortuneWinLossMetaModel>().With(_ => _.DrillDownLevel, level).Create();
 
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             var bodyData = _fixture.Build<GodOfFortuneWinLoss>()
                 .Create();
             var data = _fixture.Build<SortableReportResultModel<GodOfFortuneWinLoss>>()
-                .With(x => x.DataList, new SortableList<GodOfFortuneWinLoss>() { bodyData })
+                .With(x => x.DataList, new SortableList<GodOfFortuneWinLoss> { bodyData })
                 .Create();
             var metaModel = _fixture.Create<GodOfFortuneWinLossMetaModel>();
 

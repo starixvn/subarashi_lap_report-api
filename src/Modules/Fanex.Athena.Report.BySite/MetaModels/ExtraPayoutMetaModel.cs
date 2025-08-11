@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Core.Models.MetaModels;
-using Fanex.Core.Utils;
-using System.ComponentModel;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System.ComponentModel;
+    using Common.Helpers;
+    using Core.Models.MetaModels;
+    using Fanex.Core.Utils;
+
     public class ExtraPayoutMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel, ISubsidiarySearchMetaModel, ISpecialPlatformMetaModel
     {
         private string _username;

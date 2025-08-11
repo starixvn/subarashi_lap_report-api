@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Report.Common.Model.ViewModel
 {
-    using Fanex.Athena.Report.Common.Extensions;
+    using Extensions;
 
     public class SortableReportResultModel<T> : ReportResultModel<T>
     {

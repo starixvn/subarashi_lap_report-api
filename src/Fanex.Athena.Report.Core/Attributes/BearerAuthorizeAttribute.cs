@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Core.Attributes
+﻿namespace Fanex.Athena.Report.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    using System;
+    using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class BearerAuthorizeAttribute : AuthorizeAttribute
     {
         public BearerAuthorizeAttribute(params string[] roles)

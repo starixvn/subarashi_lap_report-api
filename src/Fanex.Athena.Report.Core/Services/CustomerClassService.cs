@@ -1,21 +1,21 @@
-﻿using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Core.Middleware;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Net.Http.Json;
+    using System.Threading.Tasks;
+    using Common.Settings;
+    using Helpers;
+    using Interfaces;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Caching.Memory;
+    using Microsoft.Extensions.Logging;
+    using Middleware;
+    using Models.DTOs;
+    using Resources;
+
     public class CustomerClassService : ICustomerClassService
     {
         private const string MemoryCacheCustomerClassCategories = "MemoryCache_CustomerClassCategories";

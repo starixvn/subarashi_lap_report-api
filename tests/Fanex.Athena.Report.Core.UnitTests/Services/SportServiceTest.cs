@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.Extensions.Caching.Memory;
-using Moq;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Services
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using Common.Constants;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Core.Repositories.Abstraction;
+    using Core.Services;
+    using Core.Services.Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Resources.Constants;
+    using Xunit;
+
     public class SportServiceTest
     {
         private readonly IFixture _fixture = new Fixture();
@@ -102,7 +102,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             var service = CreateService();
 
             // Act
-            var result = await service.GetSportsForTreeView(licenseeId, languageCode, productCodes, isHideSaba);
+            var result = await service.GetSportsForTreeView(licenseeId, languageCode, productCodes);
 
             // Assert
             Assert.Equal(cachedResult, result);
@@ -134,7 +134,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             var service = CreateService();
 
             // Act
-            var result = await service.GetSportsForTreeView(licenseeId, languageCode, productCodes, isHideSaba);
+            var result = await service.GetSportsForTreeView(licenseeId, languageCode, productCodes);
 
             // Assert
             Assert.NotEmpty(result);
@@ -156,7 +156,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             var service = CreateService();
 
             // Act
-            var result = service.GetSabaSports(isHideSaba).ToList();
+            var result = service.GetSabaSports().ToList();
 
             // Assert
             Assert.NotEmpty(result);

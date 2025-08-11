@@ -15,7 +15,6 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
     using Microsoft.Extensions.FileProviders;
     using Models;
     using Moq;
-    using Report.UnitTests.Common;
     using Xunit;
 
     public class SubsidiaryPerformanceControllerTest

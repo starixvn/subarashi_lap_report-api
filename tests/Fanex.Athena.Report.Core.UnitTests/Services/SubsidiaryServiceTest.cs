@@ -222,7 +222,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
                 // Assert
                 Assert.Empty(result);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // Expected for empty input - the method should handle this case
                 // but may still try to access database configuration
@@ -304,7 +304,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
                 var result = await _subsidiaryService.GetCurrencyAgentList("TestLicense", "sub1", false, 1);
                 Assert.NotNull(result);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // Expected - database not configured in unit test environment
                 Assert.True(true, "Method signature is correct, database configuration required for full functionality");
@@ -326,7 +326,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
                 // If we reach here, it means 999 IS the UUS currency value and returned early
                 Assert.Empty(result);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // If we catch an exception, it means 999 is NOT the UUS currency value
                 // and the method tried to access the database

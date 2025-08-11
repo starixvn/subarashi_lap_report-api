@@ -1,8 +1,8 @@
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Models.DTOs
 {
+    using Core.Models.DTOs;
+    using Xunit;
+
     public class ResultInfoTest
     {
         [Fact]

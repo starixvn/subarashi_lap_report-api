@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Report.Common
 {
-    using Fanex.Athena.Report.Common.Excel;
-    using Fanex.Athena.Report.Common.Excel.Interfaces;
-    using Fanex.Athena.Report.Common.Services;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
+    using Excel;
+    using Excel.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
+    using Services;
+    using Services.Interfaces;
 
     public static class SharedServiceDIConfig
     {

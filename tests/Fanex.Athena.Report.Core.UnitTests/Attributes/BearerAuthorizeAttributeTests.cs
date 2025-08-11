@@ -1,9 +1,9 @@
-using Fanex.Athena.Report.Core.Attributes;
-using System;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Attributes
 {
+    using System;
+    using Core.Attributes;
+    using Xunit;
+
     public class BearerAuthorizeAttributeTests
     {
         [Fact]
@@ -36,7 +36,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Attributes
         [Fact]
         public void BearerAuthorizeAttribute_WithEmptyRoleArray_SetsBearerSchemeOnly()
         {
-            var attribute = new BearerAuthorizeAttribute(new string[0]);
+            var attribute = new BearerAuthorizeAttribute();
 
             Assert.Equal("Bearer", attribute.AuthenticationSchemes);
             Assert.Null(attribute.Roles);
@@ -64,11 +64,11 @@ namespace Fanex.Athena.Report.Core.UnitTests.Attributes
         public void BearerAuthorizeAttribute_AttributeUsage_IsConfiguredCorrectly()
         {
             var type = typeof(BearerAuthorizeAttribute);
-            var attributeUsage = (System.AttributeUsageAttribute)type.GetCustomAttributes(typeof(System.AttributeUsageAttribute), false)[0];
+            var attributeUsage = (AttributeUsageAttribute)type.GetCustomAttributes(typeof(AttributeUsageAttribute), false)[0];
 
             Assert.True(attributeUsage.AllowMultiple);
             Assert.True(attributeUsage.Inherited);
-            Assert.Equal(System.AttributeTargets.Class | System.AttributeTargets.Method, attributeUsage.ValidOn);
+            Assert.Equal(AttributeTargets.Class | AttributeTargets.Method, attributeUsage.ValidOn);
         }
     }
 }

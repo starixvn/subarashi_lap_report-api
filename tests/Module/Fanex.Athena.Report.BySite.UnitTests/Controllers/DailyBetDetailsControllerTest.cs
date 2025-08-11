@@ -1,22 +1,23 @@
-using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.DTOs;
+    using BySite.Excels.Interfaces;
+    using BySite.MetaModels;
+    using BySite.Services.Interfaces;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Moq;
+    using Newtonsoft.Json;
+    using Xunit;
+
     public class DailyBetDetailsControllerTest
     {
         private readonly Fixture _fixture = new Fixture();
@@ -118,7 +119,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
         {
             // Arrange
             var metaModel = _fixture.Create<DailyBetDetailsMetaModel>();
-            var expectedException = new System.Exception("Service error");
+            var expectedException = new Exception("Service error");
             var auditCurrencies = _fixture.Create<List<AuditCurrency>>();
 
             _contextService.Setup(x => x.AuditCurrencies).Returns(auditCurrencies);
@@ -128,7 +129,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var controller = CreateController();
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<System.Exception>(() => controller.Index(metaModel, _service.Object));
+            var exception = await Assert.ThrowsAsync<Exception>(() => controller.Index(metaModel, _service.Object));
             Assert.Equal("Service error", exception.Message);
         }
 
@@ -137,7 +138,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
         {
             // Arrange
             var metaModel = _fixture.Create<DailyBetDetailsMetaModel>();
-            var expectedException = new System.Exception("Service error");
+            var expectedException = new Exception("Service error");
             var templatePath = "/ExcelTemplate/DailyBetDetails.xls";
             var physicalPath = "C:\\Templates\\DailyBetDetails.xls";
             var auditCurrencies = _fixture.Create<List<AuditCurrency>>();
@@ -151,7 +152,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var controller = CreateController();
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<System.Exception>(() => 
+            var exception = await Assert.ThrowsAsync<Exception>(() => 
                 controller.Export(_service.Object, _fileProvider.Object, _excel.Object, metaModel));
             Assert.Equal("Service error", exception.Message);
         }
@@ -163,7 +164,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var controller = CreateController();
 
             // Act & Assert
-            await Assert.ThrowsAsync<System.NullReferenceException>(() => controller.Index(null, _service.Object));
+            await Assert.ThrowsAsync<NullReferenceException>(() => controller.Index(null, _service.Object));
         }
 
         [Fact]
@@ -173,7 +174,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var controller = CreateController();
 
             // Act & Assert
-            await Assert.ThrowsAsync<System.NullReferenceException>(() => 
+            await Assert.ThrowsAsync<NullReferenceException>(() => 
                 controller.Export(_service.Object, _fileProvider.Object, _excel.Object, null));
         }
 

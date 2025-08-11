@@ -1,6 +1,4 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Repositories;
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Repositories;
 
 using System;
 using System.Collections.Generic;
@@ -10,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
+using BySite.MetaModels;
 using BySite.Repositories;
 using Common.Model.DTO;
 using Common.Services.Interfaces;

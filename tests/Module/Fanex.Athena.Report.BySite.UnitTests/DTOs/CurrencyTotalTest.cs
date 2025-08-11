@@ -1,9 +1,9 @@
-using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.DTOs
 {
+    using AutoFixture;
+    using BySite.DTOs;
+    using Xunit;
+
     public class CurrencyTotalTest
     {
         private readonly Fixture _fixture = new Fixture();

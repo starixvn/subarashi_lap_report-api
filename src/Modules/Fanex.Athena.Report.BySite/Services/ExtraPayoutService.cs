@@ -1,18 +1,18 @@
 ﻿namespace Fanex.Athena.Report.BySite.Services
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.BySite.Services.Interfaces;
-    using Fanex.Athena.Report.Common.Model.DataDomain;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Core.Models.DTOs;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
+    using Common.Model.DataDomain;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Repositories.Interfaces;
+    using Resources;
+    using Resources.Constants;
 
     public class ExtraPayoutService : IExtraPayoutService
     {

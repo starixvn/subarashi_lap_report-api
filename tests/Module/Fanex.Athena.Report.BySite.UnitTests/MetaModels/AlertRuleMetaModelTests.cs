@@ -1,9 +1,9 @@
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.MetaModels
 {
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using Xunit;
+
     public class AlertRuleMetaModelTests
     {
         [Fact]

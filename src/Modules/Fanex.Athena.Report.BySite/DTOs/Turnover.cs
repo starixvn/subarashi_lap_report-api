@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-
-namespace Fanex.Athena.Report.BySite.DTOs
+﻿namespace Fanex.Athena.Report.BySite.DTOs
 {
+    using Core.Attributes;
+    using Core.Constants;
+
     public class TurnoverDto
     {
         public int Index { get; set; }

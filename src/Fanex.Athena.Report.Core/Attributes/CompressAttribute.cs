@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.IO.Compression;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Core.Attributes
+﻿namespace Fanex.Athena.Report.Core.Attributes
 {
+    using System;
+    using System.IO.Compression;
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc.Filters;
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class CompressFilterAttribute : ActionFilterAttribute
     {

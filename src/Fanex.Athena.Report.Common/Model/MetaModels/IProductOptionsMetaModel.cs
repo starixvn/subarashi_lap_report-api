@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Common.Model.MetaModels
+﻿namespace Fanex.Athena.Report.Common.Model.MetaModels
 {
+    using System.Collections.Generic;
+    using DTO;
+
     public interface IProductOptionsMetaModel
     {
         IEnumerable<ProductOption> ProductOptions { get; set; }

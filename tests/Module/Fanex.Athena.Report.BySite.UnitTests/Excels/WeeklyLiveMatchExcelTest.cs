@@ -1,19 +1,19 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Moq;
-using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Excels
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.Excels;
+    using BySite.Excels.Options;
+    using Common.Excel.Interfaces;
+    using Models;
+    using Moq;
+    using NPOI.SS.UserModel;
+    using Resources;
+    using TestHelpers;
+    using Xunit;
+
     public class WeeklyLiveMatchExcelTest
     {
         private const string TemplatePath = "TemplatePath";

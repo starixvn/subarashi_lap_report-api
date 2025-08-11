@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Core.Models.DTOs
+﻿namespace Fanex.Athena.Report.Core.Models.DTOs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class RiskLevel
     {
         public const string Uncategorized = "Uncategorized";

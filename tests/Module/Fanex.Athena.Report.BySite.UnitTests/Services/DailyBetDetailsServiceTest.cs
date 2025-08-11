@@ -1,17 +1,18 @@
-using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Moq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using Moq;
+    using Xunit;
+
     public class DailyBetDetailsServiceTest
     {
         private readonly Fixture _fixture = new Fixture();
@@ -69,7 +70,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             // Arrange
             var metaModel = _fixture.Create<DailyBetDetailsMetaModel>();
             var auditCurrencyList = _fixture.Create<List<AuditCurrency>>();
-            var expectedException = new System.Exception("Repository error");
+            var expectedException = new Exception("Repository error");
 
             _repository.Setup(x => x.GetDataAsync(metaModel, auditCurrencyList))
                 .ThrowsAsync(expectedException);
@@ -77,7 +78,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             var service = CreateService();
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<System.Exception>(() => service.GetDataAsync(metaModel, auditCurrencyList));
+            var exception = await Assert.ThrowsAsync<Exception>(() => service.GetDataAsync(metaModel, auditCurrencyList));
             Assert.Equal("Repository error", exception.Message);
             _repository.Verify(x => x.GetDataAsync(metaModel, auditCurrencyList), Times.Once);
         }

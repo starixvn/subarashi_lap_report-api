@@ -1,10 +1,11 @@
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Linq;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Common.Helpers;
+    using Resources.Constants;
+    using Xunit;
+
     public class MappingHelperTest
     {
         [Theory]
@@ -72,14 +73,14 @@ namespace Fanex.Athena.Report.Common.UnitTests.Helpers
         public void MapBettypeSportBySport_IsReadOnly()
         {
             // Act & Assert
-            Assert.IsAssignableFrom<System.Collections.Generic.IReadOnlyDictionary<int, int>>(MappingHelper.MapBettypeSportBySport);
+            Assert.IsAssignableFrom<IReadOnlyDictionary<int, int>>(MappingHelper.MapBettypeSportBySport);
         }
 
         [Fact]
         public void MapBettypeSportByProduct_IsReadOnly()
         {
             // Act & Assert
-            Assert.IsAssignableFrom<System.Collections.Generic.IReadOnlyDictionary<int, int>>(MappingHelper.MapBettypeSportByProduct);
+            Assert.IsAssignableFrom<IReadOnlyDictionary<int, int>>(MappingHelper.MapBettypeSportByProduct);
         }
 
         [Fact]

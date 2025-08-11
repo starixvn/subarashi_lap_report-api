@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Core.Models.MetaModels;
-using Fanex.Core.Utils;
-using System;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using Core.Models.MetaModels;
+    using Fanex.Core.Utils;
+
     public class PlayerSabaCoinsMetaModel : ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel, IAgentMetaModel, IDataTestableMetaModel
     {
         private string _username;

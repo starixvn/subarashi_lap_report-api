@@ -1,14 +1,13 @@
-﻿using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories;
-using Fanex.Data;
-using Moq;
-using System.Data;
-using System.Data.Common;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Repositories
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using System.Data;
+    using System.Data.Common;
+    using Core.Models.DTOs;
+    using Core.Repositories;
+    using Data;
+    using Moq;
     using Resources.Constants;
+    using Xunit;
 
     public class ProductRepositoryTest
     {

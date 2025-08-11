@@ -1,16 +1,17 @@
-using AutoFixture;
-using Fanex.Athena.Report.Core.Services;
-using Microsoft.AspNetCore.Http;
-using Moq;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net;
+    using System.Reflection;
+    using System.Security.Claims;
+    using AutoFixture;
+    using Core.Services;
+    using Microsoft.AspNetCore.Http;
+    using Moq;
+    using Xunit;
+
     public class ContextServiceTest
     {
         private readonly Fixture _fixture = new Fixture();
@@ -702,7 +703,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
 
             // Act
             var result = service.GetType()
-                .GetProperty("RawCurrencyAgentList", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetProperty("RawCurrencyAgentList", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(service);
 
             // Assert
@@ -730,7 +731,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Services
             // Assert
             Assert.NotNull(result);
             Assert.True(result.ContainsKey(100));
-            Assert.Equal(new int[] {1,2,3}, result[100]);
+            Assert.Equal(new[] {1,2,3}, result[100]);
         }
 
         [Fact]

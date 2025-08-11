@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.RemotingRef;
-using System;
-using System.Globalization;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Common.Services
+﻿namespace Fanex.Athena.Report.Common.Services
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+    using Helpers;
+    using Interfaces;
+    using Model.DataDomain;
+    using RemotingRef;
+    using Resources;
+    using Resources.Constants;
+
     public class CacheRefAdapter : ICacheRefAdapter
     {
         private static readonly string[] SabaBetTypeMap =

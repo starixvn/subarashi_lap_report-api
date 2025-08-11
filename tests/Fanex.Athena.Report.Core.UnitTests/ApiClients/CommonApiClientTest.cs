@@ -1,19 +1,19 @@
-using Fanex.Athena.Report.Core.ApiClients;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Moq;
-using Moq.Protected;
-using Newtonsoft.Json;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.ApiClients
 {
+    using System;
+    using System.Net;
+    using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Core.ApiClients;
+    using Core.ApiClients.Abstraction;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Http;
+    using Moq;
+    using Moq.Protected;
+    using Newtonsoft.Json;
+    using Xunit;
+
     public class CommonApiClientTest
     {
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
@@ -208,7 +208,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.ApiClients
                 .ReturnsAsync(httpResponse);
 
             // Act
-            await _commonApiClient.GetAsync<TestModel>(path, null);
+            await _commonApiClient.GetAsync<TestModel>(path);
 
             // Assert
             Assert.NotNull(capturedRequest);

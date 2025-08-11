@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using Core.Repositories.Abstraction;
+    using Data;
+    using DTOs.WinlossAnalysis;
+    using Fanex.Common.Extensions;
+    using Interfaces;
+    using MetaModels;
+
     public class WinlossAnalysisRepository : IWinlossAnalysisRepository
     {
         private const int SPTIMEOUT = 180;

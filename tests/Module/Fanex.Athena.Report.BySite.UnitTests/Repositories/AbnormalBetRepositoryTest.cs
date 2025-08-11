@@ -1,19 +1,17 @@
-using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.UnitTests.Common;
-using Moq;
-using System;
-using System.Data;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
+    using System;
+    using System.Data;
+    using AutoFixture;
+    using BySite.MetaModels;
+    using BySite.Repositories;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class AbnormalBetRepositoryTest
     {
         private readonly Fixture _fixture = new Fixture();

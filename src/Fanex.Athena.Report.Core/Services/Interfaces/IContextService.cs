@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Enums;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Core.Services.Interfaces
+﻿namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Common.Model.DTO;
+    using Enums;
+
     public interface IContextService
     {
         int LicenseeId { get; }

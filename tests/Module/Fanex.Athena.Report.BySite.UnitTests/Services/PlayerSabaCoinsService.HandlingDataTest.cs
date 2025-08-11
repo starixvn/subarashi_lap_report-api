@@ -1,16 +1,16 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Moq;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Moq;
+    using Xunit;
+
     public partial class PlayerSabaCoinsServiceTest
     {
         [Fact]

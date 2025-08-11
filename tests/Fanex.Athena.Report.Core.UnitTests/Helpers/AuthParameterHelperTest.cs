@@ -1,12 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Core.Utils;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoFixture;
+    using Core.Helpers;
+    using Fanex.Core.Utils;
+    using Xunit;
+
     public class AuthParameterHelperTest
     {
         private readonly IFixture _fixture = new Fixture();
@@ -151,7 +151,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
             var currencyIdList = new[] { 1, 3 };
 
             // Act
-            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList, false);
+            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList);
 
             // Assert
             Assert.StartsWith("<ROOT>", result);
@@ -200,7 +200,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
             const bool isExcludeTestData = false;
 
             // Act
-            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList, isExcludeTestData);
+            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList);
 
             // Assert
             Assert.StartsWith("<ROOT>", result);
@@ -223,7 +223,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
             var currencyIdList = new[] { 1, 999, 2, 888 }; // 999 and 888 don't exist
 
             // Act
-            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList, false);
+            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList);
 
             // Assert
             Assert.StartsWith("<ROOT>", result);
@@ -245,7 +245,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
             var currencyIdList = new[] { 1 };
 
             // Act
-            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList, false);
+            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList);
 
             // Assert
             Assert.Equal("<ROOT></ROOT>", result);
@@ -263,7 +263,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
             var currencyIdList = new[] { 1 };
 
             // Act
-            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList, false);
+            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList);
 
             // Assert
             Assert.StartsWith("<ROOT>", result);
@@ -291,7 +291,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Helpers
             var currencyIdList = new[] { 0, 1, 2 }; // Contains 0 (all) plus specific IDs
 
             // Act
-            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList, false);
+            var result = AuthParameterHelper.GenerateAgentListXml(currencyAgentList, currencyIdList);
 
             // Assert
             Assert.StartsWith("<ROOT>", result);

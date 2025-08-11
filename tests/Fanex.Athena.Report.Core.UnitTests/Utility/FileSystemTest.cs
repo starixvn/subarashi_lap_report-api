@@ -1,10 +1,10 @@
-using Fanex.Athena.Report.Core.Utility;
-using System;
-using System.IO;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Utility
 {
+    using System;
+    using System.IO;
+    using Core.Utility;
+    using Xunit;
+
     public class FileSystemTest : IDisposable
     {
         private readonly string _testDirectory;

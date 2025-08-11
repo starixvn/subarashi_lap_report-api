@@ -1,20 +1,20 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Moq;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Common.Model.DataDomain;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class ExtraPayoutServiceTest
     {
         private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;

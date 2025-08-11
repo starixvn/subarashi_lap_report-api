@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.Common.Excel;
-using Moq;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.SS.Util;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Xunit;
-
-namespace Fanex.Athena.Report.Common.UnitTests.Excel
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Excel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Common.Excel;
+    using Moq;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
+    using Xunit;
+
     public class ExcelBuilderTest
     {
         [Fact]

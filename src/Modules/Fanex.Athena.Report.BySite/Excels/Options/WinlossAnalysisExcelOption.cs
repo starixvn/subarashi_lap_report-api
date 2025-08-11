@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.BySite.Enums;
-using System;
-
-namespace Fanex.Athena.Report.BySite.Excels.Options
+﻿namespace Fanex.Athena.Report.BySite.Excels.Options
 {
+    using System;
+    using Enums;
+
     public record WinlossAnalysisExcelOption
     {
         public string CurrencyList { get; set; }

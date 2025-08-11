@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-
-namespace Fanex.Athena.Report.Common.Services
+﻿namespace Fanex.Athena.Report.Common.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Excel;
+    using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+    using Model.MetaModels;
+
     public class CompressService : ICompressService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

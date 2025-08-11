@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.Common.Model.DTO
+﻿namespace Fanex.Athena.Report.Common.Model.DTO
 {
+    using System;
+
     [Serializable]
     public class AuditCurrency
     {

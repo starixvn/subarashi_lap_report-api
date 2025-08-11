@@ -1,19 +1,19 @@
-using AutoFixture;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
-using Fanex.Athena.Report.Core.Middleware;
-using Moq;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using Common.Settings;
+    using Core.Middleware;
+    using Core.Models.DTOs;
+    using Core.Services;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Caching.Memory;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class CustomerClassServiceTest
     {
         private readonly Fixture _fixture = new Fixture();

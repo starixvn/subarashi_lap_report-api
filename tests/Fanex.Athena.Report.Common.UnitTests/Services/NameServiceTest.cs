@@ -1,14 +1,14 @@
-using AutoFixture;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Moq;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
+    using AutoFixture;
+    using Common.Services;
+    using Common.Services.Interfaces;
+    using Constants;
+    using Model.DataDomain;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class NameServiceTest
     {
         private readonly IFixture _fixture = new Fixture();
@@ -220,7 +220,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var service = CreateService();
 
             // Act
-            var result = service.GetSportName(sportTypeId, false, null);
+            var result = service.GetSportName(sportTypeId);
 
             // Assert
             Assert.Equal(expected, result);

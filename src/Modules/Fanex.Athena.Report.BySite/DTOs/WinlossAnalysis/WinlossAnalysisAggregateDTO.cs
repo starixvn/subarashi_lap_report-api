@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
+﻿namespace Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis
 {
+    using System.Collections.Generic;
+
     public class WinlossAnalysisAggregateDTO
     {
         public IEnumerable<WinlossAnalysisDTO> MainData { get; set; }

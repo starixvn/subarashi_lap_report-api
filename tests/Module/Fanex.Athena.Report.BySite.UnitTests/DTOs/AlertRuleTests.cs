@@ -1,8 +1,8 @@
-using Fanex.Athena.Report.BySite.DTOs;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.DTOs
 {
+    using BySite.DTOs;
+    using Xunit;
+
     public class AlertRuleTests
     {
         [Fact]

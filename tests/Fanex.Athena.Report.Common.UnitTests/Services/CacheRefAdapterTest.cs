@@ -1,14 +1,13 @@
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.RemotingRef;
-using Moq;
-using System.Globalization;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
+    using System.Globalization;
+    using Common.Services;
+    using Common.Services.Interfaces;
+    using Model.DataDomain;
+    using Moq;
+    using RemotingRef;
+    using Xunit;
+
     public class CacheRefAdapterTest
     {
         private readonly Mock<IRemotingRefService> _mockRemotingRefService;

@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using Fanex.Athena.Report.Core.Extensions;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Extensions
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.Extensions;
+    using Xunit;
+
     public class LinqExtensionTest
     {
         [Fact]
@@ -28,7 +28,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Extensions
                 right,
                 p => p.Id,
                 a => a.PersonId,
-                (person, address) => new { PersonName = person.Name, Street = address?.Street }
+                (person, address) => new { PersonName = person.Name, address?.Street }
             ).ToList();
 
             // Assert
@@ -60,7 +60,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Extensions
                 right,
                 p => p.Id,
                 a => a.PersonId,
-                (person, address) => new { PersonName = person.Name, Street = address?.Street }
+                (person, address) => new { PersonName = person.Name, address?.Street }
             ).ToList();
 
             // Assert
@@ -89,7 +89,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Extensions
                 right,
                 p => p.Id,
                 a => a.PersonId,
-                (person, address) => new { PersonName = person.Name, Street = address?.Street }
+                (person, address) => new { PersonName = person.Name, address?.Street }
             ).ToList();
 
             // Assert
@@ -113,7 +113,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Extensions
                 right,
                 p => p.Id,
                 a => a.PersonId,
-                (person, address) => new { PersonName = person.Name, Street = address?.Street }
+                (person, address) => new { PersonName = person.Name, address?.Street }
             ).ToList();
 
             // Assert
@@ -140,7 +140,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Extensions
                 right,
                 p => p.Id,
                 a => a.PersonId,
-                (person, address) => new { PersonName = person.Name, Street = address?.Street }
+                (person, address) => new { PersonName = person.Name, address?.Street }
             ).ToList();
 
             // Assert

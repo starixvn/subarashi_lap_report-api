@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System.Threading.Tasks;
+    using Common.Settings;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Services.Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
+
     [ApiController, Route("api/[controller]/[action]"),
      BearerAuthorize(Roles.PortalSuperAdmin, Roles.SettledMatchCount),]
     public class SettledMatchCountController : Controller

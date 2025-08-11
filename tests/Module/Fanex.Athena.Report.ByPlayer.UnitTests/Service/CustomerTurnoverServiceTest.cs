@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Service;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using ByPlayer.Service;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using DTO;
+    using MetaModels;
+    using Moq;
+    using Repository.Interfaces;
+    using Xunit;
+
     public class CustomerTurnoverServiceTest
     {
         private readonly IReadOnlyDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };

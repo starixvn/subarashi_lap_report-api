@@ -1,8 +1,8 @@
-using Fanex.Athena.Report.Common.Helpers;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Helpers
 {
+    using Common.Helpers;
+    using Xunit;
+
     public class BetTypeHelperTest
     {
         [Theory]

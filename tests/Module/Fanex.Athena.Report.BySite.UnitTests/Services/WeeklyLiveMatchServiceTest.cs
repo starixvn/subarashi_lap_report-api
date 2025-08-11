@@ -1,16 +1,16 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Moq;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Models;
+    using Moq;
+    using Xunit;
+
     public class WeeklyLiveMatchServiceTest
     {
         private readonly IFixture _fixture = new Fixture();

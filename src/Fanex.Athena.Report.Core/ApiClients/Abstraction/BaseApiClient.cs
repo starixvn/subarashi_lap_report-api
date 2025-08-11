@@ -1,16 +1,16 @@
-﻿using Fanex.Athena.Report.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
+﻿namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
 {
+    using System;
+    using System.IO;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Exceptions;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+
     public abstract class BaseApiClient
     {
         private const string LanguageKey = "Language";
@@ -24,13 +24,13 @@ namespace Fanex.Athena.Report.Core.ApiClients.Abstraction
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        protected BaseApiClient(IHttpContextAccessor httpContextAccessor, System.Net.Http.HttpClient client)
+        protected BaseApiClient(IHttpContextAccessor httpContextAccessor, HttpClient client)
         {
             Client = client;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected System.Net.Http.HttpClient Client { get; }
+        protected HttpClient Client { get; }
 
         protected HttpContext Context => _httpContextAccessor.HttpContext;
 

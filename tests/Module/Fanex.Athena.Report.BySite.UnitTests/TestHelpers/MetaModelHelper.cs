@@ -1,9 +1,9 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.MetaModels;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.TestHelpers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.TestHelpers
 {
+    using System.Collections.Generic;
+    using AutoFixture;
+    using BySite.MetaModels;
+
     public static class MetaModelHelper
     {
         private static Fixture fixture = new Fixture();

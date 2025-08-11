@@ -1,8 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Fanex.Athena.Report.Core.Exceptions
+﻿namespace Fanex.Athena.Report.Core.Exceptions
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [Serializable]
     public class ServiceException : Exception
     {

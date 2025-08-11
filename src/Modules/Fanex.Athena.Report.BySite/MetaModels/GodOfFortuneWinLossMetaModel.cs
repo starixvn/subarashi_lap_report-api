@@ -1,8 +1,8 @@
-﻿using Fanex.Core.Utils;
-using System.ComponentModel;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System.ComponentModel;
+    using Fanex.Core.Utils;
+
     public class GodOfFortuneWinLossMetaModel : BaseWinLossMetaModel, ICurrencyIdListMetaModel
     {
         public int DrillDownCustomerId { get; set; }

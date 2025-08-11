@@ -1,10 +1,10 @@
-﻿using Moq;
-using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.TestHelpers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.TestHelpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Moq;
+    using NPOI.SS.UserModel;
+
     public static class ExcelTestHelper
     {
         public static void MockGetRow(Mock<ISheet> sheet, int columnCount)

@@ -1,22 +1,22 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Helpers;
-using Moq;
-using NPOI.SS.UserModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Excels
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.Excels;
+    using BySite.MetaModels;
+    using Common.Excel.Interfaces;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using Moq;
+    using NPOI.SS.UserModel;
+    using Resources;
+    using Resources.Helpers;
+    using TestHelpers;
+    using Xunit;
+
     public class PlatformWinLossSummaryExcelTest
     {
         private readonly IFixture _fixture = new Fixture();

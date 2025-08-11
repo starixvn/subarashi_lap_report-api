@@ -1,24 +1,24 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.DTOs;
+    using BySite.Excels.Interfaces;
+    using BySite.MetaModels;
+    using BySite.Services.Interfaces;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Moq;
+    using Newtonsoft.Json;
+    using Xunit;
+
     public class ExtraPayoutControllerTest
     {
         private const string PhysicalPath = "PhysicalPath";

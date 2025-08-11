@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Moq;
-using NPOI.SS.UserModel;
-using Xunit;
-
-namespace Fanex.Athena.Report.Common.UnitTests.Excel
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Excel
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Common.Excel;
+    using Common.Excel.Interfaces;
+    using Model.DTO;
+    using Moq;
+    using NPOI.SS.UserModel;
+    using Xunit;
+
     public class ExcelHelperTest
     {
         [Fact]

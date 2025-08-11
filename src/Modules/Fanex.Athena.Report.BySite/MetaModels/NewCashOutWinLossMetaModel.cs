@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Core.Models.MetaModels;
-using Fanex.Core.Utils;
-using System.ComponentModel;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System.ComponentModel;
+    using Core.Models.MetaModels;
+    using Fanex.Core.Utils;
+
     public class NewCashOutWinLossMetaModel : BaseWinLossMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel
     {
         public int DrillDownLevel { get; set; }

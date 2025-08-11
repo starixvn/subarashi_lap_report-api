@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels.Interfaces
 {
-    using Fanex.Athena.Report.ByPlayer.MetaModels;
-    using Fanex.Athena.Report.Common.Excel.Interfaces;
+    using Common.Excel.Interfaces;
+    using MetaModels;
 
     public interface ICustomerSupportTaskExcel : IExportZipFile<CustomerSupportTaskMetaModel>
     {

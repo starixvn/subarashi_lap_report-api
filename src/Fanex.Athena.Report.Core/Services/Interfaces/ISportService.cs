@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Core.Models.DTOs;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Services.Interfaces
+﻿namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Models.DTOs;
+
     public interface ISportService
     {
         Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode,

@@ -1,20 +1,19 @@
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Common;
-using Fanex.Data;
-using Fanex.Athena.Report.Common.Helpers;
-using Moq;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using BySite.MetaModels;
+    using BySite.Repositories;
+    using Common.Model.DTO;
+    using Data;
+    using Moq;
+    using Xunit;
+
     public class DailyBetDetailsRepositoryTests
     {
         private readonly Mock<IObjectDb> _mockObjectDb;
@@ -56,7 +55,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             };
 
             SetupDataReader();
-            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<System.Data.Common.DbTransaction>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
+            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
             _mockObjectDb.Setup(db => db.GetParameterValue("TotalRow")).Returns(1);
 
             var result = await _repository.GetDataAsync(metaModel, auditCurrencyList);
@@ -95,7 +94,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             };
 
             SetupDataReader("CNY");
-            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<System.Data.Common.DbTransaction>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
+            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
             _mockObjectDb.Setup(db => db.GetParameterValue("TotalRow")).Returns(1);
 
             var result = await _repository.GetDataAsync(metaModel, auditCurrencyList);
@@ -122,7 +121,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var auditCurrencyList = new List<AuditCurrency>();
 
             _mockDataReader.Setup(r => r.Read()).Returns(false);
-            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<System.Data.Common.DbTransaction>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
+            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
             _mockObjectDb.Setup(db => db.GetParameterValue("TotalRow")).Returns(0);
 
             var result = await _repository.GetDataAsync(metaModel, auditCurrencyList);
@@ -149,7 +148,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var auditCurrencyList = new List<AuditCurrency>();
 
             _mockDataReader.Setup(r => r.Read()).Returns(false);
-            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<System.Data.Common.DbTransaction>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
+            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
             _mockObjectDb.Setup(db => db.GetParameterValue("TotalRow")).Returns(0);
 
             await _repository.GetDataAsync(metaModel, auditCurrencyList);
@@ -175,7 +174,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
             var auditCurrencyList = new List<AuditCurrency>();
 
             _mockDataReader.Setup(r => r.Read()).Returns(false);
-            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<System.Data.Common.DbTransaction>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
+            _mockObjectDb.Setup(db => db.ExecuteReaderAsync(It.IsAny<object>(), It.IsAny<DbTransaction>(), It.IsAny<CancellationToken>())).ReturnsAsync(_mockDataReader.Object);
             _mockObjectDb.Setup(db => db.GetParameterValue("TotalRow")).Returns(0);
 
             await _repository.GetDataAsync(metaModel, auditCurrencyList);

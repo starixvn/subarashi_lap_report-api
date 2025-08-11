@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.Common.Services.Interfaces
 {
-    using Fanex.Athena.Report.Common.Model.DTO;
     using System.Threading.Tasks;
+    using Model.DTO;
 
     public interface IBalanceUpService
     {

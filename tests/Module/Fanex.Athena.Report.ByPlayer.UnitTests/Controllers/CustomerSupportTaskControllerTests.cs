@@ -1,18 +1,17 @@
-using Fanex.Athena.Report.ByPlayer.Controllers;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+    using ByPlayer.Controllers;
+    using ByPlayer.Excels.Interfaces;
+    using Core.Services.Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Moq;
+    using Xunit;
+
     public class CustomerSupportTaskControllerTests
     {
         private readonly Mock<IContextService> _mockContextService;
@@ -43,8 +42,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(okResult.Value);
 
-            var jsonString = System.Text.Json.JsonSerializer.Serialize(okResult.Value);
-            var jsonElement = System.Text.Json.JsonDocument.Parse(jsonString).RootElement;
+            var jsonString = JsonSerializer.Serialize(okResult.Value);
+            var jsonElement = JsonDocument.Parse(jsonString).RootElement;
             var currenciesProperty = jsonElement.GetProperty("currencies");
             Assert.Equal(2, currenciesProperty.GetArrayLength());
         }
@@ -60,8 +59,8 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(okResult.Value);
 
-            var jsonString = System.Text.Json.JsonSerializer.Serialize(okResult.Value);
-            var jsonElement = System.Text.Json.JsonDocument.Parse(jsonString).RootElement;
+            var jsonString = JsonSerializer.Serialize(okResult.Value);
+            var jsonElement = JsonDocument.Parse(jsonString).RootElement;
             var currenciesProperty = jsonElement.GetProperty("currencies");
             Assert.Equal(0, currenciesProperty.GetArrayLength());
         }

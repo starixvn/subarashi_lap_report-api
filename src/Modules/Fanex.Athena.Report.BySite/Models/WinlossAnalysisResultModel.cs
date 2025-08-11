@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using System.Collections.Generic;
+    using DTOs;
+    using DTOs.WinlossAnalysis;
+
     public class WinlossAnalysisResultModel
     {
         public int TotalRow { get; set; }

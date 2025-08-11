@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using System.Collections.Generic;
+    using DTOs.SubsidiaryPerformance;
+
     public class SubsidiaryPerformanceResultModel
     {
         public IEnumerable<SubsidiaryPerformanceGroup> Data { get; set; }

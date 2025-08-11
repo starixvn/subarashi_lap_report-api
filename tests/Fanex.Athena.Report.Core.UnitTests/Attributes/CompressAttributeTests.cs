@@ -1,18 +1,17 @@
-using Fanex.Athena.Report.Core.Attributes;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Routing;
-using Moq;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Attributes
 {
+    using System;
+    using System.Collections.Generic;
+    using Core.Attributes;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Abstractions;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using Microsoft.AspNetCore.Routing;
+    using Moq;
+    using Xunit;
+
     public class CompressAttributeTests
     {
         private readonly Mock<HttpContext> _mockHttpContext;
@@ -54,10 +53,10 @@ namespace Fanex.Athena.Report.Core.UnitTests.Attributes
         public void CompressFilterAttribute_AttributeUsage_IsConfiguredCorrectly()
         {
             var type = typeof(CompressFilterAttribute);
-            var attributeUsage = (System.AttributeUsageAttribute)type.GetCustomAttributes(typeof(System.AttributeUsageAttribute), false)[0];
+            var attributeUsage = (AttributeUsageAttribute)type.GetCustomAttributes(typeof(AttributeUsageAttribute), false)[0];
 
             Assert.True(attributeUsage.AllowMultiple);
-            Assert.Equal(System.AttributeTargets.Class | System.AttributeTargets.Method, attributeUsage.ValidOn);
+            Assert.Equal(AttributeTargets.Class | AttributeTargets.Method, attributeUsage.ValidOn);
         }
 
         private ActionExecutingContext CreateActionExecutingContext()

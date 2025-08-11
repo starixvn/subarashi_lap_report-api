@@ -1,20 +1,20 @@
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoFixture;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
-using Fanex.Athena.Report.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Moq;
-using Moq.Protected;
-using Newtonsoft.Json;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.ApiClients
 {
+    using System;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using Core.ApiClients.Abstraction;
+    using Core.Exceptions;
+    using Microsoft.AspNetCore.Http;
+    using Moq;
+    using Moq.Protected;
+    using Newtonsoft.Json;
+    using Xunit;
+
     public class BaseApiClientTest
     {
         private readonly Fixture _fixture = new Fixture();

@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using Fanex.Athena.Report.Core.Exceptions;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Exceptions
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Exceptions
 {
+    using System;
+    using System.Runtime.Serialization;
+    using Core.Exceptions;
+    using Xunit;
+
     public class ServiceExceptionTest
     {
         [Fact]

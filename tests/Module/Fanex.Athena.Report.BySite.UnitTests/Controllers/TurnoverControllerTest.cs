@@ -1,21 +1,21 @@
-﻿using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using BySite.Controllers;
+    using BySite.Excels.Interfaces;
+    using BySite.MetaModels;
+    using BySite.Services.Interfaces;
+    using Common.Settings;
+    using Core.Constants;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Microsoft.Extensions.FileProviders;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class TurnoverControllerTest
     {
         private const int LicenseeId = 1;

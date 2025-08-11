@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Resources;
-using System.Text.RegularExpressions;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System.Text.RegularExpressions;
+    using Constants;
+    using Resources;
+
     public static class SabaHelper
     {
         public static bool IsHideSaba(int specialPlatform)

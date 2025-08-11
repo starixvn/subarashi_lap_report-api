@@ -1,18 +1,18 @@
-using AutoFixture;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Services;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using AutoFixture;
+    using Common.Excel;
+    using Common.Services;
+    using Common.Services.Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+    using Model.MetaModels;
+    using Moq;
+    using Xunit;
+
     public class CompressServiceTest : IDisposable
     {
         private readonly Fixture _fixture = new Fixture();

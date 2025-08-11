@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    using Fanex.Athena.Report.Common.Model.DTO;
-    using Fanex.Athena.Report.Common.Model.MetaModels;
-    using Fanex.Athena.Report.Core.Models.MetaModels;
-    using Fanex.Core.Utils;
     using System;
     using System.Collections.Generic;
+    using Common.Model.DTO;
+    using Common.Model.MetaModels;
+    using Core.Models.MetaModels;
+    using Fanex.Core.Utils;
 
     public class PlatformWinLossMetaModel : IProductOptionsMetaModel, IAgentMetaModel, IDataTestableMetaModel,
         ICurrencyIdMetaModel, ISubsidiarySearchMetaModel, IPlayerComMetaModel

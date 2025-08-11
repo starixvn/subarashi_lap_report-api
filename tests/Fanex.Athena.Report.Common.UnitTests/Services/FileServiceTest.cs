@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using AutoFixture;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Services;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Linq;
+    using System.Text;
+    using AutoFixture;
+    using Common.Services;
+    using Model.MetaModels;
+    using Xunit;
+
     public class FileServiceTest : IDisposable
     {
         private readonly IFixture _fixture = new Fixture();

@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Moq;
-using Xunit;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using System.Threading.Tasks;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
+    using System;
+    using System.Data;
+    using BySite.MetaModels;
+    using BySite.Repositories;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Moq;
+    using Xunit;
+
     public class AbnormalBetRepositoryTests
     {
         private readonly Mock<ICacheRefAdapter> _mockCacheRefAdapter;

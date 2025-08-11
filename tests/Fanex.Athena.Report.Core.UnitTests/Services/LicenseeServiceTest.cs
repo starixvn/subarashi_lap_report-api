@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.Core.Services;
-using Fanex.Data;
-using Moq;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Services
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Core.Services;
+    using Data;
+    using Moq;
+    using Xunit;
+
     public class LicenseeServiceTest
     {
         private readonly Mock<IObjectDb> _objectDb;

@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Moq;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Common.Services.Interfaces;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class MatchWinLossServiceTest
     {
         private readonly Mock<IMatchWinLossRepository> _dataAccess;

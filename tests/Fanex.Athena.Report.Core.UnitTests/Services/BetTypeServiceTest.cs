@@ -1,18 +1,17 @@
-using AutoFixture;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Core.Repositories.Abstraction;
+    using Core.Services;
+    using Core.Services.Interfaces;
+    using Moq;
+    using Xunit;
+
     public class BetTypeServiceTest
     {
         private readonly Fixture _fixture = new Fixture();

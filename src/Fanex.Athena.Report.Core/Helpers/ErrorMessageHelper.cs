@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.Report.Core.Helpers
 {
-    using Fanex.Data;
-    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Linq;
     using System.Text;
+    using Data;
+    using Microsoft.AspNetCore.Http;
 
     public static class ErrorMessageHelper
     {

@@ -1,11 +1,10 @@
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Utility;
-using Fanex.Data;
-using Moq;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Utility
 {
+    using Core.Utility;
+    using Data;
+    using Moq;
+    using Xunit;
+
     public class ObjectDbExtensionTest
     {
         private readonly Mock<IObjectDb> _mockObjectDb;

@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Data;
+    using Interfaces;
+
     public class LicenseeService : ILicenseeService
     {
         public async Task<bool> HasPermissionOnData(IReadOnlyDictionary<int, int[]> currencyAgents, int custId, long transId)

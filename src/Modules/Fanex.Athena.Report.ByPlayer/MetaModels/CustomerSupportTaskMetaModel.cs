@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Core.Models.MetaModels;
-using Fanex.Core.Utils;
-
-namespace Fanex.Athena.Report.ByPlayer.MetaModels
+﻿namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
+    using Core.Models.MetaModels;
+    using Fanex.Core.Utils;
+
     public class CustomerSupportTaskMetaModel : IAgentMetaModel, ISubsidiarySearchMetaModel, ICurrencyIdListMetaModel, IValidationMetaModel
     {
         private const int ReportTypeMaxValue = 3;

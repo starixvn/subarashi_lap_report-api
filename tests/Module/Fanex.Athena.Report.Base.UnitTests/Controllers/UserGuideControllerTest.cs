@@ -1,16 +1,16 @@
-﻿using Fanex.Athena.Report.Base.Controllers;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Core.Utility.Interfaces;
-using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.Base.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.Base.UnitTests.Controllers
 {
+    using System.Threading.Tasks;
+    using Base.Controllers;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using Core.Utility.Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class UserGuideControllerTest
     {
         private readonly Mock<IContextService> _contextService;

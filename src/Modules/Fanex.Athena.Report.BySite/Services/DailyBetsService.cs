@@ -1,18 +1,18 @@
 ﻿namespace Fanex.Athena.Report.BySite.Services
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.Extensions;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.BySite.Services.Interfaces;
-    using Fanex.Athena.Report.Common.Model.DTO;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using Data;
+    using DTOs;
+    using Extensions;
+    using Interfaces;
+    using MetaModels;
+    using Repositories.Interfaces;
 
     public class DailyBetsService : IDailyBetsService
     {

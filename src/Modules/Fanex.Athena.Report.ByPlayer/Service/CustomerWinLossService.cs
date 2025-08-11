@@ -1,19 +1,19 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Data;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Service
+﻿namespace Fanex.Athena.Report.ByPlayer.Service
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Helpers;
+    using Data;
+    using DTO;
+    using Interfaces;
+    using MetaModels;
+
     public class CustomerWinLossService : ICustomerWinLossService
     {
         private const int PageSizeExcel = int.MaxValue - 1000;

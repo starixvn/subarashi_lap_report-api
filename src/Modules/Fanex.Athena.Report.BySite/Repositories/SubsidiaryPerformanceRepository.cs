@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using System.Linq;
-using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Common;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs.SubsidiaryPerformance;
+    using Fanex.Common;
+    using Interfaces;
+    using MetaModels;
+
     public class SubsidiaryPerformanceRepository : ISubsidiaryPerformanceRepository
     {
         private readonly IBalanceUpService _balanceUpService;

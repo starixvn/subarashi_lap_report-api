@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.ByPlayer.Excels;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Repository;
-using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Service;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Fanex.Athena.Report.ByPlayer
+﻿namespace Fanex.Athena.Report.ByPlayer
 {
+    using Excels;
+    using Excels.Interfaces;
+    using Microsoft.Extensions.DependencyInjection;
+    using Repository;
+    using Repository.Interfaces;
+    using Service;
+    using Service.Interfaces;
+
     public static class ReportByPlayerDIConfig
     {
         public static IServiceCollection AddByPlayerModule(this IServiceCollection services)

@@ -1,9 +1,9 @@
-using Fanex.Athena.Report.Common.Helpers;
-using System;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Helpers
 {
+    using System;
+    using Common.Helpers;
+    using Xunit;
+
     public class DateTimeHelperTest
     {
         [Fact]

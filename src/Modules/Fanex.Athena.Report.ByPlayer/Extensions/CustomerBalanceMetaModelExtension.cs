@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Data;
-using System.Linq;
-
-namespace Fanex.Athena.Report.ByPlayer.Extensions
+﻿namespace Fanex.Athena.Report.ByPlayer.Extensions
 {
+    using System.Linq;
+    using Data;
+    using MetaModels;
+
     public static class CustomerBalanceMetaModelExtension
     {
         public static void InjectToDbParameter(this CustomerBalanceMetaModel metaModel, IObjectDb db)

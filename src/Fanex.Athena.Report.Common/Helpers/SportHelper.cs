@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Resources.Constants;
+
     public static class SportHelper
     {
         private static readonly IEnumerable<int> VSNewRacingSportTypes = new List<int>

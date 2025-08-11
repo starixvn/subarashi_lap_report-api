@@ -1,25 +1,25 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
-using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Excels
+﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Excel;
+    using Common.Excel.Interfaces;
+    using Common.Extensions;
+    using Common.Model.MetaModels;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTO;
+    using MetaModels;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.FileProviders;
+    using Microsoft.Extensions.Options;
+    using OfficeOpenXml;
+    using Resources;
+
     public abstract class BaseCustomerSupportTaskExcel<TData> : BaseExcel, IExportZipFile<CustomerSupportTaskMetaModel>
         where TData : CustomerSupportTask, new()
     {

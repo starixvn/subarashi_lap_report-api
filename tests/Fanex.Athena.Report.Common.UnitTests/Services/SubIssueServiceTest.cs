@@ -1,15 +1,14 @@
-using Fanex.Athena.Report.Common.Services;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
-using Xunit;
-
 namespace Fanex.Athena.Report.Common.UnitTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Threading;
+    using Common.Services;
+    using Common.Services.Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+    using Xunit;
+
     public class SubIssueServiceTest
     {
         private readonly SubIssueService _service;

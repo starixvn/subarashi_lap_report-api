@@ -1,16 +1,17 @@
-using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Resources.Constants;
-using Moq;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Common.Model.ViewModel;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class AbnormalBetServiceTest
     {
         private readonly Fixture _fixture = new Fixture();
@@ -123,14 +124,14 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             var metaModel = _fixture.Create<AbnormalBetMetaModel>();
             metaModel.ViewIn = (int)AbnormalBetViewInLevel.Summary;
             
-            var expectedException = new System.Exception("Repository error");
+            var expectedException = new Exception("Repository error");
             _repository.Setup(x => x.GetSummaryData(metaModel))
                 .ThrowsAsync(expectedException);
 
             var service = CreateService();
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<System.Exception>(() => service.GetDataAsync(metaModel));
+            var exception = await Assert.ThrowsAsync<Exception>(() => service.GetDataAsync(metaModel));
             Assert.Equal("Repository error", exception.Message);
         }
 
@@ -141,7 +142,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
             var service = CreateService();
 
             // Act & Assert
-            await Assert.ThrowsAsync<System.NullReferenceException>(() => service.GetDataAsync(null));
+            await Assert.ThrowsAsync<NullReferenceException>(() => service.GetDataAsync(null));
         }
 
         [Fact]

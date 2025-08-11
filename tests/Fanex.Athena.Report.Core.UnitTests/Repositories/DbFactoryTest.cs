@@ -1,11 +1,11 @@
-using System;
-using Fanex.Athena.Report.Core.Repositories;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Data;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using System;
+    using Core.Repositories;
+    using Core.Repositories.Abstraction;
+    using Data;
+    using Xunit;
+
     public class DbFactoryTest
     {
         [Fact]

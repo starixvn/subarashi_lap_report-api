@@ -1,24 +1,24 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Extensions;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.BySite.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Resources;
-using Fanex.Data;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Common.Model.DTO;
+    using Data;
+    using Extensions;
+    using Moq;
+    using Resources;
+    using TestHelpers;
+    using Xunit;
+
     public class DailyBetsServiceTest
     {
         private readonly IFixture _fixture = new Fixture();

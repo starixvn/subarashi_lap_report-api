@@ -1,8 +1,8 @@
-using Fanex.Athena.Report.Core.Helpers;
-using Xunit;
-
 namespace Fanex.Athena.Report.Core.UnitTests.Helpers
 {
+    using Core.Helpers;
+    using Xunit;
+
     public class SqlHelperTest
     {
         [Fact]

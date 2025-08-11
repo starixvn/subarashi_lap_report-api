@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using Attributes;
+    using Interfaces;
+
     public class DataPermissionService : IDataPermissionService
     {
         private readonly IContextService _contextService;

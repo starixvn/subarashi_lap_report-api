@@ -1,21 +1,21 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.Excels.Interfaces;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.Common.Excel.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Model.DTO;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Athena.Report.Resources.Helpers;
-    using NPOI.SS.UserModel;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using Common.Excel.Interfaces;
+    using Common.Extensions;
+    using Common.Model.DTO;
+    using Common.Model.ViewModel;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using NPOI.SS.UserModel;
+    using Resources;
+    using Resources.Constants;
+    using Resources.Helpers;
 
     public class PlatformWinLossMemberExcel : IPlatformWinLossMemberExcel
     {

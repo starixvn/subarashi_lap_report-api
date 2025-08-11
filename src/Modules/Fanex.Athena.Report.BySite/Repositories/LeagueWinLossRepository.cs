@@ -1,22 +1,23 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Extensions;
-    using Fanex.Athena.Report.Common.Helpers;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Athena.Report.Resources;
-    using Fanex.Athena.Report.Resources.Constants;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
+    using Common.Extensions;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Resources;
+    using Resources.Constants;
 
     public class LeagueWinLossRepository : ILeagueWinLossRepository
     {
@@ -204,10 +205,10 @@
             var leagueName = _cacheRefAdapter.GetLeagueName(leagueId, sportType);
             if (isHideSaba)
             {
-                leagueName = System.Text.RegularExpressions.Regex.Replace(
+                leagueName = Regex.Replace(
                         leagueName, ViewResources.Saba
                         , string.Empty
-                        , System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                        , RegexOptions.IgnoreCase);
             }
             return leagueName;
         }
