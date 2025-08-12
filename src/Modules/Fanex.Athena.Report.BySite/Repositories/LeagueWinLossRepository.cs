@@ -205,10 +205,11 @@
             var leagueName = _cacheRefAdapter.GetLeagueName(leagueId, sportType);
             if (isHideSaba)
             {
-                leagueName = Regex.Replace(
-                        leagueName, ViewResources.Saba
-                        , string.Empty
-                        , RegexOptions.IgnoreCase);
+                leagueName = Regex.Replace(leagueName,
+                    ViewResources.Saba,
+                    string.Empty,
+                    RegexOptions.IgnoreCase,
+                    TimeSpan.FromSeconds(1));
             }
             return leagueName;
         }
