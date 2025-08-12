@@ -89,5 +89,7 @@
         public const int PayoutPTRNGJackpotContribution = 10001;
 
         public const int PayoutPTRNGJackpotPrize = 10002;
+
+        public const int PayoutVSTournament = 2701;
     }
 }
