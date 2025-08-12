@@ -7,9 +7,9 @@
     using Common.Helpers;
     using Common.Services.Interfaces;
     using Data;
+    using Data.Extensions.AdoNet;
     using DTOs;
     using Fanex.Common;
-    using Fanex.Common.Extensions;
     using Fanex.Core.Utils.Extensions;
     using Interfaces;
     using MetaModels;

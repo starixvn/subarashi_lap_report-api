@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Common.Helpers;
     using Data;
+    using Data.Extensions.AdoNet;
     using DTOs;
     using Fanex.Common.Extensions;
     using Interfaces;

@@ -8,8 +8,8 @@
     using Common.Model.DataDomain;
     using Common.Services.Interfaces;
     using Data;
+    using Data.Extensions.AdoNet;
     using Extensions;
-    using Fanex.Common.Extensions;
     using Models.DTOs;
     using Resources.Constants;
 

@@ -48,7 +48,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Excels
             _mockExcelBuilder.Setup(b => b.CopyRow(mockSheet.Object, mockSheet.Object, It.IsAny<int>(), It.IsAny<int>())).Returns(mockRow.Object);
             mockRow.Setup(r => r.Cells).Returns(new List<ICell> { mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object, mockCell.Object });
 
-            mockWorkbook.Setup(w => w.Write(It.IsAny<MemoryStream>()));
+            mockWorkbook.Setup(w => w.Write(It.IsAny<MemoryStream>(), It.IsAny<bool>()));
 
             // Act
             var result = _abnormalBetDetailExcel.Export(template, data, metaModel);

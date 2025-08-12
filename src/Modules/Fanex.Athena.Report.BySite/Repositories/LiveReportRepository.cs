@@ -12,8 +12,8 @@
     using Core.Services.Interfaces;
     using Core.Utility;
     using Data;
+    using Data.Extensions.AdoNet;
     using DTOs;
-    using Fanex.Common.Extensions;
     using Interfaces;
     using MetaModels;
     using Resources.Constants;

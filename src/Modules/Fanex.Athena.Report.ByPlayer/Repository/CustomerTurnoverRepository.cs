@@ -13,8 +13,8 @@
     using Core.Helpers;
     using Core.Services.Interfaces;
     using Data;
+    using Data.Extensions.AdoNet;
     using DTO;
-    using Fanex.Common.Extensions;
     using Interfaces;
     using MetaModels;
     using Resources;

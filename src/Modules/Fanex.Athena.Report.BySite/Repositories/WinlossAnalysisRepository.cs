@@ -5,8 +5,8 @@
     using System.Threading.Tasks;
     using Core.Repositories.Abstraction;
     using Data;
+    using Data.Extensions.AdoNet;
     using DTOs.WinlossAnalysis;
-    using Fanex.Common.Extensions;
     using Interfaces;
     using MetaModels;
 
