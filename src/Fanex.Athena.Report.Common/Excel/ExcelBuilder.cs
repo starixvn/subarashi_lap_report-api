@@ -117,19 +117,44 @@
         public int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
-            return sheet.AddMergedRegion(rangeAddress);
+            if (CanMergeRegion(sheet, rangeAddress))
+            {
+                return sheet.AddMergedRegion(rangeAddress);
+            }
+            return -1;
         }
 
         public int MergeRows(ISheet sheet, int firstRow, int lastRow, int colIndex)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, colIndex, colIndex);
-            return sheet.AddMergedRegion(rangeAddress);
+            if (CanMergeRegion(sheet, rangeAddress))
+            {
+                return sheet.AddMergedRegion(rangeAddress);
+            }
+            return -1;
         }
 
         public int MergeCols(ISheet sheet, int firstCol, int lastCol, int rowIndex)
         {
             var rangeAddress = new CellRangeAddress(rowIndex, rowIndex, firstCol, lastCol);
-            return sheet.AddMergedRegion(rangeAddress);
+            if (CanMergeRegion(sheet, rangeAddress))
+            {
+                return sheet.AddMergedRegion(rangeAddress);
+            }
+            return -1;
+        }
+
+        private static bool CanMergeRegion(ISheet sheet, CellRangeAddress candidateRegion)
+        {
+            for (int i = 0; i < sheet.NumMergedRegions; i++)
+            {
+                var existingRegion = sheet.GetMergedRegion(i);
+                if (existingRegion.Intersects(candidateRegion))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public void HideRow(ISheet sheet, params int[] rowIndex)
