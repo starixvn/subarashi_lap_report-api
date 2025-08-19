@@ -64,8 +64,13 @@
            string value)
         {
             var row = CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
+            var destColIndex = columnCount - 1;
 
-            MergeCells(sheet, firstRow: destRowIndex, lastRow: destRowIndex, firstCol: 0, lastCol: columnCount - 1);
+            if (destColIndex > 0)
+            {
+                MergeCells(sheet, firstRow: destRowIndex, lastRow: destRowIndex, firstCol: 0, lastCol: destColIndex);
+            }
+
             row.Cells[0].SetCellValue(value);
         }
 

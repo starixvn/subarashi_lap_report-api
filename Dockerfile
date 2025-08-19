@@ -52,7 +52,8 @@ EXPOSE 5000
 # Dont run as root
 RUN adduser --disabled-password \
     --home /app \
-    --gecos '' dotnetuser && chown -R dotnetuser /app && chown -R dotnetuser /tmp
+    --gecos '' dotnetuser && chown -R dotnetuser /app && chown -R dotnetuser /tmp && \
+    mkdir -p /LapReportTempExcel && chown -R dotnetuser /LapReportTempExcel
 USER dotnetuser
 #
 
