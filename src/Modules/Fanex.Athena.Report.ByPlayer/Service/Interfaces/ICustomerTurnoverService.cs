@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Service.Interfaces
+﻿namespace Fanex.Athena.Report.ByPlayer.Service.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Common.Model.ViewModel;
+    using DTO;
+    using MetaModels;
+
     public interface ICustomerTurnoverService
     {
         Task<ReportResultModel<CustTurnover>> GetDataList(CustomerTurnoverMetaModel metaModel, IReadOnlyDictionary<int, string> currencyList, string languageCode);

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels.Interfaces
 {
-    using Fanex.Athena.Report.ByPlayer.DTO;
-    using Fanex.Athena.Report.ByPlayer.MetaModels;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
+    using Common.Model.ViewModel;
+    using DTO;
+    using MetaModels;
 
     public interface ICustomerWinLossExcel
     {

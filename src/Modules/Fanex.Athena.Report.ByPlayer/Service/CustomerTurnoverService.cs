@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Service
+﻿namespace Fanex.Athena.Report.ByPlayer.Service
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Model.ViewModel;
+    using DTO;
+    using Interfaces;
+    using MetaModels;
+    using Repository.Interfaces;
+
     public class CustomerTurnoverService : ICustomerTurnoverService
     {
         private readonly ICustomerTurnoverRepository _customerTurnoverRepository;

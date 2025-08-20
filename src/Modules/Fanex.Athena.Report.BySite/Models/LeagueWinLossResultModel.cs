@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using System.Collections.Generic;
+    using DTOs;
+
     public class LeagueWinLossResultModel
     {
         public List<LeagueWinLoss> Data { get; set; }

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.BySite.Services.Interfaces
 {
-    using Fanex.Athena.Report.BySite.MetaModels;
     using System.Threading.Tasks;
+    using MetaModels;
 
     public interface IAbnormalBetService
     {

@@ -1,16 +1,16 @@
-﻿using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-
-namespace Fanex.Athena.Report.Core.Repositories
+﻿namespace Fanex.Athena.Report.Core.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abstraction;
+    using Common.Extensions;
+    using Common.Services.Interfaces;
+    using Data;
+    using Models.DTOs;
+    using Resources.Constants;
+    using Services.Interfaces;
+
     public class SportRepository : ISportRepository
     {
         private static readonly int[] HiddenSports = new[]

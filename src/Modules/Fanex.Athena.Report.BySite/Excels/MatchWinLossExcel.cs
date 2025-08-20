@@ -1,23 +1,22 @@
-﻿using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Common;
-using NPOI.SS.UserModel;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-
-namespace Fanex.Athena.Report.BySite.Excels
+﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using Common.Constants;
+    using Common.Excel;
+    using Common.Excel.Interfaces;
+    using Common.Helpers;
+    using Common.Model.DataDomain;
+    using Common.Services.Interfaces;
+    using Fanex.Common;
+    using Interfaces;
+    using MetaModels;
+    using NPOI.SS.UserModel;
+    using Options;
+    using Resources;
+
     public class MatchWinLossExcel : IMatchWinLossExcel
     {
         private const string TemplateSheetName = "Template";

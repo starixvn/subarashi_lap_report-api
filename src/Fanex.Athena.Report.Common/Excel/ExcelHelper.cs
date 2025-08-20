@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Resources;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Common.Excel
+﻿namespace Fanex.Athena.Report.Common.Excel
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Interfaces;
+    using Model.DTO;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using Resources;
+
     public static class ExcelHelper
     {
         public static void SetTextRowHeader(IRow row, IEnumerable<string> headerTextList)

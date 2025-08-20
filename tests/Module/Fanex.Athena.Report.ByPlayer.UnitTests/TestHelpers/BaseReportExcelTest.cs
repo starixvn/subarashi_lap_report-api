@@ -1,21 +1,21 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using Moq;
-using OfficeOpenXml;
-using System;
-using System.IO;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers
 {
+    using System;
+    using System.IO;
+    using AutoFixture;
+    using Common.Excel;
+    using Common.Services.Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+    using Moq;
+    using OfficeOpenXml;
+
     public class BaseReportExcelTest
     {
         protected static readonly IFixture fixture = new Fixture();
         protected readonly string RootPath = Directory.GetCurrentDirectory();
 
-        protected readonly ExcelOptions ExcelOptions = new ExcelOptions()
+        protected readonly ExcelOptions ExcelOptions = new ExcelOptions
         {
             Path = "",
             CSVSeparateCharacter = ",",

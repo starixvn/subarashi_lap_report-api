@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using System;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.ModelBinding
+﻿namespace Fanex.Athena.Report.Core.ModelBinding
 {
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    using System;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     public class FromBodyOrDefaultAttribute : Attribute, IBindingSourceMetadata
     {
         public BindingSource BindingSource => BodyOrDefaultBindingSource.BodyOrDefault;

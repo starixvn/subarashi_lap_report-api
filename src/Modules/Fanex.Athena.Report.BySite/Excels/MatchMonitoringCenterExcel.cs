@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Extensions;
-using Fanex.Athena.Report.Resources;
+using Common.Excel;
+using Common.Services.Interfaces;
+using Core.Extensions;
+using DTOs;
+using Interfaces;
+using MetaModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
+using Resources;
 
 public class MatchMonitoringCenterExcel(
     IFileService fileService,
@@ -138,7 +138,7 @@ public class MatchMonitoringCenterExcel(
             .Select(group => new
             {
                 LeagueId = group.Key,
-                LeagueName = group.First().LeagueName,
+                group.First().LeagueName,
                 Items = group.ToList()
             })
             .ToList();
@@ -175,7 +175,7 @@ public class MatchMonitoringCenterExcel(
             .Select(group => new
             {
                 LeagueId = group.Key,
-                LeagueName = group.First().LeagueName,
+                group.First().LeagueName,
                 Items = group.ToList()
             })
             .ToList();

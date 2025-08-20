@@ -1,19 +1,19 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-using Fanex.Athena.Report.BySite.Enums;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Resources;
-using NPOI.HSSF.Util;
-using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Fanex.Athena.Report.BySite.Excels
+﻿namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Common.Excel.Interfaces;
+    using DTOs;
+    using DTOs.WinlossAnalysis;
+    using Enums;
+    using Interfaces;
+    using Models;
+    using NPOI.HSSF.Util;
+    using NPOI.SS.UserModel;
+    using Options;
+    using Resources;
+
     public class WinlossAnalysisExcel : IWinlossAnalysisExcel
     {
         private const string DATE_FORMAT = "MM/dd/yyyy";

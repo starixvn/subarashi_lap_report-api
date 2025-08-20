@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.ByPlayer.MetaModels
+﻿namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Common.Model.DTO;
+    using Common.Model.MetaModels;
+    using Fanex.Core.Utils;
+
     public class CustomerBalanceMetaModel : IAgentMetaModel, IDataTestableMetaModel, IProductOptionsMetaModel, ICurrencyIdMetaModel, IValidationMetaModel
     {
         public int PageSize { get; set; }

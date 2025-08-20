@@ -2,7 +2,7 @@ namespace Fanex.Athena.Report.BySite.Models;
 
 using System;
 using System.Collections.Generic;
-using Fanex.Athena.Report.Common.Model.DTO;
+using Common.Model.DTO;
 
 public class MatchMonitoringCenterViewModel
 {

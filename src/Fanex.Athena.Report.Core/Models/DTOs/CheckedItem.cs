@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Core.Models.DTOs
+﻿namespace Fanex.Athena.Report.Core.Models.DTOs
 {
+    using System.Collections.Generic;
+
     public class CheckedItem
     {
         public string Name { get; set; }

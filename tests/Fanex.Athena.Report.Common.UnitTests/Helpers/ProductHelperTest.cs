@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Helpers;
-using Xunit;
-
-namespace Fanex.Athena.Report.Common.UnitTests.Helpers
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Helpers
 {
+    using Common.Helpers;
+    using Constants;
+    using Xunit;
+
     public class ProductHelperTest
     {
         [Theory]

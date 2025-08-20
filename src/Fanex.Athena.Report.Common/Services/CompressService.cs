@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Fanex.Athena.Report.Common.Services
+﻿namespace Fanex.Athena.Report.Common.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Excel;
+    using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Options;
+    using Model.MetaModels;
+
     public class CompressService : ICompressService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -22,7 +22,7 @@ namespace Fanex.Athena.Report.Common.Services
             _option = options.Value;
         }
 
-        public byte[] CompressCompressDataInByteFormssData(IEnumerable<ZipEntry> entries, bool isDeleteOriginalAfterCompress)
+        public byte[] CompressDataInByteFormat(IEnumerable<ZipEntry> entries, bool isDeleteOriginalAfterCompress)
         {
             var zipPath = Path.Combine(EnsureFolderPath(), $"{Guid.NewGuid()}.zip");
             _fileService.Compress(entries, zipPath, isDeleteOriginalAfterCompress);

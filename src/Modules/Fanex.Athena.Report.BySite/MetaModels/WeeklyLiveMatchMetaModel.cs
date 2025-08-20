@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using System;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using Common.Helpers;
+
     public class WeeklyLiveMatchMetaModel
     {
         public WeeklyLiveMatchMetaModel()

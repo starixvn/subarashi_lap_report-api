@@ -1,24 +1,24 @@
-﻿using Fanex.Athena.Report.ByPlayer.Constants;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
-using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Excels
+﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Excel;
+    using Common.Extensions;
+    using Common.Services.Interfaces;
+    using Constants;
+    using Data;
+    using DTO;
+    using Interfaces;
+    using MetaModels;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.FileProviders;
+    using Microsoft.Extensions.Options;
+    using OfficeOpenXml;
+    using Resources;
+
     public class CustomerRunningTicketExcel : BaseCustomerSupportTaskExcel<CustomerRunningTicket>, ICustomerSupportTaskExcel
     {
         private const int StartTemplateHeaderRowIndex = 2;

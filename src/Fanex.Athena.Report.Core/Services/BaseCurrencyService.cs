@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Common.Constants;
+    using Common.Model.DataDomain;
+    using Common.Settings;
+    using Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+
     public class BaseCurrencyService : IBaseCurrencyService
     {
         private const string MemoryCacheBaseCurrencyListByLicensee = "MemoryCache_BaseCurrencyList_{0}_{1}_{2}_{3}";

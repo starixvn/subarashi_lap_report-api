@@ -1,10 +1,10 @@
-﻿using System;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Core.Utils;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using Common.Model.MetaModels;
+    using Fanex.Core.Utils;
+    using Resources.Constants;
+
     public class SubsidiaryPerformanceMetaModel : IValidationMetaModel, IMetaModelProductCodeList, IAgentMetaModel
     {
         public string AgentListXml { get; set; }

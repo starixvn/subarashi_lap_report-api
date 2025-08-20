@@ -1,20 +1,20 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Data;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using BySite.MetaModels;
+    using BySite.Repositories;
+    using Common.Helpers;
+    using Common.Model.DTO;
+    using Common.Services.Interfaces;
+    using Data;
+    using Moq;
+    using Xunit;
+
     public class MatchWinLossRepositoryTest
     {
         private readonly BalanceUp _balance = new()

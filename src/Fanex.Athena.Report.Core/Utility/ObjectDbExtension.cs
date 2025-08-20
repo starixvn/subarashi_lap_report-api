@@ -1,9 +1,8 @@
-
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Common;
-using Fanex.Data;
-
 namespace Fanex.Athena.Report.Core.Utility;
+
+using Data;
+using Fanex.Common;
+using Models.DTOs;
 
 public static class ObjectDbExtension
 {

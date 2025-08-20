@@ -1,25 +1,25 @@
-﻿using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Enums;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Controllers
+﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Helpers;
+    using Common.Services.Interfaces;
+    using Common.Settings;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Enums;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using Excels.Interfaces;
+    using Excels.Options;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Services.Interfaces;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.LiveReport)]
@@ -33,21 +33,21 @@ namespace Fanex.Athena.Report.BySite.Controllers
 
         private readonly IBalanceUpService _balanceUpService;
 
+        private readonly IBaseCurrencyService _baseCurrencyService;
+
         private readonly IContextService _contextService;
 
         private readonly ILiveReportService _liveReportService;
 
         private readonly IProductService _productService;
 
-        private readonly IBaseCurrencyService _baseCurrencyService;
-
-        private bool IsOneworksMaster =>
-            _contextService.UserLevel == UserLevelType.OneWorks
-         && _contextService.SubsidiaryViewType == SubsidiaryViewType.NormalManagement;
-
-        public LiveReportController(ILiveReportService liveReportService, IBalanceUpService balanceUpService,
-                                    IContextService contextService, AppSettings appSettings,
-                                    IProductService productService, IBaseCurrencyService baseCurrencyService)
+        public LiveReportController(
+            ILiveReportService liveReportService,
+            IBalanceUpService balanceUpService,
+            IContextService contextService,
+            AppSettings appSettings,
+            IProductService productService,
+            IBaseCurrencyService baseCurrencyService)
         {
             _liveReportService = liveReportService;
             _balanceUpService = balanceUpService;
@@ -56,6 +56,10 @@ namespace Fanex.Athena.Report.BySite.Controllers
             _productService = productService;
             _baseCurrencyService = baseCurrencyService;
         }
+
+        private bool IsOneworksMaster =>
+            _contextService.UserLevel == UserLevelType.OneWorks
+            && _contextService.SubsidiaryViewType == SubsidiaryViewType.NormalManagement;
 
         [HttpGet]
         [SkipRequestValidation]
@@ -78,7 +82,8 @@ namespace Fanex.Athena.Report.BySite.Controllers
                 WhitelabelList = subsidiaryList,
                 SubsidiaryList = subsidiaryList.SelectMany(x => x.Children.Select(y => y.Value)).Distinct(),
                 SubsidiaryViewType = IsOneworksMaster ? SubsidiaryViewType.MasterManagement : _contextService.SubsidiaryViewType,
-                SubsidiarySearch = _contextService.SubsidiaryViewType == SubsidiaryViewType.NotManagement && subsidiaryList.Any() && _contextService.ApplicationMode == AppMode.Parasitic,
+                SubsidiarySearch = _contextService.SubsidiaryViewType == SubsidiaryViewType.NotManagement && subsidiaryList.Any() &&
+                                   _contextService.ApplicationMode == AppMode.Parasitic
             });
         }
 
@@ -109,6 +114,81 @@ namespace Fanex.Athena.Report.BySite.Controllers
             return Ok(resultModel);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> MatchList([FromQuery] LiveReportMatchListMetalModel metaModel)
+        {
+            return Ok(new LiveReportMatchListResultModel
+            {
+                Data = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false),
+                IsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
+            });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> MatchListSort([FromQuery] LiveReportMatchListMetalModel metaModel)
+        {
+            return Ok(await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MatchListExport(
+            [FromServices] IFileProvider file,
+            [FromServices] ILiveReportMatchListExcel excel,
+            [FromServices] ICacheRefAdapter cacheRefAdapter,
+            [FromBody] LiveReportMatchListMetalModel metaModel)
+        {
+            var excelOption = new LiveReportMatchListExcelOption
+            {
+                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName,
+                SportName = cacheRefAdapter.GetSportName(metaModel.SportId)
+            };
+
+            var data = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false);
+
+            var template = file.GetFileInfo("/ExcelTemplate/LiveReportMatchList.xls").PhysicalPath;
+            var fileContent = excel.Export(template, data, metaModel, excelOption);
+
+            return new FileContentResult(fileContent, "application/octet-stream");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ExportExcel(
+            [FromServices] IFileProvider file,
+            [FromServices] ILiveReportExcel excel,
+            [FromBody] LiveReportMetaModel metaModel)
+        {
+            var productAccess = GetProductAccess();
+            metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
+
+            var summaryReport = await _liveReportService.GetLiveReportSummary(metaModel);
+
+            var excelOption = new LiveReportExcelOption
+            {
+                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName
+            };
+
+            var resultModel = string.IsNullOrEmpty(metaModel.ProductCode)
+                ? new LiveReportDetailResultModel()
+                : await GetDetailResult(metaModel, productAccess).ConfigureAwait(false);
+
+            var template = file.GetFileInfo("/ExcelTemplate/LiveReport.xls").PhysicalPath;
+            var fileContent = excel.Export(template, summaryReport, resultModel, metaModel, excelOption);
+
+            return new FileContentResult(fileContent, "application/octet-stream");
+        }
+
+        protected ProductAccess GetProductAccess() =>
+            _productService.GetProductAccess(_contextService.LicenseeId, FunctionNames.LiveReport);
+
         private async Task<LiveReportDetailResultModel> GetDetailResult(LiveReportMetaModel metaModel, ProductAccess productAccess)
         {
             IEnumerable<ProductInfo> productList;
@@ -132,81 +212,6 @@ namespace Fanex.Athena.Report.BySite.Controllers
             return await _liveReportService.GetLiveReportSummaryDetail(metaModel,
                 _contextService.CurrencyList.ToDictionary(x => x.Key, x => x.Value), productList, liveReportNoDetailLinkSports).ConfigureAwait(false);
         }
-
-        [HttpGet]
-        public async Task<ActionResult> MatchList([FromQuery] LiveReportMatchListMetalModel metaModel)
-        {
-            var productAccess = GetProductAccess();
-
-            return Ok(new LiveReportMatchListResultModel
-            {
-                Data = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false),
-                IsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
-            });
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> MatchListSort([FromQuery] LiveReportMatchListMetalModel metaModel)
-        {
-            return Ok(await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> MatchListExport([FromServices] IFileProvider file,
-                                                         [FromServices] ILiveReportMatchListExcel excel,
-                                                         [FromServices] ICacheRefAdapter cacheRefAdapter,
-                                                         [FromBody] LiveReportMatchListMetalModel metaModel)
-        {
-            var productAccess = GetProductAccess();
-
-            var excelOption = new LiveReportMatchListExcelOption
-            {
-                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName,
-                SportName = cacheRefAdapter.GetSportName(metaModel.SportId)
-            };
-
-            var data = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false);
-
-            var template = file.GetFileInfo("/ExcelTemplate/LiveReportMatchList.xls").PhysicalPath;
-            var fileContent = excel.Export(template, data, metaModel, excelOption);
-
-            return new FileContentResult(fileContent, "application/octet-stream");
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> ExportExcel([FromServices] IFileProvider file,
-                                                    [FromServices] ILiveReportExcel excel,
-                                                    [FromBody] LiveReportMetaModel metaModel)
-        {
-            var productAccess = GetProductAccess();
-            metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
-
-            var summaryReport = await _liveReportService.GetLiveReportSummary(metaModel);
-
-            var excelOption = new LiveReportExcelOption
-            {
-                CustomerCommVisible = _contextService.IsAllowedCustomerComm,
-                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn,
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
-            };
-
-            var resultModel = string.IsNullOrEmpty(metaModel.ProductCode) ? new LiveReportDetailResultModel() : await GetDetailResult(metaModel, productAccess).ConfigureAwait(false);
-
-            var template = file.GetFileInfo("/ExcelTemplate/LiveReport.xls").PhysicalPath;
-            var fileContent = excel.Export(template, summaryReport, resultModel, metaModel, excelOption);
-
-            return new FileContentResult(fileContent, "application/octet-stream");
-        }
-
-        protected ProductAccess GetProductAccess() =>
-            _productService.GetProductAccess(_contextService.LicenseeId, FunctionNames.LiveReport);
 
         private async Task<DateTime> GetBalanceUpDay()
         {

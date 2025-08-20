@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Core.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.DbSettingConfig
+﻿namespace Fanex.Athena.Report.DbSettingConfig
 {
+    using System;
+    using System.Collections.Generic;
+    using Core.Services.Interfaces;
+
     public interface IShardInfoAccessor
     {
         bool TryUseShardDB(string key, out string dbServer);

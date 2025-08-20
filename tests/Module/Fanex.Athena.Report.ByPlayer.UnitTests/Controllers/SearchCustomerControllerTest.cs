@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.ByPlayer.Controllers;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using ByPlayer.Controllers;
+    using ByPlayer.Service.Interfaces;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Moq;
+    using Xunit;
+
     public class SearchCustomerControllerTest
     {
         private readonly Mock<ISearchCustomerService> _searchCustomerService;

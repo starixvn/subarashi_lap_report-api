@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Common.Excel
+﻿namespace Fanex.Athena.Report.Common.Excel
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Model.DTO;
+
     public static class ExcelTitleBuilder
     {
         public static string GetTitleCurrencyName(string viewInPattern, bool isConvert, string baseCurrency, string currencyName)

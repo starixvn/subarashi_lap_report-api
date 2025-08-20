@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Service.Interfaces
+﻿namespace Fanex.Athena.Report.ByPlayer.Service.Interfaces
 {
+    using System.Threading.Tasks;
+    using Common.Model.ViewModel;
+    using DTO;
+    using MetaModels;
+
     public interface ICustomerBalanceService
     {
         Task<ResultModel<CustomerBalance>> GetDataList(CustomerBalanceMetaModel metaModel);

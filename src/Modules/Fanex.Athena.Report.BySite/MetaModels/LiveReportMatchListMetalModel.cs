@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using Common.Helpers;
+    using Common.Model.DataDomain;
+    using Common.Model.DTO;
+    using Fanex.Core.Utils;
+
     public class LiveReportMatchListMetalModel : IAgentMetaModel, ICurrencyIdMetaModel
     {
         protected const int DefaultPageSize = 1000;

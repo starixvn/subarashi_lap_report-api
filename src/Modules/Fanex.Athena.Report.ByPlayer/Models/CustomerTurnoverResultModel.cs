@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.ByPlayer.Models
+﻿namespace Fanex.Athena.Report.ByPlayer.Models
 {
+    using System.Collections.Generic;
+    using DTO;
+
     public class CustomerTurnoverResultModel
     {
         public IEnumerable<CustTurnover> Data { get; set; }

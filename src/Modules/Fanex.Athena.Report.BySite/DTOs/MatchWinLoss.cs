@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.BySite.DTOs
+﻿namespace Fanex.Athena.Report.BySite.DTOs
 {
+    using System;
+
     public class MatchWinLoss
     {
         public DateTime KickOffTime { get; set; }

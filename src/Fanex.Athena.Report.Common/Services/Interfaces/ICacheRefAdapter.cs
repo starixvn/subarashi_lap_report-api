@@ -1,7 +1,7 @@
-﻿using Fanex.RemotingRef;
-
-namespace Fanex.Athena.Report.Common.Services.Interfaces
+﻿namespace Fanex.Athena.Report.Common.Services.Interfaces
 {
+    using RemotingRef;
+
     public interface ICacheRefAdapter
     {
         IRemotingRefService RemotingRefService { get; }

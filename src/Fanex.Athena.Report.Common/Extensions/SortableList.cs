@@ -22,7 +22,7 @@
 
             // Apply and set the sort, if items to sort
             var comparer = new DictionaryPropertyComparer<T>(key, _propertyName, ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
-            this.Sort(comparer);
+            Sort(comparer);
         }
 
         public void SortByDictionary(object key, string dicPropertyName, bool dicAscending, string propName, bool propAscending)
@@ -35,7 +35,7 @@
                 dicAscending ? ListSortDirection.Ascending : ListSortDirection.Descending,
                 propName,
                 propAscending ? ListSortDirection.Ascending : ListSortDirection.Descending);
-            this.Sort(comparer);
+            Sort(comparer);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@
 
             // Apply and set the sort, if items to sort
             var comparer = new PropertyComparer<T>(propertyName, _ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
-            this.Sort(comparer);
+            Sort(comparer);
         }
 
         public void Sort(string firstPropertyName, bool firstAscending, string secondPropertyName, bool secondAscending)
@@ -61,7 +61,7 @@
                 _ascending ? ListSortDirection.Ascending : ListSortDirection.Descending,
                 secondPropertyName,
                 secondAscending ? ListSortDirection.Ascending : ListSortDirection.Descending);
-            this.Sort(comparer);
+            Sort(comparer);
         }
 
         private void UpdateSortingData(string propertyName, bool ascending)

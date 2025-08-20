@@ -1,10 +1,10 @@
+namespace Fanex.Athena.Report.BySite.Services.Interfaces;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.Common.Model.DTO;
-
-namespace Fanex.Athena.Report.BySite.Services.Interfaces;
+using Common.Model.DTO;
+using DTOs;
+using Models;
 
 public interface IMatchMonitoringCenterLogService
 {

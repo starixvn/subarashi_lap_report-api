@@ -1,16 +1,16 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.Core.Middleware;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Moq;
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Middleware
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Middleware
 {
+    using System;
+    using System.Net;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using Core.Middleware;
+    using Microsoft.AspNetCore.Diagnostics;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class ErrorHandlerTest
     {
         private Fixture _fixture = new();
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Middleware
         {
             // Arrange
             var error = _fixture.Create<ExceptionHandlerFeature>();
-            var ctx = new DefaultHttpContext()
+            var ctx = new DefaultHttpContext
             {
                 Features = { [typeof(IExceptionHandlerFeature)] = error }
             };

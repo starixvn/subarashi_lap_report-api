@@ -130,7 +130,7 @@
             }
             else
             {
-                var pattern = $"{OpeningTag}[\\s\\S]*{ClosingTag}";
+                const string pattern = $"{OpeningTag}[\\s\\S]*{ClosingTag}";
                 customContent = new Regex(pattern).Replace(customContent, string.Empty);
             }
 
@@ -154,7 +154,7 @@
         private static string RemoveUnShowLicenseeSection(string content)
         {
             var customContent = content;
-            var licenseeTagPattern = $"{{[\\w\\d]+-{LICENSEE_SUFFIX_SECTION}}}";
+            const string licenseeTagPattern = $"{{[\\w\\d]+-{LICENSEE_SUFFIX_SECTION}}}";
             var matchItems = new Regex(licenseeTagPattern).Matches(customContent)
                 .Select(_ => _.Value);
 

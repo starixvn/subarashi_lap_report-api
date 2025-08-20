@@ -1,17 +1,17 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Data;
-using Moq;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.DTOs;
+    using BySite.Repositories;
+    using Data;
+    using Moq;
+    using Xunit;
+
     public class SettledMatchCountRepositoryTest
     {
         private readonly IFixture _fixture = new Fixture();

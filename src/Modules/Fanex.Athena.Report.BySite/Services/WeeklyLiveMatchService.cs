@@ -1,16 +1,16 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Services
+﻿namespace Fanex.Athena.Report.BySite.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Threading.Tasks;
+    using Common.Helpers;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Models;
+    using Repositories.Interfaces;
+
     public class WeeklyLiveMatchService : IWeeklyLiveMatchService
     {
         private const int DaysInWeek = 7;

@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.Common.Excel;
-using Moq;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.SS.Util;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Xunit;
-
-namespace Fanex.Athena.Report.Common.UnitTests.Excel
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Excel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Common.Excel;
+    using Moq;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
+    using Xunit;
+
     public class ExcelBuilderTest
     {
         [Fact]
@@ -150,7 +150,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Excel
         }
 
         [Fact]
-        public void MergeCells_WhenCall_PassRangeValueCorrectly()
+        public void MergeCells_WhenNoExistingMergedRegions_PassRangeValueCorrectly()
         {
             // Arrange
             var sheet = new Mock<ISheet>();
@@ -158,21 +158,143 @@ namespace Fanex.Athena.Report.Common.UnitTests.Excel
             const int LastRow = 2;
             const int FirstCol = 5;
             const int LastCol = 7;
+            const int ExpectedReturnValue = 0;
+
+            sheet.Setup(s => s.NumMergedRegions).Returns(0);
+            sheet.Setup(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>())).Returns(ExpectedReturnValue);
 
             CellRangeAddress passedRange = null;
             sheet.Setup(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()))
-                .Callback<CellRangeAddress>(x => passedRange = x);
+                .Callback<CellRangeAddress>(x => passedRange = x)
+                .Returns(ExpectedReturnValue);
 
             var excelBuilder = new ExcelBuilder();
 
             // Action
-            excelBuilder.MergeCells(sheet.Object, FirstRow, LastRow, FirstCol, LastCol);
+            var result = excelBuilder.MergeCells(sheet.Object, FirstRow, LastRow, FirstCol, LastCol);
 
             // Assert
+            Assert.Equal(ExpectedReturnValue, result);
             Assert.Equal(FirstRow, passedRange.FirstRow);
             Assert.Equal(LastRow, passedRange.LastRow);
             Assert.Equal(FirstCol, passedRange.FirstColumn);
             Assert.Equal(LastCol, passedRange.LastColumn);
+        }
+
+        [Fact]
+        public void MergeCells_WhenRegionIntersectsWithExisting_ReturnMinusOne()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int FirstRow = 1;
+            const int LastRow = 2;
+            const int FirstCol = 1;
+            const int LastCol = 2;
+
+            var existingRegion = new CellRangeAddress(1, 2, 1, 2);
+            sheet.Setup(s => s.NumMergedRegions).Returns(1);
+            sheet.Setup(s => s.GetMergedRegion(0)).Returns(existingRegion);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeCells(sheet.Object, FirstRow, LastRow, FirstCol, LastCol);
+
+            // Assert
+            Assert.Equal(-1, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Never);
+        }
+
+        [Fact]
+        public void MergeRows_WhenNoExistingMergedRegions_MergeSuccessfully()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int FirstRow = 1;
+            const int LastRow = 3;
+            const int ColIndex = 2;
+            const int ExpectedReturnValue = 0;
+
+            sheet.Setup(s => s.NumMergedRegions).Returns(0);
+            sheet.Setup(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>())).Returns(ExpectedReturnValue);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeRows(sheet.Object, FirstRow, LastRow, ColIndex);
+
+            // Assert
+            Assert.Equal(ExpectedReturnValue, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Once);
+        }
+
+        [Fact]
+        public void MergeRows_WhenRegionIntersectsWithExisting_ReturnMinusOne()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int FirstRow = 1;
+            const int LastRow = 3;
+            const int ColIndex = 2;
+
+            var existingRegion = new CellRangeAddress(2, 4, 2, 2);
+            sheet.Setup(s => s.NumMergedRegions).Returns(1);
+            sheet.Setup(s => s.GetMergedRegion(0)).Returns(existingRegion);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeRows(sheet.Object, FirstRow, LastRow, ColIndex);
+
+            // Assert
+            Assert.Equal(-1, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Never);
+        }
+
+        [Fact]
+        public void MergeCols_WhenNoExistingMergedRegions_MergeSuccessfully()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int FirstCol = 1;
+            const int LastCol = 3;
+            const int RowIndex = 2;
+            const int ExpectedReturnValue = 0;
+
+            sheet.Setup(s => s.NumMergedRegions).Returns(0);
+            sheet.Setup(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>())).Returns(ExpectedReturnValue);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeCols(sheet.Object, FirstCol, LastCol, RowIndex);
+
+            // Assert
+            Assert.Equal(ExpectedReturnValue, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Once);
+        }
+
+        [Fact]
+        public void MergeCols_WhenRegionIntersectsWithExisting_ReturnMinusOne()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int FirstCol = 1;
+            const int LastCol = 3;
+            const int RowIndex = 2;
+
+            var existingRegion = new CellRangeAddress(2, 2, 2, 4);
+            sheet.Setup(s => s.NumMergedRegions).Returns(1);
+            sheet.Setup(s => s.GetMergedRegion(0)).Returns(existingRegion);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeCols(sheet.Object, FirstCol, LastCol, RowIndex);
+
+            // Assert
+            Assert.Equal(-1, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Never);
         }
 
         [Fact]

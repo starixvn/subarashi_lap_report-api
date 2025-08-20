@@ -1,11 +1,11 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Linq;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Models
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Models
 {
+    using System.Linq;
+    using AutoFixture;
+    using Core.Models.DTOs;
+    using Resources.Constants;
+    using Xunit;
+
     public class ProductAccessTest
     {
         private readonly Fixture _fixture = new();

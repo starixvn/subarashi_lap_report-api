@@ -1,19 +1,19 @@
 namespace Fanex.Athena.Report.BySite.Services;
 
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Resources;
-using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Common.Constants;
+using Common.Model.DTO;
+using DTOs;
+using Interfaces;
+using Microsoft.Extensions.Caching.Memory;
+using Models;
+using Repositories.Interfaces;
+using Resources;
 
 public class MatchMonitoringCenterLogService : IMatchMonitoringCenterLogService
 {

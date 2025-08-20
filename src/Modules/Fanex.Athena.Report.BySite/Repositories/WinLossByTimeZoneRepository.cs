@@ -7,13 +7,13 @@
     using Common.Helpers;
     using Common.Model.ViewModel;
     using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
     using Data;
+    using Data.Extensions.AdoNet;
     using DTOs;
-    using Fanex.Common.Extensions;
+    using Fanex.Common;
     using Interfaces;
     using MetaModels;
-    using Fanex.Athena.Report.Core.Services.Interfaces;
-    using Fanex.Common;
 
     public class WinLossByTimeZoneRepository : IWinLossByTimeZoneRepository
     {

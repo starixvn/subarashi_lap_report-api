@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Data;
+    using DTOs;
+    using Interfaces;
+
     public class SettledMatchCountRepository : ISettledMatchCountRepository
     {
         public async Task<IList<SettledMatchCount>> GetDataList(bool isShowAll, int licenseeId)

@@ -1,8 +1,8 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.Core.Attributes
+﻿namespace Fanex.Athena.Report.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    using System;
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class DataPermissionAttribute : Attribute
     {
         public string Permission { get; set; }

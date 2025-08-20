@@ -3,15 +3,15 @@ namespace Fanex.Athena.Report.BySite.Repositories;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Utility;
-using Fanex.Common.Extensions;
-using Fanex.Data;
+using Common.Model.DTO;
+using Common.Services.Interfaces;
+using Core.Models.DTOs;
+using Core.Utility;
+using Data;
+using Data.Extensions.AdoNet;
+using DTOs;
+using Interfaces;
+using MetaModels;
 using Newtonsoft.Json;
 
 public class MatchMonitoringCenterRepository(

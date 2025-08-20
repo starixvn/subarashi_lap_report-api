@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Models.DTOs;
+using Common.Model.DTO;
+using Core.Models.DTOs;
+using DTOs;
+using Interfaces;
+using MetaModels;
+using Repositories.Interfaces;
 
 public class MatchMonitoringCenterService(
     IMatchMonitoringCenterRepository matchMonitoringCenterRepository)
@@ -115,8 +115,7 @@ public class MatchMonitoringCenterService(
         {
             foreach (var rule in jsonRules)
             {
-                var property = properties.FirstOrDefault(p =>
-                    string.Equals(p.Name, rule.RuleName, StringComparison.OrdinalIgnoreCase));
+                var property = Array.Find(properties, p => string.Equals(p.Name, rule.RuleName, StringComparison.OrdinalIgnoreCase));
 
                 if (property != null)
                 {

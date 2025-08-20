@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Services.Interfaces
+﻿namespace Fanex.Athena.Report.BySite.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using DTOs;
+    using MetaModels;
+
     public interface IMatchWinLossService
     {
         Task<IList<MatchWinLoss>> GetDataList(MatchWinLossMetaModel metaModel);

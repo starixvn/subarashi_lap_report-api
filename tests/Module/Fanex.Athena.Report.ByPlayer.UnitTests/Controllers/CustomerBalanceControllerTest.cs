@@ -1,20 +1,20 @@
-﻿using Fanex.Athena.Report.ByPlayer.Controllers;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using Newtonsoft.Json;
-using System.IO;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
+    using System.IO;
+    using System.Threading.Tasks;
+    using ByPlayer.Controllers;
+    using ByPlayer.Excels.Interfaces;
+    using ByPlayer.Service.Interfaces;
+    using Common.Model.ViewModel;
+    using Core.Services.Interfaces;
+    using DTO;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Moq;
+    using Newtonsoft.Json;
+    using TestHelpers;
+    using Xunit;
+
     public class CustomerBalanceControllerTest : BaseReportExcelTest
     {
         [Fact]

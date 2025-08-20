@@ -1,19 +1,19 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Core.Extensions;
-using Fanex.Athena.Report.Core.Models.MetaModels;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Core.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Attributes
+﻿namespace Fanex.Athena.Report.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Model.DTO;
+    using Common.Model.MetaModels;
+    using Extensions;
+    using Fanex.Core.Utils;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Models.MetaModels;
+    using Services.Interfaces;
+
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class AutoBindingMetaModelAttribute : TypeFilterAttribute
     {
         public AutoBindingMetaModelAttribute(
@@ -28,7 +28,7 @@ namespace Fanex.Athena.Report.Core.Attributes
         }
     }
 
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class AutoBindingMetaModelImplAttribute : ActionFilterAttribute
     {
         private readonly IMetaModelBindingService _bindingService;

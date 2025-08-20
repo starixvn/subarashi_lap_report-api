@@ -1,15 +1,15 @@
 ﻿namespace Fanex.Athena.Report.Core;
 
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.ApiClients;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
+using System;
+using ApiClients;
+using ApiClients.Abstraction;
+using Common.Settings;
 using Fanex.Core.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Repositories;
 using Repositories.Abstraction;
 using Services;
 using Services.Interfaces;
-using System;
 using Utility;
 using Utility.Interfaces;
 

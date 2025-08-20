@@ -1,15 +1,15 @@
-﻿using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Core.Utils;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-
-namespace Fanex.Athena.Report.ByPlayer.MetaModels
+﻿namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using Common.Model.DataDomain;
+    using Common.Model.DTO;
+    using Common.Model.MetaModels;
+    using Fanex.Core.Utils;
+    using Newtonsoft.Json;
+
     public class CustomerWinLossMetaModel : IAgentMetaModel, IDataTestableMetaModel, IProductOptionsMetaModel, ICurrencyIdMetaModel, IValidationMetaModel, IPlayerComMetaModel
     {
         private string _baseCurrency = string.Empty;

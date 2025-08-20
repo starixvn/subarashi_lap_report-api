@@ -1,16 +1,17 @@
 namespace Fanex.Athena.Report.BySite.Controllers;
 
-using BySite.MetaModels;
-using Fanex.Athena.Report.Resources;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DTOs;
+using MetaModels;
+using Microsoft.AspNetCore.Mvc;
+using Resources;
 
 public partial class MatchMonitoringCenterController
 {
-    private readonly string[] AllowUUSSites = { "TGXI", "Athena000", "TGXISW" };
     private const int UUSBaseCurrencyId = -999;
+    private readonly string[] AllowUUSSites = { "TGXI", "Athena000", "TGXISW" };
 
     [HttpGet]
     public async Task<IActionResult> GetAlertRule(int monitoringId)
@@ -18,7 +19,7 @@ public partial class MatchMonitoringCenterController
         var result = await matchMonitoringCenterService.GetAlertRule(monitoringId);
         var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToList();
 
-        if (AllowUUSSites.Any(site => string.Equals(contextService.SiteName, site, StringComparison.OrdinalIgnoreCase)))
+        if (Array.Exists(AllowUUSSites, site => string.Equals(contextService.SiteName, site, StringComparison.OrdinalIgnoreCase)))
         {
             var baseCurrencyDict = baseCurrencyList.ToDictionary(x => x.Key, x => x.Value);
             baseCurrencyDict.Add(UUSBaseCurrencyId, "UUS");
@@ -85,7 +86,7 @@ public partial class MatchMonitoringCenterController
         }
 
         if (string.IsNullOrEmpty(model.ConditionTypeName) ||
-            !validConditionTypes.Any(ct => string.Equals(ct, model.ConditionTypeName, StringComparison.OrdinalIgnoreCase)))
+            !Array.Exists(validConditionTypes, ct => string.Equals(ct, model.ConditionTypeName, StringComparison.OrdinalIgnoreCase)))
         {
             return false;
         }
@@ -111,7 +112,7 @@ public partial class MatchMonitoringCenterController
     private bool IsValidBaseCurrency(string baseCurrency)
     {
         var baseCurrencyList = baseCurrencyService.GetBaseCurrencyList();
-        bool isUUSAllowed = AllowUUSSites.Any(site => string.Equals(contextService.SiteName, site, StringComparison.OrdinalIgnoreCase));
+        bool isUUSAllowed = Array.Exists(AllowUUSSites, site => string.Equals(contextService.SiteName, site, StringComparison.OrdinalIgnoreCase));
 
         if (string.IsNullOrEmpty(baseCurrency))
         {
@@ -127,10 +128,10 @@ public partial class MatchMonitoringCenterController
             string.Equals(bc.Value, baseCurrency, StringComparison.OrdinalIgnoreCase));
     }
 
-    private static bool ValidateAlertRuleProperties(DTOs.AlertRule alertRule)
+    private static bool ValidateAlertRuleProperties(AlertRule alertRule)
     {
         const int MaxBetRatio = 100;
-        const decimal MaxSqlMoney = 922337203685477;
+        const decimal MaxSqlMoney = 922_337_203_685_477;
 
         if (alertRule.NegativeProfit < 0 || alertRule.NegativeProfit > MaxSqlMoney)
         {

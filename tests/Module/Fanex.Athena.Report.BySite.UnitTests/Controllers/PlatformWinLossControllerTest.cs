@@ -1,19 +1,19 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.DTOs;
+    using BySite.Excels.Interfaces;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using Common.Model.ViewModel;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class PlatformWinLossControllerTest
     {
         private Mock<IPlatformWinLossRepository> _repository;

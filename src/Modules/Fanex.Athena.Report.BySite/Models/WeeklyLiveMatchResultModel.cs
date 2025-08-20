@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using Common.Model.ViewModel;
+    using DTOs;
+
     public class WeeklyLiveMatchResultModel : SortableResultModel<WeeklyLiveMatch>
     {
         public int[] WeeksTotalData { get; set; }

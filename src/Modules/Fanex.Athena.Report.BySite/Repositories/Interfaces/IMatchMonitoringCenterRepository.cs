@@ -1,11 +1,11 @@
+namespace Fanex.Athena.Report.BySite.Repositories.Interfaces;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Models.DTOs;
-
-namespace Fanex.Athena.Report.BySite.Repositories.Interfaces;
+using Common.Model.DTO;
+using Core.Models.DTOs;
+using DTOs;
+using MetaModels;
 
 public interface IMatchMonitoringCenterRepository
 {

@@ -1,16 +1,17 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using Common.Helpers;
+    using Data;
+    using Data.Extensions.AdoNet;
+    using DTOs;
+    using Fanex.Common.Extensions;
+    using Interfaces;
+    using MetaModels;
+    using Resources.Constants;
+
     public class TurnoverRepository : ITurnoverRepository
     {
         public async Task<IList<TurnoverDto>> GetDataList(TurnoverMetaModel metaModel)

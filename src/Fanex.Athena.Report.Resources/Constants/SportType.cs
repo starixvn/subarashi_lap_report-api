@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Resources.Constants
+﻿namespace Fanex.Athena.Report.Resources.Constants
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class SportType
     {
         public const int SportsLottery = 169;

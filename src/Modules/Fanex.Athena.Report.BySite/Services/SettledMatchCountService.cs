@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Services
+﻿namespace Fanex.Athena.Report.BySite.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Models;
+    using Repositories.Interfaces;
+    using Resources.Constants;
+
     public class SettledMatchCountService : ISettledMatchCountService
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;

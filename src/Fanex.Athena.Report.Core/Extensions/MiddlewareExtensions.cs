@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Report.Core.Extensions
 {
-    using Fanex.Athena.Report.Core.Middleware;
+    using System;
+    using System.Linq;
+    using System.Net.Mime;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using Middleware;
     using Newtonsoft.Json;
-    using System;
-    using System.Linq;
-    using System.Net.Mime;
 
     public static class MiddlewareExtensions
     {

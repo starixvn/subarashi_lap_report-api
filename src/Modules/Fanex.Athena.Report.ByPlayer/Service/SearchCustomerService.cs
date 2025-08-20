@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Service
+﻿namespace Fanex.Athena.Report.ByPlayer.Service
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Core.Helpers;
+    using Data;
+    using Interfaces;
+
     public class SearchCustomerService : ISearchCustomerService
     {
         public async Task<IEnumerable<string>> SearchCustomers(int userId, string userName, string agentListXml, bool isIncludeDormant)

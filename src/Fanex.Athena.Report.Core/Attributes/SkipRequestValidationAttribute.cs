@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.Core.Attributes
+﻿namespace Fanex.Athena.Report.Core.Attributes
 {
+    using System;
+
     [AttributeUsage(AttributeTargets.Method)]
     public class SkipRequestValidationAttribute : Attribute
     {

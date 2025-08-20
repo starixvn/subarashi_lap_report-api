@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Core.Extensions
+﻿namespace Fanex.Athena.Report.Core.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static class LinqExtension
     {
 #pragma warning disable S2436 // Types and methods should not have too many generic parameters

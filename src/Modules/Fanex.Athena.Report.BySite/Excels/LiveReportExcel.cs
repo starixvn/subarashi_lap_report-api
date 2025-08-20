@@ -1,19 +1,20 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Resources;
-using NPOI.SS.UserModel;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
+﻿using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
 namespace Fanex.Athena.Report.BySite.Excels
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Common.Excel;
+    using Common.Excel.Interfaces;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Models;
+    using NPOI.SS.UserModel;
+    using Options;
+    using Resources;
+
     public class LiveReportExcel : ILiveReportExcel
     {
         private const string TemplateSheetName = "Template";

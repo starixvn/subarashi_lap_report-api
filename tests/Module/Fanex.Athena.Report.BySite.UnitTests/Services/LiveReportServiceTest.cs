@@ -1,21 +1,20 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Resources.Constants;
-using Moq;
-using NPOI.SS.Formula.Functions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using BySite.DTOs;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Common.Extensions;
+    using Common.Services.Interfaces;
+    using Core.Models.DTOs;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class LiveReportServiceTest
     {
         private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
@@ -34,7 +33,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
         public async Task GetLiveReportSummary_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
-            var metaModel = new LiveReportMetaModel { FromDate = new System.DateTime(2017, 2, 1), ToDate = new System.DateTime(2017, 1, 1) };
+            var metaModel = new LiveReportMetaModel { FromDate = new DateTime(2017, 2, 1), ToDate = new DateTime(2017, 1, 1) };
 
             var service = CreateService();
 
@@ -65,7 +64,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Services
         public async Task GetLiveReportSumaryDetail_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
-            var metaModel = new LiveReportMetaModel { FromDate = new System.DateTime(2017, 2, 1), ToDate = new System.DateTime(2017, 1, 1) };
+            var metaModel = new LiveReportMetaModel { FromDate = new DateTime(2017, 2, 1), ToDate = new DateTime(2017, 1, 1) };
             var products = Enumerable.Empty<ProductInfo>();
 
             var service = CreateService();

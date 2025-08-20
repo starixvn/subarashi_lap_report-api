@@ -8,12 +8,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
+using BySite.MetaModels;
 using BySite.Repositories;
 using Common.Model.DTO;
 using Common.Services.Interfaces;
 using Core.Services.Interfaces;
 using Data;
-using MetaModels;
 using Moq;
 using Xunit;
 

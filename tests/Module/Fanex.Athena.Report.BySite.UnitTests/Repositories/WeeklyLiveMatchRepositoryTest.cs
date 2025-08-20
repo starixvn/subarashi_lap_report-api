@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Data;
-using Moq;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Repositories
 {
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using BySite.MetaModels;
+    using BySite.Repositories;
+    using Common.Services.Interfaces;
+    using Data;
+    using Moq;
+    using Xunit;
+
     public class WeeklyLiveMatchRepositoryTest
     {
         private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;

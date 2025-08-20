@@ -1,8 +1,8 @@
-﻿using Fanex.Data;
-using Fanex.Data.SqlServer;
-
-namespace Fanex.Athena.Report.DbSettingConfig
+﻿namespace Fanex.Athena.Report.DbSettingConfig
 {
+    using Data;
+    using Data.SqlServer;
+
     public class ShardDbSettingProvider
     {
         private readonly IShardInfoAccessor _shardInfoAccessor;
@@ -18,7 +18,7 @@ namespace Fanex.Athena.Report.DbSettingConfig
         {
             if (_shardInfoAccessor.TryUseShardDB(settingKey, out var dbServer))
             {
-                serverIp = dbServer;
+                return new SqlObjectDb(settingKey, commandTimeout, dbServer);
             }
 
             return new SqlObjectDb(settingKey, commandTimeout, serverIp);

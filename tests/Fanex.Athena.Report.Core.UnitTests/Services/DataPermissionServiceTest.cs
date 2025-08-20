@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.UnitTests.Common;
-using Moq;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Services
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using Core.Attributes;
+    using Core.Services;
+    using Core.Services.Interfaces;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class DataPermissionServiceTest
     {
         private readonly Mock<IContextService> _contextService;

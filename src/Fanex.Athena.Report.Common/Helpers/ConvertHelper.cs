@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System;
+
     public static class ConvertHelper
     {
         public static DateTime ToDateTime(string date, bool isMonthly)

@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using System.Collections.Generic;
+    using DTOs;
+
     public class ExtraPayoutResultModel
     {
         public List<ExtraPayout> Data { get; set; }

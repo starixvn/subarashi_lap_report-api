@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.Common.Extensions;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using Common.Extensions;
+    using DTOs;
+
     public class LiveReportMatchListResultModel
     {
         public SortableList<LiveReportWinLossByMatch> Data { get; set; }

@@ -30,11 +30,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Fanex.Core.Utils" Version="1.0.3" />
-    <PackageReference Include="Fanex.Common" Version="1.1.1" />
-    <PackageReference Include="Fanex.Data" Version="4.3.2.1" />
-    <PackageReference Include="Fanex.Data.SqlServer" Version="4.3.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Fanex.Common" Version="1.1.2.1" />
+    <PackageReference Include="Fanex.Data" Version="4.3.4.5" />
+    <PackageReference Include="Fanex.Data.SqlServer" Version="4.3.4.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>

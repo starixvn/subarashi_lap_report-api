@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.BySite.DTOs.SubsidiaryPerformance;
-
-namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
+﻿namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Common.Model.ViewModel;
+    using DTOs.SubsidiaryPerformance;
+    using MetaModels;
+
     public interface ISubsidiaryPerformanceRepository
     {
         Task<IEnumerable<SubsidiaryPerformance>> GetData(SubsidiaryPerformanceMetaModel metaModel, IReadOnlyDictionary<int, string> currencyList);

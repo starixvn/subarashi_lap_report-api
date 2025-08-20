@@ -1,24 +1,25 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Repository.Interfaces;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-
-namespace Fanex.Athena.Report.ByPlayer.Repository
+﻿namespace Fanex.Athena.Report.ByPlayer.Repository
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Common.Constants;
+    using Common.Helpers;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Core.Helpers;
+    using Core.Services.Interfaces;
+    using Data;
+    using Data.Extensions.AdoNet;
+    using DTO;
+    using Interfaces;
+    using MetaModels;
+    using Resources;
+    using Resources.Constants;
+
     public class CustomerTurnoverRepository : ICustomerTurnoverRepository
     {
         private readonly IBalanceUpService _balanceUpService;
@@ -97,7 +98,7 @@ namespace Fanex.Athena.Report.ByPlayer.Repository
 
         private string GetSportName(int sportId, string languageCode)
         {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(languageCode);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
             if (sportId == ProductTypes.Parlay)
             {
                 return ViewResources.Parlay;

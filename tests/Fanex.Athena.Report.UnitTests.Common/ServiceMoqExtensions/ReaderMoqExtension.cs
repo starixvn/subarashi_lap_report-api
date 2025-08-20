@@ -1,9 +1,9 @@
-﻿using Moq;
-using System.Collections.Generic;
-using System.Data;
-
-namespace Fanex.Athena.Report.UnitTests.Common.ServiceMoqExtensions
+﻿namespace Fanex.Athena.Report.UnitTests.Common.ServiceMoqExtensions
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using Moq;
+
     public static class ReaderMoqExtension
     {
         public static void SetupToggleRead<T>(this Mock<IDataReader> reader, T result)

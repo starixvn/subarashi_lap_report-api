@@ -1,25 +1,26 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.DTOs.WinlossAnalysis;
-using Fanex.Athena.Report.BySite.Enums;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Helpers;
-using Fanex.Common.Extensions;
-using Microsoft.Extensions.Logging;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
-using System;
-using System.Collections.Generic;
-using Fanex.Athena.Report.Core.Services.Interfaces;
+﻿using static Fanex.Athena.Report.BySite.Constants.ReportConstant;
 
 namespace Fanex.Athena.Report.BySite.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Helpers;
+    using Common.Services.Interfaces;
+    using Core.Services.Interfaces;
+    using DTOs;
+    using DTOs.WinlossAnalysis;
+    using Enums;
+    using Fanex.Common.Extensions;
+    using Interfaces;
+    using MetaModels;
+    using Microsoft.Extensions.Logging;
+    using Models;
+    using Repositories.Interfaces;
+    using Resources.Helpers;
+
     public class WinlossAnalysisService : IWinlossAnalysisService
     {
         private const string ORIGINAL_DATE_FORMAT = "yyyy-MM-dd";

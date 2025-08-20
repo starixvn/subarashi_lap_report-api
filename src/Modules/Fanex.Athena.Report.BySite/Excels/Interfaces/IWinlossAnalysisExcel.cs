@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.Models;
-
-namespace Fanex.Athena.Report.BySite.Excels.Interfaces
+﻿namespace Fanex.Athena.Report.BySite.Excels.Interfaces
 {
+    using Models;
+    using Options;
+
     public interface IWinlossAnalysisExcel
     {
         byte[] Export(string templatePath, WinlossAnalysisResultModel data, WinlossAnalysisExcelOption option);

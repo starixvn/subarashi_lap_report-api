@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System;
+    using System.Collections.Generic;
+    using Constants;
+    using Resources;
+    using Resources.Constants;
+
     public static class PlatformHelper
     {
         private static IDictionary<int, string> NormalPlatform => new Dictionary<int, string>
@@ -73,8 +73,11 @@ namespace Fanex.Athena.Report.Common.Helpers
             {
                 return false;
             }
-            return type == "All" || type.Split(',').Any(x =>
-                JollysportsPlatform.ContainsKey(int.Parse(x)) || NormalPlatform.ContainsKey(int.Parse(x)) || int.Parse(x) == PlatformType.All);
+
+            return type == "All" || Array.Exists(type.Split(','),
+                x => JollysportsPlatform.ContainsKey(int.Parse(x)) ||
+                     NormalPlatform.ContainsKey(int.Parse(x)) ||
+                     int.Parse(x) == PlatformType.All);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Fanex.Athena.Report.Resources.Constants;
-
-namespace Fanex.Athena.Report.Core.Models.DTOs
+﻿namespace Fanex.Athena.Report.Core.Models.DTOs
 {
+    using Resources.Constants;
+
     public class ProductInfo
     {
         public ProductInfo()

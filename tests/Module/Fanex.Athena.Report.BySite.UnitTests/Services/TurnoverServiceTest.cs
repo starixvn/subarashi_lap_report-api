@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services;
-using Fanex.Athena.Report.UnitTests.Common;
-using Moq;
-using System.Linq;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Services
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Services
 {
+    using System.Linq;
+    using BySite.DTOs;
+    using BySite.Repositories.Interfaces;
+    using BySite.Services;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class TurnoverServiceTest
     {
         private readonly Mock<ITurnoverRepository> _repository;

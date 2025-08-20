@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Report.Common.Excel
 {
-    using Fanex.Athena.Report.Common.Excel.Interfaces;
+    using System.IO;
+    using Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.IO;
 
     public class ExcelBuilder : IExcelBuilder
     {
@@ -63,9 +63,14 @@
            int columnCount,
            string value)
         {
-            var row = this.CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
+            var row = CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
+            var destColIndex = columnCount - 1;
 
-            this.MergeCells(sheet, firstRow: destRowIndex, lastRow: destRowIndex, firstCol: 0, lastCol: columnCount - 1);
+            if (destColIndex > 0)
+            {
+                MergeCells(sheet, firstRow: destRowIndex, lastRow: destRowIndex, firstCol: 0, lastCol: destColIndex);
+            }
+
             row.Cells[0].SetCellValue(value);
         }
 
@@ -112,19 +117,44 @@
         public int MergeCells(ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
-            return sheet.AddMergedRegion(rangeAddress);
+            if (CanMergeRegion(sheet, rangeAddress))
+            {
+                return sheet.AddMergedRegion(rangeAddress);
+            }
+            return -1;
         }
 
         public int MergeRows(ISheet sheet, int firstRow, int lastRow, int colIndex)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, colIndex, colIndex);
-            return sheet.AddMergedRegion(rangeAddress);
+            if (CanMergeRegion(sheet, rangeAddress))
+            {
+                return sheet.AddMergedRegion(rangeAddress);
+            }
+            return -1;
         }
 
         public int MergeCols(ISheet sheet, int firstCol, int lastCol, int rowIndex)
         {
             var rangeAddress = new CellRangeAddress(rowIndex, rowIndex, firstCol, lastCol);
-            return sheet.AddMergedRegion(rangeAddress);
+            if (CanMergeRegion(sheet, rangeAddress))
+            {
+                return sheet.AddMergedRegion(rangeAddress);
+            }
+            return -1;
+        }
+
+        private static bool CanMergeRegion(ISheet sheet, CellRangeAddress candidateRegion)
+        {
+            for (int i = 0; i < sheet.NumMergedRegions; i++)
+            {
+                var existingRegion = sheet.GetMergedRegion(i);
+                if (existingRegion.Intersects(candidateRegion))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public void HideRow(ISheet sheet, params int[] rowIndex)

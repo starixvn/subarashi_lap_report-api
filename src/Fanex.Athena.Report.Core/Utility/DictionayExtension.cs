@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Core.Utility
+﻿namespace Fanex.Athena.Report.Core.Utility
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class DictionayExtension
     {
         public static TValue GetValueOrDefault<TKey, TValue>(

@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.Report.Common.Services
 {
-    using Fanex.Athena.Report.Common.Model.DTO;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Data;
-    using Microsoft.Extensions.Caching.Memory;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Data;
+    using Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+    using Model.DTO;
 
     public class CurrencyService : ICurrencyService
     {

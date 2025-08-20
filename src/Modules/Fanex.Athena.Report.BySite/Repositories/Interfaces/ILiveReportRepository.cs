@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
+﻿namespace Fanex.Athena.Report.BySite.Repositories.Interfaces
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Core.Models.DTOs;
+    using DTOs;
+    using MetaModels;
+
     public interface ILiveReportRepository
     {
         Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel);

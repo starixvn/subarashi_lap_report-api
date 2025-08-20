@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Core.Services.Interfaces
+﻿namespace Fanex.Athena.Report.Core.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Models.DTOs;
+
     public interface ISubsidiaryService
     {
         Task<IDictionary<int, int[]>> GetAgentList(string subsidiaryList);

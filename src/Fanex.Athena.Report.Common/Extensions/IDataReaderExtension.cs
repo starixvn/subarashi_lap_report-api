@@ -1,9 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlTypes;
-
-namespace Fanex.Athena.Report.Common.Extensions
+﻿namespace Fanex.Athena.Report.Common.Extensions
 {
+    using System;
+    using System.Data;
+    using System.Data.SqlTypes;
+
     public static class IDataReaderExtension
     {
         public static bool HasColumn(this IDataRecord reader, string columnName)
@@ -30,7 +30,7 @@ namespace Fanex.Athena.Report.Common.Extensions
                 return defaultValue;
             }
 
-            return Cast<T>(dbValue, defaultValue);
+            return Cast(dbValue, defaultValue);
         }
 
         private static T Cast<T>(object dbValue, T defaultValue = default(T))

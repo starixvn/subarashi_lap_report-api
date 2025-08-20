@@ -1,7 +1,7 @@
-﻿using Fanex.Data;
-
-namespace Fanex.Athena.Report.Core.Repositories.Abstraction
+﻿namespace Fanex.Athena.Report.Core.Repositories.Abstraction
 {
+    using Data;
+
     public interface IDbFactory
     {
         IObjectDb GetObjectDb(string spName, int timeout = 120);

@@ -10,7 +10,7 @@
         public DictionaryPropertyComparer(object key, string property, ListSortDirection direction)
             : base(property, direction)
         {
-            this._key = key;
+            _key = key;
         }
 
         public DictionaryPropertyComparer(
@@ -21,15 +21,15 @@
             ListSortDirection propDirection)
             : base(dicProperty, dicDirection, propertyName, propDirection)
         {
-            this._key = key;
+            _key = key;
         }
 
         #region IComparer<T>
 
         public override int Compare(T x, T y)
         {
-            var firstValue = (GetPropertyValue(x, FirstPropertyName) as IDictionary)[this._key];
-            var secondValue = (GetPropertyValue(y, FirstPropertyName) as IDictionary)[this._key];
+            var firstValue = (GetPropertyValue(x, FirstPropertyName) as IDictionary)[_key];
+            var secondValue = (GetPropertyValue(y, FirstPropertyName) as IDictionary)[_key];
 
             var result = CompareValues(firstValue, secondValue, FirstDirection);
 

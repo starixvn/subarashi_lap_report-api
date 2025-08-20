@@ -1,11 +1,11 @@
-﻿using AutoFixture;
-using AutoFixture.Dsl;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
-namespace Fanex.Athena.Report.UnitTests.Common
+﻿namespace Fanex.Athena.Report.UnitTests.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using AutoFixture;
+    using AutoFixture.Dsl;
+
     public static class FakeHelper
     {
         private static readonly Fixture Fixture = new();

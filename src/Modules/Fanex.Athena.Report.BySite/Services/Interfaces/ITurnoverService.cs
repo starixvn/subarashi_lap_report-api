@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Services.Interfaces
+﻿namespace Fanex.Athena.Report.BySite.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using DTOs;
+    using MetaModels;
+
     public interface ITurnoverService
     {
         Task<IList<TurnoverDto>> GetDataList(TurnoverMetaModel metaModel);

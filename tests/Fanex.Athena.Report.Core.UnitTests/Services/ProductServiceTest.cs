@@ -1,20 +1,15 @@
-﻿using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.ApiClients.Abstraction;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Athena.Report.UnitTests.Common;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Internal;
-using Microsoft.Extensions.Options;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Services
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Core.ApiClients.Abstraction;
+    using Core.Models.DTOs;
+    using Core.Services;
+    using Moq;
+    using Report.UnitTests.Common;
+    using Xunit;
+
     public class ProductServiceTest
     {
         private readonly Mock<ICommonApiClient> _commonApiClient;

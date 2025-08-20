@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Core.Utility.Interfaces;
-using System.IO;
-
-namespace Fanex.Athena.Report.Core.Utility
+﻿namespace Fanex.Athena.Report.Core.Utility
 {
+    using System.IO;
+    using Interfaces;
+
     public class FileSystem : IFileSystem
     {
         public bool Exists(string path)

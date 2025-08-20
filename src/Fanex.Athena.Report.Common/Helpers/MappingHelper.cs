@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System.Collections.Generic;
+    using Resources.Constants;
+
     public static class MappingHelper
     {
         public static readonly IReadOnlyDictionary<int, int> MapBettypeSportBySport = new Dictionary<int, int>

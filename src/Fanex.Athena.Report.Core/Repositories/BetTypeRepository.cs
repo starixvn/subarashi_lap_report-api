@@ -1,18 +1,18 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DataDomain;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Extensions;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Common.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Repositories
+﻿namespace Fanex.Athena.Report.Core.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abstraction;
+    using Common.Helpers;
+    using Common.Model.DataDomain;
+    using Common.Services.Interfaces;
+    using Data;
+    using Data.Extensions.AdoNet;
+    using Extensions;
+    using Models.DTOs;
+    using Resources.Constants;
+
     public class BetTypeRepository : IBetTypeRepository
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;

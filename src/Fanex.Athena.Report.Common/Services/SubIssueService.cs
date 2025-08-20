@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Data;
-using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-namespace Fanex.Athena.Report.Common.Services
+﻿namespace Fanex.Athena.Report.Common.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using Data;
+    using Extensions;
+    using Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+
     public class SubIssueService : ISubIssueService
     {
         private const int CacheTimeoutMinutes = 15;

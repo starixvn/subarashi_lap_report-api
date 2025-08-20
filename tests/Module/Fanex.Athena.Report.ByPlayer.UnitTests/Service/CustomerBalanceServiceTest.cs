@@ -1,17 +1,17 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service;
-using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
-using Moq;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.Service
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using ByPlayer.Service;
+    using DTO;
+    using MetaModels;
+    using Moq;
+    using TestHelpers;
+    using Xunit;
+
     public class CustomerBalanceServiceTest
     {
         private readonly IFixture _fixture = new Fixture();

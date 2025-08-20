@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Data;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.Core.Repositories
+﻿namespace Fanex.Athena.Report.Core.Repositories
 {
+    using System.Collections.Generic;
+    using Abstraction;
+    using Data;
+    using Models.DTOs;
+
     public class ProductRepository : IProductRepository
     {
         public IList<ProductInfo> GetProductAccessList(int licenseeId)

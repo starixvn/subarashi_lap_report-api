@@ -1,5 +1,10 @@
 ﻿namespace Fanex.Athena.Report.BySite.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Common.Excel;
     using Common.Helpers;
     using Common.Model.DTO;
@@ -21,11 +26,6 @@
     using Models;
     using Resources;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using static Constants.ReportConstant;
 
     [ApiController]

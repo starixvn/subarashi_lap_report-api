@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Core.Models.DTOs;
-using System;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using Core.Models.DTOs;
+
     public class LiveReportViewModel
     {
         public string BaseCurrency { get; set; }

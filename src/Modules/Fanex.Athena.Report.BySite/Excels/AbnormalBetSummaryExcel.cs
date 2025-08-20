@@ -1,15 +1,15 @@
 ﻿namespace Fanex.Athena.Report.BySite.Excels
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.Excels.Interfaces;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.Common.Excel.Interfaces;
-    using Fanex.Athena.Report.Common.Model.ViewModel;
-    using Fanex.Athena.Report.Resources;
-    using NPOI.SS.UserModel;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Common.Excel.Interfaces;
+    using Common.Model.ViewModel;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using NPOI.SS.UserModel;
+    using Resources;
 
     public class AbnormalBetSummaryExcel : IAbnormalBetSummaryExcel
     {
@@ -136,7 +136,7 @@
             row.Cells[ColumnMatch].SetCellValue(item.Match);
             row.Cells[ColumnKOTime].SetCellValue(item.KOTime);
             row.Cells[ColumnLive].SetCellValue(item.Live);
-            row.Cells[ColumnTotalTransaction].SetCellValue((double)item.TotalTransaction);
+            row.Cells[ColumnTotalTransaction].SetCellValue(item.TotalTransaction);
             row.Cells[ColumnBetType].SetCellValue(item.BetType);
             row.Cells[ColumnChoice].SetCellValue(item.Choice);
             row.Cells[ColumnFinalSocre].SetCellValue(item.FinalScore);

@@ -1,24 +1,24 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Core.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Routing;
-using Moq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Attributes
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Attributes
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.MetaModels;
+    using BySite.Repositories.Interfaces;
+    using Common.Model.DTO;
+    using Core.Attributes;
+    using Core.Services.Interfaces;
+    using Fanex.Core.Utils;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Abstractions;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using Microsoft.AspNetCore.Routing;
+    using Moq;
+    using Xunit;
+
     public class AutoBindingMetaModelAttributeTest
     {
         private readonly IFixture fixture = new Fixture();
@@ -36,7 +36,7 @@ namespace Fanex.Athena.Report.Core.UnitTests.Attributes
             var context = CreateContext(metaModel, actionContext);
             var next = CreateActionExecutionDelegate(actionContext);
 
-            var agentList = new Dictionary<int, int[]> { { 1, new int[] { 1, 2, 3 } } };
+            var agentList = new Dictionary<int, int[]> { { 1, new[] { 1, 2, 3 } } };
             _subsidiaryService.Setup(_ => _.IsIgnoredSubsidiarySearch(metaModel.SubsidiarySearch, metaModel.SubsidiaryList)).Returns(false);
             _subsidiaryService.Setup(_ => _.GetAgentList(metaModel.SubsidiaryList)).ReturnsAsync(agentList);
 

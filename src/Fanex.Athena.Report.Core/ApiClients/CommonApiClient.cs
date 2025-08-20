@@ -1,15 +1,16 @@
-﻿using Fanex.Athena.Report.Core.ApiClients.Abstraction;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web;
-
-namespace Fanex.Athena.Report.Core.ApiClients
+﻿namespace Fanex.Athena.Report.Core.ApiClients
 {
+    using System;
+    using System.Collections.Specialized;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
+    using System.Web;
+    using Abstraction;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+    using Services.Interfaces;
+
     public class ApiResponse<T>
     {
         public int ErrorCode { get; set; }
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Report.Core.ApiClients
         private static string BuildQueryString(object value)
         {
             var properties = value.GetType().GetProperties();
-            var queryParams = new System.Collections.Specialized.NameValueCollection();
+            var queryParams = new NameValueCollection();
 
             foreach (var prop in properties)
             {

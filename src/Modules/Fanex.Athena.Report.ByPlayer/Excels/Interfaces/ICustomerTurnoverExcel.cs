@@ -1,12 +1,12 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Options;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.ByPlayer.Excels.Interfaces
+﻿namespace Fanex.Athena.Report.ByPlayer.Excels.Interfaces
 {
+    using System.Collections.Generic;
+    using Common.Model.MetaModels;
+    using Common.Model.ViewModel;
+    using DTO;
+    using MetaModels;
+    using Options;
+
     public interface ICustomerTurnoverExcel
     {
         public byte[] ExportFile(string template, ReportResultModel<CustTurnover> data, CustomerTurnoverMetaModel metaModel, CustomerTurnoverExcelOptions excelOption);

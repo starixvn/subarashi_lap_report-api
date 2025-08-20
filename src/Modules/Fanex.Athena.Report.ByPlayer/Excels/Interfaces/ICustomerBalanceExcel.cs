@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.ByPlayer.Excels.Interfaces
 {
-    using Fanex.Athena.Report.ByPlayer.MetaModels;
     using System.Threading.Tasks;
+    using MetaModels;
 
     public interface ICustomerBalanceExcel
     {

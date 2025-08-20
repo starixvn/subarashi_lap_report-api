@@ -1,19 +1,19 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Model.DTO;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Enums;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Linq;
+    using System.Security.Claims;
+    using Common.Helpers;
+    using Common.Model.DTO;
+    using Constants;
+    using Enums;
+    using Interfaces;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+
     public class ContextService : IContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

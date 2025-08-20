@@ -1,6 +1,6 @@
-using Fanex.Core.Utils;
-
 namespace Fanex.Athena.Report.BySite.MetaModels;
+
+using Fanex.Core.Utils;
 
 public class MatchMonitoringCenterGetMetaModel : ICurrencyIdMetaModel, IAgentMetaModel
 {

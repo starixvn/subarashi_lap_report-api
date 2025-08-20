@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Report.Core.ApiClients.Abstraction;
-using Fanex.Athena.Report.Core.Extensions;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using ApiClients.Abstraction;
+    using Extensions;
+    using Interfaces;
+    using Models.DTOs;
+    using Resources.Constants;
+
     public class ProductService : IProductService
     {
         private readonly ICommonApiClient _commonApiClient;

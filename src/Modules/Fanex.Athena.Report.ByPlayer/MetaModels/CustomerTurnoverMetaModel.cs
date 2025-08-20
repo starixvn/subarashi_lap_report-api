@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Core.Utils;
-using System;
-
-namespace Fanex.Athena.Report.ByPlayer.MetaModels
+﻿namespace Fanex.Athena.Report.ByPlayer.MetaModels
 {
+    using System;
+    using Common.Helpers;
+    using Fanex.Core.Utils;
+    using Resources.Constants;
+
     public class CustomerTurnoverMetaModel : IValidationMetaModel, IAgentMetaModel, ICurrencyIdMetaModel
     {
         public CustomerTurnoverMetaModel()

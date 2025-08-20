@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    using Fanex.Core.Utils;
     using System;
     using System.Collections.Generic;
+    using Fanex.Core.Utils;
 
     public class DailyBetDetailsMetaModel : ICurrencyIdListMetaModel, IValidationMetaModel
     {
@@ -26,6 +26,6 @@
 
         public bool IsValid => !string.IsNullOrWhiteSpace(CurrencyIdList);
 
-        public DailyBetDetailsMetaModel ShallowCopy() => (DailyBetDetailsMetaModel)this.MemberwiseClone();
+        public DailyBetDetailsMetaModel ShallowCopy() => (DailyBetDetailsMetaModel)MemberwiseClone();
     }
 }

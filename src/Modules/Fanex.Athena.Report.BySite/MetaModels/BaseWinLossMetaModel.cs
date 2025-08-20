@@ -1,8 +1,8 @@
-﻿using Fanex.Core.Utils;
-using System;
-
-namespace Fanex.Athena.Report.BySite.MetaModels
+﻿namespace Fanex.Athena.Report.BySite.MetaModels
 {
+    using System;
+    using Fanex.Core.Utils;
+
     public class BaseWinLossMetaModel : IAgentMetaModel, IDataTestableMetaModel, IValidationMetaModel
     {
         public int DrawFilter { get; set; }

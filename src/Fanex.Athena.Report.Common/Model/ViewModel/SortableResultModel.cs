@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Report.Common.Model.ViewModel
 {
-    using Fanex.Athena.Report.Common.Extensions;
     using System.Collections.Generic;
+    using Extensions;
 
     public class SortableResultModel<T> : ResultModel<T>
     {
@@ -9,7 +9,7 @@
 
         public override IEnumerable<T> DataList
         {
-            get => this._sortableDataList;
+            get => _sortableDataList;
             set => _sortableDataList = new SortableList<T>(value);
         }
     }

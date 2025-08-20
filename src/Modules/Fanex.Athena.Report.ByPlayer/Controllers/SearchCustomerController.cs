@@ -1,11 +1,11 @@
-﻿using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Core.Helpers;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
+    using System.Threading.Tasks;
+    using Core.Helpers;
+    using Core.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Service.Interfaces;
+
     [ApiController, Route("api/[controller]/[action]"),]
     public class SearchCustomerController : ControllerBase
     {

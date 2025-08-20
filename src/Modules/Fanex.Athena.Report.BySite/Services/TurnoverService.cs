@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Services
+﻿namespace Fanex.Athena.Report.BySite.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
+    using Repositories.Interfaces;
+
     public class TurnoverService : ITurnoverService
     {
         private readonly ITurnoverRepository _turnoverRepository;

@@ -1,28 +1,28 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Excels.Options;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Models;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Common.Settings;
-using Fanex.Athena.Report.Core.Attributes;
-using Fanex.Athena.Report.Core.Constants;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-
-namespace Fanex.Athena.Report.ByPlayer.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.Controllers
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Constants;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using Common.Settings;
+    using Core.Attributes;
+    using Core.Constants;
+    using Core.Models.DTOs;
+    using Core.Services.Interfaces;
+    using DTO;
+    using Excels.Interfaces;
+    using Excels.Options;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Resources;
+    using Resources.Constants;
+    using Service.Interfaces;
+
     [Route("api/[controller]/[action]")]
     [BearerAuthorize(Roles.PortalSuperAdmin, Roles.CustomerTurnover)]
     [RequestValidation(validateCurrency: true)]

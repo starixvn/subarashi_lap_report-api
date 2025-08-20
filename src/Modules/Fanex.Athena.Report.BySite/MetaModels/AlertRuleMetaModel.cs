@@ -1,6 +1,6 @@
 namespace Fanex.Athena.Report.BySite.MetaModels
 {
-    using Fanex.Athena.Report.BySite.DTOs;
+    using DTOs;
 
     public class AlertRuleMetaModel
     {

@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Repositories;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources.Constants;
-using Fanex.Data;
-using Moq;
-using System.Data;
-using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Repositories
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Repositories
 {
+    using System.Data;
+    using System.Data.Common;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Common.Services.Interfaces;
+    using Core.Repositories;
+    using Core.Services.Interfaces;
+    using Data;
+    using Moq;
+    using Resources.Constants;
+    using Xunit;
+
     public class SportRepositoryTest
     {
         private readonly Mock<ICacheRefAdapter> _cacheRefAdapter;

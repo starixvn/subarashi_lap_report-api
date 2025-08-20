@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Middleware
+﻿namespace Fanex.Athena.Report.Core.Middleware
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.IO;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+
     public class WhoAmIHealthCheck : IHealthCheck
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

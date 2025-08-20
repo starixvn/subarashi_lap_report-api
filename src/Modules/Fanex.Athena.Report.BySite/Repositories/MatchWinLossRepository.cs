@@ -1,19 +1,19 @@
-﻿using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Common.Helpers;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Common;
-using Fanex.Common.Extensions;
-using Fanex.Core.Utils.Extensions;
-using Fanex.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.BySite.Repositories
+﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Helpers;
+    using Common.Services.Interfaces;
+    using Data;
+    using Data.Extensions.AdoNet;
+    using DTOs;
+    using Fanex.Common;
+    using Fanex.Core.Utils.Extensions;
+    using Interfaces;
+    using MetaModels;
+
     public class MatchWinLossRepository : IMatchWinLossRepository
     {
         private const string STR_PRODUCTLIST = "ProductList";

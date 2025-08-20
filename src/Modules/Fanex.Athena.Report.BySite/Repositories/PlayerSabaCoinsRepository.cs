@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Report.BySite.Repositories
 {
-    using Fanex.Athena.Report.BySite.DTOs;
-    using Fanex.Athena.Report.BySite.MetaModels;
-    using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-    using Fanex.Athena.Report.Common.Services.Interfaces;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
+    using Common.Services.Interfaces;
+    using Data;
+    using DTOs;
+    using Interfaces;
+    using MetaModels;
 
     public class PlayerSabaCoinsRepository : IPlayerSabaCoinsRepository
     {

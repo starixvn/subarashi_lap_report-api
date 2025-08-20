@@ -1,17 +1,17 @@
-﻿using Fanex.Athena.Report.Common.Constants;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Core.Models.DTOs;
-using Fanex.Athena.Report.Core.Repositories.Abstraction;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Athena.Report.Resources.Constants;
-using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Services
+﻿namespace Fanex.Athena.Report.Core.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Constants;
+    using Common.Services.Interfaces;
+    using Interfaces;
+    using Microsoft.Extensions.Caching.Memory;
+    using Models.DTOs;
+    using Repositories.Abstraction;
+    using Resources;
+    using Resources.Constants;
+
     public class SportService : ISportService
     {
         private const string MemoryCacheSportListForTreeView = "MemoryCache_SportList_TreeView";

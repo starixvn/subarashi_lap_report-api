@@ -1,20 +1,20 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.BySite.Controllers;
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Excels.Interfaces;
-using Fanex.Athena.Report.BySite.Excels.Options;
-using Fanex.Athena.Report.BySite.MetaModels;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using BySite.Controllers;
+    using BySite.DTOs;
+    using BySite.Excels.Interfaces;
+    using BySite.Excels.Options;
+    using BySite.MetaModels;
+    using BySite.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Models;
+    using Moq;
+    using Xunit;
+
     public class WeeklyLiveMatchControllerTest
     {
         private readonly WeeklyLiveMatchController _controller;

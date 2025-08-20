@@ -1,9 +1,10 @@
-﻿using Fanex.Athena.Report.Common.Extensions;
-using System.Collections.Generic;
-using Xunit;
-
-namespace Fanex.Athena.Report.Common.UnitTests.Extensions
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Extensions
 {
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using Common.Extensions;
+    using Xunit;
+
     public class DictionaryPropertyComparerTest
     {
         [Theory]
@@ -15,7 +16,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Extensions
             // Arrange
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
-            var comparer = new DictionaryPropertyComparer<Person>(keyValue, "Children", System.ComponentModel.ListSortDirection.Ascending);
+            var comparer = new DictionaryPropertyComparer<Person>(keyValue, "Children", ListSortDirection.Ascending);
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Extensions
             // Arrange
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
-            var comparer = new DictionaryPropertyComparer<Person>(keyValue, "Children", System.ComponentModel.ListSortDirection.Descending);
+            var comparer = new DictionaryPropertyComparer<Person>(keyValue, "Children", ListSortDirection.Descending);
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);

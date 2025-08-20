@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Core.Models.DTOs;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.Core.Repositories.Abstraction
+﻿namespace Fanex.Athena.Report.Core.Repositories.Abstraction
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Models.DTOs;
+
     public interface IBetTypeRepository
     {
         Task<IList<(string ProductPrefix, int BetTypeId)>> GetBettypes(string xmlSportList);

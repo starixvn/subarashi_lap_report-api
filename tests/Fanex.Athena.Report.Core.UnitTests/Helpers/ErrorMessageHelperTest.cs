@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.Report.Core.Helpers;
-using Microsoft.AspNetCore.Http;
-using System;
-using Xunit;
-
-namespace Fanex.Athena.Report.Core.UnitTests.Helpers
+﻿namespace Fanex.Athena.Report.Core.UnitTests.Helpers
 {
+    using System;
+    using Core.Helpers;
+    using Microsoft.AspNetCore.Http;
+    using Xunit;
+
     public class ErrorMessageHelperTest
     {
         [Fact]

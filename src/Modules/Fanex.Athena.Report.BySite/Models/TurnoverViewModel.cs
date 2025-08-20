@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Report.Common.Model.DTO;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Report.BySite.Models
+﻿namespace Fanex.Athena.Report.BySite.Models
 {
+    using System.Collections.Generic;
+    using Common.Model.DTO;
+
     public class TurnoverViewModel
     {
         public string BaseCurrency { get; set; }

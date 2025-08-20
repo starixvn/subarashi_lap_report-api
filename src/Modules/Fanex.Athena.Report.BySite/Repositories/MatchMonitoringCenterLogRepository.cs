@@ -1,13 +1,13 @@
 namespace Fanex.Athena.Report.BySite.Repositories;
 
-using Fanex.Athena.Report.BySite.DTOs;
-using Fanex.Athena.Report.BySite.Models;
-using Fanex.Athena.Report.BySite.Repositories.Interfaces;
-using Fanex.Athena.Report.Resources;
-using Fanex.Common.Extensions;
-using Fanex.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data;
+using Data.Extensions.AdoNet;
+using DTOs;
+using Interfaces;
+using Models;
+using Resources;
 
 public class MatchMonitoringCenterLogRepository : IMatchMonitoringCenterLogRepository
 {

@@ -1,7 +1,7 @@
-﻿using Fanex.Athena.Report.Common.Excel.Interfaces;
-
-namespace Fanex.Athena.Report.BySite.Excels.Options
+﻿namespace Fanex.Athena.Report.BySite.Excels.Options
 {
+    using Common.Excel.Interfaces;
+
     public class LiveReportExcelOption : IConvertingOption
     {
         public bool CustomerCommVisible { get; set; }

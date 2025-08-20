@@ -1,21 +1,21 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.Excels.Options;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.Common.Excel;
-using Fanex.Athena.Report.Common.Excel.Interfaces;
-using Fanex.Athena.Report.Common.Model.MetaModels;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Common.Services.Interfaces;
-using Fanex.Athena.Report.Resources;
-using NPOI.SS.UserModel;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Fanex.Athena.Report.ByPlayer.Excels
+﻿namespace Fanex.Athena.Report.ByPlayer.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Common.Excel;
+    using Common.Excel.Interfaces;
+    using Common.Model.MetaModels;
+    using Common.Model.ViewModel;
+    using Common.Services.Interfaces;
+    using DTO;
+    using Interfaces;
+    using MetaModels;
+    using NPOI.SS.UserModel;
+    using Options;
+    using Resources;
+
     public class CustomerTurnoverExcel : ICustomerTurnoverExcel
     {
         private const string TemplateSheetName = "Template";

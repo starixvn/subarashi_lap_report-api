@@ -1,22 +1,22 @@
-﻿using Fanex.Athena.Report.ByPlayer.Controllers;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels.Interfaces;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Athena.Report.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
-using Moq;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using ByPlayer.Controllers;
+    using ByPlayer.Excels.Interfaces;
+    using ByPlayer.Service.Interfaces;
+    using Common.Model.ViewModel;
+    using Core.Services.Interfaces;
+    using DTO;
+    using MetaModels;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
+    using Moq;
+    using Newtonsoft.Json;
+    using TestHelpers;
+    using Xunit;
+
     public class CustomerWinLossControllerTest : BaseReportExcelTest
     {
         [Fact]
@@ -24,7 +24,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
         {
             // Arrange
             var metaModel = new CustomerWinLossMetaModel();
-            var dataList = new List<CustomerWinLoss> { new CustomerWinLoss { CustId = 1 } };
+            var dataList = new List<CustomerWinLoss> { new() { CustId = 1 } };
             var totalData = new CustomerWinLoss { Turnover = 500m };
             var expectedReportData = new ResultModel<CustomerWinLoss>
             {
@@ -37,7 +37,6 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
             service.Setup(s => s.GetDataList(metaModel, true)).Returns(Task.FromResult(expectedReportData));
 
             var contextService = new Mock<IContextService>();
-            var licenseeService = new Mock<ILicenseeService>();
 
             var expectedResult = new
             {
@@ -47,7 +46,7 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
                 PromotionPrize = expectedReportData.AdditionalInfo
             };
 
-            var controller = new CustomerWinLossController(service.Object, contextService.Object, licenseeService.Object);
+            var controller = new CustomerWinLossController(service.Object, contextService.Object);
 
             // Action
             var result = await controller.Index(metaModel) as OkObjectResult;
@@ -72,14 +71,13 @@ namespace Fanex.Athena.Report.ByPlayer.UnitTests.Controllers
 
             var excelService = new Mock<ICustomerWinLossExcel>();
             var contextService = new Mock<IContextService>();
-            var licenseeService = new Mock<ILicenseeService>();
 
             var fileName = CreateFile();
             var expectedFileContent = File.ReadAllBytes(fileName);
 
             excelService.Setup(s => s.Export(physicalPath, expectedReportData, metaModel)).Returns(fileName);
 
-            var controller = new CustomerWinLossController(service.Object, contextService.Object, licenseeService.Object);
+            var controller = new CustomerWinLossController(service.Object, contextService.Object);
 
             // Action
             var result = await controller.ExportExcel(fileProvider.Object, excelService.Object, metaModel) as FileStreamResult;

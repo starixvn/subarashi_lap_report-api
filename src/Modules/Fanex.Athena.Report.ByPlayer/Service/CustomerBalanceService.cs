@@ -1,18 +1,18 @@
-﻿using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Extensions;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.Service.Interfaces;
-using Fanex.Athena.Report.Common.Extensions;
-using Fanex.Athena.Report.Common.Model.ViewModel;
-using Fanex.Data;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Report.ByPlayer.Service
+﻿namespace Fanex.Athena.Report.ByPlayer.Service
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Common.Extensions;
+    using Common.Model.ViewModel;
+    using Data;
+    using DTO;
+    using Extensions;
+    using Interfaces;
+    using MetaModels;
+
     public class CustomerBalanceService : ICustomerBalanceService
     {
         public async Task<ResultModel<CustomerBalance>> GetDataList(CustomerBalanceMetaModel metaModel)

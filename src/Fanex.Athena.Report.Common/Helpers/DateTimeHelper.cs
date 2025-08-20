@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Report.Common.Helpers
+﻿namespace Fanex.Athena.Report.Common.Helpers
 {
+    using System;
+
     public static class DateTimeHelper
     {
         public static Func<DateTimeOffset> DateTimeOffsetProvider { get; set; } = () => DateTimeOffset.Now;

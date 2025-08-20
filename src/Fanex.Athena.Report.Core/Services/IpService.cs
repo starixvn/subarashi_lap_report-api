@@ -15,11 +15,11 @@ public class IpService(IIpRepository ipRepository) : IIpService
 {
     private const int TIME_OUT = 10;
 
-    private static readonly double IP32Bits = 16_777_216.0;
-    private static readonly double IPMaxRange = 65536.0;
-    private static readonly double IPMaxBytes = 256.0;
-    private static readonly int IpIndex2 = 2;
-    private static readonly int IpIndex3 = 3;
+    private const double IP32Bits = 16_777_216.0;
+    private const double IPMaxRange = 65536.0;
+    private const double IPMaxBytes = 256.0;
+    private const int IpIndex2 = 2;
+    private const int IpIndex3 = 3;
 
     private readonly Lazy<Tuple<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>>> VNIPRanges = new(() => ipRepository.GetVNIPs());
 

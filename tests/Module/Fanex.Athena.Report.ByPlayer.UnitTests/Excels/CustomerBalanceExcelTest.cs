@@ -1,22 +1,22 @@
-﻿using AutoFixture;
-using Fanex.Athena.Report.ByPlayer.DTO;
-using Fanex.Athena.Report.ByPlayer.Excels;
-using Fanex.Athena.Report.ByPlayer.MetaModels;
-using Fanex.Athena.Report.ByPlayer.UnitTests.TestHelpers;
-using Fanex.Athena.Report.Resources;
-using Fanex.Data;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
+﻿namespace Fanex.Athena.Report.ByPlayer.UnitTests.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using ByPlayer.Excels;
+    using Data;
+    using DTO;
+    using MetaModels;
+    using Moq;
+    using Resources;
+    using TestHelpers;
+    using Xunit;
+
     public class CustomerBalanceExcelTest : BaseReportExcelTest
     {
         private static readonly string[] _headerTexts = {

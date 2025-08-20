@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.Report.Common.Extensions;
-using System.Collections.Generic;
-using Xunit;
-
-namespace Fanex.Athena.Report.Common.UnitTests.Extensions
+﻿namespace Fanex.Athena.Report.Common.UnitTests.Extensions
 {
+    using System.Collections.Generic;
+    using Common.Extensions;
+    using Xunit;
+
     public class SortableListTest
     {
         [Fact]
