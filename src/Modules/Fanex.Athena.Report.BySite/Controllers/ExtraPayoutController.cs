@@ -50,14 +50,14 @@
 
             return Ok(new
             {
-                currencyList = _contextService.CurrencyList.ToArray(),
-                baseCurrencyList = baseCurrencyService.GetBaseCurrencyList().ToArray(),
-                isAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
-                viewType = !subsidiaryList.Any() ? SubsidiaryViewType.NotManagement : _contextService.SubsidiaryViewType,
-                defaultBaseCurrency = _contextService.DefaultBaseCurrency,
-                productOptions = hasPlayerTipsPermission ? AddPlayerTipsProduct(productOptions) : productOptions,
-                whitelabelList = subsidiaryList,
-                subsidiaryList = subsidiaryList.SelectMany(x => x.Children.Select(y => y.Value)).Distinct()
+                Currencies = _contextService.CurrencyList.ToArray(),
+                BaseCurrencies = baseCurrencyService.GetBaseCurrencyList().ToArray(),
+                IAbnormalBetDetailExcelsAllowedCustomerCommission = _contextService.IsAllowedCustomerComm,
+                ViewType = !subsidiaryList.Any() ? SubsidiaryViewType.NotManagement : _contextService.SubsidiaryViewType,
+                BaseCurrency = _contextService.DefaultBaseCurrency,
+                ProductOptions = hasPlayerTipsPermission ? AddPlayerTipsProduct(productOptions) : productOptions,
+                WhitelabelList = subsidiaryList,
+                SubsidiaryList = subsidiaryList.SelectMany(x => x.Children.Select(y => y.Value)).Distinct()
             });
         }
 
