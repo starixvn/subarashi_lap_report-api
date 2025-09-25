@@ -66,7 +66,7 @@
 
             if (data.DataList.Any())
             {
-                AssignSheetData(sheet, templateSheet, data);
+                AssignSheetData(sheet, templateSheet, data, metaModel);
             }
             else
             {
@@ -111,7 +111,7 @@
             _builder.SetRowValue(sheet, templateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        private void AssignSheetData(ISheet sheet, ISheet templateSheet, SortableReportResultModel<ExtraPayoutDetail> data)
+        private void AssignSheetData(ISheet sheet, ISheet templateSheet, SortableReportResultModel<ExtraPayoutDetail> data, ExtraPayoutDetailMetaModel metaModel)
         {
             int index = 0;
 
@@ -121,7 +121,7 @@
                 row.Cells[ColumnIndex].SetCellValue(++index);
                 AssignCellData(row, item, true);
             }
-            AssignGrandTotal(sheet, templateSheet, data, index + RowContentTemplate);
+            AssignGrandTotal(sheet, templateSheet, data, index + RowContentTemplate, metaModel);
         }
 
         private static void AssignCellData(IRow row, ExtraPayoutDetail item, bool hideLicSharingAmountForTip = false)
@@ -143,21 +143,20 @@
             }
         }
 
-        private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, SortableReportResultModel<ExtraPayoutDetail> data, int index)
+        private void AssignGrandTotal(ISheet sheet, ISheet templateSheet, SortableReportResultModel<ExtraPayoutDetail> data, int index, ExtraPayoutDetailMetaModel metaModel)
         {
             var row = _builder.CopyRow(sheet, templateSheet, RowGrantTotalTemplate, index);
 
             AssignCellData(row, data.TotalData);
 
-            row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
+            row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, metaModel.BaseCurrency.ToUpperInvariant()));
 
             _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnIndex, lastCol: ColumnPromotionType);
         }
 
         private void AssignTitle(ISheet sheet, ISheet templateSheet, ExtraPayoutDetailMetaModel metaModel)
         {
-            var displayedCurrency = string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.CurrencyName : metaModel.BaseCurrency.ToUpperInvariant();
-            var currencyText = string.Format(ViewResources.Viewin, displayedCurrency);
+            var currencyText = string.Format(ViewResources.Viewin, metaModel.CurrencyName.ToUpperInvariant());
             var usernameText = $"- {metaModel.ExternalId} ({metaModel.SystemId})";
 
             var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ? metaModel.DrillDownFromDate : metaModel.FromDate;

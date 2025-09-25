@@ -162,7 +162,7 @@
                 var row = index == beginIndex ? _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate, index)
                     : _builder.CopyRow(sheet, templateSheet, RowTotalCurrencyTemplate + 1, index);
                 AssignCellData(row, item);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
+                row.Cells[ColumnIndex].SetCellValue(string.Format(ViewResources.Totalin, data.TotalData.CurrencyName));
                 row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
                 _builder.MergeCells(sheet, firstRow: index, lastRow: index, firstCol: ColumnCurrency, lastCol: ColumnPromotionType);
                 index++;

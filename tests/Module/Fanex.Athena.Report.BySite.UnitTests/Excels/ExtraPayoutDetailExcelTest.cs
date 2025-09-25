@@ -189,7 +189,7 @@
             var totalRow = rows.Last();
 
             // Assert
-            Mock.Get(totalRow.Object.Cells[ColumnIndex]).Verify(c => c.SetCellValue(ViewResources.Total), Times.Once);
+            Mock.Get(totalRow.Object.Cells[ColumnIndex]).Verify(c => c.SetCellValue(string.Format(ViewResources.Totalin, metaModel.BaseCurrency.ToUpperInvariant())), Times.Once);
             AssertCommonCellData(totalRow, totalData);
         }
 
@@ -245,10 +245,7 @@
 
         private static string CreateTitle(ExtraPayoutDetailMetaModel metaModel)
         {
-            var displayedCurrency = string.IsNullOrEmpty(metaModel.BaseCurrency) ?
-                metaModel.CurrencyName :
-                metaModel.BaseCurrency.ToUpperInvariant();
-            var currencyText = string.Format(ViewResources.Viewin, displayedCurrency);
+            var currencyText = string.Format(ViewResources.Viewin, metaModel.CurrencyName.ToUpperInvariant());
             var usernameText = $"- {metaModel.ExternalId} ({metaModel.SystemId})";
 
             var fromDate = metaModel.DrillDownLevel != (int)ReportLevel.Main ?
