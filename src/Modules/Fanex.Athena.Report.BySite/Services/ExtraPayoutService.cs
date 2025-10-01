@@ -68,6 +68,11 @@
             return await _repository.GetExtraPayoutDetailData(metaModel).ConfigureAwait(false);
         }
 
+        public async Task<SortableReportResultModel<OddsBoostBonusDetail>> GetOddsBoostBonusDetailDataAsync(ExtraPayoutMetaModel metaModel)
+        {
+            return await _repository.GetOddsBoostBonusDetailData(metaModel).ConfigureAwait(false);
+        }
+
         public IEnumerable<CheckedItem> BuildPromotionTypeList(string productCodeList)
         {
             var promotionTypeList = new List<CheckedItem>();

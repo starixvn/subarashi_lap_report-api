@@ -268,6 +268,25 @@
             Assert.Contains(result, item => ExtraPayoutMapType.Live22Promotion == item.ID);
         }
 
+        [Fact]
+        public void GetOddsBoostBonusDetailDataAsync_WhenCall_ReturnOddsBoostBonusDetailData()
+        {
+            // Arrange
+            var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
+            var expectedData = _fixture.Create<Task<SortableReportResultModel<OddsBoostBonusDetail>>>();
+
+            _repository.Setup(_ => _.GetOddsBoostBonusDetailData(metaModel)).Returns(expectedData);
+
+            var service = CreateService();
+
+            // Action
+            var result = service.GetOddsBoostBonusDetailDataAsync(metaModel);
+
+            // Assert
+            Assert.Equal(expectedData.Result, result.Result);
+            _repository.Verify(_ => _.GetOddsBoostBonusDetailData(metaModel), Times.Once);
+        }
+
         private ExtraPayoutService CreateService() =>
             new ExtraPayoutService(_repository.Object, _cacheRefAdapter.Object, _productService.Object);
     }

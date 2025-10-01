@@ -113,6 +113,28 @@
         }
 
         [HttpPost]
+        public async Task<IActionResult> GetOddsBoostBonusDetailData([FromBody] ExtraPayoutMetaModel metaModel, [FromServices] IExtraPayoutService service)
+        {
+            AssignCommonMetaModel(metaModel);
+            var result = await service.GetOddsBoostBonusDetailDataAsync(metaModel).ConfigureAwait(false);
+
+            if (!result.DataList.Any())
+            {
+                return Ok(new OddsBoostBonusDetailResultModel
+                {
+                    Data = new List<OddsBoostBonusDetail>(),
+                    TotalSummary = new OddsBoostBonusDetail()
+                });
+            }
+
+            return Ok(new OddsBoostBonusDetailResultModel
+            {
+                Data = result.DataList.ToList(),
+                TotalSummary = result.TotalData
+            });
+        }
+
+        [HttpPost]
         public async Task<FileContentResult> ExportExcel(
             [FromServices] IExtraPayoutService service,
             [FromServices] IFileProvider file,
@@ -138,6 +160,21 @@
             metaModel.IsExportExcel = true;
             var template = file.GetFileInfo("/ExcelTemplate/ExtraPayoutDetail.xls").PhysicalPath;
             var result = await service.GetDetailDataAsync(metaModel).ConfigureAwait(false);
+            var fileContent = excel.Export(template, result, metaModel);
+            return new FileContentResult(fileContent, "application/octet-stream");
+        }
+
+        [HttpPost]
+        public async Task<FileContentResult> ExportOddsBoostBonusDetailExcel(
+            [FromServices] IExtraPayoutService service,
+            [FromServices] IFileProvider file,
+            [FromServices] IOddsBoostBonusDetailExcel excel,
+            [FromBody] ExtraPayoutMetaModel metaModel)
+        {
+            AssignCommonMetaModel(metaModel);
+            metaModel.IsExportExcel = true;
+            var template = file.GetFileInfo("/ExcelTemplate/OddsBoostBonusDetail.xls").PhysicalPath;
+            var result = await service.GetOddsBoostBonusDetailDataAsync(metaModel).ConfigureAwait(false);
             var fileContent = excel.Export(template, result, metaModel);
             return new FileContentResult(fileContent, "application/octet-stream");
         }

@@ -7,7 +7,7 @@
     using BySite.Excels;
     using BySite.Excels.Options;
     using Common.Excel.Interfaces;
-    using Models;
+    using BySite.Models;
     using Moq;
     using NPOI.SS.UserModel;
     using Resources;

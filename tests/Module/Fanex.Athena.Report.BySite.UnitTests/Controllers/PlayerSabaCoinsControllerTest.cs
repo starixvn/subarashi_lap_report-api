@@ -11,7 +11,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
     using Common.Model.ViewModel;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
-    using Models;
+    using BySite.Models;
     using Moq;
     using Xunit;
 

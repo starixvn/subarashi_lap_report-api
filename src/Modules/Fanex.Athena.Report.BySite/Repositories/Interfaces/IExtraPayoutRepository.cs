@@ -15,5 +15,8 @@
 
         Task<SortableReportResultModel<ExtraPayoutDetail>> GetExtraPayoutDetailData(
             ExtraPayoutDetailMetaModel metaModel);
+
+        Task<SortableReportResultModel<OddsBoostBonusDetail>> GetOddsBoostBonusDetailData(
+            ExtraPayoutMetaModel metaModel);
     }
 }

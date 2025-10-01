@@ -13,7 +13,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
     using Core.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.FileProviders;
-    using Models;
+    using BySite.Models;
     using Moq;
     using Xunit;
 
@@ -95,7 +95,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _subsidiaryService.Setup(x => x.GetCurrencyAgentList(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>()))
                              .ReturnsAsync(expectedAgentList);
-            
+
             _subsidiaryPerformanceService.Setup(x => x.GetData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()))
                                         .ReturnsAsync(expectedResult);
 
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Assert
             Assert.NotNull(result);
             Assert.Equal(expectedResult, result.Value);
-            
+
             // Verify that context values were assigned
             Assert.Equal(_contextService.Object.SiteName, metaModel.LicenseeName);
             Assert.Equal(_contextService.Object.IsHideSaba, metaModel.IsHideSaba);
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             Assert.NotNull(result);
             var resultValue = result.Value;
             Assert.NotNull(resultValue);
-            
+
             // Should not call the service when agent list is empty
             _subsidiaryPerformanceService.Verify(x => x.GetDetailData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()), Times.Never);
         }
@@ -144,7 +144,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
 
             _subsidiaryService.Setup(x => x.GetCurrencyAgentList(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>()))
                              .ReturnsAsync(expectedAgentList);
-            
+
             _subsidiaryPerformanceService.Setup(x => x.GetDetailData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()))
                                         .ReturnsAsync(expectedResult);
 
@@ -155,7 +155,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             Assert.NotNull(result);
             var resultValue = result.Value;
             Assert.NotNull(resultValue);
-            
+
             _subsidiaryPerformanceService.Verify(x => x.GetDetailData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()), Times.Once);
         }
 
@@ -166,13 +166,13 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var mockFileProvider = new Mock<IFileProvider>();
             var mockExcel = new Mock<ISubsidiaryPerformanceSummaryExcel>();
             var metaModel = _fixture.Create<SubsidiaryPerformanceMetaModel>();
-            
+
             var emptyResult = new SubsidiaryPerformanceResultModel { Data = new List<SubsidiaryPerformanceGroup>() };
             var expectedAgentList = new Dictionary<int, IEnumerable<int>>();
 
             _subsidiaryService.Setup(x => x.GetCurrencyAgentList(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>()))
                              .ReturnsAsync(expectedAgentList);
-            
+
             _subsidiaryPerformanceService.Setup(x => x.GetData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()))
                                         .ReturnsAsync(emptyResult);
 
@@ -190,13 +190,13 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             var mockFileProvider = new Mock<IFileProvider>();
             var mockExcel = new Mock<ISubsidiaryPerformanceDetailExcel>();
             var metaModel = _fixture.Create<SubsidiaryPerformanceMetaModel>();
-            
+
             var emptyResult = new ReportResultModel<SubsidiaryPerformanceDetail>();
             var expectedAgentList = new Dictionary<int, IEnumerable<int>>();
 
             _subsidiaryService.Setup(x => x.GetCurrencyAgentList(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>()))
                              .ReturnsAsync(expectedAgentList);
-            
+
             _subsidiaryPerformanceService.Setup(x => x.GetDetailData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()))
                                         .ReturnsAsync(emptyResult);
 
@@ -231,10 +231,10 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Arrange
             var metaModel = _fixture.Create<SubsidiaryPerformanceMetaModel>();
             var expectedResult = _fixture.Create<SubsidiaryPerformanceResultModel>();
-            
+
             _contextService.Setup(x => x.UserLevel).Returns(2); // UserLevelType.Subsidiary
             _contextService.Setup(x => x.AgentList).Returns(new Dictionary<int, int[]> { { 1, new[] { 1001, 1002 } } });
-            
+
             _subsidiaryPerformanceService.Setup(x => x.GetData(It.IsAny<SubsidiaryPerformanceMetaModel>(), It.IsAny<IReadOnlyDictionary<int, string>>()))
                                         .ReturnsAsync(expectedResult);
 
@@ -244,7 +244,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Assert
             Assert.NotNull(result);
             Assert.NotNull(metaModel.AgentListXml);
-            
+
             // Should not call subsidiary service for agent list
             _subsidiaryService.Verify(x => x.GetCurrencyAgentList(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>()), Times.Never);
         }
@@ -269,7 +269,7 @@ namespace Fanex.Athena.Report.BySite.UnitTests.Controllers
             // Assert
             Assert.NotNull(result);
             Assert.NotNull(metaModel.AgentListXml);
-            
+
             // Should call subsidiary service for agent list
             _subsidiaryService.Verify(x => x.GetCurrencyAgentList(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>()), Times.Once);
         }
