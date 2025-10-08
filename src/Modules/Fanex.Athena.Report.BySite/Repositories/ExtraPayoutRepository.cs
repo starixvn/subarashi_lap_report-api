@@ -13,6 +13,7 @@
     using Core.Services.Interfaces;
     using Data;
     using DTOs;
+    using Fanex.Athena.Report.Common.Model.DTO;
     using Interfaces;
     using MetaModels;
     using Resources;
@@ -118,7 +119,7 @@
             {
                 db.SetParameterValue("ReportType", metaModel.ReportBy);
                 db.SetParameterValue("Username", metaModel.Username);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo);
 
                 using (var reader = await db.ExecuteReaderAsync())
                 {
@@ -182,7 +183,7 @@
             };
         }
 
-        private static void UpdateSpCommonParamsAsync(IObjectDb db, ExtraPayoutMetaModel metaModel, DateTime moveBetsDay)
+        private static void UpdateSpCommonParamsAsync(IObjectDb db, ExtraPayoutMetaModel metaModel, BalanceUp balanceUpInfo)
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency.ToUpperInvariant());
@@ -190,7 +191,8 @@
             db.SetParameterValue("todate", metaModel.DrillDownLevel == (int)ReportLevel.Main ? metaModel.ToDate.Date : metaModel.DrillDownToDate.Date);
             db.SetParameterValue("productList", metaModel.ProductCodeList);
             db.SetParameterValue("PromotionTypeList", metaModel.PromotionTypeIdList);
-            db.SetParameterValue("movebetsday", moveBetsDay);
+            db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
+            db.SetParameterValue("BalanceUpDay", balanceUpInfo.BalanceUpDay);
         }
 
         private SortableReportResultModel<ExtraPayout> GetMainData(
@@ -244,7 +246,7 @@
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
                 db.SetParameterValue("Username", metaModel.Username);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -313,17 +315,10 @@
             var promotionType = reader.GetVal<int>("PromotionType");
 
             data.CustId = reader.GetVal<int>("CustId");
-            data.Username = GetUserNameValue(reader, promotionType);
+            data.Username = reader.GetVal<string>("username");
             data.PromotionType = promotionType;
             data.PromotionName = GetPromotionName(promotionType, isHideSaba);
             data.Nickname = GetNicknameValue(reader, promotionType);
-        }
-
-        private static string GetUserNameValue(IDataReader reader, int promotionType)
-        {
-            return promotionType == ExtraPayoutMapType.PayoutOddsBoostAdjustment ?
-                ViewResources.TotalOddsBootsBonus :
-                reader.GetVal<string>("username");
         }
 
         private static string GetNicknameValue(IDataReader reader, int promotionType)
@@ -342,12 +337,33 @@
             using (var db = ObjectDbFactory.CreateInstance(UspName))
             {
                 db.SetParameterValue("CustId", metaModel.CustId);
-                db.SetParameterValue("BalanceUpDay", balanceUpInfo.BalanceUpDay);
-                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo.MoveBetsDay);
+                UpdateSpCommonParamsAsync(db, metaModel, balanceUpInfo);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetDetailData(reader, metaModel);
+                }
+            }
+        }
+
+        public async Task<SortableReportResultModel<OddsBoostBonusDetail>> GetOddsBoostBonusDetailData(
+            ExtraPayoutMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_ExtraPayout_OddsBoost_Detail";
+            var balanceUpInfo = await _balanceUpService.GetBalanceUpAsync().ConfigureAwait(false);
+
+            using (var db = ObjectDbFactory.CreateInstance(UspName))
+            {
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency.ToUpperInvariant());
+                db.SetParameterValue("fromdate", metaModel.DrillDownFromDate.Date);
+                db.SetParameterValue("todate", metaModel.DrillDownToDate.Date);
+                db.SetParameterValue("movebetsday", balanceUpInfo.MoveBetsDay);
+                db.SetParameterValue("BalanceUpDay", balanceUpInfo.BalanceUpDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetOddsBoostBonusDetailData(reader, metaModel);
                 }
             }
         }
@@ -408,6 +424,54 @@
                 Turnover = dataList.Sum(_ => _.BasedTurnover),
                 Amount = dataList.Sum(_ => _.BasedAmount),
                 SharingAmount = dataList.Sum(_ => _.BasedSharingAmount)
+            };
+        }
+
+        private SortableReportResultModel<OddsBoostBonusDetail> GetOddsBoostBonusDetailData(IDataReader reader, ExtraPayoutMetaModel metaModel)
+        {
+            var dataList = new SortableList<OddsBoostBonusDetail>();
+
+            while (reader.Read())
+            {
+                var date = reader.GetVal<DateTime>("WinLostDate");
+                var dateString = date.ToString("MM/dd/yyyy");
+                var productCode = reader.GetVal<string>("ProductCode");
+
+                var item = new OddsBoostBonusDetail
+                {
+                    Date = date,
+                    DateString = dateString,
+                    ExternalId = reader.GetVal<string>("ExternalId"),
+                    SystemId = reader.GetVal<string>("SystemId"),
+                    RefNo = reader.GetVal<string>("RefNo"),
+                    ProductCode = productCode,
+                    ProductName = _productService.GetProductName(productCode),
+                    PromotionType = ViewResources.OddsBoostBonus,
+                    BasedCustomerAmount = reader.GetVal<decimal>("BasedCustomerAmount")
+                };
+
+                item.CustomerAmount = metaModel.IsConvertAllToBaseCurrency ? item.BasedCustomerAmount : reader.GetVal<decimal>("CustomerAmount");
+
+                dataList.Add(item);
+            }
+
+            return new SortableReportResultModel<OddsBoostBonusDetail>
+            {
+                DataList = dataList,
+                TotalData = GetSumOddsBoostBonusDetailData(dataList)
+            };
+        }
+
+        private static OddsBoostBonusDetail GetSumOddsBoostBonusDetailData(List<OddsBoostBonusDetail> dataList)
+        {
+            if (dataList == null || !dataList.Any())
+            {
+                return new OddsBoostBonusDetail();
+            }
+
+            return new OddsBoostBonusDetail
+            {
+                CustomerAmount = dataList.Sum(_ => _.BasedCustomerAmount)
             };
         }
 

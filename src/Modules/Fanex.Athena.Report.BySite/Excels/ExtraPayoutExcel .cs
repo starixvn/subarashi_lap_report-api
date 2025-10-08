@@ -6,6 +6,7 @@
     using Common.Excel.Interfaces;
     using Common.Model.ViewModel;
     using DTOs;
+    using Fanex.Athena.Report.Common.Model.DataDomain;
     using Interfaces;
     using MetaModels;
     using NPOI.SS.UserModel;
@@ -136,7 +137,7 @@
         {
             row.Cells[ColumnDate].SetCellValue(item.DateString);
             row.Cells[ColumnExternalId].SetCellValue(item.Nickname);
-            row.Cells[ColumnSystemId].SetCellValue(item.Username);
+            row.Cells[ColumnSystemId].SetCellValue(item.PromotionType == ExtraPayoutMapType.PayoutOddsBoostAdjustment ? ViewResources.OddsBoostBonus : item.Username);
             row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
             row.Cells[ColumnProduct].SetCellValue(item.ProductName);
             row.Cells[ColumnPromotionType].SetCellValue(item.PromotionName);

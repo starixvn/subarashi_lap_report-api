@@ -7,7 +7,7 @@
     using BySite.MetaModels;
     using BySite.Repositories.Interfaces;
     using BySite.Services;
-    using Models;
+    using BySite.Models;
     using Moq;
     using Xunit;
 

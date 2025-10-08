@@ -295,6 +295,162 @@ public class ExtraPayoutRepositoryTest
         }
     }
 
+    [Fact]
+    public async Task GetOddsBoostBonusDetailData_WhenCall_ReturnCorrectData()
+    {
+        // Arrange
+        var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
+        var reader = new Mock<IDataReader>();
+        reader.SetupSequence(r => r.Read())
+            .Returns(true)
+            .Returns(false);
+
+        var expectedOddsBoostData = new Dictionary<string, object>
+        {
+            { "WinLostDate", new DateTime(2022, 8, 17) },
+            { "ExternalId", "qatest03" },
+            { "SystemId", "Athena000UUS01003" },
+            { "RefNo", "437934648123719683" },
+            { "ProductCode", "SB" },
+            { "PromotionType", 1 },
+            { "BasedCustomerAmount", 4.08m }
+        };
+
+        SetUpData(reader, expectedOddsBoostData);
+        _productService.Setup(p => p.GetProductName("SB")).Returns("Sportsbook");
+
+        CreateObjectDb(reader);
+
+        var repository = CreateRepository();
+
+        // Action
+        var result = await repository.GetOddsBoostBonusDetailData(metaModel);
+        var data = result.DataList.FirstOrDefault();
+
+        // Assert
+        Assert.NotNull(data);
+        Assert.Equal(new DateTime(2022, 8, 17), data.Date);
+        Assert.Equal("08/17/2022", data.DateString);
+        Assert.Equal("qatest03", data.ExternalId);
+        Assert.Equal("Athena000UUS01003", data.SystemId);
+        Assert.Equal("437934648123719683", data.RefNo);
+        Assert.Equal("SB", data.ProductCode);
+        Assert.Equal("Sportsbook", data.ProductName);
+        Assert.Equal(4.08m, data.CustomerAmount);
+    }
+
+    [Fact]
+    public async Task GetOddsBoostBonusDetailData_NoData_ReturnEmptyResult()
+    {
+        // Arrange
+        var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
+        var reader = new Mock<IDataReader>();
+        reader.Setup(r => r.Read()).Returns(false);
+
+        CreateObjectDb(reader);
+
+        var repository = CreateRepository();
+
+        // Action
+        var result = await repository.GetOddsBoostBonusDetailData(metaModel);
+
+        // Assert
+        Assert.Empty(result.DataList);
+        Assert.NotNull(result.TotalData);
+        Assert.Equal(0, result.TotalData.CustomerAmount);
+    }
+
+    [Fact]
+    public async Task GetOddsBoostBonusDetailData_MultipleRecords_ReturnCorrectTotalSummary()
+    {
+        // Arrange
+        var metaModel = _fixture.Create<ExtraPayoutMetaModel>();
+        var reader = new Mock<IDataReader>();
+        reader.SetupSequence(r => r.Read())
+            .Returns(true)
+            .Returns(true)
+            .Returns(true)
+            .Returns(false);
+
+        var firstRecord = new Dictionary<string, object>
+        {
+            { "WinLostDate", new DateTime(2022, 8, 17) },
+            { "ExternalId", "qatest03" },
+            { "SystemId", "Athena000UUS01003" },
+            { "RefNo", "437934648123719683" },
+            { "ProductCode", "SB" },
+            { "CustomerAmount", 4.08m }
+        };
+
+        var secondRecord = new Dictionary<string, object>
+        {
+            { "WinLostDate", new DateTime(2022, 8, 17) },
+            { "ExternalId", "qatest24" },
+            { "SystemId", "Athena000UUS011903495" },
+            { "RefNo", "437934630943850528" },
+            { "ProductCode", "SB" },
+            { "CustomerAmount", 20.83m }
+        };
+
+        var thirdRecord = new Dictionary<string, object>
+        {
+            { "WinLostDate", new DateTime(2022, 8, 17) },
+            { "ExternalId", "qatest30" },
+            { "SystemId", "Athena000UUS011903136" },
+            { "RefNo", "437934622353915914" },
+            { "ProductCode", "SB" },
+            { "CustomerAmount", 34.72m }
+        };
+
+        reader.SetupSequence(r => r["WinLostDate"])
+            .Returns(firstRecord["WinLostDate"])
+            .Returns(secondRecord["WinLostDate"])
+            .Returns(thirdRecord["WinLostDate"]);
+
+        reader.SetupSequence(r => r["ExternalId"])
+            .Returns(firstRecord["ExternalId"])
+            .Returns(secondRecord["ExternalId"])
+            .Returns(thirdRecord["ExternalId"]);
+
+        reader.SetupSequence(r => r["SystemId"])
+            .Returns(firstRecord["SystemId"])
+            .Returns(secondRecord["SystemId"])
+            .Returns(thirdRecord["SystemId"]);
+
+        reader.SetupSequence(r => r["RefNo"])
+            .Returns(firstRecord["RefNo"])
+            .Returns(secondRecord["RefNo"])
+            .Returns(thirdRecord["RefNo"]);
+
+        reader.SetupSequence(r => r["ProductCode"])
+            .Returns(firstRecord["ProductCode"])
+            .Returns(secondRecord["ProductCode"])
+            .Returns(thirdRecord["ProductCode"]);
+
+        reader.SetupSequence(r => r["BasedCustomerAmount"])
+            .Returns(firstRecord["CustomerAmount"])
+            .Returns(secondRecord["CustomerAmount"])
+            .Returns(thirdRecord["CustomerAmount"]);
+
+        reader.SetupSequence(r => r["PromotionType"])
+            .Returns(1)
+            .Returns(1)
+            .Returns(1);
+
+        _productService.Setup(p => p.GetProductName("SB")).Returns("Sportsbook");
+
+        CreateObjectDb(reader);
+
+        var repository = CreateRepository();
+
+        // Action
+        var result = await repository.GetOddsBoostBonusDetailData(metaModel);
+
+        // Assert
+        Assert.Equal(3, result.DataList.Count);
+        Assert.Equal(59.63m, result.TotalData.CustomerAmount); // 4.08 + 20.83 + 34.72 = 59.63
+    }
+
     private static void CreateObjectDb(Mock<IDataReader> mockDataReader)
     {
         var mockObjectDB = new Mock<IObjectDb>();

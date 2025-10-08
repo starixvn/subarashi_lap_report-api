@@ -13,6 +13,8 @@
 
         Task<SortableReportResultModel<ExtraPayoutDetail>> GetDetailDataAsync(ExtraPayoutDetailMetaModel metaModel);
 
+        Task<SortableReportResultModel<OddsBoostBonusDetail>> GetOddsBoostBonusDetailDataAsync(ExtraPayoutMetaModel metaModel);
+
         IEnumerable<CheckedItem> BuildPromotionTypeList(string productCodeList);
     }
 }
