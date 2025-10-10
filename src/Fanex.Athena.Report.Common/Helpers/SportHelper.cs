@@ -29,7 +29,9 @@
             SportType.VirtuallySports,
             SportType.VirtualSteepleChase,
             SportType.VirtualHarnessRacing,
-            SportType.VirtualMotorRacing
+            SportType.VirtualMotorRacing,
+            SportType.BetbyeVolleyball,
+            SportType.BetbyeSoccer
         };
 
         private static readonly IEnumerable<int> League3rdSportsTypes = new List<int>
@@ -41,7 +43,9 @@
             SportType.VirtuallySports,
             SportType.VirtualSteepleChase,
             SportType.VirtualHarnessRacing,
-            SportType.VirtualMotorRacing
+            SportType.VirtualMotorRacing,
+            SportType.BetbyeVolleyball,
+            SportType.BetbyeSoccer
         };
 
         public static bool IsVSNewRacingSportTypes(int sportType) => VSNewRacingSportTypes.Contains(sportType);

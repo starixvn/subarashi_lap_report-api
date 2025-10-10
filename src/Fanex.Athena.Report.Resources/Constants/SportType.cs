@@ -71,6 +71,10 @@
 
         public const int BetbyBasketball = 134;
 
+        public const int BetbyeSoccer = 116;
+
+        public const int BetbyeVolleyball = 114;
+
         public const int VirtuallySports = 147;
 
         public const int VirtualSteepleChase = 125;
