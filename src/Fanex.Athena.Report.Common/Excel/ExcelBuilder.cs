@@ -146,6 +146,12 @@
 
         private static bool CanMergeRegion(ISheet sheet, CellRangeAddress candidateRegion)
         {
+            if (candidateRegion.FirstRow == candidateRegion.LastRow &&
+                candidateRegion.FirstColumn == candidateRegion.LastColumn)
+            {
+                return false;
+            }
+
             for (int i = 0; i < sheet.NumMergedRegions; i++)
             {
                 var existingRegion = sheet.GetMergedRegion(i);

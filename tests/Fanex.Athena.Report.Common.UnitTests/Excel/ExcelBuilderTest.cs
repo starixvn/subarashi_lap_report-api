@@ -345,5 +345,65 @@
             sheet.Verify(r => r.SetColumnWidth(ColumnIndex, 0), Times.Once);
             sheet.Verify(r => r.SetColumnHidden(ColumnIndex, true), Times.Once);
         }
+
+        [Fact]
+        public void MergeCells_WhenSingleCellRange_ReturnMinusOne()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int RowIndex = 1;
+            const int ColIndex = 2;
+
+            sheet.Setup(s => s.NumMergedRegions).Returns(0);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeCells(sheet.Object, RowIndex, RowIndex, ColIndex, ColIndex);
+
+            // Assert
+            Assert.Equal(-1, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Never);
+        }
+
+        [Fact]
+        public void MergeRows_WhenSingleCellRange_ReturnMinusOne()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int RowIndex = 1;
+            const int ColIndex = 2;
+
+            sheet.Setup(s => s.NumMergedRegions).Returns(0);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeRows(sheet.Object, RowIndex, RowIndex, ColIndex);
+
+            // Assert
+            Assert.Equal(-1, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Never);
+        }
+
+        [Fact]
+        public void MergeCols_WhenSingleCellRange_ReturnMinusOne()
+        {
+            // Arrange
+            var sheet = new Mock<ISheet>();
+            const int RowIndex = 1;
+            const int ColIndex = 2;
+
+            sheet.Setup(s => s.NumMergedRegions).Returns(0);
+
+            var excelBuilder = new ExcelBuilder();
+
+            // Action
+            var result = excelBuilder.MergeCols(sheet.Object, ColIndex, ColIndex, RowIndex);
+
+            // Assert
+            Assert.Equal(-1, result);
+            sheet.Verify(s => s.AddMergedRegion(It.IsAny<CellRangeAddress>()), Times.Never);
+        }
     }
 }
