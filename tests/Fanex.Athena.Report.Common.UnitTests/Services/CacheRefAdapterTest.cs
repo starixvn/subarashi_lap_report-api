@@ -33,7 +33,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var sportId = 1;
             var expectedName = "Football";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetSportName(sportId.ToString(), currentLanguage, string.Empty))
                 .Returns(expectedName);
 
@@ -66,7 +66,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var sportId = 1;
             var languageCode = "zh-CN";
             var expectedName = "足球";
-            
+
             _mockRemotingRefService.Setup(x => x.GetSportName(sportId.ToString(), languageCode, string.Empty))
                 .Returns(expectedName);
 
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var leagueId = 123;
             var expectedName = "Premier League";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetLeagueName(leagueId.ToString(), currentLanguage, string.Empty))
                 .Returns(expectedName);
 
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var leagueId = 456;
             var expectedName = "3rd Party League";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetLeagueName3rd(leagueId.ToString(), currentLanguage, string.Empty))
                 .Returns(expectedName);
 
@@ -154,9 +154,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var handicap2 = 2.5m;
             var expectedResult = new[] { "Option1", "Option2" };
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             // The method converts decimals to int, so we need to match the actual conversion
-            _mockRemotingRefService.Setup(x => x.GetCombinationTypeCombo(betTeam, betCheck, 
+            _mockRemotingRefService.Setup(x => x.GetCombinationTypeCombo(betTeam, betCheck,
                 It.IsAny<int>(), It.IsAny<int>(), currentLanguage))
                 .Returns(expectedResult);
 
@@ -165,7 +165,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
 
             // Assert
             Assert.Equal(expectedResult, result);
-            _mockRemotingRefService.Verify(x => x.GetCombinationTypeCombo(betTeam, betCheck, 
+            _mockRemotingRefService.Verify(x => x.GetCombinationTypeCombo(betTeam, betCheck,
                 It.IsAny<int>(), It.IsAny<int>(), currentLanguage), Times.Once);
         }
 
@@ -176,7 +176,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var selectionIds = new[] { 1, 2, 3 };
             var expectedResult = new[] { "Selection1", "Selection2", "Selection3" };
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetBetBuilderSelectionNames(selectionIds, currentLanguage))
                 .Returns(expectedResult);
 
@@ -197,7 +197,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var homeTeamName = "Arsenal";
             var awayTeamName = "Chelsea";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetTeamName(homeId.ToString(), currentLanguage, string.Empty))
                 .Returns(homeTeamName);
             _mockRemotingRefService.Setup(x => x.GetTeamName(awayId.ToString(), currentLanguage, string.Empty))
@@ -220,7 +220,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var homeTeamName = "Arsenal";
             var awayTeamName = "Chelsea";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetTeamName(homeId.ToString(), currentLanguage, string.Empty))
                 .Returns(homeTeamName);
             _mockRemotingRefService.Setup(x => x.GetTeamName(awayId.ToString(), currentLanguage, string.Empty))
@@ -241,7 +241,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var teamId = 100;
             var expectedName = "Arsenal";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetTeamName(teamId.ToString(), currentLanguage, string.Empty))
                 .Returns(expectedName);
 
@@ -274,7 +274,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var bettypeId = 1;
             var expectedName = "1X2";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetBetTypeName(bettypeId.ToString(), currentLanguage))
                 .Returns(expectedName);
 
@@ -331,7 +331,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var bettypeId = 1;
             var expectedName = "1X2";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetBetTypeName(bettypeId.ToString(), currentLanguage))
                 .Returns(expectedName);
 
@@ -345,11 +345,11 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
         [Fact]
         public void GetBetTypeWithLiveIndicator_WithNumberGameBettype_ReturnsModifiedName()
         {
-            // Arrange - Using BetType.NgNumberGroup 
+            // Arrange - Using BetType.NgNumberGroup
             var numberGameBettypeId = BetType.NgNumberGroup;
             var expectedBaseName = "Number Group";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetBetTypeName(numberGameBettypeId.ToString(), currentLanguage))
                 .Returns(expectedBaseName);
 
@@ -371,7 +371,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var bettypeId = 1;
             var expectedBaseName = "1X2";
             var currentLanguage = CultureInfo.CurrentUICulture.Name;
-            
+
             _mockRemotingRefService.Setup(x => x.GetBetTypeName(bettypeId.ToString(), currentLanguage))
                 .Returns(expectedBaseName);
 
@@ -399,7 +399,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             var bettypeId = 1;
             var languageCode = "zh-CN";
             var expectedName = "让球";
-            
+
             _mockRemotingRefService.Setup(x => x.GetBetTypeName(bettypeId.ToString(), languageCode))
                 .Returns(expectedName);
 

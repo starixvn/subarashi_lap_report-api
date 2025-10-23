@@ -24,19 +24,19 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             // Arrange
             var testDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(testDir);
-            
+
             var testFile1 = Path.Combine(testDir, "test1.txt");
             var testFile2 = Path.Combine(testDir, "test2.txt");
             File.WriteAllText(testFile1, "Test content 1");
             File.WriteAllText(testFile2, "Test content 2");
-            
+
             var entries = new List<ZipEntry>
             {
                 new ZipEntry { Path = testFile1, FileName = "test1.txt" },
                 new ZipEntry { Path = testFile2, FileName = "test2.txt" }
             };
             var zipPath = Path.Combine(testDir, "test.zip");
-            
+
             try
             {
                 var service = new FileService();
@@ -60,7 +60,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             // Arrange
             var testPath = Path.GetTempFileName();
             var expectedBytes = new byte[] { 1, 2, 3, 4, 5 };
-            
+
             try
             {
                 File.WriteAllBytes(testPath, expectedBytes);

@@ -27,7 +27,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             object outValue = expectedResult;
             _memoryCache.Setup(x => x.TryGetValue(It.IsAny<object>(), out outValue))
                 .Returns(true);
-            
+
             var service = new SubIssueService(_memoryCache.Object);
 
             // Act

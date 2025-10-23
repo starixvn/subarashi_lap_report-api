@@ -27,9 +27,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             const string expectedBaseName = "Base Bet Type";
             const string expectedSuffix = "";
             const string expected = expectedBaseName + expectedSuffix;
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetBettype(betTypeId, false)).Returns(expectedBaseName);
-            
+
             var service = CreateService();
 
             // Act
@@ -46,9 +46,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             // Arrange
             const int betTypeId = 123;
             const string expectedName = "Hidden Saba Bet Type";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetBettype(betTypeId, true)).Returns(expectedName);
-            
+
             var service = CreateService();
 
             // Act
@@ -66,9 +66,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             const int sportTypeId = 1;
             const string lang = "EN";
             const string expected = "Football";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetSportName(sportTypeId, lang)).Returns(expected);
-            
+
             var service = CreateService();
 
             // Act
@@ -84,7 +84,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
         {
             // Arrange
             const int sportTypeId = HardCodeSportType.Parlay;
-            
+
             var service = CreateService();
 
             // Act
@@ -102,9 +102,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             const string lang = "EN";
             const string baseSportName = "Soccer";
             const string expected = "Saba Soccer";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetSportName(SportType.Soccer, lang)).Returns(baseSportName);
-            
+
             var service = CreateService();
 
             // Act
@@ -122,9 +122,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             const string lang = "EN";
             const string baseSportName = "Soccer";
             const string expected = "Virtual Soccer";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetSportName(SportType.Soccer, lang)).Returns(baseSportName);
-            
+
             var service = CreateService();
 
             // Act
@@ -142,9 +142,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             const string lang = "EN";
             const string baseSportName = "Basketball";
             const string expected = "Saba Basketball";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetSportName(SportType.BasketBall, lang)).Returns(baseSportName);
-            
+
             var service = CreateService();
 
             // Act
@@ -159,7 +159,7 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
         {
             // Arrange
             const int sportTypeId = -999; // Unknown Saba sport type
-            
+
             var service = CreateService();
 
             // Act
@@ -177,10 +177,10 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             const string baseName = "Odd/Even";
             const string sportName = "Happy5";
             const string expected = baseName + " (" + sportName + ")";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetBettype(betTypeId, false)).Returns(baseName);
             _mockCacheRefAdapter.Setup(c => c.GetSportName(SportType.NumberGameHappy5, It.IsAny<string>())).Returns(sportName);
-            
+
             var service = CreateService();
 
             // Act
@@ -196,9 +196,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             // Arrange
             const int betTypeId = -1;
             const string expectedName = "Invalid Bet Type";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetBettype(betTypeId, false)).Returns(expectedName);
-            
+
             var service = CreateService();
 
             // Act
@@ -214,9 +214,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
             // Arrange
             const int sportTypeId = 1;
             const string expected = "Football";
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetSportName(sportTypeId, It.IsAny<string>())).Returns(expected);
-            
+
             var service = CreateService();
 
             // Act
@@ -231,9 +231,9 @@ namespace Fanex.Athena.Report.Common.UnitTests.Services
         {
             // Arrange
             const int betTypeId = 123;
-            
+
             _mockCacheRefAdapter.Setup(c => c.GetBettype(betTypeId, false)).Returns((string)null);
-            
+
             var service = CreateService();
 
             // Act
