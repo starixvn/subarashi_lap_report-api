@@ -35,6 +35,7 @@
                 case PlatformType.Others: return ViewResources.BetfromOthers;
                 case PlatformType.Desktop: return ViewResources.Desktop;
                 case PlatformType.Mobile: return ViewResources.Mobile;
+                case PlatformType.CasinoRoyale: return ViewResources.CasinoRoyale;
                 default: return ViewResources.All;
             }
         }

@@ -44,6 +44,8 @@
 
         public const int QuickBetWidget = 20;
 
+        public const int CasinoRoyale = 21;
+
         public const int BetfromOthers = 88;
 
         // Jollysports

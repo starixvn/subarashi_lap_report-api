@@ -1152,4 +1152,7 @@
   <data name="seconds" xml:space="preserve">
     <value>giây</value>
   </data>
+  <data name="CasinoRoyale" xml:space="preserve">
+    <value>Sòng Bạc Hoàng Gia</value>
+  </data>
 </root>
