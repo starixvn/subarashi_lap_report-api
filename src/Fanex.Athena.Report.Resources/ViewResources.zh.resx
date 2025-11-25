@@ -1018,4 +1018,7 @@
   <data name="seconds" xml:space="preserve">
     <value>秒</value>
   </data>
+  <data name="CasinoRoyale" xml:space="preserve">
+    <value>皇家娱乐城</value>
+  </data>
 </root>

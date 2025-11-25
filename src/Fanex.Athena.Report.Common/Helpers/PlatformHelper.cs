@@ -30,6 +30,7 @@
             { PlatformType.WAP, ViewResources.Wap },
             { PlatformType.QuickBetWidget, ViewResources.QuickBetWidget },
             { PlatformType.ChatRoom, ViewResources.ChatRoom },
+            { PlatformType.CasinoRoyale, ViewResources.CasinoRoyale },
             { PlatformType.BetfromOthers, ViewResources.BetfromOthers }
         };
 
@@ -40,7 +41,6 @@
             { PlatformType.Others, ViewResources.BetfromOthers }
         };
 
-
         public static IDictionary<int, string> GetPlatformList(int specialPlatform)
         {
             if (specialPlatform == SpecialPlatform.Jollysports || specialPlatform == SpecialPlatform.JollysportCV)
@@ -50,7 +50,6 @@
 
             return NormalPlatform;
         }
-
 
         public static string GetPlatformName(int type)
         {

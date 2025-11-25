@@ -1137,4 +1137,7 @@
   <data name="seconds" xml:space="preserve">
     <value>วินาที</value>
   </data>
+  <data name="CasinoRoyale" xml:space="preserve">
+    <value>Casino Royale</value>
+  </data>
 </root>
