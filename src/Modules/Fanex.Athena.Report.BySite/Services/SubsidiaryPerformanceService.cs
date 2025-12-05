@@ -19,11 +19,16 @@
     {
         private readonly ISubsidiaryPerformanceRepository _subsidiaryPerformanceRepository;
         private readonly ISubsidiaryService _subsidiaryService;
+        private readonly IProductService _productService;
 
-        public SubsidiaryPerformanceService(ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceRepository subsidiaryPerformanceRepository)
+        public SubsidiaryPerformanceService(
+            ISubsidiaryService subsidiaryService,
+            ISubsidiaryPerformanceRepository subsidiaryPerformanceRepository,
+            IProductService productService)
         {
             _subsidiaryService = subsidiaryService;
             _subsidiaryPerformanceRepository = subsidiaryPerformanceRepository;
+            _productService = productService;
         }
 
         public async Task<SubsidiaryPerformanceResultModel> GetData(
@@ -59,8 +64,9 @@
         {
             total.BetCount += detail.BetCount;
             total.Turnover += detail.Turnover;
-            total.SubsidiaryWinLoss += detail.SubsidiaryWinLoss;
             total.CustomerWinLoss += detail.CustomerWinLoss;
+            total.EffectiveBettingValue += detail.EffectiveBettingValue;
+            total.SubsidiaryWinLoss += detail.SubsidiaryWinLoss;
         }
 
         private async Task<SubsidiaryPerformanceResultModel> BuildSummaryResult(
@@ -155,6 +161,7 @@
                             BetCount = group.Sum(x => x.Total.BetCount),
                             Turnover = group.Sum(x => x.Total.Turnover),
                             CustomerWinLoss = group.Sum(x => x.Total.CustomerWinLoss),
+                            EffectiveBettingValue = group.Sum(x => x.Total.EffectiveBettingValue),
                             SubsidiaryWinLoss = group.Sum(x => x.Total.SubsidiaryWinLoss),
                             CurrencyName = currencyName
                         }
@@ -184,7 +191,7 @@
                 ).ToList();
         }
 
-        private static IList<SubsidiaryPerformanceBase> GetProducts(
+        private IList<SubsidiaryPerformanceBase> GetProducts(
             IEnumerable<SubsidiaryPerformance> productList,
             SubsidiaryPerformanceBase baseSumTotal,
             bool isHideSaba)
@@ -199,6 +206,7 @@
                         BetCount = item.Sum(x => x.BetCount),
                         Turnover = item.Sum(x => x.Turnover),
                         CustomerWinLoss = item.Sum(x => x.CustomerWinLoss),
+                        EffectiveBettingValue = item.Sum(x => x.EffectiveBettingValue),
                         SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss)
                     },
                     BaseData = new SubsidiaryPerformanceBase
@@ -206,6 +214,7 @@
                         BetCount = item.Sum(x => x.BaseCurrencyData.BetCount),
                         Turnover = item.Sum(x => x.BaseCurrencyData.Turnover),
                         CustomerWinLoss = item.Sum(x => x.BaseCurrencyData.CustomerWinLoss),
+                        EffectiveBettingValue = item.Sum(x => x.BaseCurrencyData.EffectiveBettingValue),
                         SubsidiaryWinLoss = item.Sum(x => x.BaseCurrencyData.SubsidiaryWinLoss)
                     }
                 });
@@ -219,7 +228,7 @@
 
             foreach (var product in groupedProduct)
             {
-                var productName = ViewResources.ResourceManager.GetString($"Product{product.ProductCode}");
+                var productName = _productService.GetProductName(product.ProductCode);
                 product.Data.Product = isHideSaba ? SabaHelper.RemoveSabaText(productName) : productName;
                 products.Add(product.Data);
 

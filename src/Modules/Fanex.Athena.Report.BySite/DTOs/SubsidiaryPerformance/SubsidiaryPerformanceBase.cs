@@ -12,6 +12,8 @@
 
         public decimal CustomerWinLoss { get; set; }
 
+        public decimal EffectiveBettingValue { get; set; }
+
         public decimal SubsidiaryWinLoss { get; set; }
     }
 }

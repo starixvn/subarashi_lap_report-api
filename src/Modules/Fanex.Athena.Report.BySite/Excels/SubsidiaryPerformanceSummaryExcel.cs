@@ -41,7 +41,9 @@
 
         protected const int ColumnCustomerWinLoss = 7;
 
-        protected const int ColumnSubsidiaryWinLoss = 8;
+        protected const int ColumnEffectiveBettingValue = 8;
+
+        protected const int ColumnSubsidiaryWinLoss = 9;
 
         protected SubsidiaryPerformanceResultModel Data;
 
@@ -54,6 +56,7 @@
             ViewResources.BetCount,
             ViewResources.Turnover,
             ViewResources.CustomerW_L,
+            ViewResources.EffectiveBettingValue,
             ViewResources.SubsidiaryWL
         };
 
@@ -202,6 +205,7 @@
             sheet.SetValue(rowIndex, ColumnBetCount, data.BetCount);
             sheet.SetValue(rowIndex, ColumnTurnover, data.Turnover);
             sheet.SetValue(rowIndex, ColumnCustomerWinLoss, data.CustomerWinLoss);
+            sheet.SetValue(rowIndex, ColumnEffectiveBettingValue, data.EffectiveBettingValue);
             sheet.SetValue(rowIndex, ColumnSubsidiaryWinLoss, data.SubsidiaryWinLoss);
         }
     }

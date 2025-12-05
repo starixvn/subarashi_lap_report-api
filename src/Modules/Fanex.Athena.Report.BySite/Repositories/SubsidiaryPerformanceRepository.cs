@@ -100,6 +100,7 @@
                     BetCount = Converter.To<int>(reader["BetCount"]),
                     Turnover = Converter.To<decimal>(reader["TurnoverBase"]),
                     CustomerWinLoss = Converter.To<decimal>(reader["WinlostBase"]),
+                    EffectiveBettingValue = Converter.To<decimal>(reader["BetEffectiveBase"]),
                     SubsidiaryWinLoss = Converter.To<decimal>(reader["LicenseeWLBase"])
                 }
             };
@@ -109,12 +110,14 @@
             {
                 result.Turnover = result.BaseCurrencyData.Turnover;
                 result.CustomerWinLoss = result.BaseCurrencyData.CustomerWinLoss;
+                result.EffectiveBettingValue = result.BaseCurrencyData.EffectiveBettingValue;
                 result.SubsidiaryWinLoss = result.BaseCurrencyData.SubsidiaryWinLoss;
             }
             else
             {
                 result.Turnover = Converter.To<decimal>(reader["Turnover"]);
                 result.CustomerWinLoss = Converter.To<decimal>(reader["Winlost"]);
+                result.EffectiveBettingValue = Converter.To<decimal>(reader["BetEffective"]);
                 result.SubsidiaryWinLoss = Converter.To<decimal>(reader["LicenseeWL"]);
             }
 
@@ -133,6 +136,7 @@
                 BetCount = Converter.To<int>(reader["BetCount"]),
                 Turnover = Converter.To<decimal>(reader["Turnover" + baseColumnSuffix]),
                 CustomerWinLoss = Converter.To<decimal>(reader["Winlost" + baseColumnSuffix]),
+                EffectiveBettingValue = Converter.To<decimal>(reader["BetEffective" + baseColumnSuffix]),
                 SubsidiaryWinLoss = Converter.To<decimal>(reader["LicenseeWL" + baseColumnSuffix])
             };
 
@@ -151,6 +155,7 @@
             total.BetCount += Converter.To<int>(reader["BetCount"]);
             total.Turnover += Converter.To<decimal>(reader["TurnoverBase"]);
             total.CustomerWinLoss += Converter.To<decimal>(reader["WinlostBase"]);
+            total.EffectiveBettingValue += Converter.To<decimal>(reader["BetEffectiveBase"]);
             total.SubsidiaryWinLoss += Converter.To<decimal>(reader["LicenseeWLBase"]);
         }
 
@@ -166,6 +171,7 @@
             total.BetCount += detail.BetCount;
             total.Turnover += detail.Turnover;
             total.CustomerWinLoss += detail.CustomerWinLoss;
+            total.EffectiveBettingValue += detail.EffectiveBettingValue;
             total.SubsidiaryWinLoss += detail.SubsidiaryWinLoss;
         }
 
@@ -177,6 +183,7 @@
                 BetCount = total.Sum(x => x.BetCount),
                 Turnover = total.Sum(x => x.Turnover),
                 CustomerWinLoss = total.Sum(x => x.CustomerWinLoss),
+                EffectiveBettingValue = total.Sum(x => x.EffectiveBettingValue),
                 SubsidiaryWinLoss = total.Sum(x => x.SubsidiaryWinLoss)
             };
         }
